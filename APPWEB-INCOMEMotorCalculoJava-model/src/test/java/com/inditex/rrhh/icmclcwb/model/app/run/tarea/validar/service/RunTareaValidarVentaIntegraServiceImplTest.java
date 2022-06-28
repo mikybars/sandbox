@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaNoIntegraService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaIntegraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -28,19 +28,19 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-class RunTareaValidarVentaNoIntegraServiceImplTest {
+class RunTareaValidarVentaIntegraServiceImplTest {
 
   @Mock
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Mock
-  private RunTareaAmbitoValidarVentaNoIntegraService runTareaAmbitoValidarVentaNoIntegraService;
+  private RunTareaAmbitoValidarVentaIntegraService runTareaAmbitoValidarVentaIntegraService;
 
   @Mock
   private AccionService accionService;
 
   @InjectMocks
-  private RunTareaValidarVentaNoIntegraServiceImpl runTareaValidarVentaNoIntegraService;
+  private RunTareaValidarVentaIntegraServiceImpl runTareaValidarVentaNoIntegraService;
 
   @Test
   void executeEmptyValidacionesTest() {
@@ -56,7 +56,7 @@ class RunTareaValidarVentaNoIntegraServiceImplTest {
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     tareaFaseAccionDto.setIdAccion(1);
 
-    doReturn(null).when(this.runTareaAmbitoValidarVentaNoIntegraService)
+    doReturn(null).when(this.runTareaAmbitoValidarVentaIntegraService)
         .execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     this.runTareaValidarVentaNoIntegraService.execute(runTareaDto, tareaFaseAccionDto);
@@ -96,7 +96,7 @@ class RunTareaValidarVentaNoIntegraServiceImplTest {
         ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
         ArgumentMatchers.any(String.class));
 
-    doReturn(validacion).when(this.runTareaAmbitoValidarVentaNoIntegraService)
+    doReturn(validacion).when(this.runTareaAmbitoValidarVentaIntegraService)
         .execute(ArgumentMatchers.any(RunTareaDto.class),
             ArgumentMatchers.any(TareaAmbitoDto.class),
             ArgumentMatchers.any(TareaFaseAccionDto.class));
@@ -138,7 +138,7 @@ class RunTareaValidarVentaNoIntegraServiceImplTest {
         ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
         ArgumentMatchers.any(String.class));
 
-    doReturn(validacion).when(this.runTareaAmbitoValidarVentaNoIntegraService)
+    doReturn(validacion).when(this.runTareaAmbitoValidarVentaIntegraService)
         .execute(ArgumentMatchers.any(RunTareaDto.class),
             ArgumentMatchers.any(TareaAmbitoDto.class),
             ArgumentMatchers.any(TareaFaseAccionDto.class));

@@ -9,7 +9,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaNoIntegraService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaIntegraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -30,7 +30,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarVentaNoIntegraServiceImpl implements RunTareaAmbitoValidarVentaNoIntegraService {
+public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmbitoValidarVentaIntegraService {
 
   @Autowired
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;

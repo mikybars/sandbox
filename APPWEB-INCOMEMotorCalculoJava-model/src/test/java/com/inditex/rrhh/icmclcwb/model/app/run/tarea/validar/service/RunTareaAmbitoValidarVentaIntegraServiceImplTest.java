@@ -40,7 +40,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class RunTareaAmbitoValidarVentaNoIntegraServiceImplTest {
+class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
 
   @Mock
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;
@@ -58,7 +58,7 @@ class RunTareaAmbitoValidarVentaNoIntegraServiceImplTest {
   private ValidacionMapper validacionMapper;
 
   @InjectMocks
-  private RunTareaAmbitoValidarVentaNoIntegraServiceImpl runTareaAmbitoValidarVentaNoIntegraService;
+  private RunTareaAmbitoValidarVentaIntegraServiceImpl runTareaAmbitoValidarVentaNoIntegraService;
 
   @Random
   private RunTareaDto runTarea;

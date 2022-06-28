@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaNoIntegraService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaIntegraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -23,9 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Component("ventaNoIntegraV1")
+@Component("ventaIntegraV1")
 @Validated
-public class RunTareaValidarVentaNoIntegraServiceImpl implements RunPrevalidar {
+public class RunTareaValidarVentaIntegraServiceImpl implements RunPrevalidar {
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
@@ -34,7 +34,7 @@ public class RunTareaValidarVentaNoIntegraServiceImpl implements RunPrevalidar {
   private AccionService accionService;
 
   @Autowired
-  private RunTareaAmbitoValidarVentaNoIntegraService runTareaAmbitoValidarVentaNoIntegraService;
+  private RunTareaAmbitoValidarVentaIntegraService runTareaAmbitoValidarVentaIntegraService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(
@@ -48,7 +48,7 @@ public class RunTareaValidarVentaNoIntegraServiceImpl implements RunPrevalidar {
         .filter(a -> Boolean.TRUE
             .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
                 a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
-        .map(item -> this.runTareaAmbitoValidarVentaNoIntegraService
+        .map(item -> this.runTareaAmbitoValidarVentaIntegraService
             .execute(runTarea, item, tareaFaseAccion))
         .collect(Collectors.toList());
     if (validaciones.isEmpty()) {

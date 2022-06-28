@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
 import javax.validation.Valid;
 
-public interface RunTareaAmbitoValidarVentaNoIntegraService {
+public interface RunTareaAmbitoValidarVentaIntegraService {
 
   /**
    * Some javadoc. Some javadoc.
