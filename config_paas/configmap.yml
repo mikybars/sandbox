@@ -42,6 +42,12 @@ amiga:
           ping-query:
             enabled: true
             timeout: 2s
+        venta-integra:
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
+          ping-query:
+            enabled: true
+            timeout: 2s
   service:
     jms:
       listener:
@@ -332,6 +338,12 @@ app:
                 periodType: MONTHS
             getVersion:
               endpoint: /presenciasService/getVersion
+    venta-integra:
+      service:
+        ventaIntegraService:
+          endpoint: /v1/storedata
+      config:
+        max-attempts: 2
     meta4:
       config:
         max-attempts: 20

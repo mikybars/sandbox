@@ -20,6 +20,10 @@ amiga:
           username: srvcicmclcwbdes
           ping-query:
             path: http://develop.rhpresnwsd.svc.cluster.local.:8081/rhpresnwsd-develop/amiga/health
+        venta-integra:
+          base-url: http://dqservice.dqservice.svc.cluster.local.:8080/dqservice
+          ping-query:
+            path: http://dqservice.dqservice.svc.cluster.local.:8081/dqservice/amiga/health
   data:
     jms:
       connection-factory:

@@ -22,6 +22,10 @@ amiga:
           ping-query:
             path: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8081/rhpresnwsd/amiga/health
           username: srvcicmclcwbpreAX
+        venta-integra:
+          base-url: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality-pre.svc.cluster.local.:8080/dqservice
+          ping-query:
+            path: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality-pre.svc.cluster.local.:8081/dqservice/amiga/health
   data:
     jms:
       connection-factory:
