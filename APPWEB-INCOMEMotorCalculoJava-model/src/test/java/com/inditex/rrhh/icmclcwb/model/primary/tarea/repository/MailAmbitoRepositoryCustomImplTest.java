@@ -1,6 +1,8 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
@@ -32,7 +34,7 @@ class MailAmbitoRepositoryCustomImplTest {
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @InjectMocks
-  private MailAmbitoRepositoryCustomImpl mailAmbitoRepositoryCustom;
+  private MailAmbitoRepositoryCustom mailAmbitoRepositoryCustom;
 
   @Captor
   private ArgumentCaptor<String> sqlCaptor;
