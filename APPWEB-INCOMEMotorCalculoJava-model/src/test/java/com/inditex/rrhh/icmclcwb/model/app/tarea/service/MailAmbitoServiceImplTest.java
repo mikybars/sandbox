@@ -1,12 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
-/*
- * Copyright (c) 2022. Inditex
- */
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +9,6 @@ import java.util.stream.Collectors;
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailAmbitoRepositoryCustomImpl;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +24,7 @@ class MailAmbitoServiceImplTest {
   private MailAmbitoRepositoryCustomImpl mailAmbitoRepositoryCustom;
 
   @InjectMocks
-  private MailAmbitoService mailAmbitoService;
+  private MailAmbitoServiceImpl mailAmbitoService;
 
   @Test
   public void getMailByOrigenEmpresaTest(@Random(size = 4, type = MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
