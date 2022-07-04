@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
@@ -36,8 +33,7 @@ public class MailAmbitoRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
     return this.query(this.sqlFindMailByCclIdOrigenAndStdIdLegEnt, parameters,
-        (rs, rowNum) -> MailAmbitoDto.builder()
-            .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
+        (rs, rowNum) -> MailAmbitoDto.builder().cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
             .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA))
             .mail(rs.getString(SqlPrimaryConstants.SQL_RESULT_MAIL))
             .esActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO)).build());
