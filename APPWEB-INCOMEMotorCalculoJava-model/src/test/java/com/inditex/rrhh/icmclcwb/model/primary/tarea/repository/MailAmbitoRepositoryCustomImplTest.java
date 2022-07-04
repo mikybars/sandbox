@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.MailAmbito;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +41,7 @@ class MailAmbitoRepositoryCustomImplTest {
   }
 
   @Test
-  public void findMailByOrigenEmpresaTest() {
+  void findMailByOrigenEmpresaTest() {
 
     final String cclIdOrigen = "60";
     final String stdIdLegEnt = "179";
@@ -52,7 +49,7 @@ class MailAmbitoRepositoryCustomImplTest {
     this.mailAmbitoRepositoryCustom.findMailByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
 
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-        ArgumentMatchers.<RowMapper<TareaLocalizacionPresupuesto>>any());
+        ArgumentMatchers.<RowMapper<MailAmbito>>any());
 
     assertEquals(SQL_FIND_MAIL_BY_ORIGEN_EMPRESA, this.sqlCaptor.getValue());
     final MapSqlParameterSource params = this.paramsCaptor.getValue();

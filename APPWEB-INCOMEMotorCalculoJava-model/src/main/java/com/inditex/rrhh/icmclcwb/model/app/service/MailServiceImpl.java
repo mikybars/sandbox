@@ -155,7 +155,7 @@ public class MailServiceImpl implements MailService {
         .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
         .forEachOrdered(mails::addAll);
 
-    mails.forEach(x -> message.setCc(x));
+    mails.forEach(message::setCc);
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)
@@ -195,7 +195,7 @@ public class MailServiceImpl implements MailService {
         .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
         .forEachOrdered(mails::addAll);
 
-    mails.forEach(x -> message.setCc(x));
+    mails.forEach(message::setCc);
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)

@@ -27,7 +27,7 @@ class MailAmbitoServiceImplTest {
   private MailAmbitoServiceImpl mailAmbitoService;
 
   @Test
-  public void getMailByOrigenEmpresaTest(@Random(size = 4, type = MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
+  void getMailByOrigenEmpresaTest(@Random(size = 4, type = MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
 
     final String cclIdOrigen = "60";
     final String stdIdLegEnt = "179";
