@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
@@ -93,6 +95,9 @@ public class MailServiceImpl implements MailService {
   @Autowired
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
+  @Autowired
+  private MailAmbitoService mailAmbitoService;
+
   @Override
   public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
     final TareaDto tarea = runTarea.getTarea();
@@ -145,6 +150,13 @@ public class MailServiceImpl implements MailService {
 
     }
 
+    final List<String> mails = new ArrayList<>();
+    runTarea.getTarea().getAmbito().stream()
+        .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+        .forEachOrdered(mails::addAll);
+
+    mails.forEach(message::setCc);
+
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)
         .append(CALCULATION_RESULTS)
@@ -177,6 +189,13 @@ public class MailServiceImpl implements MailService {
     } else {
       message.setTo(this.receiver);
     }
+
+    final List<String> mails = new ArrayList<>();
+    runTarea.getTarea().getAmbito().stream()
+        .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+        .forEachOrdered(mails::addAll);
+
+    mails.forEach(message::setCc);
 
     message.setSubject(new StringBuilder(APP)
         .append(SEPARATOR)
