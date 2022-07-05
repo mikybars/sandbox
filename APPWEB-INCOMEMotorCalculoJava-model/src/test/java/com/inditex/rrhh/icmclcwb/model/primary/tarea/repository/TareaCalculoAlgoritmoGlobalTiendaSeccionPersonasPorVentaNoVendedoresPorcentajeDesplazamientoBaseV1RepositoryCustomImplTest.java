@@ -100,7 +100,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
 
     this.algoritmo.setDesplazamiento(true);
     this.algoritmo.setDesplazamientoBase(true);
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_IPOD.getId()))
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
         .thenReturn(tiposDatoPersonaPresencia);
@@ -115,7 +115,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
     verify(this.tipoDatoService, times(1))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
-    verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_EXCLUIDO_IPOD.getId());
+    verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
     final Map<String, Object> expected = new HashMap<>();
     expected.put(SQL_PARAM_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
