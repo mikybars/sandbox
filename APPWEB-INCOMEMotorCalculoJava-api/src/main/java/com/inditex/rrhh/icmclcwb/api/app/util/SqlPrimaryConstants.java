@@ -446,6 +446,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_RESULT_REACCION_PESO = "REACCION_PESO";
 
+  public static final String SQL_RESULT_MAIL = "MAIL";
+
   public static final String CALCULAR_FESTIVOS = "CALCULAR_FESTIVOS";
 
   private SqlPrimaryConstants() {

@@ -9612,4 +9612,12 @@ INSERT INTO SESSION.PRESUPUESTO (
   ]]>
   </entry>
 
+  <entry key="MailAmbitoRepositoryCustom.findMailByCclIdOrigenAndStdIdLegEnt">
+    <![CDATA[
+    SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, MAIL, ES_ACTIVO
+    FROM MAIL_AMBITO
+    WHERE CCL_ID_ORIGEN = :cclIdOrigen AND STD_ID_LEG_ENT = :stdIdLegEnt AND ES_ACTIVO = 1
+  ]]>
+  </entry>
+
 </properties>

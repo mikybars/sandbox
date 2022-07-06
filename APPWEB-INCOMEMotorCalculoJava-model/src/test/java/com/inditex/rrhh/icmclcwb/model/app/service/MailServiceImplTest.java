@@ -1,26 +1,22 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.*;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
@@ -75,6 +71,9 @@ public class MailServiceImplTest {
   @Mock
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
+  @Mock
+  private MailAmbitoService mailAmbitoService;
+
   @InjectMocks
   private MailServiceImpl mailServiceImpl;
 
@@ -107,11 +106,15 @@ public class MailServiceImplTest {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TrabajoDTO trabajo = new TrabajoDTO();
     final TareaDto tarea = new TareaDto();
+    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
     final TareaFaseDto tareaFase = new TareaFaseDto();
     final List<ValidacionDto> validaciones = new ArrayList<>();
     final List<String> personaLocal = new ArrayList<>();
 
+    tareaAmbito.setCclIdOrigen("60");
     tarea.setIdOrganization(idOrganization);
+    tarea.setAmbito(Arrays.asList(tareaAmbito));
+    tarea.setStdIdLegEnt("1");
     trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
     trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
     trabajo.setNombreUsuario(nombreUsuario);
@@ -130,6 +133,8 @@ public class MailServiceImplTest {
         .thenReturn(AccionDto.builder().descripcion(TEXTO).id(idAccion).build());
     when(this.meta4IcmWsCalcIncomeService.getMail(ArgumentMatchers.any(UsuarioRequestDto.class)))
         .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
+    when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
+        .thenReturn(Arrays.asList("1"));
     this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
 
     verify(this.mailSender, times(1))
@@ -160,9 +165,17 @@ public class MailServiceImplTest {
   void sendMailMotivos(final String environment, final List<ValidacionDto> validaciones) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
+    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
     tarea.setIdOrganization(ORGANIZATION);
     runTareaDto.setTarea(tarea);
     ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, environment);
+
+    tareaAmbito.setCclIdOrigen("60");
+    tarea.setAmbito(Arrays.asList(tareaAmbito));
+    tarea.setStdIdLegEnt("1");
+
+    when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
+        .thenReturn(Arrays.asList("1"));
 
     this.mailServiceImpl.sendMailMotivos(runTareaDto, validaciones);
 
