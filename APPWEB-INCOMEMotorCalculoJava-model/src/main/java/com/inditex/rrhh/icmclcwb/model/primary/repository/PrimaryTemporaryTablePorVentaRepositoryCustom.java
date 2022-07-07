@@ -14,4 +14,32 @@ public interface PrimaryTemporaryTablePorVentaRepositoryCustom {
 
   void insertTempVentaFisicaLocalizacion(TareaDto tarea);
 
+  /**
+   * Elimina la tabla temporal de fechas dentro de una estructura por venta.
+   *
+   * @return Some javadoc.
+   */
+  int deleteTempDatesEstructurasPorVenta();
+
+  /**
+   * Crea la tabla temporal de fechas dentro de una estructura por venta.
+   *
+   * @return Some javadoc.
+   */
+  int createTempDatesEstructurasPorVenta();
+
+  /**
+   * Crea un índice para la tabla temporal de fechas dentro de una estructura por venta.
+   *
+   * @return Some javadoc.
+   */
+  int indexTempDatesEstructurasPorVenta();
+
+  /**
+   * Inserta la información de fechas dentro de una estructura por venta en la tabla temporal.
+   *
+   * @param tarea tarea
+   */
+  void insertTempDatesEstructurasPorVenta(TareaDto tarea);
+
 }

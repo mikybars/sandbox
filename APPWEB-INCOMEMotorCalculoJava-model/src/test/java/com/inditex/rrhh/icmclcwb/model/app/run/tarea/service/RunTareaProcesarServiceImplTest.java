@@ -232,6 +232,9 @@ class RunTareaProcesarServiceImplTest {
         .calcularImporteComisionVentaODevolucion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .devolucionImporte0(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .updateActivoNegativoTotalizado(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)

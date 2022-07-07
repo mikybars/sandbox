@@ -105,4 +105,28 @@ class RunTareaProcesarVentaServiceImplTest {
 
   }
 
+  @Test
+  void devolucionImporte0Test(@Random final RunTareaDto tarea) {
+    this.runTareaProcesarVentaService.devolucionImporte0(tarea);
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempDatesEstructurasPorVenta();
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).indexTempDatesEstructurasPorVenta();
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).insertTempDatesEstructurasPorVenta(tarea.getTarea());
+    verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).devolucionImporte0(tarea.getTarea());
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempDatesEstructurasPorVenta();
+  }
+
+  @Test
+  void devolucionImporte0ExceptionTest(@Random final RunTareaDto tarea) {
+
+    doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom)
+        .createTempDatesEstructurasPorVenta();
+    assertThrows(RuntimeException.class, () -> this.runTareaProcesarVentaService.devolucionImporte0(tarea));
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempDatesEstructurasPorVenta();
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).indexTempDatesEstructurasPorVenta();
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, never()).insertTempDatesEstructurasPorVenta(tarea.getTarea());
+    verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, never()).devolucionImporte0(tarea.getTarea());
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempDatesEstructurasPorVenta();
+
+  }
+
 }

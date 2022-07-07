@@ -32,6 +32,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaLocalizacion']}")
   private String sqlTotalizarVentaPersonaLocalizacion;
 
+  @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0']}")
+  private String sqlDevolucionImporte0;
+
   @Autowired
   private TipoDatoService tipoDatoService;
 
@@ -84,4 +87,20 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
   }
 
+  @Override
+  public void devolucionImporte0(final TareaDto tarea) {
+
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION,
+        TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_IMPORTE, SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+
+    this.update(this.sqlDevolucionImporte0, params);
+
+  }
 }

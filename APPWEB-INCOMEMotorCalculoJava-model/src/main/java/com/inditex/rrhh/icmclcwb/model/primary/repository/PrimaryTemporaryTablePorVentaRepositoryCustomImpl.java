@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -42,6 +43,18 @@ public class PrimaryTemporaryTablePorVentaRepositoryCustomImpl implements Primar
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempVentaFisicaLocalizacion']}")
   private String sqlInsertTempVentaFisicaLocalizacion;
 
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempDatesEstructurasPorVenta']}")
+  private String sqlCreateTempDatesEstructurasPorVenta;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.indexTempDatesEstructurasPorVenta']}")
+  private String sqlIndexTempDatesEstructurasPorVenta;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempDatesEstructurasPorVenta']}")
+  private String sqlDeleteTempDatesEstructurasPorVenta;
+
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempDatesEstructurasPorVenta']}")
+  private String sqlInsertTempDatesEstructurasPorVenta;
+
   @Override
   public void createTempVentaFisicaLocalizacionSeccion() {
     this.jdbcTemplate.update(this.sqlCreateTempVentaFisicaLocalizacionSeccion);
@@ -74,5 +87,28 @@ public class PrimaryTemporaryTablePorVentaRepositoryCustomImpl implements Primar
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempVentaFisicaLocalizacion, params);
+  }
+
+  @Override
+  public int deleteTempDatesEstructurasPorVenta() {
+    return this.jdbcTemplate.update(this.sqlDeleteTempDatesEstructurasPorVenta);
+  }
+
+  @Override
+  public int createTempDatesEstructurasPorVenta() {
+    return this.jdbcTemplate.update(this.sqlCreateTempDatesEstructurasPorVenta);
+  }
+
+  @Override
+  public int indexTempDatesEstructurasPorVenta() {
+    return this.jdbcTemplate.update(this.sqlIndexTempDatesEstructurasPorVenta);
+  }
+
+  @Override
+  public void insertTempDatesEstructurasPorVenta(final TareaDto tarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    this.namedParameterJdbcTemplate.update(this.sqlInsertTempDatesEstructurasPorVenta, params);
   }
 }

@@ -68,4 +68,6 @@ public interface RunTareaProcesarVentaAsyncService {
 
   CompletableFuture<Void> updateActivoManual(RunTareaDto tarea);
 
+  CompletableFuture<Void> devolucionImporte0(RunTareaDto tarea);
+
 }

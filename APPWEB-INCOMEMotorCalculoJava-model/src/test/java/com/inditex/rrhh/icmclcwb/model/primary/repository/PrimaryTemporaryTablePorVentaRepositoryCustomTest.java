@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -51,6 +52,15 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
   // Venta física localización
   private final static String SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION = "SQL INSERT TEMP VENTA FISICA LOCALIZACION";
 
+  // fechas estructuras por venta
+  private final static String SQL_CREATE_TEMP_DATES_ESTRUCTURAS_POR_VENTA = "SQL CREATE TEMP DATES_ESTRUCTURAS_POR_VENTA";
+
+  private final static String SQL_INDEX_TEMP_DATES_ESTRUCTURAS_POR_VENTA = "SQL INDEX TEMP DATES_ESTRUCTURAS_POR_VENTA";
+
+  private final static String SQL_DELETE_TEMP_DATES_ESTRUCTURAS_POR_VENTA = "SQL DELETE TEMP DATES_ESTRUCTURAS_POR_VENTA";
+
+  private final static String SQL_INSERT_TEMP_DATES_ESTRUCTURAS_POR_VENTA = "SQL INSERT TEMP DATES_ESTRUCTURAS_POR_VENTA";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom, "batchSize", 3, true);
@@ -67,6 +77,19 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
     // Venta física localización
     FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
         "sqlInsertTempVentaFisicaLocalizacion", SQL_INSERT_TEMP_VENTA_FISICA_LOCALIZACION, true);
+    // Fechas estructuras por venta
+    FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
+        "sqlCreateTempDatesEstructurasPorVenta", SQL_CREATE_TEMP_DATES_ESTRUCTURAS_POR_VENTA,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
+        "sqlIndexTempDatesEstructurasPorVenta", SQL_INDEX_TEMP_DATES_ESTRUCTURAS_POR_VENTA,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
+        "sqlDeleteTempDatesEstructurasPorVenta", SQL_DELETE_TEMP_DATES_ESTRUCTURAS_POR_VENTA,
+        true);
+    FieldUtils.writeField(this.primaryTemporaryTablePorVentaRepositoryCustom,
+        "sqlInsertTempDatesEstructurasPorVenta", SQL_INSERT_TEMP_DATES_ESTRUCTURAS_POR_VENTA,
+        true);
   }
 
   @Test
@@ -112,6 +135,37 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.VENTA_FISICA_IPOD_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+  }
+
+  @Test
+  void deleteTempDatesEstructurasPorVentaTest() {
+    this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempDatesEstructurasPorVenta();
+    verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_DATES_ESTRUCTURAS_POR_VENTA);
+  }
+
+  @Test
+  void createTempDatesEstructurasPorVentaTest() {
+    this.primaryTemporaryTablePorVentaRepositoryCustom.createTempDatesEstructurasPorVenta();
+    verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_DATES_ESTRUCTURAS_POR_VENTA);
+  }
+
+  @Test
+  void indexTempDatesEstructurasPorVentaTest() {
+    this.primaryTemporaryTablePorVentaRepositoryCustom.indexTempDatesEstructurasPorVenta();
+    verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_DATES_ESTRUCTURAS_POR_VENTA);
+  }
+
+  @Test
+  void insertTempDatesEstructurasPorVentaTest(@Random final TareaDto tareaDto) {
+    this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempDatesEstructurasPorVenta(tareaDto);
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TEMP_DATES_ESTRUCTURAS_POR_VENTA), paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
 
     assertEquals(expected, paramsCaptor.getValue().getValues());
   }

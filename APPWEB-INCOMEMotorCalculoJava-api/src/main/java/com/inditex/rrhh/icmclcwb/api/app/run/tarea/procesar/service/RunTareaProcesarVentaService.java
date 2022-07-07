@@ -66,4 +66,6 @@ public interface RunTareaProcesarVentaService {
 
   void updateActivoManual(@Valid RunTareaDto tarea);
 
+  void devolucionImporte0(@Valid RunTareaDto tarea);
+
 }

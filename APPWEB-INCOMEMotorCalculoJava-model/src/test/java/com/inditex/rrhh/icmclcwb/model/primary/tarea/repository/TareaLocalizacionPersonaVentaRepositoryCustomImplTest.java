@@ -1,12 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ABIERTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_IMPORTE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_IMPORTE_CERO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -53,6 +58,8 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
   private final static String SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION = "SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION";
 
+  private final static String SQL_DEVOLUCION_IMPORTE_0 = "SQL DEVOLUCION IMPORTE 0";
+
   @Mock
   private JdbcTemplate jdbcTemplate;
 
@@ -75,6 +82,8 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.tareaLocalizacionPersonaVentaRepositoryCustom, "sqlTotalizarVentaPersonaLocalizacion",
         SQL_TOTALIZAR_VENTA_PERSONA_LOCALIZACION, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaVentaRepositoryCustom, "sqlDevolucionImporte0",
+        SQL_DEVOLUCION_IMPORTE_0, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaVentaRepositoryCustom, "sqlSave", SQL_SAVE, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaVentaRepositoryCustom, "batchSize", 100, true);
   }
@@ -135,6 +144,25 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
     expected.put(SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
 
     assertEquals(expected, params);
+  }
+
+  @Test
+  void devolucionImporte0Test(@Random final TareaDto tarea) {
+
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_DEVOLUCION_IMPORTE_0), this.paramsCaptor.capture());
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+    expected.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
+    expected.put(SQL_PARAM_ABIERTO, SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SQL_PARAM_NUEVO_IMPORTE, SQL_VALUE_IMPORTE_CERO);
+    expected.put(SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
+    expected.put(SQL_PARAM_NUEVO_ACTIVO, SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, this.paramsCaptor.getValue().getValues());
+
   }
 
 }

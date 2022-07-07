@@ -239,4 +239,17 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     this.tareaLocalizacionVentaRepositoryCustom.updateActivoManual(tarea.getTarea());
   }
 
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void devolucionImporte0(@Valid final RunTareaDto tarea) {
+    try {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createTempDatesEstructurasPorVenta();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.indexTempDatesEstructurasPorVenta();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempDatesEstructurasPorVenta(tarea.getTarea());
+      this.tareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0(tarea.getTarea());
+    } finally {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempDatesEstructurasPorVenta();
+    }
+  }
+
 }

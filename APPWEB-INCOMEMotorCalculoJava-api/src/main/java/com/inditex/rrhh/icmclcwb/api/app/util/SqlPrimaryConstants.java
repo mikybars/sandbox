@@ -308,6 +308,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
 
+  public static final String SQL_PARAM_NUEVO_IMPORTE = "nuevoImporte";
+
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA =
       "idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada";
 

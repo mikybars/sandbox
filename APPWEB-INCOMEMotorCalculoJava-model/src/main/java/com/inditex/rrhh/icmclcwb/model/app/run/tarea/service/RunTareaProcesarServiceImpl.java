@@ -149,6 +149,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .saveAbiertoSeccion(runTarea);
       AsyncUtils.exceptionally(cfSaveAbiertoSeccion, cf, cfWait);
 
+      // Se establecen devolución 0 a aquellas personas por venta que no tengan devoluciones un día determinado
+      final CompletableFuture<Void> cfDevolucionImporte0 = this.runTareaProcesarVentaAsyncService
+          .devolucionImporte0(runTarea);
+      AsyncUtils.exceptionally(cfDevolucionImporte0, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
