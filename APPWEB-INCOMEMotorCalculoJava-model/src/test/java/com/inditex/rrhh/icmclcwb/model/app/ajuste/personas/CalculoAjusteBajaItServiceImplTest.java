@@ -77,12 +77,12 @@ class CalculoAjusteBajaItServiceImplTest {
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempFechasAcumuladasBajaIt();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createTempCalculoConAjuste();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).createIndexTempCalculoConAjuste();
-    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonas(tarea, personas,
+    verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempPersonasBajaIt(tarea, personas,
         TipoPoliticaEnum.BAJA_IT);
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasBajaIt(tarea);
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1)).insertTempFechasAcumuladasBajaIt();
     verify(this.primaryTemporaryTablePoliticasRepositoryCustom, times(1))
-        .insertTempCalculoConAjuste(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
+        .insertTempCalculoConAjusteBajaIt(Collections.singletonList(TipoPoliticaEnum.ANTIGUEDAD));
   }
 
   @Test

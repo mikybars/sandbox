@@ -55,6 +55,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
 
   private static final String SQL_INSERT_TEMP_PERSONAS = "SQL INSERT TEMP PERSONAS";
 
+  private static final String SQL_INSERT_TEMP_PERSONAS_BAJA_IT = "SQL INSERT TEMP PERSONAS";
+
   private static final String SQL_INDEX_TEMP_PERSONAS = "SQL INDEX TEMP PERSONAS";
 
   private static final String SQL_CREATE_TEMP_CALULO_CON_AJUSTE = "SQL CREATE TEMP CALCULO CON AJUSTE";
@@ -64,6 +66,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
   private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE = "SQL INSERT TEMP CALCULO CON AJUSTE";
 
   private static final String SQL_INDEX_TEMP_CALCULO_CON_AJUSTE = "SQL INDEX TEMP CALCULO CON AJUSTE";
+
+  private static final String SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_BAJA_IT = "SQL INSERT TEMP CALCULO CON AJUSTE";
 
   // baja it
 
@@ -193,6 +197,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
     FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
         "sqlInsertTempPersonas", SQL_INSERT_TEMP_PERSONAS, true);
     FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+        "sqlInsertTempPersonasBajaIt", SQL_INSERT_TEMP_PERSONAS_BAJA_IT, true);
+    FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
         "sqlIndexTempPersonas", SQL_INDEX_TEMP_PERSONAS, true);
     FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
         "sqlCreateTempCalculoConAjuste", SQL_CREATE_TEMP_CALULO_CON_AJUSTE, true);
@@ -200,6 +206,9 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         "sqlDeleteTempCalculoConAjuste", SQL_DELETE_TEMP_CALCULO_CON_AJUSTE, true);
     FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
         "sqlInsertTempCalculoConAjuste", SQL_INSERT_TEMP_CALCULO_CON_AJUSTE, true);
+    FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
+        "sqlInsertTempCalculoConAjusteBajaIt", SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_BAJA_IT, true);
+
     FieldUtils.writeField(this.primaryTemporaryTablePoliticasRepositoryCustom,
         "sqlIndexTempCalculoConAjuste", SQL_INDEX_TEMP_CALCULO_CON_AJUSTE, true);
     // baja it
@@ -345,6 +354,51 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
         TipoPoliticaEnum.MAXIMO_GARANTIZADO);
 
     verify(this.namedParameterJdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_PERSONAS),
+        this.batchParamsCaptor.capture());
+
+    // parametros de la consulta: idTarea, cclIdPerson, stdOrHrPeriod, idTipoPolitica
+    final MapSqlParameterSource[] values = this.batchParamsCaptor.getValue();
+    assertEquals(2, values.length);
+    for (int i = 0; i < values.length; i++) {
+      final MapSqlParameterSource value = values[i];
+      // idTarea
+      assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
+      assertEquals(ID_TAREA, value.getValue(SQL_PARAM_ID_TAREA));
+      // idTipoPolitica
+      assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_POLITICA));
+      assertEquals(TipoPoliticaEnum.MAXIMO_GARANTIZADO.getId(), value.getValue(SQL_PARAM_ID_TIPO_POLITICA));
+      // cclIdPerson, stdOrHrPeriod - existencia del parámetro
+      assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
+      assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
+    }
+
+    // cclIdPerson, stdOrHrPeriod - valores del parámetro
+    assertEquals(1,
+        Arrays.stream(values)
+            .filter(value -> persona1.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+            .toArray().length);
+    assertEquals(1,
+        Arrays.stream(values)
+            .filter(value -> persona2.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+
+            .toArray().length);
+  }
+
+  @Test
+  void insertTempPersonasBajaItTest() {
+    final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+    when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
+    when(persona1.getStdOrHrPeriod()).thenReturn("01");
+    final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
+    when(persona2.getIdPersonaLocal()).thenReturn("AT1002");
+    when(persona2.getStdOrHrPeriod()).thenReturn("02");
+    final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempPersonasBajaIt(this.createTarea(), personas,
+        TipoPoliticaEnum.MAXIMO_GARANTIZADO);
+
+    verify(this.namedParameterJdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_PERSONAS_BAJA_IT),
         this.batchParamsCaptor.capture());
 
     // parametros de la consulta: idTarea, cclIdPerson, stdOrHrPeriod, idTipoPolitica
@@ -567,8 +621,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
   void insertTempCalculoTotalizadoBajaItNumArgumentosTareaNotNullTest() {
     final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
         TipoPoliticaEnum.BAJA_IT);
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteBajaIt(politicas);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_BAJA_IT),
         this.paramsCaptor.capture());
     assertEquals(2, this.paramsCaptor.getValue().getValues().size());
   }
@@ -577,8 +631,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
   void insertTempCalculoTotalizadoBajaItInactivoTest() {
     final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
         TipoPoliticaEnum.BAJA_IT);
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteBajaIt(politicas);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_BAJA_IT),
         this.paramsCaptor.capture());
 
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
@@ -592,8 +646,8 @@ class PrimaryTemporaryTablePoliticasRepositoryCustomTest {
   void insertTempCalculoTotalizadoBajaItIdTipoPoliticaAjusteTest() {
     final List<TipoPoliticaEnum> politicas = Arrays.asList(TipoPoliticaEnum.ANTIGUEDAD, TipoPoliticaEnum.VACACIONES,
         TipoPoliticaEnum.BAJA_IT);
-    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjuste(politicas);
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE),
+    this.primaryTemporaryTablePoliticasRepositoryCustom.insertTempCalculoConAjusteBajaIt(politicas);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_INSERT_TEMP_CALCULO_CON_AJUSTE_BAJA_IT),
         this.paramsCaptor.capture());
 
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
