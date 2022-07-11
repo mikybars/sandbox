@@ -402,6 +402,8 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION,
         Arrays.asList(AppConstants.SECCION_1, AppConstants.SECCION_2, AppConstants.SECCION_3));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_FISICA_LOCALIZACION_SECCION,
+        TipoDatoEnum.VENTA_FISICA_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
         Arrays.asList(TipoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId(),
             TipoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION_SECCION.getId(),
