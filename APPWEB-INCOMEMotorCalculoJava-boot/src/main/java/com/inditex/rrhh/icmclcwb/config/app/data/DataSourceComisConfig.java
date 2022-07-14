@@ -220,6 +220,12 @@ public class DataSourceComisConfig {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
+  @Bean(name = "comis70Datasource")
+  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis70")
+  public DataSource comis70DataSource(final DataSourceBuilder dataSourceBuilder) {
+    return dataSourceBuilder.build(DataSourceType.NONXA);
+  }
+
   @Bean(name = "comis72Datasource")
   @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis72")
   public DataSource comis72DataSource(final DataSourceBuilder dataSourceBuilder) {
@@ -244,6 +250,12 @@ public class DataSourceComisConfig {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
+  @Bean(name = "comis91Datasource")
+  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis91")
+  public DataSource comis91DataSource(final DataSourceBuilder dataSourceBuilder) {
+    return dataSourceBuilder.build(DataSourceType.NONXA);
+  }
+
   @Bean(name = "comis92Datasource")
   @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis92")
   public DataSource comis92DataSource(final DataSourceBuilder dataSourceBuilder) {
@@ -253,6 +265,12 @@ public class DataSourceComisConfig {
   @Bean(name = "comis93Datasource")
   @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis93")
   public DataSource comis93DataSource(final DataSourceBuilder dataSourceBuilder) {
+    return dataSourceBuilder.build(DataSourceType.NONXA);
+  }
+
+  @Bean(name = "comis95Datasource")
+  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis95")
+  public DataSource comis95DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
@@ -410,12 +428,15 @@ public class DataSourceComisConfig {
       @Lazy @Qualifier("comis64Datasource") final DataSource comis64Datasource,
       @Lazy @Qualifier("comis66Datasource") final DataSource comis66Datasource,
       @Lazy @Qualifier("comis68Datasource") final DataSource comis68Datasource,
+      @Lazy @Qualifier("comis70Datasource") final DataSource comis70Datasource,
       @Lazy @Qualifier("comis72Datasource") final DataSource comis72Datasource,
       @Lazy @Qualifier("comis73Datasource") final DataSource comis73Datasource,
       @Lazy @Qualifier("comis75Datasource") final DataSource comis75Datasource,
       @Lazy @Qualifier("comis79Datasource") final DataSource comis79Datasource,
+      @Lazy @Qualifier("comis91Datasource") final DataSource comis91Datasource,
       @Lazy @Qualifier("comis92Datasource") final DataSource comis92Datasource,
       @Lazy @Qualifier("comis93Datasource") final DataSource comis93Datasource,
+      @Lazy @Qualifier("comis95Datasource") final DataSource comis95Datasource,
       @Lazy @Qualifier("comis96Datasource") final DataSource comis96Datasource,
       @Lazy @Qualifier("comis97Datasource") final DataSource comis97Datasource,
       @Lazy @Qualifier("comis98Datasource") final DataSource comis98Datasource,
@@ -470,12 +491,15 @@ public class DataSourceComisConfig {
     targetDataSources.put(ClientDatabase.COMIS64, comis64Datasource);
     targetDataSources.put(ClientDatabase.COMIS66, comis66Datasource);
     targetDataSources.put(ClientDatabase.COMIS68, comis68Datasource);
+    targetDataSources.put(ClientDatabase.COMIS70, comis70Datasource);
     targetDataSources.put(ClientDatabase.COMIS72, comis72Datasource);
     targetDataSources.put(ClientDatabase.COMIS73, comis73Datasource);
     targetDataSources.put(ClientDatabase.COMIS75, comis75Datasource);
     targetDataSources.put(ClientDatabase.COMIS79, comis79Datasource);
+    targetDataSources.put(ClientDatabase.COMIS91, comis91Datasource);
     targetDataSources.put(ClientDatabase.COMIS92, comis92Datasource);
     targetDataSources.put(ClientDatabase.COMIS93, comis93Datasource);
+    targetDataSources.put(ClientDatabase.COMIS95, comis95Datasource);
     targetDataSources.put(ClientDatabase.COMIS96, comis96Datasource);
     targetDataSources.put(ClientDatabase.COMIS97, comis97Datasource);
     targetDataSources.put(ClientDatabase.COMIS98, comis98Datasource);
