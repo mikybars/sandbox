@@ -116,11 +116,6 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
   }
 
   @Override
-  public void indicadorPersonaPorVentaSimplificada(@Valid final RunTareaDto runTarea) {
-    this.tareaLocalizacionPersonaPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
-  }
-
-  @Override
   public void indicadorDesplazamientoDirectoVenta(@Valid final RunTareaDto runTarea) {
     this.tareaLocalizacionPersonaPresenciaService.indicadorDesplazamientoDirectoVenta(runTarea);
   }

@@ -811,7 +811,7 @@ app:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
-                maxPageSize: 1000
+                maxPageSize: 50
                 maxPersistenceSize: 3
                 periodSize: 1
                 periodType: MONTHS

@@ -41,7 +41,7 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
   protected abstract Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea,
       IdPersonaLocalDto persona);
 
-  protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo) {
+  protected final Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo) {
     return this.getMapValues(algoritmo, null, null);
   }
 
