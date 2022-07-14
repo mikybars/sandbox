@@ -21,18 +21,6 @@ DELETE FROM ALGORITMO WHERE ID_ALGORITMO IN (8001,8002,8003,8006,8007,8008,8011,
 -- Tipos de dato relacionados con PorVentaSimplificado
 DELETE FROM TIPO_DATO WHERE ID_TIPO_DATO IN (3032, 5013);
 
--- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo cálculo
-DELETE FROM algoritmo_tipo_calculo WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
-
--- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo comisión
-DELETE FROM algoritmo_tipo_comision WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
-
--- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo dato
-DELETE FROM algoritmo_tipo_dato WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
-
--- Desactivación propio algoritmo PorventaGlobalTienda en todas sus variantes
-DELETE FROM algoritmo WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
-
 -- Nuevo tipo de grupo de dato para los calculos VentaOnline
 -- TIPO_GRUPO_DATO
 INSERT INTO TIPO_GRUPO_DATO (ID_TIPO_GRUPO_DATO, NOMBRE, DESCRIPCION) VALUES (2033, 'VENTA_ONLINE_EXCLUIDO_IPOD_LOCALIZACION', 'Venta online exclulido ipod [localizacion]');
@@ -260,5 +248,24 @@ INSERT INTO ALGORITMO_TIPO_COMISION (ID_ALGORITMO, ID_TIPO_COMISION) VALUES (220
 INSERT INTO ALGORITMO_TIPO_COMISION (ID_ALGORITMO, ID_TIPO_COMISION) VALUES (22011, '016');
 INSERT INTO ALGORITMO_TIPO_COMISION (ID_ALGORITMO, ID_TIPO_COMISION) VALUES (22011, '017');
 
+-- Cambio de cálculos antiguos a sus nuevos correspondientes ids
+UPDATE TAREA_CALCULO SET ID_ALGORITMO = 20001 WHERE ID_ALGORITMO = 7020;
+UPDATE TAREA_CALCULO SET ID_ALGORITMO = 20006 WHERE ID_ALGORITMO = 7021;
+UPDATE TAREA_CALCULO SET ID_ALGORITMO = 20011 WHERE ID_ALGORITMO = 7022;
+
+
 -- Desactivación del por venta hasta que termine la fase de pruebas
 UPDATE ALGORITMO SET ES_ACTIVO = 0 WHERE ID_ALGORITMO BETWEEN 7000 AND 8000;
+
+-- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo cálculo
+DELETE FROM algoritmo_tipo_calculo WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
+
+-- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo comisión
+DELETE FROM algoritmo_tipo_comision WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
+
+-- Eliminación de la relación entre algoritmo PorVentaGlobalTienda en todas sus variantes y tipo dato
+DELETE FROM algoritmo_tipo_dato WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
+
+-- Desactivación propio algoritmo PorventaGlobalTienda en todas sus variantes
+DELETE FROM algoritmo WHERE ID_ALGORITMO IN (7020,7021,7022,7023,7024,7025);
+
