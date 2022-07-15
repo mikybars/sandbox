@@ -25,7 +25,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaLocalizacionPersonaPresenciaServiceImplTest {
+class TareaLocalizacionPersonaPresenciaServiceImplTest {
 
   @Mock
   private TareaLocalizacionPersonaPresenciaRepositoryCustom tareaLocalizacionPersonaPresenciaRepositoryCustom;
@@ -40,7 +40,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   private TareaLocalizacionPersonaPresenciaMapper tareaLocalizacionPersonaPresenciaMapper;
 
   @Test
-  public void saveTest() {
+  void saveTest() {
     final TareaDto tarea = mock(TareaDto.class);
     tarea.setIdTrabajo(1L);
     final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto = new ArrayList<>();
@@ -55,7 +55,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void savePtrPresenciaDetalleTest() {
+  void savePtrPresenciaDetalleTest() {
     final TareaDto tarea = mock(TareaDto.class);
     tarea.setIdTrabajo(1L);
     final List<PtrPresenciaDetalleResultItemDto> ptrPresenciaDetalleDto = new ArrayList<>();
@@ -71,7 +71,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void updateActivoTest() {
+  void updateActivoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.updateActivo(runTarea);
@@ -79,7 +79,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void updateActivoVacioTest() {
+  void updateActivoVacioTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.updateActivoVacio(runTarea);
@@ -88,7 +88,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void compensarTest() {
+  void compensarTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.compensar(runTarea);
@@ -96,7 +96,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void compensarChallengeTest() {
+  void compensarChallengeTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.compensarChallenge(runTarea);
@@ -105,7 +105,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void presenciasIncluidoVentaTest() {
+  void presenciasIncluidoVentaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.presenciasIncluidoVenta(runTarea);
@@ -114,7 +114,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPresenciaTest() {
+  void indicadorPresenciaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresencia(runTarea);
@@ -123,7 +123,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoTest() {
+  void indicadorPresenciaDesplazamientoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresenciaDesplazamiento(runTarea);
@@ -132,7 +132,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoBaseTest() {
+  void indicadorPresenciaDesplazamientoBaseTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPresenciaDesplazamientoBase(runTarea);
@@ -141,7 +141,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTest() {
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -151,7 +151,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void presenciasHorasFijasTest() {
+  void presenciasHorasFijasTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.presenciasHorasFijas(runTarea);
@@ -160,7 +160,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void presenciasHorasFijasDesplazamientosTest() {
+  void presenciasHorasFijasDesplazamientosTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.presenciasHorasFijasDesplazamientos(runTarea);
@@ -169,7 +169,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPersonaPorVentaTest() {
+  void indicadorPersonaPorVentaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPersonaPorVenta(runTarea);
@@ -178,16 +178,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorPersonaPorVentaSimplificadaTest() {
-    final RunTareaDto runTarea = mock(RunTareaDto.class);
-
-    this.tareaLocalizacionPersonaPresenciaServiceImpl.indicadorPersonaPorVentaSimplificada(runTarea);
-    verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
-        .indicadorPersonaPorVentaSimplificada(any(RunTareaDto.class));
-  }
-
-  @Test
-  public void indicadorDesplazamientoBaseTest() {
+  void indicadorDesplazamientoBaseTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -197,7 +188,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoDirectoVentaTest() {
+  void indicadorDesplazamientoDirectoVentaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -207,7 +198,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoDirectoVentaSinPresenciasTest() {
+  void indicadorDesplazamientoDirectoVentaSinPresenciasTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -217,7 +208,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaTest() {
+  void indicadorDesplazamientoBaseDirectoVentaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -227,7 +218,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaOtraTiendaTest() {
+  void indicadorDesplazamientoBaseDirectoVentaOtraTiendaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -237,7 +228,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoBaseDirectoVentaSinDesplazamientoTest() {
+  void indicadorDesplazamientoBaseDirectoVentaSinDesplazamientoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -247,7 +238,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoDirectoVentaCambioFuncionTest() {
+  void indicadorDesplazamientoDirectoVentaCambioFuncionTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -257,7 +248,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void indicadorDesplazamientoChallengeImporteTiendaTest() {
+  void indicadorDesplazamientoChallengeImporteTiendaTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 
     this.tareaLocalizacionPersonaPresenciaServiceImpl
@@ -267,7 +258,7 @@ public class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
-  public void updateActivoPersonasExternasTest() {
+  void updateActivoPersonasExternasTest() {
 
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 

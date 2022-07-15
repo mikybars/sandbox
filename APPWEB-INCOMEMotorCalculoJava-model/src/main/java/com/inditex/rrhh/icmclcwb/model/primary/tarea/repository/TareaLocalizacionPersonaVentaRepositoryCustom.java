@@ -9,18 +9,10 @@ public interface TareaLocalizacionPersonaVentaRepositoryCustom {
 
   List<TareaLocalizacionPersonaVenta> save(List<TareaLocalizacionPersonaVenta> src);
 
-  void totalizarVentaPersonaSeccion(TareaDto tarea);
+  void totalizarDevolucionPersonaLocalizacion(TareaDto tarea);
 
-  void totalizarDevolucionPersonaSeccion(TareaDto tarea);
+  void totalizarVentaSinDevolucionPersonaLocalizacion(TareaDto tarea);
 
-  void totalizarVentaSinDevolucionPersonaSeccion(TareaDto tarea);
-
-  void totalizarVentaFisicaSinDevolucionPersonaSeccion(TareaDto tarea);
-
-  void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(TareaDto tarea);
-
-  void totalizarDevolucionFisicaPersonaSeccion(TareaDto tarea);
-
-  void totalizarDevolucionOnlineIpodPersonaSeccion(TareaDto tarea);
+  void devolucionImporte0(TareaDto tarea);
 
 }

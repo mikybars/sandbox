@@ -46,9 +46,9 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
   private TipoDatoService tipoDatoService;
 
   @Override
-  protected Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
+  protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
 
-    HashMap<String, Object> map = new HashMap<>();
+    final HashMap<String, Object> map = new HashMap<>();
     if (tarea != null) {
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
@@ -60,14 +60,14 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA,
         TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
 
-    List<IdTipoDatoDto> tiposDatoPresenciaPersona = tipoDatoService
+    final List<IdTipoDatoDto> tiposDatoPresenciaPersona = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
         tiposDatoPresenciaPersona.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA,
         TipoDatoEnum.VENTA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA,
         TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_EMPLEADOS_POR_VENTA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENTA,
@@ -94,8 +94,8 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV
   }
 
   @Override
-  public List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
-    return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 
 }
