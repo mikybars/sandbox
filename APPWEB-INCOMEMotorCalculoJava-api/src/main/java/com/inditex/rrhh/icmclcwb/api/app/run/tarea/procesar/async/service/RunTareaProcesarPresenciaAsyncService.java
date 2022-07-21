@@ -43,8 +43,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
   CompletableFuture<Void> indicadorPersonaPorVenta(RunTareaDto runTarea);
 
-  CompletableFuture<Void> indicadorPersonaPorVentaSimplificada(RunTareaDto runTarea);
-
   CompletableFuture<Void> compensarChallenge(RunTareaDto runTarea);
 
   CompletableFuture<Void> indicadorDesplazamientoDirectoVenta(RunTareaDto runTarea);

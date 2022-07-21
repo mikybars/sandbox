@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core
-  version: 4.14.0
+  version: 4.15.0
 amiga:
   monitoring:
     metrics:
@@ -812,7 +812,7 @@ app:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
-                maxPageSize: 1000
+                maxPageSize: 50
                 maxPersistenceSize: 3
                 periodSize: 1
                 periodType: MONTHS

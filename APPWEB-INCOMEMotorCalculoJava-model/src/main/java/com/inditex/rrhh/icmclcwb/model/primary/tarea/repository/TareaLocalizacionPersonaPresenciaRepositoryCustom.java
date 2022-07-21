@@ -33,8 +33,6 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
   void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto);
 
-  void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto);
-
   void compensarChallenge(@NotNull RunTareaDto runTareaDto);
 
   void indicadorDesplazamientoDirectoVenta(@NotNull RunTareaDto runTareaDto);
