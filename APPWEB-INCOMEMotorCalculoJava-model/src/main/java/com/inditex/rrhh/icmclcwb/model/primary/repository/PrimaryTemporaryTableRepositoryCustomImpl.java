@@ -56,8 +56,17 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis']}")
   private String sqlDeleteTempMotivoDesplazamientoComis;
 
-  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
-  private String sqlInsertTempMotivoDesplazamientoComis;
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
+    private String sqlInsertTempMotivoDesplazamientoComis;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempVentasMonacoPtr']}")
+    private String sqlCreateTempVentasMonacoPtr;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempVentasMonacoPtr']}")
+    private String sqlDeleteTempVentasMonacoPtr;
+
+    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempVentasMonacoPtr']}")
+    private String sqlInsertTempVentasVentasMonacoPtr;
 
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4']}")
   private String sqlCreateTempMotivoDesplazamientoMeta4;
@@ -372,6 +381,16 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
           });
     }
   }
+
+    @Override
+    public int deleteTempMonacoPtr() {
+        return this.jdbcTemplate.update(this.sqlDeleteTempVentasMonacoPtr);
+    }
+
+    @Override
+    public int createTempMonacoPtr() {
+        return this.jdbcTemplate.update(this.sqlCreateTempVentasMonacoPtr);
+    }
 
   @Override
   public List<IdMotivoDesplazamientoDto> validateTempMotivoDesplazamiento() {

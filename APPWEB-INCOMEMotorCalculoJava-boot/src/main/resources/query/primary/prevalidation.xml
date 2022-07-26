@@ -23,6 +23,38 @@
   ]]>
   </entry>
 
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempVentasMonacoPtr">
+    <![CDATA[
+  DECLARE GLOBAL TEMPORARY TABLE TEMP_TAREA_LOCALIZACION_VENTAS_MONACO (
+    ID_TAREA_LOCALIZACION_VENTAS_MONACO BIGINT NOT NULL AS IDENTITY START WITH 1 INCREMENT BY 1,
+    FECHA DATE NOT NULL,
+    ID_TAREA BIGINT,
+    ID_TIPO_DATO INTEGER,
+    CCL_ID_CADENA VARGRAPHIC(24),
+    CCL_ID_COD_ORIGEN VARGRAPHIC(24),
+    CCL_ID_SECCION VARGRAPHIC(2),
+    ES_ACTIVO DECIMAL(1, 0),
+    IMPORTE_SIN_IMPUESTOS DECIMAL(23, 8),
+    IMPORTE_CON_IMPUESTOS DECIMAL(23, 8),
+    FECHA_INICIO_PERIODO DATE
+  )ON COMMIT PRESERVE ROWS NOT LOGGED WITH REPLACE
+  ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempVentasMonacoPtr">
+    <![CDATA[
+    DROP TABLE SESSION.TEMP_TAREA_LOCALIZACION_VENTAS_MONACO
+  ]]>
+  </entry>
+
+  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempVentasMonacoPtr">
+    <![CDATA[
+    INSERT INTO SESSION.TEMP_TAREA_LOCALIZACION_VENTAS_MONACO ()
+    VALUES (?)
+  ]]>
+  </entry>
+
   <entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4">
     <![CDATA[
   DECLARE GLOBAL TEMPORARY TABLE TEMP_MOTIVO_DESPLAZAMIENTO_META4 (
