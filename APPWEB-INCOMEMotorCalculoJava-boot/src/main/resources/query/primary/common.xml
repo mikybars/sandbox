@@ -8114,7 +8114,12 @@ MERGE INTO TAREA_LOCALIZACION_VENTA AS TLV USING
 
   <entry key="AccionRepositoryCustom.findByIdAccionAndIdOrigenAndStdIdLegEnt">
     <![CDATA[
-        SELECT ID_ACCION FROM ACCION_AMBITO WHERE ID_ACCION = :idAccion AND CCL_ID_ORIGEN = :cclIdOrigen AND STD_ID_LEG_ENT = :stdIdLegEnt
+        SELECT ID_ACCION
+        FROM ACCION_AMBITO
+        WHERE ID_ACCION = :idAccion
+        AND CCL_ID_ORIGEN = :cclIdOrigen
+        AND STD_ID_LEG_ENT = :stdIdLegEnt
+        AND ES_ACTIVO = 1
     ]]>
   </entry>
 
