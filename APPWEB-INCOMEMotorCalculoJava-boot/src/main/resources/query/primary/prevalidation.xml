@@ -24,9 +24,9 @@
   </entry>
 
 
-  <entry key="PrimaryTemporaryTableRepositoryCustom.createTempVentasMonacoPtr">
+  <entry key="PrimaryTemporaryTableVentasMonacoRepositoryCustomImpl.createTempVentasMonacoPtr">
     <![CDATA[
-  DECLARE GLOBAL TEMPORARY TABLE TEMP_TAREA_LOCALIZACION_VENTAS_MONACO (
+    DECLARE GLOBAL TEMPORARY TABLE TEMP_TAREA_LOCALIZACION_VENTAS_MONACO (
     ID_TAREA_LOCALIZACION_VENTAS_MONACO BIGINT NOT NULL AS IDENTITY START WITH 1 INCREMENT BY 1,
     FECHA DATE NOT NULL,
     ID_TAREA BIGINT,
@@ -42,17 +42,17 @@
   ]]>
   </entry>
 
-  <entry key="PrimaryTemporaryTableRepositoryCustom.deleteTempVentasMonacoPtr">
+  <entry key="PrimaryTemporaryTableVentasMonacoRepositoryCustomImpl.deleteTempVentasMonacoPtr">
     <![CDATA[
     DROP TABLE SESSION.TEMP_TAREA_LOCALIZACION_VENTAS_MONACO
   ]]>
   </entry>
 
-  <entry key="PrimaryTemporaryTableRepositoryCustom.insertTempVentasMonacoPtr">
-    <![CDATA[
-    INSERT INTO SESSION.TEMP_TAREA_LOCALIZACION_VENTAS_MONACO ()
-    VALUES (?)
-  ]]>
+  <entry key="PrimaryTemporaryTableVentasMonacoRepositoryCustomImpl.insertTempVentasMonacoPtr">
+      <![CDATA[
+      INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, FECHA_INICIO_PERIODO)
+      VALUES (:fecha, :cclIdCadena, :cclIdCodOrigen, :cclIdSeccion, :importeSinImpuestos, :importeConImpuestos, :tipoDato.id, :activo, :tarea.id, :pk.fechaInicioPeriodo)
+    ]]>
   </entry>
 
   <entry key="PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4">

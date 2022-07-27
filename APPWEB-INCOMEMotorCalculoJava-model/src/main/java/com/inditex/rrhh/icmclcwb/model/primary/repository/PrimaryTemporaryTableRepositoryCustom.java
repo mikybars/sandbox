@@ -685,18 +685,4 @@ public interface PrimaryTemporaryTableRepositoryCustom {
 
   List<IdPersonaLocalDto> validateTempComisDesplazamientoChallengePorcentaje(TareaDto tarea);
 
-    /**
-     * Elimina la tabla temporal de ventas diarias de Monaco.
-     *
-     * @return Some javadoc.
-     */
-    int deleteTempMonacoPtr();
-
-    /**
-     * Crea la tabla temporal de ventas diarias de Monaco.
-     *
-     * @return Some javadoc.
-     */
-    int createTempMonacoPtr();
-
 }
