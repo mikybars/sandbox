@@ -256,7 +256,8 @@ public abstract class TareaPersonaEstructuraMapper {
       source = "listaCondicionesDestinoResultItem.idTipoReqComision")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
       source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", source = "totalCondiciones")
+  // TODO: reactivar este flag cuando sepamos qué hacer con él
+  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", constant = "false")
   @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
   @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
@@ -354,7 +355,8 @@ public abstract class TareaPersonaEstructuraMapper {
       source = "listaCondicionesDestinoResultItem.idTipoReqComision")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstrComision",
       source = "listaCondicionesDestinoResultItem.idEstructuraDestino")
-  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", source = "totalCondiciones")
+  // TODO: reactivar este flag cuando sepamos qué hacer con él
+  @Mapping(target = "estructuraDesplazamiento.totalCondiciones", constant = "false")
   @Mapping(target = "estructuraDesplazamiento.horasOrigen", source = "horasOrigen")
   @Mapping(target = "estructuraDesplazamiento.horasDestino", source = "horasDestino")
   @Mapping(target = "estructuraDesplazamiento.icmIdEstructuraAmbito",
