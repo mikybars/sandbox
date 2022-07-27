@@ -42,6 +42,35 @@
   ]]>
   </entry>
 
+  <entry key="PrimaryTemporaryTableVentasMonacoRepositoryCustomImpl.updateActivo">
+    <![CDATA[
+    MERGE INTO TAREA_LOCALIZACION_VENTA AS VENTA USING
+        (SELECT V.ID_TAREA_LOCALIZACION_VENTA
+        FROM TAREA_LOCALIZACION_VENTA V
+        JOIN TAREA_AGRUPACION_CADENA AC
+            ON V.ID_TAREA = AC.ID_TAREA
+            AND V.CCL_ID_CADENA = AC.CCL_ID_CADENA
+            AND V.ID_TIPO_DATO IN (:tiposDato)
+        JOIN TIPO_DATO TD
+            ON TD.ID_TIPO_DATO = V.ID_TIPO_DATO
+        JOIN TIPO_VENTA_CONCEPTO TVC
+            ON TD.ID_TIPO_VENTA = TVC.ID_TIPO_VENTA
+            AND TVC.ID_TIPO_VENTA_CONCEPTO IN (:idConcepto)
+        LEFT JOIN TAREA_AGRUPACION_CONFIGURACION C
+            ON V.ID_TAREA = C.ID_TAREA
+            AND AC.ICM_ID_AGRUPACION_ONLINE = C.ICM_ID_AGRUPACION_ONLINE
+            AND V.FECHA >= C.FECHA_INICIO
+            AND V.FECHA <= C.FECHA_FIN
+            AND C.ID_TIPO_VENTA_CONCEPTO = TVC.ID_TIPO_VENTA_CONCEPTO
+        WHERE
+            V.ID_TAREA = :idTarea
+            AND (C.ID_TAREA_AGRUPACION_CONFIGURACION IS NULL OR C.PORCENTAJE_INCLUSION = :porcentajeInclusion)) AS S
+        ON (S.ID_TAREA_LOCALIZACION_VENTA = VENTA.ID_TAREA_LOCALIZACION_VENTA)
+        WHEN MATCHED THEN
+            UPDATE SET ES_ACTIVO = :nuevoActivo
+    ]]>
+  </entry>
+
   <entry key="PrimaryTemporaryTableVentasMonacoRepositoryCustomImpl.deleteTempVentasMonacoPtr">
     <![CDATA[
     DROP TABLE SESSION.TEMP_TAREA_LOCALIZACION_VENTAS_MONACO
