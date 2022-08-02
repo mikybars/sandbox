@@ -1,9 +1,9 @@
 package com.inditex.rrhh.icmclcwb.api.primary.service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
@@ -14,26 +14,32 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public interface PrimaryVentasMonacoService {
+public interface PrimaryVentasMonacoAsyncService {
 
-    void save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
+    int deleteTempMonacoPtr();
+
+    int createTempMonacoPtr();
+
+    void mergeIntoTareaLocalizacionVenta();
+
+    CompletableFuture<Void> save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
         @Valid @NotNull TareaDto tareaDto);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(
+    CompletableFuture<Void> savePtrVentaTotalizadoResponse(
         @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
         @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
+    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(
         @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
         @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(
+    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(
         @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
+    CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
         @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
-    List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
+    CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(
         @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
         @Valid @NotNull final TareaDto tarea);
 

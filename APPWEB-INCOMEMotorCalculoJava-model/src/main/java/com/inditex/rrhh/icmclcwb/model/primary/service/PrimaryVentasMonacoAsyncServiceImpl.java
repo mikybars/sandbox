@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -11,8 +12,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionVentaDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoService;
+import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregatienda.dto.PtrVentaOnlineEntregaTiendaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpodResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
@@ -26,7 +28,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoService {
+public class PrimaryVentasMonacoAsyncServiceImpl implements PrimaryVentasMonacoAsyncService {
 
     @Autowired
     private TareaLocalizacionVentaMapper tareaLocalizacionVentaMapper;
@@ -38,7 +40,29 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
     private TipoDatoService tipoDatoService;
 
     @Override
-    public void save(
+    public int deleteTempMonacoPtr() {
+        return this.primaryTemporaryTableVentasMonacoRepositoryCustom.deleteTempMonacoPtr();
+    }
+
+    @Override
+    public int createTempMonacoPtr() {
+        return this.primaryTemporaryTableVentasMonacoRepositoryCustom.createTempMonacoPtr();
+    }
+
+    @Override
+    public void mergeIntoTareaLocalizacionVenta() {
+        this.primaryTemporaryTableVentasMonacoRepositoryCustom.mergeIntoTareaLocalizacionVenta();
+    }
+
+    @Override
+    public CompletableFuture<Void> save(
+        @Valid @NotNull @NotEmpty final List<VentaManualWlocResultItemDto> src,
+        @Valid @NotNull final TareaDto tareaDto) {
+        this.saveRepository(src, tareaDto);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private void saveRepository(
         @Valid @NotNull @NotEmpty final List<VentaManualWlocResultItemDto> src,
         @Valid @NotNull final TareaDto tareaDto) {
 
@@ -48,7 +72,14 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
     }
 
     @Override
-    public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponse(
+        @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+        @Valid @NotNull final TareaDto tarea) {
+        this.savePtrVentaTotalizado(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private List<TareaLocalizacionVentaDto> savePtrVentaTotalizado(
         @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
         @Valid @NotNull final TareaDto tarea) {
         final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
@@ -63,7 +94,14 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
     }
 
     @Override
-    public List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
+    public CompletableFuture<Void> savePtrVentaOnlineIpodResponse(
+        @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
+        @Valid @NotNull final TareaDto tarea) {
+        this.savePtrVentaOnlineIpod(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpod(
         @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
         @Valid @NotNull final TareaDto tarea) {
         final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
@@ -78,7 +116,14 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
     }
 
     @Override
-    public List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(
+    public CompletableFuture<Void> savePtrVentaOnlinePickingResponse(
+        @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto,
+        @Valid @NotNull final TareaDto tarea) {
+        this.savePtrVentaOnlinePicking(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private List<TareaLocalizacionVentaDto> savePtrVentaOnlinePicking(
         @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea) {
         final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
@@ -92,7 +137,14 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
     }
 
     @Override
-    public List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
+    public CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
+        @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto,
+        @Valid @NotNull final TareaDto tarea) {
+        this.savePtrVentaOnlineEntregaTienda(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTienda(
         @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea) {
         final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
@@ -105,8 +157,15 @@ public class PrimaryVentasMonacoServiceImpl implements PrimaryVentasMonacoServic
         return result;
     }
 
+
     @Override
-    public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
+    public CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(
+        @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+        this.savePtrVentaTotalizadoRepartoOnline(dto, tarea);
+        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    }
+
+    private List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoRepartoOnline(
         @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea) {
         final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {

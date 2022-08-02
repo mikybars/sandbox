@@ -146,6 +146,14 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   }
 
   @Override
+  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(@NotNull final Long idTarea,
+      @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt, @NotNull final Long idVentaConcepto) {
+
+      return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndEmpresa(idTarea, cclIdOrigen,
+          stdIdLegEnt, Collections.singletonList(idVentaConcepto));
+  }
+
+  @Override
   @Cacheable(value = "itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito",
       key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
   public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(
