@@ -124,10 +124,10 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
+      query-timeout: 900s
       pool:
         hikari:
           maximum-pool-size: 10
-          query-timeout: 90s
           auto-commit: true
     jpa:
       properties:
