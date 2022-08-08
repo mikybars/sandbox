@@ -66,8 +66,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDato']}")
   private String sqlCadenasFiltroTipoDato;
 
-    @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoAndEmpresa']}")
-    private String sqlCadenasFiltroTipoDatoEmpresa;
+  @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoAndEmpresa']}")
+  private String sqlCadenasFiltroTipoDatoEmpresa;
 
   @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoNotInAmbito']}")
   private String sqlGetCadenasByTareaAndOrigenAndTipoDatoNotInAmbito;
@@ -252,6 +252,32 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   }
 
   @Override
+  public List<IdCadenaDto> getCadenasByTareaAndOrigenAndEmpresa(final Long idTarea, final String cclIdOrigen,
+      final String stdIdLegEnt, final List<Long> idVentaConcepto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
+        SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+    return this.query(this.sqlCadenasFiltroTipoDatoEmpresa, parameters,
+        (rs, rowNum) -> IdCadenaDto.builder()
+            .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
+            .build());
+  }
+
+  @Override
+  public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    return this.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
+        .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
+        .build());
+  }
+
+  @Override
   public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen,
       final List<Long> idVentaConcepto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -264,32 +290,6 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         (rs, rowNum) -> IdCadenaDto.builder()
             .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
             .build());
-  }
-
-    @Override
-    public List<IdCadenaDto> getCadenasByTareaAndOrigenAndEmpresa(final Long idTarea, final String cclIdOrigen,
-        final String stdIdLegEnt, final List<Long> idVentaConcepto) {
-        final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO, idVentaConcepto);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
-            SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
-        return this.query(this.sqlCadenasFiltroTipoDatoEmpresa, parameters,
-            (rs, rowNum) -> IdCadenaDto.builder()
-                .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
-                .build());
-    }
-
-  @Override
-  public List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen) {
-    final MapSqlParameterSource parameters = new MapSqlParameterSource();
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-    return this.query(this.sqlCadenas, parameters, (rs, rowNum) -> IdCadenaDto.builder()
-        .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_CADENA))
-        .build());
   }
 
   @Override

@@ -24,41 +24,41 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaValidarVentasMonacoServiceImpl implements RunPrevalidar {
 
-    @Autowired
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Autowired
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Autowired
-    private AccionService accionService;
+  @Autowired
+  private AccionService accionService;
 
-    @Autowired
-    private RunTareaAmbitoValidarVentasMonacoService runTareaAmbitoValidarVentasMonacoService;
+  @Autowired
+  private RunTareaAmbitoValidarVentasMonacoService runTareaAmbitoValidarVentasMonacoService;
 
-    @Override
-    public CompletableFuture<List<ValidacionDto>> execute(
-        @NotNull @Valid final RunTareaDto runTarea,
-        @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
-        final TareaDto tareaDto = runTarea.getTarea();
-        this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
-        final List<ValidacionDto> validaciones = runTarea.getTarea()
-            .getAmbito()
-            .stream()
-            .filter(a -> Boolean.TRUE
-                .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
-                    a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
-            .map(item -> this.runTareaAmbitoValidarVentasMonacoService
-                .execute(runTarea, item, tareaFaseAccion))
-            .collect(Collectors.toList());
-        if (validaciones.isEmpty()) {
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-                EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-            return CompletableFuture.completedFuture(validaciones);
-        }
-        if (validaciones.stream()
-            .filter(e -> e.getResult().equals(Boolean.FALSE))
-            .collect(Collectors.toList())
-            .isEmpty()) {
-            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-        }
-        return CompletableFuture.completedFuture(validaciones);
+  @Override
+  public CompletableFuture<List<ValidacionDto>> execute(
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
+    final TareaDto tareaDto = runTarea.getTarea();
+    this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
+    final List<ValidacionDto> validaciones = runTarea.getTarea()
+        .getAmbito()
+        .stream()
+        .filter(a -> Boolean.TRUE
+            .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
+                a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
+        .map(item -> this.runTareaAmbitoValidarVentasMonacoService
+            .execute(runTarea, item, tareaFaseAccion))
+        .collect(Collectors.toList());
+    if (validaciones.isEmpty()) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+          EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+      return CompletableFuture.completedFuture(validaciones);
     }
+    if (validaciones.stream()
+        .filter(e -> e.getResult().equals(Boolean.FALSE))
+        .collect(Collectors.toList())
+        .isEmpty()) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    }
+    return CompletableFuture.completedFuture(validaciones);
+  }
 }

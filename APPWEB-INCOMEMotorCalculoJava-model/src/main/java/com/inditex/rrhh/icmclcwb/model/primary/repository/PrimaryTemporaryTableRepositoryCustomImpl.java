@@ -56,8 +56,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.deleteTempMotivoDesplazamientoComis']}")
   private String sqlDeleteTempMotivoDesplazamientoComis;
 
-    @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
-    private String sqlInsertTempMotivoDesplazamientoComis;
+  @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.insertTempMotivoDesplazamientoComis']}")
+  private String sqlInsertTempMotivoDesplazamientoComis;
 
   @Value("#{primaryQuery['PrimaryTemporaryTableRepositoryCustom.createTempMotivoDesplazamientoMeta4']}")
   private String sqlCreateTempMotivoDesplazamientoMeta4;

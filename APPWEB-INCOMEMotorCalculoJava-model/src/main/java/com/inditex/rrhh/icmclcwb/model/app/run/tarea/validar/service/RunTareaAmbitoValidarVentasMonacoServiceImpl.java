@@ -15,60 +15,62 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmbitoValidarVentasMonacoService {
 
-    @Autowired
-    private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
+  @Autowired
+  private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
 
-    @Autowired
-    private VentasMonacoService ventasMonacoService;
+  @Autowired
+  private VentasMonacoService ventasMonacoService;
 
-    @Override
-    public ValidacionDto execute(
-        @Valid final RunTareaDto runTarea,
-        @Valid final TareaAmbitoDto tareaAmbito,
-        @Valid final TareaFaseAccionDto tareaFaseAccion) {
+  @Override
+  public ValidacionDto execute(
+      @Valid final RunTareaDto runTarea,
+      @Valid final TareaAmbitoDto tareaAmbito,
+      @Valid final TareaFaseAccionDto tareaFaseAccion) {
 
-        this.primaryVentasMonacoAsyncService.createTempMonacoPtr();
+    this.primaryVentasMonacoAsyncService.createTempMonacoPtr();
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<CompletableFuture<?>> cfWait = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<CompletableFuture<?>> cfWait = new ArrayList<>();
 
-        try {
-            // Localizacion y seccion
-            final CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = this.ventasMonacoService
-                .ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
+    try {
+      // Localizacion y seccion
+      final CompletableFuture<Void> cfVentaFisicaLocalizacionSeccion = this.ventasMonacoService
+          .ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfVentaFisicaLocalizacionSeccion, cf, cfWait);
 
-            final CompletableFuture<Void> cfOnlineIpodLocalizacionSeccion = this.ventasMonacoService
-                .ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineIpodLocalizacionSeccion, cf, cfWait);
+      final CompletableFuture<Void> cfOnlineIpodLocalizacionSeccion = this.ventasMonacoService
+          .ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfOnlineIpodLocalizacionSeccion, cf, cfWait);
 
-            final CompletableFuture<Void> cfOnlinePickingLocalizacionSeccion = this.ventasMonacoService
-                .ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlinePickingLocalizacionSeccion, cf, cfWait);
+      final CompletableFuture<Void> cfOnlinePickingLocalizacionSeccion = this.ventasMonacoService
+          .ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfOnlinePickingLocalizacionSeccion, cf, cfWait);
 
-            final CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = this.ventasMonacoService
-                .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
+      final CompletableFuture<Void> cfOnlineEntregaTiendaLocalizacionSeccion = this.ventasMonacoService
+          .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfOnlineEntregaTiendaLocalizacionSeccion, cf, cfWait);
 
-            // Ventas fisicas para su uso en el reparto de la venta online
-            final CompletableFuture<Void> cfVentaFisicaRepartoOnline = this.ventasMonacoService
-                .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
-            AsyncUtils.exceptionally(cfVentaFisicaRepartoOnline, cf, cfWait);
+      // Ventas fisicas para su uso en el reparto de la venta online
+      final CompletableFuture<Void> cfVentaFisicaRepartoOnline = this.ventasMonacoService
+          .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfVentaFisicaRepartoOnline, cf, cfWait);
 
-            /*-------------------------------------------------------------*/
-            AsyncUtils.waitAllOfIsOk(cf, cfWait);
-            /*-------------------------------------------------------------*/
-        } catch (final Exception e) {
-            AsyncUtils.cancel(cf);
-            throw e;
-        }
-
-        this.primaryVentasMonacoAsyncService.mergeIntoTareaLocalizacionVenta();
-        this.primaryVentasMonacoAsyncService.deleteTempMonacoPtr();
-
-        return null;
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+    } catch (final Exception e) {
+      AsyncUtils.cancel(cf);
+      throw e;
     }
+
+    this.primaryVentasMonacoAsyncService.mergeIntoTareaLocalizacionVenta(runTarea.getTarea());
+    this.primaryVentasMonacoAsyncService.deleteTempMonacoPtr();
+
+    return null;
+  }
 }

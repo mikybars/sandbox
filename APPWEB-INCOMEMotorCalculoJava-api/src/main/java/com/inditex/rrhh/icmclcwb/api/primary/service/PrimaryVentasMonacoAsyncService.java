@@ -16,37 +16,31 @@ import javax.validation.constraints.NotNull;
 
 public interface PrimaryVentasMonacoAsyncService {
 
-    int deleteTempMonacoPtr();
+  int deleteTempMonacoPtr();
 
-    int createTempMonacoPtr();
+  int createTempMonacoPtr();
 
-    void mergeIntoTareaLocalizacionVenta();
+  void mergeIntoTareaLocalizacionVenta(@Valid @NotNull TareaDto tarea);
 
-    CompletableFuture<Void> save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
-        @Valid @NotNull TareaDto tareaDto);
+  CompletableFuture<Void> save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
+      @Valid @NotNull TareaDto tareaDto);
 
-    CompletableFuture<Void> savePtrVentaTotalizadoResponse(
-        @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-        @Valid @NotNull final TareaDto tarea);
+  CompletableFuture<Void> savePtrVentaTotalizadoResponse(
+      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NotNull final TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlineIpodResponse(
-        @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
-        @Valid @NotNull final TareaDto tarea);
+  CompletableFuture<Void> savePtrVentaOnlineIpodResponse(
+      @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
+      @Valid @NotNull final TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlinePickingResponse(
-        @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea);
+  CompletableFuture<Void> savePtrVentaOnlinePickingResponse(
+      @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
-        @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea);
+  CompletableFuture<Void> savePtrVentaOnlineEntregaTiendaResponse(
+      @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
-    CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(
-        @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-        @Valid @NotNull final TareaDto tarea);
-
-    void updateActivoVentaOnlineIpod(@Valid @NotNull final TareaDto tarea);
-
-    void updateActivoVentaOnlinePicking(@Valid @NotNull final TareaDto tarea);
-
-    void updateActivoVentaOnlineEntregaTienda(@Valid @NotNull final TareaDto tarea);
+  CompletableFuture<Void> savePtrVentaTotalizadoResponseRepartoOnline(
+      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NotNull final TareaDto tarea);
 
 }
