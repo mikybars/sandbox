@@ -124,7 +124,7 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
-      query-timeout: 0s
+      query-timeout: 300s
       pool:
         hikari:
           maximum-pool-size: 10
@@ -152,7 +152,7 @@ app:
         algoritmo:
           thread-size: 2
           calculo:
-            batch-size: 25
+            batch-size: 1
             thread-size: 4
       ajustar:
         algoritmo:
