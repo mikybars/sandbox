@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1R
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTarea']}")
   @Getter
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTarea']}")
   @Getter
   private String sqlCalcularBase;
 
@@ -45,14 +46,15 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1R
   private TipoDatoService tipoDatoService;
 
   @Override
-  public List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
-    return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 
   @Override
-  protected Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
-    Map<String, Object> map = new HashMap<>();
+  protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
+    final Map<String, Object> map = new HashMap<>();
     if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
     if (persona != null) {
@@ -60,17 +62,17 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1R
       map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     }
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-    List<IdTipoDatoDto> tiposDatoLocalizacionSeccionPersonaTipoHora = tipoDatoService
+    final List<IdTipoDatoDto> tiposDatoLocalizacionSeccionPersonaTipoHora = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
         tiposDatoLocalizacionSeccionPersonaTipoHora.stream()
             .map(IdTipoDatoDto::getId)
             .collect(Collectors.toList()));
-    List<IdTipoDatoDto> tiposDatoPresencia = tipoDatoService
+    final List<IdTipoDatoDto> tiposDatoPresencia = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
-    List<IdTipoDatoDto> tiposDatoVentaFisica = tipoDatoService
+    final List<IdTipoDatoDto> tiposDatoVentaFisica = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         tiposDatoVentaFisica.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
