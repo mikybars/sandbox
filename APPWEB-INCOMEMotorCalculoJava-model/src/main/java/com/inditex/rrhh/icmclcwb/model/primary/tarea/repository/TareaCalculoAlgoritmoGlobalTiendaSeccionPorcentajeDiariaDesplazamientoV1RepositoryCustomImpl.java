@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamie
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTarea']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaPresenciaRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTarea']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDiariaPresenciaRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
@@ -56,6 +57,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamie
       final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
     final Map<String, Object> map = new HashMap<>();
     if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
     if (persona != null) {

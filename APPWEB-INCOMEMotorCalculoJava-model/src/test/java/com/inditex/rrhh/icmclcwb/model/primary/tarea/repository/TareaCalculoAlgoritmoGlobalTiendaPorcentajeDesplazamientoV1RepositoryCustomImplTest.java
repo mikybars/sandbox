@@ -7,6 +7,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -64,6 +67,9 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
 
   @Mock
   private TipoDatoService tipoDatoService;
+
+  @Mock
+  private Logger log;
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -128,6 +134,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -138,7 +145,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(17, result.size());
+    assertEquals(18, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -152,6 +159,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     // idAlgoritmo
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
+    // fechaInicioPeriodo
+    assertTrue(result.containsKey(SQL_PARAM_FECHA_INICIO_PERIODO));
     // idTarea
     assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
     assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
@@ -213,6 +222,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -233,7 +243,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     assertEquals(2, values.length);
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
-      assertEquals(17, value.getValues().size());
+      assertEquals(18, value.getValues().size());
       // activo
       assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -250,6 +260,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
       // idTarea
       assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
       assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
+      // fechaInicioPeriodo
+      assertTrue(value.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
       // comisionable
       assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));

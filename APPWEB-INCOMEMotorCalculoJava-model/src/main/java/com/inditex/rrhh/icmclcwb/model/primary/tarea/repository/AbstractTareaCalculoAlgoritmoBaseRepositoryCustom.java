@@ -1,23 +1,26 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.SqlParamsUtils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+@Slf4j
 public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoBaseRepositoryCustom {
 
@@ -45,7 +48,6 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     return this.getMapValues(algoritmo, null, null);
   }
 
-  @Auditoria
   @Override
   public CompletableFuture<Void> calcular(final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final List<IdPersonaLocalDto> personas) {
@@ -57,8 +59,18 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
         values.forEach((paramName, value) -> arg.addValue(paramName, value));
         batchArgs.add(arg);
       });
+
+      final Instant start = Instant.now();
       this.namedParameterJdbcTemplate.batchUpdate(this.getSqlCalcular(),
           batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+      final Instant end = Instant.now();
+      final Duration duration = Duration.between(start, end);
+
+      if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
+        this.log.warn("AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento60 :: Duration[{}] :: {}", duration);
+      } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
+        this.log.warn("AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento30 :: Duration[{}] :: {}", duration);
+      }
     }
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
