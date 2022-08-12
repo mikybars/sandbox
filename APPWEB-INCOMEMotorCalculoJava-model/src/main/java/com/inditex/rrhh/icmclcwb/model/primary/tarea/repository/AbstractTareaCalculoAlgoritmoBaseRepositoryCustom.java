@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -61,16 +62,28 @@ public abstract class AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
       });
 
       final Instant start = Instant.now();
-      this.namedParameterJdbcTemplate.batchUpdate(this.getSqlCalcular(),
-          batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
-      final Instant end = Instant.now();
-      final Duration duration = Duration.between(start, end);
+      try {
+        this.namedParameterJdbcTemplate.batchUpdate(this.getSqlCalcular(),
+            batchArgs.toArray(new MapSqlParameterSource[batchArgs.size()]));
+      } catch (final Exception e) {
+        throw (e);
+      } finally {
+        final Instant end = Instant.now();
+        final Duration duration = Duration.between(start, end);
 
-      if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
-        this.log.warn("AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento60 :: Duration[{}] :: {}", duration);
-      } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
-        this.log.warn("AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento30 :: Duration[{}] :: {}", duration);
+        if (duration.compareTo(Duration.ofSeconds(60)) > 0) {
+          this.log.warn(
+              "AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento60 :: Duration[{}] :: Algoritmo[{}] :: Personas[{}]",
+              duration, algoritmo.getId(), personas.stream().map(e -> e.getIdPersonaLocal()).collect(
+                  Collectors.toList()));
+        } else if (duration.compareTo(Duration.ofSeconds(30)) > 0) {
+          this.log.warn(
+              "AbstractTareaCalculoAlgoritmoBaseRepositoryCustom :: Lento :: Lento30 :: Duration[{}] :: Algoritmo[{}] :: Personas[{}]",
+              duration, algoritmo.getId(), personas.stream().map(e -> e.getIdPersonaLocal()).collect(
+                  Collectors.toList()));
+        }
       }
+
     }
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
