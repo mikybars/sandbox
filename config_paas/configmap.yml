@@ -152,7 +152,7 @@ app:
         algoritmo:
           thread-size: 2
           calculo:
-            batch-size: 1
+            batch-size: 25
             thread-size: 4
       ajustar:
         algoritmo:

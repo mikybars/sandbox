@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +116,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1Reposit
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
+
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -186,6 +189,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1Reposit
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
+
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
