@@ -25,7 +25,7 @@ public class SqlComisConstants {
 
   public static final String SQL_PARAM_MAX_ID_PERSONA = "maxPersona";
 
-  public static final String SQL_PARAM_ESTADO_SIL = "estadoSil";
+  public static final String SQL_PARAM_ESTADO_SIL = "estadosSil";
 
   // RESULTADOS DE CONSULTAS
 
