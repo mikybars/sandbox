@@ -60,6 +60,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   private final static String SQL_UPDATE_ACTIVO_MANUAL = "SQL UPDATE ACTIVO MANUAL";
 
+  private final static String SQL_UPDATE_ACTIVO_MANUAL_NEGATIVO_TOTALIZADO = "SQL UPDATE ACTIVO MANUAL NEGATIVO TOTALIZADO";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -106,6 +108,8 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
         SQL_UPDATE_ACTIVO_MANUAL, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "batchSize", 100, true);
+    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlUpdateActivoNegativoTotalizado",
+        SQL_UPDATE_ACTIVO_MANUAL_NEGATIVO_TOTALIZADO, true);
   }
 
   @Test
@@ -620,6 +624,44 @@ public class TareaLocalizacionVentaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL));
     assertEquals(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId(),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_LOCALIZACION_VENTA_MANUAL));
+
+  }
+
+  @Test
+  void updateActivoNegativoTotalizadoTest() {
+
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(123L);
+
+    this.tareaLocalizacionVentaRepositoryCustom.updateActivoNegativoTotalizado(tarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_UPDATE_ACTIVO_MANUAL_NEGATIVO_TOTALIZADO, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+    // Parámetros de la consulta: idTarea, activo, inactivo, idTipoGrupoDato,
+    // idsTiposDato
+    assertEquals(5, params.getValues().size());
+
+    // idTarea
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE,
+        params.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+    // inactivo
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
+        params.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+    // idTipoGrupoDato
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+    assertEquals(TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId(),
+        params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
+    // idsTiposDato
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
+    assertEquals(Arrays.asList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()),
+        params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
 
   }
 
