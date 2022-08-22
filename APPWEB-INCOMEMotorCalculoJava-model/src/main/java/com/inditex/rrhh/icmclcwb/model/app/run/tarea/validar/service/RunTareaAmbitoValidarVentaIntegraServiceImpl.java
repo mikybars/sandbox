@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaIntegraService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDatoDto;
@@ -24,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceI
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistoricoServiceImpl;
 
 import javax.validation.Valid;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -47,6 +47,9 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
   @Autowired
   private ValidacionMapper validacionMapper;
 
+  @Autowired
+  private Logger log;
+
   @Override
   public ValidacionDto execute(
       @Valid final RunTareaDto runTareaDto,
@@ -59,33 +62,28 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
 
       if (tiendas.isEmpty()) {
         throw new VentaIntegraIcmclcwbException("El numero de tiendas afectadas es 0 para la tarea "
-            + runTareaDto.getTarea().getId()
-            + " y el origen " + tareaAmbito.getCclIdOrigen());
+            +
+            runTareaDto.getTarea().getId() + " y el origen " + tareaAmbito.getCclIdOrigen());
       }
 
       final List<Integer> tiendasRequest = new ArrayList<>();
       tiendas.forEach(x -> tiendasRequest.add(Integer.valueOf(x.getId().substring(1))));
 
-      final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(
-          VentaIntegraRequestDto.builder()
-              .idOrigen(Integer.valueOf(tareaAmbito.getCclIdOrigen()))
-              .idEmpresa(Integer.valueOf(runTareaDto.getTarea().getStdIdLegEnt()))
-              .fechaDesde(runTareaDto.getTarea().getFechaInicioPeriodo().toString())
-              .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString())
-              .listaTiendas(tiendasRequest).build());
+      final List<Integer> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(VentaIntegraRequestDto.builder()
+          .idOrigen(Integer.valueOf(tareaAmbito.getCclIdOrigen())).idEmpresa(Integer.valueOf(runTareaDto.getTarea().getStdIdLegEnt()))
+          .fechaDesde(runTareaDto.getTarea().getFechaInicioPeriodo().toString())
+          .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString()).listaTiendas(tiendasRequest).build());
 
       final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoDtoList = new ArrayList<>();
-      tiendasNoIntegras.forEach(x -> tareaFaseAccionDatoDtoList.add(
-          TareaFaseAccionDatoDto.builder()
-              .idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId())
-              .dato(x.toString()).build()));
+      tiendasNoIntegras
+          .forEach(x -> tareaFaseAccionDatoDtoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+              .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).dato(x.toString()).build()));
 
       this.tareaFaseAccionDatoService.save(tareaFaseAccionDatoDtoList);
+
     } catch (final Exception e) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-          EstadoTareaFaseAccionEnum.ERROR.getDto());
-      throw e;
+      this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getIdTrabajo(), e);
     }
 
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
