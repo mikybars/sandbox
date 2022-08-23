@@ -26,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 import javax.validation.Valid;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,9 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
   @Autowired
   private ValidacionMapper validacionMapper;
+
+  @Autowired
+  private Logger log;
 
   @Autowired
   @Qualifier("personasProperties")
@@ -113,6 +117,8 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.ERROR.getDto());
       AsyncUtils.cancel(cf);
+      this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getIdTrabajo(), e);
       throw e;
     } finally {
       this.primaryTemporaryTableRepositoryCustom.deleteTempComisPersonasLocalizaciones();
