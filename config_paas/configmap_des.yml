@@ -35,7 +35,7 @@ amiga:
       datasource:
         primary:
           driver-class-name: com.ibm.db2.jcc.DB2Driver
-          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
+          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;keepAliveTimeOut=15;
           username: uincome
         ptr:
           driver-class-name: oracle.jdbc.OracleDriver

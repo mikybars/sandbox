@@ -27,6 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +129,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
+
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -138,7 +141,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(17, result.size());
+    assertEquals(18, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -215,6 +218,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");

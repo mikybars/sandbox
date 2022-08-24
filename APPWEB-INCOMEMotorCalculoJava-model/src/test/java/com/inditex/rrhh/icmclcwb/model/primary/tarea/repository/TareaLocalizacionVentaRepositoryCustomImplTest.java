@@ -114,6 +114,8 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "batchSize", 100, true);
+    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom, "sqlUpdateActivoNegativoTotalizado",
+        SQL_UPDATE_ACTIVO_MANUAL_NEGATIVO_TOTALIZADO, true);
   }
 
   @Test
