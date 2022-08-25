@@ -290,6 +290,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_GRUPO_MANUAL = "idGrupoManual";
 
+  public static final String SQL_PARAM_ID_TIPO_CONCEPTO_VENTA = "idTipoVentaConcepto";
+
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
   public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
