@@ -1,7 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -38,6 +40,9 @@ public class TareaAgrupacionVentaRepositoryCustomImpl extends JdbcBatchPrimaryRe
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
         SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CONCEPTO_VENTA,
+        Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_VENTA.getId(),
+            TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     this.update(this.sqlUpdateActivo, parameters);
   }
