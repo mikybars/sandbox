@@ -3562,8 +3562,9 @@ FROM DATOS AS D
       /*(*/ SUM(IMPORTE_CON_IMPUESTOS) /*)*/ AS IMPORTE_CON_IMPUESTOS
     FROM TAREA_AGRUPACION_VENTA AGV
     WHERE AGV.ID_TAREA = :idTarea
-    AND agv.ID_TIPO_DATO IN (:idTipoImporteVentaFisicaAgrupacion, :idTipoImporteVentaEntregaDomicilioAgrupacion)
+    AND AGV.ID_TIPO_DATO IN (:idTipoImporteVentaFisicaAgrupacion, :idTipoImporteVentaEntregaDomicilioAgrupacion)
     AND FECHA <= :fechaFin
+    AND AGV.ES_ACTIVO = :activo
     GROUP BY ID_TAREA, ID_TIPO_DATO, ICM_ID_AGRUPACION_ONLINE, CCL_ID_ORIGEN)
     SELECT
       FECHAS.FECHA,
@@ -3720,6 +3721,7 @@ FROM DATOS AS D
       AGV.ID_TAREA = :idTarea
       AND AGV.ID_TIPO_DATO = :idTipoImporteVentaEntregaDomicilioAgrupacion
       AND AGV.FECHA <= :fechaFin
+      AND AGV.ES_ACTIVO = :activo
     GROUP BY
       ID_TAREA,
       ID_TIPO_DATO,
@@ -4078,20 +4080,17 @@ WHERE AGRUPADO.PESO > 1
                 AC.ID_TAREA = V.ID_TAREA
                 AND AC.ICM_ID_AGRUPACION_ONLINE = V.ICM_ID_AGRUPACION_ONLINE
                 AND V.ID_TIPO_DATO = :idTipoImporteVenta
-            JOIN TIPO_DATO TD
-                ON TD.ID_TIPO_DATO = V.ID_TIPO_DATO
-            JOIN TIPO_VENTA_CONCEPTO TVC
-                ON TD.ID_TIPO_VENTA = TVC.ID_TIPO_VENTA
             LEFT JOIN TAREA_AGRUPACION_CONFIGURACION C
             ON
                 AC.ID_TAREA = C.ID_TAREA
                 AND AC.ICM_ID_AGRUPACION_ONLINE = C.ICM_ID_AGRUPACION_ONLINE
                 AND V.FECHA >= C.FECHA_INICIO
                 AND V.FECHA <= C.FECHA_FIN
-                AND C.ID_TIPO_VENTA_CONCEPTO = TVC.ID_TIPO_VENTA_CONCEPTO
+                AND C.ID_TIPO_VENTA_CONCEPTO IN (:idTipoVentaConcepto)
+                AND C.PORCENTAJE_INCLUSION > :porcentajeInclusion
             WHERE
                 V.ID_TAREA = :idTarea
-                AND (C.ID_TAREA_AGRUPACION_CONFIGURACION IS NULL OR C.PORCENTAJE_INCLUSION = :porcentajeInclusion)
+                AND C.ID_TAREA_AGRUPACION_CONFIGURACION IS NULL
             GROUP BY V.ID_TAREA_AGRUPACION_VENTA) AS S
         ON (S.ID_TAREA_AGRUPACION_VENTA = VENTA.ID_TAREA_AGRUPACION_VENTA)
         WHEN MATCHED THEN
