@@ -96,7 +96,7 @@ public class TareaCalculoPersonaRepositoryCustomImplTest {
         ArgumentMatchers.<RowMapper<TareaCalculoPersona>>any());
     assertEquals(SQL_FIND_BY_ALGORITMO, this.sql.getValue());
     // parametros de la consulta SQL: idAlgoritmo, idTarea
-    assertEquals(2, this.params.getValue().getValues().size());
+    assertEquals(4, this.params.getValue().getValues().size());
     // idAlgoritmo
     assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_ALGORITMO));
     assertEquals(algoritmo.getId(), this.params.getValue().getValue(SQL_PARAM_ID_ALGORITMO));

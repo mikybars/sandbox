@@ -26,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -66,6 +68,9 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
 
   @Mock
   private TipoDatoService tipoDatoService;
+
+  @Mock
+  private Logger log;
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -122,7 +127,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(17, result.size());
+    assertEquals(18, result.size());
   }
 
   @Test
@@ -455,7 +460,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
     assertEquals(2, values.length);
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
-      assertEquals(17, value.getValues().size());
+      assertEquals(18, value.getValues().size());
     }
   }
 
@@ -943,6 +948,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBase
   private TareaDto createTareaDtoMock(final Long idTarea) {
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(idTarea);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
+
     return tarea;
   }
 
