@@ -121,6 +121,7 @@ public class VentasMonacoServiceImpl implements VentasMonacoService {
             .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(tarea,
                 tareaAmbito, periodo, this.recolectarProperties);
         request.setPais(AppConstants.ID_ORIGEN_MONACO_PTR);
+        request.setEmpresa(Arrays.asList(168));
         request.setTienda(iter.stream()
             .map(IdLocalizacionLocalDto::getId)
             .map(Integer::valueOf)
@@ -170,9 +171,14 @@ public class VentasMonacoServiceImpl implements VentasMonacoService {
       final PtrFilterPropertiesDto filter = this.ventaEcommerceProperties
           .get(PtrPropertiesConstants.VENTA_ONLINE_IPOD)
           .getFilter();
-      final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
-          .findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
-              tarea.getId(), tareaAmbito.getCclIdOrigen(), AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
+
+      final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
+          tarea.getId(), tareaAmbito.getCclIdOrigen(), AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
+
+      /*
+       * final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService .findIdCadenaDtoByIdTareaAndCclIdOrigen( tarea.getId(),
+       * tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.IPOD.getId());
+       */
       final LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(
           runTarea.getTrabajo().getTipoAmbito().getId());
 

@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentasMonacoService;
+import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import javax.validation.Valid;
@@ -25,6 +26,9 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
 
   @Autowired
   private VentasMonacoService ventasMonacoService;
+
+  @Autowired
+  private ValidacionMapper validacionMapper;
 
   @Override
   public ValidacionDto execute(
@@ -71,6 +75,6 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
     this.primaryVentasMonacoAsyncService.mergeIntoTareaLocalizacionVenta(runTarea.getTarea());
     this.primaryVentasMonacoAsyncService.deleteTempMonacoPtr();
 
-    return null;
+    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }
