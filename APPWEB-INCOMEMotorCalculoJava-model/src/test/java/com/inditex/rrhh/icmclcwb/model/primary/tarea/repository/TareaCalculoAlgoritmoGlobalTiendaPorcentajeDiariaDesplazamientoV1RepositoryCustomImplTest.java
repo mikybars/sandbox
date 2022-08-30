@@ -11,7 +11,6 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA;
@@ -124,7 +123,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoV1Re
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(19, result.size());
+    assertEquals(17, result.size());
   }
 
   @Test
@@ -408,10 +407,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoV1Re
     final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoV1RepositoryCustom
         .getMapValues(algoritmo, tarea, persona1);
 
-    // idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion
-    assertTrue(result.containsKey(
-        SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
-
   }
 
   @Test
@@ -441,7 +436,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoV1Re
     assertEquals(2, values.length);
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
-      assertEquals(19, value.getValues().size());
+      assertEquals(17, value.getValues().size());
     }
   }
 
@@ -775,17 +770,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoV1Re
     verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
     final MapSqlParameterSource[] values = this.params.getValue();
     assertEquals(2, values.length);
-    for (int i = 0; i < values.length; i++) {
-      final MapSqlParameterSource value = values[i];
-      // idTipoDatoIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion
-      assertTrue(value.hasValue(
-          SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
-      assertEquals(
-          TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
-              .getId(),
-          value.getValue(
-              SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION));
-    }
   }
 
   @Test

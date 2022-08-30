@@ -85,6 +85,11 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
   }
 
   @Override
+  public void presenciaDesplazamiento(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionPersonaPresenciaService.presenciaDesplazamiento(runTarea);
+  }
+
+  @Override
   public void indicadorPresenciaDesplazamiento(@Valid final RunTareaDto runTarea) {
     this.tareaLocalizacionPersonaPresenciaService.indicadorPresenciaDesplazamiento(runTarea);
   }
