@@ -121,7 +121,7 @@ public class VentasMonacoServiceImpl implements VentasMonacoService {
             .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(tarea,
                 tareaAmbito, periodo, this.recolectarProperties);
         request.setPais(AppConstants.ID_ORIGEN_MONACO_PTR);
-        request.setEmpresa(Arrays.asList(168));
+        request.setEmpresa(Arrays.asList(Integer.valueOf(AppConstants.STD_ID_LEG_ENT_MONACO)));
         request.setTienda(iter.stream()
             .map(IdLocalizacionLocalDto::getId)
             .map(Integer::valueOf)
