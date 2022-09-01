@@ -113,6 +113,8 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
       // comparar la info de la tabla temporal con los datos de Income
       validationResult = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);
+      this.log.info("Trabajo[{}]Tarea[{}] :: Ok :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getIdTrabajo(), validationResult);
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.ERROR.getDto());
