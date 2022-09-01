@@ -5,9 +5,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
  */
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
@@ -125,8 +123,6 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaDesplazamientoV1Re
     expected.put(SQL_PARAM_ID_ALGORITMO, this.algoritmo.getId());
     expected.put(SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(this.tarea.getFechaInicioPeriodo()));
     expected.put(SQL_PARAM_ID_TAREA, this.tarea.getId());
-    expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
     expected.put(SQL_PARAM_IDS_TIPOS_COMISION,
         this.algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));

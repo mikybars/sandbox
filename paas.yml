@@ -20,4 +20,6 @@ environments:
       - ssccarteixo
 tenants:
   - global
+slots:
+- our
 

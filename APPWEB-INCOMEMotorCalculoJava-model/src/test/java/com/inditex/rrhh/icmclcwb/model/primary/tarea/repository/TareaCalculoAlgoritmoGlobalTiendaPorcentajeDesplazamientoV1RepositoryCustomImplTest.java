@@ -1,9 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
@@ -145,7 +143,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(17, result.size());
+    assertEquals(15, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -170,12 +168,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     // stdOrHrPeriod
     assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
     assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
-    // comisionable
-    assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-    // calcula
-    assertTrue(result.containsKey(SQL_PARAM_CALCULA));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
     // excluido calculo
     assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
@@ -243,7 +235,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
     assertEquals(2, values.length);
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
-      assertEquals(17, value.getValues().size());
+      assertEquals(15, value.getValues().size());
       // activo
       assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
@@ -262,12 +254,6 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeDesplazamientoV1Reposito
       assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
       // fechaInicioPeriodo
       assertTrue(value.hasValue(SQL_PARAM_FECHA_INICIO_PERIODO));
-      // comisionable
-      assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
-      // calcula
-      assertTrue(value.hasValue(SQL_PARAM_CALCULA));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
       // excluido calculo
       assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_EXCLUIDO_CALCULO));

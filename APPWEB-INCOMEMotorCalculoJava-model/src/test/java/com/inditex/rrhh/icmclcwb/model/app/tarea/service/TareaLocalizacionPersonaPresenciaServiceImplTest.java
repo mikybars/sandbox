@@ -123,6 +123,15 @@ class TareaLocalizacionPersonaPresenciaServiceImplTest {
   }
 
   @Test
+  void presenciaDesplazamientoTest() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPersonaPresenciaServiceImpl.presenciaDesplazamiento(runTarea);
+    verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+        .presenciaDesplazamiento(any(RunTareaDto.class));
+  }
+
+  @Test
   void indicadorPresenciaDesplazamientoTest() {
     final RunTareaDto runTarea = mock(RunTareaDto.class);
 

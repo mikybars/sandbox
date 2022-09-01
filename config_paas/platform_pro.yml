@@ -1,9 +1,9 @@
 app:
   limits:
-    cpu: 2
+    cpu: 1
     memory: 6144Mi
-  replicas: 2
+  replicas: 1
   instrumented:
     replicas: 1
 datagrid:
-  replicas: 2
+  replicas: 1
