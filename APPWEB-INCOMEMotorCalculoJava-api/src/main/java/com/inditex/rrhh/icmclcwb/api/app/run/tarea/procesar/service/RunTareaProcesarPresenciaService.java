@@ -26,6 +26,8 @@ public interface RunTareaProcesarPresenciaService {
 
   void presenciaDesplazamiento(@Valid RunTareaDto runTarea);
 
+  void presenciaDesplazamientoChallengePorcentaje(@Valid RunTareaDto runTarea);
+
   void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea);
 
   void indicadorPresenciaDesplazamientoBase(@Valid RunTareaDto runTarea);

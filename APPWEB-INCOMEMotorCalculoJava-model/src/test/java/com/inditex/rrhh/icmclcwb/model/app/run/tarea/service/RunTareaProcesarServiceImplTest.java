@@ -163,6 +163,9 @@ class RunTareaProcesarServiceImplTest {
         .presenciaDesplazamiento(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .presenciaDesplazamientoChallengePorcentaje(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)

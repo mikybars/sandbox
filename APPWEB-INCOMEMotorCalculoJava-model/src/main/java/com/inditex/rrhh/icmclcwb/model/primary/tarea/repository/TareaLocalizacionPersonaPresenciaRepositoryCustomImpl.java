@@ -55,6 +55,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciaDesplazamiento']}")
   private String sqlPresenciaDesplazamiento;
 
+  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.presenciaDesplazamientoChallengePorcentaje']}")
+  private String sqlPresenciaDesplazamientoChallengePorcentaje;
+
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamientoBase']}")
   private String sqlIndicadorPresenciaDesplazamientoBase;
 
@@ -151,7 +154,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
             TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    this.update(this.sqlPresenciaDesplazamiento, parameters);
+    this.update(this.sqlPresenciaDesplazamientoChallengePorcentaje, parameters);
   }
 
   @Override

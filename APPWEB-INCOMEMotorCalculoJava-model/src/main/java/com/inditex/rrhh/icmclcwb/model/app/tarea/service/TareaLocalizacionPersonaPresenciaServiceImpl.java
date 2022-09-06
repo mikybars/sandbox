@@ -77,6 +77,11 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
   }
 
   @Override
+  public void presenciaDesplazamientoChallengePorcentaje(@Valid @NotNull final RunTareaDto runTareaDto) {
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciaDesplazamientoChallengePorcentaje(runTareaDto);
+  }
+
+  @Override
   public void indicadorPresenciaDesplazamiento(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPresenciaDesplazamiento(runTareaDto);
   }

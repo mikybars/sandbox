@@ -285,6 +285,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .presenciaDesplazamiento(runTarea);
       AsyncUtils.exceptionally(cfPresenciaDesplazamiento, cf, cfWait);
 
+      // presencia con desplazamiento challenge porcentaje
+      final CompletableFuture<Void> cfPresenciaDesplazamientoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
+          .presenciaDesplazamientoChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
+
       // Indicadores de presencia con desplazamiento base
       final CompletableFuture<Void> cfIndicadorPresenciaDesplazamientoBase = this.runTareaProcesarPresenciaAsyncService
           .indicadorPresenciaDesplazamientoBase(runTarea);
