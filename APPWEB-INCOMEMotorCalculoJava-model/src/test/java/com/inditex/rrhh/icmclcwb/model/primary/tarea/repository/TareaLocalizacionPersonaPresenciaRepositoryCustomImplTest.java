@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ABIERTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
@@ -10,11 +12,13 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO;
@@ -81,6 +85,10 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   private final static String SQL_COMPENSAR_CHALLENGE = "COMPENSAR CHALLENGE";
 
   private final static String SQL_INDICADOR_PRESENCIA = "INDICADOR PRESENCIA";
+
+  private final static String SQL_PRESENCIA_DESPLAZAMIENTO = "PRESENCIA DESPLAZAMIENTO";
+
+  private final static String SQL_PRESENCIA_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE = "PRESENCIA DESPLAZAMIENTO CHALLENGE PORCENTAJE";
 
   private final static String SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "INDICADOR PRESENCIA DESPLAZAMIENTO";
 
@@ -193,6 +201,12 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
         "sqlIndicadorDesplazamientoBaseDirectoVentaSinDesplazamiento",
         SQL_INDICADOR_DESPLAZAMIENTO_BASE_DIRECTO_VENTA_SIN_DESPLAZAMIENTO, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+        "sqlPresenciaDesplazamiento",
+        SQL_PRESENCIA_DESPLAZAMIENTO, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+        "sqlPresenciaDesplazamientoChallengePorcentaje",
+        SQL_PRESENCIA_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE, true);
 
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
   }
@@ -263,6 +277,92 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     // excluidoCalculo
     assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
+  }
+
+  @Test
+  void presenciaDesplazamientoTest() {
+
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(199L);
+    when(runTarea.getTarea()).thenReturn(tarea);
+
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciaDesplazamiento(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_PRESENCIA_DESPLAZAMIENTO, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
+    // excluidoCalculo
+    assertEquals(7, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    // idTipoDatoPresencia
+    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
+    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId(),
+        params.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
+    // excluidoCalculo
+    assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
+    // idsTiposDato
+    assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+    assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
+        params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
+    // comisionable
+    assertTrue(params.hasValue(SQL_PARAM_COMISIONABLE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_COMISIONABLE));
+    // calcula
+    assertTrue(params.hasValue(SQL_PARAM_CALCULA));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_CALCULA));
+  }
+
+  @Test
+  void presenciaDesplazamientoChallengePorcentajeTest() {
+
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(199L);
+    when(runTarea.getTarea()).thenReturn(tarea);
+
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.presenciaDesplazamientoChallengePorcentaje(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_PRESENCIA_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
+    // excluidoCalculo
+    assertEquals(7, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    // idTipoDatoPresencia
+    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
+    assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOCHALLENGEPORCENTAJE_DESPLAZAMIENTO.getId(),
+        params.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
+    // excluidoCalculo
+    assertTrue(params.hasValue(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
+    // idsTiposDato
+    assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
+    assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_MANUAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId(),
+        TipoDatoEnum.PRESENCIA_HORAS_FIJAS_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()),
+        params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
+    // comisionable
+    assertTrue(params.hasValue(SQL_PARAM_COMISIONABLE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_COMISIONABLE));
+    // calcula
+    assertTrue(params.hasValue(SQL_PARAM_CALCULA));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_CALCULA));
   }
 
   @Test

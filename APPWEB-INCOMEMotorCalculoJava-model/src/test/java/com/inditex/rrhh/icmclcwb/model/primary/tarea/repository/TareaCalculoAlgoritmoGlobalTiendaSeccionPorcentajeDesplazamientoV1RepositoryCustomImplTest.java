@@ -3,10 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
@@ -44,7 +43,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
@@ -104,8 +102,6 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Reposito
     this.algoritmo.setDesplazamientoBase(false);
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(tiposDatoVenta);
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-        .thenReturn(tiposDatoPersonaPresencia);
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()))
         .thenReturn(tiposDatoPresencia);
 
@@ -114,8 +110,6 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Reposito
 
     verify(this.tipoDatoService, times(1))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId());
-    verify(this.tipoDatoService, times(1))
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     verify(this.tipoDatoService, times(1)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
     final Map<String, Object> expected = new HashMap<>();
@@ -125,12 +119,10 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Reposito
     expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-        tiposDatoPersonaPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId());
     expected.put(SQL_PARAM_ID_ALGORITMO, this.algoritmo.getId());
     expected.put(SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(this.tarea.getFechaInicioPeriodo()));
     expected.put(SQL_PARAM_ID_TAREA, this.tarea.getId());
-    expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SQL_PARAM_CALCULA, SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SQL_PARAM_EXCLUIDO_CALCULO, SQL_VALUE_BOOLEAN_FALSE);
     expected.put(SQL_PARAM_IDS_TIPOS_COMISION,
         this.algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
@@ -140,8 +132,6 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDesplazamientoV1Reposito
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
     expected.put(SQL_PARAM_CCL_ID_PERSON, this.persona.getIdPersonaLocal());
     expected.put(SQL_PARAM_STD_OR_HR_PERIOD, this.persona.getStdOrHrPeriod());
-    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
 
     assertNotNull(result);
     assertEquals(expected, result);
