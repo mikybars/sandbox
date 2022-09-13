@@ -21,6 +21,10 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
   void indicadorPresencia(@NotNull RunTareaDto runTareaDto);
 
+  void presenciaDesplazamiento(@NotNull RunTareaDto runTareaDto);
+
+  void presenciaDesplazamientoChallengePorcentaje(@NotNull RunTareaDto runTareaDto);
+
   void indicadorPresenciaDesplazamiento(@NotNull RunTareaDto runTareaDto);
 
   void indicadorPresenciaDesplazamientoBase(@NotNull RunTareaDto runTareaDto);
@@ -32,8 +36,6 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
   void presenciasHorasFijasDesplazamiento(@NotNull RunTareaDto runTareaDto);
 
   void indicadorPersonaPorVenta(@NotNull RunTareaDto runTareaDto);
-
-  void indicadorPersonaPorVentaSimplificada(@NotNull RunTareaDto runTareaDto);
 
   void compensarChallenge(@NotNull RunTareaDto runTareaDto);
 

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePorVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaVentaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoVentaRepositoryCustom;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 @Service
@@ -48,6 +51,9 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
 
   @Autowired
   private TipoDatoService tipoDatoService;
+
+  @Autowired
+  private PrimaryTemporaryTablePorVentaRepositoryCustom primaryTemporaryTablePorVentaRepositoryCustom;
 
   @Override
   public void saveAbierto(@Valid final RunTareaDto runTarea) {
@@ -178,56 +184,39 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
-  public void totalizarVentaPersonasPorVentaSimplificada(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVentaSimplificada(tarea.getTarea());
+  public void totalizarVentaSinDevolucionPersonaLocalizacion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaLocalizacion(tarea.getTarea());
   }
 
   @Override
-  public void totalizarVentaPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion(tarea.getTarea());
+  public void totalizarDevolucionPersonaLocalizacion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaLocalizacion(tarea.getTarea());
   }
 
   @Override
-  public void totalizarVentaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionFisicaPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
-  public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionPersonaVentaRepositoryCustom
-        .totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
-  }
-
-  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void calcularImporteComisionVendedores(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    try {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
+      this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVendedores(tarea.getTarea());
+    } finally {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();
+    }
   }
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void calcularImporteComisionVentaODevolucion(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
+    try {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacion(tarea.getTarea());
+      this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
+    } finally {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();
+    }
   }
 
   @Override
@@ -236,8 +225,8 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
-  public void totalizarVentasVendedor0(@Valid final RunTareaDto tarea) {
-    this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasVendedor0(tarea.getTarea());
+  public void totalizarDevolucionesVendedor0(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0(tarea.getTarea());
   }
 
   @Override
@@ -248,6 +237,19 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   @Override
   public void updateActivoManual(@Valid final RunTareaDto tarea) {
     this.tareaLocalizacionVentaRepositoryCustom.updateActivoManual(tarea.getTarea());
+  }
+
+  @Override
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void devolucionImporte0(@Valid final RunTareaDto tarea) {
+    try {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.createTempDatesEstructurasPorVenta();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.indexTempDatesEstructurasPorVenta();
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempDatesEstructurasPorVenta(tarea.getTarea());
+      this.tareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0(tarea.getTarea());
+    } finally {
+      this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempDatesEstructurasPorVenta();
+    }
   }
 
 }

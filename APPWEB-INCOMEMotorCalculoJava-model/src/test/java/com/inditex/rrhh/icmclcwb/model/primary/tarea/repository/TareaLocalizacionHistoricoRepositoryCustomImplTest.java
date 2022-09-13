@@ -6,6 +6,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_CONCEPTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO;
 
@@ -20,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
@@ -66,6 +68,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
 
   private static final String SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA = "SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA";
 
+  private static final String SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA =
+      "SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -106,6 +111,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         SQL_FIND_ID_LOCALIZACION_LOCAL_BY_ID_TAREA_AND_ORIGEN_IN_AMBITO_LOCALIZACION, true);
     FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
         "sqlFindIdLocalizacionPresupuestosByIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, true);
+    FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
+        "sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA,
+        true);
     FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
         "batchSize", 100, true);
   }
@@ -309,6 +317,40 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(),
             TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()),
         this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+  }
+
+  @Test
+  public void findIdLocalizacionPresupuestosByStdIdLegEntAndIdTareaTest() {
+    final Long idTarea = 23L;
+    final List<String> stdIdLegEnt = Arrays.asList("23");
+    final List<Long> idTipoConceptoVentaChallenge = Arrays.asList(1L);
+    this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(stdIdLegEnt, idTarea,
+        idTipoConceptoVentaChallenge);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
+    assertEquals(SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA, this.sql.getValue());
+    // parametros de la consulta: idTarea
+    assertEquals(6, this.params.getValue().getValues().size());
+    // idTarea
+    assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(this.params.getValue().hasValue(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ACTIVO));
+    // empresa
+    assertTrue(this.params.getValue().hasValue(SQL_PARAM_STD_ID_LEG_ENT));
+    assertEquals(stdIdLegEnt, this.params.getValue().getValue(SQL_PARAM_STD_ID_LEG_ENT));
+    // tiposComision
+    assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(
+        Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(),
+            TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()),
+        this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
+    // tiposCalculo
+    assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(
+        Arrays.asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
+        this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
   }
 
 }

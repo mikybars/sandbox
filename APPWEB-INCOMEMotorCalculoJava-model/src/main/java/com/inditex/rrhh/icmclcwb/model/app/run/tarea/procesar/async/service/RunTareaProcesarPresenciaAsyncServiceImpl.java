@@ -95,6 +95,18 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
   }
 
   @Override
+  public CompletableFuture<Void> presenciaDesplazamiento(final RunTareaDto runTarea) {
+    this.runTareaProcesarPresenciaService.presenciaDesplazamiento(runTarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
+  public CompletableFuture<Void> presenciaDesplazamientoChallengePorcentaje(final RunTareaDto runTarea) {
+    this.runTareaProcesarPresenciaService.presenciaDesplazamientoChallengePorcentaje(runTarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
   public CompletableFuture<Void> indicadorPresenciaDesplazamientoBase(final RunTareaDto runTarea) {
     this.runTareaProcesarPresenciaService.indicadorPresenciaDesplazamientoBase(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -123,12 +135,6 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
   @Override
   public CompletableFuture<Void> indicadorPersonaPorVenta(final RunTareaDto runTarea) {
     this.runTareaProcesarPresenciaService.indicadorPersonaPorVenta(runTarea);
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  @Override
-  public CompletableFuture<Void> indicadorPersonaPorVentaSimplificada(final RunTareaDto runTarea) {
-    this.runTareaProcesarPresenciaService.indicadorPersonaPorVentaSimplificada(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

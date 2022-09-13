@@ -3,10 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_COMISIONABLE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
@@ -141,7 +140,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(18, result.size());
+    assertEquals(15, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -164,12 +163,6 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     // stdOrHrPeriod
     assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
     assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
-    // comisionable
-    assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-    // calcula
-    assertTrue(result.containsKey(SQL_PARAM_CALCULA));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
     // incluido challenge porcentaje
     assertTrue(result.containsKey(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
