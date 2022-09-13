@@ -24,6 +24,10 @@ public interface RunTareaProcesarPresenciaService {
 
   void indicadorPresencia(@Valid RunTareaDto runTarea);
 
+  void presenciaDesplazamiento(@Valid RunTareaDto runTarea);
+
+  void presenciaDesplazamientoChallengePorcentaje(@Valid RunTareaDto runTarea);
+
   void indicadorPresenciaDesplazamiento(@Valid RunTareaDto runTarea);
 
   void indicadorPresenciaDesplazamientoBase(@Valid RunTareaDto runTarea);
@@ -39,8 +43,6 @@ public interface RunTareaProcesarPresenciaService {
   void presenciasHorasFijasDesplazamientos(@Valid RunTareaDto runTarea);
 
   void indicadorPersonaPorVenta(@Valid RunTareaDto runTarea);
-
-  void indicadorPersonaPorVentaSimplificada(@Valid RunTareaDto runTarea);
 
   void compensarChallenge(@Valid RunTareaDto runTarea);
 

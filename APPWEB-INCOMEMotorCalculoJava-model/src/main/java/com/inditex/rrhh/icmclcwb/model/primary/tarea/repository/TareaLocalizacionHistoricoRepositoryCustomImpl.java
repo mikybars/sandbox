@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
@@ -349,6 +350,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
         .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays
+        .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE, idTipoConceptoVentaChallenge);
 
     return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,

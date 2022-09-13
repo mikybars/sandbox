@@ -88,28 +88,13 @@ class RunTareaProcesarServiceImplTest {
         .totalizarDevolucionLocalizacionSeccion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaSinDevolucionLocalizacionSeccion(this.runTarea);
+        .totalizarVentaSinDevolucionLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaPersonaSeccion(this.runTarea);
+        .totalizarVentaSinDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaSinDevolucionPersonaSeccion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaFisicaSinDevolucionPersonaSeccion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarDevolucionFisicaPersonaSeccion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarDevolucionOnlineIpodPersonaSeccion(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarDevolucionPersonaSeccion(this.runTarea);
+        .totalizarDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbierto(this.runTarea);
@@ -175,10 +160,13 @@ class RunTareaProcesarServiceImplTest {
         .indicadorPresenciaDesplazamientoBase(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
-        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(this.runTarea);
+        .presenciaDesplazamiento(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
-        .indicadorPersonaPorVentaSimplificada(this.runTarea);
+        .presenciaDesplazamientoChallengePorcentaje(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPersonaPorVenta(this.runTarea);
@@ -208,13 +196,10 @@ class RunTareaProcesarServiceImplTest {
         .calcularPresenciasTotalesAgrupacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentaPersonasPorVentaSimplificada(this.runTarea);
-
-    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarVentaSinDevolucionPersonasPorVenta(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
-        .totalizarVentasVendedor0(this.runTarea);
+        .totalizarDevolucionesVendedor0(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .repartoVentaEntregaDomicilioPorVentasAgrupaciones(this.runTarea);
@@ -251,6 +236,9 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .calcularImporteComisionVentaODevolucion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .devolucionImporte0(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .updateActivoNegativoTotalizado(this.runTarea);

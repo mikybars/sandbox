@@ -42,21 +42,9 @@ public interface RunTareaProcesarVentaService {
 
   void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);
 
-  void totalizarVentaPersonasPorVentaSimplificada(@Valid RunTareaDto tarea);
+  void totalizarVentaSinDevolucionPersonaLocalizacion(@Valid RunTareaDto tarea);
 
-  void totalizarVentaPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarVentaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
-
-  void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
+  void totalizarDevolucionPersonaLocalizacion(@Valid RunTareaDto tarea);
 
   void calcularImporteComisionVendedores(@Valid RunTareaDto tarea);
 
@@ -70,12 +58,14 @@ public interface RunTareaProcesarVentaService {
 
   void totalizarPresupuesto(@Valid RunTareaDto runTarea);
 
-  void totalizarVentasVendedor0(@Valid RunTareaDto tarea);
+  void totalizarDevolucionesVendedor0(@Valid RunTareaDto tarea);
 
   void repartoDevolucionVendedor0(@Valid RunTareaDto tarea);
 
   void updateActivoCongeladaSeccion(@Valid RunTareaDto runTarea);
 
   void updateActivoManual(@Valid RunTareaDto tarea);
+
+  void devolucionImporte0(@Valid RunTareaDto tarea);
 
 }

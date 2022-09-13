@@ -61,7 +61,7 @@ import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;

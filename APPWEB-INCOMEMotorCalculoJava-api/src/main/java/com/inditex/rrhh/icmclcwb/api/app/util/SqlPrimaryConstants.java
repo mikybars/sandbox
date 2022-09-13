@@ -10,8 +10,6 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA = "idTipoGrupoDatoVenta";
 
-  public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_DEVOLUCION = "idTipoGrupoDatoDevolucion";
-
   public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_CONGELADA = "idTipoGrupoDatoVentaCongelada";
 
   public static final String SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA_REAL = "idTipoGrupoDatoVentaReal";
@@ -128,6 +126,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_PARAM_ID_TIPO_DATO_VENTA_RANGO_LOCALIZACION_SECCION = "idtipoVentaRangoLocalizacionSeccion";
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
+
+  public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoPresenciaDesplazamiento";
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
 
@@ -292,6 +292,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_GRUPO_MANUAL = "idGrupoManual";
 
+  public static final String SQL_PARAM_ID_TIPO_CONCEPTO_VENTA = "idTipoVentaConcepto";
+
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
   public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -309,6 +311,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_PARAM_ESTADO_CON_ERRORES = "idEstadoConErrores";
 
   public static final String SQL_PARAM_NUEVA_FECHA = "nuevaFecha";
+
+  public static final String SQL_PARAM_NUEVO_IMPORTE = "nuevoImporte";
 
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_TRASLADADA =
       "idTipoDatoVentaEntregaDomicilioLocalizacionTrasladada";

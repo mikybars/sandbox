@@ -20,8 +20,6 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
   void totalizarDevolucionLocalizacionSeccion(TareaDto tarea);
 
-  void totalizarVentaPersonasPorVentaSimplificada(TareaDto tarea);
-
   void totalizarVentaSinDevolucionPersonasPorVenta(TareaDto tarea);
 
   void calcularImporteComisionVendedores(TareaDto tarea);
@@ -30,7 +28,7 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
   void updateActivoNegativoTotalizado(@NotNull TareaDto tarea);
 
-  void totalizarVentasVendedor0(@NotNull TareaDto tarea);
+  void totalizarDevolucionesVendedor0(@NotNull TareaDto tarea);
 
   void repartoDevolucionVendedor0(@NotNull TareaDto tarea);
 
