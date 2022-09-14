@@ -280,16 +280,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .indicadorPresenciaDesplazamiento(runTarea);
       AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamiento, cf, cfWait);
 
-      // presencia con desplazamiento
-      final CompletableFuture<Void> cfPresenciaDesplazamiento = this.runTareaProcesarPresenciaAsyncService
-          .presenciaDesplazamiento(runTarea);
-      AsyncUtils.exceptionally(cfPresenciaDesplazamiento, cf, cfWait);
-
-      // presencia con desplazamiento challenge porcentaje
-      final CompletableFuture<Void> cfPresenciaDesplazamientoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
-          .presenciaDesplazamientoChallengePorcentaje(runTarea);
-      AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
-
       // Indicadores de presencia con desplazamiento base
       final CompletableFuture<Void> cfIndicadorPresenciaDesplazamientoBase = this.runTareaProcesarPresenciaAsyncService
           .indicadorPresenciaDesplazamientoBase(runTarea);
@@ -334,6 +324,20 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCalcularPresenciasTotalesAgrupacion = this.runTareaProcesarPresenciaAsyncService
           .calcularPresenciasTotalesAgrupacion(runTarea);
       AsyncUtils.exceptionally(cfCalcularPresenciasTotalesAgrupacion, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
+      // presencia con desplazamiento
+      final CompletableFuture<Void> cfPresenciaDesplazamiento = this.runTareaProcesarPresenciaAsyncService
+          .presenciaDesplazamiento(runTarea);
+      AsyncUtils.exceptionally(cfPresenciaDesplazamiento, cf, cfWait);
+
+      // presencia con desplazamiento challenge porcentaje
+      final CompletableFuture<Void> cfPresenciaDesplazamientoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
+          .presenciaDesplazamientoChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
