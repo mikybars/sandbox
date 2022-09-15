@@ -175,10 +175,6 @@ public class VentasMonacoServiceImpl implements VentasMonacoService {
       final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService.findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
           tarea.getId(), tareaAmbito.getCclIdOrigen(), AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
 
-      /*
-       * final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService .findIdCadenaDtoByIdTareaAndCclIdOrigen( tarea.getId(),
-       * tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.IPOD.getId());
-       */
       final LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(
           runTarea.getTrabajo().getTipoAmbito().getId());
 
@@ -384,20 +380,6 @@ public class VentasMonacoServiceImpl implements VentasMonacoService {
       AsyncUtils.cancel(cf);
       throw e;
     }
-  }
-
-  @Override
-  public CompletableFuture<Void> ventaManualLocalizacionByRunTarea(final RunTareaDto runTarea) {
-    runTarea.getTarea()
-        .getAmbito()
-        .stream()
-        .forEach(item -> this.ventaManualWlocByRunTareaAndTareaAmbito(runTarea, item));
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
-  }
-
-  private void ventaManualWlocByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
-    // NO HACE PETICION A PTR SINO A META4
   }
 
   @Override

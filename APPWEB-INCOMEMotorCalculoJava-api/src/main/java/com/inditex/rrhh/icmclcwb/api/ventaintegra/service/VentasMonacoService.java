@@ -14,8 +14,6 @@ public interface VentasMonacoService {
 
   CompletableFuture<Void> ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea);
 
-  CompletableFuture<Void> ventaManualLocalizacionByRunTarea(final RunTareaDto runTarea);
-
   CompletableFuture<Void> ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(final RunTareaDto runTarea);
 
 }
