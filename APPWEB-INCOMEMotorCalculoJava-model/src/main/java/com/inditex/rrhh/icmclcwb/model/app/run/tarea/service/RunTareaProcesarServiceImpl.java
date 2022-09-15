@@ -154,6 +154,22 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .devolucionImporte0(runTarea);
       AsyncUtils.exceptionally(cfDevolucionImporte0, cf, cfWait);
 
+      final CompletableFuture<Void> cfTotalizarVentaFisicaSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarVentaFisicaSinDevolucionPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarVentaFisicaSinDevolucionPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucionOnlineIpodPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionOnlineIpodPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionOnlineIpodPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucionFisicaPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionFisicaPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionFisicaPersonaSeccion, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/

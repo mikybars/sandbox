@@ -252,4 +252,27 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     }
   }
 
+  @Override
+  public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarDevolucionFisicaPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
+  }
+
 }

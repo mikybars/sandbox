@@ -68,4 +68,11 @@ public interface RunTareaProcesarVentaService {
 
   void devolucionImporte0(@Valid RunTareaDto tarea);
 
+  void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
 }
