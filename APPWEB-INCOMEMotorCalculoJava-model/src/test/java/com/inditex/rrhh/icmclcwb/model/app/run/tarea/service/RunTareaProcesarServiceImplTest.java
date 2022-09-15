@@ -97,7 +97,19 @@ class RunTareaProcesarServiceImplTest {
         .totalizarDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarVentaFisicaSinDevolucionPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbierto(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionOnlineIpodPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionFisicaPersonaSeccion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbiertoSeccion(this.runTarea);
