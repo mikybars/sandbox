@@ -137,10 +137,14 @@ app:
   envars:
     calculo:
       cast: true
-      precision: 'DECIMAL(23,8)'
+      precision: 'DECIMAL(23,2)'
+      round: true
+      decimal: 2
     proceso:
       cast: true
       precision: 'DECIMAL(23,8)'
+      round: false
+      decimal: 8
     tarea:
       recolectar:
         days-number: 3

@@ -34,54 +34,73 @@ public class QueryPrimaryConfig {
 
   private static final String CAST_RESULT_INICIO = "CAST(";
 
-  private static final String CAST_RESULT_FIN = "AS ${precision})";
+  private static final String CAST_RESULT_ROUND_INICIO = "ROUND(";
+
+  private static final String CAST_RESULT_ROUND_FIN = ", ${decimal} )";
+
+  private static final String CAST_RESULT_FIN = " AS ${precision})";
 
   private static final String CAST_VAR_PRECISION = "${precision}";
+
+  private static final String CAST_VAR_DECIMAL = "${decimal}";
 
   @Value("${app.envars.calculo.cast}")
   private boolean castCalculo;
 
+  @Value("${app.envars.calculo.round}")
+  private boolean roundCalculo;
+
   @Value("${app.envars.calculo.precision}")
   private String precisionCalculo;
+
+  @Value("${app.envars.calculo.decimal}")
+  private String decimalCalculo;
 
   @Value("${app.envars.proceso.cast}")
   private boolean castProceso;
 
+  @Value("${app.envars.proceso.round}")
+  private boolean roundProceso;
+
   @Value("${app.envars.proceso.precision}")
   private String precisionProceso;
 
+  @Value("${app.envars.proceso.decimal}")
+  private String decimalProceso;
+
   @Bean(name = "primaryQuery")
   public PropertiesFactoryBean primaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_COMMON, this.precisionProceso, this.castProceso);
+    return this.loadBean(resourceLoader, RESOURCE_COMMON, this.precisionProceso, this.decimalProceso, this.castProceso, this.roundProceso);
   }
 
   @Bean(name = "calculoPrimaryQuery")
   public PropertiesFactoryBean calculoPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_CALCULO, this.precisionCalculo, this.castCalculo);
+    return this.loadBean(resourceLoader, RESOURCE_CALCULO, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
   }
 
   @Bean(name = "limpiezaPrimaryQuery")
   public PropertiesFactoryBean limpiezaPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_LIMPIEZA, this.precisionCalculo, this.castCalculo);
+    return this.loadBean(resourceLoader, RESOURCE_LIMPIEZA, this.precisionCalculo, this.decimalCalculo, this.castCalculo,
+        this.roundCalculo);
   }
 
   @Bean(name = "comisPrimaryQuery")
   public PropertiesFactoryBean comisPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_COMIS, this.precisionCalculo, this.castCalculo);
+    return this.loadBean(resourceLoader, RESOURCE_COMIS, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
   }
 
   @Bean(name = "ptrPrimaryQuery")
   public PropertiesFactoryBean ptrPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_PTR, this.precisionCalculo, this.castCalculo);
+    return this.loadBean(resourceLoader, RESOURCE_PTR, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
   }
 
   @Bean(name = "meta4PrimaryQuery")
   public PropertiesFactoryBean meta4PrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
-    return this.loadBean(resourceLoader, RESOURCE_META4, this.precisionCalculo, this.castCalculo);
+    return this.loadBean(resourceLoader, RESOURCE_META4, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
   }
 
   private PropertiesFactoryBean loadBean(final ResourceLoader resourceLoader, final String resource,
-      final String precision, final boolean cast) throws IOException {
+      final String precision, final String decimal, final boolean cast, final boolean round) throws IOException {
     final PropertiesFactoryBean bean = new PropertiesFactoryBean();
     final Resource[] resources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
         .getResources(resource);
@@ -92,8 +111,15 @@ public class QueryPrimaryConfig {
     String castInicio = StringUtils.EMPTY;
     String castFin = StringUtils.EMPTY;
     if (cast) {
-      castInicio = CAST_RESULT_INICIO;
-      castFin = CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
+      if (round) {
+        castInicio = CAST_RESULT_INICIO + CAST_RESULT_ROUND_INICIO;
+        castFin = CAST_RESULT_ROUND_FIN.replace(CAST_VAR_DECIMAL, decimal)
+            +
+            CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
+      } else {
+        castInicio = CAST_RESULT_INICIO;
+        castFin = CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
+      }
     }
     for (final Entry<Object, Object> entry : props.entrySet()) {
       String prop = (String) entry.getValue();
