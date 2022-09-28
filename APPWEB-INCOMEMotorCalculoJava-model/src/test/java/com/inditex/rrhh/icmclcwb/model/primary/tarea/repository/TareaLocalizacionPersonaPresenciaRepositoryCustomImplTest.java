@@ -12,6 +12,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO_VENTA;
@@ -294,7 +295,7 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
     // excluidoCalculo
-    assertEquals(7, params.getValues().size());
+    assertEquals(8, params.getValues().size());
     // idTarea
     assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
     assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
@@ -305,6 +306,10 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
     assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId(),
         params.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO));
+    // idTipoDatoIndicadorPresenciaDesplazamiento
+    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
+    assertEquals(TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
+        params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
     // excluidoCalculo
     assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));

@@ -1,12 +1,14 @@
 package com.inditex.rrhh.icmclcwb.ptr.venta;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.Map;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
@@ -27,35 +29,23 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mock;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
-@ActiveProfiles({"standalone", "test"})
-@EnableAutoConfiguration
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+
 @Disabled
 public class PtrVentaEcommerceServiceTest {
 
-  @Autowired
-  @Qualifier("ptrVentaClient")
+  @Mock
   private RestClient ptrVentaClient;
 
-  @Autowired
-  @Qualifier("ventaEcommerceProperties")
+  @Mock
   protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
-
-  @Autowired
-  @Qualifier("ventaVersion")
-  private String version;
 
   @Test
   public void ventaOnlineIpodTiendaSeccion() {
@@ -177,11 +167,15 @@ public class PtrVentaEcommerceServiceTest {
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
     request.setExcluirIpod(PtrTestConstants.EXCLUIDO_IPOD);
 
-    final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
-        .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
-            request, PtrVentaOnlinePickingResponseDto.class);
+    verify(this.ptrVentaClient, timeout(1000).times(1)).postForEntity("getVentaOnlineIpodIndividualDetalle",
+        request, PtrVentaOnlinePickingResponseDto.class);
 
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    /*
+     * final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
+     * .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(), request,
+     * PtrVentaOnlinePickingResponseDto.class);
+     */
+    // assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
   }
 
   @Test
