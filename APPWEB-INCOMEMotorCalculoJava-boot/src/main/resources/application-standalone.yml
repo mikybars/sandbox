@@ -868,7 +868,7 @@ app:
         max-attempts: 20
         credentials:
           user: INCOME_CALC
-          password: '${INCOME_CALC}'
+          password: '${incomecalc}'
           #          user: SRVCICMCLCWSDESAX
           #          password: '${SRVCICMCLCWSDESAX}'
           #          user: SRVCICMCLCWSPREAX
