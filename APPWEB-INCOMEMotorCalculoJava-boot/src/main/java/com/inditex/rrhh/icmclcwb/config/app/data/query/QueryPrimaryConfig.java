@@ -32,6 +32,10 @@ public class QueryPrimaryConfig {
 
   private static final String CAST_REPLACE_FIN = "/*)*/";
 
+  private static final String CAST_REPLACE_ROUND_INICIO = "/*R(*/";
+
+  private static final String CAST_REPLACE_ROUND_FIN = "/*)R*/";
+
   private static final String CAST_RESULT_INICIO = "CAST(";
 
   private static final String CAST_RESULT_ROUND_INICIO = "ROUND(";
@@ -110,21 +114,23 @@ public class QueryPrimaryConfig {
     final Properties props = bean.getObject();
     String castInicio = StringUtils.EMPTY;
     String castFin = StringUtils.EMPTY;
+    String roundInicio = StringUtils.EMPTY;
+    String roundFin = StringUtils.EMPTY;
+
     if (cast) {
-      if (round) {
-        castInicio = CAST_RESULT_INICIO + CAST_RESULT_ROUND_INICIO;
-        castFin = CAST_RESULT_ROUND_FIN.replace(CAST_VAR_DECIMAL, decimal)
-            +
-            CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
-      } else {
-        castInicio = CAST_RESULT_INICIO;
-        castFin = CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
-      }
+      castInicio = CAST_RESULT_INICIO;
+      castFin = CAST_RESULT_FIN.replace(CAST_VAR_PRECISION, precision);
+    }
+    if (round) {
+      roundInicio = CAST_RESULT_ROUND_INICIO;
+      roundFin = CAST_RESULT_ROUND_FIN.replace(CAST_VAR_DECIMAL, decimal);
     }
     for (final Entry<Object, Object> entry : props.entrySet()) {
       String prop = (String) entry.getValue();
       prop = prop.replace(CAST_REPLACE_INICIO, castInicio);
       prop = prop.replace(CAST_REPLACE_FIN, castFin);
+      prop = prop.replace(CAST_REPLACE_ROUND_INICIO, roundInicio);
+      prop = prop.replace(CAST_REPLACE_ROUND_FIN, roundFin);
       props.put(entry.getKey(), prop);
     }
     bean.setLocalOverride(true);

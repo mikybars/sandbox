@@ -137,7 +137,7 @@ app:
   envars:
     calculo:
       cast: true
-      precision: 'DECIMAL(23,2)'
+      precision: 'DECIMAL(23,8)'
       round: true
       decimal: 2
     proceso:
