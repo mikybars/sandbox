@@ -134,7 +134,6 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
         TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
 
     this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
 
@@ -212,7 +211,6 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
         TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION,
         TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
         Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(),
             TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId()));
