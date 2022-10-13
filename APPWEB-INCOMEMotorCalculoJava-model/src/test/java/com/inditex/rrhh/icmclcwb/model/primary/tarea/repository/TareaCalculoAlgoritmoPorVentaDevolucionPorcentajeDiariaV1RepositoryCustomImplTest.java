@@ -187,7 +187,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1Repository
         result.get(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
     // idTipoDatoDevolucionLocalizacion
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
-    assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(),
+    assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(),
         result.get(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
     // idTipoDatoImporteComisionDevolucion
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));
@@ -321,7 +321,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1Repository
           value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA));
       // idTipoDatoDevolucionLocalizacion
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
-      assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(),
+      assertEquals(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(),
           value.getValue(SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION));
       // idTipoDatoImporteComisionDevolucion
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION));

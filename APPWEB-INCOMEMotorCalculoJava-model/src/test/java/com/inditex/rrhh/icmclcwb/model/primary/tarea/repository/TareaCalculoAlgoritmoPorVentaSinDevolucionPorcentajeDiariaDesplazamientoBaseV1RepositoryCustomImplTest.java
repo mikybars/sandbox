@@ -189,7 +189,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
         result.get(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
     // idTipoDatoVentaSinDevolucionLocalizacionSeccion
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-    assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId(),
+    assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(),
         result.get(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
     // idTipoDatoVentaLocalizacionPersonasPorVenta
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));
@@ -328,7 +328,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazam
           value.getValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONA));
       // idTipoDatoVentaSinDevolucionLocalizacionSeccion
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
-      assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId(),
+      assertEquals(TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId(),
           value.getValue(SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION));
       // idTipoDatoVentaLocalizacionPersonasPorVenta
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_IMPORTE_VENTA_LOCALIZACION_PERSONAS_POR_VENTA));

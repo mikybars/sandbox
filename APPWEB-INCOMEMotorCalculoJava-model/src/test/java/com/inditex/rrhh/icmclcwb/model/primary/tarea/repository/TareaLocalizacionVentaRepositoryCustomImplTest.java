@@ -271,7 +271,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     final Map<String, Object> expected = new HashMap<>();
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
@@ -292,7 +292,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     final Map<String, Object> expected = new HashMap<>();
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION_TOTALIZADA.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -365,12 +365,13 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
 
     final Map<String, Object> expected = new HashMap<>();
-    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION, TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION,
+        TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION,
-        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId());
+        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId(),
-        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, Arrays.asList(TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId(),
+        TipoDatoEnum.VENTA_SIN_DEVOLUCION_LOCALIZACION_SECCION.getId()));
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES,
         TipoDatoEnum.IMPORTE_COMISION_VENDEDORES_POR_VENTA.getId());
