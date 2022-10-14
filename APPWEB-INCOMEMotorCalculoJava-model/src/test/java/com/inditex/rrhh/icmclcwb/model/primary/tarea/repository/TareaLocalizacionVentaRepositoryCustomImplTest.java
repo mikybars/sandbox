@@ -98,6 +98,8 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlTotalizarOperacionesLocalizacionSeccion", SQL_TOTALIZAR_OPERACIONES_SECCION, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
+        "sqlTotalizarOperacionesLocalizacion", SQL_TOTALIZAR_OPERACIONES_LOCALIZACION, true);
+    FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlCalcularImporteComisionVendedores", SQL_CALCULAR_IMPORTE_COMISION_VENDEDORES, true);
@@ -273,7 +275,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     final Map<String, Object> expected = new HashMap<>();
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
