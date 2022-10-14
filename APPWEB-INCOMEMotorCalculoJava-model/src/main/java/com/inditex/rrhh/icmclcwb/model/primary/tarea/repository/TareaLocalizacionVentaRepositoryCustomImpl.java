@@ -38,6 +38,9 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
   @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacionSeccion']}")
   private String sqlTotalizarOperacionesLocalizacionSeccion;
 
+  @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarOperacionesLocalizacion']}")
+  private String sqlTotalizarOperacionesLocalizacion;
+
   @Value("#{primaryQuery['TareaLocalizacionVentaRepositoryCustom.totalizarVentaPersonasPorVenta']}")
   private String sqlTotalizarVentaPersonasPorVenta;
 
@@ -154,6 +157,25 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
     this.update(this.sqlTotalizarOperacionesLocalizacionSeccion, parameters);
+
+  }
+
+  @Override
+  public void totalizarDevolucionLocalizacion(final TareaDto tarea) {
+
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    // parametros
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+        TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+    // nuevos valores
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+        TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
+
+    this.update(this.sqlTotalizarOperacionesLocalizacion, parameters);
 
   }
 

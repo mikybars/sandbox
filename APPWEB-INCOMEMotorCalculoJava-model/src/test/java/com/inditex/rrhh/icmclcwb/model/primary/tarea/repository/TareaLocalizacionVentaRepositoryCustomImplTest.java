@@ -51,7 +51,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   private final static String SQL_UPDATE_ACTIVO = "SQL UPDATE ACTIVO";
 
-  private final static String SQL_TOTALIZAR_OPERACIONES = "SQL TOTALIZAR OPERACIONES";
+  private final static String SQL_TOTALIZAR_OPERACIONES_SECCION = "SQL TOTALIZAR OPERACIONES SECCION";
+
+  private final static String SQL_TOTALIZAR_OPERACIONES_LOCALIZACION = "SQL TOTALIZAR OPERACIONES LOCALIZACION";
 
   private final static String SQL_TOTALIZAR_PERSONAS_POR_VENTA = "SQL TOTALIZAR PERSONAS POR VENTA";
 
@@ -94,7 +96,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlUpdateActivoTrasladadas", SQL_UPDATE_ACTIVO_TRASLADAR, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
-        "sqlTotalizarOperacionesLocalizacionSeccion", SQL_TOTALIZAR_OPERACIONES, true);
+        "sqlTotalizarOperacionesLocalizacionSeccion", SQL_TOTALIZAR_OPERACIONES_SECCION, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
         "sqlTotalizarVentaPersonasPorVenta", SQL_TOTALIZAR_PERSONAS_POR_VENTA, true);
     FieldUtils.writeField(this.tareaLocalizacionVentaRepositoryCustom,
@@ -262,9 +264,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(9090L);
-    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(tarea);
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion(tarea);
 
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_OPERACIONES), this.paramsCaptor.capture());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_OPERACIONES_LOCALIZACION), this.paramsCaptor.capture());
 
     final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
 
@@ -281,11 +283,33 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @Test
+  void totalizarDevolucionLocalizacionSeccionTest() {
+
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(9090L);
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacionSeccion(tarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_OPERACIONES_SECCION), this.paramsCaptor.capture());
+
+    final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
+
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO, TipoGrupoDatoEnum.DEVOLUCION_LOCALIZACION_TOTALIZADA.getId());
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    assertEquals(expected, params);
+
+  }
+
+  @Test
   void totalizarVentaSinDevolucionLocalizacionTest(@Random final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
 
-    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_OPERACIONES), this.paramsCaptor.capture());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_TOTALIZAR_OPERACIONES_SECCION), this.paramsCaptor.capture());
 
     final Map<String, Object> params = this.paramsCaptor.getValue().getValues();
 

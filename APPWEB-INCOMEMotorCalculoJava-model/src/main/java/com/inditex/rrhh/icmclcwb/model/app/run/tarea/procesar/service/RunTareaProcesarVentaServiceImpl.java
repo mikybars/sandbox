@@ -173,6 +173,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
+  public void totalizarDevolucionLocalizacion(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion(runTarea.getTarea());
+  }
+
+  @Override
   public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid final RunTareaDto runTarea) {
     this.tareaLocalizacionVentaRepositoryCustom
         .totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
