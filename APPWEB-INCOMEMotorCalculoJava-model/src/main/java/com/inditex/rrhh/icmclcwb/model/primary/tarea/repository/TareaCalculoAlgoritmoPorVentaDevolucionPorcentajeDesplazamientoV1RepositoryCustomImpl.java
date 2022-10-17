@@ -67,7 +67,7 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_DEVOLUCION_LOCALIZACION_PERSONA,
         TipoDatoEnum.DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_DEVOLUCION_LOCALIZACION_SECCION,
-        TipoDatoEnum.DEVOLUCION_LOCALIZACION_SECCION.getId());
+        TipoDatoEnum.DEVOLUCION_LOCALIZACION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_DEVOLUCION,
         TipoDatoEnum.IMPORTE_COMISION_DEVOLUCIONES_LOCALIZACION_POR_VENTA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_REPARTO_VENDEDOR_0,
@@ -81,10 +81,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
         algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
         algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE,
-        Boolean.TRUE.equals(algoritmo.getDesplazamientoBase())
-            ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
-            : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, Boolean.TRUE.equals(algoritmo.getDesplazamientoBase())
+        ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
+        : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, Boolean.TRUE.equals(algoritmo.getDesplazamiento())
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
