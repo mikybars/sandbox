@@ -129,4 +129,10 @@ class RunTareaProcesarVentaServiceImplTest {
 
   }
 
+  @Test
+  void totalizarDevolucionLocalizacion(@Random final RunTareaDto tarea) {
+      this.runTareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
+      verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).totalizarDevolucionLocalizacion(tarea.getTarea());
+  }
+
 }
