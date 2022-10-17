@@ -49,8 +49,8 @@ class RunTareaProcesarVentaAsyncServiceImplTest {
 
   @Test
   void totalizarDevolucionLocalizacionTest(@Random final RunTareaDto tarea) {
-      this.runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacion(tarea);
-      verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionLocalizacion(tarea);
+    this.runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacion(tarea);
+    verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionLocalizacion(tarea);
   }
 
 }
