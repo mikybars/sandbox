@@ -173,6 +173,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
+  public void totalizarDevolucionLocalizacion(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion(runTarea.getTarea());
+  }
+
+  @Override
   public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid final RunTareaDto runTarea) {
     this.tareaLocalizacionVentaRepositoryCustom
         .totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
@@ -212,7 +217,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     try {
       this.primaryTemporaryTablePorVentaRepositoryCustom.createTempVentaFisicaLocalizacionSeccion();
       this.primaryTemporaryTablePorVentaRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion();
-      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacion(tarea.getTarea());
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
       this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     } finally {
       this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();

@@ -38,6 +38,8 @@ public interface RunTareaProcesarVentaService {
 
   void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
+  void totalizarDevolucionLocalizacion(@Valid RunTareaDto runTarea);
+
   void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
   void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);

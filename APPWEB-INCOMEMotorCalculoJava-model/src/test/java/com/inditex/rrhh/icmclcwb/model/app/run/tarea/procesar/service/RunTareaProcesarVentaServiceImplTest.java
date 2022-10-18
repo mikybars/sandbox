@@ -85,7 +85,7 @@ class RunTareaProcesarVentaServiceImplTest {
     this.runTareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempVentaFisicaLocalizacionSeccion();
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createIndexTempVentaFisicaLocalizacionSeccion();
-    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).insertTempVentaFisicaLocalizacion(tarea.getTarea());
+    verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).calcularImporteComisionVentaODevolucion(tarea.getTarea());
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempVentaFisicaLocalizacionSeccion();
 
@@ -127,6 +127,12 @@ class RunTareaProcesarVentaServiceImplTest {
     verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, never()).devolucionImporte0(tarea.getTarea());
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).deleteTempDatesEstructurasPorVenta();
 
+  }
+
+  @Test
+  void totalizarDevolucionLocalizacion(@Random final RunTareaDto tarea) {
+    this.runTareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
+    verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).totalizarDevolucionLocalizacion(tarea.getTarea());
   }
 
 }

@@ -115,8 +115,12 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .updateActivoLocalizacionPersonaPresencia(runTarea);
       AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf, cfWait);
 
-      final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
+      final CompletableFuture<Void> cfTotalizarDevolucionSeccion = this.runTareaProcesarVentaAsyncService
           .totalizarDevolucionLocalizacionSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
 
       final CompletableFuture<Void> cfTotalizarVentaSinDevolucion = this.runTareaProcesarVentaAsyncService

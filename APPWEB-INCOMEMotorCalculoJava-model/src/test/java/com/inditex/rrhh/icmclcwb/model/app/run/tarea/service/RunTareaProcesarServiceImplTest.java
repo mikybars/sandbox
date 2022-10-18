@@ -88,6 +88,9 @@ class RunTareaProcesarServiceImplTest {
         .totalizarDevolucionLocalizacionSeccion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionLocalizacion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarVentaSinDevolucionLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
