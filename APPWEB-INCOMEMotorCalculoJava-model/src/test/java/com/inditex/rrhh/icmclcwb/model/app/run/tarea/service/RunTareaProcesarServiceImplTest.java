@@ -73,6 +73,12 @@ class RunTareaProcesarServiceImplTest {
         .crearChallengeOpcionOrigen(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .crearGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .desactivarGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)

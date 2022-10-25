@@ -84,6 +84,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .desactivarChallengeOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
+      final CompletableFuture<Void> cfDesactivarGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+          .desactivarGlobalSeccionOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfDesactivarGlobalSeccionOpcionOrigen, cf, cfWait);
+
       // Totalizar las presencias incluido commerce por seccion
       final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService
           .totalizarEcommerceSeccion(runTarea);
@@ -100,6 +104,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCrearChallengeOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
           .crearChallengeOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigen, cf, cfWait);
+
+      final CompletableFuture<Void> cfCrearGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+          .crearGlobalSeccionOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfCrearGlobalSeccionOpcionOrigen, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

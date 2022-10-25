@@ -86,4 +86,16 @@ public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProc
     this.tareaProcesarCondicionesService.establecerBandaOpcionOrigen(runTarea.getTarea());
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
+
+  @Override
+  public CompletableFuture<Void> desactivarGlobalSeccionOpcionOrigen(final RunTareaDto runTarea) {
+    this.tareaProcesarCondicionesService.desactivarGlobalSeccionOpcionOrigen(runTarea.getTarea());
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
+  public CompletableFuture<Void> crearGlobalSeccionOpcionOrigen(final RunTareaDto runTarea) {
+    this.tareaProcesarCondicionesService.crearGlobalSeccionOpcionOrigen(runTarea.getTarea());
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
 }
