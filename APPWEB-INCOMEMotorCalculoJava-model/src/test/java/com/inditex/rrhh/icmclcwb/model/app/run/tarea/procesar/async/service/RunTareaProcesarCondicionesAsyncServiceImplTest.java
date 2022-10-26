@@ -38,4 +38,16 @@ class RunTareaProcesarCondicionesAsyncServiceImplTest {
     verify(this.tareaProcesarCondicionesService, times(1)).establecerBandaOpcionOrigen(runTarea.getTarea());
   }
 
+  @Test
+  void crearGlobalSeccionOpcionOrigen(@Random final RunTareaDto runTarea) {
+    this.runTareaProcesarCondicionesAsyncService.crearGlobalSeccionOpcionOrigen(runTarea);
+    verify(this.tareaProcesarCondicionesService, times(1)).crearGlobalSeccionOpcionOrigen(runTarea.getTarea());
+  }
+
+  @Test
+  void desactivarGlobalSeccionOpcionOrigen(@Random final RunTareaDto runTarea) {
+    this.runTareaProcesarCondicionesAsyncService.desactivarGlobalSeccionOpcionOrigen(runTarea);
+    verify(this.tareaProcesarCondicionesService, times(1)).desactivarGlobalSeccionOpcionOrigen(runTarea.getTarea());
+  }
+
 }
