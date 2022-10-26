@@ -26,5 +26,9 @@ public interface RunTareaProcesarCondicionesService {
 
   void igualarBandasOrigenDestino(@Valid @NotNull final TareaDto tarea);
 
+  void desactivarGlobalSeccionOpcionOrigen(@Valid TareaDto tarea);
+
+  void crearGlobalSeccionOpcionOrigen(@Valid TareaDto tarea);
+
   void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea);
 }

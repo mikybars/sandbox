@@ -59,4 +59,28 @@ class RunTareaProcesarCondicionesServiceImplTest {
 
   }
 
+  @Test
+  void crearChallengeOpcionOrigen(@Random final TareaDto tarea) {
+    this.runTareaProcesarCondicionesService.crearChallengeOpcionOrigen(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearChallengeOpcionOrigen(tarea);
+  }
+
+  @Test
+  void desactivarChallengeOpcionOrigen(@Random final TareaDto tarea) {
+    this.runTareaProcesarCondicionesService.desactivarChallengeOpcionOrigen(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarChallengeOpcionOrigen(tarea);
+  }
+
+  @Test
+  void crearGlobalSeccionOpcionOrigen(@Random final TareaDto tarea) {
+    this.runTareaProcesarCondicionesService.crearGlobalSeccionOpcionOrigen(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearGlobalSeccionOpcionOrigen(tarea);
+  }
+
+  @Test
+  void desactivarGlobalSeccionOpcionOrigen(@Random final TareaDto tarea) {
+    this.runTareaProcesarCondicionesService.desactivarGlobalSeccionOpcionOrigen(tarea);
+    verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarGlobalSeccionOpcionOrigen(tarea);
+  }
+
 }

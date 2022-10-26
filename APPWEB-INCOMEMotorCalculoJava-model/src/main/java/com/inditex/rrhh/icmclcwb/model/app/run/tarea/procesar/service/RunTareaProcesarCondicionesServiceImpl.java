@@ -73,6 +73,16 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   }
 
   @Override
+  public void desactivarGlobalSeccionOpcionOrigen(@Valid final TareaDto tarea) {
+    this.tareaPersonaEstructuraRepositoryCustom.desactivarGlobalSeccionOpcionOrigen(tarea);
+  }
+
+  @Override
+  public void crearGlobalSeccionOpcionOrigen(@Valid final TareaDto tarea) {
+    this.tareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen(tarea);
+  }
+
+  @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea) {
     try {

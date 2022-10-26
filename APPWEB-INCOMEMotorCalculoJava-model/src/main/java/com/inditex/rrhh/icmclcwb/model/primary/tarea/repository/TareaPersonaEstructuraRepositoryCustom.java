@@ -26,4 +26,7 @@ public interface TareaPersonaEstructuraRepositoryCustom {
 
   void establecerBandaOpcionOrigen();
 
+  void desactivarGlobalSeccionOpcionOrigen(TareaDto tarea);
+
+  void crearGlobalSeccionOpcionOrigen(TareaDto tarea);
 }
