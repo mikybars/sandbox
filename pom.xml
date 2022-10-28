@@ -80,31 +80,6 @@
           </checkstyle>
         </configuration>
       </plugin>
-
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <executions>
-          <execution>
-          <id>enforce-versions</id>
-          <phase>validate</phase>
-          <goals>
-            <goal>enforce</goal>
-          </goals>
-          <configuration>
-            <rules>
-              <requireMavenVersion>
-                <version>[3.6.3],[3.8.4]</version>
-              </requireMavenVersion>
-              <requireJavaVersion>
-                <version>[11,12),[17,18)</version>
-              </requireJavaVersion>
-            </rules>
-          </configuration>
-          </execution>
-          </executions>
-      </plugin>
-
     </plugins>
   </build>
 
