@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>4.11.3</version>
+    <version>4.10.1</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
@@ -80,6 +80,31 @@
           </checkstyle>
         </configuration>
       </plugin>
+
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <executions>
+          <execution>
+          <id>enforce-versions</id>
+          <phase>validate</phase>
+          <goals>
+            <goal>enforce</goal>
+          </goals>
+          <configuration>
+            <rules>
+              <requireMavenVersion>
+                <version>[3.6.3],[3.8.4]</version>
+              </requireMavenVersion>
+              <requireJavaVersion>
+                <version>[11,12),[17,18)</version>
+              </requireJavaVersion>
+            </rules>
+          </configuration>
+          </execution>
+          </executions>
+      </plugin>
+
     </plugins>
   </build>
 
