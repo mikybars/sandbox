@@ -1429,7 +1429,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idempresa", ignore = true)
   @Mapping(target = "idlugartrabajo", ignore = true)
   @Mapping(target = "idlugartrabajomtu", ignore = true)
-  @Mapping(target = "idorigen", ignore = true)
+  @Mapping(target = "idorigen", source = "idOrigen")
   IcmParamcaltiendasRecord asIcmParamcaltiendasRecord(VentaManualWlocFilterDto src);
 
   @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE_FULL)
