@@ -60,6 +60,10 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_CREAR_CHALLENGE_OPCION_ORIGEN = "SQL CREAR CHALLENGE OPCION ORIGEN";
 
+  private static final String SQL_DESACTIVAR_GLOBAL_SECCION_OPCION_ORIGEN = "SQL DESACTIVAR GLOBAL SECCION OPCION ORIGEN";
+
+  private static final String SQL_CREAR_GLOBAL_SECCION_OPCION_ORIGEN = "SQL CREAR GLOBAL SECCION OPCION ORIGEN";
+
   @Mock
   private JdbcTemplate jdbcTemplate;
 
@@ -93,6 +97,13 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
         SQL_ESTABLECER_BANDA_OPCION_ORIGEN, true);
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearChallengeOpcionOrigen", SQL_CREAR_CHALLENGE_OPCION_ORIGEN,
         true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlCrearGlobalSeccionOpcionOrigen",
+        SQL_CREAR_GLOBAL_SECCION_OPCION_ORIGEN,
+        true);
+    FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "sqlDesactivarGlobalSeccionOpcionOrigen",
+        SQL_DESACTIVAR_GLOBAL_SECCION_OPCION_ORIGEN,
+        true);
+
     FieldUtils.writeField(this.tareaPersonaEstructuraRepositoryCustom, "batchSize", 100, true);
   }
 
@@ -284,6 +295,59 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId()));
+
+    assertEquals(expected, paramsCaptor.getValue().getValues());
+  }
+
+  @Test
+  void desactivarGlobalSeccionOpcionOrigenTest() {
+
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(8209L);
+    final LocalDate fechaInicioPeriodo = LocalDate.of(2019, 12, 1);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(fechaInicioPeriodo);
+
+    this.tareaPersonaEstructuraRepositoryCustom.desactivarGlobalSeccionOpcionOrigen(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_DESACTIVAR_GLOBAL_SECCION_OPCION_ORIGEN, this.sqlCaptor.getValue());
+    final MapSqlParameterSource map = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: inactivo, fechaInicioPeriodo, activo, idTarea, tiposComision,
+    // tiposCalculo
+    assertEquals(5, map.getValues().size());
+    // inactivo
+    assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE, map.getValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO));
+    // fechaInicioPeriodo
+    assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+    assertEquals(TimeUtils.toDate(fechaInicioPeriodo),
+        map.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
+    // activo
+    assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+    assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE, map.getValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO));
+    // idTarea
+    assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(8209L, map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    // tiposCalculo
+    assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(Arrays.asList(
+        TipoCalculoEnum.GLOBAL_SECCION.getId()),
+        map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+
+  }
+
+  @Test
+  void crearGlobalSeccionOpcionOrigenTest(@Random final TareaDto tarea) {
+    final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
+    this.tareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CREAR_GLOBAL_SECCION_OPCION_ORIGEN), paramsCaptor.capture());
+    final Map<String, Object> expected = new HashMap<>();
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+        TipoCalculoEnum.GLOBAL_SECCION.getId()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expected.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
     assertEquals(expected, paramsCaptor.getValue().getValues());
   }

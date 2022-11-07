@@ -81,10 +81,9 @@ public class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Re
         algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
         algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE,
-        Boolean.TRUE.equals(algoritmo.getDesplazamientoBase())
-            ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
-            : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, Boolean.TRUE.equals(algoritmo.getDesplazamientoBase())
+        ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
+        : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, Boolean.TRUE.equals(algoritmo.getDesplazamiento())
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

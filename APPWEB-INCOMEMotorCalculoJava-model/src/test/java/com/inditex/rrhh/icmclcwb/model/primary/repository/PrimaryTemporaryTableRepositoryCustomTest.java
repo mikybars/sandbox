@@ -1133,6 +1133,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   void insertTempMejorOpcionSinFechasTodoPeriodoTest() {
 
     final TareaDto tarea = new TareaDto();
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+
     this.primaryTemporaryTableRepositoryCustom.insertTempMejorOpcionSinFechasTodoPeriodo(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(
         eq(SQL_INSERT_TEMP_MEJOR_OPCION_SIN_FECHAS_TODO_PERIODO),

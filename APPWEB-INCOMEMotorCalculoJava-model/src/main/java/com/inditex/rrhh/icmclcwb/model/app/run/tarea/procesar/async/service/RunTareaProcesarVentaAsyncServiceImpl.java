@@ -137,6 +137,12 @@ public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVe
   }
 
   @Override
+  public CompletableFuture<Void> totalizarDevolucionLocalizacion(final RunTareaDto tarea) {
+    this.tareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
   public CompletableFuture<Void> totalizarVentaSinDevolucionLocalizacion(final RunTareaDto tarea) {
     this.tareaProcesarVentaService.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);

@@ -73,6 +73,12 @@ class RunTareaProcesarServiceImplTest {
         .crearChallengeOpcionOrigen(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .crearGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .desactivarGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
@@ -86,6 +92,9 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarDevolucionLocalizacionSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarVentaSinDevolucionLocalizacion(this.runTarea);

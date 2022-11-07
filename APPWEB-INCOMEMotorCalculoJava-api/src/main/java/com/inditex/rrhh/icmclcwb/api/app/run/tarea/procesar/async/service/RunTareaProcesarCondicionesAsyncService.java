@@ -32,4 +32,7 @@ public interface RunTareaProcesarCondicionesAsyncService {
 
   CompletableFuture<Void> establecerBandaOpcionOrigen(final RunTareaDto runTarea);
 
+  CompletableFuture<Void> desactivarGlobalSeccionOpcionOrigen(RunTareaDto runTarea);
+
+  CompletableFuture<Void> crearGlobalSeccionOpcionOrigen(RunTareaDto runTarea);
 }

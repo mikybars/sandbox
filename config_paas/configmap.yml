@@ -138,9 +138,13 @@ app:
     calculo:
       cast: true
       precision: 'DECIMAL(23,8)'
+      round: true
+      decimal: 2
     proceso:
       cast: true
       precision: 'DECIMAL(23,8)'
+      round: false
+      decimal: 8
     tarea:
       recolectar:
         days-number: 3
