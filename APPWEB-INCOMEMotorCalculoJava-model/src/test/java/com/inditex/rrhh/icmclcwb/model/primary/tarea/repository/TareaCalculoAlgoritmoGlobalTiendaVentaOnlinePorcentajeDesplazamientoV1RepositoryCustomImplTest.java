@@ -13,7 +13,6 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_SECCION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA;
-import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION;
@@ -117,7 +116,7 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1Repo
     expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
     expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId());
     expected.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
     expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
@@ -132,8 +131,6 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1Repo
     expected.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
     expected.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     expected.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-    expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
     expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
 
     assertEquals(expected, result);
@@ -179,7 +176,7 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1Repo
     expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
     expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId());
     expected.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
     expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
@@ -194,8 +191,6 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1Repo
     expected.put(SQL_PARAM_CCL_ID_PERSON, persona.getIdPersonaLocal());
     expected.put(SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     expected.put(SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
-    expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
     expected.put(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA, TipoDatoEnum.INDICADOR_PRESENCIA_EMPLEADOS_POR_VENTA.getId());
 
     assertEquals(expected, params.getValues());
