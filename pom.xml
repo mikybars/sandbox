@@ -8,11 +8,7 @@
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-<<<<<<< HEAD
-  <version>4.28.0</version>
-=======
-  <version>4.33.0</version>
->>>>>>> f212c0efb750b3e683d43cf0102e75815dd6c1a3
+  <version>4.34.0</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 
