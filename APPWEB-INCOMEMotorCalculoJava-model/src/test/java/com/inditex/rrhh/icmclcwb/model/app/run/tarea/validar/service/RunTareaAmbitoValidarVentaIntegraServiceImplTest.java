@@ -18,7 +18,6 @@ import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
@@ -83,9 +82,6 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
     assertThrows(RuntimeException.class,
         () -> this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion));
 
-    verify(this.tareaFaseAccionService, timeout(1000).times(1))
-        .updateFechaFinAndEstado(
-            Mockito.any(TareaFaseAccionDto.class), Mockito.eq(EstadoTareaFaseAccionEnum.ERROR.getDto()));
   }
 
   @Test

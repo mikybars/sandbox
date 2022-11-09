@@ -51,6 +51,12 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
   @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.establecerBandaOpcionOrigen']}")
   private String sqlEstablecerBandaOpcionOrigen;
 
+  @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.desactivarGlobalSeccionOpcionOrigen']}")
+  private String sqlDesactivarGlobalSeccionOpcionOrigen;
+
+  @Value("#{primaryQuery['TareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen']}")
+  private String sqlCrearGlobalSeccionOpcionOrigen;
+
   @Override
   public List<TareaPersonaEstructura> save(final List<TareaPersonaEstructura> src) {
     return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -169,5 +175,36 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
   @Override
   public void establecerBandaOpcionOrigen() {
     this.update(this.sqlEstablecerBandaOpcionOrigen, new MapSqlParameterSource());
+  }
+
+  @Override
+  public void desactivarGlobalSeccionOpcionOrigen(final TareaDto tarea) {
+
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+        TipoCalculoEnum.GLOBAL_SECCION.getId()));
+
+    this.update(this.sqlDesactivarGlobalSeccionOpcionOrigen, map);
+
+  }
+
+  @Override
+  public void crearGlobalSeccionOpcionOrigen(final TareaDto tarea) {
+
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
+        TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+        TipoCalculoEnum.GLOBAL_SECCION.getId()));
+    this.update(this.sqlCrearGlobalSeccionOpcionOrigen, map);
+
   }
 }

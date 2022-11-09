@@ -1012,6 +1012,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Override
   public void insertTempMejorOpcionSinFechasTodoPeriodo(final TareaDto tarea) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
     this.namedParameterJdbcTemplate.update(this.sqlInsertTempMejorOpcionSinFechasTodoPeriodo, map);

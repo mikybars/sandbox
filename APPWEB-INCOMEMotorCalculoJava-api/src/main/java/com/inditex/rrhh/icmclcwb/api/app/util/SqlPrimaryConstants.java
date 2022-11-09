@@ -127,6 +127,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA = "idTipoDatoIndicadorPresencia";
 
+  public static final String SQL_PARAM_ID_TIPO_DATO_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoPresenciaDesplazamiento";
+
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO = "idTipoDatoIndicadorPresenciaDesplazamiento";
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE =
@@ -289,6 +291,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_PARAM_REPARTIDO_PROVINCIA = "repartidoProvincia";
 
   public static final String SQL_PARAM_ID_GRUPO_MANUAL = "idGrupoManual";
+
+  public static final String SQL_PARAM_ID_TIPO_CONCEPTO_VENTA = "idTipoVentaConcepto";
 
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 

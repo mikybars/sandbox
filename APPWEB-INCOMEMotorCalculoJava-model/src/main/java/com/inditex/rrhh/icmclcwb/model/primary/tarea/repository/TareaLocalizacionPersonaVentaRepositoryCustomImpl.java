@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,9 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
 
   @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0']}")
   private String sqlDevolucionImporte0;
+
+  @Value("#{primaryQuery['TareaLocalizacionPersonaVentaRepositoryCustom.totalizarVentaPersonaSeccion']}")
+  private String sqlTotalizarVentaPersonaSeccion;
 
   @Autowired
   private TipoDatoService tipoDatoService;
@@ -103,4 +107,55 @@ public class TareaLocalizacionPersonaVentaRepositoryCustomImpl
     this.update(this.sqlDevolucionImporte0, params);
 
   }
+
+  @Override
+  public void totalizarVentaFisicaSinDevolucionPersonaSeccion(final TareaDto tarea) {
+
+    this.totalizarVentaPersonaSeccion(tarea,
+        TipoDatoEnum.VENTA_FISICA_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
+        Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_FISICA_LOCALIZACION_SECCION.getId()));
+
+  }
+
+  @Override
+  public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(final TareaDto tarea) {
+
+    this.totalizarVentaPersonaSeccion(tarea,
+        TipoDatoEnum.VENTA_ONLINE_IPOD_SIN_DEVOLUCION_INDIVIDUAL_LOCALIZACION_SECCION,
+        Collections.singletonList(TipoDatoEnum.OPERACION_VENTA_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+
+  }
+
+  @Override
+  public void totalizarDevolucionFisicaPersonaSeccion(final TareaDto tarea) {
+
+    this.totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_FISICA_INDIVIDUAL_LOCALIZACION_SECCION,
+        Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION.getId()));
+
+  }
+
+  @Override
+  public void totalizarDevolucionOnlineIpodPersonaSeccion(final TareaDto tarea) {
+
+    this.totalizarVentaPersonaSeccion(tarea, TipoDatoEnum.DEVOLUCION_ONLINE_IPOD_INDIVIDUAL_LOCALIZACION_SECCION,
+        Collections.singletonList(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId()));
+
+  }
+
+  private void totalizarVentaPersonaSeccion(final TareaDto tarea, final TipoDatoEnum nuevoTipoDato,
+      final List<Integer> tiposDato) {
+
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    // Parámetros filtro
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, tiposDato);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+    // Parámetros que establecen valores
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO, nuevoTipoDato.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+
+    this.update(this.sqlTotalizarVentaPersonaSeccion, parameters);
+
+  }
+
 }

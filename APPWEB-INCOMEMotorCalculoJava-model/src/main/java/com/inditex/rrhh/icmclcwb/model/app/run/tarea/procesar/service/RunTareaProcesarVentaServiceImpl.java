@@ -173,6 +173,11 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
   }
 
   @Override
+  public void totalizarDevolucionLocalizacion(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionLocalizacion(runTarea.getTarea());
+  }
+
+  @Override
   public void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid final RunTareaDto runTarea) {
     this.tareaLocalizacionVentaRepositoryCustom
         .totalizarVentasSinDevolucionLocalizacionSeccion(runTarea.getTarea());
@@ -212,7 +217,7 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     try {
       this.primaryTemporaryTablePorVentaRepositoryCustom.createTempVentaFisicaLocalizacionSeccion();
       this.primaryTemporaryTablePorVentaRepositoryCustom.createIndexTempVentaFisicaLocalizacionSeccion();
-      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacion(tarea.getTarea());
+      this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea.getTarea());
       this.tareaLocalizacionVentaRepositoryCustom.calcularImporteComisionVentaODevolucion(tarea.getTarea());
     } finally {
       this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempVentaFisicaLocalizacionSeccion();
@@ -250,6 +255,29 @@ public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaSe
     } finally {
       this.primaryTemporaryTablePorVentaRepositoryCustom.deleteTempDatesEstructurasPorVenta();
     }
+  }
+
+  @Override
+  public void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarVentaFisicaSinDevolucionPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarDevolucionFisicaPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.totalizarDevolucionFisicaPersonaSeccion(tarea.getTarea());
+  }
+
+  @Override
+  public void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid final RunTareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom
+        .totalizarDevolucionOnlineIpodPersonaSeccion(tarea.getTarea());
   }
 
 }

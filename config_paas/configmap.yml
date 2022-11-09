@@ -124,10 +124,10 @@ amiga:
           pubSubDomain: false
           sessionTransacted: false
     jdbc:
+      query-timeout: 0s
       pool:
         hikari:
           maximum-pool-size: 10
-          query-timeout: 90s
           auto-commit: true
     jpa:
       properties:
@@ -138,9 +138,13 @@ app:
     calculo:
       cast: true
       precision: 'DECIMAL(23,8)'
+      round: true
+      decimal: 2
     proceso:
       cast: true
       precision: 'DECIMAL(23,8)'
+      round: false
+      decimal: 8
     tarea:
       recolectar:
         days-number: 3

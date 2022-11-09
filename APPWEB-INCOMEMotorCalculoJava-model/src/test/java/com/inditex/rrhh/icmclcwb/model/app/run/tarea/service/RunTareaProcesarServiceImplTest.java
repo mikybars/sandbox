@@ -73,6 +73,12 @@ class RunTareaProcesarServiceImplTest {
         .crearChallengeOpcionOrigen(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .crearGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
+        .desactivarGlobalSeccionOpcionOrigen(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .igualarBandasOrigenDestino(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
@@ -88,6 +94,9 @@ class RunTareaProcesarServiceImplTest {
         .totalizarDevolucionLocalizacionSeccion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionLocalizacion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .totalizarVentaSinDevolucionLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
@@ -97,7 +106,19 @@ class RunTareaProcesarServiceImplTest {
         .totalizarDevolucionPersonaLocalizacion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarVentaFisicaSinDevolucionPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbierto(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionOnlineIpodPersonaSeccion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
+        .totalizarDevolucionFisicaPersonaSeccion(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .saveAbiertoSeccion(this.runTarea);
@@ -158,6 +179,12 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPresenciaDesplazamientoBase(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .presenciaDesplazamiento(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .presenciaDesplazamientoChallengePorcentaje(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(this.runTarea);

@@ -29,6 +29,10 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
   void indicadorPresencia(@Valid @NotNull final RunTareaDto runTareaDto);
 
+  void presenciaDesplazamiento(@Valid @NotNull RunTareaDto runTareaDto);
+
+  void presenciaDesplazamientoChallengePorcentaje(@Valid @NotNull RunTareaDto runTareaDto);
+
   void indicadorPresenciaDesplazamiento(@Valid @NotNull final RunTareaDto runTareaDto);
 
   void indicadorPresenciaDesplazamientoBase(@Valid @NotNull final RunTareaDto runTareaDto);

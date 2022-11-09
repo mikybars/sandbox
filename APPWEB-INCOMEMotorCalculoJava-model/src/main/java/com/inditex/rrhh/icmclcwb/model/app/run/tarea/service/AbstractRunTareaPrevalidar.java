@@ -204,7 +204,10 @@ public abstract class AbstractRunTareaPrevalidar {
           this.senderTarea.sendWithPriority(runTareaDto.getTarea(), TareaPriorityEnum.REENCOLADA);
         }
 
-        throw new ValidationReintentoException("Error validando");
+        throw new ValidationReintentoException(
+            "Error validando - idTareaFaseAccion: "
+                + String.join(",",
+                    fallidas.stream().map(ValidacionDto::getIdTareaFaseAccion).map(x -> x.toString()).collect(Collectors.toList())));
       }
       this.insertarDato(fallidas);
       this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
@@ -213,7 +216,10 @@ public abstract class AbstractRunTareaPrevalidar {
       }
       this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-      throw new ValidationNoReintentoException("Error validando");
+      throw new ValidationNoReintentoException(
+          "Error validando - idTareaFaseAccion: "
+              + String.join(",",
+                  fallidas.stream().map(ValidacionDto::getIdTareaFaseAccion).map(x -> x.toString()).collect(Collectors.toList())));
     }
   }
 

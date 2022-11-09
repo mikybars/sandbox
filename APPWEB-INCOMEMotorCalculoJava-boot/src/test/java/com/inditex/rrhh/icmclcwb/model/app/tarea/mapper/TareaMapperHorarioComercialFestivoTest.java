@@ -5,25 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import com.inditex.rrhh.icmclcwb.Application;
+import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.mapstruct.factory.Mappers;
+import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {Application.class})
-@ActiveProfiles({"standalone", "test"})
-@EnableAutoConfiguration
+@ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class TareaMapperHorarioComercialFestivoTest {
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  @Spy
+  private final TareaMapper tareaMapper = Mappers.getMapper(TareaMapper.class);
 
   @Test
   public void horarioComercialFestivosRequestDtoToSolrQueryNullRequestTest() {
@@ -77,7 +72,7 @@ public class TareaMapperHorarioComercialFestivoTest {
     request.setFechaDesde(LocalDate.of(2020, 3, 1));
     request.setFechaHasta(LocalDate.of(2020, 4, 5));
 
-    assertEquals("q=fecha:[2020-03-01T00:00:00Z TO 2020-04-05T00:00:00Z]",
+    assertEquals("q=fecha:[2020-03-01T01:00:00Z TO 2020-04-05T02:00:00Z]",
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
@@ -89,7 +84,7 @@ public class TareaMapperHorarioComercialFestivoTest {
     request.setFechaDesde(LocalDate.of(2020, 3, 1));
     request.setFechaHasta(LocalDate.of(2020, 4, 5));
 
-    assertEquals("q=idPais:11 AND fecha:[2020-03-01T00:00:00Z TO 2020-04-05T00:00:00Z]",
+    assertEquals("q=idPais:11 AND fecha:[2020-03-01T01:00:00Z TO 2020-04-05T02:00:00Z]",
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
@@ -145,7 +140,7 @@ public class TareaMapperHorarioComercialFestivoTest {
     request.setRows(89);
     request.setStart(155);
 
-    assertEquals("q=idPais:11 AND fecha:[2020-03-01T00:00:00Z TO 2020-04-05T00:00:00Z]&rows=89&start=155",
+    assertEquals("q=idPais:11 AND fecha:[2020-03-01T01:00:00Z TO 2020-04-05T02:00:00Z]&rows=89&start=155",
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 

@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoChallengeEnum;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.LocalizacionesAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -31,11 +32,14 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrExcluirIpodEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
+import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrIncluirVentaPatEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
@@ -101,7 +105,8 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   void ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(@Random final PtrPropertiesDto ptrPropertiesDto,
       @Random(type = IdCadenaDto.class, size = 2) final List<IdCadenaDto> idCadenaDtoList,
       @Random(type = PeriodoDto.class, size = 1) final List<PeriodoDto> periodoDtoList,
-      @Random(type = LocalizacionesAmbitoDto.class, size = 1) final LocalizacionesAmbitoDto localizacionesAmbitoDtoList,
+      @Random(type = ConfiguracionProductoVentaResultItemDto.class,
+          size = 2) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
       @Random final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
       @Random final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
       @Random final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
@@ -117,10 +122,15 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
               TipoVentaConceptoEnum.SINT.getId());
 
-      doReturn(idCadenaDtoList).when(this.tareaAmbitoGlobalEmpresaService)
-          .findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
+      final List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList =
+          Arrays.asList(new IdLocalizacionLocalDto("1"), new IdLocalizacionLocalDto("2"));
 
-      localizacionesAmbitoDtoList.setLocalizaciones(new ArrayList<>());
+      doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
+          .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
+              this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen());
+
+      final LocalizacionesAmbitoDto localizacionesAmbitoDto = new LocalizacionesAmbitoDto(4L);
+      localizacionesAmbitoDto.setLocalizaciones(idLocalizacionLocalDtoList);
 
       doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
           this.runTarea.getTarea().getId(), ptrPropertiesDto.getFilter(), this.recolectarProperties);
@@ -128,14 +138,20 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
           .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
               periodoDtoList.get(0));
 
+      doReturn(confProductoVentaResultItemDtoList).when(this.meta4IcmWsCalcIncomeSessionService)
+          .getConfiguracionProductoVenta(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen());
+
       ptrVentaOnlinePickingRequestDto
           .setCadena(idCadenaDtoList.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
-      ptrVentaOnlinePickingRequestDto.setTienda(localizacionesAmbitoDtoList.getLocalizaciones().stream()
-          .map(Integer::valueOf)
-          .collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
       ptrVentaOnlinePickingRequestDto.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
-      ptrVentaOnlinePickingRequestDto
-          .setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
+      ptrVentaOnlinePickingRequestDto.setTienda(localizacionesAmbitoDto.getLocalizaciones());
+      ptrVentaOnlinePickingRequestDto.setProducto(confProductoVentaResultItemDtoList.stream()
+          .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+          .collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setVentaPAT(PtrIncluirVentaPatEnum.TRUE.getValue());
+      ptrVentaOnlinePickingRequestDto.setExcluirIpod(PtrExcluirIpodEnum.FALSE.getValue());
+
       doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlinePicking(ptrVentaOnlinePickingRequestDto);
 
       this.runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
@@ -151,7 +167,8 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(@Random final PtrPropertiesDto ptrPropertiesDto,
       @Random(type = IdLocalizacionLocalPresupuestoDto.class,
           size = 1) final List<IdLocalizacionLocalPresupuestoDto> idLocalizacionLocalPresupuestoDto,
-      @Random(type = LocalizacionesAmbitoDto.class, size = 1) final LocalizacionesAmbitoDto localizacionesAmbitoDtoList,
+      @Random(type = ConfiguracionProductoVentaResultItemDto.class,
+          size = 2) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
       @Random final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
       @Random final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
       @Random final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
@@ -168,7 +185,8 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
       doReturn(idEmpresaList).when(this.tareaAmbitoGlobalEmpresaService)
           .findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
 
-      localizacionesAmbitoDtoList.setLocalizaciones(new ArrayList<>());
+      final List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList =
+          Arrays.asList(new IdLocalizacionLocalDto("1"), new IdLocalizacionLocalDto("2"));
 
       doReturn(idLocalizacionLocalPresupuestoDto).when(this.tareaLocalizacionHistoricoService)
           .findTiendasPresupuestosByStdIdLegEntAndIdTarea(
@@ -181,14 +199,27 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
               this.runTarea.getTrabajo(), this.runTarea.getTarea(), this.tareaAmbitoDto,
               idLocalizacionLocalPresupuestoDto.get(0));
 
-      ptrVentaOnlinePickingRequestDto
-          .setEmpresa(idEmpresaList.stream().map(IdEmpresaDto::getStdIdLegEnt).map(Integer::valueOf).collect(Collectors.toList()));
-      ptrVentaOnlinePickingRequestDto.setTienda(localizacionesAmbitoDtoList.getLocalizaciones().stream()
-          .map(Integer::valueOf)
-          .collect(Collectors.toList()));
+      doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
+          .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(this.runTarea.getTarea().getId(),
+              idLocalizacionLocalPresupuestoDto.get(0).getIdTipoPresupuesto(),
+              idLocalizacionLocalPresupuestoDto.get(0).getFechaInicio(),
+              idLocalizacionLocalPresupuestoDto.get(0).getFechaFin());
+
+      doReturn(confProductoVentaResultItemDtoList).when(this.meta4IcmWsCalcIncomeSessionService)
+          .getConfiguracionProductoVenta(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen());
+
+      ptrVentaOnlinePickingRequestDto.setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
       ptrVentaOnlinePickingRequestDto.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
       ptrVentaOnlinePickingRequestDto
-          .setAgrupacion(PtrGroupTypeEnum.TIENDA_SECCION);
+          .setEmpresa(idEmpresaList.stream().map(IdEmpresaDto::getStdIdLegEnt).map(Integer::valueOf).collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setTienda(idLocalizacionLocalDtoList
+          .stream().map(x -> Integer.valueOf(x.getId()))
+          .collect(Collectors.toList()));
+      ptrVentaOnlinePickingRequestDto.setProducto(
+          confProductoVentaResultItemDtoList.stream()
+              .map(ConfiguracionProductoVentaResultItemDto::getIdProducto)
+              .collect(Collectors.toList()));
+
       doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlinePicking(ptrVentaOnlinePickingRequestDto);
 
       this.runTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl

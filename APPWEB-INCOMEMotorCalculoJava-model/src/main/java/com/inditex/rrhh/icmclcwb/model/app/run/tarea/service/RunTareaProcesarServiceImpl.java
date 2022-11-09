@@ -84,6 +84,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .desactivarChallengeOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfDesactivarChallengeOpcionOrigen, cf, cfWait);
 
+      final CompletableFuture<Void> cfDesactivarGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+          .desactivarGlobalSeccionOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfDesactivarGlobalSeccionOpcionOrigen, cf, cfWait);
+
       // Totalizar las presencias incluido commerce por seccion
       final CompletableFuture<Void> cfTotalizarEcommerceSeccion = this.runTareaProcesarPresenciaAsyncService
           .totalizarEcommerceSeccion(runTarea);
@@ -101,6 +105,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .crearChallengeOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfCrearChallengeOpcionOrigen, cf, cfWait);
 
+      final CompletableFuture<Void> cfCrearGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
+          .crearGlobalSeccionOpcionOrigen(runTarea);
+      AsyncUtils.exceptionally(cfCrearGlobalSeccionOpcionOrigen, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
@@ -115,8 +123,12 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .updateActivoLocalizacionPersonaPresencia(runTarea);
       AsyncUtils.exceptionally(cfUpdateSeccionPresenciasActivas, cf, cfWait);
 
-      final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
+      final CompletableFuture<Void> cfTotalizarDevolucionSeccion = this.runTareaProcesarVentaAsyncService
           .totalizarDevolucionLocalizacionSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfTotalizarDevolucion, cf, cfWait);
 
       final CompletableFuture<Void> cfTotalizarVentaSinDevolucion = this.runTareaProcesarVentaAsyncService
@@ -153,6 +165,22 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfDevolucionImporte0 = this.runTareaProcesarVentaAsyncService
           .devolucionImporte0(runTarea);
       AsyncUtils.exceptionally(cfDevolucionImporte0, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarVentaFisicaSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarVentaFisicaSinDevolucionPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarVentaFisicaSinDevolucionPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarVentaOnlineIpodSinDevolucionPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucionOnlineIpodPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionOnlineIpodPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionOnlineIpodPersonaSeccion, cf, cfWait);
+
+      final CompletableFuture<Void> cfTotalizarDevolucionFisicaPersonaSeccion = this.runTareaProcesarVentaAsyncService
+          .totalizarDevolucionFisicaPersonaSeccion(runTarea);
+      AsyncUtils.exceptionally(cfTotalizarDevolucionFisicaPersonaSeccion, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -324,6 +352,20 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCalcularPresenciasTotalesAgrupacion = this.runTareaProcesarPresenciaAsyncService
           .calcularPresenciasTotalesAgrupacion(runTarea);
       AsyncUtils.exceptionally(cfCalcularPresenciasTotalesAgrupacion, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
+      // presencia con desplazamiento
+      final CompletableFuture<Void> cfPresenciaDesplazamiento = this.runTareaProcesarPresenciaAsyncService
+          .presenciaDesplazamiento(runTarea);
+      AsyncUtils.exceptionally(cfPresenciaDesplazamiento, cf, cfWait);
+
+      // presencia con desplazamiento challenge porcentaje
+      final CompletableFuture<Void> cfPresenciaDesplazamientoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
+          .presenciaDesplazamientoChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

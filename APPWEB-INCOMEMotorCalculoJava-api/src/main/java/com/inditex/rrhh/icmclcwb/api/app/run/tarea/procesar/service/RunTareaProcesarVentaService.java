@@ -38,6 +38,8 @@ public interface RunTareaProcesarVentaService {
 
   void totalizarDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
+  void totalizarDevolucionLocalizacion(@Valid RunTareaDto runTarea);
+
   void totalizarVentasSinDevolucionLocalizacionSeccion(@Valid RunTareaDto runTarea);
 
   void totalizarVentaSinDevolucionPersonasPorVenta(@Valid RunTareaDto tarea);
@@ -68,4 +70,11 @@ public interface RunTareaProcesarVentaService {
 
   void devolucionImporte0(@Valid RunTareaDto tarea);
 
+  void totalizarVentaFisicaSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarVentaOnlineIpodSinDevolucionPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
+
+  void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
 }
