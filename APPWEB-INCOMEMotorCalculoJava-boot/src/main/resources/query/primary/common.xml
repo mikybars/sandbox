@@ -4405,6 +4405,49 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
     ]]>
   </entry>
 
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoAndEmpresa">
+    <![CDATA[
+        SELECT AC_ALL.CCL_ID_CADENA
+        FROM (
+          SELECT
+            L.CCL_ID_CADENA,
+            P.ID_TAREA,
+            P.CCL_ID_ORIGEN
+          FROM TAREA_CALCULO_PERSONA P
+          JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
+            ON P.ID_TAREA = LP.ID_TAREA
+            AND P.CCL_ID_ORIGEN = LP.CCL_ID_ORIGEN
+            AND P.CCL_ID_PERSON = LP.CCL_ID_PERSON
+          JOIN TAREA_LOCALIZACION_HISTORICO L
+            ON LP.ID_TAREA = L.ID_TAREA
+            AND LP.STD_ID_WORK_LOCAT = L.STD_ID_WORK_LOCAT
+          WHERE
+            P.ID_TAREA = :idTarea
+            AND P.CCL_ID_ORIGEN = :cclIdOrigen
+            AND L.STD_ID_LEG_ENT = :stdIdLegEnt
+          GROUP BY
+            L.CCL_ID_CADENA,
+            P.ID_TAREA,
+            P.CCL_ID_ORIGEN) AMBITO
+        JOIN TAREA_AGRUPACION_CADENA AC
+          ON AMBITO.ID_TAREA = AC.ID_TAREA
+          AND AMBITO.CCL_ID_CADENA = AC.CCL_ID_CADENA
+          AND AMBITO.CCL_ID_ORIGEN = AC.CCL_ID_ORIGEN
+        JOIN TAREA_AGRUPACION_CADENA AC_ALL
+          ON AC.ID_TAREA = AC_ALL.ID_TAREA
+          AND AC.ICM_ID_AGRUPACION_ONLINE = AC_ALL.ICM_ID_AGRUPACION_ONLINE
+        JOIN TAREA_AGRUPACION_CONFIGURACION C
+          ON AC.ID_TAREA = C.ID_TAREA
+          AND AC.ICM_ID_AGRUPACION_ONLINE = C.ICM_ID_AGRUPACION_ONLINE
+          AND AC.CCL_ID_ORIGEN = C.CCL_ID_ORIGEN
+          AND C.PORCENTAJE_INCLUSION > :porcentajeInclusion
+        WHERE
+            C.ID_TIPO_VENTA_CONCEPTO IN (:idConcepto)
+        GROUP BY
+            AC_ALL.CCL_ID_CADENA
+    ]]>
+  </entry>
+
   <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoNotInAmbito">
     <![CDATA[
       WITH AMBITO AS (
