@@ -80,13 +80,13 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo");
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", 3);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", 3);
   }
 
   @Test
@@ -107,13 +107,13 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo");
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", 3);
     verify(this.log, times(1)).error("Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
+        idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", 3, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
