@@ -84,16 +84,16 @@ class DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", 3);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", 3);
   }
 
   @Test
@@ -115,16 +115,16 @@ class DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", 3);
     verify(this.log, times(1)).error(
         "Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeV1RunAlgoritmo", 3, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }

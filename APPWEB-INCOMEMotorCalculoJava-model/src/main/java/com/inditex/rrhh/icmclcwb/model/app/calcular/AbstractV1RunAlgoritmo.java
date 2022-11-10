@@ -44,11 +44,11 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
   public CompletableFuture<Void> execute(final RunTareaDto runTarea,
       final AlgoritmoDTO algoritmo) {
     this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        this.getAlgoritmoName(), runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName());
     final List<IdPersonaLocalDto> ids = this.getTareaCalculoAlgoritmoRespositoryCustom()
         .ids(algoritmo, runTarea.getTarea());
     this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        this.getAlgoritmoName(), runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), ids);
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
       this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-          this.getAlgoritmoName(), runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size());
       try {
         final CompletableFuture<Void> cfCalc = this.getTareaCalculoAlgoritmoRespositoryCustom()
             .calcular(algoritmo,
@@ -68,12 +68,12 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
         this.log.error("Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-            this.getAlgoritmoName(), runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
+            runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
       this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-          this.getAlgoritmoName(), runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size());
     }
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
