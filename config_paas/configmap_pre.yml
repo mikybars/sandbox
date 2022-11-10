@@ -46,7 +46,7 @@ amiga:
           defaultIsolationLevel: 2
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFrancia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFR
           username: ncomis
           readOnly: true
           data-source-properties:
@@ -218,7 +218,7 @@ amiga:
             encrypt: false
         comis52:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTURQUIA
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTR
           username: ncomis
           readOnly: true
           data-source-properties:
