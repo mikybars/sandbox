@@ -10,6 +10,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
@@ -45,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -135,6 +137,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeDiariaV1RepositoryCustom
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
     expected.put(SQL_PARAM_CCL_ID_PERSON, this.persona.getIdPersonaLocal());
     expected.put(SQL_PARAM_STD_OR_HR_PERIOD, this.persona.getStdOrHrPeriod());
+    expected.put(SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(this.tarea.getFechaInicioPeriodo()));
 
     assertNotNull(result);
     assertEquals(expected, result);

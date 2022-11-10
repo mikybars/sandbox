@@ -51,6 +51,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcen
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
         TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId());
+
     return map;
   }
 }
