@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -186,4 +187,11 @@ public class TrabajoServiceImpl implements TrabajoService {
     this.trabajoRepositoryCustom.updateEstado(trabajo, estado);
   }
 
+  @Override
+  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo,
+      @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen) {
+    return this.trabajoRepositoryCustom.findEmpresasCalcularProgramados(trabajo, stdIdLegEnt,
+        cclIdOrigen);
+  }
 }

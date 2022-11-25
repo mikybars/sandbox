@@ -10221,5 +10221,32 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
   ]]>
   </entry>
 
+  <entry key="TrabajoRepositoryCustom.findEmpresaEmpleadosExportados">
+    <![CDATA[
+        SELECT CCL_ID_ORIGEN,
+        STD_ID_LEG_ENT
+        FROM (
+                SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, SUM(CUENTA_MAYORES) AS CUENTA_MAYORES, SUM(CUENTA_TOTAL) AS CUENTA_TOTAL FROM(
+                      SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, COUNT(*) AS CUENTA_MAYORES, NULL AS CUENTA_TOTAL
+                      FROM PERIODO_CALCULO_PERSONA
+                      WHERE CCL_ID_ORIGEN IN (:cclIdOrigen)
+                      AND STD_ID_LEG_ENT IN (:stdIdLegEnt)
+                      AND ICM_ID_PERIODO = :icmIdPeriodo
+                      AND ID_ESTADO >= :idEstado
+                      GROUP BY CCL_ID_ORIGEN, STD_ID_LEG_ENT
+                      UNION
+                      SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, NULL AS CUENTA_MAYORES, COUNT(*) AS CUENTA_TOTAL
+                      FROM PERIODO_CALCULO_PERSONA
+                      WHERE CCL_ID_ORIGEN IN (:cclIdOrigen)
+                      AND STD_ID_LEG_ENT IN (:stdIdLegEnt)
+                      AND ICM_ID_PERIODO = :icmIdPeriodo
+                      GROUP BY CCL_ID_ORIGEN, STD_ID_LEG_ENT
+                )GROUP BY CCL_ID_ORIGEN, STD_ID_LEG_ENT
+        ) WHERE CUENTA_MAYORES = CUENTA_TOTAL
+  ]]>
+</entry>
 
-</properties>
+
+
+
+  </properties>
