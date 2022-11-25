@@ -85,4 +85,18 @@ public class RunTrabajoServiceImplTest {
     this.runTrabajoService.run(runTrabajoDto);
 
   }
+
+  @Test
+  void runEmpresaTest() {
+
+    final RunTrabajoDto runTrabajoDto = this.createRunTrabajo(TipoAmbitoEnum.EMPRESA.getId());
+    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).build();
+    final Meta4PropertiesDto m4 = new Meta4PropertiesDto();
+    m4.setPage(new PageDto());
+    when(this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN)).thenReturn(m4);
+    when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(m4);
+
+    this.runTrabajoService.run(runTrabajoDto);
+
+  }
 }
