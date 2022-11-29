@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,6 +39,7 @@ public abstract class AbstractTareaCalculoAlgoritmoGlobalTiendaRepositoryCustom 
       final IdPersonaLocalDto persona) {
     final Map<String, Object> map = new HashMap<>();
     if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
     if (persona != null) {

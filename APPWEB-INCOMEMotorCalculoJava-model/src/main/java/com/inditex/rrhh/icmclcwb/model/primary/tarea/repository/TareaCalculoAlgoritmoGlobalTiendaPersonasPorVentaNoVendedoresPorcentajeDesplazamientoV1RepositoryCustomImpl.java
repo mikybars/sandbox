@@ -25,7 +25,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcen
 
   @Value("#{calculoPrimaryQuery['"
       + "TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']}"
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTareaPresencia']}"
       + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
@@ -33,7 +33,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcen
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['"
       + "TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}"
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTareaPresencia']}"
       + "#{calculoPrimaryQuery['PersonasPorVentaNoVendedores.calcular.where']}")
   @Getter
   private String sqlCalcular;
@@ -51,6 +51,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcen
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
         TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPO_HORA_DESPLAZAMIENTO.getId());
+
     return map;
   }
 }

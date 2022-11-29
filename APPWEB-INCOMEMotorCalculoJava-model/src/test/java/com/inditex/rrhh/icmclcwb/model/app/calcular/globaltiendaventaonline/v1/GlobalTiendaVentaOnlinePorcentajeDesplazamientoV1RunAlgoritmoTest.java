@@ -82,16 +82,17 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea,
+        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
   }
 
   @Test
@@ -113,16 +114,16 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
     verify(this.log, times(1)).error(
         "Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
+        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }

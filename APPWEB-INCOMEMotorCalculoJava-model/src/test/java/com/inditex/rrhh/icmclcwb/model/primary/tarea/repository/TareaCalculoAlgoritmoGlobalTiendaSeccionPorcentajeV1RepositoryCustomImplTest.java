@@ -7,6 +7,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_CALCULO;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
@@ -26,6 +27,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +45,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -144,6 +147,8 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustomImplTe
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 1, 1));
+
     final IdPersonaLocalDto persona = mock(IdPersonaLocalDto.class);
     when(persona.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona.getStdOrHrPeriod()).thenReturn("01");
@@ -174,6 +179,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustomImplTe
     expected.put(SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList("011", "012"));
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
+    expected.put(SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
     assertEquals(expected, result);
 
@@ -217,6 +223,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustomImplTe
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 1, 1));
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -255,6 +262,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustomImplTe
     expectedPersona1.put(SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList("011", "012"));
     expectedPersona1.put(SQL_PARAM_ES_DESPLAZAMIENTO, SQL_VALUE_BOOLEAN_TRUE);
     expectedPersona1.put(SQL_PARAM_ES_DESPLAZAMIENTO_BASE, SQL_VALUE_BOOLEAN_FALSE);
+    expectedPersona1.put(SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
 
     final Map<String, Object> expectedPersona2 = new HashMap<>(expectedPersona1);
     expectedPersona2.put(SQL_PARAM_CCL_ID_PERSON, persona2.getIdPersonaLocal());

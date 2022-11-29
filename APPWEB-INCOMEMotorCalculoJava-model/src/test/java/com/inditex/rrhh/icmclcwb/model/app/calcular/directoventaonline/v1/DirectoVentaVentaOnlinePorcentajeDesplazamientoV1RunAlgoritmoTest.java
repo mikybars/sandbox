@@ -84,16 +84,16 @@ class DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
   }
 
   @Test
@@ -115,16 +115,16 @@ class DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     final Long idTarea = runTarea.getTarea().getId();
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo");
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, personas);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", personas);
     verify(this.log, times(1)).info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
     verify(this.log, times(1)).error(
         "Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", idTrabajo, idTarea, 3, exception);
+        idTrabajo, idTarea, "DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
