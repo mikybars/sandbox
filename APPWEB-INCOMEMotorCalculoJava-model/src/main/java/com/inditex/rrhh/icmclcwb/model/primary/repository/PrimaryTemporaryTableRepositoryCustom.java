@@ -684,4 +684,5 @@ public interface PrimaryTemporaryTableRepositoryCustom {
   List<IdPersonaLocalDto> validateTempComisPersonas(TareaDto tarea);
 
   List<IdPersonaLocalDto> validateTempComisDesplazamientoChallengePorcentaje(TareaDto tarea);
+
 }

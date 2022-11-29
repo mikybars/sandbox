@@ -89,7 +89,7 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
-          concurrency: 1
+          concurrency: 3
           sessionTransacted: false
           globalTransacted: false
           pubSubDomain: false
@@ -602,8 +602,8 @@ app:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
-              tipoOrden: DESC
-              campoOrden: idOrigen
+              tipoOrden:
+              campoOrden:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3

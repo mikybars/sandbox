@@ -49,6 +49,10 @@ public class AppConstants {
 
   public static final String ID_ORIGEN_SPAIN = "11";
 
+  public static final int ID_ORIGEN_MONACO_PTR = 101;
+
+  public static final String STD_ID_LEG_ENT_MONACO = "168";
+
   public static final String UNDERSCORE = "_";
 
   public static final Long MIN_ID_PERSONA_EXTERNO_ES = 500000L;

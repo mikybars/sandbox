@@ -26,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImplTe
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 1, 1));
+
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -144,7 +147,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImplTe
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     // tipoDatoLocalizacionPersonaPresencia
     verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    assertEquals(16, result.size());
+    assertEquals(17, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
@@ -228,6 +231,8 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImplTe
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
+    when(tarea.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 1, 1));
+
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
     when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
     when(persona1.getStdOrHrPeriod()).thenReturn("01");
@@ -248,7 +253,7 @@ public class TareaCalculoAlgoritmoGlobalTiendaPorcentajeV1RepositoryCustomImplTe
     assertEquals(2, values.length);
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
-      assertEquals(16, value.getValues().size());
+      assertEquals(17, value.getValues().size());
       // activo
       assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));

@@ -21,7 +21,7 @@ metadata:
   slot: develop
   developModel: CORPORATE
   layer: core
-  version: 4.33.0
+  version: 4.35.0
 amiga:
   monitoring:
     metrics:
@@ -179,7 +179,7 @@ amiga:
           pubSubDomain: false
           receiveTimeout: 1000
         tarea:
-          concurrency: 1
+          concurrency: 3
           sessionTransacted: false
           globalTransacted: false
           pubSubDomain: false
@@ -1253,8 +1253,8 @@ app:
             page:
               numeroPagina: 1
               numeroRegistrosPagina: 50
-              tipoOrden: DESC
-              campoOrden: idOrigen
+              tipoOrden:
+              campoOrden:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
