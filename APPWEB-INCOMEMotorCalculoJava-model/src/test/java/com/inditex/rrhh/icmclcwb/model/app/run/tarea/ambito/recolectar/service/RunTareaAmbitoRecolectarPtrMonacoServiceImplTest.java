@@ -1,4 +1,8 @@
-package com.inditex.rrhh.icmclcwb.model.app.run.service;
+package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
+
+/*
+ * Copyright (c) 2022. Inditex
+ */
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -19,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
@@ -42,7 +47,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlineP
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
-import com.inditex.rrhh.icmclcwb.model.app.service.VentasMonacoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -57,7 +61,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-class VentasMonacoServiceImplTest {
+class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
   @Mock
   private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
@@ -92,9 +96,12 @@ class VentasMonacoServiceImplTest {
   @Mock
   private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
+  @Mock
+  private RunTareaAmbitoRecolectarPtrMonacoService runTareaAmbitoRecolectarPtrMonacoService;
+
   @Spy
   @InjectMocks
-  private VentasMonacoServiceImpl ventasMonacoService;
+  private RunTareaAmbitoRecolectarPtrMonacoServiceImpl ventasMonacoService;
 
   @Random
   private RunTareaDto runTarea;
@@ -151,20 +158,19 @@ class VentasMonacoServiceImplTest {
     doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
         .savePtrVentaTotalizadoResponse(ventaTotalizadoresponse, this.runTarea.getTarea());
 
-    this.ventasMonacoService.ventaFisicaLocalizacionSeccionByRunTarea(this.runTarea);
+    this.ventasMonacoService.ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
 
     verify(this.ventasMonacoService, times(1))
-        .ventaFisicaLocalizacionSeccionByRunTarea(this.runTarea);
+        .ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
   }
 
   @Test
   void ventaFisicaLocalizacionSeccionByRunTareaExceptionTest() {
-
-    doThrow(new RuntimeException()).when(this.tareaLocalizacionPresupuestoService)
-        .findPeriodoPresupuestoYTrabajo(this.runTarea2.getTarea().getId());
-
+    doThrow(new RuntimeException()).when(this.tareaLocalizacionHistoricoService)
+        .findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(this.runTarea2.getTarea().getId(), this.ambito.getCclIdOrigen(),
+            AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
     assertThrows(RuntimeException.class, () -> {
-      this.ventasMonacoService.ventaFisicaLocalizacionSeccionByRunTarea(this.runTarea2);
+      this.ventasMonacoService.ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
   }
 
@@ -215,10 +221,10 @@ class VentasMonacoServiceImplTest {
     doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
         .savePtrVentaOnlineIpodResponse(ventaOnlineIpodResponse, this.runTarea.getTarea());
 
-    this.ventasMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTarea(this.runTarea);
+    this.ventasMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
 
     verify(this.ventasMonacoService, times(1))
-        .ventaOnlineIpodLocalizacionSeccionByRunTarea(this.runTarea);
+        .ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
   }
 
   @Test
@@ -229,7 +235,7 @@ class VentasMonacoServiceImplTest {
             AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
 
     assertThrows(RuntimeException.class, () -> {
-      this.ventasMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTarea(this.runTarea2);
+      this.ventasMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
   }
 
@@ -280,10 +286,10 @@ class VentasMonacoServiceImplTest {
     doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
         .savePtrVentaOnlinePickingResponse(ventaOnlinePickingResponse, this.runTarea.getTarea());
 
-    this.ventasMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTarea(this.runTarea);
+    this.ventasMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
 
     verify(this.ventasMonacoService, times(1))
-        .ventaOnlinePickingLocalizacionSeccionByRunTarea(this.runTarea);
+        .ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
   }
 
   @Test
@@ -292,7 +298,7 @@ class VentasMonacoServiceImplTest {
     doThrow(new RuntimeException()).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_PICKING);
 
     assertThrows(RuntimeException.class, () -> {
-      this.ventasMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTarea(this.runTarea2);
+      this.ventasMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
   }
 
@@ -344,10 +350,10 @@ class VentasMonacoServiceImplTest {
     doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
         .savePtrVentaOnlineEntregaTiendaResponse(ptrVentaOnlineEntregaTiendaResponse, this.runTarea.getTarea());
 
-    this.ventasMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(this.runTarea);
+    this.ventasMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
 
     verify(this.ventasMonacoService, times(1))
-        .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(this.runTarea);
+        .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
   }
 
   @Test
@@ -356,7 +362,7 @@ class VentasMonacoServiceImplTest {
     doThrow(new RuntimeException()).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA);
 
     assertThrows(RuntimeException.class, () -> {
-      this.ventasMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(this.runTarea2);
+      this.ventasMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
   }
 
@@ -389,7 +395,7 @@ class VentasMonacoServiceImplTest {
     doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
         .savePtrVentaTotalizadoResponseRepartoOnline(ptrVentaTotalizadoResponse, this.runTarea.getTarea());
 
-    this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(this.runTarea);
+    this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
   }
 
   @Test
@@ -399,7 +405,7 @@ class VentasMonacoServiceImplTest {
         .findPeriodoPresupuestoYTrabajo(this.runTarea2.getTarea().getId());
 
     assertThrows(RuntimeException.class, () -> {
-      this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(this.runTarea2);
+      this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
 
   }
