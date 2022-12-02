@@ -7,8 +7,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service.RunTareaRecolectarPtrMonacoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,47 +17,47 @@ import org.springframework.stereotype.Service;
 public class RunTareaRecolectarPtrMonacoAsyncServiceImpl implements RunTareaRecolectarPtrMonacoAsyncService {
 
   @Autowired
-  private RunTareaRecolectarPtrMonacoServiceImpl runTareaRecolectarPtrMonacoServiceImpl;
+  private RunTareaRecolectarPtrMonacoService runTareaRecolectarPtrMonacoService;
 
   @Override
   public CompletableFuture<Void> presenciaDetallePersonaIncluidoCommerceByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> presenciaDetalleComisionablePersonaByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> ventaFisicaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> ventaOnlinePickingLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> ventaOnlineIpodLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(final RunTareaDto runTarea) {
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
+    this.runTareaRecolectarPtrMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
