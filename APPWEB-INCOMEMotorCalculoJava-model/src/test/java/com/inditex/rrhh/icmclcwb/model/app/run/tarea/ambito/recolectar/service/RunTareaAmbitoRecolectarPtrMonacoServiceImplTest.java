@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -24,6 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -35,6 +38,9 @@ import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncSer
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaGeneralAsyncService;
@@ -81,6 +87,9 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
   @Mock
+  private PtrPresenciaAsyncService ptrPresenciaAsyncService;
+
+  @Mock
   private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
 
   @Mock
@@ -96,7 +105,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Mock
+  private Map<String, PtrPropertiesDto> presenciasProperties;
+
+  @Mock
   private RunTareaAmbitoRecolectarPtrMonacoService runTareaAmbitoRecolectarPtrMonacoService;
+
+  @Mock
+  private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
   @Spy
   @InjectMocks
@@ -405,6 +420,118 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
     assertThrows(RuntimeException.class, () -> {
       this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
+    });
+
+  }
+
+  @Test
+  void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbitoTest(
+      @Random final PeriodoDto periodo, @Random final PtrPresenciaDetalleRequestDto request,
+      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
+      @Random(size = 1,
+          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      @Random final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
+
+    final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    filter.setMaxPageSize(1);
+    filter.setMaxPersistenceSize(1);
+    filter.setPeriodType(PtrPageEnum.MONTHS);
+    filter.setPeriodSize(1);
+    propertiesDto.setFilter(filter);
+    propertiesDto.setEndpoint("");
+    doReturn(propertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
+
+    doReturn(Arrays.asList(periodo)).when(this.tareaLocalizacionPresupuestoService)
+        .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
+
+    final IdLocalizacionLocalDto localizacionLocalDto = new IdLocalizacionLocalDto();
+    localizacionLocalDto.setId("1");
+
+    doReturn(Arrays.asList(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
+        .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
+            this.ambito.getCclIdOrigen(),
+            Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+
+    doReturn(request).when(this.tareaMapper)
+        .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(
+            this.runTarea.getTarea(), this.ambito, periodo);
+
+    final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = CompletableFuture.completedFuture(ptrPresenciaDetalleResponseDto);
+    doReturn(cfData).when(this.ptrPresenciaAsyncService).presenciasDetalle(any(PtrPresenciaDetalleRequestDto.class));
+
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionPersonaPresenciaAsyncService)
+        .savePtrPresenciaDetalle(ptrPresenciaDetalleResponseDto.getPresenciasDetalle(), this.runTarea.getTarea(),
+            TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+
+    this.ventasMonacoService.presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
+  }
+
+  @Test
+  void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbitoExceptionTest() {
+
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+
+    doThrow(new RuntimeException()).when(this.tareaLocalizacionPresupuestoService)
+        .findListaPeriodosPresupestoYTrabajo(this.runTarea2.getTarea().getId(), filter, this.recolectarProperties);
+
+    assertThrows(RuntimeException.class, () -> {
+      this.ventasMonacoService.presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
+    });
+
+  }
+
+  @Test
+  void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(
+      @Random final PeriodoDto periodo, @Random final PtrPresenciaDetalleRequestDto request,
+      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
+      @Random(size = 1,
+          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      @Random final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
+
+    final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    filter.setMaxPageSize(1);
+    filter.setMaxPersistenceSize(1);
+    filter.setPeriodType(PtrPageEnum.MONTHS);
+    filter.setPeriodSize(1);
+    propertiesDto.setFilter(filter);
+    propertiesDto.setEndpoint("");
+    doReturn(propertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
+
+    doReturn(Arrays.asList(periodo)).when(this.tareaLocalizacionPresupuestoService)
+        .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
+
+    final IdLocalizacionLocalDto localizacionLocalDto = new IdLocalizacionLocalDto();
+    localizacionLocalDto.setId("1");
+
+    doReturn(Arrays.asList(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
+        .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
+            this.ambito.getCclIdOrigen(),
+            Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+
+    doReturn(request).when(this.tareaMapper)
+        .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(
+            this.runTarea.getTarea(), this.ambito, periodo);
+
+    final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData = CompletableFuture.completedFuture(ptrPresenciaDetalleResponseDto);
+    doReturn(cfData).when(this.ptrPresenciaAsyncService).presenciasDetalle(any(PtrPresenciaDetalleRequestDto.class));
+
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionPersonaPresenciaAsyncService)
+        .savePtrPresenciaDetalle(ptrPresenciaDetalleResponseDto.getPresenciasDetalle(), this.runTarea.getTarea(),
+            TipoDatoEnum.PRESENCIA_REAL_LOCALIZACION_SECCION_PERSONA_TIPOHORA_INCLUIDOECOMMERCE.getId());
+
+    this.ventasMonacoService.presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
+  }
+
+  @Test
+  void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoExceptionTest() {
+
+    doThrow(new RuntimeException()).when(this.tareaLocalizacionPresupuestoService)
+        .findPeriodoPresupuestoYTrabajo(this.runTarea2.getTarea().getId());
+
+    assertThrows(RuntimeException.class, () -> {
+      this.ventasMonacoService.presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
     });
 
   }
