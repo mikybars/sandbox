@@ -471,8 +471,8 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
 
-    doThrow(new RuntimeException()).when(this.tareaLocalizacionPresupuestoService)
-        .findListaPeriodosPresupestoYTrabajo(this.runTarea2.getTarea().getId(), filter, this.recolectarProperties);
+    doThrow(new RuntimeException()).when(this.tareaLocalizacionHistoricoService)
+        .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(any(String.class), any(String.class));
 
     assertThrows(RuntimeException.class, () -> {
       this.ventasMonacoService.presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(this.runTarea2, this.ambito);
