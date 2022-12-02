@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.async.service;
+
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
