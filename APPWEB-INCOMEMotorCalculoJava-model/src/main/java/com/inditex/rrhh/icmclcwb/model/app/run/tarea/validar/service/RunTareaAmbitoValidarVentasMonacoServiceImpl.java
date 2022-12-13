@@ -6,11 +6,11 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentasMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentasMonacoService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -25,7 +25,7 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
   private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
 
   @Autowired
-  private VentasMonacoService ventasMonacoService;
+  private RunTareaRecolectarPtrMonacoAsyncService ventasMonacoService;
 
   @Autowired
   private ValidacionMapper validacionMapper;
@@ -63,6 +63,16 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
       final CompletableFuture<Void> cfVentaFisicaRepartoOnline = this.ventasMonacoService
           .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
       AsyncUtils.exceptionally(cfVentaFisicaRepartoOnline, cf, cfWait);
+
+      // Presencia Persona
+      final CompletableFuture<Void> cfPresenciasDetalleComisionablePersona = this.ventasMonacoService
+          .presenciaDetalleComisionablePersonaByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfPresenciasDetalleComisionablePersona, cf, cfWait);
+
+      // Presencias incluido commerce
+      final CompletableFuture<Void> cfPresenciasDetalleIncluidoCommerce = this.ventasMonacoService
+          .presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfPresenciasDetalleIncluidoCommerce, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

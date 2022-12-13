@@ -51,6 +51,8 @@ public class AppConstants {
 
   public static final int ID_ORIGEN_MONACO_PTR = 101;
 
+  public static final int ID_ORIGEN_FRANCIA_PTR = 1;
+
   public static final String STD_ID_LEG_ENT_MONACO = "168";
 
   public static final String UNDERSCORE = "_";
