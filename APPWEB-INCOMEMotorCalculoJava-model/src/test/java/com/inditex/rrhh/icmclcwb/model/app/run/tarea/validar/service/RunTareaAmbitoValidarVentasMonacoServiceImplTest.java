@@ -12,10 +12,10 @@ import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
-import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentasMonacoService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +36,7 @@ class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
   private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
 
   @Mock
-  private VentasMonacoService ventasMonacoService;
+  private RunTareaRecolectarPtrMonacoAsyncService ventasMonacoService;
 
   @Mock
   private ValidacionMapper validacionMapper;
@@ -83,6 +83,12 @@ class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
 
     doReturn(completableFuture).when(this.ventasMonacoService)
         .ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(this.runTarea);
+
+    doReturn(completableFuture).when(this.ventasMonacoService)
+        .presenciaDetallePersonaIncluidoCommerceByRunTarea(this.runTarea);
+
+    doReturn(completableFuture).when(this.ventasMonacoService)
+        .presenciaDetalleComisionablePersonaByRunTarea(this.runTarea);
 
     doReturn(this.validacion).when(this.validacionMapper).booleanToValidacionDto(this.tareaAmbito, this.tareaFaseAccion, true);
 
