@@ -27,30 +27,31 @@ public class TareaLocalizacionPresupuestoListDto implements Serializable {
 
   /**
    * Obtiene la menor fecha de inicio entre los presupuestos.
-   * 
+   **
+   * @return Fecha de inicio mínima.
+   *
    * @deprecated Este método quedará en desuso, usar en su lugar
    *             {@link TareaLocalizacionPresupuestoListDto#getMinFechaInicioPeriodo(LocalDate)}
-   * @return Fecha de inicio mínima.
    */
   @Deprecated
   public LocalDate getMinFechaInicioPeriodo() {
     LocalDate minDate = null;
-    if (presupuestos != null) {
-      minDate = getMinFechaInicioPeriodo(LocalDate.now());
+    if (this.presupuestos != null) {
+      minDate = this.getMinFechaInicioPeriodo(LocalDate.now());
     }
     return minDate;
   }
 
   /**
    * Obtiene la menor fecha de inicio entre los presupuestos y la fecha pasada por parámetro.
-   * 
+   *
    * @param fechaInicioTarea fecha de inicio de la tarea
    * @return fecha de inicio mínima (puede ser la de la tarea o de algún presupuesto)
    */
-  public LocalDate getMinFechaInicioPeriodo(LocalDate fechaInicioTarea) {
+  public LocalDate getMinFechaInicioPeriodo(final LocalDate fechaInicioTarea) {
     LocalDate minDate = fechaInicioTarea;
-    if (presupuestos != null) {
-      Optional<TareaLocalizacionPresupuestoDto> optional = presupuestos.stream()
+    if (this.presupuestos != null) {
+      final Optional<TareaLocalizacionPresupuestoDto> optional = this.presupuestos.stream()
           .min(Comparator.comparing(TareaLocalizacionPresupuestoDto::getFechaInicio));
       if (optional.isPresent()) {
         minDate = minDate.isBefore(optional.get().getFechaInicio()) ? minDate : optional.get().getFechaInicio();
@@ -61,12 +62,12 @@ public class TareaLocalizacionPresupuestoListDto implements Serializable {
 
   /**
    * Comprueba si algún presupuesto amplía el rango de fechas de la tarea.
-   * 
+   *
    * @param tarea tarea a comprobar
    * @return <code>true</code> si hay algún presupuesto anterior al rango de fechas de la tarea, <code>false</code> en caso contrario.
    */
-  public boolean esAmbitoAmpliado(TareaDto tarea) {
-    LocalDate minDate = getMinFechaInicioPeriodo();
+  public boolean esAmbitoAmpliado(final TareaDto tarea) {
+    final LocalDate minDate = this.getMinFechaInicioPeriodo();
     return minDate != null && minDate.isBefore(tarea.getFechaInicioPeriodo());
   }
 
