@@ -9,7 +9,6 @@ import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMet
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.service.RunTrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
@@ -63,7 +62,6 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
     final TrabajoDTO trabajo = runTrabajo.getTrabajo();
     try {
       this.trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.EN_CURSO.getDto());
-      List<IdOrigenEmpresaDto> empresasNoCalcular = new ArrayList<>();
       if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
         final OrigenRequestDto request = new OrigenRequestDto();
         request.setData(new GenericFilterDto());
@@ -103,29 +101,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
               return ambitoEmpresa;
             })
             .collect(Collectors.toList());
-
-        if (trabajo.getIdProgramacion() != null) {
-          empresasNoCalcular = this.trabajoService.findEmpresasCalcularProgramados(trabajo,
-              origen.stream().map(e -> e.getIdEmpresa()).collect(Collectors.toList()),
-              trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
-                  Collectors.toList()));
-        }
-        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
-        runTrabajo.getTrabajo()
-            .setEmpresa(trabajoAmbitoEmpresa.stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
-      }
-
-      if (trabajo.getIdProgramacion() != null
-          && !TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
-          && !TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
-        empresasNoCalcular = this.trabajoService.findEmpresasCalcularProgramados(trabajo,
-            trabajo.getEmpresa().stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList()),
-            trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
-                Collectors.toList()));
-        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
-
-        runTrabajo.getTrabajo()
-            .setEmpresa(trabajo.getEmpresa().stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
+        runTrabajo.getTrabajo().setEmpresa(trabajoAmbitoEmpresa);
       }
       runTrabajo.setTarea(this.tareaService.create(runTrabajo.getTrabajo()));
       this.trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.OK.getDto());

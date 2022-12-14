@@ -1,9 +1,11 @@
+
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
@@ -118,6 +120,8 @@ public class TrabajoServiceImpl implements TrabajoService {
 
   @Override
   public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
+    List<IdOrigenEmpresaDto> empresasNoCalcular = new ArrayList<>();
+
     trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
     trabajo.setEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE.getDto());
     if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
@@ -152,14 +156,30 @@ public class TrabajoServiceImpl implements TrabajoService {
     if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
       result.setOrigen(this.trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
     }
+
     if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
       result.setEmpresa(this.trabajoAmbitoEmpresaService.create(trabajo.getEmpresa(), result));
+      if (trabajo.getIdProgramacion() != null) {
+        empresasNoCalcular = this.findEmpresasCalcularProgramados(trabajo,
+            trabajo.getEmpresa().stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList()),
+            trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
+                Collectors.toList()));
+        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
+        result
+            .setEmpresa(result.getEmpresa().stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
+      }
     }
     if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
       result.setLocalizacion(this.trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
     }
     if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
       result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
+    }
+
+    if (trabajo.getIdProgramacion() != null && result.getEmpresa().isEmpty()) {
+      this.updateEstado(result, EstadoTrabajoEnum.OK.getDto());
+      this.updateFechaFin(result);
+      return result;
     }
     // Guardado del trabajo en Meta4
     this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
