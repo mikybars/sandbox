@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
 import java.time.ZoneOffset;
