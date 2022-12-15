@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
 import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
@@ -175,7 +176,11 @@ public class TrabajoServiceImpl implements TrabajoService {
       result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
     }
 
-    if (trabajo.getIdProgramacion() != null && result.getEmpresa().isEmpty()) {
+    if (trabajo.getIdProgramacion() != null
+        && result.getEmpresa().isEmpty()
+        && (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.EMPRESA.getId())
+            || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.LOCALIZACION.getId())
+            || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.PERSONA.getId()))) {
       this.updateEstado(result, EstadoTrabajoEnum.OK.getDto());
       this.updateFechaFin(result);
       return result;
