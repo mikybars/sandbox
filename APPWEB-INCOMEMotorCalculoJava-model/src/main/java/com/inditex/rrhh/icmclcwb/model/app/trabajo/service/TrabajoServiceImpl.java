@@ -177,7 +177,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     }
 
     if (trabajo.getIdProgramacion() != null
-        && result.getEmpresa().isEmpty()
+        && CollectionUtils.isEmpty(result.getEmpresa())
         && (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.EMPRESA.getId())
             || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.LOCALIZACION.getId())
             || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.PERSONA.getId()))) {
