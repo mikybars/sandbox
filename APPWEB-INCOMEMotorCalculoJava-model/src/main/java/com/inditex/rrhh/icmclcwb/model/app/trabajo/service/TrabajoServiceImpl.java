@@ -19,6 +19,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaSer
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
@@ -30,6 +32,7 @@ import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
@@ -159,15 +162,6 @@ public class TrabajoServiceImpl implements TrabajoService {
 
     if (CollectionUtils.isNotEmpty(trabajo.getEmpresa())) {
       result.setEmpresa(this.trabajoAmbitoEmpresaService.create(trabajo.getEmpresa(), result));
-      if (trabajo.getIdProgramacion() != null) {
-        empresasNoCalcular = this.findEmpresasCalcularProgramados(trabajo,
-            trabajo.getEmpresa().stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList()),
-            trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
-                Collectors.toList()));
-        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
-        result
-            .setEmpresa(result.getEmpresa().stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
-      }
     }
     if (CollectionUtils.isNotEmpty(trabajo.getLocalizacion())) {
       result.setLocalizacion(this.trabajoAmbitoLocalizacionService.create(trabajo.getLocalizacion(), result));
@@ -176,14 +170,64 @@ public class TrabajoServiceImpl implements TrabajoService {
       result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
     }
 
-    if (trabajo.getIdProgramacion() != null
-        && CollectionUtils.isEmpty(result.getEmpresa())
-        && (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.EMPRESA.getId())
-            || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.LOCALIZACION.getId())
-            || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.PERSONA.getId()))) {
-      this.updateEstado(result, EstadoTrabajoEnum.OK.getDto());
-      this.updateFechaFin(result);
-      return result;
+    if (trabajo.getIdProgramacion() != null) {
+      if (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.SOCIEDAD.getId())
+          || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.ORIGEN.getId())) {
+        final EmpresaRequestDto empresaRequestDto = new EmpresaRequestDto();
+        empresaRequestDto.setData(new GenericFilterDto());
+        empresaRequestDto.setPage(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA).getPage());
+        empresaRequestDto.getData().setItem(new ArrayList<>());
+        trabajo.getOrigen()
+            .stream()
+            .forEach(e -> empresaRequestDto.getData()
+                .getItem()
+                .add(GenericFilterParametersDto.builder().idOrigenReg(e.getCclIdOrigen()).build()));
+        final List<EmpresaResultItemDto> origen = this.meta4IcmWsCalcIncomeSessionService.getEmpresa(empresaRequestDto);
+        final List<TrabajoAmbitoEmpresaDTO> trabajoAmbitoEmpresa = origen.stream()
+            .map(e -> {
+              final TrabajoAmbitoEmpresaDTO ambitoEmpresa = new TrabajoAmbitoEmpresaDTO();
+              ambitoEmpresa.setStdIdLegEnt(e.getIdEmpresa());
+              ambitoEmpresa.setIdTrabajo(trabajo.getId());
+              return ambitoEmpresa;
+            })
+            .collect(Collectors.toList());
+        empresasNoCalcular = this.findEmpresasCalcularProgramados(trabajo,
+            origen.stream().map(e -> e.getIdEmpresa()).collect(Collectors.toList()),
+            trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
+                Collectors.toList()));
+        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
+        result
+            .setEmpresa(
+                trabajoAmbitoEmpresa.stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
+
+        if (CollectionUtils.isEmpty(result.getEmpresa())) {
+          this.updateEstado(result, EstadoTrabajoEnum.OK.getDto());
+          this.updateFechaFin(result);
+          return result;
+        } else {
+          result.setEmpresa(null);
+        }
+      }
+
+      if (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.EMPRESA.getId())
+          || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.LOCALIZACION.getId())
+          || trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.PERSONA.getId())) {
+
+        empresasNoCalcular = this.findEmpresasCalcularProgramados(trabajo,
+            trabajo.getEmpresa().stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList()),
+            trabajo.getOrigen().stream().map(e -> e.getCclIdOrigen()).collect(
+                Collectors.toList()));
+        final List<String> empresas = empresasNoCalcular.stream().map(e -> e.getStdIdLegEnt()).collect(Collectors.toList());
+        result
+            .setEmpresa(
+                result.getEmpresa().stream().filter(e -> !empresas.contains(e.getStdIdLegEnt())).collect(Collectors.toList()));
+
+        if (CollectionUtils.isEmpty(result.getEmpresa())) {
+          this.updateEstado(result, EstadoTrabajoEnum.OK.getDto());
+          this.updateFechaFin(result);
+          return result;
+        }
+      }
     }
     // Guardado del trabajo en Meta4
     this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
