@@ -3,7 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -37,6 +40,7 @@ import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
 import org.junit.jupiter.api.Test;
@@ -59,6 +63,9 @@ class TrabajoServiceImplTest {
 
   @Mock
   private TrabajoRepository trabajoRepository;
+
+  @Mock
+  private TrabajoRepositoryCustom trabajoRepositoryCustom;
 
   @Mock
   private TrabajoAmbitoOrigenService trabajoAmbitoOrigenService;
@@ -157,6 +164,17 @@ class TrabajoServiceImplTest {
             .thenReturn(new TrabajoDTO());
 
     assertNotNull(this.trabajoServiceImpl.merge(programacion, ambito, periodo));
+  }
+
+  @Test
+  public void findEmpresasCalcularProgramadosTest() {
+    final TrabajoDTO trabajoDTO = mock(TrabajoDTO.class);
+    trabajoDTO.setIdProgramacion(1L);
+    final List<String> origen = mock(List.class);
+    final List<String> empresa = mock(List.class);
+
+    this.trabajoServiceImpl.findEmpresasCalcularProgramados(trabajoDTO, origen, empresa);
+    verify(this.trabajoRepositoryCustom, times(1)).findEmpresasCalcularProgramados(any(TrabajoDTO.class), any(List.class), any(List.class));
   }
 
 }

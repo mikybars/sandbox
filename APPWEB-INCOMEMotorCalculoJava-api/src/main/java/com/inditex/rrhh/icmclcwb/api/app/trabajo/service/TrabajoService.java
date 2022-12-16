@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.trabajo.service;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
@@ -26,4 +29,6 @@ public interface TrabajoService {
 
   TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id);
 
+  List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo, @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen);
 }
