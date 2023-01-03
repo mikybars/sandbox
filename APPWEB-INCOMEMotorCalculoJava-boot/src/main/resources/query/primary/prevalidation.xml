@@ -1612,4 +1612,9 @@ WITH DESPLAZAMIENTOS_COMIS AS (
   GROUP BY CCL_ID_PERSON
     ]]>
   </entry>
+
+
+
+
+
 </properties>

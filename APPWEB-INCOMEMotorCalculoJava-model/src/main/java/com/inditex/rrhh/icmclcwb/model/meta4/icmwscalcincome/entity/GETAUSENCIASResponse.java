@@ -2,7 +2,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,6 +21,7 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
 
 /**
  * <p>Clase Java para anonymous complex type.
@@ -47,133 +47,132 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "getausenciasReturn"
 })
 @XmlRootElement(name = "GETAUSENCIASResponse")
-public class GETAUSENCIASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETAUSENCIASResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "GETAUSENCIASReturn", required = true)
+    protected GetausenciasOutput getausenciasReturn;
 
-  @XmlElement(name = "GETAUSENCIASReturn", required = true)
-  protected GetausenciasOutput getausenciasReturn;
-
-  /**
-   * Obtiene el valor de la propiedad getausenciasReturn.
-   *
-   * @return possible object is {@link GetausenciasOutput }
-   *
-   */
-  public GetausenciasOutput getGETAUSENCIASReturn() {
-    return getausenciasReturn;
-  }
-
-  /**
-   * Define el valor de la propiedad getausenciasReturn.
-   *
-   * @param value allowed object is {@link GetausenciasOutput }
-   *
-   */
-  public void setGETAUSENCIASReturn(GetausenciasOutput value) {
-    this.getausenciasReturn = value;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
+    /**
+     * Obtiene el valor de la propiedad getausenciasReturn.
+     *
+     * @return
+     *     possible object is
+     *     {@link GetausenciasOutput }
+     *
+     */
+    public GetausenciasOutput getGETAUSENCIASReturn() {
+        return getausenciasReturn;
     }
-    if (this == object) {
-      return true;
+
+    /**
+     * Define el valor de la propiedad getausenciasReturn.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetausenciasOutput }
+     *
+     */
+    public void setGETAUSENCIASReturn(GetausenciasOutput value) {
+        this.getausenciasReturn = value;
     }
-    final GETAUSENCIASResponse that = ((GETAUSENCIASResponse) object);
-    {
-      GetausenciasOutput lhsGETAUSENCIASReturn;
-      lhsGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
-      GetausenciasOutput rhsGETAUSENCIASReturn;
-      rhsGETAUSENCIASReturn = that.getGETAUSENCIASReturn();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "getausenciasReturn", lhsGETAUSENCIASReturn),
-          LocatorUtils.property(thatLocator, "getausenciasReturn", rhsGETAUSENCIASReturn), lhsGETAUSENCIASReturn, rhsGETAUSENCIASReturn,
-          (this.getausenciasReturn != null), (that.getausenciasReturn != null))) {
-        return false;
-      }
-    }
-    return true;
-  }
 
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      GetausenciasOutput theGETAUSENCIASReturn;
-      theGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
-      strategy.appendField(locator, this, "getausenciasReturn", buffer, theGETAUSENCIASReturn, (this.getausenciasReturn != null));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      GetausenciasOutput theGETAUSENCIASReturn;
-      theGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getausenciasReturn", theGETAUSENCIASReturn), currentHashCode,
-          theGETAUSENCIASReturn, (this.getausenciasReturn != null));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof GETAUSENCIASResponse) {
-      final GETAUSENCIASResponse copy = ((GETAUSENCIASResponse) draftCopy);
-      {
-        Boolean getausenciasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getausenciasReturn != null));
-        if (getausenciasReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          GetausenciasOutput sourceGETAUSENCIASReturn;
-          sourceGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
-          GetausenciasOutput copyGETAUSENCIASReturn =
-              ((GetausenciasOutput) strategy.copy(LocatorUtils.property(locator, "getausenciasReturn", sourceGETAUSENCIASReturn),
-                  sourceGETAUSENCIASReturn, (this.getausenciasReturn != null)));
-          copy.setGETAUSENCIASReturn(copyGETAUSENCIASReturn);
-        } else {
-          if (getausenciasReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.getausenciasReturn = null;
-          }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
         }
-      }
+        if (this == object) {
+            return true;
+        }
+        final GETAUSENCIASResponse that = ((GETAUSENCIASResponse) object);
+        {
+            GetausenciasOutput lhsGETAUSENCIASReturn;
+            lhsGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
+            GetausenciasOutput rhsGETAUSENCIASReturn;
+            rhsGETAUSENCIASReturn = that.getGETAUSENCIASReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getausenciasReturn", lhsGETAUSENCIASReturn), LocatorUtils.property(thatLocator, "getausenciasReturn", rhsGETAUSENCIASReturn), lhsGETAUSENCIASReturn, rhsGETAUSENCIASReturn, (this.getausenciasReturn!= null), (that.getausenciasReturn!= null))) {
+                return false;
+            }
+        }
+        return true;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new GETAUSENCIASResponse();
-  }
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            GetausenciasOutput theGETAUSENCIASReturn;
+            theGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
+            strategy.appendField(locator, this, "getausenciasReturn", buffer, theGETAUSENCIASReturn, (this.getausenciasReturn!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            GetausenciasOutput theGETAUSENCIASReturn;
+            theGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getausenciasReturn", theGETAUSENCIASReturn), currentHashCode, theGETAUSENCIASReturn, (this.getausenciasReturn!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETAUSENCIASResponse) {
+            final GETAUSENCIASResponse copy = ((GETAUSENCIASResponse) draftCopy);
+            {
+                Boolean getausenciasReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getausenciasReturn!= null));
+                if (getausenciasReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetausenciasOutput sourceGETAUSENCIASReturn;
+                    sourceGETAUSENCIASReturn = this.getGETAUSENCIASReturn();
+                    GetausenciasOutput copyGETAUSENCIASReturn = ((GetausenciasOutput) strategy.copy(LocatorUtils.property(locator, "getausenciasReturn", sourceGETAUSENCIASReturn), sourceGETAUSENCIASReturn, (this.getausenciasReturn!= null)));
+                    copy.setGETAUSENCIASReturn(copyGETAUSENCIASReturn);
+                } else {
+                    if (getausenciasReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getausenciasReturn = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETAUSENCIASResponse();
+    }
 
 }

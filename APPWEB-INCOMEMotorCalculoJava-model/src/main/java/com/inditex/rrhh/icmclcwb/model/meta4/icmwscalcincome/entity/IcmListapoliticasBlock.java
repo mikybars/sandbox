@@ -4,7 +4,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,6 +22,7 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
 
 /**
  * <p>Clase Java para Icm_ListapoliticasBlock complex type.
@@ -47,157 +47,142 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "Icm_ListapoliticasBlock", propOrder = {
     "icmListapoliticasRecordSet"
 })
-public class IcmListapoliticasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListapoliticasBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "Icm_ListapoliticasRecordSet", nillable = true)
+    protected List<IcmListapoliticasRecord> icmListapoliticasRecordSet;
 
-  @XmlElement(name = "Icm_ListapoliticasRecordSet", nillable = true)
-  protected List<IcmListapoliticasRecord> icmListapoliticasRecordSet;
-
-  /**
-   * Gets the value of the icmListapoliticasRecordSet property.
-   *
-   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListapoliticasRecordSet property.
-   *
-   * <p> For example, to add a new item, do as follows:
-   * 
-   * <pre>
-   * getIcmListapoliticasRecordSet().add(newItem);
-   * </pre>
-   *
-   *
-   * <p> Objects of the following type(s) are allowed in the list {@link IcmListapoliticasRecord }
-   *
-   *
-   */
-  public List<IcmListapoliticasRecord> getIcmListapoliticasRecordSet() {
-    if (icmListapoliticasRecordSet == null) {
-      icmListapoliticasRecordSet = new ArrayList<IcmListapoliticasRecord>();
-    }
-    return this.icmListapoliticasRecordSet;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
-    }
-    if (this == object) {
-      return true;
-    }
-    final IcmListapoliticasBlock that = ((IcmListapoliticasBlock) object);
-    {
-      List<IcmListapoliticasRecord> lhsIcmListapoliticasRecordSet;
-      lhsIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty()))
-          ? this.getIcmListapoliticasRecordSet()
-          : null);
-      List<IcmListapoliticasRecord> rhsIcmListapoliticasRecordSet;
-      rhsIcmListapoliticasRecordSet = (((that.icmListapoliticasRecordSet != null) && (!that.icmListapoliticasRecordSet.isEmpty()))
-          ? that.getIcmListapoliticasRecordSet()
-          : null);
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapoliticasRecordSet", lhsIcmListapoliticasRecordSet),
-          LocatorUtils.property(thatLocator, "icmListapoliticasRecordSet", rhsIcmListapoliticasRecordSet), lhsIcmListapoliticasRecordSet,
-          rhsIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty())),
-          ((that.icmListapoliticasRecordSet != null) && (!that.icmListapoliticasRecordSet.isEmpty())))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      List<IcmListapoliticasRecord> theIcmListapoliticasRecordSet;
-      theIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty()))
-          ? this.getIcmListapoliticasRecordSet()
-          : null);
-      strategy.appendField(locator, this, "icmListapoliticasRecordSet", buffer, theIcmListapoliticasRecordSet,
-          ((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty())));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      List<IcmListapoliticasRecord> theIcmListapoliticasRecordSet;
-      theIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty()))
-          ? this.getIcmListapoliticasRecordSet()
-          : null);
-      currentHashCode =
-          strategy.hashCode(LocatorUtils.property(locator, "icmListapoliticasRecordSet", theIcmListapoliticasRecordSet), currentHashCode,
-              theIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty())));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof IcmListapoliticasBlock) {
-      final IcmListapoliticasBlock copy = ((IcmListapoliticasBlock) draftCopy);
-      {
-        Boolean icmListapoliticasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty())));
-        if (icmListapoliticasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-          List<IcmListapoliticasRecord> sourceIcmListapoliticasRecordSet;
-          sourceIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty()))
-              ? this.getIcmListapoliticasRecordSet()
-              : null);
-          @SuppressWarnings("unchecked")
-          List<IcmListapoliticasRecord> copyIcmListapoliticasRecordSet = ((List<IcmListapoliticasRecord>) strategy.copy(
-              LocatorUtils.property(locator, "icmListapoliticasRecordSet", sourceIcmListapoliticasRecordSet),
-              sourceIcmListapoliticasRecordSet,
-              ((this.icmListapoliticasRecordSet != null) && (!this.icmListapoliticasRecordSet.isEmpty()))));
-          copy.icmListapoliticasRecordSet = null;
-          if (copyIcmListapoliticasRecordSet != null) {
-            List<IcmListapoliticasRecord> uniqueIcmListapoliticasRecordSetl = copy.getIcmListapoliticasRecordSet();
-            uniqueIcmListapoliticasRecordSetl.addAll(copyIcmListapoliticasRecordSet);
-          }
-        } else {
-          if (icmListapoliticasRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmListapoliticasRecordSet = null;
-          }
+    /**
+     * Gets the value of the icmListapoliticasRecordSet property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListapoliticasRecordSet property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getIcmListapoliticasRecordSet().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListapoliticasRecord }
+     *
+     *
+     */
+    public List<IcmListapoliticasRecord> getIcmListapoliticasRecordSet() {
+        if (icmListapoliticasRecordSet == null) {
+            icmListapoliticasRecordSet = new ArrayList<IcmListapoliticasRecord>();
         }
-      }
+        return this.icmListapoliticasRecordSet;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new IcmListapoliticasBlock();
-  }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final IcmListapoliticasBlock that = ((IcmListapoliticasBlock) object);
+        {
+            List<IcmListapoliticasRecord> lhsIcmListapoliticasRecordSet;
+            lhsIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty()))?this.getIcmListapoliticasRecordSet():null);
+            List<IcmListapoliticasRecord> rhsIcmListapoliticasRecordSet;
+            rhsIcmListapoliticasRecordSet = (((that.icmListapoliticasRecordSet!= null)&&(!that.icmListapoliticasRecordSet.isEmpty()))?that.getIcmListapoliticasRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapoliticasRecordSet", lhsIcmListapoliticasRecordSet), LocatorUtils.property(thatLocator, "icmListapoliticasRecordSet", rhsIcmListapoliticasRecordSet), lhsIcmListapoliticasRecordSet, rhsIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty())), ((that.icmListapoliticasRecordSet!= null)&&(!that.icmListapoliticasRecordSet.isEmpty())))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            List<IcmListapoliticasRecord> theIcmListapoliticasRecordSet;
+            theIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty()))?this.getIcmListapoliticasRecordSet():null);
+            strategy.appendField(locator, this, "icmListapoliticasRecordSet", buffer, theIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty())));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            List<IcmListapoliticasRecord> theIcmListapoliticasRecordSet;
+            theIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty()))?this.getIcmListapoliticasRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListapoliticasRecordSet", theIcmListapoliticasRecordSet), currentHashCode, theIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty())));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof IcmListapoliticasBlock) {
+            final IcmListapoliticasBlock copy = ((IcmListapoliticasBlock) draftCopy);
+            {
+                Boolean icmListapoliticasRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty())));
+                if (icmListapoliticasRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+                    List<IcmListapoliticasRecord> sourceIcmListapoliticasRecordSet;
+                    sourceIcmListapoliticasRecordSet = (((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty()))?this.getIcmListapoliticasRecordSet():null);
+                    @SuppressWarnings("unchecked")
+                    List<IcmListapoliticasRecord> copyIcmListapoliticasRecordSet = ((List<IcmListapoliticasRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListapoliticasRecordSet", sourceIcmListapoliticasRecordSet), sourceIcmListapoliticasRecordSet, ((this.icmListapoliticasRecordSet!= null)&&(!this.icmListapoliticasRecordSet.isEmpty()))));
+                    copy.icmListapoliticasRecordSet = null;
+                    if (copyIcmListapoliticasRecordSet!= null) {
+                        List<IcmListapoliticasRecord> uniqueIcmListapoliticasRecordSetl = copy.getIcmListapoliticasRecordSet();
+                        uniqueIcmListapoliticasRecordSetl.addAll(copyIcmListapoliticasRecordSet);
+                    }
+                } else {
+                    if (icmListapoliticasRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListapoliticasRecordSet = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new IcmListapoliticasBlock();
+    }
 
 }

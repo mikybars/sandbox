@@ -27,6 +27,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
@@ -88,7 +90,11 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
@@ -1059,6 +1065,44 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     final ClaseResultItemDto result = this.delegate.asClaseResultItemDto(src);
     if (StringUtils.isNotBlank(src.getEstadosil())) {
       result.setIdsEstadoSil(Arrays.asList(src.getEstadosil().split(Meta4Constants.COMMA_SEPARATOR)));
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalliquidacionBlock asIcmParamcalliquidacionBlock(final LiquidacionFilterDto src) {
+    final List<IcmParamcalliquidacionRecord> list = this.asIcmParamcalliquidacionRecordList(src);
+    final IcmParamcalliquidacionBlock result = new IcmParamcalliquidacionBlock();
+    result.getIcmParamcalliquidacionRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalliquidacionRecord> asIcmParamcalliquidacionRecordList(final LiquidacionFilterDto src) {
+    final List<IcmParamcalliquidacionRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItems().forEach(item -> {
+        final IcmParamcalliquidacionRecord record = this.delegate.asIcmParamcalliquidacionRecord(item);
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  @Override
+  public IcmParamcalplanificadorBlock asIcmParamcalplanificadorBlock(final PlanificacionFilterDto src) {
+    final List<IcmParamcalplanificadorRecord> list = this.asIcmParamcalplanificadorBlockList(src);
+    final IcmParamcalplanificadorBlock result = new IcmParamcalplanificadorBlock();
+    result.getIcmParamcalplanificadorRecordSet().addAll(list);
+    return result;
+  }
+
+  private List<IcmParamcalplanificadorRecord> asIcmParamcalplanificadorBlockList(final PlanificacionFilterDto src) {
+    final List<IcmParamcalplanificadorRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItems().forEach(item -> {
+        final IcmParamcalplanificadorRecord record = this.delegate.asIcmParamcalplanificadorRecord(item);
+        result.add(record);
+      });
     }
     return result;
   }

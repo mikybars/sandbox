@@ -2,7 +2,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,6 +21,7 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
 
 /**
  * <p>Clase Java para anonymous complex type.
@@ -47,135 +47,132 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "getconfpreciohoraReturn"
 })
 @XmlRootElement(name = "GETCONFPRECIOHORAResponse")
-public class GETCONFPRECIOHORAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETCONFPRECIOHORAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "GETCONFPRECIOHORAReturn", required = true)
+    protected GetconfpreciohoraOutput getconfpreciohoraReturn;
 
-  @XmlElement(name = "GETCONFPRECIOHORAReturn", required = true)
-  protected GetconfpreciohoraOutput getconfpreciohoraReturn;
-
-  /**
-   * Obtiene el valor de la propiedad getconfpreciohoraReturn.
-   *
-   * @return possible object is {@link GetconfpreciohoraOutput }
-   *
-   */
-  public GetconfpreciohoraOutput getGETCONFPRECIOHORAReturn() {
-    return getconfpreciohoraReturn;
-  }
-
-  /**
-   * Define el valor de la propiedad getconfpreciohoraReturn.
-   *
-   * @param value allowed object is {@link GetconfpreciohoraOutput }
-   *
-   */
-  public void setGETCONFPRECIOHORAReturn(GetconfpreciohoraOutput value) {
-    this.getconfpreciohoraReturn = value;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
+    /**
+     * Obtiene el valor de la propiedad getconfpreciohoraReturn.
+     *
+     * @return
+     *     possible object is
+     *     {@link GetconfpreciohoraOutput }
+     *
+     */
+    public GetconfpreciohoraOutput getGETCONFPRECIOHORAReturn() {
+        return getconfpreciohoraReturn;
     }
-    if (this == object) {
-      return true;
+
+    /**
+     * Define el valor de la propiedad getconfpreciohoraReturn.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetconfpreciohoraOutput }
+     *
+     */
+    public void setGETCONFPRECIOHORAReturn(GetconfpreciohoraOutput value) {
+        this.getconfpreciohoraReturn = value;
     }
-    final GETCONFPRECIOHORAResponse that = ((GETCONFPRECIOHORAResponse) object);
-    {
-      GetconfpreciohoraOutput lhsGETCONFPRECIOHORAReturn;
-      lhsGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
-      GetconfpreciohoraOutput rhsGETCONFPRECIOHORAReturn;
-      rhsGETCONFPRECIOHORAReturn = that.getGETCONFPRECIOHORAReturn();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfpreciohoraReturn", lhsGETCONFPRECIOHORAReturn),
-          LocatorUtils.property(thatLocator, "getconfpreciohoraReturn", rhsGETCONFPRECIOHORAReturn), lhsGETCONFPRECIOHORAReturn,
-          rhsGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn != null), (that.getconfpreciohoraReturn != null))) {
-        return false;
-      }
-    }
-    return true;
-  }
 
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      GetconfpreciohoraOutput theGETCONFPRECIOHORAReturn;
-      theGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
-      strategy.appendField(locator, this, "getconfpreciohoraReturn", buffer, theGETCONFPRECIOHORAReturn,
-          (this.getconfpreciohoraReturn != null));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      GetconfpreciohoraOutput theGETCONFPRECIOHORAReturn;
-      theGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfpreciohoraReturn", theGETCONFPRECIOHORAReturn),
-          currentHashCode, theGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn != null));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof GETCONFPRECIOHORAResponse) {
-      final GETCONFPRECIOHORAResponse copy = ((GETCONFPRECIOHORAResponse) draftCopy);
-      {
-        Boolean getconfpreciohoraReturnShouldBeCopiedAndSet =
-            strategy.shouldBeCopiedAndSet(locator, (this.getconfpreciohoraReturn != null));
-        if (getconfpreciohoraReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          GetconfpreciohoraOutput sourceGETCONFPRECIOHORAReturn;
-          sourceGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
-          GetconfpreciohoraOutput copyGETCONFPRECIOHORAReturn = ((GetconfpreciohoraOutput) strategy.copy(
-              LocatorUtils.property(locator, "getconfpreciohoraReturn", sourceGETCONFPRECIOHORAReturn), sourceGETCONFPRECIOHORAReturn,
-              (this.getconfpreciohoraReturn != null)));
-          copy.setGETCONFPRECIOHORAReturn(copyGETCONFPRECIOHORAReturn);
-        } else {
-          if (getconfpreciohoraReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.getconfpreciohoraReturn = null;
-          }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
         }
-      }
+        if (this == object) {
+            return true;
+        }
+        final GETCONFPRECIOHORAResponse that = ((GETCONFPRECIOHORAResponse) object);
+        {
+            GetconfpreciohoraOutput lhsGETCONFPRECIOHORAReturn;
+            lhsGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
+            GetconfpreciohoraOutput rhsGETCONFPRECIOHORAReturn;
+            rhsGETCONFPRECIOHORAReturn = that.getGETCONFPRECIOHORAReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfpreciohoraReturn", lhsGETCONFPRECIOHORAReturn), LocatorUtils.property(thatLocator, "getconfpreciohoraReturn", rhsGETCONFPRECIOHORAReturn), lhsGETCONFPRECIOHORAReturn, rhsGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn!= null), (that.getconfpreciohoraReturn!= null))) {
+                return false;
+            }
+        }
+        return true;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new GETCONFPRECIOHORAResponse();
-  }
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            GetconfpreciohoraOutput theGETCONFPRECIOHORAReturn;
+            theGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
+            strategy.appendField(locator, this, "getconfpreciohoraReturn", buffer, theGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            GetconfpreciohoraOutput theGETCONFPRECIOHORAReturn;
+            theGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfpreciohoraReturn", theGETCONFPRECIOHORAReturn), currentHashCode, theGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETCONFPRECIOHORAResponse) {
+            final GETCONFPRECIOHORAResponse copy = ((GETCONFPRECIOHORAResponse) draftCopy);
+            {
+                Boolean getconfpreciohoraReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfpreciohoraReturn!= null));
+                if (getconfpreciohoraReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetconfpreciohoraOutput sourceGETCONFPRECIOHORAReturn;
+                    sourceGETCONFPRECIOHORAReturn = this.getGETCONFPRECIOHORAReturn();
+                    GetconfpreciohoraOutput copyGETCONFPRECIOHORAReturn = ((GetconfpreciohoraOutput) strategy.copy(LocatorUtils.property(locator, "getconfpreciohoraReturn", sourceGETCONFPRECIOHORAReturn), sourceGETCONFPRECIOHORAReturn, (this.getconfpreciohoraReturn!= null)));
+                    copy.setGETCONFPRECIOHORAReturn(copyGETCONFPRECIOHORAReturn);
+                } else {
+                    if (getconfpreciohoraReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getconfpreciohoraReturn = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETCONFPRECIOHORAResponse();
+    }
 
 }

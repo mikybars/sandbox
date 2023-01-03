@@ -4,7 +4,6 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,6 +22,7 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
 
 /**
  * <p>Clase Java para Icm_ListapresupuestoswlocBlock complex type.
@@ -47,165 +47,142 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "Icm_ListapresupuestoswlocBlock", propOrder = {
     "icmListapresupuestoswlocRecordSet"
 })
-public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class IcmListapresupuestoswlocBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "Icm_ListapresupuestoswlocRecordSet", nillable = true)
+    protected List<IcmListapresupuestoswlocRecord> icmListapresupuestoswlocRecordSet;
 
-  @XmlElement(name = "Icm_ListapresupuestoswlocRecordSet", nillable = true)
-  protected List<IcmListapresupuestoswlocRecord> icmListapresupuestoswlocRecordSet;
-
-  /**
-   * Gets the value of the icmListapresupuestoswlocRecordSet property.
-   *
-   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListapresupuestoswlocRecordSet
-   * property.
-   *
-   * <p> For example, to add a new item, do as follows:
-   * 
-   * <pre>
-   * getIcmListapresupuestoswlocRecordSet().add(newItem);
-   * </pre>
-   *
-   *
-   * <p> Objects of the following type(s) are allowed in the list {@link IcmListapresupuestoswlocRecord }
-   *
-   *
-   */
-  public List<IcmListapresupuestoswlocRecord> getIcmListapresupuestoswlocRecordSet() {
-    if (icmListapresupuestoswlocRecordSet == null) {
-      icmListapresupuestoswlocRecordSet = new ArrayList<IcmListapresupuestoswlocRecord>();
-    }
-    return this.icmListapresupuestoswlocRecordSet;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
-    }
-    if (this == object) {
-      return true;
-    }
-    final IcmListapresupuestoswlocBlock that = ((IcmListapresupuestoswlocBlock) object);
-    {
-      List<IcmListapresupuestoswlocRecord> lhsIcmListapresupuestoswlocRecordSet;
-      lhsIcmListapresupuestoswlocRecordSet =
-          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
-              ? this.getIcmListapresupuestoswlocRecordSet()
-              : null);
-      List<IcmListapresupuestoswlocRecord> rhsIcmListapresupuestoswlocRecordSet;
-      rhsIcmListapresupuestoswlocRecordSet =
-          (((that.icmListapresupuestoswlocRecordSet != null) && (!that.icmListapresupuestoswlocRecordSet.isEmpty()))
-              ? that.getIcmListapresupuestoswlocRecordSet()
-              : null);
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresupuestoswlocRecordSet", lhsIcmListapresupuestoswlocRecordSet),
-          LocatorUtils.property(thatLocator, "icmListapresupuestoswlocRecordSet", rhsIcmListapresupuestoswlocRecordSet),
-          lhsIcmListapresupuestoswlocRecordSet, rhsIcmListapresupuestoswlocRecordSet,
-          ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())),
-          ((that.icmListapresupuestoswlocRecordSet != null) && (!that.icmListapresupuestoswlocRecordSet.isEmpty())))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
-      theIcmListapresupuestoswlocRecordSet =
-          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
-              ? this.getIcmListapresupuestoswlocRecordSet()
-              : null);
-      strategy.appendField(locator, this, "icmListapresupuestoswlocRecordSet", buffer, theIcmListapresupuestoswlocRecordSet,
-          ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
-      theIcmListapresupuestoswlocRecordSet =
-          (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
-              ? this.getIcmListapresupuestoswlocRecordSet()
-              : null);
-      currentHashCode =
-          strategy.hashCode(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", theIcmListapresupuestoswlocRecordSet),
-              currentHashCode, theIcmListapresupuestoswlocRecordSet,
-              ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof IcmListapresupuestoswlocBlock) {
-      final IcmListapresupuestoswlocBlock copy = ((IcmListapresupuestoswlocBlock) draftCopy);
-      {
-        Boolean icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
-            ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty())));
-        if (icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-          List<IcmListapresupuestoswlocRecord> sourceIcmListapresupuestoswlocRecordSet;
-          sourceIcmListapresupuestoswlocRecordSet =
-              (((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))
-                  ? this.getIcmListapresupuestoswlocRecordSet()
-                  : null);
-          @SuppressWarnings("unchecked")
-          List<IcmListapresupuestoswlocRecord> copyIcmListapresupuestoswlocRecordSet = ((List<IcmListapresupuestoswlocRecord>) strategy
-              .copy(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", sourceIcmListapresupuestoswlocRecordSet),
-                  sourceIcmListapresupuestoswlocRecordSet,
-                  ((this.icmListapresupuestoswlocRecordSet != null) && (!this.icmListapresupuestoswlocRecordSet.isEmpty()))));
-          copy.icmListapresupuestoswlocRecordSet = null;
-          if (copyIcmListapresupuestoswlocRecordSet != null) {
-            List<IcmListapresupuestoswlocRecord> uniqueIcmListapresupuestoswlocRecordSetl = copy.getIcmListapresupuestoswlocRecordSet();
-            uniqueIcmListapresupuestoswlocRecordSetl.addAll(copyIcmListapresupuestoswlocRecordSet);
-          }
-        } else {
-          if (icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmListapresupuestoswlocRecordSet = null;
-          }
+    /**
+     * Gets the value of the icmListapresupuestoswlocRecordSet property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the icmListapresupuestoswlocRecordSet property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getIcmListapresupuestoswlocRecordSet().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link IcmListapresupuestoswlocRecord }
+     *
+     *
+     */
+    public List<IcmListapresupuestoswlocRecord> getIcmListapresupuestoswlocRecordSet() {
+        if (icmListapresupuestoswlocRecordSet == null) {
+            icmListapresupuestoswlocRecordSet = new ArrayList<IcmListapresupuestoswlocRecord>();
         }
-      }
+        return this.icmListapresupuestoswlocRecordSet;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new IcmListapresupuestoswlocBlock();
-  }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        final IcmListapresupuestoswlocBlock that = ((IcmListapresupuestoswlocBlock) object);
+        {
+            List<IcmListapresupuestoswlocRecord> lhsIcmListapresupuestoswlocRecordSet;
+            lhsIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty()))?this.getIcmListapresupuestoswlocRecordSet():null);
+            List<IcmListapresupuestoswlocRecord> rhsIcmListapresupuestoswlocRecordSet;
+            rhsIcmListapresupuestoswlocRecordSet = (((that.icmListapresupuestoswlocRecordSet!= null)&&(!that.icmListapresupuestoswlocRecordSet.isEmpty()))?that.getIcmListapresupuestoswlocRecordSet():null);
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListapresupuestoswlocRecordSet", lhsIcmListapresupuestoswlocRecordSet), LocatorUtils.property(thatLocator, "icmListapresupuestoswlocRecordSet", rhsIcmListapresupuestoswlocRecordSet), lhsIcmListapresupuestoswlocRecordSet, rhsIcmListapresupuestoswlocRecordSet, ((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty())), ((that.icmListapresupuestoswlocRecordSet!= null)&&(!that.icmListapresupuestoswlocRecordSet.isEmpty())))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
+            theIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty()))?this.getIcmListapresupuestoswlocRecordSet():null);
+            strategy.appendField(locator, this, "icmListapresupuestoswlocRecordSet", buffer, theIcmListapresupuestoswlocRecordSet, ((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            List<IcmListapresupuestoswlocRecord> theIcmListapresupuestoswlocRecordSet;
+            theIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty()))?this.getIcmListapresupuestoswlocRecordSet():null);
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", theIcmListapresupuestoswlocRecordSet), currentHashCode, theIcmListapresupuestoswlocRecordSet, ((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof IcmListapresupuestoswlocBlock) {
+            final IcmListapresupuestoswlocBlock copy = ((IcmListapresupuestoswlocBlock) draftCopy);
+            {
+                Boolean icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty())));
+                if (icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+                    List<IcmListapresupuestoswlocRecord> sourceIcmListapresupuestoswlocRecordSet;
+                    sourceIcmListapresupuestoswlocRecordSet = (((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty()))?this.getIcmListapresupuestoswlocRecordSet():null);
+                    @SuppressWarnings("unchecked")
+                    List<IcmListapresupuestoswlocRecord> copyIcmListapresupuestoswlocRecordSet = ((List<IcmListapresupuestoswlocRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListapresupuestoswlocRecordSet", sourceIcmListapresupuestoswlocRecordSet), sourceIcmListapresupuestoswlocRecordSet, ((this.icmListapresupuestoswlocRecordSet!= null)&&(!this.icmListapresupuestoswlocRecordSet.isEmpty()))));
+                    copy.icmListapresupuestoswlocRecordSet = null;
+                    if (copyIcmListapresupuestoswlocRecordSet!= null) {
+                        List<IcmListapresupuestoswlocRecord> uniqueIcmListapresupuestoswlocRecordSetl = copy.getIcmListapresupuestoswlocRecordSet();
+                        uniqueIcmListapresupuestoswlocRecordSetl.addAll(copyIcmListapresupuestoswlocRecordSet);
+                    }
+                } else {
+                    if (icmListapresupuestoswlocRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmListapresupuestoswlocRecordSet = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new IcmListapresupuestoswlocBlock();
+    }
 
 }

@@ -16,7 +16,7 @@ public enum FaseEnum {
       new FaseDto(5)),
   REGULARIZAR(6,
       new FaseDto(6)),
-  AJUSTAR(7, new FaseDto(7)), NORMALIZAR(8, new FaseDto(8));
+  AJUSTAR(7, new FaseDto(7)), NORMALIZAR(8, new FaseDto(8)), CONSOLIDAR(9, new FaseDto(9));
 
   private final Integer id;
 

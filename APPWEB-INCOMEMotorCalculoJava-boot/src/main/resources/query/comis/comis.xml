@@ -4730,4 +4730,10 @@ SELECT
     ]]>
   </entry>
 
+  <entry key="ComisRepositoryCustom.validateTempComisRecuperarFrancia">
+    <![CDATA[
+      SELECT PERSONA FROM COMISION WHERE FECHAVTO = :fechaFinPeriodo AND ESTADO = 1
+    ]]>
+  </entry>
+
 </properties>
