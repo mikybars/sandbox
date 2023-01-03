@@ -14,10 +14,11 @@ jobs:
 
       - name: Build Alfred workflow
         id: builder
-        uses: almibarss/build-alfred-workflow@main
+        uses: almibarss/build-alfred-workflow@79a9b45
         with:
           workflow_dir: .
           exclude_patterns: .git/* .github/*
+          custom_version: 1.9
 
       - name: Create release
         id: create_release
