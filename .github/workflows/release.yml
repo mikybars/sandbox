@@ -18,6 +18,7 @@ jobs:
         with:
           workflow_dir: .
           exclude_patterns: .git/* .github/*
+          custom_version: ${{ github.ref_name }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
