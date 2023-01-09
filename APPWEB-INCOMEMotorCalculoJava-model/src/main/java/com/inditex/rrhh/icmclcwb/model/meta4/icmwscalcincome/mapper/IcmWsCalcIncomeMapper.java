@@ -1702,9 +1702,6 @@ public interface IcmWsCalcIncomeMapper {
 
   List<LiquidacionResultItemDto> asLiquidacionResultItemDto(List<IcmResultadoguardadoRecord> src);
 
-  @InheritInverseConfiguration
-  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(LiquidacionResultItemDto src);
-
   @Mapping(target = "icmParamcalplanificadorRecordSet", ignore = true)
   IcmParamcalplanificadorBlock asIcmParamcalplanificadorBlock(PlanificacionFilterDto src);
 
@@ -1730,4 +1727,7 @@ public interface IcmWsCalcIncomeMapper {
 
   @InheritInverseConfiguration
   IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(PlanificacionResultItemDto src);
+
+  @InheritInverseConfiguration
+  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(LiquidacionResultItemDto src);
 }
