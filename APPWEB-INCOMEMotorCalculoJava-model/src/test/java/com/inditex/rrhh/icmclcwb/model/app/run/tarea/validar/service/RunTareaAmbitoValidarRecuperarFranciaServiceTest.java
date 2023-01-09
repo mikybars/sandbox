@@ -3,13 +3,14 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
@@ -18,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
+import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -32,7 +34,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
 
   @Mock
-  private ComisAsyncService comisAsyncService;
+  private ComisRepositoryCustom comisRepositoryCustom;
 
   @Mock
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
@@ -62,9 +64,15 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
+    final List<IdPersonaLocalDto> personas = new ArrayList<>();
+    personas.add(IdPersonaLocalDto.builder().idPersonaLocal("1").build());
+
     final List<IdPersonaLocalCarenciaDto> lista = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
+
+    when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
+        .thenReturn(personas);
 
     this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 

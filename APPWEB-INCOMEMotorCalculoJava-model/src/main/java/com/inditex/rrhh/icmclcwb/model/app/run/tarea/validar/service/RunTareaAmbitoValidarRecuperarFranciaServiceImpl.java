@@ -64,12 +64,8 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
     final TareaDto tarea = runTareaDto.getTarea();
     final List<IdPersonaLocalDto> personas;
     try {
-      final IdPersonaLocalDto id = new IdPersonaLocalDto();
-      id.setIdPersonaLocal("107711");
-      id.setStdOrHrPeriod("2");
       personas = this.comisRepositoryCustom
           .validateTempComisRecuperarFrancia(runTareaDto.getTarea());
-      personas.add(id);
       final LiquidacionRequestDto request = new LiquidacionRequestDto();
       final List<LiquidacionFilterParametersDto> filterParameters = personas
           .stream()
