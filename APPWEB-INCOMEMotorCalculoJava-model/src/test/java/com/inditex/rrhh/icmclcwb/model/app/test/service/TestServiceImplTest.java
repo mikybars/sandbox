@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -275,7 +274,7 @@ class TestServiceImplTest {
     when(this.slrhorcomsProperties.get("festivos")).thenReturn(slrhorcoms);
     when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*",
         HorarioComercialFestivoDocDto[].class))
-        .thenReturn(mock(ResponseEntity.class));
+            .thenReturn(mock(ResponseEntity.class));
 
     this.testServiceImpl.slrhorcomsTest();
   }

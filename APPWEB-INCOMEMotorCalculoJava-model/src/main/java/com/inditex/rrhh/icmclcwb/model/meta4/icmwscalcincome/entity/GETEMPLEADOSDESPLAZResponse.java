@@ -2,6 +2,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Clase Java para anonymous complex type.
@@ -47,132 +47,135 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "getempleadosdesplazReturn"
 })
 @XmlRootElement(name = "GETEMPLEADOSDESPLAZResponse")
-public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETEMPLEADOSDESPLAZResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "GETEMPLEADOSDESPLAZReturn", required = true)
-    protected GetempleadosdesplazOutput getempleadosdesplazReturn;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Obtiene el valor de la propiedad getempleadosdesplazReturn.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetempleadosdesplazOutput }
-     *
-     */
-    public GetempleadosdesplazOutput getGETEMPLEADOSDESPLAZReturn() {
-        return getempleadosdesplazReturn;
+  @XmlElement(name = "GETEMPLEADOSDESPLAZReturn", required = true)
+  protected GetempleadosdesplazOutput getempleadosdesplazReturn;
+
+  /**
+   * Obtiene el valor de la propiedad getempleadosdesplazReturn.
+   *
+   * @return possible object is {@link GetempleadosdesplazOutput }
+   *
+   */
+  public GetempleadosdesplazOutput getGETEMPLEADOSDESPLAZReturn() {
+    return getempleadosdesplazReturn;
+  }
+
+  /**
+   * Define el valor de la propiedad getempleadosdesplazReturn.
+   *
+   * @param value allowed object is {@link GetempleadosdesplazOutput }
+   *
+   */
+  public void setGETEMPLEADOSDESPLAZReturn(GetempleadosdesplazOutput value) {
+    this.getempleadosdesplazReturn = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Define el valor de la propiedad getempleadosdesplazReturn.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetempleadosdesplazOutput }
-     *
-     */
-    public void setGETEMPLEADOSDESPLAZReturn(GetempleadosdesplazOutput value) {
-        this.getempleadosdesplazReturn = value;
+    if (this == object) {
+      return true;
     }
+    final GETEMPLEADOSDESPLAZResponse that = ((GETEMPLEADOSDESPLAZResponse) object);
+    {
+      GetempleadosdesplazOutput lhsGETEMPLEADOSDESPLAZReturn;
+      lhsGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
+      GetempleadosdesplazOutput rhsGETEMPLEADOSDESPLAZReturn;
+      rhsGETEMPLEADOSDESPLAZReturn = that.getGETEMPLEADOSDESPLAZReturn();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getempleadosdesplazReturn", lhsGETEMPLEADOSDESPLAZReturn),
+          LocatorUtils.property(thatLocator, "getempleadosdesplazReturn", rhsGETEMPLEADOSDESPLAZReturn), lhsGETEMPLEADOSDESPLAZReturn,
+          rhsGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn != null), (that.getempleadosdesplazReturn != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
+      theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
+      strategy.appendField(locator, this, "getempleadosdesplazReturn", buffer, theGETEMPLEADOSDESPLAZReturn,
+          (this.getempleadosdesplazReturn != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
+      theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getempleadosdesplazReturn", theGETEMPLEADOSDESPLAZReturn),
+          currentHashCode, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GETEMPLEADOSDESPLAZResponse) {
+      final GETEMPLEADOSDESPLAZResponse copy = ((GETEMPLEADOSDESPLAZResponse) draftCopy);
+      {
+        Boolean getempleadosdesplazReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getempleadosdesplazReturn != null));
+        if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+          GetempleadosdesplazOutput sourceGETEMPLEADOSDESPLAZReturn;
+          sourceGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
+          GetempleadosdesplazOutput copyGETEMPLEADOSDESPLAZReturn = ((GetempleadosdesplazOutput) strategy.copy(
+              LocatorUtils.property(locator, "getempleadosdesplazReturn", sourceGETEMPLEADOSDESPLAZReturn), sourceGETEMPLEADOSDESPLAZReturn,
+              (this.getempleadosdesplazReturn != null)));
+          copy.setGETEMPLEADOSDESPLAZReturn(copyGETEMPLEADOSDESPLAZReturn);
+        } else {
+          if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.getempleadosdesplazReturn = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final GETEMPLEADOSDESPLAZResponse that = ((GETEMPLEADOSDESPLAZResponse) object);
-        {
-            GetempleadosdesplazOutput lhsGETEMPLEADOSDESPLAZReturn;
-            lhsGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-            GetempleadosdesplazOutput rhsGETEMPLEADOSDESPLAZReturn;
-            rhsGETEMPLEADOSDESPLAZReturn = that.getGETEMPLEADOSDESPLAZReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getempleadosdesplazReturn", lhsGETEMPLEADOSDESPLAZReturn), LocatorUtils.property(thatLocator, "getempleadosdesplazReturn", rhsGETEMPLEADOSDESPLAZReturn), lhsGETEMPLEADOSDESPLAZReturn, rhsGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null), (that.getempleadosdesplazReturn!= null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
-            theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-            strategy.appendField(locator, this, "getempleadosdesplazReturn", buffer, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            GetempleadosdesplazOutput theGETEMPLEADOSDESPLAZReturn;
-            theGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getempleadosdesplazReturn", theGETEMPLEADOSDESPLAZReturn), currentHashCode, theGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETEMPLEADOSDESPLAZResponse) {
-            final GETEMPLEADOSDESPLAZResponse copy = ((GETEMPLEADOSDESPLAZResponse) draftCopy);
-            {
-                Boolean getempleadosdesplazReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getempleadosdesplazReturn!= null));
-                if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetempleadosdesplazOutput sourceGETEMPLEADOSDESPLAZReturn;
-                    sourceGETEMPLEADOSDESPLAZReturn = this.getGETEMPLEADOSDESPLAZReturn();
-                    GetempleadosdesplazOutput copyGETEMPLEADOSDESPLAZReturn = ((GetempleadosdesplazOutput) strategy.copy(LocatorUtils.property(locator, "getempleadosdesplazReturn", sourceGETEMPLEADOSDESPLAZReturn), sourceGETEMPLEADOSDESPLAZReturn, (this.getempleadosdesplazReturn!= null)));
-                    copy.setGETEMPLEADOSDESPLAZReturn(copyGETEMPLEADOSDESPLAZReturn);
-                } else {
-                    if (getempleadosdesplazReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getempleadosdesplazReturn = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GETEMPLEADOSDESPLAZResponse();
-    }
+  public Object createNewInstance() {
+    return new GETEMPLEADOSDESPLAZResponse();
+  }
 
 }

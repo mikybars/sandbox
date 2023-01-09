@@ -192,7 +192,8 @@ public class IcmResultadoguardadoRecord implements Serializable, Cloneable, Copy
     this.icmErroresguardado = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -260,9 +261,9 @@ public class IcmResultadoguardadoRecord implements Serializable, Cloneable, Copy
       lhsIcmErroresguardado = this.getIcmErroresguardado();
       final IcmErroresguardadoBlock rhsIcmErroresguardado;
       rhsIcmErroresguardado = that.getIcmErroresguardado();
-        return strategy.equals(LocatorUtils.property(thisLocator, "icmErroresguardado", lhsIcmErroresguardado),
-            LocatorUtils.property(thatLocator, "icmErroresguardado", rhsIcmErroresguardado), lhsIcmErroresguardado, rhsIcmErroresguardado,
-            (this.icmErroresguardado != null), (that.icmErroresguardado != null));
+      return strategy.equals(LocatorUtils.property(thisLocator, "icmErroresguardado", lhsIcmErroresguardado),
+          LocatorUtils.property(thatLocator, "icmErroresguardado", rhsIcmErroresguardado), lhsIcmErroresguardado, rhsIcmErroresguardado,
+          (this.icmErroresguardado != null), (that.icmErroresguardado != null));
     }
   }
 
@@ -274,13 +275,13 @@ public class IcmResultadoguardadoRecord implements Serializable, Cloneable, Copy
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-      this.append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
   public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-      this.appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
@@ -428,8 +429,9 @@ public class IcmResultadoguardadoRecord implements Serializable, Cloneable, Copy
         if (resultadoShouldBeCopiedAndSet == Boolean.TRUE) {
           final String sourceResultado;
           sourceResultado = this.getResultado();
-          final String copyResultado = ((String) strategy.copy(LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado,
-              (this.resultado != null)));
+          final String copyResultado =
+              ((String) strategy.copy(LocatorUtils.property(locator, "resultado", sourceResultado), sourceResultado,
+                  (this.resultado != null)));
           copy.setResultado(copyResultado);
         } else {
           if (resultadoShouldBeCopiedAndSet == Boolean.FALSE) {

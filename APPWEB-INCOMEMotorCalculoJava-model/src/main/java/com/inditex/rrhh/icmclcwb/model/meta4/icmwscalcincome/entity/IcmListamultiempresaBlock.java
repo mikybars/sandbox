@@ -4,6 +4,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +23,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Clase Java para Icm_ListamultiempresaBlock complex type.
@@ -47,142 +47,160 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "Icm_ListamultiempresaBlock", propOrder = {
     "icmListamultiempresaRecordSet"
 })
-public class IcmListamultiempresaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmListamultiempresaBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "Icm_ListamultiempresaRecordSet", nillable = true)
-    protected List<IcmListamultiempresaRecord> icmListamultiempresaRecordSet;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the icmListamultiempresaRecordSet property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmListamultiempresaRecordSet property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getIcmListamultiempresaRecordSet().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmListamultiempresaRecord }
-     *
-     *
-     */
-    public List<IcmListamultiempresaRecord> getIcmListamultiempresaRecordSet() {
-        if (icmListamultiempresaRecordSet == null) {
-            icmListamultiempresaRecordSet = new ArrayList<IcmListamultiempresaRecord>();
+  @XmlElement(name = "Icm_ListamultiempresaRecordSet", nillable = true)
+  protected List<IcmListamultiempresaRecord> icmListamultiempresaRecordSet;
+
+  /**
+   * Gets the value of the icmListamultiempresaRecordSet property.
+   *
+   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmListamultiempresaRecordSet
+   * property.
+   *
+   * <p> For example, to add a new item, do as follows:
+   * 
+   * <pre>
+   * getIcmListamultiempresaRecordSet().add(newItem);
+   * </pre>
+   *
+   *
+   * <p> Objects of the following type(s) are allowed in the list {@link IcmListamultiempresaRecord }
+   *
+   *
+   */
+  public List<IcmListamultiempresaRecord> getIcmListamultiempresaRecordSet() {
+    if (icmListamultiempresaRecordSet == null) {
+      icmListamultiempresaRecordSet = new ArrayList<IcmListamultiempresaRecord>();
+    }
+    return this.icmListamultiempresaRecordSet;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
+    }
+    if (this == object) {
+      return true;
+    }
+    final IcmListamultiempresaBlock that = ((IcmListamultiempresaBlock) object);
+    {
+      List<IcmListamultiempresaRecord> lhsIcmListamultiempresaRecordSet;
+      lhsIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty()))
+          ? this.getIcmListamultiempresaRecordSet()
+          : null);
+      List<IcmListamultiempresaRecord> rhsIcmListamultiempresaRecordSet;
+      rhsIcmListamultiempresaRecordSet = (((that.icmListamultiempresaRecordSet != null) && (!that.icmListamultiempresaRecordSet.isEmpty()))
+          ? that.getIcmListamultiempresaRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamultiempresaRecordSet", lhsIcmListamultiempresaRecordSet),
+          LocatorUtils.property(thatLocator, "icmListamultiempresaRecordSet", rhsIcmListamultiempresaRecordSet),
+          lhsIcmListamultiempresaRecordSet, rhsIcmListamultiempresaRecordSet,
+          ((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty())),
+          ((that.icmListamultiempresaRecordSet != null) && (!that.icmListamultiempresaRecordSet.isEmpty())))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      List<IcmListamultiempresaRecord> theIcmListamultiempresaRecordSet;
+      theIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty()))
+          ? this.getIcmListamultiempresaRecordSet()
+          : null);
+      strategy.appendField(locator, this, "icmListamultiempresaRecordSet", buffer, theIcmListamultiempresaRecordSet,
+          ((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty())));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      List<IcmListamultiempresaRecord> theIcmListamultiempresaRecordSet;
+      theIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty()))
+          ? this.getIcmListamultiempresaRecordSet()
+          : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamultiempresaRecordSet", theIcmListamultiempresaRecordSet),
+          currentHashCode, theIcmListamultiempresaRecordSet,
+          ((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty())));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof IcmListamultiempresaBlock) {
+      final IcmListamultiempresaBlock copy = ((IcmListamultiempresaBlock) draftCopy);
+      {
+        Boolean icmListamultiempresaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            ((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty())));
+        if (icmListamultiempresaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+          List<IcmListamultiempresaRecord> sourceIcmListamultiempresaRecordSet;
+          sourceIcmListamultiempresaRecordSet =
+              (((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty()))
+                  ? this.getIcmListamultiempresaRecordSet()
+                  : null);
+          @SuppressWarnings("unchecked")
+          List<IcmListamultiempresaRecord> copyIcmListamultiempresaRecordSet = ((List<IcmListamultiempresaRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmListamultiempresaRecordSet", sourceIcmListamultiempresaRecordSet),
+              sourceIcmListamultiempresaRecordSet,
+              ((this.icmListamultiempresaRecordSet != null) && (!this.icmListamultiempresaRecordSet.isEmpty()))));
+          copy.icmListamultiempresaRecordSet = null;
+          if (copyIcmListamultiempresaRecordSet != null) {
+            List<IcmListamultiempresaRecord> uniqueIcmListamultiempresaRecordSetl = copy.getIcmListamultiempresaRecordSet();
+            uniqueIcmListamultiempresaRecordSetl.addAll(copyIcmListamultiempresaRecordSet);
+          }
+        } else {
+          if (icmListamultiempresaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListamultiempresaRecordSet = null;
+          }
         }
-        return this.icmListamultiempresaRecordSet;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
-        }
-        if (this == object) {
-            return true;
-        }
-        final IcmListamultiempresaBlock that = ((IcmListamultiempresaBlock) object);
-        {
-            List<IcmListamultiempresaRecord> lhsIcmListamultiempresaRecordSet;
-            lhsIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty()))?this.getIcmListamultiempresaRecordSet():null);
-            List<IcmListamultiempresaRecord> rhsIcmListamultiempresaRecordSet;
-            rhsIcmListamultiempresaRecordSet = (((that.icmListamultiempresaRecordSet!= null)&&(!that.icmListamultiempresaRecordSet.isEmpty()))?that.getIcmListamultiempresaRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListamultiempresaRecordSet", lhsIcmListamultiempresaRecordSet), LocatorUtils.property(thatLocator, "icmListamultiempresaRecordSet", rhsIcmListamultiempresaRecordSet), lhsIcmListamultiempresaRecordSet, rhsIcmListamultiempresaRecordSet, ((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty())), ((that.icmListamultiempresaRecordSet!= null)&&(!that.icmListamultiempresaRecordSet.isEmpty())))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            List<IcmListamultiempresaRecord> theIcmListamultiempresaRecordSet;
-            theIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty()))?this.getIcmListamultiempresaRecordSet():null);
-            strategy.appendField(locator, this, "icmListamultiempresaRecordSet", buffer, theIcmListamultiempresaRecordSet, ((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty())));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            List<IcmListamultiempresaRecord> theIcmListamultiempresaRecordSet;
-            theIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty()))?this.getIcmListamultiempresaRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListamultiempresaRecordSet", theIcmListamultiempresaRecordSet), currentHashCode, theIcmListamultiempresaRecordSet, ((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty())));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof IcmListamultiempresaBlock) {
-            final IcmListamultiempresaBlock copy = ((IcmListamultiempresaBlock) draftCopy);
-            {
-                Boolean icmListamultiempresaRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty())));
-                if (icmListamultiempresaRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-                    List<IcmListamultiempresaRecord> sourceIcmListamultiempresaRecordSet;
-                    sourceIcmListamultiempresaRecordSet = (((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty()))?this.getIcmListamultiempresaRecordSet():null);
-                    @SuppressWarnings("unchecked")
-                    List<IcmListamultiempresaRecord> copyIcmListamultiempresaRecordSet = ((List<IcmListamultiempresaRecord> ) strategy.copy(LocatorUtils.property(locator, "icmListamultiempresaRecordSet", sourceIcmListamultiempresaRecordSet), sourceIcmListamultiempresaRecordSet, ((this.icmListamultiempresaRecordSet!= null)&&(!this.icmListamultiempresaRecordSet.isEmpty()))));
-                    copy.icmListamultiempresaRecordSet = null;
-                    if (copyIcmListamultiempresaRecordSet!= null) {
-                        List<IcmListamultiempresaRecord> uniqueIcmListamultiempresaRecordSetl = copy.getIcmListamultiempresaRecordSet();
-                        uniqueIcmListamultiempresaRecordSetl.addAll(copyIcmListamultiempresaRecordSet);
-                    }
-                } else {
-                    if (icmListamultiempresaRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListamultiempresaRecordSet = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new IcmListamultiempresaBlock();
-    }
+  public Object createNewInstance() {
+    return new IcmListamultiempresaBlock();
+  }
 
 }
