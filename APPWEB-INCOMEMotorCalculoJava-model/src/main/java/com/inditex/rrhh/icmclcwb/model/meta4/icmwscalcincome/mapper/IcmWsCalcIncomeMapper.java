@@ -1696,14 +1696,14 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE)
   IcmParamcalliquidacionRecord asIcmParamcalliquidacionRecord(LiquidacionFilterParametersDto src);
 
-  @InheritInverseConfiguration
-  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(LiquidacionResultItemDto src);
-
   @Mapping(target = "refresco", source = "refresco")
   @Mapping(target = "resultado", source = "resultado")
   LiquidacionResultItemDto asLiquidacionResultItemDto(IcmResultadoguardadoRecord src);
 
   List<LiquidacionResultItemDto> asLiquidacionResultItemDto(List<IcmResultadoguardadoRecord> src);
+
+  @InheritInverseConfiguration
+  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(LiquidacionResultItemDto src);
 
   @Mapping(target = "icmParamcalplanificadorRecordSet", ignore = true)
   IcmParamcalplanificadorBlock asIcmParamcalplanificadorBlock(PlanificacionFilterDto src);
@@ -1722,12 +1722,12 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "fecfin", source = "fecFin", dateFormat = Meta4Constants.META4_DATE)
   IcmParamcalplanificadorRecord asIcmParamcalplanificadorRecord(PlanificacionFilterParametersDto src);
 
-  @InheritInverseConfiguration
-  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(PlanificacionResultItemDto src);
-
   @Mapping(target = "refresco", source = "refresco")
   @Mapping(target = "resultado", source = "resultado")
   PlanificacionResultItemDto asPlanificacionResultItemDto(IcmResultadoguardadoRecord src);
 
   List<PlanificacionResultItemDto> asPlanificacionResultItemDto(List<IcmResultadoguardadoRecord> src);
+
+  @InheritInverseConfiguration
+  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(PlanificacionResultItemDto src);
 }
