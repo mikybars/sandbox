@@ -192,7 +192,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
@@ -211,7 +211,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
@@ -236,7 +236,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
@@ -393,7 +393,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
@@ -414,7 +414,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
@@ -439,7 +439,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
@@ -602,7 +602,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
@@ -621,7 +621,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
@@ -646,7 +646,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
@@ -1235,7 +1235,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1254,7 +1254,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1277,7 +1277,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1302,7 +1302,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1321,7 +1321,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1344,7 +1344,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
@@ -1369,7 +1369,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
@@ -1388,7 +1388,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(null);
+            .thenReturn(null);
 
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
@@ -1411,7 +1411,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class)))
-        .thenReturn(output);
+            .thenReturn(output);
 
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
