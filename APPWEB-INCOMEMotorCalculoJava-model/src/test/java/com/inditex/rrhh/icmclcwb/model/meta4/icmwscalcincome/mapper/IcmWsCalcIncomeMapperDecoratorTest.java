@@ -40,6 +40,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
@@ -105,6 +106,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcall
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
@@ -267,6 +270,9 @@ class IcmWsCalcIncomeMapperDecoratorTest {
 
   @Random
   LiquidacionFilterDto liquidacionFilterDto;
+
+  @Random
+  PlanificacionFilterDto planificacionFilterDto;
 
   private IcmWsCalcIncomeMapperDecorator getClassMock() {
     return Mockito.mock(IcmWsCalcIncomeMapperDecorator.class, Mockito.CALLS_REAL_METHODS);
@@ -1434,6 +1440,22 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   void asIcmParamcalliquidacionBlockTest() {
     final IcmParamcalliquidacionBlock result = this.icmWsCalcIncomeMapperDecorator
         .asIcmParamcalliquidacionBlock(this.liquidacionFilterDto);
+
+    assertNotNull(result);
+  }
+
+  @BeforeEach
+  void initAsIcmParamcalplanificacionBlockTest(@Random final IcmParamcalplanificadorRecord icmParamcalplanificadorRecord) {
+    for (int i = 0; i < this.planificacionFilterDto.getItems().size(); i++) {
+      doReturn(icmParamcalplanificadorRecord).when(this.delegate)
+          .asIcmParamcalplanificadorRecord(this.planificacionFilterDto.getItems().get(i));
+    }
+  }
+
+  @Test
+  void asIcmParamcalplanificacionBlockTest() {
+    final IcmParamcalplanificadorBlock result = this.icmWsCalcIncomeMapperDecorator
+        .asIcmParamcalplanificadorBlock(this.planificacionFilterDto);
 
     assertNotNull(result);
   }
