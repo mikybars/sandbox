@@ -37,8 +37,7 @@ public class RunTareaValidarExportacionFranciaServiceImplTest {
   @InjectMocks
   private RunTareaValidarExportacionFranciaServiceImpl runTareaValidarExportacionFranciaService;
 
-  @Test
-  public void execute() {
+  public void execute(final ValidacionDto validacion) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
@@ -51,8 +50,6 @@ public class RunTareaValidarExportacionFranciaServiceImplTest {
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     tareaFaseAccionDto.setIdAccion(1);
 
-    final ValidacionDto validacion = new ValidacionDto();
-    validacion.setResult(Boolean.FALSE);
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(
         ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(String.class),
         ArgumentMatchers.any(String.class)))
@@ -80,4 +77,41 @@ public class RunTareaValidarExportacionFranciaServiceImplTest {
             ArgumentMatchers.any(TareaFaseAccionDto.class));
   }
 
+  @Test
+  public void executeValidacionFalse() {
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.FALSE);
+    this.execute(validacion);
+  }
+
+  @Test
+  public void executeValidacionTrue() {
+    final ValidacionDto validacion = new ValidacionDto();
+    validacion.setResult(Boolean.TRUE);
+    this.execute(validacion);
+  }
+
+  @Test
+  public void executeValidacionNull() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    tareaDto.setAmbito(new ArrayList<TareaAmbitoDto>());
+    tareaDto.setStdIdLegEnt("1");
+    runTareaDto.setTarea(tareaDto);
+    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
+    tareaFaseAccionDto.setIdAccion(1);
+
+    when(this.runTareaAmbitoValidarExportacionFranciaService.execute(ArgumentMatchers.any(RunTareaDto.class),
+        ArgumentMatchers.any(TareaAmbitoDto.class),
+        ArgumentMatchers.any(TareaFaseAccionDto.class)))
+            .thenReturn(null);
+
+    this.runTareaValidarExportacionFranciaService.execute(runTareaDto, tareaFaseAccionDto);
+
+    verify(this.tareaFaseAccionService, timeout(1000).times(1))
+        .updateFechaInicio(
+            ArgumentMatchers.any(TareaFaseAccionDto.class));
+
+  }
 }
