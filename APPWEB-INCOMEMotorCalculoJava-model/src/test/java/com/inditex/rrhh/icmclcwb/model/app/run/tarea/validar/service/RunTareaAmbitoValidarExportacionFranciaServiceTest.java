@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -8,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
@@ -18,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -56,6 +59,9 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
 
   @Mock
   private TareaAmbitoPersonaService tareaAmbitoPersonaService;
+
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @InjectMocks
   private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaServiceImpl;
@@ -108,6 +114,13 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
   public void executePersona() {
     when(this.tareaAmbitoPersonaService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoPersonaDto>());
     this.execute(TipoAmbitoEnum.PERSONA.getDto());
+  }
+
+  @Test
+  public void executeNull() {
+    assertThrows(IcmclcwbException.class, () -> {
+      this.execute(new TipoAmbitoDTO());
+    });
   }
 
 }
