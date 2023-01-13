@@ -1,5 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -26,6 +30,12 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
   @Value("#{primaryQuery['TrabajoRepositoryCustom.updateFechaFin']}")
   private String sqlUpdateFechaFin;
 
+  @Value("#{primaryQuery['TrabajoRepositoryCustom.findEmpresaEmpleadosExportados']}")
+  private String sqlFindEmpresaEmpleadosExportados;
+
+  @Value("#{primaryQuery['TrabajoRepositoryCustom.findNumeroEmpresasCalculadas']}")
+  private String sqlfindNumeroEmpresasCalculadas;
+
   @Override
   public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -43,4 +53,21 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
     this.namedParameterJdbcTemplate.update(this.sqlUpdateFechaFin, parameters);
   }
 
+  @Override
+  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo,
+      @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen) {
+
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO, trabajo.getIcmIdPeriodo());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoPeriodoCalculoPersonaEnum.EXPORTADO.getId());
+
+    return this.namedParameterJdbcTemplate.query(this.sqlFindEmpresaEmpleadosExportados, parameters,
+        (rs, rowNum) -> IdOrigenEmpresaDto
+            .builder()
+            .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA))
+            .build());
+  }
 }

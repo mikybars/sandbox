@@ -90,7 +90,7 @@ public class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoB
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
+        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION.getId());
 
     return map;
   }
