@@ -2221,7 +2221,6 @@ UNION
                     else pg.FechaUltimaBaja
                   end as FECHA_HASTA
                 FROM PersonasGrupo pg
-
                 WHERE pg.Clase = :clase
                 AND COALESCE(pg.FechaUltimaAlta, pg.FechaAlta) <= :fechaHasta
                 AND (pg.FechaUltimaBaja is null or pg.FechaUltimaBaja < pg.FechaUltimaAlta or pg.FechaUltimaBaja >= :fechaDesde)
@@ -2235,7 +2234,9 @@ UNION
 
   <entry key="ComisRepositoryCustom.findExternosByMinIdPersona">
     <![CDATA[
-       select pg.CCL_ID_PERSON, pg.FECHA_DESDE, pg.FECHA_HASTA
+       select pg.CCL_ID_PERSON,
+       case when ph.FECHADESDE < :fechaDesde then :fechaDesde else ph.FECHADESDE end as FECHA_DESDE,
+       case when ph.FECHAHASTA is null or ph.fechahasta > :fechaHasta  then :fechaHasta else ph.FECHAHASTA end as FECHA_HASTA
        FROM PersonasHistorico ph
        inner join (
                 SELECT
