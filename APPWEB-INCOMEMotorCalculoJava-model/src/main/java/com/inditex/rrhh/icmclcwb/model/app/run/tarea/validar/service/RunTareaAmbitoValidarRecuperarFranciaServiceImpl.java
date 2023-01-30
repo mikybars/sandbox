@@ -84,7 +84,9 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
           .build();
       request.setData(filter);
 
-      this.meta4IcmWsCalcIncomeService.liquidacion(request);
+      if (!personas.isEmpty()) {
+        this.meta4IcmWsCalcIncomeService.liquidacion(request);
+      }
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
