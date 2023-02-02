@@ -4453,28 +4453,21 @@ MERGE INTO PERIODO_CALCULO_PERSONA AS PCP USING
   <entry key="TareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndTipoDatoNotInAmbito">
     <![CDATA[
       WITH AMBITO AS (
-       SELECT
+        SELECT
             L.CCL_ID_CADENA,
-            P.ID_TAREA,
-            P.CCL_ID_ORIGEN
+            L.ID_TAREA,
+            L.CCL_ID_ORIGEN
           FROM TAREA TAREA
-          INNER JOIN TAREA_CALCULO_PERSONA P
-          ON P.ID_TAREA = TAREA.ID_TAREA
-          INNER JOIN TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA LP
-            ON P.ID_TAREA = LP.ID_TAREA
-            AND P.CCL_ID_ORIGEN = LP.CCL_ID_ORIGEN
-            AND P.CCL_ID_PERSON = LP.CCL_ID_PERSON
           INNER JOIN TAREA_LOCALIZACION_HISTORICO L
-            ON LP.ID_TAREA = L.ID_TAREA
-            AND LP.STD_ID_WORK_LOCAT = L.STD_ID_WORK_LOCAT
-            AND L.STD_ID_LEG_ENT = TAREA.STD_ID_LEG_ENT
+            ON TAREA.ID_TAREA = L.ID_TAREA
           WHERE
-            P.ID_TAREA = :idTarea
-            AND P.CCL_ID_ORIGEN = :cclIdOrigen
+            TAREA.ID_TAREA = :idTarea
+            AND L.CCL_ID_ORIGEN = :cclIdOrigen
+            AND L.STD_ID_WORK_LOCAT <> 'R'
           GROUP BY
             L.CCL_ID_CADENA,
-            P.ID_TAREA,
-            P.CCL_ID_ORIGEN
+            L.ID_TAREA,
+            L.CCL_ID_ORIGEN
     ), AGRUPACION AS (
         SELECT AC.ID_TAREA, AC.ICM_ID_AGRUPACION_ONLINE, AC.CCL_ID_ORIGEN
         FROM AMBITO AMBITO
