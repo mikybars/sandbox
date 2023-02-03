@@ -1136,6 +1136,15 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
   }
 
   @Override
+  public List<LiquidacionResultItemDto> asLiquidacionResultItemDto(final List<IcmResultadoguardadoRecord> src) {
+    final List<LiquidacionResultItemDto> result = new ArrayList<>();
+    if (CollectionUtils.isNotEmpty(src)) {
+      src.forEach(x -> result.add(this.asLiquidacionResultItemDto(x)));
+    }
+    return result;
+  }
+
+  @Override
   public PlanificacionResultItemDto asPlanificacionResultItemDto(final IcmResultadoguardadoRecord src) {
     final PlanificacionResultItemDto result = this.delegate.asPlanificacionResultItemDto(src);
     final List<ErroresGuardadoResultItemParametersDto> errores = new ArrayList<>();
@@ -1161,15 +1170,6 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     final List<PlanificacionResultItemDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(src)) {
       src.forEach(x -> result.add(this.asPlanificacionResultItemDto(x)));
-    }
-    return result;
-  }
-
-  @Override
-  public List<LiquidacionResultItemDto> asLiquidacionResultItemDto(final List<IcmResultadoguardadoRecord> src) {
-    final List<LiquidacionResultItemDto> result = new ArrayList<>();
-    if (CollectionUtils.isNotEmpty(src)) {
-      src.forEach(x -> result.add(this.asLiquidacionResultItemDto(x)));
     }
     return result;
   }
