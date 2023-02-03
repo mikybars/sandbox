@@ -17,6 +17,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
@@ -70,6 +75,16 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
     final List<IdPersonaLocalCarenciaDto> lista = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
+
+    final LiquidacionResponseDto response = new LiquidacionResponseDto();
+    final LiquidacionResultItemDto result = new LiquidacionResultItemDto();
+    response.setData(new ArrayList<>());
+    response.getData().add(result);
+    result.setResultado("KO");
+    result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado("KO").avisos(new ArrayList<>()).build());
+    result.setErrores(ErorresGuardadoResultItemDto.builder().resultado("KO").errores(new ArrayList<>()).build());
+
+    when(this.meta4IcmWsCalcIncomeService.liquidacion(any(LiquidacionRequestDto.class))).thenReturn(response);
 
     when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
         .thenReturn(personas);

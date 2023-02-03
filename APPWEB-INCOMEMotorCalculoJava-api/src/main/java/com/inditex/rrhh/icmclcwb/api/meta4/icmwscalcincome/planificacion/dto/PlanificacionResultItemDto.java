@@ -2,6 +2,9 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto;
 
 import java.io.Serializable;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +19,8 @@ public class PlanificacionResultItemDto implements Serializable {
   private String refresco;
 
   private String resultado;
+
+  private ErorresGuardadoResultItemDto errores;
+
+  private AvisosGuardadoResultItemDto avisos;
 }

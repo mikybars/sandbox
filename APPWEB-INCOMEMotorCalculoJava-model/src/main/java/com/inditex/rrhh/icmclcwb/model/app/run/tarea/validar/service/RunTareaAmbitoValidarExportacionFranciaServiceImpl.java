@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -32,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 import javax.validation.Valid;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,9 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Autowired
+  private Logger log;
+
+  @Autowired
   @Qualifier("carenciaProperties")
   private PrevalidarPropertiesDto carenciaProperties;
 
@@ -74,6 +79,8 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
     final List<IdPersonaLocalDto> personas;
     final TrabajoDTO trabajo = runTareaDto.getTrabajo();
     final TareaDto tarea = runTareaDto.getTarea();
+    PlanificacionResponseDto planificacion = new PlanificacionResponseDto();
+
     try {
       final PlanificacionRequestDto request = new PlanificacionRequestDto();
       final PlanificacionFilterParametersDto parameters = new PlanificacionFilterParametersDto();
@@ -119,8 +126,17 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
 
       filter.setItems(Arrays.asList(parameters));
       request.setData(filter);
-      this.meta4IcmWsCalcIncomeService.planificacion(request);
+      planificacion = this.meta4IcmWsCalcIncomeService.planificacion(request);
 
+      planificacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+          .forEach(e -> e.getAvisos().getAvisos().stream().forEach(f -> {
+            this.log.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
+          }));
+
+      planificacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+          .forEach(e -> e.getErrores().getErrores().stream().forEach(f -> {
+            this.log.warn("Error: Registro afectado:" + f.getRegistroAfectado());
+          }));
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
           EstadoTareaFaseAccionEnum.ERROR.getDto());

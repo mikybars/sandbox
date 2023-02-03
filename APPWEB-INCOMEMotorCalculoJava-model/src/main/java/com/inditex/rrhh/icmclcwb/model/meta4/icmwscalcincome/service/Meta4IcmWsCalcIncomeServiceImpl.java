@@ -1116,15 +1116,15 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
     final IcmParamcalplanificadorBlock param = this.icmWsCalcIncomeMapper
         .asIcmParamcalplanificadorBlock(request.getData());
-    final PlanificacionOutput plnificacion = this.meta4ClientPool.planificacion(param);
+    final PlanificacionOutput planificacion = this.meta4ClientPool.planificacion(param);
 
-    if ((plnificacion != null)
-        && (Double.compare(NumberUtils.DOUBLE_ZERO, plnificacion.getReturn()) == 0)
-        && (plnificacion.getIcmResultadoguardado() != null) && CollectionUtils
-            .isNotEmpty(plnificacion.getIcmResultadoguardado().getIcmResultadoguardadoRecordSet())) {
+    if ((planificacion != null)
+        && (Double.compare(NumberUtils.DOUBLE_ZERO, planificacion.getReturn()) == 0)
+        && (planificacion.getIcmResultadoguardado() != null) && CollectionUtils
+            .isNotEmpty(planificacion.getIcmResultadoguardado().getIcmResultadoguardadoRecordSet())) {
       final List<PlanificacionResultItemDto> items = this.icmWsCalcIncomeMapper
           .asPlanificacionResultItemDto(
-              plnificacion.getIcmResultadoguardado().getIcmResultadoguardadoRecordSet());
+              planificacion.getIcmResultadoguardado().getIcmResultadoguardadoRecordSet());
       result.setData(items);
     }
     return result;

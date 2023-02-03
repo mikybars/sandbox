@@ -21,6 +21,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -34,6 +39,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -53,6 +59,9 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
 
   @Mock
   private ValidacionMapper validacionMapper;
+
+  @Mock
+  private Logger log;
 
   @Mock
   private TareaAmbitoLocalizacionService tareaAmbitoLocalizacionService;
@@ -81,6 +90,16 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     faseDto.setId(1);
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
+
+    final PlanificacionResponseDto response = new PlanificacionResponseDto();
+    final PlanificacionResultItemDto result = new PlanificacionResultItemDto();
+    response.setData(new ArrayList<>());
+    response.getData().add(result);
+    result.setResultado("KO");
+    result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado("KO").avisos(new ArrayList<>()).build());
+    result.setErrores(ErorresGuardadoResultItemDto.builder().resultado("KO").errores(new ArrayList<>()).build());
+
+    when(this.meta4IcmWsCalcIncomeService.planificacion(any(PlanificacionRequestDto.class))).thenReturn(response);
 
     this.runTareaAmbitoValidarExportacionFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 

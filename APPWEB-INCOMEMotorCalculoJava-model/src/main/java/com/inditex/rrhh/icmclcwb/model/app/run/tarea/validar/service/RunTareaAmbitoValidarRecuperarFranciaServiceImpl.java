@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -25,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 
 import javax.validation.Valid;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,9 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
   private PrevalidarPropertiesDto carenciaProperties;
 
   @Autowired
+  private Logger log;
+
+  @Autowired
   private ValidacionMapper validacionMapper;
 
   @Override
@@ -63,6 +68,8 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final TareaDto tarea = runTareaDto.getTarea();
     final List<IdPersonaLocalDto> personas;
+    LiquidacionResponseDto liquidacion = new LiquidacionResponseDto();
+
     try {
       personas = this.comisRepositoryCustom
           .validateTempComisRecuperarFrancia(runTareaDto.getTarea());
@@ -85,7 +92,17 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
       request.setData(filter);
 
       if (!personas.isEmpty()) {
-        this.meta4IcmWsCalcIncomeService.liquidacion(request);
+        liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
+
+        liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+            .forEach(e -> e.getAvisos().getAvisos().stream().forEach(f -> {
+              this.log.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
+            }));
+
+        liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+            .forEach(e -> e.getErrores().getErrores().stream().forEach(f -> {
+              this.log.warn("Error: Registro afectado:" + f.getRegistroAfectado());
+            }));
       }
 
     } catch (final Exception e) {

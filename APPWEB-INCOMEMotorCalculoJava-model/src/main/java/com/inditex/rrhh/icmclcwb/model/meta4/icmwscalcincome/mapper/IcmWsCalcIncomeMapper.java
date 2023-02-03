@@ -48,6 +48,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErroresGuardadoResultItemParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResultItemDto;
@@ -98,6 +102,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getconfigura
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmAvisosguardadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmAvisosguardadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
@@ -1698,9 +1705,33 @@ public interface IcmWsCalcIncomeMapper {
 
   @Mapping(target = "refresco", source = "refresco")
   @Mapping(target = "resultado", source = "resultado")
+  @Mapping(target = "errores", ignore = true)
+  @Mapping(target = "avisos", ignore = true)
   LiquidacionResultItemDto asLiquidacionResultItemDto(IcmResultadoguardadoRecord src);
 
   List<LiquidacionResultItemDto> asLiquidacionResultItemDto(List<IcmResultadoguardadoRecord> src);
+
+  @Mapping(target = "literal", source = "literal")
+  @Mapping(target = "registroAfectado", source = "registroafectado")
+  AvisosGuardadoResultItemParametersDto asAvisosGuardadoResultItemParametersDto(IcmAvisosguardadoRecord src);
+
+  List<AvisosGuardadoResultItemParametersDto> asAvisosGuardadoResultItemParametersDto(List<IcmAvisosguardadoRecord> src);
+
+  @Mapping(target = "resultado", source = "resultado")
+  AvisosGuardadoResultItemDto asAvisosGuardadoResultItemDto(IcmAvisosguardadoBlock src);
+
+  List<AvisosGuardadoResultItemDto> asAvisosGuardadoResultItemDto(List<IcmAvisosguardadoBlock> src);
+
+  @Mapping(target = "literal", source = "literal")
+  @Mapping(target = "registroAfectado", source = "registroafectado")
+  ErroresGuardadoResultItemParametersDto asErroresGuardadoResultItemParametersDto(IcmErroresguardadoRecord src);
+
+  List<ErroresGuardadoResultItemParametersDto> asErroresGuardadoResultItemParametersDto(List<IcmErroresguardadoRecord> src);
+
+  @Mapping(target = "resultado", source = "resultado")
+  ErorresGuardadoResultItemDto asErroresGuardadoResultItemDto(IcmErroresguardadoBlock src);
+
+  List<ErorresGuardadoResultItemDto> asErroresGuardadoResultItemDto(List<IcmErroresguardadoBlock> src);
 
   @Mapping(target = "icmParamcalplanificadorRecordSet", ignore = true)
   IcmParamcalplanificadorBlock asIcmParamcalplanificadorBlock(PlanificacionFilterDto src);
@@ -1721,6 +1752,8 @@ public interface IcmWsCalcIncomeMapper {
 
   @Mapping(target = "refresco", source = "refresco")
   @Mapping(target = "resultado", source = "resultado")
+  @Mapping(target = "errores", ignore = true)
+  @Mapping(target = "avisos", ignore = true)
   PlanificacionResultItemDto asPlanificacionResultItemDto(IcmResultadoguardadoRecord src);
 
   List<PlanificacionResultItemDto> asPlanificacionResultItemDto(List<IcmResultadoguardadoRecord> src);

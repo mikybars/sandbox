@@ -16,4 +16,9 @@ public class LiquidacionResultItemDto implements Serializable {
   private String refresco;
 
   private String resultado;
+
+  private ErorresGuardadoResultItemDto errores;
+
+  private AvisosGuardadoResultItemDto avisos;
+
 }
