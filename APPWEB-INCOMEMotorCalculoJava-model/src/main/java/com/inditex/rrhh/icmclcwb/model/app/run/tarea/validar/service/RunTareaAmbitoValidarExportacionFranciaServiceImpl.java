@@ -45,6 +45,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTareaAmbitoValidarExportacionFranciaService {
 
+  public static final String COMIS = "COMIS";
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
@@ -87,7 +89,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
       final PlanificacionFilterDto filter = new PlanificacionFilterDto();
 
       parameters.setIdPeriodo(trabajo.getIcmIdPeriodo());
-      parameters.setProceso("COMIS");
+      parameters.setProceso(COMIS);
       parameters.setFecFin(tarea.getFechaFinPeriodo());
 
       if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {

@@ -79,12 +79,41 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
     final LiquidacionResponseDto response = new LiquidacionResponseDto();
     final LiquidacionResultItemDto result = new LiquidacionResultItemDto();
     response.setData(new ArrayList<>());
-    response.getData().add(result);
     result.setResultado("KO");
     result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado("KO").avisos(new ArrayList<>()).build());
     result.setErrores(ErorresGuardadoResultItemDto.builder().resultado("KO").errores(new ArrayList<>()).build());
+    response.getData().add(result);
 
     when(this.meta4IcmWsCalcIncomeService.liquidacion(any(LiquidacionRequestDto.class))).thenReturn(response);
+
+    when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
+        .thenReturn(personas);
+
+    this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
+
+    verify(this.validacionMapper, timeout(1000).times(1))
+        .booleanToValidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
+            ArgumentMatchers.any(TareaFaseAccionDto.class), any(Boolean.class));
+  }
+
+  @Test
+  public void executeEmptyPersonas() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
+    final FaseDto faseDto = new FaseDto();
+    faseDto.setId(1);
+    final AccionDto accionDto = new AccionDto();
+    accionDto.setId(1);
+
+    final List<IdPersonaLocalDto> personas = new ArrayList<>();
+
+    final List<IdPersonaLocalCarenciaDto> lista = new ArrayList<>();
+    final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cf = new CompletableFuture<>();
+    cf.complete(lista);
 
     when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
         .thenReturn(personas);
