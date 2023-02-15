@@ -94,10 +94,10 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     final PlanificacionResponseDto response = new PlanificacionResponseDto();
     final PlanificacionResultItemDto result = new PlanificacionResultItemDto();
     response.setData(new ArrayList<>());
-    response.getData().add(result);
     result.setResultado("KO");
     result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado("KO").avisos(new ArrayList<>()).build());
     result.setErrores(ErorresGuardadoResultItemDto.builder().resultado("KO").errores(new ArrayList<>()).build());
+    response.getData().add(result);
 
     when(this.meta4IcmWsCalcIncomeService.planificacion(any(PlanificacionRequestDto.class))).thenReturn(response);
 
