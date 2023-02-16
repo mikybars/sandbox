@@ -4,6 +4,7 @@ import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMet
 import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaConsolidarByAmbitoPersonaService;
@@ -32,6 +33,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
   private RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
 
   @Auditoria
+  @Validation(fase = 9)
   @TimerFunctionalMetric(metricName = "RunTareaConsolidarService.run.timer",
       metricGroupName = "RunTareaConsolidarServiceGroup",
       metricDescription = "RunTareaConsolidarService.run.timer")

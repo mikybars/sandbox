@@ -1,7 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.stream.Collectors;
