@@ -91,32 +91,23 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
       parameters.setIdPeriodo(trabajo.getIcmIdPeriodo());
       parameters.setProceso(COMIS);
       parameters.setFecFin(tarea.getFechaFinPeriodo());
+      parameters.setListaEmpresas(tarea.getStdIdLegEnt());
+      parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
 
-      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.SOCIEDAD.getId());
-
-      } else if (TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.ORIGEN.getId());
-        parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
-
-      } else if (TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+          || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+          || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
         parameters.setIdAmbito(TipoAmbitoEnum.EMPRESA.getId());
-        parameters.setListaEmpresas(tarea.getStdIdLegEnt());
-        parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
 
       } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.LOCALIZACION.getId());
-        parameters.setListaEmpresas(tarea.getStdIdLegEnt());
-        parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
+        parameters.setIdAmbito(trabajo.getTipoAmbito().getId());
 
         final List<TareaAmbitoLocalizacionDto> localizacion = this.tareaAmbitoLocalizacionService.findByTarea(tarea);
 
         parameters.setListaTiendas(localizacion.stream().map(e -> e.getStdIdWorkLocat()).collect(Collectors.joining(",")));
 
       } else if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.PERSONA.getId());
-        parameters.setListaEmpresas(tarea.getStdIdLegEnt());
-        parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
+        parameters.setIdAmbito(trabajo.getTipoAmbito().getId());
 
         final List<TareaAmbitoPersonaDto> persona = this.tareaAmbitoPersonaService.findByTarea(tarea);
 
