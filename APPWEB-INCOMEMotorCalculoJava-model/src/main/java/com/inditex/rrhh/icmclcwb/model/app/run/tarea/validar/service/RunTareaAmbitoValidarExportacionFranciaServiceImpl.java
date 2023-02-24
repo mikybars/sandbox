@@ -92,15 +92,10 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
       parameters.setProceso(COMIS);
       parameters.setFecFin(tarea.getFechaFinPeriodo());
 
-      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.SOCIEDAD.getId());
-
-      } else if (TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.ORIGEN.getId());
-        parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
-
-      } else if (TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
-        parameters.setIdAmbito(TipoAmbitoEnum.EMPRESA.getId());
+      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+          || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+          || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+        parameters.setIdAmbito(trabajo.getTipoAmbito().getId());
         parameters.setListaEmpresas(tarea.getStdIdLegEnt());
         parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
 
