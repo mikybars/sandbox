@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
@@ -30,6 +33,9 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
 
   @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.limpiezaPeriodoCalculoPersona']}")
   private String sqlLimpiezaPeriodoCalculoPersona;
+
+  @Value("#{primaryQuery['PeriodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar']}")
+  private String sqlFindEmpleadosValidarRecuperar;
 
   @Override
   public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
@@ -62,6 +68,26 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO,
         tareaDto.getTrabajo().getIcmIdPeriodo());
     this.namedParameterJdbcTemplate.update(this.sqlLimpiezaPeriodoCalculoPersona, params);
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> findEmpleadosValidarRecuperar(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito,
+      final List<String> personas) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, tareaAmbito.getCclIdOrigen());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, runTareaDto.getTarea().getStdIdLegEnt());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO, runTareaDto.getTrabajo().getIcmIdPeriodo());
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, personas);
+
+    return this.query(this.sqlFindEmpleadosValidarRecuperar, map,
+        (rs, rowNum) -> {
+          final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
+          idPersonaLocalCondicionesDto
+              .setIdPersonaLocal((rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL)));
+          idPersonaLocalCondicionesDto
+              .setStdOrHrPeriod((rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA)));
+          return idPersonaLocalCondicionesDto;
+        });
   }
 
 }

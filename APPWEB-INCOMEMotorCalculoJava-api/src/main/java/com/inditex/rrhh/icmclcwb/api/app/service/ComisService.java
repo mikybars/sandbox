@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
@@ -257,5 +258,8 @@ public interface ComisService {
       @Valid TareaAmbitoDto tareaAmbito);
 
   List<IdPersonaLocalCondicionesDto> findCondicionesDesplazamientoChallengeIncluidoPorcentaje(@Valid RunTareaDto runTareaDto,
+      @Valid TareaAmbitoDto tareaAmbito);
+
+  List<IdPersonaLocalDto> validateTempComisRecuperarFrancia(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);
 }

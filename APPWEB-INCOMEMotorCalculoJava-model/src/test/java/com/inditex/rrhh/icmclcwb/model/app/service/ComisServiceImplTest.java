@@ -399,4 +399,10 @@ class ComisServiceImplTest {
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
+
+  @Test
+  void validateTempComisRecuperarFranciaTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
+    this.comisServiceImpl.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1)).validateTempComisRecuperarFrancia(runTarea.getTarea());
+  }
 }

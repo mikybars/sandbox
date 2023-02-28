@@ -26,6 +26,4 @@ public class LiquidacionFilterParametersDto implements Serializable {
 
   private String orEmpleado;
 
-  private LocalDate fechainicio;
-
 }

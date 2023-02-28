@@ -10249,5 +10249,20 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
   ]]>
 </entry>
 
+  <entry key="PeriodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar">
+    <![CDATA[
+    SELECT
+    CCL_ID_PERSON,
+    STD_OR_HR_PERIOD
+    FROM PERIODO_CALCULO_PERSONA
+    WHERE CCL_ID_ORIGEN = :cclIdOrigen
+    AND STD_ID_LEG_ENT = :stdIdLegEnt
+    AND ICM_ID_PERIODO = :icmIdPeriodo
+    AND CCL_ID_PERSON IN (:cclIdPerson)
+    GROUP BY
+    CCL_ID_PERSON,
+    STD_OR_HR_PERIOD
+  ]]>
+  </entry>
 
   </properties>
