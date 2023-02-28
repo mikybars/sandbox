@@ -105,7 +105,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesHistorico(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -135,7 +135,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesDesplazamiento(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -152,7 +152,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -221,7 +221,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findBajasIt(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -293,7 +293,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -310,7 +310,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesDesplazamientoSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -376,7 +376,7 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
@@ -393,10 +393,16 @@ class ComisServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
-            .thenReturn(new PeriodoDto());
+        .thenReturn(new PeriodoDto());
 
     this.comisServiceImpl.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
+  }
+
+  @Test
+  void validateTempComisRecuperarFranciaTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
+    this.comisServiceImpl.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
+    verify(this.comisRepositoryCustom, times(1)).validateTempComisRecuperarFrancia(runTarea.getTarea());
   }
 }

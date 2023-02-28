@@ -12,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -24,7 +25,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.Liqui
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
-import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
@@ -39,7 +39,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
 
   @Mock
-  private ComisRepositoryCustom comisRepositoryCustom;
+  private ComisService comisService;
 
   @Mock
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
@@ -86,7 +86,7 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
 
     when(this.meta4IcmWsCalcIncomeService.liquidacion(any(LiquidacionRequestDto.class))).thenReturn(response);
 
-    when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
+    when(this.comisService.validateTempComisRecuperarFrancia(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(personas);
 
     this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
@@ -115,7 +115,7 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
     final CompletableFuture<List<IdPersonaLocalCarenciaDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
 
-    when(this.comisRepositoryCustom.validateTempComisRecuperarFrancia(any(TareaDto.class)))
+    when(this.comisService.validateTempComisRecuperarFrancia(any(RunTareaDto.class), any(TareaAmbitoDto.class)))
         .thenReturn(personas);
 
     this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);

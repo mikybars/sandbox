@@ -4732,7 +4732,7 @@ SELECT
 
   <entry key="ComisRepositoryCustom.validateTempComisRecuperarFrancia">
     <![CDATA[
-      SELECT PERSONA FROM COMISION WHERE FECHAVTO = :fechaFinPeriodo AND ESTADO = 1 GROUP BY PERSONA
+      SELECT PERSONA AS CCL_ID_PERSON FROM COMISION WHERE FECHAVTO = :fechaFinPeriodo AND ESTADO = 1 GROUP BY PERSONA
     ]]>
   </entry>
 

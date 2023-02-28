@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarRecuperarFranciaService;
+import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -22,7 +23,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.Liqui
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 
 import javax.validation.Valid;
@@ -42,7 +42,7 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private ComisRepositoryCustom comisRepositoryCustom;
+  private ComisService comisService;
 
   @Autowired
   private PeriodoCalculoPersonaRepositoryCustom periodoCalculoPersonaRepositoryCustom;
@@ -67,14 +67,19 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final TareaDto tarea = runTareaDto.getTarea();
-    final List<IdPersonaLocalDto> personas;
+    final List<IdPersonaLocalDto> idPersonaLocalComis;
     LiquidacionResponseDto liquidacion = new LiquidacionResponseDto();
 
     try {
-      personas = this.comisRepositoryCustom
-          .validateTempComisRecuperarFrancia(runTareaDto.getTarea());
+      idPersonaLocalComis = this.comisService
+          .validateTempComisRecuperarFrancia(runTareaDto, tareaAmbito);
+
+      final List<IdPersonaLocalDto> persona =
+          this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTareaDto, tareaAmbito,
+              idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
+                  Collectors.toList()));
       final LiquidacionRequestDto request = new LiquidacionRequestDto();
-      final List<LiquidacionFilterParametersDto> filterParameters = personas
+      final List<LiquidacionFilterParametersDto> filterParameters = persona
           .stream()
           .map(
               f -> LiquidacionFilterParametersDto.builder()
@@ -82,7 +87,6 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
                   .idEmpresa(tarea.getStdIdLegEnt())
                   .idEmpleado(f.getIdPersonaLocal())
                   .orEmpleado(f.getStdOrHrPeriod())
-                  .fechainicio(tarea.getFechaInicioPeriodo())
                   .fechaFin(tarea.getFechaFinPeriodo())
                   .build())
           .collect(Collectors.toList());
@@ -91,7 +95,7 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
           .build();
       request.setData(filter);
 
-      if (!personas.isEmpty()) {
+      if (!idPersonaLocalComis.isEmpty()) {
         liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
 
         liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))

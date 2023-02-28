@@ -3,13 +3,21 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
@@ -26,9 +34,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -43,11 +53,17 @@ public class PeriodoCalculoPersonaRepositoryCustomImplTest {
 
   private static final String SQL_LIMPIEZA = "LIMPIEZA ";
 
+  private final static String SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA =
+      "SQL VALIDATE TEMP COMIS RECUPERAR FRANCIA";
+
   @Captor
   ArgumentCaptor<MapSqlParameterSource> params;
 
   @InjectMocks
   private PeriodoCalculoPersonaRepositoryCustomImpl periodoCalculoPersonaRepositoryCustom;
+
+  @Captor
+  private ArgumentCaptor<String> sqlCaptor;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -55,6 +71,9 @@ public class PeriodoCalculoPersonaRepositoryCustomImplTest {
         true);
     FieldUtils.writeField(this.periodoCalculoPersonaRepositoryCustom, "sqlLimpiezaPeriodoCalculoPersona",
         SQL_LIMPIEZA,
+        true);
+    FieldUtils.writeField(this.periodoCalculoPersonaRepositoryCustom, "sqlFindEmpleadosValidarRecuperar",
+        SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA,
         true);
   }
 
@@ -167,4 +186,45 @@ public class PeriodoCalculoPersonaRepositoryCustomImplTest {
     });
   }
 
+  @Test
+  void findEmpleadosValidarRecuperarTest() {
+
+    final IdPersonaLocalDto result = new IdPersonaLocalDto("1", "1");
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
+          final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA)).thenReturn(result.getStdOrHrPeriod());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final RunTareaDto runTarea = new RunTareaDto();
+    final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setIcmIdPeriodo(1L);
+    runTarea.setTarea(tarea);
+    runTarea.setTrabajo(trabajo);
+    final List<String> personas = new ArrayList<>();
+    personas.add("1");
+
+    this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTarea, tareaAmbitoDto, personas);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA), this.params.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+
+    final MapSqlParameterSource params = this.params.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(4, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+
+  }
 }
