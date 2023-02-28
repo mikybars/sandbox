@@ -79,23 +79,23 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
               idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
                   Collectors.toList()));
       final LiquidacionRequestDto request = new LiquidacionRequestDto();
-      final List<LiquidacionFilterParametersDto> filterParameters = persona
-          .stream()
-          .map(
-              f -> LiquidacionFilterParametersDto.builder()
-                  .idOrigen(tareaAmbito.getCclIdOrigen())
-                  .idEmpresa(tarea.getStdIdLegEnt())
-                  .idEmpleado(f.getIdPersonaLocal())
-                  .orEmpleado(f.getStdOrHrPeriod())
-                  .fechaFin(tarea.getFechaFinPeriodo())
-                  .build())
-          .collect(Collectors.toList());
-      final LiquidacionFilterDto filter = LiquidacionFilterDto.builder()
-          .items(filterParameters)
-          .build();
-      request.setData(filter);
 
-      if (!idPersonaLocalComis.isEmpty()) {
+      if (!persona.isEmpty()) {
+        final List<LiquidacionFilterParametersDto> filterParameters = persona
+            .stream()
+            .map(
+                f -> LiquidacionFilterParametersDto.builder()
+                    .idOrigen(tareaAmbito.getCclIdOrigen())
+                    .idEmpresa(tarea.getStdIdLegEnt())
+                    .idEmpleado(f.getIdPersonaLocal())
+                    .orEmpleado(f.getStdOrHrPeriod())
+                    .fechaFin(tarea.getFechaFinPeriodo())
+                    .build())
+            .collect(Collectors.toList());
+        final LiquidacionFilterDto filter = LiquidacionFilterDto.builder()
+            .items(filterParameters)
+            .build();
+        request.setData(filter);
         liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
 
         liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
