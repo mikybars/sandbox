@@ -95,7 +95,7 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
           .build();
       request.setData(filter);
 
-      if (!idPersonaLocalComis.isEmpty()) {
+      if (!persona.isEmpty()) {
         liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
 
         liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
