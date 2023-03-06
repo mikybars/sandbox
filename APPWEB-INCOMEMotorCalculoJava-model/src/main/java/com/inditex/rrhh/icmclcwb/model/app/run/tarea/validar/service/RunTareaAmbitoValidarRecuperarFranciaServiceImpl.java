@@ -82,9 +82,9 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
                     Collectors.toList()));
       }
 
-      final LiquidacionRequestDto request = new LiquidacionRequestDto();
-
       if (!persona.isEmpty()) {
+        final LiquidacionRequestDto request = new LiquidacionRequestDto();
+
         final List<LiquidacionFilterParametersDto> filterParameters = persona
             .stream()
             .map(
