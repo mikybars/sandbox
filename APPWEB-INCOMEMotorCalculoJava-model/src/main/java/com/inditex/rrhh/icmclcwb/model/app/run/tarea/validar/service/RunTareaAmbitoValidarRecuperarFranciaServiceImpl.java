@@ -68,19 +68,23 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final TareaDto tarea = runTareaDto.getTarea();
     final List<IdPersonaLocalDto> idPersonaLocalComis;
+    List<IdPersonaLocalDto> persona = new ArrayList<>();
     LiquidacionResponseDto liquidacion = new LiquidacionResponseDto();
 
     try {
       idPersonaLocalComis = this.comisService
           .validateTempComisRecuperarFrancia(runTareaDto, tareaAmbito);
 
-      final List<IdPersonaLocalDto> persona =
-          this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTareaDto, tareaAmbito,
-              idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
-                  Collectors.toList()));
-      final LiquidacionRequestDto request = new LiquidacionRequestDto();
+      if (!idPersonaLocalComis.isEmpty()) {
+        persona =
+            this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTareaDto, tareaAmbito,
+                idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
+                    Collectors.toList()));
+      }
 
       if (!persona.isEmpty()) {
+        final LiquidacionRequestDto request = new LiquidacionRequestDto();
+
         final List<LiquidacionFilterParametersDto> filterParameters = persona
             .stream()
             .map(
