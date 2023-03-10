@@ -29,14 +29,12 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1Repository.calcular']}"
-      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
   @Getter
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1Repository.calcular']}"
-      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseDesplazamientoBaseRepository.calcular.where']}")
+      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} ")
   @Getter
   private String sqlCalcularBase;
 
@@ -47,13 +45,13 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
   private TipoDatoService tipoDatoService;
 
   @Override
-  public List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
-    return tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 
   @Override
-  protected Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
-    Map<String, Object> map = new HashMap<>();
+  protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
+    final Map<String, Object> map = new HashMap<>();
     if (tarea != null) {
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
@@ -62,7 +60,7 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
       map.put(SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD, persona.getStdOrHrPeriod());
     }
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-    List<IdTipoDatoDto> ids = tipoDatoService
+    final List<IdTipoDatoDto> ids = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
         ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
