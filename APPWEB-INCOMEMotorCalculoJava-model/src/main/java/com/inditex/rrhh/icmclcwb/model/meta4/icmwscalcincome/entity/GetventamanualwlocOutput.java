@@ -36,8 +36,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *         &lt;element name="Icm_Listaventamanwloc" type="{http://schemas.meta4.com/}Icm_ListaventamanwlocBlock"/&gt;
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -50,8 +50,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetventamanualwlocOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListaventamanwloc"
+    "icmListaventamanwloc",
+    "icmParametrospaginacion"
 })
 public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
@@ -63,11 +63,11 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
   @XmlElement(nillable = true)
   protected List<LogMessage> logMessage;
 
-  @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-  protected IcmParametrospaginacionBlock icmParametrospaginacion;
-
   @XmlElement(name = "Icm_Listaventamanwloc", required = true, nillable = true)
   protected IcmListaventamanwlocBlock icmListaventamanwloc;
+
+  @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
+  protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
   /**
    * Obtiene el valor de la propiedad return.
@@ -110,26 +110,6 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
   }
 
   /**
-   * Obtiene el valor de la propiedad icmParametrospaginacion.
-   *
-   * @return possible object is {@link IcmParametrospaginacionBlock }
-   *
-   */
-  public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-    return icmParametrospaginacion;
-  }
-
-  /**
-   * Define el valor de la propiedad icmParametrospaginacion.
-   *
-   * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   *
-   */
-  public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-    this.icmParametrospaginacion = value;
-  }
-
-  /**
    * Obtiene el valor de la propiedad icmListaventamanwloc.
    *
    * @return possible object is {@link IcmListaventamanwlocBlock }
@@ -147,6 +127,26 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
    */
   public void setIcmListaventamanwloc(IcmListaventamanwlocBlock value) {
     this.icmListaventamanwloc = value;
+  }
+
+  /**
+   * Obtiene el valor de la propiedad icmParametrospaginacion.
+   *
+   * @return possible object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
+    return icmParametrospaginacion;
+  }
+
+  /**
+   * Define el valor de la propiedad icmParametrospaginacion.
+   *
+   * @param value allowed object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
+    this.icmParametrospaginacion = value;
   }
 
   public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -179,17 +179,6 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
       }
     }
     {
-      IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-      lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-      IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-      rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
-          LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion,
-          rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null), (that.icmParametrospaginacion != null))) {
-        return false;
-      }
-    }
-    {
       IcmListaventamanwlocBlock lhsIcmListaventamanwloc;
       lhsIcmListaventamanwloc = this.getIcmListaventamanwloc();
       IcmListaventamanwlocBlock rhsIcmListaventamanwloc;
@@ -197,6 +186,17 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaventamanwloc", lhsIcmListaventamanwloc),
           LocatorUtils.property(thatLocator, "icmListaventamanwloc", rhsIcmListaventamanwloc), lhsIcmListaventamanwloc,
           rhsIcmListaventamanwloc, (this.icmListaventamanwloc != null), (that.icmListaventamanwloc != null))) {
+        return false;
+      }
+    }
+    {
+      IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
+      lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
+      IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
+      rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
+          LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion,
+          rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null), (that.icmParametrospaginacion != null))) {
         return false;
       }
     }
@@ -234,15 +234,15 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
       strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
+      IcmListaventamanwlocBlock theIcmListaventamanwloc;
+      theIcmListaventamanwloc = this.getIcmListaventamanwloc();
+      strategy.appendField(locator, this, "icmListaventamanwloc", buffer, theIcmListaventamanwloc, (this.icmListaventamanwloc != null));
+    }
+    {
       IcmParametrospaginacionBlock theIcmParametrospaginacion;
       theIcmParametrospaginacion = this.getIcmParametrospaginacion();
       strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
           (this.icmParametrospaginacion != null));
-    }
-    {
-      IcmListaventamanwlocBlock theIcmListaventamanwloc;
-      theIcmListaventamanwloc = this.getIcmListaventamanwloc();
-      strategy.appendField(locator, this, "icmListaventamanwloc", buffer, theIcmListaventamanwloc, (this.icmListaventamanwloc != null));
     }
     return buffer;
   }
@@ -261,16 +261,16 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
           ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
-      IcmParametrospaginacionBlock theIcmParametrospaginacion;
-      theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
-          currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
-    }
-    {
       IcmListaventamanwlocBlock theIcmListaventamanwloc;
       theIcmListaventamanwloc = this.getIcmListaventamanwloc();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaventamanwloc", theIcmListaventamanwloc), currentHashCode,
           theIcmListaventamanwloc, (this.icmListaventamanwloc != null));
+    }
+    {
+      IcmParametrospaginacionBlock theIcmParametrospaginacion;
+      theIcmParametrospaginacion = this.getIcmParametrospaginacion();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
+          currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
     }
     return currentHashCode;
   }
@@ -327,6 +327,21 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
         }
       }
       {
+        Boolean icmListaventamanwlocShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaventamanwloc != null));
+        if (icmListaventamanwlocShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmListaventamanwlocBlock sourceIcmListaventamanwloc;
+          sourceIcmListaventamanwloc = this.getIcmListaventamanwloc();
+          IcmListaventamanwlocBlock copyIcmListaventamanwloc =
+              ((IcmListaventamanwlocBlock) strategy.copy(LocatorUtils.property(locator, "icmListaventamanwloc", sourceIcmListaventamanwloc),
+                  sourceIcmListaventamanwloc, (this.icmListaventamanwloc != null)));
+          copy.setIcmListaventamanwloc(copyIcmListaventamanwloc);
+        } else {
+          if (icmListaventamanwlocShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListaventamanwloc = null;
+          }
+        }
+      }
+      {
         Boolean icmParametrospaginacionShouldBeCopiedAndSet =
             strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion != null));
         if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -339,21 +354,6 @@ public class GetventamanualwlocOutput implements Serializable, Cloneable, CopyTo
         } else {
           if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmParametrospaginacion = null;
-          }
-        }
-      }
-      {
-        Boolean icmListaventamanwlocShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaventamanwloc != null));
-        if (icmListaventamanwlocShouldBeCopiedAndSet == Boolean.TRUE) {
-          IcmListaventamanwlocBlock sourceIcmListaventamanwloc;
-          sourceIcmListaventamanwloc = this.getIcmListaventamanwloc();
-          IcmListaventamanwlocBlock copyIcmListaventamanwloc =
-              ((IcmListaventamanwlocBlock) strategy.copy(LocatorUtils.property(locator, "icmListaventamanwloc", sourceIcmListaventamanwloc),
-                  sourceIcmListaventamanwloc, (this.icmListaventamanwloc != null)));
-          copy.setIcmListaventamanwloc(copyIcmListaventamanwloc);
-        } else {
-          if (icmListaventamanwlocShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmListaventamanwloc = null;
           }
         }
       }

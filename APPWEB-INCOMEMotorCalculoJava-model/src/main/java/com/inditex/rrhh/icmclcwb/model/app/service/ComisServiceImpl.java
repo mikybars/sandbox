@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
@@ -432,6 +433,21 @@ public class ComisServiceImpl implements ComisService {
     }
 
     return historico;
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisRecuperarFrancia(@Valid final RunTareaDto runTareaDto,
+      @Valid final TareaAmbitoDto tareaAmbito) {
+    List<IdPersonaLocalDto> personas = null;
+    try {
+      this.setContext(runTareaDto, tareaAmbito);
+      personas = this.comisRepositoryCustom
+          .validateTempComisRecuperarFrancia(runTareaDto.getTarea());
+    } finally {
+      ClientDatabaseContextHolder.clear();
+    }
+
+    return personas;
   }
 
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {

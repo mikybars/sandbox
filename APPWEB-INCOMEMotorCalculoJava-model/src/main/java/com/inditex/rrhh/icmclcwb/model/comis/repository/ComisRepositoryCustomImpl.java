@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
@@ -106,6 +107,9 @@ public class ComisRepositoryCustomImpl
 
   @Value("#{comisPrimaryQuery['ComisRepositoryCustom.findCondicionesDesplazamientoChallengeIncluidoPorcentaje']}")
   private String sqlFindCondicionesDesplazamientoChallengeIncluidoPorcentaje;
+
+  @Value("#{comisPrimaryQuery['ComisRepositoryCustom.validateTempComisRecuperarFrancia']}")
+  private String sqlValidateTempComisRecuperarFrancia;
 
   @Autowired
   @Qualifier("fechasProperties")
@@ -647,5 +651,19 @@ public class ComisRepositoryCustomImpl
             .cclIdSeccionDestino(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION_DESTINO))
             .cclIdSeccion(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_SECCION))
             .build());
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> validateTempComisRecuperarFrancia(final TareaDto tarea) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlComisConstants.SQL_PARAM_FECHA_FIN_PERIODO, tarea.getFechaFinPeriodo());
+
+    return this.query(this.sqlValidateTempComisRecuperarFrancia, map,
+        (rs, rowNum) -> {
+          final IdPersonaLocalDto idPersonaLocalCondicionesDto = new IdPersonaLocalDto();
+          idPersonaLocalCondicionesDto
+              .setIdPersonaLocal((rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)));
+          return idPersonaLocalCondicionesDto;
+        });
   }
 }

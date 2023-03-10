@@ -48,11 +48,21 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErroresGuardadoResultItemParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
@@ -92,6 +102,9 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getconfigura
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmAvisosguardadoBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmAvisosguardadoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmErroresguardadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaausenciasRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
@@ -154,6 +167,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcale
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmotivosBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmotivosRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalmultiempresaRecord;
@@ -161,6 +176,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalo
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorBlock;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
@@ -1671,4 +1688,79 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idClase", source = "idtpclas")
   @Mapping(target = "idsEstadoSil", ignore = true)
   ClaseResultItemDto asClaseResultItemDto(IcmListaclasesRecord src);
+
+  @Mapping(target = "icmParamcalliquidacionRecordSet", ignore = true)
+  IcmParamcalliquidacionBlock asIcmParamcalliquidacionBlock(LiquidacionFilterDto src);
+
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  IcmParamcalliquidacionRecord asIcmParamcalliquidacionRecord(LiquidacionFilterDto src);
+
+  @Mapping(target = "idorigen", source = "idOrigen")
+  @Mapping(target = "idempresa", source = "idEmpresa")
+  @Mapping(target = "idempleado", source = "idEmpleado")
+  @Mapping(target = "orempleado", source = "orEmpleado")
+  @Mapping(target = "fechafin", source = "fechaFin", dateFormat = Meta4Constants.META4_DATE)
+  IcmParamcalliquidacionRecord asIcmParamcalliquidacionRecord(LiquidacionFilterParametersDto src);
+
+  @Mapping(target = "refresco", source = "refresco")
+  @Mapping(target = "resultado", source = "resultado")
+  @Mapping(target = "errores", ignore = true)
+  @Mapping(target = "avisos", ignore = true)
+  LiquidacionResultItemDto asLiquidacionResultItemDto(IcmResultadoguardadoRecord src);
+
+  List<LiquidacionResultItemDto> asLiquidacionResultItemDto(List<IcmResultadoguardadoRecord> src);
+
+  @Mapping(target = "literal", source = "literal")
+  @Mapping(target = "registroAfectado", source = "registroafectado")
+  AvisosGuardadoResultItemParametersDto asAvisosGuardadoResultItemParametersDto(IcmAvisosguardadoRecord src);
+
+  List<AvisosGuardadoResultItemParametersDto> asAvisosGuardadoResultItemParametersDto(List<IcmAvisosguardadoRecord> src);
+
+  @Mapping(target = "resultado", source = "resultado")
+  AvisosGuardadoResultItemDto asAvisosGuardadoResultItemDto(IcmAvisosguardadoBlock src);
+
+  List<AvisosGuardadoResultItemDto> asAvisosGuardadoResultItemDto(List<IcmAvisosguardadoBlock> src);
+
+  @Mapping(target = "literal", source = "literal")
+  @Mapping(target = "registroAfectado", source = "registroafectado")
+  ErroresGuardadoResultItemParametersDto asErroresGuardadoResultItemParametersDto(IcmErroresguardadoRecord src);
+
+  List<ErroresGuardadoResultItemParametersDto> asErroresGuardadoResultItemParametersDto(List<IcmErroresguardadoRecord> src);
+
+  @Mapping(target = "resultado", source = "resultado")
+  ErorresGuardadoResultItemDto asErroresGuardadoResultItemDto(IcmErroresguardadoBlock src);
+
+  List<ErorresGuardadoResultItemDto> asErroresGuardadoResultItemDto(List<IcmErroresguardadoBlock> src);
+
+  @Mapping(target = "icmParamcalplanificadorRecordSet", ignore = true)
+  IcmParamcalplanificadorBlock asIcmParamcalplanificadorBlock(PlanificacionFilterDto src);
+
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  IcmParamcalplanificadorRecord asIcmParamcalplanificadorRecord(PlanificacionFilterDto src);
+
+  @Mapping(target = "idorigen", source = "idOrigen")
+  @Mapping(target = "idperiodo", source = "idPeriodo")
+  @Mapping(target = "idambito", source = "idAmbito")
+  @Mapping(target = "proceso", source = "proceso")
+  @Mapping(target = "listaempresas", source = "listaEmpresas")
+  @Mapping(target = "listatiendas", source = "listaTiendas")
+  @Mapping(target = "listaempleados", source = "listaEmpleados")
+  @Mapping(target = "fecfin", source = "fecFin", dateFormat = Meta4Constants.META4_DATE)
+  IcmParamcalplanificadorRecord asIcmParamcalplanificadorRecord(PlanificacionFilterParametersDto src);
+
+  @Mapping(target = "refresco", source = "refresco")
+  @Mapping(target = "resultado", source = "resultado")
+  @Mapping(target = "errores", ignore = true)
+  @Mapping(target = "avisos", ignore = true)
+  PlanificacionResultItemDto asPlanificacionResultItemDto(IcmResultadoguardadoRecord src);
+
+  List<PlanificacionResultItemDto> asPlanificacionResultItemDto(List<IcmResultadoguardadoRecord> src);
+
+  @InheritInverseConfiguration
+  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(PlanificacionResultItemDto src);
+
+  @InheritInverseConfiguration
+  IcmResultadoguardadoRecord asIcmResultadoguardadoRecord(LiquidacionResultItemDto src);
 }

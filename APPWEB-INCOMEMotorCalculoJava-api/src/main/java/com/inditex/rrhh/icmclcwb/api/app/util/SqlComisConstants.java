@@ -27,6 +27,8 @@ public class SqlComisConstants {
 
   public static final String SQL_PARAM_ESTADO_SIL = "estadosSil";
 
+  public static final String SQL_PARAM_FECHA_FIN_PERIODO = "fechaFinPeriodo";
+
   // RESULTADOS DE CONSULTAS
 
   public static final String SQL_RESULT_HORAS_SECCION_1 = "HORAS_SECCION_1";

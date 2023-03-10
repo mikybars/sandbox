@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
@@ -11,4 +14,6 @@ public interface PeriodoCalculoPersonaRepositoryCustom {
 
   void limpiezaPeriodoCalculoPersona(@NotNull RunTareaDto tareaDto, @NotNull TareaAmbitoDto tareaAmbitoDto);
 
+  List<IdPersonaLocalDto> findEmpleadosValidarRecuperar(RunTareaDto runTareaDto, TareaAmbitoDto tareaAmbito,
+      List<String> personas);
 }
