@@ -166,9 +166,9 @@ public class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDesplaza
     assertTrue(result.containsKey(SQL_PARAM_CALCULA));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
     // indicador desplazamiento
-    assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO));
+    assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
     assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
-        result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO));
+        result.get(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
 
     // tipocomision
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
