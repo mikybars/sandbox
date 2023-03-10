@@ -36,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -104,6 +105,9 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
 
   @Mock
   private RunPrevalidar runPrevalidar;
+
+  @Mock
+  private MailEntornoService mailEntornoService;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {

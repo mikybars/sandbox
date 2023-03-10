@@ -26,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
@@ -51,6 +52,9 @@ public abstract class AbstractRunTareaPrevalidar {
   @Value("${app.envars.tarea.prevalidacion.thread-size}")
   private Integer threadSize;
 
+  @Value("${metadata.environment}")
+  private String environment;
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
@@ -68,6 +72,9 @@ public abstract class AbstractRunTareaPrevalidar {
 
   @Autowired
   private MailService mailService;
+
+  @Autowired
+  private MailEntornoService mailEntornoService;
 
   @Autowired
   private LimpiezaService limpiezaService;
@@ -210,9 +217,11 @@ public abstract class AbstractRunTareaPrevalidar {
                     fallidas.stream().map(ValidacionDto::getIdTareaFaseAccion).map(x -> x.toString()).collect(Collectors.toList())));
       }
       this.insertarDato(fallidas);
-      this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
-      if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
-        this.mailService.sendMailMotivos(runTareaDto, fallidas);
+      if (this.mailEntornoService.findEsActivoByEntorno(this.environment)) {
+        this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
+        if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
+          this.mailService.sendMailMotivos(runTareaDto, fallidas);
+        }
       }
       this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 

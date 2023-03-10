@@ -294,6 +294,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_CONCEPTO_VENTA = "idTipoVentaConcepto";
 
+  public static final String SQL_PARAM_ENTORNO = "entorno";
+
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
   public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -455,6 +457,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_RESULT_MAIL = "MAIL";
 
   public static final String CALCULAR_FESTIVOS = "CALCULAR_FESTIVOS";
+
+  public static final String SQL_RESULT_ENTORNO = "ENTORNO";
 
   private SqlPrimaryConstants() {
   }
