@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -195,7 +198,7 @@ class TestServiceImplTest {
     when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
         .thenReturn(Arrays.asList(id1, id2));
     when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
-    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.any()))
         .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
 
     final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(limit);
@@ -214,7 +217,7 @@ class TestServiceImplTest {
     when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
         .thenReturn(Arrays.asList(id1, id2));
     when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
-    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.any()))
         .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
 
     final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(2);
@@ -232,7 +235,7 @@ class TestServiceImplTest {
     when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
         .thenReturn(Arrays.asList(id1, id2));
     when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
-    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.any()))
         .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
 
     final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(2);
@@ -251,7 +254,7 @@ class TestServiceImplTest {
     when(this.tareaRepositoryCustom.findTareasConsolidadesSinAjusteComision(any(Integer.class)))
         .thenReturn(Arrays.asList(id1, id2));
     when(this.tareaRepositoryCustom.totalTareasConsolidadesSinAjusteComision()).thenReturn(100);
-    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.<List<IdTareaDTO>>any()))
+    when(this.testNormalizacionAsyncService.normalizarAjusteComision(ArgumentMatchers.any()))
         .thenReturn(CompletableFuture.completedFuture(AsyncConstants.NIL));
 
     final AjusteComisionDTO result = this.testServiceImpl.normalizarAjusteComision(200);

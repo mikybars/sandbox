@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
@@ -106,6 +107,9 @@ class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE =
       "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE INCLUIDO PORCENTAJE";
+
+  private final static String SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA =
+      "SQL VALIDATE TEMP COMIS RECUPERAR FRANCIA";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -223,6 +227,10 @@ class ComisRepositoryCustomImplTest {
     FieldUtils.writeField(this.comisRepositoryCustom,
         "sqlFindCondicionesDesplazamientoChallengeIncluidoPorcentaje",
         SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE,
+        true);
+    FieldUtils.writeField(this.comisRepositoryCustom,
+        "sqlValidateTempComisRecuperarFrancia",
+        SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA,
         true);
 
   }
@@ -989,5 +997,34 @@ class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
     // fecha desde ampliado
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
+  }
+
+  @Test
+  void validateTempComisRecuperarFrancia(@Random final IdPersonaLocalDto result) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
+          final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
+        });
+
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
+
+    this.comisRepositoryCustom.validateTempComisRecuperarFrancia(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(1, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_FIN_PERIODO));
+
   }
 }

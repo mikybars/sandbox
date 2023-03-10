@@ -1205,4 +1205,5 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
           return idPersonaLocalCondicionesDto;
         });
   }
+
 }
