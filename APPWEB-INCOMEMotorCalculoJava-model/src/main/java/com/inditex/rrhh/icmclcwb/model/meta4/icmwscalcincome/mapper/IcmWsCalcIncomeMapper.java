@@ -1748,6 +1748,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "listatiendas", source = "listaTiendas")
   @Mapping(target = "listaempleados", source = "listaEmpleados")
   @Mapping(target = "fecfin", source = "fecFin", dateFormat = Meta4Constants.META4_DATE)
+  @Mapping(target = "fecpro", source = "fecPro", dateFormat = Meta4Constants.META4_DATE_FULL)
   IcmParamcalplanificadorRecord asIcmParamcalplanificadorRecord(PlanificacionFilterParametersDto src);
 
   @Mapping(target = "refresco", source = "refresco")

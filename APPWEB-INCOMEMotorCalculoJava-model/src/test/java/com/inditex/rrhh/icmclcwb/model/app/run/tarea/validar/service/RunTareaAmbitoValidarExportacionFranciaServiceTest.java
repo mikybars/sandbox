@@ -6,6 +6,8 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
@@ -82,6 +84,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     tareaDto.setId(1L);
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setTipoAmbito(tipoAmbito);
+    trabajo.setFechaHoraFinTrabajo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajo);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
