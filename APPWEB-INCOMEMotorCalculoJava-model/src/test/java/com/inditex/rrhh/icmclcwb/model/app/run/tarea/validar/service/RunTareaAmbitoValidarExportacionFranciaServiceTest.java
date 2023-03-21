@@ -47,6 +47,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
 
+  private static final String KO = "KO";
+
   @Mock
   private ComisRepositoryCustom comisRepositoryCustom;
 
@@ -97,9 +99,9 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     final PlanificacionResponseDto response = new PlanificacionResponseDto();
     final PlanificacionResultItemDto result = new PlanificacionResultItemDto();
     response.setData(new ArrayList<>());
-    result.setResultado("KO");
-    result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado("KO").avisos(new ArrayList<>()).build());
-    result.setErrores(ErorresGuardadoResultItemDto.builder().resultado("KO").errores(new ArrayList<>()).build());
+    result.setResultado(KO);
+    result.setAvisos(AvisosGuardadoResultItemDto.builder().resultado(KO).avisos(new ArrayList<>()).build());
+    result.setErrores(ErorresGuardadoResultItemDto.builder().resultado(KO).errores(new ArrayList<>()).build());
     response.getData().add(result);
 
     when(this.meta4IcmWsCalcIncomeService.planificacion(any(PlanificacionRequestDto.class))).thenReturn(response);
