@@ -84,7 +84,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     tareaDto.setId(1L);
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setTipoAmbito(tipoAmbito);
-    trabajo.setFechaHoraFinTrabajo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
+    trabajo.setFechaHoraCreacion(LocalDateTime.now().atOffset(ZoneOffset.UTC));
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajo);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
