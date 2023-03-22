@@ -18,13 +18,12 @@ public abstract class TareaPersonaCoeficienteDecorator extends TareaPersonaCoefi
 
   @Override
   public List<TareaPersonaCoeficiente> genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(
-      List<GenericEmpleadoResultItemDto> srcTareaPersonaHistorico, TareaDto srcTarea) {
-    List<TareaPersonaCoeficiente> result = new ArrayList<>();
+      final List<GenericEmpleadoResultItemDto> srcTareaPersonaHistorico, final TareaDto srcTarea) {
+    final List<TareaPersonaCoeficiente> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(srcTareaPersonaHistorico)) {
       srcTareaPersonaHistorico.stream()
-          .filter(e -> Integer.valueOf(e.getCoefJornada()) > 0)
           .forEach(item -> result.add(
-              delegate.genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(item, srcTarea)));
+              this.delegate.genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(item, srcTarea)));
     }
     return result;
   }
