@@ -7602,9 +7602,11 @@ FROM (
                         TPE.ICM_ID_ESTR_COMISION_BASE,
                         TPE.ICM_ID_ESTR_COMISION,
                         TPE.ICM_GRUPO_MANUAL
-                      ORDER BY TPE.ID_TAREA_PERSONA_ESTRUCTURA DESC
+                      ORDER BY PCP.ID_ESTADO ASC
                     ) AS PESO
                 FROM TAREA T
+                INNER JOIN TRABAJO TR
+                ON TR.ID_TRABAJO = T.ID_TRABAJO
                 INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
                 ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
                 AND TPE.ID_TAREA = T.ID_TAREA
@@ -7619,6 +7621,12 @@ FROM (
                 AND TPH.FECHA_FIN_LOCALIZACION >= TPE.FECHA_INICIO
                 AND TPH.FECHA_INICIO_SECCION <= TPE.FECHA_FIN
                 AND TPH.FECHA_FIN_SECCION >= TPE.FECHA_INICIO
+                INNER JOIN PERIODO_CALCULO_PERSONA PCP
+                ON PCP.ICM_ID_PERIODO = TR.ICM_ID_PERIODO
+                AND PCP.STD_ID_LEG_ENT = TPH.STD_ID_LEG_ENT
+                AND PCP.CCL_ID_ORIGEN = TPH.CCL_ID_ORIGEN
+                AND PCP.CCL_ID_PERSON = TPH.CCL_ID_PERSON
+                AND PCP.STD_OR_HR_PERIOD = TPH.STD_OR_HR_PERIOD
                 WHERE T.ID_TAREA = :idTarea
                 AND TPE.ICM_ID_TP_COMISION IN (:tiposComision)
                 GROUP BY
@@ -7633,7 +7641,8 @@ FROM (
                 TPE.ICM_ID_ESTR_COMISION,
                 TPE.ICM_GRUPO_MANUAL,
                 TPE.FECHA_INICIO,
-                TPE.FECHA_FIN
+                TPE.FECHA_FIN,
+                PCP.ID_ESTADO
         ) AS AGRUPADO
         WHERE AGRUPADO.PESO > 1
 )
