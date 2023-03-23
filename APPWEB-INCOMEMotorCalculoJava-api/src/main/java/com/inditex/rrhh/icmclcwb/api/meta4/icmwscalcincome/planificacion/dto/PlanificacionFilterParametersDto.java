@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,8 @@ public class PlanificacionFilterParametersDto implements Serializable {
   private static final long serialVersionUID = -1L;
 
   private LocalDate fecFin;
+
+  private LocalDateTime fecPro;
 
   private String idOrigen;
 
