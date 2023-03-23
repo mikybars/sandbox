@@ -91,6 +91,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
       parameters.setIdPeriodo(trabajo.getIcmIdPeriodo());
       parameters.setProceso(COMIS);
       parameters.setFecFin(tarea.getFechaFinPeriodo());
+      parameters.setFecPro(trabajo.getFechaHoraCreacion().toLocalDateTime());
       parameters.setListaEmpresas(tarea.getStdIdLegEnt());
       parameters.setIdOrigen(tareaAmbito.getCclIdOrigen());
 
