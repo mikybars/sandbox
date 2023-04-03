@@ -25,6 +25,9 @@ app:
           insecure_termination_policy: Redirect
     http_private:
       enabled: true
+  replicas: 1
+  scaler:
+    optin: true
 datagrid:
   force: false
   application_cache:

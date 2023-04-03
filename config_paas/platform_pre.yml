@@ -1,0 +1,5 @@
+app:
+  scaler:
+    states:
+    - name: peak
+      replicas: 1
