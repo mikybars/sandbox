@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -64,7 +65,7 @@ public class TareaPersonaCoeficiente {
   private Date fechaFinCom;
 
   @NotNull
-  @Column(name = "COEFICIENTE", nullable = false)
-  private Integer coeficiente;
+  @Column(name = "COEFICIENTE", nullable = false, precision = 23, scale = 8)
+  private BigDecimal coeficiente;
 
 }
