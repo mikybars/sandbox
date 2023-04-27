@@ -230,7 +230,7 @@ public class TrabajoServiceImpl implements TrabajoService {
       }
     }
     // Guardado del trabajo en Meta4
-    this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
+    // this.meta4IcmWsCalcIncomeService.saveProceso(this.trabajoMapper.trabajoDtoToSaveProcesoDto(result));
     // Envío del trabajo a la cola
     this.senderTrabajo.send(result);
     return result;
