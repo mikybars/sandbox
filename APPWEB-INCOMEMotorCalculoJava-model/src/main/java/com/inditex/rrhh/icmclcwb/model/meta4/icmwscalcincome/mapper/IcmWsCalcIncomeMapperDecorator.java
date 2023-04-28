@@ -611,7 +611,7 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
       src.getItem().forEach(item -> {
         final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
         record.setIdempresa(item.getIdEmpresa());
-        record.setIdorigen(item.getIdOrigen());
+        record.setIdorigen(src.getIdOrigen());
         record.setIdlugartrabajo(item.getIdLugarTrabajo());
         record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
         result.add(record);
