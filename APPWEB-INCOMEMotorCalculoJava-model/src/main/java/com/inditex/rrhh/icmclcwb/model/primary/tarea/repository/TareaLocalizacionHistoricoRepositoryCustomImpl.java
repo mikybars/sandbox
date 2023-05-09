@@ -367,10 +367,11 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
-    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION, Arrays
-        .asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(), TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays
-        .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()));
+        .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
+            TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE, idTipoConceptoVentaChallenge);
 
     return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,
