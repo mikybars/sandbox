@@ -330,7 +330,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
     assertEquals(SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA, this.sql.getValue());
     // parametros de la consulta: idTarea
-    assertEquals(6, this.params.getValue().getValues().size());
+    assertEquals(5, this.params.getValue().getValues().size());
     // idTarea
     assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
     assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
@@ -340,16 +340,14 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     // empresa
     assertTrue(this.params.getValue().hasValue(SQL_PARAM_STD_ID_LEG_ENT));
     assertEquals(stdIdLegEnt, this.params.getValue().getValue(SQL_PARAM_STD_ID_LEG_ENT));
-    // tiposComision
-    assertTrue(this.params.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(
-        Arrays.asList(TipoComisionEnum.CHALLENGE_PRINCIPAL.getId(),
-            TipoComisionEnum.CHALLENGE_SECUNDARIO.getId()),
-        this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
     // tiposCalculo
     assertTrue(this.params.getValue().hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
     assertEquals(
-        Arrays.asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
+        Arrays
+            .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
+                TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId()),
         this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
   }
 
