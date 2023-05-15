@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -20,10 +20,11 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionVentaIntegraService;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.service.VentaIntegraServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistoricoServiceImpl;
 
@@ -35,11 +36,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
+
+  @Mock
+  private Logger log;
 
   @Mock
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;
@@ -48,7 +53,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
   private VentaIntegraServiceImpl ventaIntegraService;
 
   @Mock
-  private TareaFaseAccionDatoServiceImpl tareaFaseAccionDatoService;
+  private TareaFaseAccionVentaIntegraService tareaFaseAccionVentaIntegraService;
 
   @Mock
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
@@ -79,13 +84,15 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
     doReturn(new ArrayList<IdLocalizacionDto>()).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
 
-    assertThrows(RuntimeException.class,
-        () -> this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion));
+    this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
+    verify(this.validacionMapper, timeout(1000).times(1))
+        .booleanToValidacionDto(
+            Mockito.any(TareaAmbitoDto.class), Mockito.any(TareaFaseAccionDto.class), Mockito.eq(Boolean.TRUE));
   }
 
   @Test
-  void executeTest() {
+  void executeTest(@Random(type = VentaIntegraDataResponseDto.class, size = 1) final List<VentaIntegraDataResponseDto> response) {
 
     final List<IdLocalizacionDto> tiendas = Arrays.asList(IdLocalizacionDto.builder().id("T1").build(),
         IdLocalizacionDto.builder().id("T2").build(),
@@ -95,13 +102,13 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
     doReturn(tiendas).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
 
-    doReturn(Arrays.asList(1)).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class));
+    doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class));
 
-    doNothing().when(this.tareaFaseAccionDatoService).save(anyList());
+    doNothing().when(this.tareaFaseAccionVentaIntegraService).save(anyList());
 
     this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
-    verify(this.validacionMapper, timeout(1000).times(1))
+    verify(this.validacionMapper, timeout(1000).times(2))
         .booleanToValidacionDto(
             Mockito.any(TareaAmbitoDto.class), Mockito.any(TareaFaseAccionDto.class), Mockito.eq(Boolean.TRUE));
 
