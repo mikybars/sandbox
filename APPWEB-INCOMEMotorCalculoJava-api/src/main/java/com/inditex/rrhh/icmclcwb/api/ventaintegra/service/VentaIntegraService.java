@@ -5,6 +5,7 @@ package com.inditex.rrhh.icmclcwb.api.ventaintegra.service;
  */
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 
 public interface VentaIntegraService {
@@ -13,8 +14,8 @@ public interface VentaIntegraService {
    * Recuperar las tiendas con venta no integra en un periodo determinado.
    *
    * @param data VentaIntegraRequestDto - Datos para ejecutar la peticion.
-   * @return List of Integer - Lista de tiendas.
+   * @return List of VentaIntegraDataResponseDto.
    */
-  List<Integer> getTiendasVentaNoIntegra(VentaIntegraRequestDto data);
+  List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(VentaIntegraRequestDto data);
 
 }
