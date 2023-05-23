@@ -82,7 +82,8 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
       tiendasNoIntegras
           .forEach(tienda -> tienda.getErrorDates().forEach(date -> {
             tareaFaseAccionVentaIntegraDtoList.add(TareaFaseAccionVentaIntegraDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-                .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda(tienda.toString()).fechaDesintegridad(LocalDate.parse(date))
+                .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda(String.valueOf(tienda.getStoreTic()))
+                .fechaDesintegridad(LocalDate.parse(date))
                 .build());
           }));
 

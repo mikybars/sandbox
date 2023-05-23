@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.Date;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 
@@ -9,12 +10,14 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Embeddable
 @Data
-public class TareaFaseAccionVentaIntegraPk {
+public class TareaFaseAccionVentaIntegraPk implements Serializable {
 
   @OneToOne
   @JoinColumn(name = "ID_TAREA_FASE_ACCION", nullable = false)
@@ -31,6 +34,7 @@ public class TareaFaseAccionVentaIntegraPk {
 
   @NotNull
   @Column(name = "FECHA_DESINTEGRIDAD", nullable = false)
-  private LocalDate fechaDesintegridad;
+  @Temporal(TemporalType.DATE)
+  private Date fechaDesintegridad;
 
 }

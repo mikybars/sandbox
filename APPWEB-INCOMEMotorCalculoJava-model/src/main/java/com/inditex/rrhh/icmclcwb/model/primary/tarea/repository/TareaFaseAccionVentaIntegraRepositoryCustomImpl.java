@@ -6,7 +6,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccionVentaIntegra;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TareaFaseAccionVentaIntegraRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaFaseAccionVentaIntegra>
     implements TareaFaseAccionVentaIntegraRepositoryCustom {
 
