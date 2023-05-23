@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -46,6 +47,6 @@ public class TareaPersonaCoeficienteDto implements Serializable {
 
   @NotNull
   @ApiModelProperty(value = "Coeficiente jornada", required = true)
-  private Long coeficiente;
+  private BigDecimal coeficiente;
 
 }
