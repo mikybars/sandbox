@@ -10323,9 +10323,8 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
 
   <entry key="MailEntornoRepositoryCustom.findMailEntornoByEntorno">
     <![CDATA[
-  SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
-  ]]>
+      SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
+    ]]>
   </entry>
 
-
-  </properties>
+</properties>
