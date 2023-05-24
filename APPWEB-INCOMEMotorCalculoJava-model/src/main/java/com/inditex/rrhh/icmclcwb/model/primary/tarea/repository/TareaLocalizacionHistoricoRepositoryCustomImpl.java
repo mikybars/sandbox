@@ -96,6 +96,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findLocalizacionFicticiaByIdOrigenAndIdEmpresa']}")
   private String sqlFindLocalizacionFicticiaByIdOrigenAndIdEmpresa;
 
+  @Value("#{primaryQuery['TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTarea']}")
+  private String sqlFindIdLocalizacionByIdTarea;
+
   @Override
   public List<TareaLocalizacionHistorico> save(final List<TareaLocalizacionHistorico> src) {
     return this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
@@ -395,6 +398,18 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
     return this.query(this.sqlFindIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea, parameters,
         (rs, rowNum) -> IdLocalizacionLocalDto.builder()
             .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL))
+            .build());
+  }
+
+  @Override
+  public List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
+      @NotNull @Positive final Long idTarea) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+
+    return this.query(this.sqlFindIdLocalizacionByIdTarea, parameters,
+        (rs, rowNum) -> IdLocalizacionDto.builder()
+            .id(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_META4))
             .build());
   }
 

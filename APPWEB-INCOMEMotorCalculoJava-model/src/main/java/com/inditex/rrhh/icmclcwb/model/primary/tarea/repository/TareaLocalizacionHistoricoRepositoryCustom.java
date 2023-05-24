@@ -66,6 +66,9 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
       @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
       @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
 
+  List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
+      @NotNull @Positive Long idTarea);
+
   void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
 
   List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NotNull String cclIdOrigen,

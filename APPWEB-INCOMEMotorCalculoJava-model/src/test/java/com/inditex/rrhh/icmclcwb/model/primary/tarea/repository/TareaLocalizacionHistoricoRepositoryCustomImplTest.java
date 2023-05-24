@@ -71,6 +71,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
   private static final String SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA =
       "SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA";
 
+  private static final String SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA =
+      "SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -113,6 +116,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
         "sqlFindIdLocalizacionPresupuestosByIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_ID_TAREA, true);
     FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
         "sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea", SQL_FIND_ID_LOCALIZACION_PRESUPUESTOS_BY_STD_ID_LEG_ENT_AND_ID_TAREA,
+        true);
+    FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
+        "sqlFindIdLocalizacionByIdTarea", SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA,
         true);
     FieldUtils.writeField(this.tareaLocalizacionHistoricoRepositoryCustom,
         "batchSize", 100, true);
@@ -349,6 +355,20 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId()),
         this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+  }
+
+  @Test
+  public void findIdLocalizacionByIdTareaTest() {
+    final Long idTarea = 23L;
+    this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTarea(idTarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaLocalizacionHistorico>>any());
+    assertEquals(SQL_FIND_ID_LOCALIZACION_BY_ID_TAREA, this.sql.getValue());
+    // parametros de la consulta: idTarea
+    assertEquals(1, this.params.getValue().getValues().size());
+    // idTarea
+    assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, this.params.getValue().getValue(SQL_PARAM_ID_TAREA));
   }
 
 }

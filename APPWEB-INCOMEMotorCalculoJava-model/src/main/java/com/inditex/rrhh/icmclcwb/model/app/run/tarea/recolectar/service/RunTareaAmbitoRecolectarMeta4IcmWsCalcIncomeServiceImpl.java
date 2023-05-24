@@ -982,8 +982,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     try {
       final TareaDto tarea = runTarea.getTarea();
       for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
-          this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
-              tarea.getId(), tareaAmbito.getCclIdOrigen()),
+          this.tareaLocalizacionHistoricoService.findIdLocalizacionByIdTarea(
+              tarea.getId()),
           this.meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getFilter().getMaxPageSize())) {
         final VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
         request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.VENTACONGELADA).getPage());

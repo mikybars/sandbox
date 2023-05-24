@@ -7575,6 +7575,15 @@ FROM (
       ]]>
   </entry>
 
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTarea">
+    <![CDATA[
+  SELECT STD_ID_WORK_LOCAT
+  FROM TAREA_LOCALIZACION_PRESUPUESTO
+  WHERE ID_TAREA = :idTarea
+  GROUP BY STD_ID_WORK_LOCAT
+      ]]>
+  </entry>
+
   <entry key="TareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen">
     <![CDATA[
   UPDATE TAREA_PERSONA_ESTRUCTURA
