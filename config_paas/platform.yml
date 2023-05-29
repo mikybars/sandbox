@@ -4,6 +4,7 @@ metadata:
   tenant: global
   developModel: CORPORATE
   layer: core
+  namespace_id: rhcompensa
 app:
   context_path_builder:
     enabled: true
