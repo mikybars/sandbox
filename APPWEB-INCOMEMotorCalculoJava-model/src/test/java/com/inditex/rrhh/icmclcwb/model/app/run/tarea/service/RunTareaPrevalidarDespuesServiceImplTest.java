@@ -49,7 +49,6 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -220,7 +219,6 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
   }
 
   @Test
-  @Disabled
   void runExceptionTest(@Random final TareaFaseDto tareaFase, @Random final AccionDto accionDto,
       @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
