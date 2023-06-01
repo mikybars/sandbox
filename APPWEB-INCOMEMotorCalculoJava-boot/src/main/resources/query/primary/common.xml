@@ -7575,6 +7575,15 @@ FROM (
       ]]>
   </entry>
 
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTarea">
+    <![CDATA[
+  SELECT STD_ID_WORK_LOCAT
+  FROM TAREA_LOCALIZACION_PRESUPUESTO
+  WHERE ID_TAREA = :idTarea
+  GROUP BY STD_ID_WORK_LOCAT
+      ]]>
+  </entry>
+
   <entry key="TareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen">
     <![CDATA[
   UPDATE TAREA_PERSONA_ESTRUCTURA
@@ -10321,9 +10330,8 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
 
   <entry key="MailEntornoRepositoryCustom.findMailEntornoByEntorno">
     <![CDATA[
-  SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
-  ]]>
+      SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
+    ]]>
   </entry>
 
-
-  </properties>
+</properties>

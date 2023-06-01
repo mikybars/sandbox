@@ -242,6 +242,14 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   }
 
   @Override
+  @Cacheable(value = "itx.icmlcwb.id_localizacion_by_tarea", key = "{#idTarea}")
+  public List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
+      @NotNull @Positive final Long idTarea) {
+    return this.tareaLocalizacionHistoricoRepositoryCustom
+        .findIdLocalizacionByIdTarea(idTarea);
+  }
+
+  @Override
   public void mergeLocalizacionFicticia(@NotNull final Long idTarea, @NotNull final String cclIdOrigen,
       @NotBlank final String stdIdLegEnt) {
     this.tareaLocalizacionHistoricoRepositoryCustom

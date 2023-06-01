@@ -329,3 +329,9 @@ statistics="true">
 </memory>
 <expiration max-idle="600000"/>
 </replicated-cache>
+<replicated-cache name="itx.icmlcwb.id_localizacion_by_tarea" mode="SYNC" statistics="true">
+<memory>
+  <object size="1000"/>
+</memory>
+<expiration max-idle="600000"/>
+</replicated-cache>
