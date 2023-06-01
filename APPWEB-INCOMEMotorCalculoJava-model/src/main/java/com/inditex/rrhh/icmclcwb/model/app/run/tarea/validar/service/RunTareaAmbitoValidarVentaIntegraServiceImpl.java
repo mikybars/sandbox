@@ -80,12 +80,12 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
 
       final List<TareaFaseAccionVentaIntegraDto> tareaFaseAccionVentaIntegraDtoList = new ArrayList<>();
       tiendasNoIntegras
-          .forEach(tienda -> tienda.getErrorDates().forEach(date -> {
-            tareaFaseAccionVentaIntegraDtoList.add(TareaFaseAccionVentaIntegraDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-                .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda(String.valueOf(tienda.getStoreTic()))
-                .fechaDesintegridad(LocalDate.parse(date))
-                .build());
-          }));
+          .forEach(tienda -> tienda.getErrorDates()
+              .forEach(date -> tareaFaseAccionVentaIntegraDtoList
+                  .add(TareaFaseAccionVentaIntegraDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                      .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda(String.valueOf(tienda.getStoreTic()))
+                      .fechaDesintegridad(LocalDate.parse(date))
+                      .build())));
 
       this.tareaFaseAccionVentaIntegraService.save(tareaFaseAccionVentaIntegraDtoList);
 
