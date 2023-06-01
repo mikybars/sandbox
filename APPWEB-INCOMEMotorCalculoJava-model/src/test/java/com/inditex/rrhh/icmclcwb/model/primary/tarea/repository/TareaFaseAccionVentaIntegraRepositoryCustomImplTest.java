@@ -24,7 +24,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaFaseAccionVentaIntegraRepositoryCustomImplTest {
+class TareaFaseAccionVentaIntegraRepositoryCustomImplTest {
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;

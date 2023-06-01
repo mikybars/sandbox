@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class TareaFaseAccionVentaIntegraServiceImplTest {
+class TareaFaseAccionVentaIntegraServiceImplTest {
 
   @Mock
   private TareaFaseAccionVentaIntegraMapper tareaFaseAccionVentaIntegraMapper;
