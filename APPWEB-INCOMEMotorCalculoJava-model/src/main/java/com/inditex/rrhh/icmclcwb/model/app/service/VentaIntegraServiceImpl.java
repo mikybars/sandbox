@@ -3,12 +3,14 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraResponseDto;
@@ -34,7 +36,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   private VentaIntegraPropertiesDto ventaIntegraProperties;
 
   @Override
-  public List<Integer> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
+  public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
     final VentaIntegraResponseDto response;
     try {
       response = this.queryTiendasVentaNoIntegra(request);
@@ -42,7 +44,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
       throw e;
     }
 
-    return response.getData().stream().map(x -> x.getStoreTic()).collect(Collectors.toList());
+    return response.getData();
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.venta-integra.config.max-attempts}")
@@ -60,8 +62,8 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
       pathParams.put("before", request.getFechaLimite().toString());
     }
 
-    final String url = new StringBuilder(this.ventaIntegraProperties.getEndpoint())
-        .append(this.getUrlParams(request)).toString();
+    final String url = this.ventaIntegraProperties.getEndpoint()
+        + this.getUrlParams(request);
 
     try {
       return RestUtils.checkResponse(

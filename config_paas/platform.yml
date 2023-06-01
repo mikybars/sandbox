@@ -5,6 +5,7 @@ metadata:
   developModel: CORPORATE
   layer: core
 app:
+  dockerfile_from: itxbase/jre11:11.0.12
   context_path_builder:
     enabled: true
   readiness_probe:

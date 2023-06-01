@@ -22,7 +22,7 @@ public class TareaFaseAccionDatoServiceImpl implements TareaFaseAccionDatoServic
   private TareaFaseAccionDatoMapper tareaFaseAccionDatoMapper;
 
   @Autowired
-  private TareaFaseAccionDatoRepositoryCustom tareaFaseAccionFallidasRepository;
+  private TareaFaseAccionDatoRepositoryCustom tareaFaseAccionDatoRepository;
 
   /**
    * Guarda en TAREA_FASE_ACCION_DATO.
@@ -30,8 +30,8 @@ public class TareaFaseAccionDatoServiceImpl implements TareaFaseAccionDatoServic
    * @param src TareaFaseAccionDatoDto
    */
   @Override
-  public void save(List<TareaFaseAccionDatoDto> src) {
-    this.tareaFaseAccionFallidasRepository.save(
+  public void save(final List<TareaFaseAccionDatoDto> src) {
+    this.tareaFaseAccionDatoRepository.save(
         this.tareaFaseAccionDatoMapper.tareaFaseAccionDatoDtoToTareaFaseAccionDato(src));
   }
 }

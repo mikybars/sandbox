@@ -9994,6 +9994,13 @@ INSERT INTO SESSION.PRESUPUESTO (
   ]]>
   </entry>
 
+  <entry key="TareaFaseAccionVentaIntegraRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_FASE_ACCION_VENTA_INTEGRA (ID_TAREA_FASE_ACCION, ID_TIPO_DATO, TIENDA, FECHA_DESINTEGRIDAD)
+    VALUES(:pk.tareaFaseAccion.id, :pk.tipoDato.id, :pk.tienda, :pk.fechaDesintegridad)
+  ]]>
+  </entry>
+
   <entry key="MailAmbitoRepositoryCustom.findMailByCclIdOrigenAndStdIdLegEnt">
     <![CDATA[
     SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, MAIL, ES_ACTIVO
