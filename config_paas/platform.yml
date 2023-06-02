@@ -4,6 +4,7 @@ metadata:
   tenant: global
   developModel: CORPORATE
   layer: core
+  namespace_id: rhcompensa
 app:
   dockerfile_from: itxbase/jre11:11.0.12
   context_path_builder:
