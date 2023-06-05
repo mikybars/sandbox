@@ -88,7 +88,6 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
                       .build())));
 
       this.tareaFaseAccionVentaIntegraService.save(tareaFaseAccionVentaIntegraDtoList);
-
     } catch (final Exception e) {
       this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getIdTrabajo(), e);
