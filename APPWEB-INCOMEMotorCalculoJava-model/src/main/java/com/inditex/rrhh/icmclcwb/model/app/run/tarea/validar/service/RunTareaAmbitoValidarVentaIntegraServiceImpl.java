@@ -93,7 +93,6 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
       this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getIdTrabajo(), e);
     }
-
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }
