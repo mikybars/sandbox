@@ -83,7 +83,7 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
           .forEach(tienda -> tienda.getErrorDates()
               .forEach(date -> tareaFaseAccionVentaIntegraDtoList
                   .add(TareaFaseAccionVentaIntegraDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-                      .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda(String.valueOf(tienda.getStoreTic()))
+                      .idTipoDato(TipoDatoEnum.VENTA_NO_INTEGRA.getId()).tienda("T" + tienda.getStoreTic())
                       .fechaDesintegridad(LocalDate.parse(date))
                       .build())));
 
@@ -93,7 +93,6 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
       this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getIdTrabajo(), e);
     }
-
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }
