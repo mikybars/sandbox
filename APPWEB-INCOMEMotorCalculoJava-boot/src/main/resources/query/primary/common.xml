@@ -7575,6 +7575,15 @@ FROM (
       ]]>
   </entry>
 
+  <entry key="TareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionByIdTarea">
+    <![CDATA[
+  SELECT STD_ID_WORK_LOCAT
+  FROM TAREA_LOCALIZACION_PRESUPUESTO
+  WHERE ID_TAREA = :idTarea
+  GROUP BY STD_ID_WORK_LOCAT
+      ]]>
+  </entry>
+
   <entry key="TareaPersonaEstructuraRepositoryCustom.desactivarChallengeOpcionOrigen">
     <![CDATA[
   UPDATE TAREA_PERSONA_ESTRUCTURA
@@ -9994,6 +10003,13 @@ INSERT INTO SESSION.PRESUPUESTO (
   ]]>
   </entry>
 
+  <entry key="TareaFaseAccionVentaIntegraRepositoryCustom.save">
+    <![CDATA[
+    INSERT INTO TAREA_FASE_ACCION_VENTA_INTEGRA (ID_TAREA_FASE_ACCION, ID_TIPO_DATO, TIENDA, FECHA_DESINTEGRIDAD)
+    VALUES(:pk.tareaFaseAccion.id, :pk.tipoDato.id, :pk.tienda, :pk.fechaDesintegridad)
+  ]]>
+  </entry>
+
   <entry key="MailAmbitoRepositoryCustom.findMailByCclIdOrigenAndStdIdLegEnt">
     <![CDATA[
     SELECT CCL_ID_ORIGEN, STD_ID_LEG_ENT, MAIL, ES_ACTIVO
@@ -10314,9 +10330,8 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
 
   <entry key="MailEntornoRepositoryCustom.findMailEntornoByEntorno">
     <![CDATA[
-  SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
-  ]]>
+      SELECT ENTORNO, ES_ACTIVO FROM MAIL_ENTORNO WHERE ENTORNO = :entorno
+    ]]>
   </entry>
 
-
-  </properties>
+</properties>

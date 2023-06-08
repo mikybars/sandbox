@@ -1,9 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
-/*
- * Copyright (c) 2022. Inditex
- */
-import java.io.Serializable;
+import java.time.LocalDate;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,12 +10,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(description = "Modelo TareaFaseAccionDatoDto")
+@ApiModel(description = "Modelo TareaFaseAccionVentaIntegraDto")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TareaFaseAccionDatoDto implements Serializable {
+public class TareaFaseAccionVentaIntegraDto {
 
   @ApiModelProperty(value = "Identificador de TareaFaseAccion", required = false, accessMode = AccessMode.READ_ONLY,
       hidden = true)
@@ -28,8 +25,12 @@ public class TareaFaseAccionDatoDto implements Serializable {
       hidden = true)
   private Integer idTipoDato;
 
-  @ApiModelProperty(value = "Dato", required = false, accessMode = AccessMode.READ_ONLY,
+  @ApiModelProperty(value = "ID Tienda", required = false, accessMode = AccessMode.READ_ONLY,
       hidden = true)
-  private String dato;
+  private String tienda;
+
+  @ApiModelProperty(value = "Fecha desintegridad", required = false, accessMode = AccessMode.READ_ONLY,
+      hidden = true)
+  private LocalDate fechaDesintegridad;
 
 }

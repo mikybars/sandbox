@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionHistoricoDto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
@@ -50,7 +49,7 @@ public class TareaLocalizacionHistoricoServiceImplTest {
 
     this.tareaLocalizacionHistoricoServiceImpl.save(genericTiendaResultItemDto);
     verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
-        .save(ArgumentMatchers.<List<TareaLocalizacionHistorico>>any());
+        .save(ArgumentMatchers.any());
   }
 
   @Test
@@ -143,7 +142,7 @@ public class TareaLocalizacionHistoricoServiceImplTest {
             idTipoCalculo);
     verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(any(Long.class),
-            any(String.class), ArgumentMatchers.<List<String>>any());
+            any(String.class), ArgumentMatchers.any());
   }
 
   @Test
@@ -155,6 +154,17 @@ public class TareaLocalizacionHistoricoServiceImplTest {
     this.tareaLocalizacionHistoricoServiceImpl.findTiendasPresupuestosByIdTarea(idTarea);
     verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
         .findIdLocalizacionLocalDtoPresupuestosByIdTarea(any(Long.class));
+  }
+
+  @Test
+  public void findIdLocalizacionByIdTareaTest() {
+    final TareaDto tarea = mock(TareaDto.class);
+    tarea.setIdTrabajo(1L);
+    final Long idTarea = 1L;
+
+    this.tareaLocalizacionHistoricoServiceImpl.findIdLocalizacionByIdTarea(idTarea);
+    verify(this.tareaLocalizacionHistoricoRepositoryCustom, times(1))
+        .findIdLocalizacionByIdTarea(any(Long.class));
   }
 
 }
