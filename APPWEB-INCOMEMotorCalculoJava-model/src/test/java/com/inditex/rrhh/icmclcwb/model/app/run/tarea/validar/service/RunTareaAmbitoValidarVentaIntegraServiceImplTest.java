@@ -99,7 +99,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
     doReturn(tiendas).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
 
-    doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class), 1L, 1L);
+    doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class), Mockito.eq(1L), Mockito.eq(1L));
 
     this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
