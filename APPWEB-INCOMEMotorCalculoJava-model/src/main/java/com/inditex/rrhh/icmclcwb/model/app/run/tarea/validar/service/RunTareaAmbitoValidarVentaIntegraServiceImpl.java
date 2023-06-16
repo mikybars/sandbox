@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

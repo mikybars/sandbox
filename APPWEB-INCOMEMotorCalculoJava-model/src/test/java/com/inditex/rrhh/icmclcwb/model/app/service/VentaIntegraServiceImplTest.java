@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;

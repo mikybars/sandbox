@@ -114,7 +114,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
+            .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -200,7 +200,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
+            .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
 
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
