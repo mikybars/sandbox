@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentaIntegraService;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.util.VentaIntegraClientPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.retry.annotation.Retryable;
@@ -35,11 +35,18 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   @Qualifier("ventaIntegraProperties")
   private VentaIntegraPropertiesDto ventaIntegraProperties;
 
+  @Autowired
+  private Logger log;
+
   @Override
-  public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
+  public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request, final Long idTrabajo,
+      final Long idTarea) {
     final VentaIntegraResponseDto response;
     try {
-      response = this.queryTiendasVentaNoIntegra(request);
+      response = this.queryTiendasVentaNoIntegra(request, idTrabajo, idTarea);
+
+      this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: response: {}", idTrabajo, idTarea, response.toString());
+
     } catch (final VentaIntegraIcmclcwbException e) {
       throw e;
     }
@@ -48,7 +55,8 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.venta-integra.config.max-attempts}")
-  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
+  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(final VentaIntegraRequestDto request, final Long idTrabajo,
+      final Long idTarea) {
 
     final Map<String, String> pathParams = new HashMap<>();
     pathParams.put("countryTic", request.getIdOrigen().toString());
@@ -64,6 +72,8 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
 
     final String url = this.ventaIntegraProperties.getEndpoint()
         + this.getUrlParams(request);
+
+    this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, url);
 
     try {
       return RestUtils.checkResponse(

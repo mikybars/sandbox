@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -84,7 +83,8 @@ class VentaIntegraServiceImplTest {
     doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
-    final List<VentaIntegraDataResponseDto> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+    final List<VentaIntegraDataResponseDto> tiendasNoIntegras =
+        this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
 
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
@@ -110,7 +110,8 @@ class VentaIntegraServiceImplTest {
     doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
-    final List<VentaIntegraDataResponseDto> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+    final List<VentaIntegraDataResponseDto> tiendasNoIntegras =
+        this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
 
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
@@ -131,7 +132,7 @@ class VentaIntegraServiceImplTest {
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
     assertThrows(VentaIntegraIcmclcwbException.class, () -> {
-      this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+      this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
     });
   }
 

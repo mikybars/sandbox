@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -100,7 +99,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
     doReturn(tiendas).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
 
-    doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class));
+    doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class), 1L, 1L);
 
     this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
