@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
@@ -74,7 +75,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
         + this.getUrlParams(request);
 
     final String urlLog = url;
-    pathParams.keySet().stream().map(key -> urlLog.replace(key, pathParams.get(key)));
+    Stream stream = pathParams.keySet().stream().map(key -> urlLog.replace(key, pathParams.get(key)));
 
     this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, urlLog);
 
