@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.inditex.aqsw.framework.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
@@ -74,12 +73,12 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
     final String url = this.ventaIntegraProperties.getEndpoint()
         + this.getUrlParams(request);
 
-    final String urlLog = url;
-    urlLog.replace("{countryTic}", pathParams.get("countryTic"));
-    urlLog.replace("{from}", pathParams.get("from"));
-    urlLog.replace("{to}", pathParams.get("to"));
-    urlLog.replace("{groupCompanyTic}", pathParams.get("groupCompanyTic"));
-    urlLog.replace("{storeTics}", pathParams.get("storeTics"));
+    String urlLog = url;
+    urlLog = urlLog.replace("{countryTic}", pathParams.get("countryTic"));
+    urlLog = urlLog.replace("{from}", pathParams.get("from"));
+    urlLog = urlLog.replace("{to}", pathParams.get("to"));
+    urlLog = urlLog.replace("{groupCompanyTic}", pathParams.get("groupCompanyTic"));
+    urlLog = urlLog.replace("{storeTics}", pathParams.get("storeTics"));
 
     this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, urlLog);
 
