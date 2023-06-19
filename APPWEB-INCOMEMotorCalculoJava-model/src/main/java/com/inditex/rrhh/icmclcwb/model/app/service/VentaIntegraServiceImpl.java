@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

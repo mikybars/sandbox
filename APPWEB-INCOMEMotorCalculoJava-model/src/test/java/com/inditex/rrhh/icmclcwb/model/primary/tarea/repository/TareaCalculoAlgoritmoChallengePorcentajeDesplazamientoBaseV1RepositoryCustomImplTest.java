@@ -89,7 +89,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1Reposit
   @Test
   public void getMapValuesTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
@@ -161,7 +161,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1Reposit
   @Test
   public void calcularTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
