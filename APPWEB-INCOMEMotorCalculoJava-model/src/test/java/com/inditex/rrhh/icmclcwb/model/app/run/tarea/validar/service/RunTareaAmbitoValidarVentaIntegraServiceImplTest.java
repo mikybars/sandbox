@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -78,8 +78,9 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
 
   @Test
   void executeExceptionTest() {
-    doReturn(new ArrayList<IdLocalizacionDto>()).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
-        .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
+    doReturn(new ArrayList<IdLocalizacionEmpresaDto>()).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
+        .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
+            this.tareaAmbito.getCclIdOrigen(), Arrays.asList(this.runTarea.getTarea().getStdIdLegEnt()));
 
     this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
@@ -91,13 +92,14 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
   @Test
   void executeTest(@Random(type = VentaIntegraDataResponseDto.class, size = 1) final List<VentaIntegraDataResponseDto> response) {
 
-    final List<IdLocalizacionDto> tiendas = Arrays.asList(IdLocalizacionDto.builder().id("T1").build(),
-        IdLocalizacionDto.builder().id("T2").build(),
-        IdLocalizacionDto.builder().id("T3").build(),
-        IdLocalizacionDto.builder().id("T4").build());
+    final List<IdLocalizacionEmpresaDto> tiendas = Arrays.asList(IdLocalizacionEmpresaDto.builder().id("T1").build(),
+        IdLocalizacionEmpresaDto.builder().id("T2").build(),
+        IdLocalizacionEmpresaDto.builder().id("T3").build(),
+        IdLocalizacionEmpresaDto.builder().id("T4").build());
 
     doReturn(tiendas).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
-        .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(this.runTarea.getTarea().getId(), this.tareaAmbito.getCclIdOrigen());
+        .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
+            this.tareaAmbito.getCclIdOrigen(), Arrays.asList(this.runTarea.getTarea().getStdIdLegEnt()));
 
     doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class), Mockito.eq(1L),
         Mockito.eq(1L));
