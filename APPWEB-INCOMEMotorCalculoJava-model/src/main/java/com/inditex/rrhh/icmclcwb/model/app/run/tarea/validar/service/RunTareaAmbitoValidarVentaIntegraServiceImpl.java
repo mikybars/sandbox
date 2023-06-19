@@ -75,7 +75,8 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
           this.ventaIntegraService.getTiendasVentaNoIntegra(VentaIntegraRequestDto.builder()
               .idOrigen(Integer.valueOf(tareaAmbito.getCclIdOrigen())).idEmpresa(Integer.valueOf(runTareaDto.getTarea().getStdIdLegEnt()))
               .fechaDesde(runTareaDto.getTarea().getFechaInicioPeriodo().toString())
-              .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString()).listaTiendas(tiendasRequest).build());
+              .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString()).listaTiendas(tiendasRequest).build(),
+              runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId());
 
       final List<TareaFaseAccionVentaIntegraDto> tareaFaseAccionVentaIntegraDtoList = new ArrayList<>();
       tiendasNoIntegras
@@ -90,7 +91,7 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
 
     } catch (final Exception e) {
       this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
-          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getIdTrabajo(), e);
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
