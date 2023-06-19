@@ -73,7 +73,14 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
     final String url = this.ventaIntegraProperties.getEndpoint()
         + this.getUrlParams(request);
 
-    this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, url);
+    String urlLog = url;
+    urlLog = urlLog.replace("{countryTic}", pathParams.get("countryTic"));
+    urlLog = urlLog.replace("{from}", pathParams.get("from"));
+    urlLog = urlLog.replace("{to}", pathParams.get("to"));
+    urlLog = urlLog.replace("{groupCompanyTic}", pathParams.get("groupCompanyTic"));
+    urlLog = urlLog.replace("{storeTics}", pathParams.get("storeTics"));
+
+    this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, urlLog);
 
     try {
       return RestUtils.checkResponse(

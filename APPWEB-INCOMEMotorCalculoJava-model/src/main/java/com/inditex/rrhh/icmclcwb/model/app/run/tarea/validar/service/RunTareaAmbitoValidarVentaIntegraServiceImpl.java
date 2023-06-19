@@ -5,9 +5,10 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
  */
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentaIntegraService;
@@ -59,8 +60,10 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
 
     try {
-      final List<IdLocalizacionDto> tiendas = this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito
-          .findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(runTareaDto.getTarea().getId(), tareaAmbito.getCclIdOrigen());
+      final List<IdLocalizacionEmpresaDto> tiendas = this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito
+          .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(runTareaDto.getTarea().getId(), tareaAmbito.getCclIdOrigen(),
+              Arrays
+                  .asList(runTareaDto.getTarea().getStdIdLegEnt()));
 
       if (tiendas.isEmpty()) {
         throw new VentaIntegraIcmclcwbException("El numero de tiendas afectadas es 0 para la tarea "
