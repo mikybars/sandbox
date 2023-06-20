@@ -16,6 +16,6 @@ public interface VentaIntegraService {
    * @param data VentaIntegraRequestDto - Datos para ejecutar la peticion.
    * @return List of VentaIntegraDataResponseDto.
    */
-  List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(VentaIntegraRequestDto data);
+  List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(VentaIntegraRequestDto data, Long idTrabajo, Long idTarea);
 
 }

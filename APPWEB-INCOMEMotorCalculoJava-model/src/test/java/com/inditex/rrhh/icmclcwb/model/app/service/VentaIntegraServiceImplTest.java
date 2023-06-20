@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -34,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -46,6 +46,9 @@ class VentaIntegraServiceImplTest {
 
   @Mock
   private VentaIntegraPropertiesDto ventaIntegraProperties;
+
+  @Mock
+  private Logger log;
 
   @InjectMocks
   VentaIntegraServiceImpl ventaIntegraService;
@@ -84,7 +87,8 @@ class VentaIntegraServiceImplTest {
     doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
-    final List<VentaIntegraDataResponseDto> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+    final List<VentaIntegraDataResponseDto> tiendasNoIntegras =
+        this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
 
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
@@ -110,7 +114,8 @@ class VentaIntegraServiceImplTest {
     doReturn(responseMock).when(this.ventaIntegraClient).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
-    final List<VentaIntegraDataResponseDto> tiendasNoIntegras = this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+    final List<VentaIntegraDataResponseDto> tiendasNoIntegras =
+        this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
 
     verify(this.ventaIntegraClient, times(1)).getForEntity(any(String.class),
         eq(VentaIntegraResponseDto.class), any(Map.class));
@@ -131,7 +136,7 @@ class VentaIntegraServiceImplTest {
         eq(VentaIntegraResponseDto.class), any(Map.class));
 
     assertThrows(VentaIntegraIcmclcwbException.class, () -> {
-      this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto);
+      this.ventaIntegraService.getTiendasVentaNoIntegra(ventaIntegraRequestDto, 1L, 1L);
     });
   }
 

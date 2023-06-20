@@ -110,7 +110,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
   @Test
   public void getMapValuesTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
@@ -140,7 +140,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia,idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     // tipoDatoLocalizacionPersonaPresencia
-    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId());
     assertEquals(16, result.size()); // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE,
@@ -196,7 +196,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
   @Test
   public void calcularTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
         .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
@@ -231,7 +231,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     // tipoDatoLocalizacionPersonaPresencia
 
-    verify(this.tipoDatoService, times(2)).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    verify(this.tipoDatoService, times(2))
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
     final MapSqlParameterSource[] values =
         this.params.getValue();
