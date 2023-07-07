@@ -6,11 +6,11 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentasMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmbitoValidarVentasMonacoService {
 
   @Autowired
-  private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
+  private RunTareaProcesarVentaService runTareaProcesarVentaService;
 
   @Autowired
   private RunTareaRecolectarPtrMonacoAsyncService ventasMonacoService;
@@ -35,8 +35,6 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
       @Valid final RunTareaDto runTarea,
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
-
-    this.primaryVentasMonacoAsyncService.createTempMonacoPtr();
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfWait = new ArrayList<>();
@@ -81,9 +79,6 @@ public class RunTareaAmbitoValidarVentasMonacoServiceImpl implements RunTareaAmb
       AsyncUtils.cancel(cf);
       throw e;
     }
-
-    this.primaryVentasMonacoAsyncService.mergeIntoTareaLocalizacionVenta(runTarea.getTarea());
-    this.primaryVentasMonacoAsyncService.deleteTempMonacoPtr();
 
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }

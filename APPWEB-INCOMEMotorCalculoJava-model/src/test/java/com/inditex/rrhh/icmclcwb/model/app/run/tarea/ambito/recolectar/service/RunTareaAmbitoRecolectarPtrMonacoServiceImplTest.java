@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -26,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
@@ -33,7 +35,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupue
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
-import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPageEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
@@ -89,7 +90,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
   @Mock
-  private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
+  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
   @Mock
   private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
@@ -168,7 +169,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = CompletableFuture.completedFuture(ventaTotalizadoresponse);
     doReturn(cfData).when(this.ptrVentaGeneralAsyncService).ventaTotalizado(any(PtrVentaTotalizadoRequestDto.class));
 
-    doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionVentaAsyncService)
         .savePtrVentaTotalizadoResponse(ventaTotalizadoresponse, this.runTarea.getTarea());
 
     this.ventasMonacoService.ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
@@ -231,7 +232,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     final CompletableFuture<PtrVentaOnlineIpodResponseDto> cfData = CompletableFuture.completedFuture(ventaOnlineIpodResponse);
     doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlineiPod(any(PtrVentaOnlineIpodRequestDto.class));
 
-    doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionVentaAsyncService)
         .savePtrVentaOnlineIpodResponse(ventaOnlineIpodResponse, this.runTarea.getTarea());
 
     this.ventasMonacoService.ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
@@ -296,7 +297,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData = CompletableFuture.completedFuture(ventaOnlinePickingResponse);
     doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlinePicking(any(PtrVentaOnlinePickingRequestDto.class));
 
-    doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionVentaAsyncService)
         .savePtrVentaOnlinePickingResponse(ventaOnlinePickingResponse, this.runTarea.getTarea());
 
     this.ventasMonacoService.ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
@@ -360,7 +361,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
         CompletableFuture.completedFuture(ptrVentaOnlineEntregaTiendaResponse);
     doReturn(cfData).when(this.ptrVentaEcommerceAsyncService).ventaOnlineEntregaTienda(any(PtrVentaOnlineEntregaTiendaRequestDto.class));
 
-    doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionVentaAsyncService)
         .savePtrVentaOnlineEntregaTiendaResponse(ptrVentaOnlineEntregaTiendaResponse, this.runTarea.getTarea());
 
     this.ventasMonacoService.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
@@ -405,7 +406,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     final CompletableFuture<PtrVentaTotalizadoResponseDto> cfData = CompletableFuture.completedFuture(ptrVentaTotalizadoResponse);
     doReturn(cfData).when(this.ptrVentaGeneralAsyncService).ventaTotalizado(any(PtrVentaTotalizadoRequestDto.class));
 
-    doReturn(CompletableFuture.completedFuture(null)).when(this.primaryVentasMonacoAsyncService)
+    doReturn(CompletableFuture.completedFuture(null)).when(this.tareaLocalizacionVentaAsyncService)
         .savePtrVentaTotalizadoResponseRepartoOnline(ptrVentaTotalizadoResponse, this.runTarea.getTarea());
 
     this.ventasMonacoService.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(this.runTarea, this.ambito);
