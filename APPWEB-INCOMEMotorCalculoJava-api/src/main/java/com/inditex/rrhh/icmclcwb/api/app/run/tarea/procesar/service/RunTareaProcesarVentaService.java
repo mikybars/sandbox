@@ -77,4 +77,5 @@ public interface RunTareaProcesarVentaService {
   void totalizarDevolucionFisicaPersonaSeccion(@Valid RunTareaDto tarea);
 
   void totalizarDevolucionOnlineIpodPersonaSeccion(@Valid RunTareaDto tarea);
+
 }

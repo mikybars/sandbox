@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
@@ -31,7 +33,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupue
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
-import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
@@ -92,7 +93,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
   private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
   @Autowired
-  private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
+  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
   @Autowired
   private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
@@ -155,7 +156,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
             .getFilter()
             .getMaxPersistenceSize());
         AsyncUtils.exceptionally(
-            this.primaryVentasMonacoAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
+            this.tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponse(data, tarea),
             cf, cfPersist);
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
@@ -219,7 +220,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
           AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
           AsyncUtils.exceptionally(
-              this.primaryVentasMonacoAsyncService.savePtrVentaOnlineIpodResponse(data, tarea),
+              this.tareaLocalizacionVentaAsyncService.savePtrVentaOnlineIpodResponse(data, tarea),
               cf, cfPersist);
         }
       }
@@ -287,7 +288,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
           AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
           AsyncUtils.exceptionally(
-              this.primaryVentasMonacoAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
+              this.tareaLocalizacionVentaAsyncService.savePtrVentaOnlinePickingResponse(data, tarea), cf,
               cfPersist);
         }
       }
@@ -356,7 +357,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
           AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
           AsyncUtils.exceptionally(
-              this.primaryVentasMonacoAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data,
+              this.tareaLocalizacionVentaAsyncService.savePtrVentaOnlineEntregaTiendaResponse(data,
                   tarea),
               cf,
               cfPersist);
@@ -409,7 +410,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
             .getFilter()
             .getMaxPersistenceSize());
         AsyncUtils.exceptionally(
-            this.primaryVentasMonacoAsyncService.savePtrVentaTotalizadoResponseRepartoOnline(data,
+            this.tareaLocalizacionVentaAsyncService.savePtrVentaTotalizadoResponseRepartoOnline(data,
                 tarea),
             cf,
             cfPersist);

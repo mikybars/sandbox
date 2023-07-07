@@ -15,7 +15,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryVentasMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -31,9 +30,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
-
-  @Mock
-  private PrimaryVentasMonacoAsyncService primaryVentasMonacoAsyncService;
 
   @Mock
   private RunTareaRecolectarPtrMonacoAsyncService ventasMonacoService;
