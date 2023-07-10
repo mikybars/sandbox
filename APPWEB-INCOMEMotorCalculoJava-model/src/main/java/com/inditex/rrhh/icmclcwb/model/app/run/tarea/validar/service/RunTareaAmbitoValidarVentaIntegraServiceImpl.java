@@ -78,8 +78,7 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
           this.ventaIntegraService.getTiendasVentaNoIntegra(VentaIntegraRequestDto.builder()
               .idOrigen(Integer.valueOf(tareaAmbito.getCclIdOrigen())).idEmpresa(Integer.valueOf(runTareaDto.getTarea().getStdIdLegEnt()))
               .fechaDesde(runTareaDto.getTarea().getFechaInicioPeriodo().toString())
-              .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString()).listaTiendas(tiendasRequest).build(),
-              runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId());
+              .fechaHasta(runTareaDto.getTarea().getFechaFinPeriodo().toString()).listaTiendas(tiendasRequest).build());
 
       final List<TareaFaseAccionVentaIntegraDto> tareaFaseAccionVentaIntegraDtoList = new ArrayList<>();
       tiendasNoIntegras
