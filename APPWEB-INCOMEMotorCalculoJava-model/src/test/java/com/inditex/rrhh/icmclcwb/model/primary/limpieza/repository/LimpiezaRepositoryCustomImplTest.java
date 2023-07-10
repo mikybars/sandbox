@@ -52,11 +52,15 @@ class LimpiezaRepositoryCustomImplTest {
 
   private final static String SQL_TAREA_FASE_ACCION_DATO = "SQL TAREA FASE ACCION DATO";
 
+  private final static String SQL_TAREA_FASE_ACCION_VENTA_INTEGRA = "SQL TAREA FASE ACCION VENTA INTEGRA";
+
   private final static String SQL_LIMPIEZA_TAREA_FASE = "SQL LIMPIEZA TAREA FASE";
 
   private final static String SQL_LIMPIEZA_TAREA_FASE_ACCION = "SQL LIMPIEZA TAREA FASE ACCION";
 
   private final static String SQL_LIMPIEZA_TAREA_FASE_ACCION_DATO = "SQL LIMPIEZA TAREA FASE ACCION DATO";
+
+  private final static String SQL_LIMPIEZA_TAREA_FASE_ACCION_VENTA_INTEGRA = "SQL LIMPIEZA TAREA FASE ACCION VENTA INTEGRA";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -86,6 +90,9 @@ class LimpiezaRepositoryCustomImplTest {
         "sqlTareaFaseAccionDato",
         SQL_TAREA_FASE_ACCION_DATO, true);
     FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlTareaFaseAccionVentaIntegra",
+        SQL_TAREA_FASE_ACCION_VENTA_INTEGRA, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
         "sqlLimpiezaTareaFase",
         SQL_LIMPIEZA_TAREA_FASE, true);
     FieldUtils.writeField(this.limpiezaRepositoryCustom,
@@ -94,6 +101,10 @@ class LimpiezaRepositoryCustomImplTest {
     FieldUtils.writeField(this.limpiezaRepositoryCustom,
         "sqlLimpiezaTareaFaseAccionDato",
         SQL_LIMPIEZA_TAREA_FASE_ACCION_DATO, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlLimpiezaTareaFaseAccionVentaIntegra",
+        SQL_LIMPIEZA_TAREA_FASE_ACCION_VENTA_INTEGRA, true);
+
     FieldUtils.writeField(this.limpiezaRepositoryCustom, "batchSize", 1, true);
   }
 
@@ -105,10 +116,10 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_PERSONAS_TAREA_CALCULO_AJUSTE_COMISION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdPersonaLocalDto.builder()
-                    .idPersonaLocal(idPersonaLocal)
-                    .stdOrHrPeriod(orPersonaLocal)
-                    .build()));
+        .thenReturn(Arrays.asList(IdPersonaLocalDto.builder()
+            .idPersonaLocal(idPersonaLocal)
+            .stdOrHrPeriod(orPersonaLocal)
+            .build()));
 
     final long idTarea = 191919L;
     final LocalDate fechaInicioPeriodo = LocalDate.of(2021, 1, 1);
@@ -137,6 +148,35 @@ class LimpiezaRepositoryCustomImplTest {
   }
 
   @Test
+  void limpiezaTareaFaseAccionVentaIntegraTest() {
+    final String idTareaFaseAccion = "181818";
+    final long idTarea = 191919L;
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(idTarea);
+
+    when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_VENTA_INTEGRA),
+        any(MapSqlParameterSource.class), any(
+            RowMapper.class)))
+        .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+            .idTareaFaseAccion(idTareaFaseAccion)
+            .build()));
+
+    this.limpiezaRepositoryCustom.limpiezaTareaFaseAccionVentaIntegra(tarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_LIMPIEZA_TAREA_FASE_ACCION_VENTA_INTEGRA),
+        this.paramsCaptor.capture());
+
+    final MapSqlParameterSource[] paramsArray = this.paramsCaptor.getValue();
+    assertEquals(1, paramsArray.length);
+
+    final MapSqlParameterSource params = paramsArray[0];
+    // Parametros: idTareaFaseAccion
+    assertEquals(1, params.getValues().size());
+    assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION));
+    assertEquals(idTareaFaseAccion, params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION));
+  }
+
+  @Test
   void limpiezaTareaFaseAccionDatoTest() {
     final String idTareaFaseAccion = "181818";
     final long idTarea = 191919L;
@@ -146,9 +186,9 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_DATO),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
-                    .idTareaFaseAccion(idTareaFaseAccion)
-                    .build()));
+        .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+            .idTareaFaseAccion(idTareaFaseAccion)
+            .build()));
 
     this.limpiezaRepositoryCustom.limpiezaTareaFaseAccionDato(tarea);
 
@@ -175,9 +215,9 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
-                    .idTareaFase(idTareaFase)
-                    .build()));
+        .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
+            .idTareaFase(idTareaFase)
+            .build()));
 
     this.limpiezaRepositoryCustom.limpiezaTareaFaseAccion(tarea);
 
@@ -228,6 +268,8 @@ class LimpiezaRepositoryCustomImplTest {
     verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito);
     verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccionDato(tarea);
     verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccion(tarea);
+    verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccionVentaIntegra(tarea);
+
   }
 
 }
