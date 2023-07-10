@@ -5,5 +5,7 @@ app:
   replicas: 2
   instrumented:
     replicas: 1
+  scaler:
+    optin: false
 datagrid:
   replicas: 2
