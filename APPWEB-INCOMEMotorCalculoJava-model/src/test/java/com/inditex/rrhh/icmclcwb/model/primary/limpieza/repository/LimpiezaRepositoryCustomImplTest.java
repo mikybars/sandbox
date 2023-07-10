@@ -116,10 +116,10 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_PERSONAS_TAREA_CALCULO_AJUSTE_COMISION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-        .thenReturn(Arrays.asList(IdPersonaLocalDto.builder()
-            .idPersonaLocal(idPersonaLocal)
-            .stdOrHrPeriod(orPersonaLocal)
-            .build()));
+                .thenReturn(Arrays.asList(IdPersonaLocalDto.builder()
+                    .idPersonaLocal(idPersonaLocal)
+                    .stdOrHrPeriod(orPersonaLocal)
+                    .build()));
 
     final long idTarea = 191919L;
     final LocalDate fechaInicioPeriodo = LocalDate.of(2021, 1, 1);
@@ -157,9 +157,9 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_VENTA_INTEGRA),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-        .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
-            .idTareaFaseAccion(idTareaFaseAccion)
-            .build()));
+                .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+                    .idTareaFaseAccion(idTareaFaseAccion)
+                    .build()));
 
     this.limpiezaRepositoryCustom.limpiezaTareaFaseAccionVentaIntegra(tarea);
 
@@ -186,9 +186,9 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_DATO),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-        .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
-            .idTareaFaseAccion(idTareaFaseAccion)
-            .build()));
+                .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+                    .idTareaFaseAccion(idTareaFaseAccion)
+                    .build()));
 
     this.limpiezaRepositoryCustom.limpiezaTareaFaseAccionDato(tarea);
 
@@ -215,9 +215,9 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-        .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
-            .idTareaFase(idTareaFase)
-            .build()));
+                .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
+                    .idTareaFase(idTareaFase)
+                    .build()));
 
     this.limpiezaRepositoryCustom.limpiezaTareaFaseAccion(tarea);
 
