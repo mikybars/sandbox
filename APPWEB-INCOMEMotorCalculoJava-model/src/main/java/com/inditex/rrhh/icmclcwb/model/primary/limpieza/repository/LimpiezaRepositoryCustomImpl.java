@@ -98,6 +98,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccionDato']}")
   private String sqlTareaFaseAccionDato;
 
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccionVentaIntegra']}")
+  private String sqlTareaFaseAccionVentaIntegra;
+
   // Consultas de limpieza
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaCalculo']}")
   private String sqlLimpiezaTareaCalculo;
@@ -221,6 +224,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccionDato']}")
   private String sqlLimpiezaTareaFaseAccionDato;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccionVentaIntegra']}")
+  private String sqlLimpiezaTareaFaseAccionVentaIntegra;
 
   @Value("${app.envars.limpieza.batch-size.default:1}")
   private int batchSize;
@@ -405,6 +411,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
     final List<MapSqlParameterSource> idTareaBatchArgs = this.getParametersTarea(tarea);
 
+    // Limpieza tabla TAREA_FASE_ACCION_VENTA_INTEGRA
+    this.limpiezaTareaFaseAccionVentaIntegra(tarea);
     // Limpieza tabla TAREA_FASE_ACCION_DATO
     this.limpiezaTareaFaseAccionDato(tarea);
     // Limpieza tabla TAREA_FASE_ACCION
@@ -432,6 +440,17 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersTareaFaseAccionDato,
         this.batchSize)) {
       this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFaseAccionDato,
+          iter.toArray(new MapSqlParameterSource[0]));
+    }
+  }
+
+  protected void limpiezaTareaFaseAccionVentaIntegra(@NotNull @Valid final TareaDto tarea) {
+    final List<MapSqlParameterSource> parametersTareaFaseAccionVentaIntegra = this
+        .getParametersTareaFaseAccionDato(tarea,
+            this.sqlTareaFaseAccionVentaIntegra);
+    for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersTareaFaseAccionVentaIntegra,
+        this.batchSize)) {
+      this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFaseAccionVentaIntegra,
           iter.toArray(new MapSqlParameterSource[0]));
     }
   }

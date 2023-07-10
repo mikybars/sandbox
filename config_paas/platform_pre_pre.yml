@@ -2,8 +2,11 @@ app:
   limits:
     cpu: 2
     memory: 6144Mi
-  replicas: 1
   instrumented:
     replicas: 1
+  scaler:
+    states:
+    - name: peak
+      replicas: 1
 datagrid:
   replicas: 2
