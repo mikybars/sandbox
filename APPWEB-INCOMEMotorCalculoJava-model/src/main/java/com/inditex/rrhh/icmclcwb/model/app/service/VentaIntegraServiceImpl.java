@@ -39,13 +39,10 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   private Logger log;
 
   @Override
-  public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request, final Long idTrabajo,
-      final Long idTarea) {
+  public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
     final VentaIntegraResponseDto response;
     try {
-      response = this.queryTiendasVentaNoIntegra(request, idTrabajo, idTarea);
-
-      this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: response: {}", idTrabajo, idTarea, response.toString());
+      response = this.queryTiendasVentaNoIntegra(request);
 
     } catch (final VentaIntegraIcmclcwbException e) {
       throw e;
@@ -55,8 +52,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.venta-integra.config.max-attempts}")
-  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(final VentaIntegraRequestDto request, final Long idTrabajo,
-      final Long idTarea) {
+  private VentaIntegraResponseDto queryTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {
 
     final Map<String, String> pathParams = new HashMap<>();
     pathParams.put("countryTic", request.getIdOrigen().toString());
@@ -72,15 +68,6 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
 
     final String url = this.ventaIntegraProperties.getEndpoint()
         + this.getUrlParams(request);
-
-    String urlLog = url;
-    urlLog = urlLog.replace("{countryTic}", pathParams.get("countryTic"));
-    urlLog = urlLog.replace("{from}", pathParams.get("from"));
-    urlLog = urlLog.replace("{to}", pathParams.get("to"));
-    urlLog = urlLog.replace("{groupCompanyTic}", pathParams.get("groupCompanyTic"));
-    urlLog = urlLog.replace("{storeTics}", pathParams.get("storeTics"));
-
-    this.log.info("Trabajo[{}]Tarea[{}] :: VentaIntegra :: url: {}", idTrabajo, idTarea, urlLog);
 
     try {
       return RestUtils.checkResponse(
