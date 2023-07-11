@@ -39,7 +39,7 @@ amiga:
           username: uincome
         ptr:
           driver-class-name: oracle.jdbc.OracleDriver
-          jdbc-url: jdbc:oracle:thin:@//axine3-scansrv.central.inditex.grp:1521/s_pdbds01rt_gener.central.inditex.grp
+          jdbc-url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmdesptrdb-scan.ocimaditx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbds01rt_gener.central.inditex.grp)))
           username: uincome
           defaultIsolationLevel: 2
         comis1:
