@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.53.0</version>
+    <version>4.54.0</version>
   </parent>
 
   <artifactId>jacoco-report-aggregate</artifactId>
