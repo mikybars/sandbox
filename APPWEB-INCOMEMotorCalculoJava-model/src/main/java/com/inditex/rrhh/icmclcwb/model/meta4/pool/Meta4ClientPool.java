@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestadowlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
@@ -135,7 +136,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getorigenes(param1, param2);
+      return client.getIcmWsCalcIncomeService().getorigenes(param2, param1);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -303,7 +304,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       final IcmParametrospaginacionBlock param2) {
     final Meta4ClientPoolable client = this.claim(this.pool);
     try {
-      return client.getIcmWsCalcIncomeService().getempleados(param2, param1);
+      return client.getIcmWsCalcIncomeService().getempleados(param1, param2);
     } catch (final Exception e) {
       this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
@@ -684,6 +685,20 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       return client.getIcmWsCalcIncomeService().planificacion(param);
     } catch (final M4SoapException_Exception e) {
       this.catchException(e, client, Arrays.asList(param));
+      throw new Meta4IcmclcwbException(e.getMessage(), e);
+    } finally {
+      this.release(client);
+    }
+  }
+
+  @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")
+  public GetestadowlocOutput estadoWloc(final IcmParamcaltiendasBlock param1,
+      final IcmParametrospaginacionBlock param2) {
+    final Meta4ClientPoolable client = this.claim(this.pool);
+    try {
+      return client.getIcmWsCalcIncomeService().getestadowloc(param1, param2);
+    } catch (final M4SoapException_Exception e) {
+      this.catchException(e, client, Arrays.asList(param1, param2));
       throw new Meta4IcmclcwbException(e.getMessage(), e);
     } finally {
       this.release(client);

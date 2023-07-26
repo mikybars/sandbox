@@ -279,4 +279,13 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .tiposHoraByRunTareaAndTareaAmbito(runTarea, item));
   }
 
+  @Override
+  public void estadoWlocByRunTarea(
+      @NotNull @Valid final RunTareaDto runTarea) {
+    runTarea.getTarea()
+        .getAmbito()
+        .stream()
+        .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
+            .estadoWlocByRunTareaAndTareaAmbito(runTarea, item));
+  }
 }

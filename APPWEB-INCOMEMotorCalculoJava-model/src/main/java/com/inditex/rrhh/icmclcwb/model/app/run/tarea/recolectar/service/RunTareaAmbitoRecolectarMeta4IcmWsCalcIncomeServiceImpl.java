@@ -73,6 +73,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.Co
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -1312,6 +1315,60 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         this.log.warn("No hay tipos de hora comisionables para el origen: {}", tareaAmbitoDto.getCclIdOrigen());
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
+    } catch (final Exception e) {
+      AsyncUtils.cancel(cf);
+      throw e;
+    }
+  }
+
+  @Override
+  public void estadoWlocByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
+    try {
+      final TareaDto tarea = runTarea.getTarea();
+      for (final List<IdLocalizacionDto> iter : StreamUtils.partition(
+          this.tareaLocalizacionHistoricoService.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
+              tarea.getId(), tareaAmbito.getCclIdOrigen()),
+          this.meta4Properties.get(Meta4PropertiesConstants.ESTADO_WLOC)
+              .getFilter()
+              .getMaxPageSize())) {
+        final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
+        request.setPage(
+            this.meta4Properties.get(Meta4PropertiesConstants.ESTADO_WLOC).getPage());
+        request.setData(this.tareaMapper
+            .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToEstadoWlocFilterDto(
+                tarea, tareaAmbito,
+                this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+                    tarea.getId(),
+                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
+        request.getData().setItem(new ArrayList<>());
+        request.getData()
+            .getItem()
+            .addAll(iter.stream()
+                .map(e -> EstadoWlocFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
+                .collect(Collectors.toList()));
+        boolean hasNext = false;
+        do {
+          final CompletableFuture<List<EstadoWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+              .estadoWloc(request);
+          AsyncUtils.exceptionally(cfData, cf);
+          final List<EstadoWlocResultItemDto> data = AsyncUtils.get(cfData);
+          if (CollectionUtils.isNotEmpty(data)) {
+            AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
+                .get(Meta4PropertiesConstants.ESTADO_WLOC)
+                .getFilter()
+                .getMaxPersistenceSize());
+            /*
+             * final CompletableFuture<Void> cfSave = this.tareaLocalizacionVentaAsyncService .save(data, tarea);
+             * AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+             */
+            hasNext = request.nextPage();
+          }
+        } while (hasNext);
+        AsyncUtils.waitAllOfIsOk(cf, cf);
+      }
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);
       throw e;

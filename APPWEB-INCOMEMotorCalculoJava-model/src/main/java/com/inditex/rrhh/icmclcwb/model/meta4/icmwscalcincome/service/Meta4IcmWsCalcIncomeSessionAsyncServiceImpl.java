@@ -28,6 +28,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamien
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
@@ -244,6 +246,13 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
       final VentaManualWlocRequestDto request) {
     return CompletableFuture
         .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getVentaManualWloc(request));
+  }
+
+  @Override
+  public CompletableFuture<List<EstadoWlocResultItemDto>> estadoWloc(
+      final EstadoWlocRequestDto request) {
+    return CompletableFuture
+        .completedFuture(this.meta4IcmWsCalcIncomeSessionService.estadoWloc(request));
   }
 
 }

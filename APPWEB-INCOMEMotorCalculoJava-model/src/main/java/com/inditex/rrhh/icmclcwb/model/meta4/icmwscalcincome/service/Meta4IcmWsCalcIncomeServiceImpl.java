@@ -51,6 +51,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -134,6 +137,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Getempleados
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestadowlocOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructurascomOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
@@ -1126,6 +1130,36 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
           .asPlanificacionResultItemDto(
               planificacion.getIcmResultadoguardado().getIcmResultadoguardadoRecordSet());
       result.setData(items);
+    }
+    return result;
+  }
+
+  @Override
+  public EstadoWlocResponseDto estadoWloc(final EstadoWlocRequestDto request) {
+    final EstadoWlocResponseDto result = new EstadoWlocResponseDto();
+    final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
+        .asIcmParamcaltiendasBlock(request.getData());
+    final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
+        .asIcmParametrospaginacionBlock(request.getPage());
+    final GetestadowlocOutput getestadowlocOutput = this.meta4ClientPool.estadoWloc(
+        param1, param2);
+    if ((getestadowlocOutput != null)
+        && (Double.compare(NumberUtils.DOUBLE_ZERO, getestadowlocOutput.getReturn()) == 0)) {
+      if (getestadowlocOutput.getIcmParametrospaginacion() != null) {
+        final PageDto page = this.icmWsCalcIncomeMapper
+            .asPageDto(getestadowlocOutput.getIcmParametrospaginacion());
+        result.setPage(page);
+      }
+      if ((getestadowlocOutput.getIcmListaestado() != null)
+          && CollectionUtils
+              .isNotEmpty(getestadowlocOutput.getIcmListaestado()
+                  .getIcmListaestadoRecordSet())) {
+        final List<EstadoWlocResultItemDto> items = this.icmWsCalcIncomeMapper
+            .asEstadoWlocResultItemDto(
+                getestadowlocOutput.getIcmListaestado()
+                    .getIcmListaestadoRecordSet());
+        result.setData(items);
+      }
     }
     return result;
   }

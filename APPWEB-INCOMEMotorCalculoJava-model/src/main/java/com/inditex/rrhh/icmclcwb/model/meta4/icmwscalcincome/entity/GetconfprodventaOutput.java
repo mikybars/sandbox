@@ -36,8 +36,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *       &lt;sequence&gt;
  *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="logMessage" type="{http://schemas.meta4.com/}LogMessage" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *         &lt;element name="Icm_Listaconfiguracion" type="{http://schemas.meta4.com/}Icm_ListaconfiguracionBlock"/&gt;
+ *         &lt;element name="Icm_Parametrospaginacion" type="{http://schemas.meta4.com/}Icm_ParametrospaginacionBlock"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -50,8 +50,8 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "GetconfprodventaOutput", propOrder = {
     "_return",
     "logMessage",
-    "icmParametrospaginacion",
-    "icmListaconfiguracion"
+    "icmListaconfiguracion",
+    "icmParametrospaginacion"
 })
 public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
@@ -63,11 +63,11 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
   @XmlElement(nillable = true)
   protected List<LogMessage> logMessage;
 
-  @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
-  protected IcmParametrospaginacionBlock icmParametrospaginacion;
-
   @XmlElement(name = "Icm_Listaconfiguracion", required = true, nillable = true)
   protected IcmListaconfiguracionBlock icmListaconfiguracion;
+
+  @XmlElement(name = "Icm_Parametrospaginacion", required = true, nillable = true)
+  protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
   /**
    * Obtiene el valor de la propiedad return.
@@ -110,26 +110,6 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Obtiene el valor de la propiedad icmParametrospaginacion.
-   *
-   * @return possible object is {@link IcmParametrospaginacionBlock }
-   *
-   */
-  public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
-    return icmParametrospaginacion;
-  }
-
-  /**
-   * Define el valor de la propiedad icmParametrospaginacion.
-   *
-   * @param value allowed object is {@link IcmParametrospaginacionBlock }
-   *
-   */
-  public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
-    this.icmParametrospaginacion = value;
-  }
-
-  /**
    * Obtiene el valor de la propiedad icmListaconfiguracion.
    *
    * @return possible object is {@link IcmListaconfiguracionBlock }
@@ -147,6 +127,26 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
    */
   public void setIcmListaconfiguracion(IcmListaconfiguracionBlock value) {
     this.icmListaconfiguracion = value;
+  }
+
+  /**
+   * Obtiene el valor de la propiedad icmParametrospaginacion.
+   *
+   * @return possible object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public IcmParametrospaginacionBlock getIcmParametrospaginacion() {
+    return icmParametrospaginacion;
+  }
+
+  /**
+   * Define el valor de la propiedad icmParametrospaginacion.
+   *
+   * @param value allowed object is {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public void setIcmParametrospaginacion(IcmParametrospaginacionBlock value) {
+    this.icmParametrospaginacion = value;
   }
 
   public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
@@ -179,17 +179,6 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
       }
     }
     {
-      IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
-      lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
-      IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
-      rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
-          LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion,
-          rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null), (that.icmParametrospaginacion != null))) {
-        return false;
-      }
-    }
-    {
       IcmListaconfiguracionBlock lhsIcmListaconfiguracion;
       lhsIcmListaconfiguracion = this.getIcmListaconfiguracion();
       IcmListaconfiguracionBlock rhsIcmListaconfiguracion;
@@ -197,6 +186,17 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
       if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaconfiguracion", lhsIcmListaconfiguracion),
           LocatorUtils.property(thatLocator, "icmListaconfiguracion", rhsIcmListaconfiguracion), lhsIcmListaconfiguracion,
           rhsIcmListaconfiguracion, (this.icmListaconfiguracion != null), (that.icmListaconfiguracion != null))) {
+        return false;
+      }
+    }
+    {
+      IcmParametrospaginacionBlock lhsIcmParametrospaginacion;
+      lhsIcmParametrospaginacion = this.getIcmParametrospaginacion();
+      IcmParametrospaginacionBlock rhsIcmParametrospaginacion;
+      rhsIcmParametrospaginacion = that.getIcmParametrospaginacion();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParametrospaginacion", lhsIcmParametrospaginacion),
+          LocatorUtils.property(thatLocator, "icmParametrospaginacion", rhsIcmParametrospaginacion), lhsIcmParametrospaginacion,
+          rhsIcmParametrospaginacion, (this.icmParametrospaginacion != null), (that.icmParametrospaginacion != null))) {
         return false;
       }
     }
@@ -234,15 +234,15 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
       strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
+      IcmListaconfiguracionBlock theIcmListaconfiguracion;
+      theIcmListaconfiguracion = this.getIcmListaconfiguracion();
+      strategy.appendField(locator, this, "icmListaconfiguracion", buffer, theIcmListaconfiguracion, (this.icmListaconfiguracion != null));
+    }
+    {
       IcmParametrospaginacionBlock theIcmParametrospaginacion;
       theIcmParametrospaginacion = this.getIcmParametrospaginacion();
       strategy.appendField(locator, this, "icmParametrospaginacion", buffer, theIcmParametrospaginacion,
           (this.icmParametrospaginacion != null));
-    }
-    {
-      IcmListaconfiguracionBlock theIcmListaconfiguracion;
-      theIcmListaconfiguracion = this.getIcmListaconfiguracion();
-      strategy.appendField(locator, this, "icmListaconfiguracion", buffer, theIcmListaconfiguracion, (this.icmListaconfiguracion != null));
     }
     return buffer;
   }
@@ -261,16 +261,16 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
           ((this.logMessage != null) && (!this.logMessage.isEmpty())));
     }
     {
-      IcmParametrospaginacionBlock theIcmParametrospaginacion;
-      theIcmParametrospaginacion = this.getIcmParametrospaginacion();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
-          currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
-    }
-    {
       IcmListaconfiguracionBlock theIcmListaconfiguracion;
       theIcmListaconfiguracion = this.getIcmListaconfiguracion();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaconfiguracion", theIcmListaconfiguracion),
           currentHashCode, theIcmListaconfiguracion, (this.icmListaconfiguracion != null));
+    }
+    {
+      IcmParametrospaginacionBlock theIcmParametrospaginacion;
+      theIcmParametrospaginacion = this.getIcmParametrospaginacion();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParametrospaginacion", theIcmParametrospaginacion),
+          currentHashCode, theIcmParametrospaginacion, (this.icmParametrospaginacion != null));
     }
     return currentHashCode;
   }
@@ -327,6 +327,21 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
         }
       }
       {
+        Boolean icmListaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconfiguracion != null));
+        if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
+          sourceIcmListaconfiguracion = this.getIcmListaconfiguracion();
+          IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion), sourceIcmListaconfiguracion,
+              (this.icmListaconfiguracion != null)));
+          copy.setIcmListaconfiguracion(copyIcmListaconfiguracion);
+        } else {
+          if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListaconfiguracion = null;
+          }
+        }
+      }
+      {
         Boolean icmParametrospaginacionShouldBeCopiedAndSet =
             strategy.shouldBeCopiedAndSet(locator, (this.icmParametrospaginacion != null));
         if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.TRUE) {
@@ -339,21 +354,6 @@ public class GetconfprodventaOutput implements Serializable, Cloneable, CopyTo2,
         } else {
           if (icmParametrospaginacionShouldBeCopiedAndSet == Boolean.FALSE) {
             copy.icmParametrospaginacion = null;
-          }
-        }
-      }
-      {
-        Boolean icmListaconfiguracionShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaconfiguracion != null));
-        if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.TRUE) {
-          IcmListaconfiguracionBlock sourceIcmListaconfiguracion;
-          sourceIcmListaconfiguracion = this.getIcmListaconfiguracion();
-          IcmListaconfiguracionBlock copyIcmListaconfiguracion = ((IcmListaconfiguracionBlock) strategy.copy(
-              LocatorUtils.property(locator, "icmListaconfiguracion", sourceIcmListaconfiguracion), sourceIcmListaconfiguracion,
-              (this.icmListaconfiguracion != null)));
-          copy.setIcmListaconfiguracion(copyIcmListaconfiguracion);
-        } else {
-          if (icmListaconfiguracionShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmListaconfiguracion = null;
           }
         }
       }

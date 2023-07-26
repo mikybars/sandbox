@@ -69,6 +69,8 @@ public class Meta4PropertiesConstants {
 
   public static final String TIPOS_HORA = "getTiposHoras";
 
+  public static final String ESTADO_WLOC = "estadoWloc";
+
   private Meta4PropertiesConstants() {
   }
 

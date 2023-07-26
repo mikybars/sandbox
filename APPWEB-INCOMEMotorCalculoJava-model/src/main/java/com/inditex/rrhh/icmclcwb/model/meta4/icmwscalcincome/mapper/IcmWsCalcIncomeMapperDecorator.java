@@ -21,6 +21,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesBaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaCondicionesDestinoResultItemDto;
@@ -70,6 +72,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacond
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestadoRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestructuraRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresenciamanwlocRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
@@ -571,6 +574,14 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
     return result;
   }
 
+  @Override
+  public IcmParamcaltiendasBlock asIcmParamcaltiendasBlock(final EstadoWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> list = this.asIcmParamcaltiendasRecordList(src);
+    final IcmParamcaltiendasBlock result = new IcmParamcaltiendasBlock();
+    result.getIcmParamcaltiendasRecordSet().addAll(list);
+    return result;
+  }
+
   private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final GenericFilterDto src) {
     final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
     if (src != null) {
@@ -621,6 +632,20 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
   }
 
   private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final VentaManualWlocFilterDto src) {
+    final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
+    if (src != null) {
+      src.getItem().forEach(item -> {
+        final IcmParamcaltiendasRecord record = this.delegate.asIcmParamcaltiendasRecord(src);
+        record.setIdempresa(item.getIdEmpresa());
+        record.setIdlugartrabajo(item.getIdLugarTrabajo());
+        record.setIdlugartrabajomtu(item.getIdLugarTrabajoMtu());
+        result.add(record);
+      });
+    }
+    return result;
+  }
+
+  private List<IcmParamcaltiendasRecord> asIcmParamcaltiendasRecordList(final EstadoWlocFilterDto src) {
     final List<IcmParamcaltiendasRecord> result = new ArrayList<>();
     if (src != null) {
       src.getItem().forEach(item -> {
@@ -828,6 +853,18 @@ public abstract class IcmWsCalcIncomeMapperDecorator implements IcmWsCalcIncomeM
             .asPresenciaManualWlocResultItemDto(item);
         list.add(mappedEntity);
       }
+    }
+    return list;
+  }
+
+  @Override
+  public List<EstadoWlocResultItemDto> asEstadoWlocResultItemDto(
+      final List<IcmListaestadoRecord> src) {
+    final List<EstadoWlocResultItemDto> list = new ArrayList<>();
+    for (final IcmListaestadoRecord item : src) {
+      final EstadoWlocResultItemDto mappedEntity = this.delegate
+          .asEstadoWlocResultItemDto(item);
+      list.add(mappedEntity);
     }
     return list;
   }
