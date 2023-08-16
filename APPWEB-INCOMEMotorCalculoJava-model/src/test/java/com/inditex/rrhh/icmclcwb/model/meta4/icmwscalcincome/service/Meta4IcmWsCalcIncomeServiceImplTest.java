@@ -2032,7 +2032,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  public void estadoWloc() {
+  public void getEstadoWloc() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetestadowlocOutput output = new GetestadowlocOutput();
@@ -2045,38 +2045,38 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(EstadoWlocFilterDto.class)))
         .thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-    when(this.meta4ClientPool.estadoWloc(any(IcmParamcaltiendasBlock.class),
+    when(this.meta4ClientPool.getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.estadoWloc(request);
-    verify(this.meta4ClientPool, times(1)).estadoWloc(any(IcmParamcaltiendasBlock.class),
+    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void estadoWlocNullOutput() {
+  public void getEstadoWlocNullOutput() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(EstadoWlocFilterDto.class)))
         .thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-    when(this.meta4ClientPool.estadoWloc(any(IcmParamcaltiendasBlock.class),
+    when(this.meta4ClientPool.getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class))).thenReturn(null);
 
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.estadoWloc(request);
-    verify(this.meta4ClientPool, times(1)).estadoWloc(any(IcmParamcaltiendasBlock.class),
+    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void estadoWlocNullPageNullData() {
+  public void getEstadoWlocNullPageNullData() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetestadowlocOutput output = new GetestadowlocOutput();
@@ -2087,14 +2087,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(EstadoWlocFilterDto.class)))
         .thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
-    when(this.meta4ClientPool.estadoWloc(any(IcmParamcaltiendasBlock.class),
+    when(this.meta4ClientPool.getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class))).thenReturn(output);
 
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.estadoWloc(request);
-    verify(this.meta4ClientPool, times(1)).estadoWloc(any(IcmParamcaltiendasBlock.class),
+    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 

@@ -73,10 +73,6 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
           .ausenciasByRunTarea(runTarea);
       AsyncUtils.exceptionally(cfAusencias, cf, cfWait);
 
-      final CompletableFuture<Void> cfEstadoWloc = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-          .estadoWlocByRunTarea(runTarea);
-      AsyncUtils.exceptionally(cfEstadoWloc, cf, cfWait);
-
       // Tipos hora para los origenes
       final CompletableFuture<Void> cfTiposHoras = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
           .tiposHoraByRunTarea(runTarea);
@@ -105,6 +101,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
+
+      final CompletableFuture<Void> cfEstadoWloc = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+          .estadoWlocByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfEstadoWloc, cf, cfWait);
 
       final CompletableFuture<Void> cfConfiguracionesOrganizacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
           .configuracionesByRunTarea(runTarea);

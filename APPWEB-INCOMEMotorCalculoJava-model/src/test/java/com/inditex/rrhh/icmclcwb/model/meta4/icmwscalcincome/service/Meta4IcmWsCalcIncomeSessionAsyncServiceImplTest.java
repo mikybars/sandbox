@@ -506,16 +506,16 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
   @Test
   public void estadoWloc() {
     when(this.meta4IcmWsCalcIncomeSessionService
-        .estadoWloc(any(EstadoWlocRequestDto.class)))
+        .getEstadoWloc(any(EstadoWlocRequestDto.class)))
         .thenReturn(new ArrayList<EstadoWlocResultItemDto>());
 
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
     CompletableFuture
-        .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.estadoWloc(request));
+        .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstadoWloc(request));
 
     verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
-        .estadoWloc(ArgumentMatchers.any(EstadoWlocRequestDto.class));
+        .getEstadoWloc(ArgumentMatchers.any(EstadoWlocRequestDto.class));
   }
 }

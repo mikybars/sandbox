@@ -125,6 +125,6 @@ public interface Meta4IcmWsCalcIncomeSessionService {
 
   List<VentaManualWlocResultItemDto> getVentaManualWloc(VentaManualWlocRequestDto request);
 
-  List<EstadoWlocResultItemDto> estadoWloc(
+  List<EstadoWlocResultItemDto> getEstadoWloc(
       EstadoWlocRequestDto request);
 }

@@ -1135,13 +1135,13 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   }
 
   @Override
-  public EstadoWlocResponseDto estadoWloc(final EstadoWlocRequestDto request) {
+  public EstadoWlocResponseDto getEstadoWloc(final EstadoWlocRequestDto request) {
     final EstadoWlocResponseDto result = new EstadoWlocResponseDto();
     final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
         .asIcmParamcaltiendasBlock(request.getData());
     final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
         .asIcmParametrospaginacionBlock(request.getPage());
-    final GetestadowlocOutput getestadowlocOutput = this.meta4ClientPool.estadoWloc(
+    final GetestadowlocOutput getestadowlocOutput = this.meta4ClientPool.getEstadoWloc(
         param1, param2);
     if ((getestadowlocOutput != null)
         && (Double.compare(NumberUtils.DOUBLE_ZERO, getestadowlocOutput.getReturn()) == 0)) {

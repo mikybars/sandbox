@@ -178,5 +178,5 @@ public interface Meta4IcmWsCalcIncomeService {
   PlanificacionResponseDto planificacion(
       PlanificacionRequestDto request);
 
-  EstadoWlocResponseDto estadoWloc(EstadoWlocRequestDto request);
+  EstadoWlocResponseDto getEstadoWloc(EstadoWlocRequestDto request);
 }

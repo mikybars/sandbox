@@ -41,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResponseDto;
@@ -313,9 +314,9 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
   }
 
   @Override
-  public List<EstadoWlocResultItemDto> estadoWloc(
+  public List<EstadoWlocResultItemDto> getEstadoWloc(
       final EstadoWlocRequestDto request) {
     return this.getResultItem(request, Meta4PropertiesConstants.ESTADO_WLOC,
-        VentaManualWlocResponseDto.class, EstadoWlocResultItemDto.class);
+        EstadoWlocResponseDto.class, EstadoWlocResultItemDto.class);
   }
 }

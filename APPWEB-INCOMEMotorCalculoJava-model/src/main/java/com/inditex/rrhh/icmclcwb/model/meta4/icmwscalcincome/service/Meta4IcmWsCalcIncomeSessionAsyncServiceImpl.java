@@ -249,10 +249,10 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImpl implements Meta4IcmWsCa
   }
 
   @Override
-  public CompletableFuture<List<EstadoWlocResultItemDto>> estadoWloc(
+  public CompletableFuture<List<EstadoWlocResultItemDto>> getEstadoWloc(
       final EstadoWlocRequestDto request) {
     return CompletableFuture
-        .completedFuture(this.meta4IcmWsCalcIncomeSessionService.estadoWloc(request));
+        .completedFuture(this.meta4IcmWsCalcIncomeSessionService.getEstadoWloc(request));
   }
 
 }

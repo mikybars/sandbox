@@ -130,6 +130,6 @@ public interface Meta4IcmWsCalcIncomeSessionAsyncService {
   CompletableFuture<List<VentaManualWlocResultItemDto>> getVentaManualWloc(
       VentaManualWlocRequestDto request);
 
-  CompletableFuture<List<EstadoWlocResultItemDto>> estadoWloc(
+  CompletableFuture<List<EstadoWlocResultItemDto>> getEstadoWloc(
       EstadoWlocRequestDto request);
 }
