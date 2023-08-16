@@ -4,6 +4,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +23,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Java class for GetestructurascomOutput complex type.
@@ -51,249 +51,254 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "logMessage",
     "icmListaestructura"
 })
-public class GetestructurascomOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GetestructurascomOutput implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "return")
-    protected double _return;
-    @XmlElement(nillable = true)
-    protected List<LogMessage> logMessage;
-    @XmlElement(name = "Icm_Listaestructura", required = true, nillable = true)
-    protected IcmListaestructuraBlock icmListaestructura;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the return property.
-     *
-     */
-    public double getReturn() {
-        return _return;
+  @XmlElement(name = "return")
+  protected double _return;
+
+  @XmlElement(nillable = true)
+  protected List<LogMessage> logMessage;
+
+  @XmlElement(name = "Icm_Listaestructura", required = true, nillable = true)
+  protected IcmListaestructuraBlock icmListaestructura;
+
+  /**
+   * Gets the value of the return property.
+   *
+   */
+  public double getReturn() {
+    return _return;
+  }
+
+  /**
+   * Sets the value of the return property.
+   *
+   */
+  public void setReturn(double value) {
+    this._return = value;
+  }
+
+  /**
+   * Gets the value of the logMessage property.
+   *
+   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the logMessage property.
+   *
+   * <p> For example, to add a new item, do as follows:
+   * 
+   * <pre>
+   * getLogMessage().add(newItem);
+   * </pre>
+   *
+   *
+   * <p> Objects of the following type(s) are allowed in the list {@link LogMessage }
+   *
+   *
+   */
+  public List<LogMessage> getLogMessage() {
+    if (logMessage == null) {
+      logMessage = new ArrayList<LogMessage>();
     }
+    return this.logMessage;
+  }
 
-    /**
-     * Sets the value of the return property.
-     *
-     */
-    public void setReturn(double value) {
-        this._return = value;
+  /**
+   * Gets the value of the icmListaestructura property.
+   *
+   * @return possible object is {@link IcmListaestructuraBlock }
+   *
+   */
+  public IcmListaestructuraBlock getIcmListaestructura() {
+    return icmListaestructura;
+  }
+
+  /**
+   * Sets the value of the icmListaestructura property.
+   *
+   * @param value allowed object is {@link IcmListaestructuraBlock }
+   *
+   */
+  public void setIcmListaestructura(IcmListaestructuraBlock value) {
+    this.icmListaestructura = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
+    if (this == object) {
+      return true;
+    }
+    final GetestructurascomOutput that = ((GetestructurascomOutput) object);
+    {
+      double lhsReturn;
+      lhsReturn = this.getReturn();
+      double rhsReturn;
+      rhsReturn = that.getReturn();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn),
+          LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
+        return false;
+      }
+    }
+    {
+      List<LogMessage> lhsLogMessage;
+      lhsLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+      List<LogMessage> rhsLogMessage;
+      rhsLogMessage = (((that.logMessage != null) && (!that.logMessage.isEmpty())) ? that.getLogMessage() : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage),
+          LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage,
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())), ((that.logMessage != null) && (!that.logMessage.isEmpty())))) {
+        return false;
+      }
+    }
+    {
+      IcmListaestructuraBlock lhsIcmListaestructura;
+      lhsIcmListaestructura = this.getIcmListaestructura();
+      IcmListaestructuraBlock rhsIcmListaestructura;
+      rhsIcmListaestructura = that.getIcmListaestructura();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaestructura", lhsIcmListaestructura),
+          LocatorUtils.property(thatLocator, "icmListaestructura", rhsIcmListaestructura), lhsIcmListaestructura, rhsIcmListaestructura,
+          (this.icmListaestructura != null), (that.icmListaestructura != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    /**
-     * Gets the value of the logMessage property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the logMessage property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getLogMessage().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link LogMessage }
-     *
-     *
-     */
-    public List<LogMessage> getLogMessage() {
-        if (logMessage == null) {
-            logMessage = new ArrayList<LogMessage>();
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      double theReturn;
+      theReturn = this.getReturn();
+      strategy.appendField(locator, this, "_return", buffer, theReturn, true);
+    }
+    {
+      List<LogMessage> theLogMessage;
+      theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+      strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+    }
+    {
+      IcmListaestructuraBlock theIcmListaestructura;
+      theIcmListaestructura = this.getIcmListaestructura();
+      strategy.appendField(locator, this, "icmListaestructura", buffer, theIcmListaestructura, (this.icmListaestructura != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      double theReturn;
+      theReturn = this.getReturn();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
+    }
+    {
+      List<LogMessage> theLogMessage;
+      theLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage,
+          ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+    }
+    {
+      IcmListaestructuraBlock theIcmListaestructura;
+      theIcmListaestructura = this.getIcmListaestructura();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaestructura", theIcmListaestructura), currentHashCode,
+          theIcmListaestructura, (this.icmListaestructura != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GetestructurascomOutput) {
+      final GetestructurascomOutput copy = ((GetestructurascomOutput) draftCopy);
+      {
+        Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
+        if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
+          double sourceReturn;
+          sourceReturn = this.getReturn();
+          double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
+          copy.setReturn(copyReturn);
+        } else {
+          if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
+          }
         }
-        return this.logMessage;
-    }
-
-    /**
-     * Gets the value of the icmListaestructura property.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmListaestructuraBlock }
-     *
-     */
-    public IcmListaestructuraBlock getIcmListaestructura() {
-        return icmListaestructura;
-    }
-
-    /**
-     * Sets the value of the icmListaestructura property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmListaestructuraBlock }
-     *
-     */
-    public void setIcmListaestructura(IcmListaestructuraBlock value) {
-        this.icmListaestructura = value;
-    }
-
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
+      }
+      {
+        Boolean logMessageShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, ((this.logMessage != null) && (!this.logMessage.isEmpty())));
+        if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
+          List<LogMessage> sourceLogMessage;
+          sourceLogMessage = (((this.logMessage != null) && (!this.logMessage.isEmpty())) ? this.getLogMessage() : null);
+          @SuppressWarnings("unchecked")
+          List<LogMessage> copyLogMessage =
+              ((List<LogMessage>) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage,
+                  ((this.logMessage != null) && (!this.logMessage.isEmpty()))));
+          copy.logMessage = null;
+          if (copyLogMessage != null) {
+            List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
+            uniqueLogMessagel.addAll(copyLogMessage);
+          }
+        } else {
+          if (logMessageShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.logMessage = null;
+          }
         }
-        if (this == object) {
-            return true;
+      }
+      {
+        Boolean icmListaestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaestructura != null));
+        if (icmListaestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmListaestructuraBlock sourceIcmListaestructura;
+          sourceIcmListaestructura = this.getIcmListaestructura();
+          IcmListaestructuraBlock copyIcmListaestructura =
+              ((IcmListaestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmListaestructura", sourceIcmListaestructura),
+                  sourceIcmListaestructura, (this.icmListaestructura != null)));
+          copy.setIcmListaestructura(copyIcmListaestructura);
+        } else {
+          if (icmListaestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmListaestructura = null;
+          }
         }
-        final GetestructurascomOutput that = ((GetestructurascomOutput) object);
-        {
-            double lhsReturn;
-            lhsReturn = this.getReturn();
-            double rhsReturn;
-            rhsReturn = that.getReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "_return", lhsReturn), LocatorUtils.property(thatLocator, "_return", rhsReturn), lhsReturn, rhsReturn, true, true)) {
-                return false;
-            }
-        }
-        {
-            List<LogMessage> lhsLogMessage;
-            lhsLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            List<LogMessage> rhsLogMessage;
-            rhsLogMessage = (((that.logMessage!= null)&&(!that.logMessage.isEmpty()))?that.getLogMessage():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "logMessage", lhsLogMessage), LocatorUtils.property(thatLocator, "logMessage", rhsLogMessage), lhsLogMessage, rhsLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())), ((that.logMessage!= null)&&(!that.logMessage.isEmpty())))) {
-                return false;
-            }
-        }
-        {
-            IcmListaestructuraBlock lhsIcmListaestructura;
-            lhsIcmListaestructura = this.getIcmListaestructura();
-            IcmListaestructuraBlock rhsIcmListaestructura;
-            rhsIcmListaestructura = that.getIcmListaestructura();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmListaestructura", lhsIcmListaestructura), LocatorUtils.property(thatLocator, "icmListaestructura", rhsIcmListaestructura), lhsIcmListaestructura, rhsIcmListaestructura, (this.icmListaestructura!= null), (that.icmListaestructura!= null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            double theReturn;
-            theReturn = this.getReturn();
-            strategy.appendField(locator, this, "_return", buffer, theReturn, true);
-        }
-        {
-            List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            strategy.appendField(locator, this, "logMessage", buffer, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
-        }
-        {
-            IcmListaestructuraBlock theIcmListaestructura;
-            theIcmListaestructura = this.getIcmListaestructura();
-            strategy.appendField(locator, this, "icmListaestructura", buffer, theIcmListaestructura, (this.icmListaestructura!= null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            double theReturn;
-            theReturn = this.getReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "_return", theReturn), currentHashCode, theReturn, true);
-        }
-        {
-            List<LogMessage> theLogMessage;
-            theLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "logMessage", theLogMessage), currentHashCode, theLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
-        }
-        {
-            IcmListaestructuraBlock theIcmListaestructura;
-            theIcmListaestructura = this.getIcmListaestructura();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmListaestructura", theIcmListaestructura), currentHashCode, theIcmListaestructura, (this.icmListaestructura!= null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GetestructurascomOutput) {
-            final GetestructurascomOutput copy = ((GetestructurascomOutput) draftCopy);
-            {
-                Boolean _returnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
-                if (_returnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    double sourceReturn;
-                    sourceReturn = this.getReturn();
-                    double copyReturn = strategy.copy(LocatorUtils.property(locator, "_return", sourceReturn), sourceReturn, true);
-                    copy.setReturn(copyReturn);
-                } else {
-                    if (_returnShouldBeCopiedAndSet == Boolean.FALSE) {
-                    }
-                }
-            }
-            {
-                Boolean logMessageShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.logMessage!= null)&&(!this.logMessage.isEmpty())));
-                if (logMessageShouldBeCopiedAndSet == Boolean.TRUE) {
-                    List<LogMessage> sourceLogMessage;
-                    sourceLogMessage = (((this.logMessage!= null)&&(!this.logMessage.isEmpty()))?this.getLogMessage():null);
-                    @SuppressWarnings("unchecked")
-                    List<LogMessage> copyLogMessage = ((List<LogMessage> ) strategy.copy(LocatorUtils.property(locator, "logMessage", sourceLogMessage), sourceLogMessage, ((this.logMessage!= null)&&(!this.logMessage.isEmpty()))));
-                    copy.logMessage = null;
-                    if (copyLogMessage!= null) {
-                        List<LogMessage> uniqueLogMessagel = copy.getLogMessage();
-                        uniqueLogMessagel.addAll(copyLogMessage);
-                    }
-                } else {
-                    if (logMessageShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.logMessage = null;
-                    }
-                }
-            }
-            {
-                Boolean icmListaestructuraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmListaestructura!= null));
-                if (icmListaestructuraShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmListaestructuraBlock sourceIcmListaestructura;
-                    sourceIcmListaestructura = this.getIcmListaestructura();
-                    IcmListaestructuraBlock copyIcmListaestructura = ((IcmListaestructuraBlock) strategy.copy(LocatorUtils.property(locator, "icmListaestructura", sourceIcmListaestructura), sourceIcmListaestructura, (this.icmListaestructura!= null)));
-                    copy.setIcmListaestructura(copyIcmListaestructura);
-                } else {
-                    if (icmListaestructuraShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmListaestructura = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GetestructurascomOutput();
-    }
+  public Object createNewInstance() {
+    return new GetestructurascomOutput();
+  }
 
 }

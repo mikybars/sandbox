@@ -2,6 +2,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -47,132 +47,133 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparamcalsincro"
 })
 @XmlRootElement(name = "SINCRONIZACION")
-public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "ICM_PARAMCALSINCRO", required = true)
-    protected IcmParamcalsincroBlock icmparamcalsincro;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the icmparamcalsincro property.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalsincroBlock }
-     *
-     */
-    public IcmParamcalsincroBlock getICMPARAMCALSINCRO() {
-        return icmparamcalsincro;
+  @XmlElement(name = "ICM_PARAMCALSINCRO", required = true)
+  protected IcmParamcalsincroBlock icmparamcalsincro;
+
+  /**
+   * Gets the value of the icmparamcalsincro property.
+   *
+   * @return possible object is {@link IcmParamcalsincroBlock }
+   *
+   */
+  public IcmParamcalsincroBlock getICMPARAMCALSINCRO() {
+    return icmparamcalsincro;
+  }
+
+  /**
+   * Sets the value of the icmparamcalsincro property.
+   *
+   * @param value allowed object is {@link IcmParamcalsincroBlock }
+   *
+   */
+  public void setICMPARAMCALSINCRO(IcmParamcalsincroBlock value) {
+    this.icmparamcalsincro = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Sets the value of the icmparamcalsincro property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalsincroBlock }
-     *
-     */
-    public void setICMPARAMCALSINCRO(IcmParamcalsincroBlock value) {
-        this.icmparamcalsincro = value;
+    if (this == object) {
+      return true;
     }
+    final SINCRONIZACION that = ((SINCRONIZACION) object);
+    {
+      IcmParamcalsincroBlock lhsICMPARAMCALSINCRO;
+      lhsICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
+      IcmParamcalsincroBlock rhsICMPARAMCALSINCRO;
+      rhsICMPARAMCALSINCRO = that.getICMPARAMCALSINCRO();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsincro", lhsICMPARAMCALSINCRO),
+          LocatorUtils.property(thatLocator, "icmparamcalsincro", rhsICMPARAMCALSINCRO), lhsICMPARAMCALSINCRO, rhsICMPARAMCALSINCRO,
+          (this.icmparamcalsincro != null), (that.icmparamcalsincro != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      IcmParamcalsincroBlock theICMPARAMCALSINCRO;
+      theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
+      strategy.appendField(locator, this, "icmparamcalsincro", buffer, theICMPARAMCALSINCRO, (this.icmparamcalsincro != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      IcmParamcalsincroBlock theICMPARAMCALSINCRO;
+      theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalsincro", theICMPARAMCALSINCRO), currentHashCode,
+          theICMPARAMCALSINCRO, (this.icmparamcalsincro != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof SINCRONIZACION) {
+      final SINCRONIZACION copy = ((SINCRONIZACION) draftCopy);
+      {
+        Boolean icmparamcalsincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalsincro != null));
+        if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParamcalsincroBlock sourceICMPARAMCALSINCRO;
+          sourceICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
+          IcmParamcalsincroBlock copyICMPARAMCALSINCRO =
+              ((IcmParamcalsincroBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalsincro", sourceICMPARAMCALSINCRO),
+                  sourceICMPARAMCALSINCRO, (this.icmparamcalsincro != null)));
+          copy.setICMPARAMCALSINCRO(copyICMPARAMCALSINCRO);
+        } else {
+          if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmparamcalsincro = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final SINCRONIZACION that = ((SINCRONIZACION) object);
-        {
-            IcmParamcalsincroBlock lhsICMPARAMCALSINCRO;
-            lhsICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-            IcmParamcalsincroBlock rhsICMPARAMCALSINCRO;
-            rhsICMPARAMCALSINCRO = that.getICMPARAMCALSINCRO();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalsincro", lhsICMPARAMCALSINCRO), LocatorUtils.property(thatLocator, "icmparamcalsincro", rhsICMPARAMCALSINCRO), lhsICMPARAMCALSINCRO, rhsICMPARAMCALSINCRO, (this.icmparamcalsincro!= null), (that.icmparamcalsincro!= null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            IcmParamcalsincroBlock theICMPARAMCALSINCRO;
-            theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-            strategy.appendField(locator, this, "icmparamcalsincro", buffer, theICMPARAMCALSINCRO, (this.icmparamcalsincro!= null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            IcmParamcalsincroBlock theICMPARAMCALSINCRO;
-            theICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalsincro", theICMPARAMCALSINCRO), currentHashCode, theICMPARAMCALSINCRO, (this.icmparamcalsincro!= null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof SINCRONIZACION) {
-            final SINCRONIZACION copy = ((SINCRONIZACION) draftCopy);
-            {
-                Boolean icmparamcalsincroShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalsincro!= null));
-                if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamcalsincroBlock sourceICMPARAMCALSINCRO;
-                    sourceICMPARAMCALSINCRO = this.getICMPARAMCALSINCRO();
-                    IcmParamcalsincroBlock copyICMPARAMCALSINCRO = ((IcmParamcalsincroBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalsincro", sourceICMPARAMCALSINCRO), sourceICMPARAMCALSINCRO, (this.icmparamcalsincro!= null)));
-                    copy.setICMPARAMCALSINCRO(copyICMPARAMCALSINCRO);
-                } else {
-                    if (icmparamcalsincroShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamcalsincro = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new SINCRONIZACION();
-    }
+  public Object createNewInstance() {
+    return new SINCRONIZACION();
+  }
 
 }

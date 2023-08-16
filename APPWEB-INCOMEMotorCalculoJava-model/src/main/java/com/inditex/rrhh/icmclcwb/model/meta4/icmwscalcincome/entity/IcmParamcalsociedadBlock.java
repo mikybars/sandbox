@@ -4,6 +4,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +23,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Java class for Icm_ParamcalsociedadBlock complex type.
@@ -47,142 +47,160 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 @XmlType(name = "Icm_ParamcalsociedadBlock", propOrder = {
     "icmParamcalsociedadRecordSet"
 })
-public class IcmParamcalsociedadBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class IcmParamcalsociedadBlock implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "Icm_ParamcalsociedadRecordSet", nillable = true)
-    protected List<IcmParamcalsociedadRecord> icmParamcalsociedadRecordSet;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the icmParamcalsociedadRecordSet property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the icmParamcalsociedadRecordSet property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getIcmParamcalsociedadRecordSet().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link IcmParamcalsociedadRecord }
-     *
-     *
-     */
-    public List<IcmParamcalsociedadRecord> getIcmParamcalsociedadRecordSet() {
-        if (icmParamcalsociedadRecordSet == null) {
-            icmParamcalsociedadRecordSet = new ArrayList<IcmParamcalsociedadRecord>();
+  @XmlElement(name = "Icm_ParamcalsociedadRecordSet", nillable = true)
+  protected List<IcmParamcalsociedadRecord> icmParamcalsociedadRecordSet;
+
+  /**
+   * Gets the value of the icmParamcalsociedadRecordSet property.
+   *
+   * <p> This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
+   * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the icmParamcalsociedadRecordSet
+   * property.
+   *
+   * <p> For example, to add a new item, do as follows:
+   * 
+   * <pre>
+   * getIcmParamcalsociedadRecordSet().add(newItem);
+   * </pre>
+   *
+   *
+   * <p> Objects of the following type(s) are allowed in the list {@link IcmParamcalsociedadRecord }
+   *
+   *
+   */
+  public List<IcmParamcalsociedadRecord> getIcmParamcalsociedadRecordSet() {
+    if (icmParamcalsociedadRecordSet == null) {
+      icmParamcalsociedadRecordSet = new ArrayList<IcmParamcalsociedadRecord>();
+    }
+    return this.icmParamcalsociedadRecordSet;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
+    }
+    if (this == object) {
+      return true;
+    }
+    final IcmParamcalsociedadBlock that = ((IcmParamcalsociedadBlock) object);
+    {
+      List<IcmParamcalsociedadRecord> lhsIcmParamcalsociedadRecordSet;
+      lhsIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty()))
+          ? this.getIcmParamcalsociedadRecordSet()
+          : null);
+      List<IcmParamcalsociedadRecord> rhsIcmParamcalsociedadRecordSet;
+      rhsIcmParamcalsociedadRecordSet = (((that.icmParamcalsociedadRecordSet != null) && (!that.icmParamcalsociedadRecordSet.isEmpty()))
+          ? that.getIcmParamcalsociedadRecordSet()
+          : null);
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalsociedadRecordSet", lhsIcmParamcalsociedadRecordSet),
+          LocatorUtils.property(thatLocator, "icmParamcalsociedadRecordSet", rhsIcmParamcalsociedadRecordSet),
+          lhsIcmParamcalsociedadRecordSet, rhsIcmParamcalsociedadRecordSet,
+          ((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty())),
+          ((that.icmParamcalsociedadRecordSet != null) && (!that.icmParamcalsociedadRecordSet.isEmpty())))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      List<IcmParamcalsociedadRecord> theIcmParamcalsociedadRecordSet;
+      theIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty()))
+          ? this.getIcmParamcalsociedadRecordSet()
+          : null);
+      strategy.appendField(locator, this, "icmParamcalsociedadRecordSet", buffer, theIcmParamcalsociedadRecordSet,
+          ((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty())));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      List<IcmParamcalsociedadRecord> theIcmParamcalsociedadRecordSet;
+      theIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty()))
+          ? this.getIcmParamcalsociedadRecordSet()
+          : null);
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalsociedadRecordSet", theIcmParamcalsociedadRecordSet),
+          currentHashCode, theIcmParamcalsociedadRecordSet,
+          ((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty())));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof IcmParamcalsociedadBlock) {
+      final IcmParamcalsociedadBlock copy = ((IcmParamcalsociedadBlock) draftCopy);
+      {
+        Boolean icmParamcalsociedadRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator,
+            ((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty())));
+        if (icmParamcalsociedadRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
+          List<IcmParamcalsociedadRecord> sourceIcmParamcalsociedadRecordSet;
+          sourceIcmParamcalsociedadRecordSet =
+              (((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty()))
+                  ? this.getIcmParamcalsociedadRecordSet()
+                  : null);
+          @SuppressWarnings("unchecked")
+          List<IcmParamcalsociedadRecord> copyIcmParamcalsociedadRecordSet = ((List<IcmParamcalsociedadRecord>) strategy.copy(
+              LocatorUtils.property(locator, "icmParamcalsociedadRecordSet", sourceIcmParamcalsociedadRecordSet),
+              sourceIcmParamcalsociedadRecordSet,
+              ((this.icmParamcalsociedadRecordSet != null) && (!this.icmParamcalsociedadRecordSet.isEmpty()))));
+          copy.icmParamcalsociedadRecordSet = null;
+          if (copyIcmParamcalsociedadRecordSet != null) {
+            List<IcmParamcalsociedadRecord> uniqueIcmParamcalsociedadRecordSetl = copy.getIcmParamcalsociedadRecordSet();
+            uniqueIcmParamcalsociedadRecordSetl.addAll(copyIcmParamcalsociedadRecordSet);
+          }
+        } else {
+          if (icmParamcalsociedadRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmParamcalsociedadRecordSet = null;
+          }
         }
-        return this.icmParamcalsociedadRecordSet;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
-        }
-        if (this == object) {
-            return true;
-        }
-        final IcmParamcalsociedadBlock that = ((IcmParamcalsociedadBlock) object);
-        {
-            List<IcmParamcalsociedadRecord> lhsIcmParamcalsociedadRecordSet;
-            lhsIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty()))?this.getIcmParamcalsociedadRecordSet():null);
-            List<IcmParamcalsociedadRecord> rhsIcmParamcalsociedadRecordSet;
-            rhsIcmParamcalsociedadRecordSet = (((that.icmParamcalsociedadRecordSet!= null)&&(!that.icmParamcalsociedadRecordSet.isEmpty()))?that.getIcmParamcalsociedadRecordSet():null);
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmParamcalsociedadRecordSet", lhsIcmParamcalsociedadRecordSet), LocatorUtils.property(thatLocator, "icmParamcalsociedadRecordSet", rhsIcmParamcalsociedadRecordSet), lhsIcmParamcalsociedadRecordSet, rhsIcmParamcalsociedadRecordSet, ((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty())), ((that.icmParamcalsociedadRecordSet!= null)&&(!that.icmParamcalsociedadRecordSet.isEmpty())))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            List<IcmParamcalsociedadRecord> theIcmParamcalsociedadRecordSet;
-            theIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty()))?this.getIcmParamcalsociedadRecordSet():null);
-            strategy.appendField(locator, this, "icmParamcalsociedadRecordSet", buffer, theIcmParamcalsociedadRecordSet, ((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty())));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            List<IcmParamcalsociedadRecord> theIcmParamcalsociedadRecordSet;
-            theIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty()))?this.getIcmParamcalsociedadRecordSet():null);
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmParamcalsociedadRecordSet", theIcmParamcalsociedadRecordSet), currentHashCode, theIcmParamcalsociedadRecordSet, ((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty())));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof IcmParamcalsociedadBlock) {
-            final IcmParamcalsociedadBlock copy = ((IcmParamcalsociedadBlock) draftCopy);
-            {
-                Boolean icmParamcalsociedadRecordSetShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, ((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty())));
-                if (icmParamcalsociedadRecordSetShouldBeCopiedAndSet == Boolean.TRUE) {
-                    List<IcmParamcalsociedadRecord> sourceIcmParamcalsociedadRecordSet;
-                    sourceIcmParamcalsociedadRecordSet = (((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty()))?this.getIcmParamcalsociedadRecordSet():null);
-                    @SuppressWarnings("unchecked")
-                    List<IcmParamcalsociedadRecord> copyIcmParamcalsociedadRecordSet = ((List<IcmParamcalsociedadRecord> ) strategy.copy(LocatorUtils.property(locator, "icmParamcalsociedadRecordSet", sourceIcmParamcalsociedadRecordSet), sourceIcmParamcalsociedadRecordSet, ((this.icmParamcalsociedadRecordSet!= null)&&(!this.icmParamcalsociedadRecordSet.isEmpty()))));
-                    copy.icmParamcalsociedadRecordSet = null;
-                    if (copyIcmParamcalsociedadRecordSet!= null) {
-                        List<IcmParamcalsociedadRecord> uniqueIcmParamcalsociedadRecordSetl = copy.getIcmParamcalsociedadRecordSet();
-                        uniqueIcmParamcalsociedadRecordSetl.addAll(copyIcmParamcalsociedadRecordSet);
-                    }
-                } else {
-                    if (icmParamcalsociedadRecordSetShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmParamcalsociedadRecordSet = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new IcmParamcalsociedadBlock();
-    }
+  public Object createNewInstance() {
+    return new IcmParamcalsociedadBlock();
+  }
 
 }
