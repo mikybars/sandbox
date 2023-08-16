@@ -2,7 +2,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,10 +22,11 @@ import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
+
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -47,133 +47,132 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparamcalcatalogo"
 })
 @XmlRootElement(name = "GETCATALOGO")
-public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETCATALOGO implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "ICM_PARAMCALCATALOGO", required = true)
+    protected IcmParamcalcatalogoBlock icmparamcalcatalogo;
 
-  @XmlElement(name = "ICM_PARAMCALCATALOGO", required = true)
-  protected IcmParamcalcatalogoBlock icmparamcalcatalogo;
-
-  /**
-   * Obtiene el valor de la propiedad icmparamcalcatalogo.
-   *
-   * @return possible object is {@link IcmParamcalcatalogoBlock }
-   *
-   */
-  public IcmParamcalcatalogoBlock getICMPARAMCALCATALOGO() {
-    return icmparamcalcatalogo;
-  }
-
-  /**
-   * Define el valor de la propiedad icmparamcalcatalogo.
-   *
-   * @param value allowed object is {@link IcmParamcalcatalogoBlock }
-   *
-   */
-  public void setICMPARAMCALCATALOGO(IcmParamcalcatalogoBlock value) {
-    this.icmparamcalcatalogo = value;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
+    /**
+     * Gets the value of the icmparamcalcatalogo property.
+     *
+     * @return
+     *     possible object is
+     *     {@link IcmParamcalcatalogoBlock }
+     *
+     */
+    public IcmParamcalcatalogoBlock getICMPARAMCALCATALOGO() {
+        return icmparamcalcatalogo;
     }
-    if (this == object) {
-      return true;
+
+    /**
+     * Sets the value of the icmparamcalcatalogo property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link IcmParamcalcatalogoBlock }
+     *
+     */
+    public void setICMPARAMCALCATALOGO(IcmParamcalcatalogoBlock value) {
+        this.icmparamcalcatalogo = value;
     }
-    final GETCATALOGO that = ((GETCATALOGO) object);
-    {
-      IcmParamcalcatalogoBlock lhsICMPARAMCALCATALOGO;
-      lhsICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-      IcmParamcalcatalogoBlock rhsICMPARAMCALCATALOGO;
-      rhsICMPARAMCALCATALOGO = that.getICMPARAMCALCATALOGO();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalcatalogo", lhsICMPARAMCALCATALOGO),
-          LocatorUtils.property(thatLocator, "icmparamcalcatalogo", rhsICMPARAMCALCATALOGO), lhsICMPARAMCALCATALOGO, rhsICMPARAMCALCATALOGO,
-          (this.icmparamcalcatalogo != null), (that.icmparamcalcatalogo != null))) {
-        return false;
-      }
-    }
-    return true;
-  }
 
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
-      theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-      strategy.appendField(locator, this, "icmparamcalcatalogo", buffer, theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
-      theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalcatalogo", theICMPARAMCALCATALOGO), currentHashCode,
-          theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof GETCATALOGO) {
-      final GETCATALOGO copy = ((GETCATALOGO) draftCopy);
-      {
-        Boolean icmparamcalcatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalcatalogo != null));
-        if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.TRUE) {
-          IcmParamcalcatalogoBlock sourceICMPARAMCALCATALOGO;
-          sourceICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
-          IcmParamcalcatalogoBlock copyICMPARAMCALCATALOGO =
-              ((IcmParamcalcatalogoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalcatalogo", sourceICMPARAMCALCATALOGO),
-                  sourceICMPARAMCALCATALOGO, (this.icmparamcalcatalogo != null)));
-          copy.setICMPARAMCALCATALOGO(copyICMPARAMCALCATALOGO);
-        } else {
-          if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.icmparamcalcatalogo = null;
-          }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
         }
-      }
+        if (this == object) {
+            return true;
+        }
+        final GETCATALOGO that = ((GETCATALOGO) object);
+        {
+            IcmParamcalcatalogoBlock lhsICMPARAMCALCATALOGO;
+            lhsICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
+            IcmParamcalcatalogoBlock rhsICMPARAMCALCATALOGO;
+            rhsICMPARAMCALCATALOGO = that.getICMPARAMCALCATALOGO();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalcatalogo", lhsICMPARAMCALCATALOGO), LocatorUtils.property(thatLocator, "icmparamcalcatalogo", rhsICMPARAMCALCATALOGO), lhsICMPARAMCALCATALOGO, rhsICMPARAMCALCATALOGO, (this.icmparamcalcatalogo!= null), (that.icmparamcalcatalogo!= null))) {
+                return false;
+            }
+        }
+        return true;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new GETCATALOGO();
-  }
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
+            theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
+            strategy.appendField(locator, this, "icmparamcalcatalogo", buffer, theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            IcmParamcalcatalogoBlock theICMPARAMCALCATALOGO;
+            theICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalcatalogo", theICMPARAMCALCATALOGO), currentHashCode, theICMPARAMCALCATALOGO, (this.icmparamcalcatalogo!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETCATALOGO) {
+            final GETCATALOGO copy = ((GETCATALOGO) draftCopy);
+            {
+                Boolean icmparamcalcatalogoShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalcatalogo!= null));
+                if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.TRUE) {
+                    IcmParamcalcatalogoBlock sourceICMPARAMCALCATALOGO;
+                    sourceICMPARAMCALCATALOGO = this.getICMPARAMCALCATALOGO();
+                    IcmParamcalcatalogoBlock copyICMPARAMCALCATALOGO = ((IcmParamcalcatalogoBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalcatalogo", sourceICMPARAMCALCATALOGO), sourceICMPARAMCALCATALOGO, (this.icmparamcalcatalogo!= null)));
+                    copy.setICMPARAMCALCATALOGO(copyICMPARAMCALCATALOGO);
+                } else {
+                    if (icmparamcalcatalogoShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.icmparamcalcatalogo = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETCATALOGO();
+    }
 
 }

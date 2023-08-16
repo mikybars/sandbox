@@ -26,12 +26,10 @@ public class TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCusto
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereChallengeImporte']}")
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeImporteTiendaSeccionV1RepositoryCustom.calcular']}"
-      + " #{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereChallengeImporte']}")
   @Getter
   private String sqlCalcularBase;

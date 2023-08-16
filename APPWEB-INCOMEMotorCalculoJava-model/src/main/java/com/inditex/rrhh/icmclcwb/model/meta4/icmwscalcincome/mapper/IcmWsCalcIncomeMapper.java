@@ -1547,6 +1547,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idempresa",
       expression = "java(CollectionUtils.isNotEmpty(src.getIdsEmpresa()) ? src.getIdsEmpresa().get(0) : \"\")")
   @Mapping(target = "idlugartrabajo", ignore = true)
+  @Mapping(target = "idorigen", source = "idOrigen")
   IcmParamcalflagcalculaRecord asIcmParamcalflagcalculaRecord(GenericFilterDto src);
 
   @Mapping(target = "icmParamcalpresenciamanualRecordSet", ignore = true)

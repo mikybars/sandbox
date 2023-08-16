@@ -320,7 +320,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .addAll(iter.stream()
                 .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
                 .collect(Collectors.toList()));
-        boolean hasNext = false;
+        final boolean hasNext = false;
         do {
           final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
               .getFlagCalcula(request);
@@ -334,7 +334,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             final CompletableFuture<Void> cfSave = this.tareaLocalizacionCalcularAsyncService.save(data,
                 tarea);
             AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            hasNext = request.nextPage();
+
           }
         } while (hasNext);
         AsyncUtils.waitAllOfIsOk(cf, cf);
