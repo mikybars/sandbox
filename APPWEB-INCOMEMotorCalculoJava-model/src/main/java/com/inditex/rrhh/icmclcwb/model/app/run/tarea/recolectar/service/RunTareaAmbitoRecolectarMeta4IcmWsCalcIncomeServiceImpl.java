@@ -320,23 +320,22 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .addAll(iter.stream()
                 .map(e -> GenericFilterParametersDto.builder().idLugarTrabajo(e.getId()).build())
                 .collect(Collectors.toList()));
-        final boolean hasNext = false;
-        do {
-          final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-              .getFlagCalcula(request);
-          AsyncUtils.exceptionally(cfData, cf);
-          final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-          if (CollectionUtils.isNotEmpty(data)) {
-            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-            final CompletableFuture<Void> cfSave = this.tareaLocalizacionCalcularAsyncService.save(data,
-                tarea);
-            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 
-          }
-        } while (hasNext);
+        final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
+            .getFlagCalcula(request);
+        AsyncUtils.exceptionally(cfData, cf);
+        final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
+        if (CollectionUtils.isNotEmpty(data)) {
+          AsyncUtils.checkAsyncAvaliable(cfPersist,
+              this.meta4Properties.get(Meta4PropertiesConstants.FLAG_CALCULA)
+                  .getFilter()
+                  .getMaxPersistenceSize());
+          final CompletableFuture<Void> cfSave = this.tareaLocalizacionCalcularAsyncService.save(data,
+              tarea);
+          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+
+        }
+
         AsyncUtils.waitAllOfIsOk(cf, cf);
       }
     } catch (final Exception e) {
