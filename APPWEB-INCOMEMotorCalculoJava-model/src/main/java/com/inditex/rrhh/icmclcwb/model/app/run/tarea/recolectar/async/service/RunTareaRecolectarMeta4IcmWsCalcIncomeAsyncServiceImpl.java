@@ -195,4 +195,11 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncServiceImpl
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
+  @Override
+  public CompletableFuture<Void> estadoWlocByRunTarea(
+      final RunTareaDto runTarea) {
+    this.tareaRecolectarMeta4IcmWsCalcIncomeService.estadoWlocByRunTarea(runTarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
 }

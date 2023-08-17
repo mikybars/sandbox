@@ -33,6 +33,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamien
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
@@ -500,4 +503,19 @@ public class Meta4IcmWsCalcIncomeSessionAsyncServiceImplTest {
         .getVentaManualWloc(ArgumentMatchers.any(VentaManualWlocRequestDto.class));
   }
 
+  @Test
+  public void estadoWloc() {
+    when(this.meta4IcmWsCalcIncomeSessionService
+        .getEstadoWloc(any(EstadoWlocRequestDto.class)))
+            .thenReturn(new ArrayList<EstadoWlocResultItemDto>());
+
+    final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
+    request.setData(new EstadoWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    CompletableFuture
+        .completedFuture(this.meta4IcmWsCalcIncomeSessionAsyncServiceImpl.getEstadoWloc(request));
+
+    verify(this.meta4IcmWsCalcIncomeSessionService, timeout(1000).times(1))
+        .getEstadoWloc(ArgumentMatchers.any(EstadoWlocRequestDto.class));
+  }
 }

@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ParamcalventacongeladaBlock complex type.
+ * <p>Java class for Icm_ParamcalventacongeladaBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalventacongeladaBlock"&gt;
@@ -65,7 +65,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
   protected List<IcmParamcalventacongeladaRecord> icmParamcalventacongeladaRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad fechafin.
+   * Gets the value of the fechafin property.
    *
    * @return possible object is {@link String }
    *
@@ -75,7 +75,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
   }
 
   /**
-   * Define el valor de la propiedad fechafin.
+   * Sets the value of the fechafin property.
    *
    * @param value allowed object is {@link String }
    *
@@ -85,7 +85,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
   }
 
   /**
-   * Obtiene el valor de la propiedad fechainicio.
+   * Gets the value of the fechainicio property.
    *
    * @return possible object is {@link String }
    *
@@ -95,7 +95,7 @@ public class IcmParamcalventacongeladaBlock implements Serializable, Cloneable, 
   }
 
   /**
-   * Define el valor de la propiedad fechainicio.
+   * Sets the value of the fechainicio property.
    *
    * @param value allowed object is {@link String }
    *

@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -60,7 +60,7 @@ public class GETEMPLEADOSPRESENCIA implements Serializable, Cloneable, CopyTo2, 
   protected IcmParamcalempleadospresenciaBlock icmparamcalempleadospresencia;
 
   /**
-   * Obtiene el valor de la propiedad icmparametrospaginacion.
+   * Gets the value of the icmparametrospaginacion property.
    *
    * @return possible object is {@link IcmParametrospaginacionBlock }
    *
@@ -70,7 +70,7 @@ public class GETEMPLEADOSPRESENCIA implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad icmparametrospaginacion.
+   * Sets the value of the icmparametrospaginacion property.
    *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
    *
@@ -80,7 +80,7 @@ public class GETEMPLEADOSPRESENCIA implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Obtiene el valor de la propiedad icmparamcalempleadospresencia.
+   * Gets the value of the icmparamcalempleadospresencia property.
    *
    * @return possible object is {@link IcmParamcalempleadospresenciaBlock }
    *
@@ -90,7 +90,7 @@ public class GETEMPLEADOSPRESENCIA implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad icmparamcalempleadospresencia.
+   * Sets the value of the icmparamcalempleadospresencia property.
    *
    * @param value allowed object is {@link IcmParamcalempleadospresenciaBlock }
    *

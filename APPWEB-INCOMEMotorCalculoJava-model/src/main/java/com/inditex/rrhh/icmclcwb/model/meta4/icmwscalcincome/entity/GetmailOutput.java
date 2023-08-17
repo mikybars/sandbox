@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetmailOutput complex type.
+ * <p>Java class for GetmailOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetmailOutput"&gt;
@@ -65,7 +65,7 @@ public class GetmailOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   protected IcmListamailBlock icmListamail;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetmailOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetmailOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListamail.
+   * Gets the value of the icmListamail property.
    *
    * @return possible object is {@link IcmListamailBlock }
    *
@@ -115,7 +115,7 @@ public class GetmailOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   /**
-   * Define el valor de la propiedad icmListamail.
+   * Sets the value of the icmListamail property.
    *
    * @param value allowed object is {@link IcmListamailBlock }
    *

@@ -74,10 +74,6 @@ public interface TareaLocalizacionHistoricoService {
       @NotNull @NotEmpty List<Long> idTipoConceptoVentaChallenge);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
-      @NotNull @Positive final Long idTarea,
-      @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt);
-
-  List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
       @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
       @NotNull @NotEmpty final List<String> stdIdLegEnt);
 

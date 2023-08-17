@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ListavaloresbasemanBlock complex type.
+ * <p>Java class for Icm_ListavaloresbasemanBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ListavaloresbasemanBlock"&gt;
@@ -60,7 +60,7 @@ public class IcmListavaloresbasemanBlock implements Serializable, Cloneable, Cop
   protected List<IcmListavaloresbasemanRecord> icmListavaloresbasemanRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad idestructurabase.
+   * Gets the value of the idestructurabase property.
    *
    * @return possible object is {@link String }
    *
@@ -70,7 +70,7 @@ public class IcmListavaloresbasemanBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad idestructurabase.
+   * Sets the value of the idestructurabase property.
    *
    * @param value allowed object is {@link String }
    *

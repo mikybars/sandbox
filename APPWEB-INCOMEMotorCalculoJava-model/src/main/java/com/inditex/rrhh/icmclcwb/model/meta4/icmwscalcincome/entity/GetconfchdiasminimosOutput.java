@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetconfchdiasminimosOutput complex type.
+ * <p>Java class for GetconfchdiasminimosOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetconfchdiasminimosOutput"&gt;
@@ -65,7 +65,7 @@ public class GetconfchdiasminimosOutput implements Serializable, Cloneable, Copy
   protected IcmListaconfchdiasBlock icmListaconfchdias;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetconfchdiasminimosOutput implements Serializable, Cloneable, Copy
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetconfchdiasminimosOutput implements Serializable, Cloneable, Copy
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListaconfchdias.
+   * Gets the value of the icmListaconfchdias property.
    *
    * @return possible object is {@link IcmListaconfchdiasBlock }
    *
@@ -115,7 +115,7 @@ public class GetconfchdiasminimosOutput implements Serializable, Cloneable, Copy
   }
 
   /**
-   * Define el valor de la propiedad icmListaconfchdias.
+   * Sets the value of the icmListaconfchdias property.
    *
    * @param value allowed object is {@link IcmListaconfchdiasBlock }
    *

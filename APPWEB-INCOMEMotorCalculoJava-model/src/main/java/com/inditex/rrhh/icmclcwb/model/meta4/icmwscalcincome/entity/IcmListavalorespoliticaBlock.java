@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ListavalorespoliticaBlock complex type.
+ * <p>Java class for Icm_ListavalorespoliticaBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ListavalorespoliticaBlock"&gt;
@@ -60,7 +60,7 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
   protected List<IcmListavalorespoliticaRecord> icmListavalorespoliticaRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad idestructura.
+   * Gets the value of the idestructura property.
    *
    * @return possible object is {@link String }
    *
@@ -70,7 +70,7 @@ public class IcmListavalorespoliticaBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad idestructura.
+   * Sets the value of the idestructura property.
    *
    * @param value allowed object is {@link String }
    *

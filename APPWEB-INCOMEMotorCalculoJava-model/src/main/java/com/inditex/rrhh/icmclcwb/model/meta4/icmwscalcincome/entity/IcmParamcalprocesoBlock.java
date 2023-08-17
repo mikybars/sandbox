@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ParamcalprocesoBlock complex type.
+ * <p>Java class for Icm_ParamcalprocesoBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalprocesoBlock"&gt;
@@ -90,7 +90,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   protected List<IcmParamcalprocesoRecord> icmParamcalprocesoRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad idambito.
+   * Gets the value of the idambito property.
    *
    * @return possible object is {@link String }
    *
@@ -100,7 +100,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idambito.
+   * Sets the value of the idambito property.
    *
    * @param value allowed object is {@link String }
    *
@@ -110,7 +110,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idorigen.
+   * Gets the value of the idorigen property.
    *
    * @return possible object is {@link String }
    *
@@ -120,7 +120,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idorigen.
+   * Sets the value of the idorigen property.
    *
    * @param value allowed object is {@link String }
    *
@@ -130,7 +130,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idperiodo.
+   * Gets the value of the idperiodo property.
    *
    * @return possible object is {@link String }
    *
@@ -140,7 +140,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idperiodo.
+   * Sets the value of the idperiodo property.
    *
    * @param value allowed object is {@link String }
    *
@@ -150,7 +150,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idtrabajo.
+   * Gets the value of the idtrabajo property.
    *
    * @return possible object is {@link String }
    *
@@ -160,7 +160,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idtrabajo.
+   * Sets the value of the idtrabajo property.
    *
    * @param value allowed object is {@link String }
    *
@@ -170,7 +170,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idusuario.
+   * Gets the value of the idusuario property.
    *
    * @return possible object is {@link String }
    *
@@ -180,7 +180,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idusuario.
+   * Sets the value of the idusuario property.
    *
    * @param value allowed object is {@link String }
    *
@@ -190,7 +190,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idorganization.
+   * Gets the value of the idorganization property.
    *
    * @return possible object is {@link String }
    *
@@ -200,7 +200,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idorganization.
+   * Sets the value of the idorganization property.
    *
    * @param value allowed object is {@link String }
    *
@@ -210,7 +210,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad idtpejeccalculo.
+   * Gets the value of the idtpejeccalculo property.
    *
    * @return possible object is {@link String }
    *
@@ -220,7 +220,7 @@ public class IcmParamcalprocesoBlock implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad idtpejeccalculo.
+   * Sets the value of the idtpejeccalculo property.
    *
    * @param value allowed object is {@link String }
    *

@@ -61,7 +61,7 @@ class RunTareaRecolectarCondicionesServiceImplTest {
   private RunTareaDto runTarea;
 
   @Test
-  void runTest(@Random CompletableFuture<Void> completableFuture) {
+  void runTest(@Random final CompletableFuture<Void> completableFuture) {
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .ausenciasByRunTarea(this.runTarea);
@@ -80,6 +80,9 @@ class RunTareaRecolectarCondicionesServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .desplazamientoRealByRunTarea(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
+        .estadoWlocByRunTarea(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .configuracionesByRunTarea(this.runTarea);

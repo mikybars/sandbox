@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
   protected GetpresenciamanualOutput getpresenciamanualReturn;
 
   /**
-   * Obtiene el valor de la propiedad getpresenciamanualReturn.
+   * Gets the value of the getpresenciamanualReturn property.
    *
    * @return possible object is {@link GetpresenciamanualOutput }
    *
@@ -65,7 +65,7 @@ public class GETPRESENCIAMANUALResponse implements Serializable, Cloneable, Copy
   }
 
   /**
-   * Define el valor de la propiedad getpresenciamanualReturn.
+   * Sets the value of the getpresenciamanualReturn property.
    *
    * @param value allowed object is {@link GetpresenciamanualOutput }
    *

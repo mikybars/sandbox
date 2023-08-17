@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para SearchempleadosOutput complex type.
+ * <p>Java class for SearchempleadosOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="SearchempleadosOutput"&gt;
@@ -70,7 +70,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -78,7 +78,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -110,7 +110,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListaempleado.
+   * Gets the value of the icmListaempleado property.
    *
    * @return possible object is {@link IcmListaempleadoBlock }
    *
@@ -120,7 +120,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad icmListaempleado.
+   * Sets the value of the icmListaempleado property.
    *
    * @param value allowed object is {@link IcmListaempleadoBlock }
    *
@@ -130,7 +130,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Obtiene el valor de la propiedad icmParametrospaginacion.
+   * Gets the value of the icmParametrospaginacion property.
    *
    * @return possible object is {@link IcmParametrospaginacionBlock }
    *
@@ -140,7 +140,7 @@ public class SearchempleadosOutput implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad icmParametrospaginacion.
+   * Sets the value of the icmParametrospaginacion property.
    *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
    *
