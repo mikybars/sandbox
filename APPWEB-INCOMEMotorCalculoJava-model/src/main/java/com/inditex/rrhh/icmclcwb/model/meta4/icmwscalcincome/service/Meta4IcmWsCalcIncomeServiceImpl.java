@@ -248,6 +248,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         .asIcmParamcalflagcalculaBlock(request.getData());
     final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
         .asIcmParametrospaginacionBlock(request.getPage());
+    param2.setIdbusqueda("1");
     final GetflagcalculaOutput getFlagCalculaOutput = this.meta4ClientPool.getflagcalcula(param1, param2);
     this.log.warn("contenido del output: {}", getFlagCalculaOutput);
 
