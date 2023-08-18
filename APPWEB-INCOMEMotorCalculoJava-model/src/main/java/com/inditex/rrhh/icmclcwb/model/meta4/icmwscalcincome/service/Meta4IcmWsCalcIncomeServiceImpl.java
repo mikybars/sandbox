@@ -196,6 +196,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcInc
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -210,6 +211,9 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   @Autowired
   private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
+
+  @Autowired
+  private Logger log;
 
   @Override
   public AgrupOnlineResponseDto getAgrupOnline(final AgrupOnlineRequestDto request) {
@@ -245,12 +249,16 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
         .asIcmParametrospaginacionBlock(request.getPage());
     final GetflagcalculaOutput getFlagCalculaOutput = this.meta4ClientPool.getflagcalcula(param1, param2);
+    this.log.warn("contenido del output: {}", getFlagCalculaOutput);
+
     if ((getFlagCalculaOutput != null)
         && (Double.compare(NumberUtils.DOUBLE_ZERO, getFlagCalculaOutput.getReturn()) == 0)) {
       if (getFlagCalculaOutput.getIcmParametrospaginacion() != null) {
         final PageDto page = this.icmWsCalcIncomeMapper
             .asPageDto(getFlagCalculaOutput.getIcmParametrospaginacion());
         result.setPage(page);
+        this.log.warn("contenido del page: {}", page);
+
       }
       if ((getFlagCalculaOutput.getIcmListatiendas() != null)
           && CollectionUtils
@@ -258,6 +266,8 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         final List<GenericTiendaResultItemDto> items = this.icmWsCalcIncomeMapper.asGenericTiendaResultItemDtos(
             getFlagCalculaOutput.getIcmListatiendas().getIcmListatiendasRecordSet());
         result.setData(items);
+        this.log.warn("contenido del data: {}", items);
+
       }
     }
 
