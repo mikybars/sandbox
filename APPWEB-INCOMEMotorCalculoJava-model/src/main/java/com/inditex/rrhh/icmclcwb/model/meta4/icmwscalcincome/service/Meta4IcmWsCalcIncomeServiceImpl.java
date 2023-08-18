@@ -254,7 +254,10 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     if ((getFlagCalculaOutput != null)
         && (Double.compare(NumberUtils.DOUBLE_ZERO, getFlagCalculaOutput.getReturn()) == 0)) {
       if (getFlagCalculaOutput.getIcmParametrospaginacion() != null) {
-        getFlagCalculaOutput.getIcmParametrospaginacion().setIdbusqueda("1");
+        getFlagCalculaOutput.getIcmParametrospaginacion().setIdbusqueda("0");
+        getFlagCalculaOutput.getIcmParametrospaginacion().setNumerototalpaginas("0");
+        getFlagCalculaOutput.getIcmParametrospaginacion().setNumerototalresultados("0");
+
         final PageDto page = this.icmWsCalcIncomeMapper
             .asPageDto(getFlagCalculaOutput.getIcmParametrospaginacion());
         result.setPage(page);
