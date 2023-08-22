@@ -23,9 +23,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para LogMessage complex type.
+ * <p>Java class for LogMessage complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="LogMessage"&gt;
@@ -68,7 +68,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   protected String title;
 
   /**
-   * Obtiene el valor de la propiedad code.
+   * Gets the value of the code property.
    *
    * @return possible object is {@link String }
    *
@@ -78,7 +78,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Define el valor de la propiedad code.
+   * Sets the value of the code property.
    *
    * @param value allowed object is {@link String }
    *
@@ -88,7 +88,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Obtiene el valor de la propiedad description.
+   * Gets the value of the description property.
    *
    * @return possible object is {@link String }
    *
@@ -98,7 +98,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Define el valor de la propiedad description.
+   * Sets the value of the description property.
    *
    * @param value allowed object is {@link String }
    *
@@ -108,7 +108,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Obtiene el valor de la propiedad severity.
+   * Gets the value of the severity property.
    *
    * @return possible object is {@link String }
    *
@@ -118,7 +118,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Define el valor de la propiedad severity.
+   * Sets the value of the severity property.
    *
    * @param value allowed object is {@link String }
    *
@@ -128,7 +128,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Obtiene el valor de la propiedad title.
+   * Gets the value of the title property.
    *
    * @return possible object is {@link String }
    *
@@ -138,7 +138,7 @@ public class LogMessage implements Serializable, Cloneable, CopyTo2, Equals2, Ha
   }
 
   /**
-   * Define el valor de la propiedad title.
+   * Sets the value of the title property.
    *
    * @param value allowed object is {@link String }
    *

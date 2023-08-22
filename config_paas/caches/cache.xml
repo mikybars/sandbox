@@ -202,13 +202,6 @@
 </memory>
 <expiration max-idle="3600000"/>
 </replicated-cache>
-<replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa" mode="SYNC"
-                  statistics="true">
-<memory>
-  <object size="1000"/>
-</memory>
-<expiration max-idle="3600000"/>
-</replicated-cache>
 <replicated-cache name="itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa" mode="SYNC"
                   statistics="true">
 <memory>

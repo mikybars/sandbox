@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetdesplazrealOutput complex type.
+ * <p>Java class for GetdesplazrealOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetdesplazrealOutput"&gt;
@@ -65,7 +65,7 @@ public class GetdesplazrealOutput implements Serializable, Cloneable, CopyTo2, E
   protected IcmListadesplazrealBlock icmListadesplazreal;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetdesplazrealOutput implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetdesplazrealOutput implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListadesplazreal.
+   * Gets the value of the icmListadesplazreal property.
    *
    * @return possible object is {@link IcmListadesplazrealBlock }
    *
@@ -115,7 +115,7 @@ public class GetdesplazrealOutput implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Define el valor de la propiedad icmListadesplazreal.
+   * Sets the value of the icmListadesplazreal property.
    *
    * @param value allowed object is {@link IcmListadesplazrealBlock }
    *

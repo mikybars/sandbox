@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ParametrospaginacionBlock complex type.
+ * <p>Java class for Icm_ParametrospaginacionBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ParametrospaginacionBlock"&gt;
@@ -90,7 +90,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   protected List<IcmParametrospaginacionRecord> icmParametrospaginacionRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad tipoorden.
+   * Gets the value of the tipoorden property.
    *
    * @return possible object is {@link String }
    *
@@ -100,7 +100,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad tipoorden.
+   * Sets the value of the tipoorden property.
    *
    * @param value allowed object is {@link String }
    *
@@ -110,7 +110,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad campoorden.
+   * Gets the value of the campoorden property.
    *
    * @return possible object is {@link String }
    *
@@ -120,7 +120,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad campoorden.
+   * Sets the value of the campoorden property.
    *
    * @param value allowed object is {@link String }
    *
@@ -130,7 +130,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad idbusqueda.
+   * Gets the value of the idbusqueda property.
    *
    * @return possible object is {@link String }
    *
@@ -140,7 +140,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad idbusqueda.
+   * Sets the value of the idbusqueda property.
    *
    * @param value allowed object is {@link String }
    *
@@ -150,7 +150,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad numeropagina.
+   * Gets the value of the numeropagina property.
    *
    * @return possible object is {@link String }
    *
@@ -160,7 +160,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad numeropagina.
+   * Sets the value of the numeropagina property.
    *
    * @param value allowed object is {@link String }
    *
@@ -170,7 +170,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad numerototalpaginas.
+   * Gets the value of the numerototalpaginas property.
    *
    * @return possible object is {@link String }
    *
@@ -180,7 +180,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad numerototalpaginas.
+   * Sets the value of the numerototalpaginas property.
    *
    * @param value allowed object is {@link String }
    *
@@ -190,7 +190,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad numeroregistrospagina.
+   * Gets the value of the numeroregistrospagina property.
    *
    * @return possible object is {@link String }
    *
@@ -200,7 +200,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad numeroregistrospagina.
+   * Sets the value of the numeroregistrospagina property.
    *
    * @param value allowed object is {@link String }
    *
@@ -210,7 +210,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Obtiene el valor de la propiedad numerototalresultados.
+   * Gets the value of the numerototalresultados property.
    *
    * @return possible object is {@link String }
    *
@@ -220,7 +220,7 @@ public class IcmParametrospaginacionBlock implements Serializable, Cloneable, Co
   }
 
   /**
-   * Define el valor de la propiedad numerototalresultados.
+   * Sets the value of the numerototalresultados property.
    *
    * @param value allowed object is {@link String }
    *

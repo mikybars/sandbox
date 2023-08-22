@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GettiposhoraOutput complex type.
+ * <p>Java class for GettiposhoraOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GettiposhoraOutput"&gt;
@@ -65,7 +65,7 @@ public class GettiposhoraOutput implements Serializable, Cloneable, CopyTo2, Equ
   protected IcmListatiposhoraBlock icmListatiposhora;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GettiposhoraOutput implements Serializable, Cloneable, CopyTo2, Equ
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GettiposhoraOutput implements Serializable, Cloneable, CopyTo2, Equ
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListatiposhora.
+   * Gets the value of the icmListatiposhora property.
    *
    * @return possible object is {@link IcmListatiposhoraBlock }
    *
@@ -115,7 +115,7 @@ public class GettiposhoraOutput implements Serializable, Cloneable, CopyTo2, Equ
   }
 
   /**
-   * Define el valor de la propiedad icmListatiposhora.
+   * Sets the value of the icmListatiposhora property.
    *
    * @param value allowed object is {@link IcmListatiposhoraBlock }
    *

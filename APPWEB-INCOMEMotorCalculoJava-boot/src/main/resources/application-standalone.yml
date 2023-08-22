@@ -987,8 +987,8 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: INCOME_CALC
-          password: '${incomecalc}'
+          user: SRVCICMCLCWSDESAX
+          password: '${SRVCICMCLCWSDESAX}'
           #          user: SRVCICMCLCWSDESAX
           #          password: '${SRVCICMCLCWSDESAX}'
           #          user: SRVCICMCLCWSPREAX
@@ -1312,3 +1312,13 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
+          getEstadoWloc:
+            page:
+              numeroPagina: 1
+              numeroRegistrosPagina: 50
+              tipoOrden: DESC
+              campoOrden: idOrigen
+            filter:
+              maxPageSize: 50
+              maxPersistenceSize: 3
+              

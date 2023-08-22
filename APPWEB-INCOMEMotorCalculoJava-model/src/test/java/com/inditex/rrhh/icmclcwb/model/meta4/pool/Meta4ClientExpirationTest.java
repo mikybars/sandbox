@@ -118,7 +118,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredLoginServiceNotRetrievedLoginTest()
-      throws M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -137,7 +137,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredIcmWsCalcIncomeServiceNotRetrievedLoginTest()
-      throws M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -156,7 +156,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredFalseTest()
-      throws M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -179,7 +179,7 @@ class Meta4ClientExpirationTest {
   }
 
   @Test
-  void hasExpiredExceptionTest() throws M4SoapException_Exception {
+  void hasExpiredExceptionTest() throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
     session.setLogin(true);

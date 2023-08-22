@@ -23,9 +23,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -53,7 +53,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
   protected int retrieveM4SessionReturn;
 
   /**
-   * Obtiene el valor de la propiedad retrieveM4SessionReturn.
+   * Gets the value of the retrieveM4SessionReturn property.
    *
    */
   public int getRetrieveM4SessionReturn() {
@@ -61,7 +61,7 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
   }
 
   /**
-   * Define el valor de la propiedad retrieveM4SessionReturn.
+   * Sets the value of the retrieveM4SessionReturn property.
    *
    */
   public void setRetrieveM4SessionReturn(int value) {

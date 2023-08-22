@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class GETCADENAResponse implements Serializable, Cloneable, CopyTo2, Equa
   protected GetcadenaOutput getcadenaReturn;
 
   /**
-   * Obtiene el valor de la propiedad getcadenaReturn.
+   * Gets the value of the getcadenaReturn property.
    *
    * @return possible object is {@link GetcadenaOutput }
    *
@@ -65,7 +65,7 @@ public class GETCADENAResponse implements Serializable, Cloneable, CopyTo2, Equa
   }
 
   /**
-   * Define el valor de la propiedad getcadenaReturn.
+   * Sets the value of the getcadenaReturn property.
    *
    * @param value allowed object is {@link GetcadenaOutput }
    *

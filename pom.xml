@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <version>4.56.0</version>
+  <version>4.57.0</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 
@@ -26,7 +26,7 @@
     <maven.test.skip>false</maven.test.skip>
     <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
     <sonar.exclusions>**/model/meta4/icmwscalcincome/entity/**,**/model/meta4/login/entity/**,**/resources/*.md,**/resources/*.sql</sonar.exclusions>
-    <amiga-javaformat.version>2.3.1</amiga-javaformat.version>
+    <amiga-javaformat.version>2.7.0</amiga-javaformat.version>
     <junit-jupiter-params.version>5.6.3</junit-jupiter-params.version>
     <test-framework-randomizer.version>3.3.0</test-framework-randomizer.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>

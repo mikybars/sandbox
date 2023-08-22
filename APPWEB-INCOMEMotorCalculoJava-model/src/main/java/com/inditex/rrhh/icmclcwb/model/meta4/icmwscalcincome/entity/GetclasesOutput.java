@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetclasesOutput complex type.
+ * <p>Java class for GetclasesOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetclasesOutput"&gt;
@@ -65,7 +65,7 @@ public class GetclasesOutput implements Serializable, Cloneable, CopyTo2, Equals
   protected IcmListaclasesBlock icmListaclases;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetclasesOutput implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetclasesOutput implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListaclases.
+   * Gets the value of the icmListaclases property.
    *
    * @return possible object is {@link IcmListaclasesBlock }
    *
@@ -115,7 +115,7 @@ public class GetclasesOutput implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmListaclases.
+   * Sets the value of the icmListaclases property.
    *
    * @param value allowed object is {@link IcmListaclasesBlock }
    *

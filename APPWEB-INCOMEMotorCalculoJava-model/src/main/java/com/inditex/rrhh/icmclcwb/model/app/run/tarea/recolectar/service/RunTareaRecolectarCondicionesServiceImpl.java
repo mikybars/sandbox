@@ -102,6 +102,10 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
 
+      final CompletableFuture<Void> cfEstadoWloc = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+          .estadoWlocByRunTarea(runTarea);
+      AsyncUtils.exceptionally(cfEstadoWloc, cf, cfWait);
+
       final CompletableFuture<Void> cfConfiguracionesOrganizacion = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
           .configuracionesByRunTarea(runTarea);
       AsyncUtils.exceptionally(cfConfiguracionesOrganizacion, cf, cfWait);

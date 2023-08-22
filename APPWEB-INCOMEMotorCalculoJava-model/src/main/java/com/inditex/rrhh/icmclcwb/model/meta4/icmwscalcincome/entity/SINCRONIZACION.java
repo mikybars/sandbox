@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
   protected IcmParamcalsincroBlock icmparamcalsincro;
 
   /**
-   * Obtiene el valor de la propiedad icmparamcalsincro.
+   * Gets the value of the icmparamcalsincro property.
    *
    * @return possible object is {@link IcmParamcalsincroBlock }
    *
@@ -65,7 +65,7 @@ public class SINCRONIZACION implements Serializable, Cloneable, CopyTo2, Equals2
   }
 
   /**
-   * Define el valor de la propiedad icmparamcalsincro.
+   * Sets the value of the icmparamcalsincro property.
    *
    * @param value allowed object is {@link IcmParamcalsincroBlock }
    *

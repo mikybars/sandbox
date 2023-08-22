@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ParamcaltiposhoraBlock complex type.
+ * <p>Java class for Icm_ParamcaltiposhoraBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcaltiposhoraBlock"&gt;
@@ -60,7 +60,7 @@ public class IcmParamcaltiposhoraBlock implements Serializable, Cloneable, CopyT
   protected List<IcmParamcaltiposhoraRecord> icmParamcaltiposhoraRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad idorigen.
+   * Gets the value of the idorigen property.
    *
    * @return possible object is {@link String }
    *
@@ -70,7 +70,7 @@ public class IcmParamcaltiposhoraBlock implements Serializable, Cloneable, CopyT
   }
 
   /**
-   * Define el valor de la propiedad idorigen.
+   * Sets the value of the idorigen property.
    *
    * @param value allowed object is {@link String }
    *

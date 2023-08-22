@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ListaseccionesBlock complex type.
+ * <p>Java class for Icm_ListaseccionesBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ListaseccionesBlock"&gt;
@@ -65,7 +65,7 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
   protected List<IcmListaseccionesRecord> icmListaseccionesRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad fecha.
+   * Gets the value of the fecha property.
    *
    * @return possible object is {@link String }
    *
@@ -75,7 +75,7 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Define el valor de la propiedad fecha.
+   * Sets the value of the fecha property.
    *
    * @param value allowed object is {@link String }
    *
@@ -85,7 +85,7 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Obtiene el valor de la propiedad idempleado.
+   * Gets the value of the idempleado property.
    *
    * @return possible object is {@link String }
    *
@@ -95,7 +95,7 @@ public class IcmListaseccionesBlock implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Define el valor de la propiedad idempleado.
+   * Sets the value of the idempleado property.
    *
    * @param value allowed object is {@link String }
    *
