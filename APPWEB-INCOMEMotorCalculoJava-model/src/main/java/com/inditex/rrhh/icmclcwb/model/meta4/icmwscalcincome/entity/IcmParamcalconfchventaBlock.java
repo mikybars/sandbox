@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_ParamcalconfchventaBlock complex type.
+ * <p>Java class for Icm_ParamcalconfchventaBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_ParamcalconfchventaBlock"&gt;
@@ -75,7 +75,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   protected List<IcmParamcalconfchventaRecord> icmParamcalconfchventaRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad fechafin.
+   * Gets the value of the fechafin property.
    *
    * @return possible object is {@link String }
    *
@@ -85,7 +85,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad fechafin.
+   * Sets the value of the fechafin property.
    *
    * @param value allowed object is {@link String }
    *
@@ -95,7 +95,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Obtiene el valor de la propiedad idcadena.
+   * Gets the value of the idcadena property.
    *
    * @return possible object is {@link String }
    *
@@ -105,7 +105,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad idcadena.
+   * Sets the value of the idcadena property.
    *
    * @param value allowed object is {@link String }
    *
@@ -115,7 +115,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Obtiene el valor de la propiedad idorigen.
+   * Gets the value of the idorigen property.
    *
    * @return possible object is {@link String }
    *
@@ -125,7 +125,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad idorigen.
+   * Sets the value of the idorigen property.
    *
    * @param value allowed object is {@link String }
    *
@@ -135,7 +135,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Obtiene el valor de la propiedad fechainicio.
+   * Gets the value of the fechainicio property.
    *
    * @return possible object is {@link String }
    *
@@ -145,7 +145,7 @@ public class IcmParamcalconfchventaBlock implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad fechainicio.
+   * Sets the value of the fechainicio property.
    *
    * @param value allowed object is {@link String }
    *

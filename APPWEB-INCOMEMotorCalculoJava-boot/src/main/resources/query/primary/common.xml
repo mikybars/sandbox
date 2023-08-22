@@ -10334,4 +10334,11 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     ]]>
   </entry>
 
+  <entry key="TareaLocalizacionEstadoRepositoryCustom.save">
+    <![CDATA[
+      INSERT INTO TAREA_LOCALIZACION_ESTADO (FECHA_FIN, FECHA_INICIO, STD_ID_LEG_ENT, CCL_ID_ORIGEN, STD_ID_WORK_LOCAT, CCL_ID_SECCION, ICM_ID_ESTADO, ID_TAREA)
+      VALUES(:fechaFin, :fechaInicio, :stdIdLegEnt, :cclIdOrigen, :stdIdWorkLocat, :cclIdSeccion, :icmIdEstado, :tarea.id)
+    ]]>
+  </entry>
+
 </properties>

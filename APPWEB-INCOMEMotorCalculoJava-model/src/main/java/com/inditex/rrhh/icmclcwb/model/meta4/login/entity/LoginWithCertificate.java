@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -60,7 +60,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
   protected String aiSSessionContex;
 
   /**
-   * Obtiene el valor de la propiedad aiSCertificate.
+   * Gets the value of the aiSCertificate property.
    *
    * @return possible object is {@link String }
    *
@@ -70,7 +70,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Define el valor de la propiedad aiSCertificate.
+   * Sets the value of the aiSCertificate property.
    *
    * @param value allowed object is {@link String }
    *
@@ -80,7 +80,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Obtiene el valor de la propiedad aiSSessionContex.
+   * Gets the value of the aiSSessionContex property.
    *
    * @return possible object is {@link String }
    *
@@ -90,7 +90,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Define el valor de la propiedad aiSSessionContex.
+   * Sets the value of the aiSSessionContex property.
    *
    * @param value allowed object is {@link String }
    *

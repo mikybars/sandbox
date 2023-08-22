@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
   protected GetperiodosOutput getperiodosReturn;
 
   /**
-   * Obtiene el valor de la propiedad getperiodosReturn.
+   * Gets the value of the getperiodosReturn property.
    *
    * @return possible object is {@link GetperiodosOutput }
    *
@@ -65,7 +65,7 @@ public class GETPERIODOSResponse implements Serializable, Cloneable, CopyTo2, Eq
   }
 
   /**
-   * Define el valor de la propiedad getperiodosReturn.
+   * Sets the value of the getperiodosReturn property.
    *
    * @param value allowed object is {@link GetperiodosOutput }
    *

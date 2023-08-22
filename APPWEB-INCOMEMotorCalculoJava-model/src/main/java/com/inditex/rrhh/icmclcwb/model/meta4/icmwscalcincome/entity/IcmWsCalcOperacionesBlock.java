@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_Ws_Calc_OperacionesBlock complex type.
+ * <p>Java class for Icm_Ws_Calc_OperacionesBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_Ws_Calc_OperacionesBlock"&gt;
@@ -60,7 +60,7 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
   protected List<IcmWsCalcOperacionesRecord> icmWsCalcOperacionesRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad icmPTrace.
+   * Gets the value of the icmPTrace property.
    *
    * @return possible object is {@link String }
    *
@@ -70,7 +70,7 @@ public class IcmWsCalcOperacionesBlock implements Serializable, Cloneable, CopyT
   }
 
   /**
-   * Define el valor de la propiedad icmPTrace.
+   * Sets the value of the icmPTrace property.
    *
    * @param value allowed object is {@link String }
    *

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -515,7 +516,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asConfPrecioHoraResultItemDto(this.icmListaconfpreciohoraRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -536,7 +537,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asGenericTiendaResultItemDtos(this.icmListatiendasRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -551,7 +552,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asGenericTiendaResultItemDtos(this.icmListatiendasRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -629,7 +630,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asGenericEmpleadoResultItemDtos(this.icmListaempleadosRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
 
   }
 
@@ -648,7 +649,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asGenericEmpleadoResultItemDtos(this.icmListaempleadosRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
 
   }
 
@@ -671,7 +672,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asAusenciasResultItemDtos(this.icmListaausenciasRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -686,7 +687,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asAusenciasResultItemDtos(this.icmListaausenciasRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -720,7 +721,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asGenericEmpleadoResultItemDtosSearchEmpleados(this.icmListaempleadoRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -729,7 +730,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asTiendaOnlineResultItemDto(this.icmListatiendasRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -1018,7 +1019,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asPresenciaManualWlocResultItemDto(this.icmListapresenciamanwlocRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -1037,7 +1038,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asPresenciaManualWlocResultItemDto(this.icmListapresenciamanwlocRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -1052,7 +1053,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asVentaManualWlocResultItemDto(this.icmListaventamanwlocRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -1071,7 +1072,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asVentaManualWlocResultItemDto(this.icmListaventamanwlocRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -1155,7 +1156,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asListaCondicionesBaseResultItemDto(this.icmListacondicionesbaseRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -1213,7 +1214,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asListaCondicionesDestinoResultItemDto(this.icmListacondicionesdestinoRecordList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @BeforeEach
@@ -1323,7 +1324,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
         .asEstructurasComResultItemDtos(this.icmListaestructuraRecordlist);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
   @Test

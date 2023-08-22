@@ -23,9 +23,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para M4loginOutput complex type.
+ * <p>Java class for M4loginOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="M4loginOutput"&gt;
@@ -53,7 +53,7 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   protected String sessionID;
 
   /**
-   * Obtiene el valor de la propiedad sessionID.
+   * Gets the value of the sessionID property.
    *
    * @return possible object is {@link String }
    *
@@ -63,7 +63,7 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   /**
-   * Define el valor de la propiedad sessionID.
+   * Sets the value of the sessionID property.
    *
    * @param value allowed object is {@link String }
    *

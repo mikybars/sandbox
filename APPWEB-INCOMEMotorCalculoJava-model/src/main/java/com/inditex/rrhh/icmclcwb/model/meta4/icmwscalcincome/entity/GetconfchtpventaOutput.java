@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetconfchtpventaOutput complex type.
+ * <p>Java class for GetconfchtpventaOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetconfchtpventaOutput"&gt;
@@ -65,7 +65,7 @@ public class GetconfchtpventaOutput implements Serializable, Cloneable, CopyTo2,
   protected IcmListaconfchventaBlock icmListaconfchventa;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetconfchtpventaOutput implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetconfchtpventaOutput implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListaconfchventa.
+   * Gets the value of the icmListaconfchventa property.
    *
    * @return possible object is {@link IcmListaconfchventaBlock }
    *
@@ -115,7 +115,7 @@ public class GetconfchtpventaOutput implements Serializable, Cloneable, CopyTo2,
   }
 
   /**
-   * Define el valor de la propiedad icmListaconfchventa.
+   * Sets the value of the icmListaconfchventa property.
    *
    * @param value allowed object is {@link IcmListaconfchventaBlock }
    *

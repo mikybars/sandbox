@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class GETMAIL implements Serializable, Cloneable, CopyTo2, Equals2, HashC
   protected IcmParamcalusuarioBlock icmparamcalusuario;
 
   /**
-   * Obtiene el valor de la propiedad icmparamcalusuario.
+   * Gets the value of the icmparamcalusuario property.
    *
    * @return possible object is {@link IcmParamcalusuarioBlock }
    *
@@ -65,7 +65,7 @@ public class GETMAIL implements Serializable, Cloneable, CopyTo2, Equals2, HashC
   }
 
   /**
-   * Define el valor de la propiedad icmparamcalusuario.
+   * Sets the value of the icmparamcalusuario property.
    *
    * @param value allowed object is {@link IcmParamcalusuarioBlock }
    *

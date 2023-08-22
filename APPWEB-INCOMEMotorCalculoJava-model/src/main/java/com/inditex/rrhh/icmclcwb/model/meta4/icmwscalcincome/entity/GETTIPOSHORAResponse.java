@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
   protected GettiposhoraOutput gettiposhoraReturn;
 
   /**
-   * Obtiene el valor de la propiedad gettiposhoraReturn.
+   * Gets the value of the gettiposhoraReturn property.
    *
    * @return possible object is {@link GettiposhoraOutput }
    *
@@ -65,7 +65,7 @@ public class GETTIPOSHORAResponse implements Serializable, Cloneable, CopyTo2, E
   }
 
   /**
-   * Define el valor de la propiedad gettiposhoraReturn.
+   * Sets the value of the gettiposhoraReturn property.
    *
    * @param value allowed object is {@link GettiposhoraOutput }
    *

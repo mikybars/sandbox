@@ -95,4 +95,6 @@ public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
   void tiposHoraByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
       @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto);
 
+  void estadoWlocByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea,
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 }

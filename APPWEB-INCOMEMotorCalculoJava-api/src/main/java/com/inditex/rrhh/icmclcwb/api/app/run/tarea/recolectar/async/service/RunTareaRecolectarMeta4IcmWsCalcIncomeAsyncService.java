@@ -67,4 +67,6 @@ public interface RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService {
 
   CompletableFuture<Void> tiposHoraByRunTarea(final RunTareaDto runTarea);
 
+  CompletableFuture<Void> estadoWlocByRunTarea(
+      RunTareaDto runTarea);
 }

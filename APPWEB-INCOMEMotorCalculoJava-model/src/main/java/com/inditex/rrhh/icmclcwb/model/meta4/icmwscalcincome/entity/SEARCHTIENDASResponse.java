@@ -24,9 +24,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para anonymous complex type.
+ * <p>Java class for anonymous complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType&gt;
@@ -55,7 +55,7 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
   protected SearchtiendasOutput searchtiendasReturn;
 
   /**
-   * Obtiene el valor de la propiedad searchtiendasReturn.
+   * Gets the value of the searchtiendasReturn property.
    *
    * @return possible object is {@link SearchtiendasOutput }
    *
@@ -65,7 +65,7 @@ public class SEARCHTIENDASResponse implements Serializable, Cloneable, CopyTo2, 
   }
 
   /**
-   * Define el valor de la propiedad searchtiendasReturn.
+   * Sets the value of the searchtiendasReturn property.
    *
    * @param value allowed object is {@link SearchtiendasOutput }
    *

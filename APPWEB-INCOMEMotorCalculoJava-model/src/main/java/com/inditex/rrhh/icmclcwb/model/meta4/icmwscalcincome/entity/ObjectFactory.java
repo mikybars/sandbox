@@ -28,43 +28,35 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link GETCADENA }
+   * Create an instance of {@link GETCONFPRECIOHORA }
    *
    */
-  public GETCADENA createGETCADENA() {
-    return new GETCADENA();
+  public GETCONFPRECIOHORA createGETCONFPRECIOHORA() {
+    return new GETCONFPRECIOHORA();
   }
 
   /**
-   * Create an instance of {@link IcmParamcalcadenaBlock }
+   * Create an instance of {@link IcmParamcalconfpreciohoraBlock }
    *
    */
-  public IcmParamcalcadenaBlock createIcmParamcalcadenaBlock() {
-    return new IcmParamcalcadenaBlock();
+  public IcmParamcalconfpreciohoraBlock createIcmParamcalconfpreciohoraBlock() {
+    return new IcmParamcalconfpreciohoraBlock();
   }
 
   /**
-   * Create an instance of {@link IcmParametrospaginacionBlock }
+   * Create an instance of {@link GETCONFPRECIOHORAResponse }
    *
    */
-  public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
-    return new IcmParametrospaginacionBlock();
+  public GETCONFPRECIOHORAResponse createGETCONFPRECIOHORAResponse() {
+    return new GETCONFPRECIOHORAResponse();
   }
 
   /**
-   * Create an instance of {@link GETCADENAResponse }
+   * Create an instance of {@link GetconfpreciohoraOutput }
    *
    */
-  public GETCADENAResponse createGETCADENAResponse() {
-    return new GETCADENAResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetcadenaOutput }
-   *
-   */
-  public GetcadenaOutput createGetcadenaOutput() {
-    return new GetcadenaOutput();
+  public GetconfpreciohoraOutput createGetconfpreciohoraOutput() {
+    return new GetconfpreciohoraOutput();
   }
 
   /**
@@ -73,38 +65,6 @@ public class ObjectFactory {
    */
   public M4SoapException createM4SoapException() {
     return new M4SoapException();
-  }
-
-  /**
-   * Create an instance of {@link GETMAIL }
-   *
-   */
-  public GETMAIL createGETMAIL() {
-    return new GETMAIL();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalusuarioBlock }
-   *
-   */
-  public IcmParamcalusuarioBlock createIcmParamcalusuarioBlock() {
-    return new IcmParamcalusuarioBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETMAILResponse }
-   *
-   */
-  public GETMAILResponse createGETMAILResponse() {
-    return new GETMAILResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetmailOutput }
-   *
-   */
-  public GetmailOutput createGetmailOutput() {
-    return new GetmailOutput();
   }
 
   /**
@@ -177,6 +137,14 @@ public class ObjectFactory {
    */
   public IcmParamcalventacongeladaBlock createIcmParamcalventacongeladaBlock() {
     return new IcmParamcalventacongeladaBlock();
+  }
+
+  /**
+   * Create an instance of {@link IcmParametrospaginacionBlock }
+   *
+   */
+  public IcmParametrospaginacionBlock createIcmParametrospaginacionBlock() {
+    return new IcmParametrospaginacionBlock();
   }
 
   /**
@@ -388,518 +356,6 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link GETPRESUPUESTOSRANGO }
-   *
-   */
-  public GETPRESUPUESTOSRANGO createGETPRESUPUESTOSRANGO() {
-    return new GETPRESUPUESTOSRANGO();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalpresupuestosrangoBlock }
-   *
-   */
-  public IcmParamcalpresupuestosrangoBlock createIcmParamcalpresupuestosrangoBlock() {
-    return new IcmParamcalpresupuestosrangoBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETPRESUPUESTOSRANGOResponse }
-   *
-   */
-  public GETPRESUPUESTOSRANGOResponse createGETPRESUPUESTOSRANGOResponse() {
-    return new GETPRESUPUESTOSRANGOResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetpresupuestosrangoOutput }
-   *
-   */
-  public GetpresupuestosrangoOutput createGetpresupuestosrangoOutput() {
-    return new GetpresupuestosrangoOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPLEADOSPRESENCIA }
-   *
-   */
-  public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
-    return new GETEMPLEADOSPRESENCIA();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalempleadospresenciaBlock }
-   *
-   */
-  public IcmParamcalempleadospresenciaBlock createIcmParamcalempleadospresenciaBlock() {
-    return new IcmParamcalempleadospresenciaBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPLEADOSPRESENCIAResponse }
-   *
-   */
-  public GETEMPLEADOSPRESENCIAResponse createGETEMPLEADOSPRESENCIAResponse() {
-    return new GETEMPLEADOSPRESENCIAResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetempleadospresenciaOutput }
-   *
-   */
-  public GetempleadospresenciaOutput createGetempleadospresenciaOutput() {
-    return new GetempleadospresenciaOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETDESPLAZMULTIEMPRESA }
-   *
-   */
-  public GETDESPLAZMULTIEMPRESA createGETDESPLAZMULTIEMPRESA() {
-    return new GETDESPLAZMULTIEMPRESA();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalmultiempresaBlock }
-   *
-   */
-  public IcmParamcalmultiempresaBlock createIcmParamcalmultiempresaBlock() {
-    return new IcmParamcalmultiempresaBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETDESPLAZMULTIEMPRESAResponse }
-   *
-   */
-  public GETDESPLAZMULTIEMPRESAResponse createGETDESPLAZMULTIEMPRESAResponse() {
-    return new GETDESPLAZMULTIEMPRESAResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetdesplazmultiempresaOutput }
-   *
-   */
-  public GetdesplazmultiempresaOutput createGetdesplazmultiempresaOutput() {
-    return new GetdesplazmultiempresaOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETPRESENCIAMANUALWLOC }
-   *
-   */
-  public GETPRESENCIAMANUALWLOC createGETPRESENCIAMANUALWLOC() {
-    return new GETPRESENCIAMANUALWLOC();
-  }
-
-  /**
-   * Create an instance of {@link GETPRESENCIAMANUALWLOCResponse }
-   *
-   */
-  public GETPRESENCIAMANUALWLOCResponse createGETPRESENCIAMANUALWLOCResponse() {
-    return new GETPRESENCIAMANUALWLOCResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetpresenciamanualwlocOutput }
-   *
-   */
-  public GetpresenciamanualwlocOutput createGetpresenciamanualwlocOutput() {
-    return new GetpresenciamanualwlocOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETMOTIVOSDESPLAZAMIENTO }
-   *
-   */
-  public GETMOTIVOSDESPLAZAMIENTO createGETMOTIVOSDESPLAZAMIENTO() {
-    return new GETMOTIVOSDESPLAZAMIENTO();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalmotivosBlock }
-   *
-   */
-  public IcmParamcalmotivosBlock createIcmParamcalmotivosBlock() {
-    return new IcmParamcalmotivosBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETMOTIVOSDESPLAZAMIENTOResponse }
-   *
-   */
-  public GETMOTIVOSDESPLAZAMIENTOResponse createGETMOTIVOSDESPLAZAMIENTOResponse() {
-    return new GETMOTIVOSDESPLAZAMIENTOResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetmotivosdesplazamientoOutput }
-   *
-   */
-  public GetmotivosdesplazamientoOutput createGetmotivosdesplazamientoOutput() {
-    return new GetmotivosdesplazamientoOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPRESAS }
-   *
-   */
-  public GETEMPRESAS createGETEMPRESAS() {
-    return new GETEMPRESAS();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalorigenBlock }
-   *
-   */
-  public IcmParamcalorigenBlock createIcmParamcalorigenBlock() {
-    return new IcmParamcalorigenBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPRESASResponse }
-   *
-   */
-  public GETEMPRESASResponse createGETEMPRESASResponse() {
-    return new GETEMPRESASResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetempresasOutput }
-   *
-   */
-  public GetempresasOutput createGetempresasOutput() {
-    return new GetempresasOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETFESTIVOS }
-   *
-   */
-  public GETFESTIVOS createGETFESTIVOS() {
-    return new GETFESTIVOS();
-  }
-
-  /**
-   * Create an instance of {@link GETFESTIVOSResponse }
-   *
-   */
-  public GETFESTIVOSResponse createGETFESTIVOSResponse() {
-    return new GETFESTIVOSResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetfestivosOutput }
-   *
-   */
-  public GetfestivosOutput createGetfestivosOutput() {
-    return new GetfestivosOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETORIGENES }
-   *
-   */
-  public GETORIGENES createGETORIGENES() {
-    return new GETORIGENES();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalsociedadBlock }
-   *
-   */
-  public IcmParamcalsociedadBlock createIcmParamcalsociedadBlock() {
-    return new IcmParamcalsociedadBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETORIGENESResponse }
-   *
-   */
-  public GETORIGENESResponse createGETORIGENESResponse() {
-    return new GETORIGENESResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetorigenesOutput }
-   *
-   */
-  public GetorigenesOutput createGetorigenesOutput() {
-    return new GetorigenesOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETCONFPRECIOHORA }
-   *
-   */
-  public GETCONFPRECIOHORA createGETCONFPRECIOHORA() {
-    return new GETCONFPRECIOHORA();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalconfpreciohoraBlock }
-   *
-   */
-  public IcmParamcalconfpreciohoraBlock createIcmParamcalconfpreciohoraBlock() {
-    return new IcmParamcalconfpreciohoraBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETCONFPRECIOHORAResponse }
-   *
-   */
-  public GETCONFPRECIOHORAResponse createGETCONFPRECIOHORAResponse() {
-    return new GETCONFPRECIOHORAResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetconfpreciohoraOutput }
-   *
-   */
-  public GetconfpreciohoraOutput createGetconfpreciohoraOutput() {
-    return new GetconfpreciohoraOutput();
-  }
-
-  /**
-   * Create an instance of {@link LIQUIDACION }
-   *
-   */
-  public LIQUIDACION createLIQUIDACION() {
-    return new LIQUIDACION();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalliquidacionBlock }
-   *
-   */
-  public IcmParamcalliquidacionBlock createIcmParamcalliquidacionBlock() {
-    return new IcmParamcalliquidacionBlock();
-  }
-
-  /**
-   * Create an instance of {@link LIQUIDACIONResponse }
-   *
-   */
-  public LIQUIDACIONResponse createLIQUIDACIONResponse() {
-    return new LIQUIDACIONResponse();
-  }
-
-  /**
-   * Create an instance of {@link LiquidacionOutput }
-   *
-   */
-  public LiquidacionOutput createLiquidacionOutput() {
-    return new LiquidacionOutput();
-  }
-
-  /**
-   * Create an instance of {@link SAVEPROCESO }
-   *
-   */
-  public SAVEPROCESO createSAVEPROCESO() {
-    return new SAVEPROCESO();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalprocesoBlock }
-   *
-   */
-  public IcmParamcalprocesoBlock createIcmParamcalprocesoBlock() {
-    return new IcmParamcalprocesoBlock();
-  }
-
-  /**
-   * Create an instance of {@link SAVEPROCESOResponse }
-   *
-   */
-  public SAVEPROCESOResponse createSAVEPROCESOResponse() {
-    return new SAVEPROCESOResponse();
-  }
-
-  /**
-   * Create an instance of {@link SaveprocesoOutput }
-   *
-   */
-  public SaveprocesoOutput createSaveprocesoOutput() {
-    return new SaveprocesoOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETAUSENCIAS }
-   *
-   */
-  public GETAUSENCIAS createGETAUSENCIAS() {
-    return new GETAUSENCIAS();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalempleadoBlock }
-   *
-   */
-  public IcmParamcalempleadoBlock createIcmParamcalempleadoBlock() {
-    return new IcmParamcalempleadoBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETAUSENCIASResponse }
-   *
-   */
-  public GETAUSENCIASResponse createGETAUSENCIASResponse() {
-    return new GETAUSENCIASResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetausenciasOutput }
-   *
-   */
-  public GetausenciasOutput createGetausenciasOutput() {
-    return new GetausenciasOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPLEADOS }
-   *
-   */
-  public GETEMPLEADOS createGETEMPLEADOS() {
-    return new GETEMPLEADOS();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalempleadosBlock }
-   *
-   */
-  public IcmParamcalempleadosBlock createIcmParamcalempleadosBlock() {
-    return new IcmParamcalempleadosBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETEMPLEADOSResponse }
-   *
-   */
-  public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
-    return new GETEMPLEADOSResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetempleadosOutput }
-   *
-   */
-  public GetempleadosOutput createGetempleadosOutput() {
-    return new GetempleadosOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETTIPOSHORA }
-   *
-   */
-  public GETTIPOSHORA createGETTIPOSHORA() {
-    return new GETTIPOSHORA();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcaltiposhoraBlock }
-   *
-   */
-  public IcmParamcaltiposhoraBlock createIcmParamcaltiposhoraBlock() {
-    return new IcmParamcaltiposhoraBlock();
-  }
-
-  /**
-   * Create an instance of {@link GETTIPOSHORAResponse }
-   *
-   */
-  public GETTIPOSHORAResponse createGETTIPOSHORAResponse() {
-    return new GETTIPOSHORAResponse();
-  }
-
-  /**
-   * Create an instance of {@link GettiposhoraOutput }
-   *
-   */
-  public GettiposhoraOutput createGettiposhoraOutput() {
-    return new GettiposhoraOutput();
-  }
-
-  /**
-   * Create an instance of {@link PLANIFICACION }
-   *
-   */
-  public PLANIFICACION createPLANIFICACION() {
-    return new PLANIFICACION();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalplanificadorBlock }
-   *
-   */
-  public IcmParamcalplanificadorBlock createIcmParamcalplanificadorBlock() {
-    return new IcmParamcalplanificadorBlock();
-  }
-
-  /**
-   * Create an instance of {@link PLANIFICACIONResponse }
-   *
-   */
-  public PLANIFICACIONResponse createPLANIFICACIONResponse() {
-    return new PLANIFICACIONResponse();
-  }
-
-  /**
-   * Create an instance of {@link PlanificacionOutput }
-   *
-   */
-  public PlanificacionOutput createPlanificacionOutput() {
-    return new PlanificacionOutput();
-  }
-
-  /**
-   * Create an instance of {@link SEARCHTIENDAS }
-   *
-   */
-  public SEARCHTIENDAS createSEARCHTIENDAS() {
-    return new SEARCHTIENDAS();
-  }
-
-  /**
-   * Create an instance of {@link SEARCHTIENDASResponse }
-   *
-   */
-  public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
-    return new SEARCHTIENDASResponse();
-  }
-
-  /**
-   * Create an instance of {@link SearchtiendasOutput }
-   *
-   */
-  public SearchtiendasOutput createSearchtiendasOutput() {
-    return new SearchtiendasOutput();
-  }
-
-  /**
-   * Create an instance of {@link GETAGRUPONLINE }
-   *
-   */
-  public GETAGRUPONLINE createGETAGRUPONLINE() {
-    return new GETAGRUPONLINE();
-  }
-
-  /**
-   * Create an instance of {@link GETAGRUPONLINEResponse }
-   *
-   */
-  public GETAGRUPONLINEResponse createGETAGRUPONLINEResponse() {
-    return new GETAGRUPONLINEResponse();
-  }
-
-  /**
-   * Create an instance of {@link GetagruponlineOutput }
-   *
-   */
-  public GetagruponlineOutput createGetagruponlineOutput() {
-    return new GetagruponlineOutput();
-  }
-
-  /**
    * Create an instance of {@link GETCOEFJORNADA }
    *
    */
@@ -1060,6 +516,14 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmParamcalempleadoBlock }
+   *
+   */
+  public IcmParamcalempleadoBlock createIcmParamcalempleadoBlock() {
+    return new IcmParamcalempleadoBlock();
+  }
+
+  /**
    * Create an instance of {@link SEARCHEMPLEADOSResponse }
    *
    */
@@ -1212,11 +676,171 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link GETEMPLEADOSPRESENCIA }
+   *
+   */
+  public GETEMPLEADOSPRESENCIA createGETEMPLEADOSPRESENCIA() {
+    return new GETEMPLEADOSPRESENCIA();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalempleadospresenciaBlock }
+   *
+   */
+  public IcmParamcalempleadospresenciaBlock createIcmParamcalempleadospresenciaBlock() {
+    return new IcmParamcalempleadospresenciaBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETEMPLEADOSPRESENCIAResponse }
+   *
+   */
+  public GETEMPLEADOSPRESENCIAResponse createGETEMPLEADOSPRESENCIAResponse() {
+    return new GETEMPLEADOSPRESENCIAResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetempleadospresenciaOutput }
+   *
+   */
+  public GetempleadospresenciaOutput createGetempleadospresenciaOutput() {
+    return new GetempleadospresenciaOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETDESPLAZMULTIEMPRESA }
+   *
+   */
+  public GETDESPLAZMULTIEMPRESA createGETDESPLAZMULTIEMPRESA() {
+    return new GETDESPLAZMULTIEMPRESA();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalmultiempresaBlock }
+   *
+   */
+  public IcmParamcalmultiempresaBlock createIcmParamcalmultiempresaBlock() {
+    return new IcmParamcalmultiempresaBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETDESPLAZMULTIEMPRESAResponse }
+   *
+   */
+  public GETDESPLAZMULTIEMPRESAResponse createGETDESPLAZMULTIEMPRESAResponse() {
+    return new GETDESPLAZMULTIEMPRESAResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetdesplazmultiempresaOutput }
+   *
+   */
+  public GetdesplazmultiempresaOutput createGetdesplazmultiempresaOutput() {
+    return new GetdesplazmultiempresaOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETPRESENCIAMANUALWLOC }
+   *
+   */
+  public GETPRESENCIAMANUALWLOC createGETPRESENCIAMANUALWLOC() {
+    return new GETPRESENCIAMANUALWLOC();
+  }
+
+  /**
+   * Create an instance of {@link GETPRESENCIAMANUALWLOCResponse }
+   *
+   */
+  public GETPRESENCIAMANUALWLOCResponse createGETPRESENCIAMANUALWLOCResponse() {
+    return new GETPRESENCIAMANUALWLOCResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetpresenciamanualwlocOutput }
+   *
+   */
+  public GetpresenciamanualwlocOutput createGetpresenciamanualwlocOutput() {
+    return new GetpresenciamanualwlocOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETMOTIVOSDESPLAZAMIENTO }
+   *
+   */
+  public GETMOTIVOSDESPLAZAMIENTO createGETMOTIVOSDESPLAZAMIENTO() {
+    return new GETMOTIVOSDESPLAZAMIENTO();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalmotivosBlock }
+   *
+   */
+  public IcmParamcalmotivosBlock createIcmParamcalmotivosBlock() {
+    return new IcmParamcalmotivosBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETMOTIVOSDESPLAZAMIENTOResponse }
+   *
+   */
+  public GETMOTIVOSDESPLAZAMIENTOResponse createGETMOTIVOSDESPLAZAMIENTOResponse() {
+    return new GETMOTIVOSDESPLAZAMIENTOResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetmotivosdesplazamientoOutput }
+   *
+   */
+  public GetmotivosdesplazamientoOutput createGetmotivosdesplazamientoOutput() {
+    return new GetmotivosdesplazamientoOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETCADENA }
+   *
+   */
+  public GETCADENA createGETCADENA() {
+    return new GETCADENA();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalcadenaBlock }
+   *
+   */
+  public IcmParamcalcadenaBlock createIcmParamcalcadenaBlock() {
+    return new IcmParamcalcadenaBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETCADENAResponse }
+   *
+   */
+  public GETCADENAResponse createGETCADENAResponse() {
+    return new GETCADENAResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetcadenaOutput }
+   *
+   */
+  public GetcadenaOutput createGetcadenaOutput() {
+    return new GetcadenaOutput();
+  }
+
+  /**
    * Create an instance of {@link GETCLASES }
    *
    */
   public GETCLASES createGETCLASES() {
     return new GETCLASES();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalorigenBlock }
+   *
+   */
+  public IcmParamcalorigenBlock createIcmParamcalorigenBlock() {
+    return new IcmParamcalorigenBlock();
   }
 
   /**
@@ -1268,6 +892,86 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link GETEMPRESAS }
+   *
+   */
+  public GETEMPRESAS createGETEMPRESAS() {
+    return new GETEMPRESAS();
+  }
+
+  /**
+   * Create an instance of {@link GETEMPRESASResponse }
+   *
+   */
+  public GETEMPRESASResponse createGETEMPRESASResponse() {
+    return new GETEMPRESASResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetempresasOutput }
+   *
+   */
+  public GetempresasOutput createGetempresasOutput() {
+    return new GetempresasOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETFESTIVOS }
+   *
+   */
+  public GETFESTIVOS createGETFESTIVOS() {
+    return new GETFESTIVOS();
+  }
+
+  /**
+   * Create an instance of {@link GETFESTIVOSResponse }
+   *
+   */
+  public GETFESTIVOSResponse createGETFESTIVOSResponse() {
+    return new GETFESTIVOSResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetfestivosOutput }
+   *
+   */
+  public GetfestivosOutput createGetfestivosOutput() {
+    return new GetfestivosOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETORIGENES }
+   *
+   */
+  public GETORIGENES createGETORIGENES() {
+    return new GETORIGENES();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalsociedadBlock }
+   *
+   */
+  public IcmParamcalsociedadBlock createIcmParamcalsociedadBlock() {
+    return new IcmParamcalsociedadBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETORIGENESResponse }
+   *
+   */
+  public GETORIGENESResponse createGETORIGENESResponse() {
+    return new GETORIGENESResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetorigenesOutput }
+   *
+   */
+  public GetorigenesOutput createGetorigenesOutput() {
+    return new GetorigenesOutput();
+  }
+
+  /**
    * Create an instance of {@link GETPERIODOS }
    *
    */
@@ -1300,6 +1004,102 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link LIQUIDACION }
+   *
+   */
+  public LIQUIDACION createLIQUIDACION() {
+    return new LIQUIDACION();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalliquidacionBlock }
+   *
+   */
+  public IcmParamcalliquidacionBlock createIcmParamcalliquidacionBlock() {
+    return new IcmParamcalliquidacionBlock();
+  }
+
+  /**
+   * Create an instance of {@link LIQUIDACIONResponse }
+   *
+   */
+  public LIQUIDACIONResponse createLIQUIDACIONResponse() {
+    return new LIQUIDACIONResponse();
+  }
+
+  /**
+   * Create an instance of {@link LiquidacionOutput }
+   *
+   */
+  public LiquidacionOutput createLiquidacionOutput() {
+    return new LiquidacionOutput();
+  }
+
+  /**
+   * Create an instance of {@link SAVEPROCESO }
+   *
+   */
+  public SAVEPROCESO createSAVEPROCESO() {
+    return new SAVEPROCESO();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalprocesoBlock }
+   *
+   */
+  public IcmParamcalprocesoBlock createIcmParamcalprocesoBlock() {
+    return new IcmParamcalprocesoBlock();
+  }
+
+  /**
+   * Create an instance of {@link SAVEPROCESOResponse }
+   *
+   */
+  public SAVEPROCESOResponse createSAVEPROCESOResponse() {
+    return new SAVEPROCESOResponse();
+  }
+
+  /**
+   * Create an instance of {@link SaveprocesoOutput }
+   *
+   */
+  public SaveprocesoOutput createSaveprocesoOutput() {
+    return new SaveprocesoOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETPRESUPUESTOSRANGO }
+   *
+   */
+  public GETPRESUPUESTOSRANGO createGETPRESUPUESTOSRANGO() {
+    return new GETPRESUPUESTOSRANGO();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalpresupuestosrangoBlock }
+   *
+   */
+  public IcmParamcalpresupuestosrangoBlock createIcmParamcalpresupuestosrangoBlock() {
+    return new IcmParamcalpresupuestosrangoBlock();
+  }
+
+  /**
+   * Create an instance of {@link GETPRESUPUESTOSRANGOResponse }
+   *
+   */
+  public GETPRESUPUESTOSRANGOResponse createGETPRESUPUESTOSRANGOResponse() {
+    return new GETPRESUPUESTOSRANGOResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetpresupuestosrangoOutput }
+   *
+   */
+  public GetpresupuestosrangoOutput createGetpresupuestosrangoOutput() {
+    return new GetpresupuestosrangoOutput();
+  }
+
+  /**
    * Create an instance of {@link M4LoadObject }
    *
    */
@@ -1329,6 +1129,14 @@ public class ObjectFactory {
    */
   public IcmListaclasesBlock createIcmListaclasesBlock() {
     return new IcmListaclasesBlock();
+  }
+
+  /**
+   * Create an instance of {@link IcmListaestadoBlock }
+   *
+   */
+  public IcmListaestadoBlock createIcmListaestadoBlock() {
+    return new IcmListaestadoBlock();
   }
 
   /**
@@ -1460,6 +1268,14 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmParamcalusuarioBlock }
+   *
+   */
+  public IcmParamcalusuarioBlock createIcmParamcalusuarioBlock() {
+    return new IcmParamcalusuarioBlock();
+  }
+
+  /**
    * Create an instance of {@link IcmListaconfchventaBlock }
    *
    */
@@ -1497,6 +1313,22 @@ public class ObjectFactory {
    */
   public IcmListaventamanwlocBlock createIcmListaventamanwlocBlock() {
     return new IcmListaventamanwlocBlock();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalempleadosBlock }
+   *
+   */
+  public IcmParamcalempleadosBlock createIcmParamcalempleadosBlock() {
+    return new IcmParamcalempleadosBlock();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcaltiposhoraBlock }
+   *
+   */
+  public IcmParamcaltiposhoraBlock createIcmParamcaltiposhoraBlock() {
+    return new IcmParamcaltiposhoraBlock();
   }
 
   /**
@@ -1540,6 +1372,14 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmParamcalplanificadorBlock }
+   *
+   */
+  public IcmParamcalplanificadorBlock createIcmParamcalplanificadorBlock() {
+    return new IcmParamcalplanificadorBlock();
+  }
+
+  /**
    * Create an instance of {@link IcmListapresenciamanwlocBlock }
    *
    */
@@ -1580,6 +1420,198 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link GETMAIL }
+   *
+   */
+  public GETMAIL createGETMAIL() {
+    return new GETMAIL();
+  }
+
+  /**
+   * Create an instance of {@link GETMAILResponse }
+   *
+   */
+  public GETMAILResponse createGETMAILResponse() {
+    return new GETMAILResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetmailOutput }
+   *
+   */
+  public GetmailOutput createGetmailOutput() {
+    return new GetmailOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETAUSENCIAS }
+   *
+   */
+  public GETAUSENCIAS createGETAUSENCIAS() {
+    return new GETAUSENCIAS();
+  }
+
+  /**
+   * Create an instance of {@link GETAUSENCIASResponse }
+   *
+   */
+  public GETAUSENCIASResponse createGETAUSENCIASResponse() {
+    return new GETAUSENCIASResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetausenciasOutput }
+   *
+   */
+  public GetausenciasOutput createGetausenciasOutput() {
+    return new GetausenciasOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETEMPLEADOS }
+   *
+   */
+  public GETEMPLEADOS createGETEMPLEADOS() {
+    return new GETEMPLEADOS();
+  }
+
+  /**
+   * Create an instance of {@link GETEMPLEADOSResponse }
+   *
+   */
+  public GETEMPLEADOSResponse createGETEMPLEADOSResponse() {
+    return new GETEMPLEADOSResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetempleadosOutput }
+   *
+   */
+  public GetempleadosOutput createGetempleadosOutput() {
+    return new GetempleadosOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETTIPOSHORA }
+   *
+   */
+  public GETTIPOSHORA createGETTIPOSHORA() {
+    return new GETTIPOSHORA();
+  }
+
+  /**
+   * Create an instance of {@link GETTIPOSHORAResponse }
+   *
+   */
+  public GETTIPOSHORAResponse createGETTIPOSHORAResponse() {
+    return new GETTIPOSHORAResponse();
+  }
+
+  /**
+   * Create an instance of {@link GettiposhoraOutput }
+   *
+   */
+  public GettiposhoraOutput createGettiposhoraOutput() {
+    return new GettiposhoraOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETESTADOWLOC }
+   *
+   */
+  public GETESTADOWLOC createGETESTADOWLOC() {
+    return new GETESTADOWLOC();
+  }
+
+  /**
+   * Create an instance of {@link GETESTADOWLOCResponse }
+   *
+   */
+  public GETESTADOWLOCResponse createGETESTADOWLOCResponse() {
+    return new GETESTADOWLOCResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetestadowlocOutput }
+   *
+   */
+  public GetestadowlocOutput createGetestadowlocOutput() {
+    return new GetestadowlocOutput();
+  }
+
+  /**
+   * Create an instance of {@link PLANIFICACION }
+   *
+   */
+  public PLANIFICACION createPLANIFICACION() {
+    return new PLANIFICACION();
+  }
+
+  /**
+   * Create an instance of {@link PLANIFICACIONResponse }
+   *
+   */
+  public PLANIFICACIONResponse createPLANIFICACIONResponse() {
+    return new PLANIFICACIONResponse();
+  }
+
+  /**
+   * Create an instance of {@link PlanificacionOutput }
+   *
+   */
+  public PlanificacionOutput createPlanificacionOutput() {
+    return new PlanificacionOutput();
+  }
+
+  /**
+   * Create an instance of {@link SEARCHTIENDAS }
+   *
+   */
+  public SEARCHTIENDAS createSEARCHTIENDAS() {
+    return new SEARCHTIENDAS();
+  }
+
+  /**
+   * Create an instance of {@link SEARCHTIENDASResponse }
+   *
+   */
+  public SEARCHTIENDASResponse createSEARCHTIENDASResponse() {
+    return new SEARCHTIENDASResponse();
+  }
+
+  /**
+   * Create an instance of {@link SearchtiendasOutput }
+   *
+   */
+  public SearchtiendasOutput createSearchtiendasOutput() {
+    return new SearchtiendasOutput();
+  }
+
+  /**
+   * Create an instance of {@link GETAGRUPONLINE }
+   *
+   */
+  public GETAGRUPONLINE createGETAGRUPONLINE() {
+    return new GETAGRUPONLINE();
+  }
+
+  /**
+   * Create an instance of {@link GETAGRUPONLINEResponse }
+   *
+   */
+  public GETAGRUPONLINEResponse createGETAGRUPONLINEResponse() {
+    return new GETAGRUPONLINEResponse();
+  }
+
+  /**
+   * Create an instance of {@link GetagruponlineOutput }
+   *
+   */
+  public GetagruponlineOutput createGetagruponlineOutput() {
+    return new GetagruponlineOutput();
+  }
+
+  /**
    * Create an instance of {@link RetrieveM4Session }
    *
    */
@@ -1596,19 +1628,11 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmParamcalcadenaRecord }
+   * Create an instance of {@link IcmParamcalconfpreciohoraRecord }
    *
    */
-  public IcmParamcalcadenaRecord createIcmParamcalcadenaRecord() {
-    return new IcmParamcalcadenaRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParametrospaginacionRecord }
-   *
-   */
-  public IcmParametrospaginacionRecord createIcmParametrospaginacionRecord() {
-    return new IcmParametrospaginacionRecord();
+  public IcmParamcalconfpreciohoraRecord createIcmParamcalconfpreciohoraRecord() {
+    return new IcmParamcalconfpreciohoraRecord();
   }
 
   /**
@@ -1620,27 +1644,11 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmListacadenasRecord }
+   * Create an instance of {@link IcmListaconfpreciohoraRecord }
    *
    */
-  public IcmListacadenasRecord createIcmListacadenasRecord() {
-    return new IcmListacadenasRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalusuarioRecord }
-   *
-   */
-  public IcmParamcalusuarioRecord createIcmParamcalusuarioRecord() {
-    return new IcmParamcalusuarioRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListamailRecord }
-   *
-   */
-  public IcmListamailRecord createIcmListamailRecord() {
-    return new IcmListamailRecord();
+  public IcmListaconfpreciohoraRecord createIcmListaconfpreciohoraRecord() {
+    return new IcmListaconfpreciohoraRecord();
   }
 
   /**
@@ -1804,6 +1812,14 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmParametrospaginacionRecord }
+   *
+   */
+  public IcmParametrospaginacionRecord createIcmParametrospaginacionRecord() {
+    return new IcmParametrospaginacionRecord();
+  }
+
+  /**
    * Create an instance of {@link IcmListaventacongeladaRecord }
    *
    */
@@ -1932,19 +1948,115 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmParamcalpresupuestosrangoRecord }
+   * Create an instance of {@link IcmParamcaldesplazrealRecord }
    *
    */
-  public IcmParamcalpresupuestosrangoRecord createIcmParamcalpresupuestosrangoRecord() {
-    return new IcmParamcalpresupuestosrangoRecord();
+  public IcmParamcaldesplazrealRecord createIcmParamcaldesplazrealRecord() {
+    return new IcmParamcaldesplazrealRecord();
   }
 
   /**
-   * Create an instance of {@link IcmListapresupuestosrangoRecord }
+   * Create an instance of {@link IcmListadesplazrealRecord }
    *
    */
-  public IcmListapresupuestosrangoRecord createIcmListapresupuestosrangoRecord() {
-    return new IcmListapresupuestosrangoRecord();
+  public IcmListadesplazrealRecord createIcmListadesplazrealRecord() {
+    return new IcmListadesplazrealRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalflagcalculaRecord }
+   *
+   */
+  public IcmParamcalflagcalculaRecord createIcmParamcalflagcalculaRecord() {
+    return new IcmParamcalflagcalculaRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListatiendasRecord }
+   *
+   */
+  public IcmListatiendasRecord createIcmListatiendasRecord() {
+    return new IcmListatiendasRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalsistdestinoRecord }
+   *
+   */
+  public IcmParamcalsistdestinoRecord createIcmParamcalsistdestinoRecord() {
+    return new IcmParamcalsistdestinoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListasistdestinoRecord }
+   *
+   */
+  public IcmListasistdestinoRecord createIcmListasistdestinoRecord() {
+    return new IcmListasistdestinoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalsincroRecord }
+   *
+   */
+  public IcmParamcalsincroRecord createIcmParamcalsincroRecord() {
+    return new IcmParamcalsincroRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListasincroRecord }
+   *
+   */
+  public IcmListasincroRecord createIcmListasincroRecord() {
+    return new IcmListasincroRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalempleadoRecord }
+   *
+   */
+  public IcmParamcalempleadoRecord createIcmParamcalempleadoRecord() {
+    return new IcmParamcalempleadoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListaempleadoRecord }
+   *
+   */
+  public IcmListaempleadoRecord createIcmListaempleadoRecord() {
+    return new IcmListaempleadoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalconfchventaRecord }
+   *
+   */
+  public IcmParamcalconfchventaRecord createIcmParamcalconfchventaRecord() {
+    return new IcmParamcalconfchventaRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListaconfchventaRecord }
+   *
+   */
+  public IcmListaconfchventaRecord createIcmListaconfchventaRecord() {
+    return new IcmListaconfchventaRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalconforigenRecord }
+   *
+   */
+  public IcmParamcalconforigenRecord createIcmParamcalconforigenRecord() {
+    return new IcmParamcalconforigenRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListaconforigenRecord }
+   *
+   */
+  public IcmListaconforigenRecord createIcmListaconforigenRecord() {
+    return new IcmListaconforigenRecord();
   }
 
   /**
@@ -2012,6 +2124,22 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmParamcalcadenaRecord }
+   *
+   */
+  public IcmParamcalcadenaRecord createIcmParamcalcadenaRecord() {
+    return new IcmParamcalcadenaRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListacadenasRecord }
+   *
+   */
+  public IcmListacadenasRecord createIcmListacadenasRecord() {
+    return new IcmListacadenasRecord();
+  }
+
+  /**
    * Create an instance of {@link IcmParamcalorigenRecord }
    *
    */
@@ -2020,19 +2148,35 @@ public class ObjectFactory {
   }
 
   /**
+   * Create an instance of {@link IcmListaclasesRecord }
+   *
+   */
+  public IcmListaclasesRecord createIcmListaclasesRecord() {
+    return new IcmListaclasesRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalcatalogoRecord }
+   *
+   */
+  public IcmParamcalcatalogoRecord createIcmParamcalcatalogoRecord() {
+    return new IcmParamcalcatalogoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListacatalogoRecord }
+   *
+   */
+  public IcmListacatalogoRecord createIcmListacatalogoRecord() {
+    return new IcmListacatalogoRecord();
+  }
+
+  /**
    * Create an instance of {@link IcmListaempresasRecord }
    *
    */
   public IcmListaempresasRecord createIcmListaempresasRecord() {
     return new IcmListaempresasRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListatiendasRecord }
-   *
-   */
-  public IcmListatiendasRecord createIcmListatiendasRecord() {
-    return new IcmListatiendasRecord();
   }
 
   /**
@@ -2052,19 +2196,19 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmParamcalconfpreciohoraRecord }
+   * Create an instance of {@link IcmParamcalperiodoRecord }
    *
    */
-  public IcmParamcalconfpreciohoraRecord createIcmParamcalconfpreciohoraRecord() {
-    return new IcmParamcalconfpreciohoraRecord();
+  public IcmParamcalperiodoRecord createIcmParamcalperiodoRecord() {
+    return new IcmParamcalperiodoRecord();
   }
 
   /**
-   * Create an instance of {@link IcmListaconfpreciohoraRecord }
+   * Create an instance of {@link IcmListaperiodosRecord }
    *
    */
-  public IcmListaconfpreciohoraRecord createIcmListaconfpreciohoraRecord() {
-    return new IcmListaconfpreciohoraRecord();
+  public IcmListaperiodosRecord createIcmListaperiodosRecord() {
+    return new IcmListaperiodosRecord();
   }
 
   /**
@@ -2124,11 +2268,43 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmParamcalempleadoRecord }
+   * Create an instance of {@link IcmParamcalpresupuestosrangoRecord }
    *
    */
-  public IcmParamcalempleadoRecord createIcmParamcalempleadoRecord() {
-    return new IcmParamcalempleadoRecord();
+  public IcmParamcalpresupuestosrangoRecord createIcmParamcalpresupuestosrangoRecord() {
+    return new IcmParamcalpresupuestosrangoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListapresupuestosrangoRecord }
+   *
+   */
+  public IcmListapresupuestosrangoRecord createIcmListapresupuestosrangoRecord() {
+    return new IcmListapresupuestosrangoRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmWsToolsRecord }
+   *
+   */
+  public IcmWsToolsRecord createIcmWsToolsRecord() {
+    return new IcmWsToolsRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListamailRecord }
+   *
+   */
+  public IcmListamailRecord createIcmListamailRecord() {
+    return new IcmListamailRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListaestadoRecord }
+   *
+   */
+  public IcmListaestadoRecord createIcmListaestadoRecord() {
+    return new IcmListaestadoRecord();
   }
 
   /**
@@ -2137,6 +2313,22 @@ public class ObjectFactory {
    */
   public IcmListaausenciasRecord createIcmListaausenciasRecord() {
     return new IcmListaausenciasRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmListatiposhoraRecord }
+   *
+   */
+  public IcmListatiposhoraRecord createIcmListatiposhoraRecord() {
+    return new IcmListatiposhoraRecord();
+  }
+
+  /**
+   * Create an instance of {@link IcmParamcalusuarioRecord }
+   *
+   */
+  public IcmParamcalusuarioRecord createIcmParamcalusuarioRecord() {
+    return new IcmParamcalusuarioRecord();
   }
 
   /**
@@ -2156,11 +2348,11 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link IcmListatiposhoraRecord }
+   * Create an instance of {@link IcmWsCalcOperacionesRecord }
    *
    */
-  public IcmListatiposhoraRecord createIcmListatiposhoraRecord() {
-    return new IcmListatiposhoraRecord();
+  public IcmWsCalcOperacionesRecord createIcmWsCalcOperacionesRecord() {
+    return new IcmWsCalcOperacionesRecord();
   }
 
   /**
@@ -2169,158 +2361,6 @@ public class ObjectFactory {
    */
   public IcmParamcalplanificadorRecord createIcmParamcalplanificadorRecord() {
     return new IcmParamcalplanificadorRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcaldesplazrealRecord }
-   *
-   */
-  public IcmParamcaldesplazrealRecord createIcmParamcaldesplazrealRecord() {
-    return new IcmParamcaldesplazrealRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListadesplazrealRecord }
-   *
-   */
-  public IcmListadesplazrealRecord createIcmListadesplazrealRecord() {
-    return new IcmListadesplazrealRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalflagcalculaRecord }
-   *
-   */
-  public IcmParamcalflagcalculaRecord createIcmParamcalflagcalculaRecord() {
-    return new IcmParamcalflagcalculaRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalsistdestinoRecord }
-   *
-   */
-  public IcmParamcalsistdestinoRecord createIcmParamcalsistdestinoRecord() {
-    return new IcmParamcalsistdestinoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListasistdestinoRecord }
-   *
-   */
-  public IcmListasistdestinoRecord createIcmListasistdestinoRecord() {
-    return new IcmListasistdestinoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalsincroRecord }
-   *
-   */
-  public IcmParamcalsincroRecord createIcmParamcalsincroRecord() {
-    return new IcmParamcalsincroRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListasincroRecord }
-   *
-   */
-  public IcmListasincroRecord createIcmListasincroRecord() {
-    return new IcmListasincroRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListaempleadoRecord }
-   *
-   */
-  public IcmListaempleadoRecord createIcmListaempleadoRecord() {
-    return new IcmListaempleadoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalconfchventaRecord }
-   *
-   */
-  public IcmParamcalconfchventaRecord createIcmParamcalconfchventaRecord() {
-    return new IcmParamcalconfchventaRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListaconfchventaRecord }
-   *
-   */
-  public IcmListaconfchventaRecord createIcmListaconfchventaRecord() {
-    return new IcmListaconfchventaRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalconforigenRecord }
-   *
-   */
-  public IcmParamcalconforigenRecord createIcmParamcalconforigenRecord() {
-    return new IcmParamcalconforigenRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListaconforigenRecord }
-   *
-   */
-  public IcmListaconforigenRecord createIcmListaconforigenRecord() {
-    return new IcmListaconforigenRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListaclasesRecord }
-   *
-   */
-  public IcmListaclasesRecord createIcmListaclasesRecord() {
-    return new IcmListaclasesRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalcatalogoRecord }
-   *
-   */
-  public IcmParamcalcatalogoRecord createIcmParamcalcatalogoRecord() {
-    return new IcmParamcalcatalogoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListacatalogoRecord }
-   *
-   */
-  public IcmListacatalogoRecord createIcmListacatalogoRecord() {
-    return new IcmListacatalogoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmParamcalperiodoRecord }
-   *
-   */
-  public IcmParamcalperiodoRecord createIcmParamcalperiodoRecord() {
-    return new IcmParamcalperiodoRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmListaperiodosRecord }
-   *
-   */
-  public IcmListaperiodosRecord createIcmListaperiodosRecord() {
-    return new IcmListaperiodosRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmWsToolsRecord }
-   *
-   */
-  public IcmWsToolsRecord createIcmWsToolsRecord() {
-    return new IcmWsToolsRecord();
-  }
-
-  /**
-   * Create an instance of {@link IcmWsCalcOperacionesRecord }
-   *
-   */
-  public IcmWsCalcOperacionesRecord createIcmWsCalcOperacionesRecord() {
-    return new IcmWsCalcOperacionesRecord();
   }
 
   /**

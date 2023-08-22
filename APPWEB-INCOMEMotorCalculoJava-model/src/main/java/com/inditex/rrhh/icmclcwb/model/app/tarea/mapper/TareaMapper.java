@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
@@ -208,6 +209,15 @@ public abstract class TareaMapper {
   @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
   @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
   public abstract VentaManualWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToVentaManualWlocFilterDto(
+      TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
+
+  @Mapping(target = "item", ignore = true)
+  @Mapping(target = "idCadena", ignore = true)
+  @Mapping(target = "fechaInicio", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaInicioPeriodo()))")
+  @Mapping(target = "fechaFin", expression = "java(TimeUtils.toLocalDateTime(srcPeriodo.getFechaFinPeriodo()))")
+  @Mapping(target = "idOrigen", source = "srcTareaAmbito.cclIdOrigen")
+  @Mapping(target = "idsEmpresa", expression = "java(Arrays.asList(srcTarea.getStdIdLegEnt()))")
+  public abstract EstadoWlocFilterDto mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToEstadoWlocFilterDto(
       TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito, PeriodoDto srcPeriodo);
 
   @Mapping(target = "item", ignore = true)

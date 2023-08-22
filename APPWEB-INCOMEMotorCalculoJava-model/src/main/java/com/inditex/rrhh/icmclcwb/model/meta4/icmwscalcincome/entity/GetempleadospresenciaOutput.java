@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetempleadospresenciaOutput complex type.
+ * <p>Java class for GetempleadospresenciaOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetempleadospresenciaOutput"&gt;
@@ -70,7 +70,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   protected IcmParametrospaginacionBlock icmParametrospaginacion;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -78,7 +78,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -110,7 +110,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListaempleados.
+   * Gets the value of the icmListaempleados property.
    *
    * @return possible object is {@link IcmListaempleadosBlock }
    *
@@ -120,7 +120,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad icmListaempleados.
+   * Sets the value of the icmListaempleados property.
    *
    * @param value allowed object is {@link IcmListaempleadosBlock }
    *
@@ -130,7 +130,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Obtiene el valor de la propiedad icmParametrospaginacion.
+   * Gets the value of the icmParametrospaginacion property.
    *
    * @return possible object is {@link IcmParametrospaginacionBlock }
    *
@@ -140,7 +140,7 @@ public class GetempleadospresenciaOutput implements Serializable, Cloneable, Cop
   }
 
   /**
-   * Define el valor de la propiedad icmParametrospaginacion.
+   * Sets the value of the icmParametrospaginacion property.
    *
    * @param value allowed object is {@link IcmParametrospaginacionBlock }
    *

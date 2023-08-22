@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para Icm_Ws_ToolsBlock complex type.
+ * <p>Java class for Icm_Ws_ToolsBlock complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="Icm_Ws_ToolsBlock"&gt;
@@ -125,7 +125,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   protected List<IcmWsToolsRecord> icmWsToolsRecordSet;
 
   /**
-   * Obtiene el valor de la propiedad sysParam.
+   * Gets the value of the sysParam property.
    *
    * @return possible object is {@link String }
    *
@@ -135,7 +135,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad sysParam.
+   * Sets the value of the sysParam property.
    *
    * @param value allowed object is {@link String }
    *
@@ -145,7 +145,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmPrpCopy.
+   * Gets the value of the icmPrpCopy property.
    *
    * @return possible object is {@link Double }
    *
@@ -155,7 +155,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmPrpCopy.
+   * Sets the value of the icmPrpCopy property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -165,7 +165,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad sysSentence.
+   * Gets the value of the sysSentence property.
    *
    * @return possible object is {@link String }
    *
@@ -175,7 +175,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad sysSentence.
+   * Sets the value of the sysSentence property.
    *
    * @param value allowed object is {@link String }
    *
@@ -185,7 +185,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmM4Object.
+   * Gets the value of the icmM4Object property.
    *
    * @return possible object is {@link String }
    *
@@ -195,7 +195,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmM4Object.
+   * Sets the value of the icmM4Object property.
    *
    * @param value allowed object is {@link String }
    *
@@ -205,7 +205,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmHavePaging.
+   * Gets the value of the icmHavePaging property.
    *
    * @return possible object is {@link Double }
    *
@@ -215,7 +215,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmHavePaging.
+   * Sets the value of the icmHavePaging property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -225,7 +225,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmParentNode.
+   * Gets the value of the icmParentNode property.
    *
    * @return possible object is {@link String }
    *
@@ -235,7 +235,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmParentNode.
+   * Sets the value of the icmParentNode property.
    *
    * @param value allowed object is {@link String }
    *
@@ -245,7 +245,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmSharePolicy.
+   * Gets the value of the icmSharePolicy property.
    *
    * @return possible object is {@link Double }
    *
@@ -255,7 +255,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmSharePolicy.
+   * Sets the value of the icmSharePolicy property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -265,7 +265,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmCloseChannel.
+   * Gets the value of the icmCloseChannel property.
    *
    * @return possible object is {@link Double }
    *
@@ -275,7 +275,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmCloseChannel.
+   * Sets the value of the icmCloseChannel property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -285,7 +285,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmPrpCopyType.
+   * Gets the value of the icmPrpCopyType property.
    *
    * @return possible object is {@link String }
    *
@@ -295,7 +295,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmPrpCopyType.
+   * Sets the value of the icmPrpCopyType property.
    *
    * @param value allowed object is {@link String }
    *
@@ -305,7 +305,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmPrpLoadType.
+   * Gets the value of the icmPrpLoadType property.
    *
    * @return possible object is {@link Double }
    *
@@ -315,7 +315,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmPrpLoadType.
+   * Sets the value of the icmPrpLoadType property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -325,7 +325,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmPrpLastLevel.
+   * Gets the value of the icmPrpLastLevel property.
    *
    * @return possible object is {@link Double }
    *
@@ -335,7 +335,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmPrpLastLevel.
+   * Sets the value of the icmPrpLastLevel property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -345,7 +345,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmPrpLoadDepth.
+   * Gets the value of the icmPrpLoadDepth property.
    *
    * @return possible object is {@link Double }
    *
@@ -355,7 +355,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmPrpLoadDepth.
+   * Sets the value of the icmPrpLoadDepth property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -365,7 +365,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmHaveValidation.
+   * Gets the value of the icmHaveValidation property.
    *
    * @return possible object is {@link Double }
    *
@@ -375,7 +375,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmHaveValidation.
+   * Sets the value of the icmHaveValidation property.
    *
    * @param value allowed object is {@link Double }
    *
@@ -385,7 +385,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Obtiene el valor de la propiedad icmHaveIdexecution.
+   * Gets the value of the icmHaveIdexecution property.
    *
    * @return possible object is {@link Double }
    *
@@ -395,7 +395,7 @@ public class IcmWsToolsBlock implements Serializable, Cloneable, CopyTo2, Equals
   }
 
   /**
-   * Define el valor de la propiedad icmHaveIdexecution.
+   * Sets the value of the icmHaveIdexecution property.
    *
    * @param value allowed object is {@link Double }
    *

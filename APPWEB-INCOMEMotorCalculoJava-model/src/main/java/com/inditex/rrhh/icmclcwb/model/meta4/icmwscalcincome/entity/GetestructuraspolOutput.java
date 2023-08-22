@@ -25,9 +25,9 @@ import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
 
 /**
- * <p>Clase Java para GetestructuraspolOutput complex type.
+ * <p>Java class for GetestructuraspolOutput complex type.
  *
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="GetestructuraspolOutput"&gt;
@@ -65,7 +65,7 @@ public class GetestructuraspolOutput implements Serializable, Cloneable, CopyTo2
   protected IcmListapoliticasBlock icmListapoliticas;
 
   /**
-   * Obtiene el valor de la propiedad return.
+   * Gets the value of the return property.
    *
    */
   public double getReturn() {
@@ -73,7 +73,7 @@ public class GetestructuraspolOutput implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad return.
+   * Sets the value of the return property.
    *
    */
   public void setReturn(double value) {
@@ -105,7 +105,7 @@ public class GetestructuraspolOutput implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Obtiene el valor de la propiedad icmListapoliticas.
+   * Gets the value of the icmListapoliticas property.
    *
    * @return possible object is {@link IcmListapoliticasBlock }
    *
@@ -115,7 +115,7 @@ public class GetestructuraspolOutput implements Serializable, Cloneable, CopyTo2
   }
 
   /**
-   * Define el valor de la propiedad icmListapoliticas.
+   * Sets the value of the icmListapoliticas property.
    *
    * @param value allowed object is {@link IcmListapoliticasBlock }
    *
