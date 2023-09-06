@@ -1,0 +1,18 @@
+# paas-deploy-rollout-strategy
+
+[`paas-deploy_rollout_strategy.yml`](../paas-deploy_rollout_strategy.yml) workflow allows to deploy with Spinnaker with differents rollout strategies a service deployed in a Kubernetes cluster
+
+## Trigger
+
+`workflow_dispatch` from a `deployment` pull request with ChatBot. See [`/deploy-rollout-strategy`](https://chatbot.docs.inditex.dev/chatbot/latest/commands/deploy-rollout-strategy.html) documentation.
+
+## Where does it run?
+
+[github-runners](https://github.com/inditex/github-runners) self hosted.
+
+## Jobs
+
+- ### `rollout-strategy`
+
+  - **Steps**
+    - [`rollout-strategy`](https://github.com/inditex/actions/tree/main/deployment/rollout-strategy) action will send requests to Spinnaker to deploy the service step by step.

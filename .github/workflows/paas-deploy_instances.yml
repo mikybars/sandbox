@@ -1,0 +1,137 @@
+---
+name: paas-deploy-instances
+run-name: "Args: action=${{ inputs.ACTION }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      ISSUE_NUMBER:
+        description: "Related issue number"
+        required: true
+      ISSUE_COMMENT_ID:
+        description: "Issue comment ID that triggered the action"
+        required: true
+      ACTION:
+        description: "Action to run"
+        required: true
+        type: choice
+        options:
+          - merge
+          - continue
+          - rollback
+          - retry
+      SKIP:
+        description: 'Steps to be skipped during rollout flow'
+        required: false
+        default: ''
+
+env:
+  WORKFLOW_VERSION: 1.69.0
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  merge:
+    name: PaaS / Merge related PRs
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.inputs.ACTION == 'merge' }}
+    outputs:
+      summary: ${{ steps.merge.outputs.summary }}
+    steps:
+      - name: Get user
+        id: user
+        run: |
+          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
+          echo "login=${login}" >> "$GITHUB_OUTPUT"
+
+      - name: PaaS / Merge deploy PRs
+        uses: inditex/actions/deployment/merge-related-prs@main
+        id: merge
+        with:
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          user: ${{ steps.user.outputs.login }}
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+
+  rollout:
+    name: PaaS / Run rollout command in PRs
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.inputs.ACTION != 'merge' }}
+    outputs:
+      summary: ${{ steps.post-command.outputs.summary }}
+    env:
+      LABEL_PREFIX: from-issue
+      BASE_COMMAND: /deploy-rollout-strategy
+    steps:
+      - name: Post command in PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
+        id: post-command
+        run: |
+          label="${{ env.LABEL_PREFIX }}/${{ github.event.inputs.ISSUE_NUMBER }}"
+          prs=$(gh pr list -R ${{ github.repository }} \
+                  --state merged --limit 100 --base "deployment" --label "${label}" \
+                  --json number -q '[.[].number] | join(" ")')
+          echo ">> PRs related to the issue: ${prs}"
+
+          command="${BASE_COMMAND} --action ${{ github.event.inputs.ACTION }}"
+
+          skip="${{ github.event.inputs.SKIP }}"
+          if [[ -n "$skip" ]]; then
+            command="${command} --skip ${skip}"
+          fi
+
+          summary="<b>Command to execute:</b> <code>${command}</code>"
+
+          set +e
+          for pr in $prs; do
+              sleep 2  # Avoid abuse limit
+              echo ">> Post command in PR #${pr}"
+              summary+="\n* #${pr}"
+
+              if gh pr comment "${pr}" -R ${{ github.repository }} --body "${command}";
+              then
+                summary+=" - :heavy_check_mark: Command executed"
+              else
+                summary+=" - :x: Error executing command"
+              fi
+          done
+          set -e
+
+          echo -e ">> Summary:\n${summary}"
+          echo "summary=${summary//$'\n'/%0A}" >> "$GITHUB_OUTPUT"  # Replace newlines with GitHub escape code
+
+  summary:
+    name: PaaS / Summary
+    runs-on: ubuntu-20.04
+    if: ${{ always() && !cancelled() }}
+    needs: [merge, rollout]
+    steps:
+      - name: Generate comment
+        id: comment
+        run: |
+          comment=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }})
+          first_line=$(echo "$comment" | jq -r .body | head -n1 | tr -d '\r\n')
+          link=$(echo "$comment" | jq -r .html_url)
+
+          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary }}"
+          if [ -z "${message}" ]; then
+            message=":x: Unexpected error. More information in the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+          fi
+
+          # Ensure message does not have any newlines and use GitHub escape
+          # characters as replacement. Awful.
+          echo -E "Message: ${message}"
+          message=${message//'\r'/}
+          message=${message//'\n'/%0A}
+          message=${message//$'\n'/%0A}
+
+          comment="<b>This is a response to <a href=\"${link}\">this message</a>:</b><br><i>${first_line}</i><hr><h3>ChatBot says:</b></h3>${message}"
+          echo -E "Comment: ${comment}"
+          echo "body=${comment}" >> "$GITHUB_OUTPUT"
+
+      - name: Add comment with the summary
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: ${{ steps.comment.outputs.body }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}

@@ -1,0 +1,123 @@
+---
+name: paas-shepherd-check
+
+on:
+  workflow_call:
+    inputs:
+      PR_LIST:
+        type: string
+        required: true
+env:
+  WORKFLOW_VERSION: 1.69.0
+
+jobs:
+  get-details:
+    name: Shepherd / Get Details
+    runs-on: [self-hosted, common]
+    outputs:
+      matrix: ${{ steps.pr.outputs.matrix }}
+    steps:
+      - name: Parse PR information
+        id: pr
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          JSON="["
+          pr_info_file="pr_info.json"
+          pr_list="${{ inputs.PR_LIST }}"
+          IFS="," read -r -a pr_array <<< "$pr_list"
+          for pr_number in "${pr_array[@]}"
+          do
+            echo "::info ::Processing PR number ${pr_number}"
+            gh api "/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}" > ${pr_info_file}
+            # Extract permutation from head reference
+            permutation=$(jq -r .head.ref ${pr_info_file} | xargs basename)
+            echo "permutation=${permutation}" >> "$GITHUB_OUTPUT"
+            commit_sha=$(jq -r .head.sha ${pr_info_file})
+            branch_name=$(jq -r .head.ref ${pr_info_file})
+            JSONline="{\"pr_number\":\"$pr_number\",\"commit_sha\":\"$commit_sha\",\"branch_name\":\"$branch_name\",\"permutation\":\"$permutation\"},"
+            JSON="$JSON$JSONline"
+            if [ -z "$commit_sha" ]; then
+              echo "::warning ::Commit SHA not found, probably the pull request is not merged!"
+              exit 1
+            fi
+          done
+          if [[ $JSON == *, ]]; then
+            JSON="${JSON%?}"
+          fi
+          JSON="$JSON]"
+          echo "$JSON"
+
+          # Set output
+          echo "matrix=$JSON" >> "$GITHUB_OUTPUT"
+
+  shepherd-check:
+    name: Shepherd / Deployment Check
+    runs-on: [self-hosted, common]
+    needs: get-details
+    strategy:
+      max-parallel: 1
+      matrix:
+        include: ${{fromJSON(needs.get-details.outputs.matrix)}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ matrix.commit_sha }}
+
+      - name: Parse info.yaml
+        id: info
+        shell: python
+        run: |
+          import yaml
+          import os
+
+          permutation = "${{ matrix.permutation }}"
+          info_path = f"{permutation}/info.yml"
+
+          with open(info_path) as fp:
+            info = yaml.safe_load(fp)
+          project_key = info["platform"]["values"]["metadata"]["project_key"].lower()
+          project_name = info["platform"]["values"]["metadata"]["project_name"].lower()
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project_key={project_key}\n')
+            gh_out.write(f'project_name={project_name}\n')
+
+      - name: PaaS / Shepherd check
+        uses: inditex/actions/deployment/shepherd-check@main
+        id: shepherd
+        with:
+          app-name: ${{ steps.info.outputs.project_key }}
+          repo-name: ${{ steps.info.outputs.project_name }}
+          deployment-folder: ${{ matrix.permutation }}
+          commit-hash: ${{ matrix.commit_sha }}
+          branch-name: ${{ matrix.branch_name }}
+          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
+          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+          url: 'https://cdmngmt.apps.axecocpci1.ecommerce.inditex.grp/cdmngmt/api/v1/shepherd/check'
+
+      - name: Add comment when the workflow is failed
+        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message == '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has ocurred. See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment when the workflow is failed and there is an error message
+        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has ocurred.
+            ${{ steps.shepherd.outputs.error-message }}
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
