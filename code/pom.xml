@@ -84,7 +84,30 @@
           </checkstyle>
         </configuration>
       </plugin>
-    </plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-snapshots</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <skip>${skipEnforceSnapshots}</skip>
+              <rules>
+                <requireSnapshotVersion>
+                  <failWhenParentIsRelease>false</failWhenParentIsRelease>
+                  <message>Final versions not allowed</message>
+                </requireSnapshotVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      </plugins>
   <pluginManagement><plugins><plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
