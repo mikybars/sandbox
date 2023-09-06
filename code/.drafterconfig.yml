@@ -1,14 +1,20 @@
+version: '3.4'
+issue-tracking:
+  - github
+  - jira
 endpoints:
-  bitbucket:
-    server: https://axinic.central.inditex.grp/bitbucket
+  github:
+    labels:
+      IGNORE:
+        - release-type/current
+        - release-type/major
+        - release-type/minor
+        - release-type/patch
+        - release-type/multi-hotfix
   jira:
     host: axinic.central.inditex.grp
     path: /jira/rest/api/2/issue
     server: https://axinic.central.inditex.grp/jira
-commit-patterns:
-  REGEX: '^Merge pull request #(?<pullRequest>\d+) in (?<artifact>[A-Z]+)\/(?<repo>\w+) from (?<fork>~(?<author>\w+).+:)?(?<type>\w+)\/(autodeploy\.)?(?<issue>([A-Z]+-\d+|\#\d+))-?(?<message>.*) to (develop|master)$'
-  REVERT: '^Merge pull request #(?<pullRequest>\d+) in (?<artifact>[A-Z]+)\/(?<repo>\w+) from (?<fork>~(?<author>\w+).+:)?revert\/(?<issue>([A-Z]+-\d+|\#\d+))-?(?<message>.*) to (develop|master)$'
-  IGNORE: '^Merge pull request #(?<pullRequest>\d+) in (?<artifact>[A-Z]+)\/(?<repo>\w+) from release\/(autodeploy\.)?(?<issue>([A-Z]+-\d+|\#\d+))-?(?<message>.*) to (develop|master)$'
-auto:
-  MODE: branch
-  REGEX: ^(?<type>\w+)\/(autodeploy\.)?(?<issue>([A-Z]+-\d+|\#\d+))-?(?<message>.*)$
+repo-type: github
+master-branch: main
+included-paths: [ '/code' ]
