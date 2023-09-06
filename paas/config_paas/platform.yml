@@ -1,7 +1,5 @@
+---
 metadata:
-  domain: rhcompensa
-  service: income
-  tenant: global
   developModel: CORPORATE
   layer: core
   namespace_id: rhcompensa
@@ -30,6 +28,7 @@ app:
   replicas: 1
   scaler:
     optin: true
+  openshift_template: com.inditex.otec.openshift:openshift-springboot:1.41.11
 datagrid:
   force: false
   application_cache:
