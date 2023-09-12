@@ -1,0 +1,245 @@
+---
+name: paas-promote
+run-name: "Args: supraenvs=${{ inputs.SUPRAENVS }}, envs=${{ inputs.ENVS || 'all' }}, platforms=${{ inputs.PLATFORMS || 'all' }}, tenants=${{ inputs.TENANTS || 'all' }}, slots=${{ inputs.SLOTS || 'all' }}"
+
+concurrency:
+  group: "promote-${{ github.ref_name }}-${{ github.event.inputs.VERSION }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVS:
+        description: 'Supra environments to generate manifest files'
+        required: true
+        default: ''
+      ENVS:
+        description: 'Environments to generate manifest files'
+        required: false
+        default: ''
+      PLATFORMS:
+        description: 'Platforms to generate manifest files'
+        required: false
+        default: ''
+      TENANTS:
+        description: 'Tenants to generate manifest files'
+        required: false
+        default: ''
+      SLOTS:
+        description: 'Slots to generate manifest files'
+        required: false
+        default: 'default'
+      LABELS:
+        description: 'Labels to set in PR to deployment branch'
+        required: true
+        default: ''
+      VERSION:
+        description: 'Version to deploy'
+        required: false
+        default: ''
+      ISSUE_NUMBER:
+        description: 'ID number (issue or pull request)'
+        required: false
+        default: ''
+      ADDITIONAL_ARGS:
+        description: 'Additional args not common to all pipelines'
+        required: false
+        type: string
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
+
+env:
+  WORKFLOW_VERSION: 1.69.0
+  DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+
+jobs:
+  promote:
+    name: Promote & Deployment PRs
+    runs-on: [self-hosted, common]
+    outputs:
+      pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+
+      - name: Add comment with started status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        id: starting-comment
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :gear: The `paas-promote` workflow is currently running
+
+            Deployment templates are being generated and Docker image is being promoted to PaaS registries.
+            The pull request(s) related to this task will be opened shortly...
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate slots
+        id: validate-slots
+        uses: inditex/actions/deployment/validate-slots@main
+        with:
+          slots: ${{ github.event.inputs.SLOTS }}
+          strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+
+      - name: Stop if slots are not valid
+        if: ${{ steps.validate-slots.outputs.is-valid != 'true' }}
+        run: |
+          echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}" | tr -s '\n' ' '
+          exit 1
+
+      - name: Verify if code deploy
+        id: verify-if-code
+        run: |
+           import os
+           code = os.path.isdir('./code')
+           github_output = os.getenv('GITHUB_OUTPUT')
+           with open(github_output, "a") as gh_out:
+             gh_out.write('code=%s\n' % (code))
+        shell: python
+
+      - name: Compute vars
+        id: compute-vars
+        run: |
+          if [[ "${{ steps.verify-if-code.outputs.code }}" == "True" ]]; then
+            DEPLOYMENT_VERSION="${{ github.event.inputs.VERSION }}"
+          else
+            DEPLOYMENT_VERSION="latest"
+          fi
+          echo "deployment-version=${DEPLOYMENT_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Sentinel - Generate manifests
+        uses: inditex/actions/sentinel@main
+        id: sentinel
+        with:
+          supraenvs: ${{ github.event.inputs.SUPRAENVS }}
+          envs: ${{ github.event.inputs.ENVS }}
+          platforms: ${{ github.event.inputs.PLATFORMS }}
+          tenants: ${{ github.event.inputs.TENANTS }}
+          slots: ${{ github.event.inputs.SLOTS }}
+          deployment-version: ${{ steps.compute-vars.outputs.deployment-version }}
+          strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+          percentage: ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
+          working-directory: paas
+          token: ${{ secrets.GH_TOKEN_READER }}
+          trigger: ${{ fromJson(inputs.ADDITIONAL_ARGS).TRIGGER }}
+
+      - name: Promote images to internal registries
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/actions/deployment/promote@main
+        with:
+          working-directory: paas
+
+      - name: BatchAsCode / Detect
+        id: detect
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        shell: python
+        run: |
+          import os
+          is_bat = ("${{ github.repository }}".split('/')[1].split('-')[0] == "bat")
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write('is-batch=%s\n' % (is_bat))
+            gh_out.write('force-token-usage=%s\n' % (is_bat))
+
+      - name: BatchAsCode / Copy job definitions
+        if: ${{ steps.detect.outputs.is-batch == 'True' }}
+        run: |
+          if [ -d '../../jobs' ]; then
+            find . -maxdepth 1 -mindepth 1 -type d | while read -r dir; do
+              echo "Adding 'jobs' folder in $dir"
+              cp -r ../../jobs "$dir"/
+            done
+          else
+            echo "::error ::No jobs folder to copy!"
+          fi
+        working-directory: paas/target_tpl
+
+      - name: Traffic Parrot / Promote mappings to s3 bucket
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/actions/deployment/trafficparrot/promote-mappings@main
+        with:
+          source: paas/config_paas/trafficparrot_mappings/
+          working-dir: paas/target_tpl
+          delete: true
+
+      - name: Create PR to deploy manifests into deployment branch
+        id: create-pr-manifest
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/actions/deployment/create-pr-manifests@main
+        with:
+          working-directory: paas
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+          version: ${{ github.event.inputs.VERSION }}
+          strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+          label: ${{ github.event.inputs.LABELS }}
+          force-token-usage: ${{ steps.detect.outputs.force-token-usage }}
+        env:
+          ISSUE_NUMBER: ${{ github.event.inputs.ISSUE_NUMBER }}
+          SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+
+      - name: Delete deployment start comment
+        if: ${{ always() && !cancelled() && github.event.inputs.ISSUE_NUMBER != '' }}
+        id: delete-comment
+        run: |
+          gh api --method DELETE -H "Accept: application/vnd.github.v3+json" /repos/inditex/${{ github.event.repository.name }}/issues/comments/${{ steps.starting-comment.outputs.comment_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create an issue at failure and no related issue or PR exists
+        id: create-issue
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER == '') }}
+        run: |
+          response=$(gh issue create --repo ${{ github.repository }} \
+            --title "[Automated] :x: Workflow Error: ${GITHUB_WORKFLOW}-${GITHUB_RUN_ID}" \
+            --label "deployment,status/failed" \
+            --body "#### :x: An error has occurred promoting the application.
+
+
+            The ${{ github.workflow }} workflow has failed at the ${{ github.job }} job. It was dispatched with the following parameters:
+              Input|Value
+            ---|---
+            SUPRAENVS | ${{ github.event.inputs.SUPRAENVS }}
+            ENVS | ${{ github.event.inputs.ENVS }}
+            PLATFORMS | ${{ github.event.inputs.PLATFORMS }}
+            TENANTS | ${{ github.event.inputs.TENANTS }}
+            SLOTS | ${{ github.event.inputs.SLOTS }}
+            LABELS | ${{ github.event.inputs.LABELS }}
+            STRATEGY | ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+            PERCENTAGE | ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
+            VERSION | ${{ github.event.inputs.VERSION }}
+            CONFIG_REF | ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).")
+          issue_id=$(echo "$response" | awk -F '/' '{print $7}')
+          echo "issue_number=$issue_id" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment when deployment fails and issue exists
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has ocurred deploying the application.
+
+            ${{ steps.validate-slots.outputs.error-message }}
+
+            The `${{ github.workflow }}` workflow has failed at the `${{ github.job }}` job.
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  shepherd-check:
+    needs: promote
+    if: needs.promote.outputs.pr-list != ''
+    uses: ./.github/workflows/paas-shepherd_check.yml
+    with:
+      PR_LIST: ${{ needs.promote.outputs.pr-list }}
+    secrets: inherit

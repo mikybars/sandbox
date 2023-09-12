@@ -1,0 +1,342 @@
+---
+name: code-release-preview
+
+concurrency:
+  group: release-preview
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    types: [labeled, synchronize, ready_for_review, opened]
+    branches: ['main', 'main-*']
+
+env:
+  WORKFLOW_VERSION: 1.81.3
+  GITHUB_REGISTRY: ghcr.io
+  CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.3-node-12-ubuntu-r0
+  SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+  PR_HEAD_REF: ${{ github.head_ref }}
+
+jobs:
+  check-changes-in-paths:
+    name: Check for changes in corresponding paths
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.pull_request.draft == false || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview') }}
+    outputs:
+      detected: ${{ steps.changes.outputs.paths }}
+    steps:
+      - name: Check for changed files in specific paths
+        id: changes
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        with:
+          filters: |
+            paths:
+              - 'code/**'
+              - '.github/workflows/code*'
+
+  release-preview:
+    name: Release Preview
+    needs: check-changes-in-paths
+    if: ${{ (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview')) && needs.check-changes-in-paths.outputs.detected == 'true' }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup hotfix release type version and simulate merge
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'release-type/hotfix') ||
+          ((contains(github.event.pull_request.labels.*.name, 'release-type/current') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') && contains(github.head_ref, 'hotfix')) }}
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          git config user.name none
+          git config user.email none@inditex.com
+          git checkout ${{ github.base_ref }}
+          git merge --squash "origin/$PR_HEAD_REF" && git commit -m "$PR_TITLE (#${{ github.event.pull_request.number }})"
+          echo "CD_ARGS=release --patch" >> "$GITHUB_ENV"
+
+      - name: Setup multi-hotfix release type version and simulate merge
+        if: contains(github.event.pull_request.labels.*.name, 'release-type/multi-hotfix')
+        run: |
+          git config user.name none
+          git config user.email none@inditex.com
+          git checkout ${{ github.base_ref }}
+          git merge --no-ff "origin/$PR_HEAD_REF"
+          echo "CD_ARGS=release --patch" >> "$GITHUB_ENV"
+
+      - name: Setup current release type version
+        if: ${{ (contains(github.event.pull_request.labels.*.name, 'release-type/current') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') && !contains(github.head_ref, 'hotfix') }}
+        run: echo "CD_ARGS=release" >> "$GITHUB_ENV"
+
+      - name: Setup patch release type version
+        if: contains(github.event.pull_request.labels.*.name, 'release-type/patch')
+        run: echo "CD_ARGS=release --patch" >> "$GITHUB_ENV"
+
+      - name: Setup minor release type version
+        if: contains(github.event.pull_request.labels.*.name, 'release-type/minor')
+        run: echo "CD_ARGS=release --minor" >> "$GITHUB_ENV"
+
+      - name: Setup major release type version
+        if: contains(github.event.pull_request.labels.*.name, 'release-type/major')
+        run: echo "CD_ARGS=release --major" >> "$GITHUB_ENV"
+
+      - name: Setup force option
+        if: contains(github.event.pull_request.labels.*.name, 'release-mode/force')
+        run: |
+          echo "CD_ARGS=$CD_ARGS --force-release-mode" >> "$GITHUB_ENV"
+
+      - name: Check if release type is specified when yanking previous release
+        working-directory: ${{ github.workspace }}/code
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'release-mode/yank-previous') && (contains(github.event.pull_request.labels.*.name, 'release-type/current') || (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type'))) }}
+        run: |
+          echo "You must specify a specific version increment (\`release-type/patch\`, \`release-type/minor\` or \`release-type/major\`) when yanking the previous release." > .error.log
+          exit 1
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Check merge strategy
+        run: |
+          if [[ "$PR_HEAD_REF" == hotfix* && "${{ contains(github.event.pull_request.labels.*.name, 'release-type/multi-hotfix') }}" != "true" ]] ;
+          then
+              echo "MERGE_STRATEGY=Squash and Merge" >> "$GITHUB_ENV"
+          elif [[ "${{vars.DEVELOPMENT_FLOW}}" == 'trunk-based-development' && ("$PR_HEAD_REF" == hotfix* && "${{ contains(github.event.pull_request.labels.*.name, 'release-type/multi-hotfix') }}" == "true") ]] ;
+          then
+              echo "MERGE_STRATEGY=Create a merge commit" >> "$GITHUB_ENV"
+          elif [[ "${{ vars.DEVELOPMENT_FLOW }}" == 'trunk-based-development' ]] ;
+           then
+              echo "MERGE_STRATEGY=Squash and Merge" >> "$GITHUB_ENV"
+          else
+              echo "MERGE_STRATEGY=Create a merge commit" >> "$GITHUB_ENV"
+          fi
+
+      - name: Yank release in the Changelog
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') &&
+          contains(github.event.pull_request.labels.*.name, 'release-mode/yank-previous') }}
+        run: |
+          echo "CD_ARGS=$CD_ARGS --force-release-mode" >> "$GITHUB_ENV"
+          docker run --workdir /app/code \
+            -u runner \
+            -e ISSUE_TRACKER_JIRA_USERNAME=${{ secrets.SRVCJIRAGITHUBAX_USERNAME }} \
+            -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRAGITHUBAX_PASSWORD }} \
+            -e ISSUE_TRACKER_EXTRAHEADERS='{"itx-apikey":"${{ secrets.JANUS_JIRASIST_APIKEY }}"}' \
+            -e ISSUE_TRACKER_GITHUB_SECRET="${{ secrets.GITHUB_TOKEN }}" \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            sh -c "changelog-drafter yank --headless --drafterconfig-path .ci-drafterconfig.yml && changelog-drafter whats-changed > .yanked.md"
+
+      - name: Check CHANGELOG.md existence
+        id: detect-changelog
+        run: echo "has-changelog=$(if test -f code/CHANGELOG.md; then echo 1; else echo 0; fi)" >> "$GITHUB_OUTPUT"
+
+      - name: Validate CHANGELOG.md
+        if: ${{ steps.detect-changelog.outputs.has-changelog == true &&
+          !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') }}
+        run: |
+          docker run -t --workdir /app/code \
+            -u runner \
+            -e ISSUE_TRACKER_JIRA_USERNAME=${{ secrets.SRVCJIRAGITHUBAX_USERNAME }} \
+            -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRAGITHUBAX_PASSWORD }} \
+            -e ISSUE_TRACKER_EXTRAHEADERS='{"itx-apikey":"${{ secrets.JANUS_JIRASIST_APIKEY }}"}' \
+            -e ISSUE_TRACKER_GITHUB_SECRET="${{ secrets.GITHUB_TOKEN }}" \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            sh -c "changelog-drafter validate > .error.log 2>&1" >> code/.error.log
+
+      - name: Update CHANGELOG.md
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') }}
+        run: |
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u runner \
+            -e ISSUE_TRACKER_JIRA_USERNAME=${{ secrets.SRVCJIRAGITHUBAX_USERNAME }} \
+            -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRAGITHUBAX_PASSWORD }} \
+            -e ISSUE_TRACKER_EXTRAHEADERS='{"itx-apikey":"${{ secrets.JANUS_JIRASIST_APIKEY }}"}' \
+            -e ISSUE_TRACKER_GITHUB_SECRET="${{ secrets.GITHUB_TOKEN }}" \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            sh -c "changelog-drafter $CD_ARGS --headless --drafterconfig-path .ci-drafterconfig.yml > .release-version 2> .error.log \
+              && changelog-drafter whats-changed > .whats-changed.md"
+
+      - name: Set release version
+        run: |
+          echo "RELEASE_VERSION=$(cat code/.release-version)" >> "$GITHUB_ENV"
+
+      - name: Check release configuration
+        if: ${{ contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') }}
+        uses: inditex/gha-releasevalidations@v1
+        with:
+          error_file: code/.error.log
+          warning_file: code/.warning.log
+          release_labels: "${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          release_version: ${{ env.RELEASE_VERSION }}
+
+      - name: Check release configuration
+        if: ${{ vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') }}
+        uses: inditex/gha-releasevalidations@v1
+        with:
+          error_file: code/.error.log
+          warning_file: code/.warning.log
+          release_labels: "release-type/current"
+          release_version: ${{ env.RELEASE_VERSION }}
+
+      - name: Append yanked preview if needed
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') &&
+          contains(github.event.pull_request.labels.*.name, 'release-mode/yank-previous') }}
+        run: echo -e "$(cat code/.whats-changed.md)\n$(cat code/.yanked.md 2>/dev/null)" > code/.whats-changed.md
+
+      - name: Show error on console - On Failure
+        if: ${{ failure() && !cancelled() }}
+        run: cat code/.error.log
+
+      - name: Add PR comment with release preview
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MESSAGE="
+          ### :rocket: Release Preview Success
+          You are going to release the version **${RELEASE_VERSION}** with the following changes:
+          $(sed 's/^/> /' code/.whats-changed.md)
+
+          ### 💡 Merge Strategy: $MERGE_STRATEGY
+
+          Remember to use the **'$MERGE_STRATEGY'** strategy to merge this _Pull Request (\`$PR_HEAD_REF\` → \`${{ github.event.pull_request.base.ref }}\`)_. See [why](https://github.com/${{ github.repository }}/blob/$PR_HEAD_REF/CONTRIBUTING.md#key-branches).
+          "
+          WARN_FILE="code/.warning.log"
+          if [ -f "$WARN_FILE" ]; then
+            MESSAGE+="> **Warning**\n"
+            MESSAGE+="> Some warnings have been detected\n"
+            MESSAGE+="> \`\`\`\n"
+            while read -r line; do
+              MESSAGE+="> $line\n"
+            done < "$WARN_FILE"
+            MESSAGE+="> \`\`\`\n"
+          fi
+
+          gh pr comment ${{ github.event.number }} --body "$(echo -e "$MESSAGE")"
+
+      - name: Add PR comment with release preview - On skipping changelog
+        if: contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MESSAGE="
+          ## :warning: You are going to release without the changelog intervention
+          You are about to publish a new release skipping the changelog update and the automated version calculation with Changelog Drafter.
+          Therefore, the release process will take into account the label \`release-type/xxxx\` of this Pull Request to properly infer the version number.
+
+          _You can read more about this process [here](https://github-cicd.docs.inditex.dev/githubcicd/stable/additional-information/troubleshooting.html#im-seeing-errors-with-release-preview-changelog-drafter-or-jira-and-i-need-to-release-as-soon-as-possible)._
+
+          ---
+
+          ### 💡 Merge Strategy: $MERGE_STRATEGY
+
+          Remember to use the **'$MERGE_STRATEGY'** strategy to merge this _Pull Request (\`$PR_HEAD_REF\` → \`${{ github.event.pull_request.base.ref }}\`)_. See [why](https://github.com/${{ github.repository }}/blob/$PR_HEAD_REF/CONTRIBUTING.md#key-branches).
+          "
+
+          WARN_FILE="code/.warning.log"
+          if [ -f "$WARN_FILE" ]; then
+            MESSAGE+="> **Warning**\n"
+            MESSAGE+="> Some warnings have been detected\n"
+            MESSAGE+="> \`\`\`\n"
+            while read -r line; do
+              MESSAGE+="> $line\n"
+            done < "$WARN_FILE"
+            MESSAGE+="> \`\`\`\n"
+          fi
+
+          gh pr comment ${{ github.event.number }} --body "$(echo -e "$MESSAGE")"
+
+      - name: Add PR comment with release preview - On Failure
+        if: ${{ failure() && !cancelled() && !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ $(cat code/.error.log) == *".drafterconfig file"* || $(cat code/.error.log) == *"error code: 302"* ]];
+          then
+              FAILURE_MESSAGE="Your Changelog Drafter configuration file (\`.drafterconfig.yml\`) **is corrupted and it needs to be fixed to make a release**. See [Changelog Drafter documentation](https://github.com/inditex/changelog-drafter#changelog-drafter)"
+          elif [[ $(cat code/.error.log) == *".drafterconfig.yml file not found"* ]];
+          then
+            FAILURE_MESSAGE="Your project is missing the Changelog Drafter configuration file \`code/.drafterconfig.yml\`! **This needs to be fixed to make a release**. Take a look at a [configuration example](https://github.com/inditex/lib-engiprod/blob/main/config-files/.drafterconfig-github-jira-ghissues.yml)."
+          elif [[ $(cat code/.error.log) == *"no such file or directory"* ]];
+          then
+              FAILURE_MESSAGE="Changelog Drafter is in charge of defining the version to release. See [Versioning configuration](https://github-cicd.docs.inditex.dev/githubcicd/stable/release/release.html#versioning)"
+          elif [[ $(cat code/.error.log) == *"Changelog is CORRUPTED"* ]];
+          then
+              FAILURE_MESSAGE="Your CHANGELOG.md **is corrupted and it needs to be fixed to make a release**. See [Changelog Drafter documentation](https://github.com/inditex/changelog-drafter#changelog-drafter)"
+          elif [[ $(cat code/.error.log) == "You must specify an specific version increment"* ]];
+          then
+              FAILURE_MESSAGE=$(cat code/.error.log)
+          elif [[ $(cat code/.error.log) == *"error validating credentials in Jira, error code: 504"* ]];
+          then
+              FAILURE_MESSAGE="Please try to **re-run** the \`code-release-preview\` workflow as this is probably an error on JIRA\'s API side!"
+          elif [[ $(cat code/.error.log) == *"maven-release-strategies"* ]];
+          then
+              FAILURE_MESSAGE="The \`maven-release-strategies\` plugin configuration is incorrect. See [Release Configuration documentation](https://github-cicd.docs.inditex.dev/githubcicd/stable/configuration/release-configuration.html#java-configuration) to fix it."
+          else
+              FAILURE_MESSAGE="We couldn't identify this problem. Open an issue in [helpme](https://github.com/inditex/helpme) repository with the label \`helpme/productivity\` so we can help you."
+          fi
+          gh pr comment ${{ github.event.number }} --body "
+          ### :exclamation: :exclamation: :exclamation: Release Preview Failure
+          The release preview has failed with the following error:
+          \`\`\`
+          $(cat code/.error.log)
+          \`\`\`
+
+          ### 💡 Required work to continue with the release
+          $FAILURE_MESSAGE
+          "
+
+  release-preview-no-code-changes:
+    name: Add PR comment with configuration management information
+    needs: check-changes-in-paths
+    if: ${{ (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview'))) && needs.check-changes-in-paths.outputs.detected == 'false' }}
+    runs-on: ubuntu-20.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Add PR comment with release preview
+        run: |
+          BODY="
+          ### :exclamation: :exclamation: :exclamation: This Pull Request will not trigger a Release
+          A Pull Request with no changes to the  \`code/\` folder will not trigger a release"
+          GITFLOW_BODY=", so there is no need to tag this PR with a release label.
+          If you want to make a configuration change, please check [this documentation](https://github-cicd.docs.inditex.dev/githubcicd/stable/deployment/deployment.html).
+          "
+          if [[ "${{ vars.DEVELOPMENT_FLOW }}" != "trunk-based-development" ]]; then
+            BODY+="$GITFLOW_BODY"
+          fi
+          gh pr comment ${{ github.event.number }} --body "$BODY"
+
+  release-preview-no-release-labels:
+    name: Add PR comment with release information
+    needs: check-changes-in-paths
+    if: ${{ !contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') && needs.check-changes-in-paths.outputs.detected == 'true' && github.event.pull_request.draft == false && vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
+    runs-on: ubuntu-20.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Add PR comment with release preview
+        run: |
+          gh pr comment ${{ github.event.number }} --body "
+          ### :exclamation: :exclamation: :exclamation: This Pull Request will not trigger a Release
+          A Pull Request with no \`release-type/...\` labels will not trigger a release, so you need to label this PR if you want to create a release.
+          Please check the [Release guidelines](https://github-cicd.docs.inditex.dev/githubcicd/stable/release/overview.html).
+          "

@@ -1,0 +1,43 @@
+---
+name: paas-PR-verify
+
+on:
+  pull_request:
+    paths:
+      - 'paas/**'
+
+env:
+  WORKFLOW_VERSION: 1.69.0
+
+jobs:
+  check-changes-in-paths:
+    name: Check for changes in corresponding paths
+    runs-on: ubuntu-20.04
+    outputs:
+      yaml: ${{ steps.changes.outputs.yaml }}
+      yaml-files: ${{ steps.changes.outputs.yaml_files }}
+    steps:
+      - name: Check for changed files in specific paths
+        id: changes
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        with:
+          list-files: shell
+          filters: |
+            yaml:
+              - added|modified: 'paas/**.yml'
+              - added|modified: 'paas/**.yaml'
+              - added|modified: 'paas/config_paas/**.yml'
+              - added|modified: 'paas/config_paas/**.yaml'
+  yaml-lint:
+    name: PaaS / Verify
+    timeout-minutes: 5
+    needs: check-changes-in-paths
+    if: needs.check-changes-in-paths.outputs.yaml == 'true'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: YAML Lint
+        run: yamllint -d relaxed ${{ needs.check-changes-in-paths.outputs.yaml-files }}

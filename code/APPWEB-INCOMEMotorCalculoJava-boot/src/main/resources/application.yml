@@ -1,0 +1,160 @@
+spring:
+  main:
+    allow-bean-definition-overriding: false
+  application:
+    name: ICMCLCWB
+  profiles:
+    active: standalone
+app:
+  id: ${spring.application.name}
+  version: '@project.version@'
+  envars:
+    slrhorcoms:
+      config:
+        max-attempts: 2
+      service:
+        slrhorcomsService:
+          festivos:
+            endpoint: /HorarioComercialFestivos/list?
+            rows: 100
+            maxFilterSize: 50
+    meta4:
+      ping-query-custom:
+        enabled: true
+        connect-timeout: 10s
+        read-timeout: 10s
+        type: 2
+amiga:
+  common:
+    rest:
+      client:
+        health:
+          ping-enabled: true
+    cache:
+      errorHandler:
+        failOnError: false
+        logOnError: true
+        errorFlushStepDuration: PT10S
+      remote:
+        enabled: true
+        max-retries: 0
+        cache-names: itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen,itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen,itx.icmlcwb.periodo_by_tarea,itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea,itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea,itx.icmlcwb.id_persona_local_challenge_by_tarea,itx.icmlcwb.presupuestos_by_tarea,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days,itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository,itx.icmlcwb.tipo_ausencia_by_icm_tp_absence,itx.icmlcwb.tipo_ausencia_by_id,itx.icmlcwb.tipo_opcion_calculo_by_id_meta4,itx.icmlcwb.tipo_politica_by_id_meta4,itx.icmlcwb.tipo_politica_by_id,itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto,itx.icmlcwb.tipo_presupuesto_by_id,itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo,itx.icmlcwb.tipo_unidad_tiempo_by_id,itx.icmlcwb.tipo_venta_concepto_by_id_meta4,itx.icmlcwb.tipo_venta_concepto_by_id,itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta,itx.icmlcwb.tipo_venta_concepto_challenge_by_id,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa,itx.icmlcwb.id_localizacion_local_presupuestos_by_id_empresa_and_id_tarea,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea,itx.icmlcwb.id_empresa_by_tarea,itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.accion_dto_by_id,itx.icmlcwb.tarea_ambito_dto_by_tarea,itx.icmlcwb.get_sistema_destino,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_cadena,itx.icmlcwb.horario_comercial_festivos,itx.icmlcwb.calcular_festivos,itx.icmlcwb.get_tipos_hora,itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen,itx.icmlcwb.get_clases,itx.icmlcwb.id_localizacion_by_tarea
+      hotrod-client:
+        infinispan:
+          client:
+            hotrod:
+              connection_pool:
+                exhausted_action: EXCEPTION
+    logging:
+      file:
+        enabled: false
+    async:
+      default-executor:
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+    executor:
+      meta4-executor:
+        name: async-meta4-executor
+        name-format: async-meta4-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      ptr-venta-executor:
+        name: async-ptr-venta-executor
+        name-format: async-ptr-venta-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      ptr-presencia-executor:
+        name: async-ptr-presencia-executor
+        name-format: async-ptr-presencia-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      slrhorcoms-executor:
+        name: async-slrhorcoms-executor
+        name-format: async-slrhorcoms-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      repository-primary-executor:
+        name: async-repository-primary-executor
+        name-format: async-repository-primary-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      algoritmo-calculo-executor:
+        name: async-algoritmo-calculo-executor
+        name-format: async-algoritmo-calculo-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      calculo-executor:
+        name: async-calculo-executor
+        name-format: async-calculo-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      algoritmo-ajuste-executor:
+        name: async-algoritmo-ajuste-executor
+        name-format: async-algoritmo-ajuste-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      ajuste-executor:
+        name: async-ajuste-executor
+        name-format: async-ajuste-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      regularizar-executor:
+        name: async-regularizar-executor
+        name-format: async-regularizar-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      validacion-executor:
+        name: async-validacion-executor
+        name-format: async-validacion-executor-%d
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+  service:
+    session:
+      session-type: REMOTE
+    core:
+      mdc-filter:
+        enabled: true
+    aaa:
+      user-details:
+        sso:
+          application-id: AppINCOMEMotorCalculoJava
+    rest-swagger:
+      ui:
+        title: '@project.name@'
+        description: '@project.description@'
