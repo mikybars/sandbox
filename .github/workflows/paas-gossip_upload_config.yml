@@ -1,0 +1,28 @@
+---
+name: paas-gossip-upload-config
+
+on:
+  push:
+    branches: [main]
+
+env:
+  WORKFLOW_VERSION: 2.2.0
+  GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
+  GOSSIP_SERVER_USER: oauthgossipsrv
+  GOSSIP_SERVER_PASS: cyberark.AX-N-SEG-OAU-IC-OPENAMPR.OAUTH2ClientsPRO_oauthgossipsrv
+
+jobs:
+  upload-config:
+    name: Upload Gossip configuration
+    timeout-minutes: 30
+    runs-on: [self-hosted, testing-ivm]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Launch Gossip Server request
+        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v5
+        with:
+          gossip-server-url: ${{ env.GOSSIP_SERVER_URL }}
+          gossip-server-username: ${{ env.GOSSIP_SERVER_USER }}
+          gossip-server-password: "${{ env.GOSSIP_SERVER_PASS }}"

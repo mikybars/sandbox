@@ -1,0 +1,255 @@
+---
+name: code-maven-release
+run-name: "Release labeled ${{ inputs.RELEASE_TYPE || 'in PR' }}"
+
+concurrency: code-release-${{ github.ref }}
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ['main', 'main-*']
+    paths: ['code/**', '.github/workflows/code**']
+  workflow_dispatch:
+    inputs:
+      BASELINE:
+        description: 'Baseline branch'
+        required: true
+        default: 'main'
+      RELEASE_TYPE:
+        description: 'Release type to use'
+        required: true
+        default: 'release-type/current'
+        type: choice
+        options:
+          - 'release-type/current'
+          - 'release-type/hotfix'
+          - 'release-type/multi-hotfix'
+          - 'release-type/major'
+          - 'release-type/minor'
+          - 'release-type/patch'
+      RELEASE_MODE:
+        description: 'Special release mode to use (OPTIONAL)'
+        type: choice
+        required: false
+        default: 'none'
+        options:
+          - 'none'
+          - 'release-mode/skip-changelog'
+          - 'release-mode/yank-previous'
+      FORCE:
+        description: 'Force the generation of the release, skipping the pre-checks (OPTIONAL)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  WORKFLOW_VERSION: 1.81.3
+  GITHUB_REGISTRY: ghcr.io
+  DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+  DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  JFROG_REGISTRY: inditex-docker.jfrog.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
+  CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.3-node-12-ubuntu-r0
+  SCM_EMAIL: srvcibot@inditex.com
+  SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+  SCM_USERNAME: butler-ci-bot
+  SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
+
+jobs:
+  release:
+    name: Release
+    if: github.event_name == 'workflow_dispatch'
+      || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
+        && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
+        || vars.DEVELOPMENT_FLOW == 'trunk-based-development'))
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get input parameters
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            RELEASE_LABELS="${{ github.event.inputs.RELEASE_TYPE }}, ${{ github.event.inputs.RELEASE_MODE }}"
+            if [[ "${{ github.event.inputs.FORCE }}" == "true" ]]; then
+              RELEASE_LABELS="$RELEASE_LABELS, release-mode/force"
+            fi
+          else
+            RELEASE_LABELS="${{ join(github.event.pull_request.labels.*.name, ', ') }}"
+            if [[ $RELEASE_LABELS != *release-type/* ]]; then
+              RELEASE_LABELS="$RELEASE_LABELS, release-type/current"
+            fi
+          fi
+          echo "RELEASE_LABELS=$RELEASE_LABELS" >> "$GITHUB_ENV"
+          echo "BASELINE_BRANCH=${{ github.event.inputs.BASELINE || github.ref }}" >> "$GITHUB_ENV"
+
+      - name: Setup current release type version
+        if: contains(env.RELEASE_LABELS, 'release-type/current')
+        run: echo "CD_ARGS=release" >> "$GITHUB_ENV"
+
+      - name: Setup patch release type version
+        if: contains(env.RELEASE_LABELS, 'release-type/hotfix')
+          || contains(env.RELEASE_LABELS, 'release-type/multi-hotfix')
+          || contains(env.RELEASE_LABELS, 'release-type/patch')
+        run: |
+          echo "CD_ARGS=release --patch" >> "$GITHUB_ENV"
+          echo "MVN_RELEASE_TYPE=-DreleaseType=patch" >> "$GITHUB_ENV"
+
+      - name: Setup minor release type version
+        if: contains(env.RELEASE_LABELS, 'release-type/minor')
+        run: |
+          echo "CD_ARGS=release --minor" >> "$GITHUB_ENV"
+          echo "MVN_RELEASE_TYPE=-DreleaseType=minor" >> "$GITHUB_ENV"
+
+      - name: Setup major release type version
+        if: contains(env.RELEASE_LABELS, 'release-type/major')
+        run: |
+          echo "CD_ARGS=release --major" >> "$GITHUB_ENV"
+          echo "MVN_RELEASE_TYPE=-DreleaseType=major" >> "$GITHUB_ENV"
+
+      - name: Setup force option
+        if: contains(env.RELEASE_LABELS, 'release-mode/force')
+        run: |
+          echo "CD_ARGS=$CD_ARGS --force-release-mode" >> "$GITHUB_ENV"
+          echo "MVN_RELEASE_ARGS=-DreleaseForce" >> "$GITHUB_ENV"
+
+      - name: Force release if the yank-previous label is present
+        if: contains(env.RELEASE_LABELS, 'release-mode/yank-previous')
+        run: |
+          echo "CD_ARGS=$CD_ARGS --force-release-mode" >> "$GITHUB_ENV"
+          echo "MVN_RELEASE_ARGS=-DreleaseForce" >> "$GITHUB_ENV"
+
+      - name: Checkout merge commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BASELINE_BRANCH }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Maven Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Setup asdf Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.asdf/data
+          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          restore-keys: |
+            ${{ runner.os }}-asdf-
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Log in to JFrog Registry
+        run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
+
+      - name: Prepare committer information
+        run: |
+          echo "$SCM_COMMITTER_PGP_KEY" | gpg --import
+          git config user.name "$SCM_USERNAME"
+          git config user.email "$SCM_EMAIL"
+          git config commit.gpgsign true
+
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r1
+          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r1
+          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r1
+        with:
+          tool-versions-directory: code
+
+      - name: Yank previous release
+        if: contains(env.RELEASE_LABELS, 'release-mode/yank-previous')
+        run: |
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u runner \
+            -e GIT_AUTHOR_NAME=${SCM_USERNAME} -e GIT_AUTHOR_EMAIL=${SCM_EMAIL} -e EMAIL=${SCM_EMAIL} \
+            -e ISSUE_TRACKER_PASSWORD=${{ secrets.GITHUB_TOKEN }} \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME/.gnupg",dst=/home/runner/.gnupg \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            changelog-drafter yank --headless --commit --drafterconfig-path .ci-drafterconfig.yml > /tmp/.yanked-version
+          echo "MVN_RELEASE_ARGS=$MVN_RELEASE_ARGS -DyankRelease=$(cat /tmp/.yanked-version)" >> "$GITHUB_ENV"
+
+      - name: Update CHANGELOG.md
+        if: ${{ !contains(env.RELEASE_LABELS, 'release-mode/skip-changelog') }}
+        run: |
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u runner \
+            -e ISSUE_TRACKER_JIRA_USERNAME=${{ secrets.SRVCJIRAGITHUBAX_USERNAME }} \
+            -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRAGITHUBAX_PASSWORD }} \
+            -e ISSUE_TRACKER_EXTRAHEADERS='{"itx-apikey":"${{ secrets.JANUS_JIRASIST_APIKEY }}"}' \
+            -e ISSUE_TRACKER_GITHUB_SECRET="${{ secrets.GITHUB_TOKEN }}" \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.gnupg,dst=/home/runner/.gnupg \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            changelog-drafter $CD_ARGS --headless --commit --drafterconfig-path .ci-drafterconfig.yml > /tmp/.version
+          echo "MVN_RELEASE_ARGS=$MVN_RELEASE_ARGS -DreleaseVersion=$(cat /tmp/.version)" >> "$GITHUB_ENV"
+          echo "RELEASE_VERSION=$(cat /tmp/.version)" >> "$GITHUB_ENV"
+
+      - name: Release Artifact
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u runner \
+            -e SCM_USERNAME -e SCM_TOKEN \
+            -e DP_USERNAME -e DP_TOKEN \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$HOME"/.gnupg,dst=/home/runner/.gnupg \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -B release:prepare release:perform $MVN_RELEASE_TYPE $MVN_RELEASE_ARGS
+
+      - name: GitHub Release / Get final version number from latest tag in branch
+        if: ${{ contains(env.RELEASE_LABELS, 'release-mode/skip-changelog') }}
+        run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
+
+      - name: Github Release / Create
+        uses: ncipollo/release-action@2792aea87063cfd0d27953ac38e3ab45afacc154
+        id: github-release
+        continue-on-error: true
+        with:
+          name: ${{ env.RELEASE_VERSION }}
+          tag: ${{ env.RELEASE_VERSION }}
+          token: ${{ secrets.GH_TOKEN_PUSH }}
+          body: |
+            Check out the [changelog](code/CHANGELOG.md) for version ${{ env.RELEASE_VERSION }}
+
+      - name: Comment in PR / Sync PR creation failed
+        if: ${{ vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DEVELOP=${BASELINE_BRANCH/main/develop}
+          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
+          # shellcheck disable=SC2140
+          if ! git ls-remote --exit-code --heads origin automated/sync-release-"${{ env.RELEASE_VERSION }}"-to-"$DEVELOP"; then
+            gh pr comment "${{ github.event.number }}" --body "An error occurred creating the \`sync\` branch that synchronizes the \`$BASELINE_BRANCH\` and \`$DEVELOP\` branches.
+            Please create a branch from \`$BASELINE_BRANCH\` (e.g. \`internal/sync-$BASELINE_BRANCH-with-$DEVELOP\`) and then create a pull request against \`$DEVELOP\` to finish the release process."
+          fi
+
+      - name: Comment in PR / Release creation failed
+        if: ${{ steps.github-release.outcome == 'failure' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh pr comment ${{ github.event.number }} --body "An error occurred creating the Github Release.
+          Don't panic! Your artifacts were successfully uploaded to the Distribution Platform and the new release tag was created.
+          You can manually complete the release by creating it in the [releases](https://github.com/inditex/%7Brepo%7D/releases)
+          page or opening up an issue at [inditex/helpme](https://github.com/inditex/helpme/) where you will have assistance."

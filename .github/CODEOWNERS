@@ -12,4 +12,8 @@ application.yml @inditex/income-poweruser
 # CI/CD workflows reviewers
 .github/workflows/* @inditex/income-poweruser
 
+# Maven configuration management and quality metrics files
+code/src/main/config/*-style.xml @inditex/income-poweruser
+code/src/main/config/pom-code-convention.xml @inditex/income-poweruser
+
 # Other reviewers

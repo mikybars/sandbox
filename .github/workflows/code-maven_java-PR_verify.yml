@@ -1,0 +1,180 @@
+---
+name: code-maven-PR-verify
+
+on:
+  pull_request:
+    paths:
+      - 'code/**'
+      - '.github/workflows/code*'
+
+env:
+  WORKFLOW_VERSION: 1.81.3
+  DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+
+jobs:
+  unit-tests:
+    name: Code / Verify
+    runs-on: [self-hosted, testing-ivm]
+    permissions:
+      contents: write
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup IVM environment
+        uses: inditex/gha-ivmactions/setup-environment@v0
+        with:
+          tool-versions-directory: code
+          distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+
+      - name: Get runner resources
+        continue-on-error: true
+        uses: inditex/gha-citool/get-runner-resources@v0
+        with:
+          memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+            gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: Store project version
+        id: version
+        run: |
+          echo "app-version=$(xmllint --xpath "/*[name()='project']/*[name()='version']/text()" code/pom.xml)" >> "$GITHUB_OUTPUT"
+
+      - name: Maven / Environment setup
+        run: |
+          echo "${MAVEN_HOME}/bin" >> "$GITHUB_PATH"
+
+      - name: Maven / Verify artifact with coverage
+        if: ${{ !(contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries')) }}
+        working-directory: code
+        run: |
+          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+
+      - name: Maven / Verify artifact with coverage and deploy PR-versioned SNAPSHOT binaries
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries') }}
+        working-directory: code
+        env:
+          DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mvn -B build-helper:parse-version versions:set \
+            -DnewVersion="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}+PR${{ github.event.pull_request.number }}-SNAPSHOT"
+
+          mvn -B clean deploy -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+
+          VERSION=${{ steps.version.outputs.app-version }}
+          VERSION=${VERSION/-SNAPSHOT}+PR${{ github.event.pull_request.number }}-SNAPSHOT
+          MESSAGE="## PR-versioned SNAPSHOT binaries published successfully.
+          📦 The artifact version \`$VERSION\` has been published.
+          💡 You can use this SNAPSHOT version in your dependent project setting this version of the dependency in your \`pom.xml\`:
+          \`\`\`xml
+          <version>$VERSION</version>
+          \`\`\`
+
+          *Make sure you have configured maven to force a check for updated snapshots (\`-U\`). See [reference configuration](https://github.com/inditex/lib-mavenhello/blob/develop/code/.mvn/maven.config).*
+          "
+
+          echo "$MESSAGE" >> "$GITHUB_STEP_SUMMARY"
+          gh pr comment ${{ github.event.pull_request.number }} --body "$MESSAGE"
+
+      - name: Maven / Process Surefire report and annotate PR
+        if: ${{ always() && !cancelled() }}
+        uses: scacap/action-surefire-report@be8172cc301d1805659f46260815db3e9ad574b2
+        with:
+          fail_if_no_tests: false
+          create_check: false
+          check_name: "Code / Verify"
+
+      - name: sonar-scanner / Check if the project is excluded of SonarQube
+        id: check-sonarqube-exclusion
+        shell: python
+        run: |
+          import os
+          path_find = "./.github/workflows/"
+          hasExclusion = 1
+
+          for file in os.listdir(path_find):
+            print(f"Archivo: {file}")
+            if file.startswith("code-") and file.endswith("-QA_unit.yml"):
+                hasExclusion = 0
+                print(f"El archivo {file} existe.")
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-excluded={ hasExclusion }\n')
+
+      - name: sonar-scanner / Setup Node version
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          local-directory: code
+          tool-name: ivm-node
+          tool-version: 18
+
+      - name: Get SonarUrl
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
+        id: get-sonar-url
+        env:
+          PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
+        uses: inditex/actions/testing/get-sonar-url-from-api/@main
+
+      - name: sonar-scanner / Run scanner
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
+        working-directory: code
+        env:
+          PR_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${{ steps.metadata.outputs.project-key }} \
+            -Dsonar.projectName=${{ steps.metadata.outputs.project-name }} \
+            -Dsonar.projectVersion=${{ steps.version.outputs.app-version }} \
+            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
+            -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
+            -Dsonar.pullrequest.base=${{ github.base_ref }} \
+            -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} \
+            -Dsonar.qualitygate.wait=true \
+            -Dsonar.qualitygate.timeout=300
+
+      - name: Run sonarcloud-scanner
+        env:
+          PR_HEAD_REF: ${{ github.head_ref }}
+          LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_SCANNER_OPTS: ''
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        working-directory: code
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey="inditexcodingfashion_${{ steps.metadata.outputs.project-key }}" \
+            -Dsonar.projectName="${{ steps.metadata.outputs.project-name }}" \
+            -Dsonar.projectVersion="${{ steps.version.outputs.app-version }}" \
+            -Dsonar.host.url="https://sonarcloud.io/" \
+            -Dsonar.organization=inditex-sonarcloud \
+            -Dsonar.login="${LOGIN}" \
+            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
+            -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
+            -Dsonar.pullrequest.base=${{ github.base_ref }} \
+            -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} \
+            -Dsonar.qualitygate.wait=true \
+            -Dsonar.qualitygate.timeout=300 \
+            -Dsonar.pullrequest.provider=GitHub \
+            -Dsonar.pullrequest.github.repository="${{ github.repository }}" \
+            -Dsonar.pullrequest.github.summary_comment=true

@@ -1,0 +1,231 @@
+---
+name: code-maven-QA-unit
+run-name: QA unit testing in ${{ github.base_ref || 'default' }} branch
+
+concurrency:
+  group: qa-unit-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+    branches: [develop, main]
+    paths: ['code/**', '.github/workflows/code-*-QA_unit.yml']
+  release:
+    types:
+      - published
+
+env:
+  WORKFLOW_VERSION: 1.65.0
+  DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+  DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
+  DT_SECRET: ${{ secrets.DT_SECRET }}
+
+jobs:
+  unit-tests:
+    name: SonarQube / Unit Tests
+    if: ${{ (github.event.pull_request.merged == true && (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && github.base_ref == 'develop') ||
+        (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && github.base_ref == 'main')) ||
+        github.event_name == 'workflow_dispatch' ||
+        github.event_name == 'release' }}
+    timeout-minutes: 30
+    runs-on: [self-hosted, testing-ivm]
+    steps:
+      - name: Check default branch
+        id: default-branch
+        run: |
+          if [[ "${{ vars.DEVELOPMENT_FLOW }}" != "trunk-based-development" && "${{ github.event.repository.default_branch }}" == "develop" ]]; then
+            echo "DEFAULT_BRANCH=develop" >> "$GITHUB_OUTPUT"
+          else
+            echo "DEFAULT_BRANCH=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check where config_test is
+        id: check-where-config-test-is
+        env:
+          CONFIG_TEST_FILE: code/src/test/resources/config_test.yml
+        run: |
+          if [[ -f "${CONFIG_TEST_FILE}" ]]; then
+            echo "config-test-directory=${CONFIG_TEST_FILE}" >> "$GITHUB_OUTPUT"
+          elif [[ -f "code/config_test/config_test.yml" ]]; then
+            echo "config-test-directory=code/config_test/config_test.yml" >> "$GITHUB_OUTPUT"
+          else
+            echo "config_test.yml file not found"
+          fi
+
+      - name: Setup IVM environment
+        uses: inditex/gha-ivmactions/setup-environment@v0
+        with:
+          tool-versions-directory: code
+          distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+
+      - name: Resolve Configuration
+        id: config
+        uses: inditex/actions/resolvers/config-resolver@main
+        with:
+          create-annotations: true
+          files: |
+            application.yml
+            ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+
+      - name: Store project version
+        id: pom-data
+        run: |
+          echo "app-version=$(xmllint --xpath "/*[name()='project']/*[name()='version']/text()" code/pom.xml)" >> "$GITHUB_OUTPUT"
+
+      - name: Run unit tests with release event
+        if: github.event_name == 'release'
+        working-directory: code
+        run: |
+          mvn -B clean verify -DskipEnforceSnapshots -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+
+      - name: Run unit tests
+        if: github.event_name != 'release'
+        working-directory: code
+        run: |
+          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+
+      - name: Get SonarUrl
+        id: get-sonar-url
+        env:
+          PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
+        uses: inditex/actions/testing/get-sonar-url-from-api/@main
+
+      - name: sonar-scanner / Setup Node version
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          local-directory: code
+          tool-name: ivm-node
+          tool-version: 18
+
+      - name: sonar-scanner / Run with release event
+        if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
+        working-directory: code
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
+            -Dsonar.projectVersion="${{ github.event.release.tag_name }}" \
+            -Dsonar.branch.name="release/${{ github.event.release.tag_name }}"
+
+      - name: sonar-scanner / Run with ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }} branch
+        if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
+        working-directory: code
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
+            -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
+            -Dsonar.branch.name="${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}"
+
+      - name: Run sonarcloud-scanner with release event
+        env:
+          LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_SCANNER_OPTS: ''
+        if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        working-directory: code
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=inditexcodingfashion_"${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
+            -Dsonar.projectVersion="${{ github.event.release.tag_name }}" \
+            -Dsonar.branch.name="release/${{ github.event.release.tag_name }}" \
+            -Dsonar.host.url="https://sonarcloud.io/" \
+            -Dsonar.organization=inditex-sonarcloud \
+            -Dsonar.login="${LOGIN}"
+
+      - name: Run sonarcloud-scanner
+        env:
+          LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_SCANNER_OPTS: ''
+        if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        working-directory: code
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=inditexcodingfashion_"${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
+            -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
+            -Dsonar.branch.name="${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
+            -Dsonar.host.url="https://sonarcloud.io/" \
+            -Dsonar.organization=inditex-sonarcloud \
+            -Dsonar.login="${LOGIN}"
+
+
+      - name: Generate Surefire HTML report
+        if: ${{ always() && !cancelled() && fromJSON(steps.config.outputs.config).junit.unit.results.surefire_html_report_folder.path != null }}
+        working-directory: code
+        continue-on-error: true
+        run: |
+          mvn surefire-report:report-only site:site -DoutputName=index -DalwaysGenerateSurefireReport=true -DgenerateReports=false
+      - name: Display results
+        if: ${{ always() && !cancelled() }}
+        continue-on-error: true
+        uses: inditex/actions/testing/results-summary-annotations@main
+        with:
+          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+          keys: junit.unit
+          branch_name: ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}
+
+      - name: Attach results
+        if: ${{ always() && !cancelled() }}
+        continue-on-error: true
+        uses: inditex/actions/upload-artifact@main
+        with:
+          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+          keys: junit.unit
+
+      - name: Publish unit test results to DEVINS
+        if: github.event_name != 'release'
+        env:
+          SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        run: |
+          adam publishUnitTest \
+            --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            --workspace="${{ github.workspace }}" \
+            --version="${{ steps.pom-data.outputs.app-version }}" \
+            --surefirePath="${{ github.workspace }}/**/${{ fromJSON(steps.config.outputs.config).junit.unit.results.surefire_xml_report_path.path }}" \
+            --jacocoPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).junit.unit.results.jacoco_report_folder.path }}/index.html"
+          adam publishSonarTest \
+            --taskPath="${{ github.workspace }}/code/.scannerwork/report-task.txt" \
+            --version="${{ steps.pom-data.outputs.app-version }}"
+          adam publishExclusions \
+            --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            --workspace="${{ github.workspace }}"
+
+      - name: Publish unit test results to DEVINS
+        if: github.event_name == 'release'
+        env:
+          SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        run: |
+          adam publishUnitTest \
+            --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            --workspace="${{ github.workspace }}" \
+            --version="${{ github.event.release.tag_name }}" \
+            --surefirePath="${{ github.workspace }}/**/${{ fromJSON(steps.config.outputs.config).junit.unit.results.surefire_xml_report_path.path }}" \
+            --jacocoPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).junit.unit.results.jacoco_report_folder.path }}/index.html"
+          adam publishSonarTest \
+            --taskPath="${{ github.workspace }}/code/.scannerwork/report-task.txt" \
+            --version="${{ github.event.release.tag_name }}"
+          adam publishExclusions \
+            --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            --workspace="${{ github.workspace }}"
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "code-QA-unit"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+
+            You can find more details in the link below :arrow_down:

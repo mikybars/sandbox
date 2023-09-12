@@ -1,0 +1,77 @@
+---
+name: monit-deep-validation
+run-name: Monit deep validation to env ${{ inputs.env }}
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Env to deep validation subscription, inhibitions or mail-list '
+        type: choice
+        options:
+          - 'des'
+          - 'pre'
+          - 'pro'
+        required: true
+
+env:
+  WORKFLOW_VERSION: 1.44.0
+  SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
+  SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
+  SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
+  SRVC_ALERTHUBINTPREAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTPREAX_PASSWORD }}
+  SRVC_ALERTHUBINTAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTAX_USERNAME }}
+  SRVC_ALERTHUBINTAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTAX_PASSWORD }}
+
+jobs:
+  linter:
+    name: Linter
+    timeout-minutes: 30
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.sha}}
+
+      - name: Linter
+        uses: github/super-linter@v4.8.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_INCLUDE: monit/.*
+          VALIDATE_JSON: true
+
+  monit:
+    name: Monit
+    runs-on: [self-hosted, testing-ivm]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+
+      - name: Setup Java tool
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          tool-name: ivm-java
+          tool-version: openjdk-17
+
+      - name: Monit step
+        uses: inditex/gha-alerthub/code@main
+        with:
+          deep-validation: true
+          pr-verify: true
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          env: ${{ github.event.inputs.env }}

@@ -1,0 +1,142 @@
+---
+name: paas-build-deployable
+run-name: "Build deployable with version=${{ inputs.VERSION || github.event.release.tag_name }}"
+
+concurrency:
+  group: "promote-main-${{ github.event.release.tag_name || github.event.inputs.VERSION }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: 'Version to build'
+        required: true
+        default: ''
+  release:
+    types:
+      - published
+
+env:
+  WORKFLOW_VERSION: 1.69.0
+  JFROG_REGISTRY: inditex-docker.jfrog.io
+  DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+  DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  GITHUB_REGISTRY: ghcr.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
+  ASDF_IMAGE_TAG: 0.12.0-ubuntu20.04-r0
+
+jobs:
+  identify-changes:
+    name: Identify Changes
+    runs-on: ubuntu-20.04
+    outputs:
+      code-changes: ${{ steps.check-code-changes.outputs.changed }}
+      config-changes: ${{ steps.check-config-changes.outputs.changed }}
+      release-version: ${{ steps.release-version.outputs.release-version }}
+    steps:
+      - name: Get released version from Github event
+        id: release-version
+        run: |
+          RELEASE_TAG_NAME=${{ github.event.release.tag_name }}
+          INPUT_VERSION=${{ github.event.inputs.VERSION }}
+          echo "release-version=${RELEASE_TAG_NAME:-$INPUT_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.release-version.outputs.release-version }}
+          fetch-depth: 0
+
+      - name: Check code changes
+        uses: inditex/actions/deployment/identify-changes@main
+        id: "check-code-changes"
+        with:
+          tag-suffix: last-build
+          paths: "code"
+
+      - name: Check config changes
+        uses: inditex/actions/deployment/identify-changes@main
+        id: "check-config-changes"
+        with:
+          tag-suffix: last-build
+          paths: "paas"
+
+  build-deployable:
+    name: PaaS / Build Deployable & Promote
+    needs: [identify-changes]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.identify-changes.outputs.release-version }}
+          fetch-depth: 0
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Log in to JFrog Registry
+        run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
+
+      - name: Setup Maven Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Setup asdf Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.asdf/data
+          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          restore-keys: |
+            ${{ runner.os }}-asdf-
+
+      - name: Checkout Released Tag and Generate Maven Reactor List
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          docker run --workdir /app/code \
+            -u runner \
+            -e DP_USERNAME -e DP_TOKEN \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            sh -c "\
+              mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec && \
+              mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec && \
+              mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv"
+
+      - name: Sentinel - Generate Dockerfile
+        id: sentinel
+        uses: inditex/actions/sentinel@main
+        with:
+          app-version: ${{ needs.identify-changes.outputs.release-version }}
+          working-directory: code
+          token: ${{ secrets.GH_TOKEN_READER }}
+        env:
+          IMAGE_BUILD_TYPE: release
+
+      - name: Build and Push Docker image
+        uses: inditex/actions/docker/build-and-push@main
+        with:
+          registry: ${{ steps.sentinel.outputs.image-registry }}
+          token: ${DP_TOKEN}
+          image-name: projects/${{ steps.sentinel.outputs.image-name }}
+          tags: ${{ steps.sentinel.outputs.image-tags }}
+          path: code
+          dockerfile: code/Dockerfile
+          devinsgh-webhook-secret: ${{ secrets.DEVINSGH_WEBHOOK_SECRET }}
+
+      - name: Create tag from identify-changes
+        if: github.event_name != 'release'
+        uses: inditex/actions/deployment/move-build-tag@main
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
