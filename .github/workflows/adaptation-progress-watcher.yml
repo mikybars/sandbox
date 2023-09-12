@@ -1,0 +1,238 @@
+name: adaptation-progress-watcher
+
+concurrency:
+  group: adaptation-progress-watcher
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ["develop"]
+
+jobs:
+  preconditions:
+    runs-on: ubuntu-20.04
+    outputs:
+      merged: ${{ steps.check-prs.outputs.merged }}
+    steps:
+    - name: Checkout working branch
+      uses: actions/checkout@v3
+      with:
+        ref: internal/adaptation-status
+
+    - name: Check if all PRs have been merged
+      id: check-prs
+      env:
+        GITHUB_TOKEN: "${{ github.token }}"
+      run: |
+        merged=true
+        if [ -d "reports/" ]; then
+          for report in $(find "reports/" -mindepth 1 -maxdepth 1 -type f); do
+            pr=$(yq e '.pr' $report)
+            pr_state=$(gh pr view $pr --json state --jq ".state")
+            if [ "$pr_state" == "OPEN" ]; then
+              merged=false
+              break
+            fi
+          done
+        else
+          merged=false
+        fi
+        echo "merged=$merged" >> "$GITHUB_OUTPUT"
+
+  standardize-artifact:
+    runs-on: ['self-hosted', 'testing-ivm']
+    needs: [preconditions]
+    if: needs.preconditions.outputs.merged == 'true'
+    outputs:
+      technology: ${{ steps.get-technology.outputs.technology }}
+    steps:
+    - name: Checkout working branch
+      uses: actions/checkout@v3
+
+    - name: Checkout GHADAPTER config files
+      uses: actions/checkout@v3
+      with:
+        repository: inditex/clr-ghadapter
+        path: ghadapter
+        ref: main
+        token: ${{ secrets.GH_TOKEN_READER }}
+
+    - name: Setup IVM environment
+      uses: inditex/gha-ivmactions/setup-environment@v0
+      with:
+        tool-versions-directory: ghadapter/code
+
+    - name: Install dependencies
+      working-directory: ${{ github.workspace }}/ghadapter/code
+      run: |
+        pip3 install --force-reinstall ghadapter
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Get project information
+      id: get-project-info
+      working-directory: ${{ github.workspace }}
+      env:
+        PROJECT_NAME : "${{ github.event.repository.name }}"
+        GHADAPTER_GH_AUTH_TOKEN: "${{ secrets.GH_TOKEN_READER }}"
+      run: |
+        project_key=$(grep project_key application.yml | sed 's/^\s*project_key:\s*//g')
+        echo "project-key=$project_key" >> "$GITHUB_OUTPUT"
+
+    - name: Get technology
+      id: get-technology
+      working-directory: ${{ github.workspace }}/ghadapter/code
+      env:
+        PROJECT_NAME : "${{ github.event.repository.name }}"
+        PROJECT_KEY: "${{ steps.get-project-info.outputs.project-key }}"
+        GHADAPTER_GH_AUTH_TOKEN: "${{ secrets.GH_TOKEN_READER }}"
+      run: |
+        technology=$(ghadapter postmigrate --project-key ${PROJECT_KEY} --origin-project ${PROJECT_KEY} --github-repo ${PROJECT_NAME} --get-technology)
+        echo "technology=$technology" >> "$GITHUB_OUTPUT"
+
+    - name: Get installed features
+      id: get-installed-features
+      working-directory: ${{ github.workspace }}/ghadapter/code
+      env:
+        PROJECT_NAME : "${{ github.event.repository.name }}"
+        PROJECT_KEY: "${{ steps.get-project-info.outputs.project-key }}"
+        GHADAPTER_GH_AUTH_TOKEN: "${{ secrets.GH_TOKEN_READER }}"
+      run: |
+        mkdir -p /tmp/ghadapter/
+        installed_features=$( \
+        ghadapter postmigrate \
+         --get-installed-features \
+         --project-key ${PROJECT_KEY} \
+         --origin-project ${PROJECT_KEY} \
+         --github-repo ${PROJECT_NAME} \
+        )
+        repo_features=$(echo $installed_features | sed 's/"/\\"/g')
+        echo "repo-features=$repo_features" >> "$GITHUB_OUTPUT"
+
+    - name: Invoke butler-initializr standardize-artifact workflow
+      env:
+        GITHUB_TOKEN: "${{ secrets.GH_TOKEN_PUSH }}"
+        PROJECT_NAME : "${{ github.event.repository.name }}"
+        PROJECT_KEY: "${{ steps.get-project-info.outputs.project-key }}"
+        TECHNOLOGY: "${{ steps.get-technology.outputs.technology }}"
+        INSTALLED_FEATURES: "${{ steps.get-installed-features.outputs.repo-features }}"
+        AUTO_APPROVAL: "true"
+      run: |
+        echo '{"project_name":"${{ env.PROJECT_NAME }}", "project_key":"${{ env.PROJECT_KEY }}", "technology":"${{ env.TECHNOLOGY }}", "features":"${{ env.INSTALLED_FEATURES }}", "auto_approval":"${{ env.AUTO_APPROVAL }}"}' | gh workflow run standardize-artifact --repo inditex/butler-initializr --json
+
+    - name: Cleanup folders
+      if: always()
+      run: |
+        rm -rf /tmp/ghadapter
+
+  execute-post-adapt-actions:
+    runs-on: ubuntu-20.04
+    needs: [standardize-artifact]
+    steps:
+    - name: Checkout working branch
+      uses: actions/checkout@v3
+
+    - name: Get Actions to launch
+      id: get-actions
+      shell: python
+      env:
+        TECHNOLOGY: ${{ needs.standardize-artifact.outputs.technology }}
+      run: |
+        import yaml
+        import os
+
+        with open(".github/workflows/config/actions-per-pattern.yml", "r") as actions_file:
+          actions = yaml.safe_load(actions_file)
+
+        actions_to_launch = []
+        technology = os.getenv('TECHNOLOGY')
+        if technology in actions:
+          actions_to_launch = actions[technology]
+        if "any" in actions:
+          actions_to_launch.extend(actions["any"])
+        formatted_list = ','.join(actions_to_launch)
+
+        github_output = os.getenv('GITHUB_OUTPUT')
+        with open(github_output, "a") as gh_out:
+          gh_out.write(f'actions={formatted_list}')
+
+    - name: Execute Darwin Actions
+      if: steps.get-actions.outputs.actions != ''
+      env:
+        ACTIONS: ${{ steps.get-actions.outputs.actions }}
+        PROJECT_NAME : "${{ github.event.repository.name }}"
+        GITHUB_TOKEN: "${{ secrets.GH_TOKEN_PUSH }}"
+      run: |
+        IFS=',' read -r -a array <<< "$ACTIONS"
+        for action in "${array[@]}"
+        do
+          gh workflow run custom-launch-action.yml -f action="$action" -f scm=github -f artifacts="$PROJECT_NAME" -f source_branch=develop --repo inditex/clr-darwinactions
+        done
+
+  self-remove:
+    runs-on: ubuntu-20.04
+    needs: [standardize-artifact, execute-post-adapt-actions]
+    env:
+      SCM_EMAIL: srvcibot@inditex.com
+      SCM_USERNAME: butler-ci-bot
+      SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+      PR_BRANCH_NAME: internal/GH-1-remove-adaptation-progress-watcher-wf
+    steps:
+    - name: Checkout working branch
+      uses: actions/checkout@v3
+
+    - name: Remove workflows
+      run: |
+        rm -f .github/workflows/adaptation-progress-watcher.yml
+        rm -f .github/workflows/adaptation-PR-verifier.yml
+        rm -f .github/workflows/config/actions-per-pattern.yml
+
+    - name: Prepare committer information
+      run: |
+        echo "$SCM_COMMITTER_PGP_KEY" | gpg --import
+        git config user.name "$SCM_USERNAME"
+        git config user.email "$SCM_EMAIL"
+        git config commit.gpgsign true
+
+    - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+      run: |
+        git checkout -b "${{ env.PR_BRANCH_NAME }}"
+        git commit -i .github/workflows/adaptation-progress-watcher.yml .github/workflows/adaptation-PR-verifier.yml -m "chore: remove adaptation workflows" --no-verify
+        git push --atomic --no-verify origin HEAD
+
+    - name: Create PR
+      env:
+        GITHUB_TOKEN: ${{ secrets.DARWINBOT_PR_PAT }}
+        TECHNOLOGY: ${{ needs.standardize-artifact.outputs.technology }}
+      run: |
+        if [[ "${TECHNOLOGY}" == "xcode_ios" || "${TECHNOLOGY}" == "gradle_android" || "${TECHNOLOGY}" == "msbuild_xamarin" ]]; then
+          additional_comments="- **Now you must head up to [DevHub](https://sscc.central.inditex.grp/devhub/web) to provision the Mobile Code Pipelines** and any other additional features that you require"
+        else
+          additional_comments="- Now you can go to [DevHub](https://sscc.central.inditex.grp/devhub/web) to request additional features for the project."
+        fi
+
+        body="
+        Relates to #1
+
+        _Disclaimer: This is an automated PR. This PR only removes temporary files needed for the adaptation/migration progress._
+
+        ### :rocket: Migration success!
+        ${additional_comments}
+        ### :scroll: Further information:
+          - For any incident related to the **GitHub CI/CD Ecosystem**, open a new issue in the [helpme](https://github.com/inditex/helpme/) repository
+          - [How to use the different ChatBot commands](https://chatbot.docs.inditex.dev/chatbot/latest/commands/overview.html)
+          - [How to release a new version](https://github-cicd.docs.inditex.dev/githubcicd/stable/release/new-version.html)
+        "
+        gh pr create --title "Consolidate migration" \
+          --body "$body" \
+          --head "${{ env.PR_BRANCH_NAME }}" \
+          --base develop \
+          --label kind/internal
+
+    - name: Remove internal/adaptation-status branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+      run: |
+        git push origin --delete internal/adaptation-status
