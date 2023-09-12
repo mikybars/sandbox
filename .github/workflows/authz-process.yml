@@ -1,0 +1,132 @@
+name: authz-process
+run-name: "Auth process in supraenv ${{ inputs.SUPRAENVS }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVS:
+        description: 'Supra environments to process files'
+        required: true
+  push:
+    branches:
+      - main
+    paths: ['authz/**', '.github/workflows/authz**']
+
+env:
+  WORKFLOW_VERSION: 1.40.0
+  AUTHZ_DIR: "authz/"
+  PREFIX: "authz_"
+  SUFFIX: ".yml"
+
+jobs:
+  get-supraenvs:
+    name: Get supraenvironments
+    runs-on: ubuntu-20.04
+    outputs:
+      supraenvs: ${{ steps.files.outputs.supraenvs || steps.input.outputs.supraenvs }}
+    steps:
+      - name: Checkout
+        if: github.event_name == 'push'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Get supraenvs from files
+        id: files
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          BASE_REF="${{ github.event.before }}"
+          HEAD_REF="${{ github.event.after }}"
+
+          # Let this block fail on error to provide a proper message
+          set +e
+          supraenvs=$(git diff --name-only ${BASE_REF}..${HEAD_REF} \
+            | grep "^${AUTHZ_DIR}" \
+            | xargs -r -n1 basename \
+            | sed -E "s/${PREFIX}|${SUFFIX}//g" \
+            | xargs echo \
+            | sed 's/ /,/g')
+          set -e
+
+          if [[ -z $supraenvs ]]; then
+            echo "::warning ::No changes found in authz config files, won't process any supraenv!"
+          else
+            echo "supraenvs=${supraenvs}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Get supraenvs from inputs
+        id: input
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: echo "supraenvs=${{ github.event.inputs.SUPRAENVS }}" >> "$GITHUB_OUTPUT"
+
+  process:
+    name: Process authz configuration
+    runs-on: [self-hosted, common]
+    needs: [get-supraenvs]
+    if: needs.get-supraenvs.outputs.supraenvs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+
+      - name: Process development authz files
+        id: des
+        if: ${{ contains(needs.get-supraenvs.outputs.supraenvs, 'des') }}
+        uses: inditex/actions/authz/process-files@main
+        continue-on-error: true
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          supraenvs: des
+          authz-dir: ${AUTHZ_DIR}
+          file-prefix: ${PREFIX}
+          file-suffix: ${SUFFIX}
+
+      - name: Process preproduction authz files
+        id: pre
+        if: ${{ contains(needs.get-supraenvs.outputs.supraenvs, 'pre') }}
+        uses: inditex/actions/authz/process-files@main
+        continue-on-error: true
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          supraenvs: pre
+          authz-dir: ${AUTHZ_DIR}
+          file-prefix: ${PREFIX}
+          file-suffix: ${SUFFIX}
+
+      - name: Process production authz files
+        id: pro
+        if: ${{ contains(needs.get-supraenvs.outputs.supraenvs, 'pro') }}
+        uses: inditex/actions/authz/process-files@main
+        continue-on-error: true
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          supraenvs: pro
+          authz-dir: ${AUTHZ_DIR}
+          file-prefix: ${PREFIX}
+          file-suffix: ${SUFFIX}
+
+      # They want to run all configuration even if one fails
+      - name: Check failures
+        if: ${{ contains(steps.*.outcome, 'failure') }}
+        shell: bash
+        run: |
+          echo "Process failed"
+          echo "des: ${{ steps.des.outcome }}"
+          echo "pre: ${{ steps.pre.outcome }}"
+          echo "pro: ${{ steps.pro.outcome }}"
+          exit 1
