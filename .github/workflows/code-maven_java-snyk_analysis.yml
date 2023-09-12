@@ -1,0 +1,144 @@
+---
+name: code-maven-snyk-analysis
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/code-*-snyk_analysis.yml'
+      - 'code/**/pom.xml'
+  release:
+    types:
+      - published
+
+env:
+  WORKFLOW_VERSION: 1.46.0
+  WORKING_DIR: code
+  DOJO_USERNAME: ${{ secrets.SRVC_FTFAUDIT_USER }}
+  DOJO_PASSWORD: ${{ secrets.SRVC_FTFAUDIT_PASSWORD }}
+
+jobs:
+  snyk-analysis-execution:
+    runs-on: [self-hosted, testing-ivm]
+    name: Snyk / Analysis execution
+    steps:
+      - name: Determine artifact version
+        if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+        id: artifact-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            tag=$(gh release view --repo "${{ github.repository }}" --json tagName --jq '.tagName')
+            if [[ $tag == "release not found" ]]; then
+              echo "$tag"
+              exit 1
+            else
+              echo "The latest release tag is $tag"
+              echo "value=$tag" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Determine ref to checkout
+        id: checkout-ref
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" == "release" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "ref=refs/tags/${{ steps.artifact-version.outputs.value }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.checkout-ref.outputs.ref }}
+
+      - name: Setup IVM environment
+        uses: inditex/gha-ivmactions/setup-environment@v0
+        with:
+          tool-versions-directory: code
+          distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+
+      - name: Run Maven Install
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |
+          mvn -B install -DskipTests -DskipUTs -DskipITs -DskipEnforceSnapshots
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+
+      - name: Setup Node version
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          local-directory: code
+          tool-name: ivm-node
+          tool-version: 16
+
+      - name: Snyk Test Execution
+        uses: inditex/gha-snykactions/test@main
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          working-directory: ${{ env.WORKING_DIR }}
+        env:
+          GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Import Snyk data to DefectDojo
+        if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+        uses: inditex/gha-defectdojoactions/import@main
+        with:
+          file-path: "@${{ github.workspace }}/${{ env.WORKING_DIR }}/snyk_text/${{ steps.metadata.outputs.project-key }}_test_output.json"
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          version: ${{ steps.artifact-version.outputs.value }}
+          branch: ${{ github.ref_name }}
+          scan-type: "Snyk Scan"
+
+      - name: Snyk Monitor Execution
+        uses: inditex/gha-snykactions/monitor@main
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          working-directory: ${{ env.WORKING_DIR }}
+        env:
+          GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk Quality Gate check
+        id: snyk-qg-check
+        uses: inditex/gha-snykactions/qualitygate@main
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          snyk-report: ${{ github.workspace }}/${{ env.WORKING_DIR }}/snyk_text/${{ steps.metadata.outputs.project-key }}_test_output.json
+          working-directory: ${{ env.WORKING_DIR }}
+
+      - name: Snyk Feedback
+        uses: inditex/gha-snykactions/feedback@main
+        if: ${{ always() && !cancelled() }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SRVC_SNYK_USERNAME: ${{ secrets.SRVC_SNYK_USER }}
+          SRVC_SNYK_PASSWORD: ${{ secrets.SRVC_SNYK_PASSWORD }}
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          snyk-report: ${{ github.workspace }}/${{ env.WORKING_DIR }}/snyk_text/${{ steps.metadata.outputs.project-key }}_test_output.json
+          quality-gate-result: ${{ steps.snyk-qg-check.outputs.result }}
+
+      - name: Upload snyk tests results
+        uses: actions/upload-artifact@v3
+        if: ${{ always() && !cancelled() }}
+        with:
+          name: Snyk Report
+          path: ${{ github.workspace }}/${{ env.WORKING_DIR }}/snyk_text/${{ steps.metadata.outputs.project-key }}_test_output.html
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,0 +1,46 @@
+# paas-promote
+
+[`paas-promote.yml`](../paas-promote.yml) workflow generates K8s templates, promotes Docker Image to internal registries and creates `deployment` pull requests.
+
+## Trigger
+
+`workflow_dispatch` from:
+
+- `deploy-snapshots` workflow
+- GitHub issue when you want deploy a release version.
+
+## Where does it run?
+
+[github-runners](https://github.com/inditex/github-runners) self hosted.
+
+## Jobs
+
+- ### `promote`
+
+  - **Steps**
+
+    - Generate `K8s` templates with  [Sentinel action](https://github.com/inditex/actions/tree/main/sentinel)
+    - Promote images to `K8s` internal registries.
+    - Check if repository is a **Batch** artifact based on repository name.
+    - For **Batch** artifacts copy `jobs` folder in each of the folders that are generated in the PR.
+    - Check if Traffic Parrot mappings should be stored in PVC. If so, copy them into an S3 bucket to be used later on in the deployment stage.
+    - Create `deployment` pull requests. For **Batch** artifacts, force the usage of the token provided on action. For those pull requests labeled as `manual-approval`, creates a list with their PR numbers to be _"Shepherd Checked"_ by the following job.
+
+- ### `shepherd-check`
+
+  - **Steps**
+
+    - Call the _reusable workflow_ [paas-shepherd_check.yml]((../paas-shepherd_check.yml)) for each PR in the list gathered by the `promote` job (if any).
+
+## Inputs
+
+All inputs are accept a single string and are detailed in their description exept one, ADDITIONAL_ARGS, which it's expecting a json with three values:
+
+```json
+{
+  "STRATEGY": "",
+  "PERCENTAGE": "",
+  "CONFIG_REF": "",
+  "TRIGGER": ""
+}
+```
