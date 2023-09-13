@@ -27,10 +27,10 @@ amiga:
   data:
     jms:
       connection-factory:
-        broker-escritura:
-          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.tenant}-${metadata.domain}-des.svc.cluster.local:61616
+        broker-escritura: 
+          brokerURL: tcp://middleware-amq-default-tcp.icmclcwb.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.tenant}-${metadata.domain}-des.svc.cluster.local:61616
+          brokerURL: tcp://middleware-amq-default-tcp.icmclcwb.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
