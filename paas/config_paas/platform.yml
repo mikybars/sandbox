@@ -1,10 +1,8 @@
----
 metadata:
   developModel: CORPORATE
   layer: core
   namespace_id: rhcompensa
 app:
-  dockerfile_from: itxbase/jre11:11.0.12
   context_path_builder:
     enabled: true
   readiness_probe:
@@ -28,15 +26,18 @@ app:
   replicas: 1
   scaler:
     optin: true
-  openshift_template: com.inditex.otec.openshift:openshift-springboot:1.41.11
+  openshift_template: com.inditex.sentinel:senttapp-springboot:2.13.1
 datagrid:
+  template: com.inditex.sentinel:senttpl-datagrid:2.4.1
   force: false
   application_cache:
     enabled: true
   session:
     enabled: true
 amq:
-  force: false
+  template: com.inditex.sentinel:senttpl-amq:2.4.1
+  force: true
   enabled: true
+  slot: default
   scheduler:
     enabled: true
