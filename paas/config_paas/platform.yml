@@ -30,6 +30,7 @@ app:
 datagrid:
   shared: true
   enabled: true
+  slot: default
   template: com.inditex.sentinel:senttpl-datagrid:2.4.1
   force: true
   application_cache:
