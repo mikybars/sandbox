@@ -28,7 +28,7 @@ app:
     optin: true
   openshift_template: com.inditex.sentinel:senttapp-springboot:2.13.1
 datagrid:
-  shared: true
+  shared: false
   enabled: true
   slot: default
   template: com.inditex.sentinel:senttpl-datagrid:2.4.1
