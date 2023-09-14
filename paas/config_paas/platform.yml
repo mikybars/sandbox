@@ -31,7 +31,7 @@ datagrid:
   shared: true
   use_local_cache_definition: true 
   enabled: true
-  slot: default
+  slot: icmclcwb
   template: com.inditex.sentinel:senttpl-datagrid:2.4.1
   force: true
   application_cache:
@@ -47,6 +47,6 @@ amq:
   template: com.inditex.sentinel:senttpl-amq:2.4.1
   force: false
   enabled: true
-  slot: default
+  slot: icmclcwb
   scheduler:
     enabled: true
