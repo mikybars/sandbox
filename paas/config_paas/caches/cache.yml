@@ -1,8 +1,3 @@
-itx.sessions:
-  itx.sessions:
-    replicatedCache:
-      mode: "SYNC"
-      statistics: "true"
 itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito:
   itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito:
     replicatedCache:
