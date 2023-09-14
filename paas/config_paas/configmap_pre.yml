@@ -30,9 +30,9 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
