@@ -45,7 +45,7 @@ datagrid:
     lifespan: 300
 amq:
   template: com.inditex.sentinel:senttpl-amq:2.4.1
-  force: false
+  force: true
   enabled: true
   slot: icmclcwb
   scheduler:
