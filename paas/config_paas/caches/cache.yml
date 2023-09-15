@@ -1,0 +1,728 @@
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_cadena_by_tarea_and_id_origen:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_cadena_by_tarea_and_id_persona:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_producto_by_id_tarea_and_id_origen:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.periodo_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_persona_local_challenge_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.presupuestos_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.periodo_presupuestos_by_id_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_ausencia_by_icm_tp_absence:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_ausencia_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_opcion_calculo_by_id_meta4:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_politica_by_id_meta4:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_politica_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_presupuesto_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_unidad_tiempo_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_venta_concepto_by_id_meta4:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_venta_concepto_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tipo_venta_concepto_challenge_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_tipo_calculo:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_presupuestos_by_id_empresa_and_id_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_and_id_tipo_calculo:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_empresa_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_in_ambito:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.accion_dto_by_id:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.tarea_ambito_dto_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.get_sistema_destino:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_id_empresa_in_ambito:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_cadena:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.horario_comercial_festivos:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "3600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.calcular_festivos:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.get_tipos_hora:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.get_clases:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
+itx.icmlcwb.id_localizacion_by_tarea:
+  replicatedCache:
+    mode: "SYNC"
+    statistics: "true"
+    expiration:
+      maxIdle: "600000"
+    memory:
+      storage: "OBJECT"
+      maxCount: "1000"
+    encoding:
+      key:
+        mediaType: "application/x-jboss-marshalling"
+      value:
+        mediaType: "application/x-jboss-marshalling"
