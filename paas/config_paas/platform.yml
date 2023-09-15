@@ -29,7 +29,7 @@ app:
   openshift_template: com.inditex.sentinel:senttapp-springboot:2.13.1
 datagrid:
   shared: true
-  use_local_cache_definition: true 
+  use_local_cache_definition: true
   enabled: true
   slot: icmclcwb
   template: com.inditex.sentinel:senttpl-datagrid:2.4.1

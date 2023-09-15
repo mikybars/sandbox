@@ -27,7 +27,7 @@ amiga:
   data:
     jms:
       connection-factory:
-        broker-escritura: 
+        broker-escritura:
           brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.icmclcwb.svc.cluster.local.:61616
         broker-lectura:
           brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.icmclcwb.svc.cluster.local.:61616
