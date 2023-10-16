@@ -1,0 +1,28 @@
+supraenvironments:
+  - name: des
+    environments:
+      - name: des
+        platforms:
+          - name: ssccarteixo
+            tenants:
+              - name: global
+                slots:
+                  - name: default
+  - name: pre
+    environments:
+      - name: pre
+        platforms:
+          - name: ssccarteixo
+            tenants:
+              - name: global
+                slots:
+                  - name: default
+  - name: pro
+    environments:
+      - name: pro
+        platforms:
+          - name: ssccarteixo
+            tenants:
+              - name: global
+                slots:
+                  - name: default

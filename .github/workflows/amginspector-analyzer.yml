@@ -1,0 +1,107 @@
+---
+name: amginspector-analyzer
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, labeled, edited, synchronize]
+  workflow_dispatch:
+
+env:
+  WORKFLOW_VERSION: 1.42.1
+  NODE_HOME: /opt/node.js/v16.13.2
+
+jobs:
+  run-inspector:
+    name: AmgInspector / Analyze
+    timeout-minutes: 20
+    if: |-
+      ${{ github.event_name == 'workflow_dispatch' ||
+        github.event_name == 'push' ||
+        (github.event_name == 'pull_request' && contains( github.event.pull_request.labels.*.name, 'amiga-inspector'))
+      }}
+    runs-on: [self-hosted, inspector]
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout Custom Rules
+        uses: actions/checkout@v3
+        with:
+          repository: inditex/cac-amigainspectorrules
+          path: cac-amigainspectorrules
+          token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: NPM / Environment setup
+        run: |
+          echo "${NODE_HOME}/bin" >> "$GITHUB_PATH"
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+            gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: Get global config
+        id: config
+        shell: python
+        run: |
+          import yaml
+          import os
+
+          with open('cac-amigainspectorrules/amginspector/config.yml') as f:
+            config = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'exclusions={ config["exclusions"] }\n')
+            gh_out.write(f'process-timeout={ config["process-timeout"] }\n')
+            gh_out.write(f'file-timeout={ config["file-timeout"] }\n')
+            gh_out.write(f'ignore-default-rules={ config["ignore-default-rules"] }\n')
+            gh_out.write(f'match-limit={ config["match-limit"] }\n')
+            gh_out.write(f'react-scanner-enabled={ config["features"]["react-scanner"]["enabled"] }\n')
+
+      - name: Get branch name (merge)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> "$GITHUB_ENV"
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> "$GITHUB_ENV"
+
+      - name: Run AMIGA Inspector
+        uses: inditex/gha-amigainspectoractions/run@main
+        with:
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          project-name: ${{ steps.metadata.outputs.project-name }}
+          branch: ${{ env.BRANCH_NAME }}
+          custom-rules-path: cac-amigainspectorrules/amginspector/rules
+          timeout: ${{ steps.config.outputs.process-timeout }}
+          file-timeout: ${{ steps.config.outputs.file-timeout }}
+          exclusions: ${{ steps.config.outputs.exclusions }}
+          ignore-default-rules: ${{ steps.config.outputs.ignore-default-rules }}
+          match-limit: ${{ steps.config.outputs.match-limit }}
+          react-scanner-enabled: ${{ steps.config.outputs.react-scanner-enabled }}
+
+        env:
+          AMGINSPECT_USERNAME: ${{ secrets.AMGINSPECT_USER }}
+          AMGINSPECT_PASSWORD: ${{ secrets.AMGINSPECT_PASS }}

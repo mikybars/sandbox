@@ -1,0 +1,16 @@
+---
+name: paas-gossip-analysis-fallback
+
+on:
+  pull_request:
+
+env:
+  WORKFLOW_VERSION: 2.2.0
+
+jobs:
+  gossip-analysis:
+    if: 'false'
+    name: Gossip / Analysis
+    runs-on: ubuntu-20.04
+    steps:
+      - run: 'echo "No Gossip / Analysis required"'

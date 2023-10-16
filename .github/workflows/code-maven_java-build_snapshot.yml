@@ -1,0 +1,77 @@
+---
+name: code-maven-build-snapshot
+
+concurrency:
+  group: build-snapshot
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: ['develop', 'develop-*', 'main', 'main-*']
+    paths: ['code/**', '.github/workflows/code**']
+
+env:
+  WORKFLOW_VERSION: 1.81.3
+  GITHUB_REGISTRY: ghcr.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
+  DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
+  DT_SECRET: ${{ secrets.DT_SECRET }}
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
+
+jobs:
+  build-snapshot:
+    name: Build Snapshot
+    runs-on: ubuntu-20.04
+    if: ${{ (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && github.ref_name == 'main') || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && github.ref_name == 'develop') }}
+    steps:
+      - name: Checkout Branch Head
+        uses: actions/checkout@v3
+
+      - name: Setup Maven Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Setup asdf Cache
+        uses: actions/cache@v3
+        continue-on-error: true
+        with:
+          path: ~/.asdf/data
+          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          restore-keys: |
+            ${{ runner.os }}-asdf-
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r1
+          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r1
+          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r1
+        with:
+          tool-versions-directory: code
+
+      - name: Build & Deploy Snapshots
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          docker run --workdir /app/code \
+            -u runner \
+            -e DP_USERNAME=${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }} \
+            -e DP_TOKEN=${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }} \
+            -e DT_ENDPOINT -e DT_SECRET \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot

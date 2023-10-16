@@ -1,0 +1,52 @@
+metadata:
+  developModel: CORPORATE
+  layer: core
+  namespace_id: rhcompensa
+app:
+  context_path_builder:
+    enabled: true
+  readiness_probe:
+    initial_delay_seconds: 120
+  liveness_probe:
+    initial_delay_seconds: 150
+  instrumented:
+    readiness_probe:
+      initial_delay_seconds: 180
+    liveness_probe:
+      initial_delay_seconds: 210
+  has_spnego: true
+  services:
+    http:
+      route:
+        tls:
+          enabled: true
+          insecure_termination_policy: Redirect
+    http_private:
+      enabled: true
+  replicas: 1
+  scaler:
+    optin: true
+  openshift_template: com.inditex.sentinel:senttapp-springboot:2.13.1
+datagrid:
+  shared: true
+  use_local_cache_definition: true
+  enabled: true
+  slot: icmclcwb
+  template: com.inditex.sentinel:senttpl-datagrid:2.4.1
+  force: true
+  application_cache:
+    enabled: true
+  session:
+    cache_name: "itx.sessions"
+    enabled: true
+    eviction:
+      type: MEMORY # COUNT
+      size: 400MB # 1000
+    lifespan: 300
+amq:
+  template: com.inditex.sentinel:senttpl-amq:2.4.1
+  force: true
+  enabled: true
+  slot: icmclcwb
+  scheduler:
+    enabled: true

@@ -1,0 +1,16 @@
+---
+name: code-sonarqube-fallback
+
+on:
+  pull_request:
+
+env:
+  WORKFLOW_VERSION: 1.65.0
+
+jobs:
+  sonar-check:
+    if: 'false'
+    name: SonarQube Code Analysis
+    runs-on: ubuntu-20.04
+    steps:
+      - run: 'echo "No SonarScanner required"'
