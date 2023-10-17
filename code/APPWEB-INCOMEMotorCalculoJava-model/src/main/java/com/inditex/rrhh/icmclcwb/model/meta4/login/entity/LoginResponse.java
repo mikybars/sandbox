@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -42,6 +43,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *
  *
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "loginReturn"
@@ -51,30 +53,26 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
 
   private final static long serialVersionUID = 1L;
 
-  @XmlElement(required = true)
+    /**
+     * -- GETTER --
+     *  Gets the value of the loginReturn property.
+     *
+     * @return possible object is {@link M4LoginOutput }
+     */
+    @XmlElement(required = true)
   protected M4LoginOutput loginReturn;
 
-  /**
-   * Gets the value of the loginReturn property.
-   *
-   * @return possible object is {@link M4LoginOutput }
-   *
-   */
-  public M4LoginOutput getLoginReturn() {
-    return loginReturn;
-  }
-
-  /**
+    /**
    * Sets the value of the loginReturn property.
    *
    * @param value allowed object is {@link M4LoginOutput }
    *
    */
-  public void setLoginReturn(M4LoginOutput value) {
+  public void setLoginReturn(final M4LoginOutput value) {
     this.loginReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -83,51 +81,48 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
     }
     final LoginResponse that = ((LoginResponse) object);
     {
-      M4LoginOutput lhsLoginReturn;
+      final M4LoginOutput lhsLoginReturn;
       lhsLoginReturn = this.getLoginReturn();
-      M4LoginOutput rhsLoginReturn;
+      final M4LoginOutput rhsLoginReturn;
       rhsLoginReturn = that.getLoginReturn();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "loginReturn", lhsLoginReturn),
+      return strategy.equals(LocatorUtils.property(thisLocator, "loginReturn", lhsLoginReturn),
           LocatorUtils.property(thatLocator, "loginReturn", rhsLoginReturn), lhsLoginReturn, rhsLoginReturn, (this.loginReturn != null),
-          (that.loginReturn != null))) {
-        return false;
-      }
+          (that.loginReturn != null));
     }
-    return true;
   }
 
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      M4LoginOutput theLoginReturn;
+      final M4LoginOutput theLoginReturn;
       theLoginReturn = this.getLoginReturn();
       strategy.appendField(locator, this, "loginReturn", buffer, theLoginReturn, (this.loginReturn != null));
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      M4LoginOutput theLoginReturn;
+      final M4LoginOutput theLoginReturn;
       theLoginReturn = this.getLoginReturn();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "loginReturn", theLoginReturn), currentHashCode, theLoginReturn,
           (this.loginReturn != null));
@@ -141,24 +136,24 @@ public class LoginResponse implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof LoginResponse) {
       final LoginResponse copy = ((LoginResponse) draftCopy);
       {
-        Boolean loginReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginReturn != null));
+        final Boolean loginReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginReturn != null));
         if (loginReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          M4LoginOutput sourceLoginReturn;
+          final M4LoginOutput sourceLoginReturn;
           sourceLoginReturn = this.getLoginReturn();
-          M4LoginOutput copyLoginReturn = ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginReturn", sourceLoginReturn),
+          final M4LoginOutput copyLoginReturn = ((M4LoginOutput) strategy.copy(LocatorUtils.property(locator, "loginReturn", sourceLoginReturn),
               sourceLoginReturn, (this.loginReturn != null)));
           copy.setLoginReturn(copyLoginReturn);
         } else {

@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -40,5 +41,9 @@ public class TareaLocalizacionEstadoDto implements Serializable {
 
   @NotNull
   private LocalDateTime fechaFin;
+
+  @NotNull
+  @ApiModelProperty(value = "Dias de reparto", required = true)
+  private BigDecimal icmNumDias;
 
 }

@@ -2,7 +2,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,6 +21,7 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
+
 
 /**
  * <p>Java class for anonymous complex type.
@@ -47,135 +47,132 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "getventacongeladaReturn"
 })
 @XmlRootElement(name = "GETVENTACONGELADAResponse")
-public class GETVENTACONGELADAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
+public class GETVENTACONGELADAResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
+{
 
-  private final static long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
+    @XmlElement(name = "GETVENTACONGELADAReturn", required = true)
+    protected GetventacongeladaOutput getventacongeladaReturn;
 
-  @XmlElement(name = "GETVENTACONGELADAReturn", required = true)
-  protected GetventacongeladaOutput getventacongeladaReturn;
-
-  /**
-   * Gets the value of the getventacongeladaReturn property.
-   *
-   * @return possible object is {@link GetventacongeladaOutput }
-   *
-   */
-  public GetventacongeladaOutput getGETVENTACONGELADAReturn() {
-    return getventacongeladaReturn;
-  }
-
-  /**
-   * Sets the value of the getventacongeladaReturn property.
-   *
-   * @param value allowed object is {@link GetventacongeladaOutput }
-   *
-   */
-  public void setGETVENTACONGELADAReturn(GetventacongeladaOutput value) {
-    this.getventacongeladaReturn = value;
-  }
-
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-    if ((object == null) || (this.getClass() != object.getClass())) {
-      return false;
+    /**
+     * Gets the value of the getventacongeladaReturn property.
+     *
+     * @return
+     *     possible object is
+     *     {@link GetventacongeladaOutput }
+     *
+     */
+    public GetventacongeladaOutput getGETVENTACONGELADAReturn() {
+        return getventacongeladaReturn;
     }
-    if (this == object) {
-      return true;
+
+    /**
+     * Sets the value of the getventacongeladaReturn property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link GetventacongeladaOutput }
+     *
+     */
+    public void setGETVENTACONGELADAReturn(GetventacongeladaOutput value) {
+        this.getventacongeladaReturn = value;
     }
-    final GETVENTACONGELADAResponse that = ((GETVENTACONGELADAResponse) object);
-    {
-      GetventacongeladaOutput lhsGETVENTACONGELADAReturn;
-      lhsGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
-      GetventacongeladaOutput rhsGETVENTACONGELADAReturn;
-      rhsGETVENTACONGELADAReturn = that.getGETVENTACONGELADAReturn();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "getventacongeladaReturn", lhsGETVENTACONGELADAReturn),
-          LocatorUtils.property(thatLocator, "getventacongeladaReturn", rhsGETVENTACONGELADAReturn), lhsGETVENTACONGELADAReturn,
-          rhsGETVENTACONGELADAReturn, (this.getventacongeladaReturn != null), (that.getventacongeladaReturn != null))) {
-        return false;
-      }
-    }
-    return true;
-  }
 
-  public boolean equals(Object object) {
-    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
-  }
-
-  public String toString() {
-    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-    final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
-    return buffer.toString();
-  }
-
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
-    strategy.appendEnd(locator, this, buffer);
-    return buffer;
-  }
-
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-    {
-      GetventacongeladaOutput theGETVENTACONGELADAReturn;
-      theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
-      strategy.appendField(locator, this, "getventacongeladaReturn", buffer, theGETVENTACONGELADAReturn,
-          (this.getventacongeladaReturn != null));
-    }
-    return buffer;
-  }
-
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-    int currentHashCode = 1;
-    {
-      GetventacongeladaOutput theGETVENTACONGELADAReturn;
-      theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
-      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getventacongeladaReturn", theGETVENTACONGELADAReturn),
-          currentHashCode, theGETVENTACONGELADAReturn, (this.getventacongeladaReturn != null));
-    }
-    return currentHashCode;
-  }
-
-  public int hashCode() {
-    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-    return this.hashCode(null, strategy);
-  }
-
-  public Object clone() {
-    return copyTo(createNewInstance());
-  }
-
-  public Object copyTo(Object target) {
-    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
-  }
-
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
-    if (draftCopy instanceof GETVENTACONGELADAResponse) {
-      final GETVENTACONGELADAResponse copy = ((GETVENTACONGELADAResponse) draftCopy);
-      {
-        Boolean getventacongeladaReturnShouldBeCopiedAndSet =
-            strategy.shouldBeCopiedAndSet(locator, (this.getventacongeladaReturn != null));
-        if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          GetventacongeladaOutput sourceGETVENTACONGELADAReturn;
-          sourceGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
-          GetventacongeladaOutput copyGETVENTACONGELADAReturn = ((GetventacongeladaOutput) strategy.copy(
-              LocatorUtils.property(locator, "getventacongeladaReturn", sourceGETVENTACONGELADAReturn), sourceGETVENTACONGELADAReturn,
-              (this.getventacongeladaReturn != null)));
-          copy.setGETVENTACONGELADAReturn(copyGETVENTACONGELADAReturn);
-        } else {
-          if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-            copy.getventacongeladaReturn = null;
-          }
+    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+        if ((object == null)||(this.getClass()!= object.getClass())) {
+            return false;
         }
-      }
+        if (this == object) {
+            return true;
+        }
+        final GETVENTACONGELADAResponse that = ((GETVENTACONGELADAResponse) object);
+        {
+            GetventacongeladaOutput lhsGETVENTACONGELADAReturn;
+            lhsGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            GetventacongeladaOutput rhsGETVENTACONGELADAReturn;
+            rhsGETVENTACONGELADAReturn = that.getGETVENTACONGELADAReturn();
+            if (!strategy.equals(LocatorUtils.property(thisLocator, "getventacongeladaReturn", lhsGETVENTACONGELADAReturn), LocatorUtils.property(thatLocator, "getventacongeladaReturn", rhsGETVENTACONGELADAReturn), lhsGETVENTACONGELADAReturn, rhsGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null), (that.getventacongeladaReturn!= null))) {
+                return false;
+            }
+        }
+        return true;
     }
-    return draftCopy;
-  }
 
-  public Object createNewInstance() {
-    return new GETVENTACONGELADAResponse();
-  }
+    public boolean equals(Object object) {
+        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+        return equals(null, null, object, strategy);
+    }
+
+    public String toString() {
+        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+        final StringBuilder buffer = new StringBuilder();
+        append(null, buffer, strategy);
+        return buffer.toString();
+    }
+
+    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        strategy.appendStart(locator, this, buffer);
+        appendFields(locator, buffer, strategy);
+        strategy.appendEnd(locator, this, buffer);
+        return buffer;
+    }
+
+    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+        {
+            GetventacongeladaOutput theGETVENTACONGELADAReturn;
+            theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            strategy.appendField(locator, this, "getventacongeladaReturn", buffer, theGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null));
+        }
+        return buffer;
+    }
+
+    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+        int currentHashCode = 1;
+        {
+            GetventacongeladaOutput theGETVENTACONGELADAReturn;
+            theGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getventacongeladaReturn", theGETVENTACONGELADAReturn), currentHashCode, theGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null));
+        }
+        return currentHashCode;
+    }
+
+    public int hashCode() {
+        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+        return this.hashCode(null, strategy);
+    }
+
+    public Object clone() {
+        return copyTo(createNewInstance());
+    }
+
+    public Object copyTo(Object target) {
+        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+        return copyTo(null, target, strategy);
+    }
+
+    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+        final Object draftCopy = ((target == null)?createNewInstance():target);
+        if (draftCopy instanceof GETVENTACONGELADAResponse) {
+            final GETVENTACONGELADAResponse copy = ((GETVENTACONGELADAResponse) draftCopy);
+            {
+                Boolean getventacongeladaReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getventacongeladaReturn!= null));
+                if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+                    GetventacongeladaOutput sourceGETVENTACONGELADAReturn;
+                    sourceGETVENTACONGELADAReturn = this.getGETVENTACONGELADAReturn();
+                    GetventacongeladaOutput copyGETVENTACONGELADAReturn = ((GetventacongeladaOutput) strategy.copy(LocatorUtils.property(locator, "getventacongeladaReturn", sourceGETVENTACONGELADAReturn), sourceGETVENTACONGELADAReturn, (this.getventacongeladaReturn!= null)));
+                    copy.setGETVENTACONGELADAReturn(copyGETVENTACONGELADAReturn);
+                } else {
+                    if (getventacongeladaReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+                        copy.getventacongeladaReturn = null;
+                    }
+                }
+            }
+        }
+        return draftCopy;
+    }
+
+    public Object createNewInstance() {
+        return new GETVENTACONGELADAResponse();
+    }
 
 }

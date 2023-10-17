@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -41,6 +42,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *
  *
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "M4loginOutput", propOrder = {
     "sessionID"
@@ -49,30 +51,26 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
 
   private final static long serialVersionUID = 1L;
 
-  @XmlElement(required = true, nillable = true)
+    /**
+     * -- GETTER --
+     *  Gets the value of the sessionID property.
+     *
+     * @return possible object is {@link String }
+     */
+    @XmlElement(required = true, nillable = true)
   protected String sessionID;
 
-  /**
-   * Gets the value of the sessionID property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
-  public String getSessionID() {
-    return sessionID;
-  }
-
-  /**
+    /**
    * Sets the value of the sessionID property.
    *
    * @param value allowed object is {@link String }
    *
    */
-  public void setSessionID(String value) {
+  public void setSessionID(final String value) {
     this.sessionID = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -81,51 +79,48 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     }
     final M4LoginOutput that = ((M4LoginOutput) object);
     {
-      String lhsSessionID;
+      final String lhsSessionID;
       lhsSessionID = this.getSessionID();
-      String rhsSessionID;
+      final String rhsSessionID;
       rhsSessionID = that.getSessionID();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "sessionID", lhsSessionID),
+      return strategy.equals(LocatorUtils.property(thisLocator, "sessionID", lhsSessionID),
           LocatorUtils.property(thatLocator, "sessionID", rhsSessionID), lhsSessionID, rhsSessionID, (this.sessionID != null),
-          (that.sessionID != null))) {
-        return false;
-      }
+          (that.sessionID != null));
     }
-    return true;
   }
 
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      String theSessionID;
+      final String theSessionID;
       theSessionID = this.getSessionID();
       strategy.appendField(locator, this, "sessionID", buffer, theSessionID, (this.sessionID != null));
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      String theSessionID;
+      final String theSessionID;
       theSessionID = this.getSessionID();
       currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "sessionID", theSessionID), currentHashCode, theSessionID,
           (this.sessionID != null));
@@ -139,24 +134,24 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
   }
 
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof M4LoginOutput) {
       final M4LoginOutput copy = ((M4LoginOutput) draftCopy);
       {
-        Boolean sessionIDShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sessionID != null));
+        final Boolean sessionIDShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.sessionID != null));
         if (sessionIDShouldBeCopiedAndSet == Boolean.TRUE) {
-          String sourceSessionID;
+          final String sourceSessionID;
           sourceSessionID = this.getSessionID();
-          String copySessionID = ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
+          final String copySessionID = ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
               (this.sessionID != null)));
           copy.setSessionID(copySessionID);
         } else {
