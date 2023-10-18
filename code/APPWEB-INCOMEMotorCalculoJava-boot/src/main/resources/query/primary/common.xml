@@ -10341,4 +10341,13 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     ]]>
   </entry>
 
+  <entry key="ClasePersonaSilAmbitoRepositoryCustom.findClaseEstadoByCclIdOrigenAndStdIdLegEnt">
+    <![CDATA[
+      SELECT CCL_ID_ORIGEN, CLASE, ESTADO
+      FROM CLASE_PERSONA_SIL_AMBITO
+      WHERE CCL_ID_ORIGEN = :cclIdOrigen
+      AND STD_ID_LEG_ENT = :stdIdLegEnt
+    ]]>
+  </entry>
+
 </properties>
