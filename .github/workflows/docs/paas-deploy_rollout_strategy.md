@@ -8,7 +8,7 @@
 
 ## Where does it run?
 
-[github-runners](https://github.com/inditex/github-runners) self hosted.
+[paasfeature](https://github.com/inditex/app-cdtool/tree/main/icr/github/paasfeature) self hosted runners.
 
 ## Jobs
 

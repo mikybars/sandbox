@@ -1,15 +1,15 @@
 # paas-shepherd-check
 
-[`paas-shepherd_check.yml`](../paas-shepherd_check.yml) workflow allows to trigger a preliminar deployment check in Shepherd for deployment pull requests before merging them. This works only for PRs labeled as _manual-approval_ and has no efect for the rest. 
+[`paas-shepherd_check.yml`](../paas-shepherd_check.yml) workflow allows to trigger a preliminar deployment check in Shepherd for deployment pull requests before merging them. This works only for PRs labeled as _manual-approval_ and has no efect for the rest.
 
 ## Trigger
 
-This workflow is triggered as part of the `paas-promote`workflow. A new job `shepherd-check`dependant on the `promote`job _uses_ this new workflow.
+This workflow is triggered as part of the `paas-promote` workflow. A new job `shepherd-check` dependant on the `promote` job _uses_ this new workflow.
 
 
 ## Where does it run?
 
-[github-runners](https://github.com/inditex/github-runners) self hosted [common].
+[paasfeature](https://github.com/inditex/app-cdtool/tree/main/icr/github/paasfeature) self hosted runners.
 
 ## Jobs
 
@@ -17,7 +17,7 @@ This workflow is triggered as part of the `paas-promote`workflow. A new job `she
 
   - **Steps**
     - Extract required information from PR and builds a matrix with the affected PRs to be iterated by the following job.
-    
+
 - ### `shepherd-check`
   - **Steps** (_for each PR in the get-detail output matrix_)
     - Read the `info.yml` file from the repository to extract additional info.
