@@ -1,6 +1,6 @@
 ---
 name: code-maven-QA-unit
-run-name: QA unit testing in ${{ github.base_ref || 'default' }} branch
+run-name: QA unit testing in ${{ github.ref_name || 'default' }} branch
 
 concurrency:
   group: qa-unit-${{ github.ref }}
@@ -8,16 +8,20 @@ concurrency:
 
 on:
   workflow_dispatch:
+    inputs:
+      ATTACH_TARGET:
+        description: Target platform to upload the generated report, it does not export results if empty. (p.e. jfrog)
+        required: false
   pull_request:
     types: [closed]
-    branches: [develop, main]
+    branches: ['develop', 'develop-*', 'main', 'main-*']
     paths: ['code/**', '.github/workflows/code-*-QA_unit.yml']
   release:
     types:
       - published
 
 env:
-  WORKFLOW_VERSION: 1.65.0
+  WORKFLOW_VERSION: 2.1.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -26,8 +30,8 @@ env:
 jobs:
   unit-tests:
     name: SonarQube / Unit Tests
-    if: ${{ (github.event.pull_request.merged == true && (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && github.base_ref == 'develop') ||
-        (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && github.base_ref == 'main')) ||
+    if: ${{ (github.event.pull_request.merged == true && (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.base_ref == 'develop' || startsWith(github.base_ref, 'develop-'))) ||
+        (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.base_ref == 'main' || startsWith(github.base_ref, 'main-')))) ||
         github.event_name == 'workflow_dispatch' ||
         github.event_name == 'release' }}
     timeout-minutes: 30
@@ -92,70 +96,100 @@ jobs:
         run: |
           mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
 
+      - name: Sonar / Disable project-specific properties
+        working-directory: ${{ github.workspace }}/code
+        run: |
+          find ./ -name pom.xml -exec sed -i 's/<sonar./<disabled./g' {} +
+          find ./ -name pom.xml -exec sed -i 's/<\/sonar./<\/disabled./g' {} +
+
+      - name: Sonar / Configure input parameters
+        working-directory: ${{ github.workspace }}/code
+        run: |
+          if [[ -f './jacoco-report-aggregate/pom.xml' ]]; then JACOCO_PARAM="-pl !jacoco-report-aggregate -Dsonar.skip=false"; else JACOCO_PARAM="-Dsonar.skip=false"; fi; \
+          echo "JACOCO_SONAR_PARAM=$JACOCO_PARAM" >> "$GITHUB_ENV"
+
       - name: Get SonarUrl
         id: get-sonar-url
         env:
           PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
         uses: inditex/actions/testing/get-sonar-url-from-api/@main
 
-      - name: sonar-scanner / Setup Node version
+      - name: Sonar / Setup Node version
         uses: inditex/gha-ivmactions/setup-tool@v0
         with:
           local-directory: code
           tool-name: ivm-node
           tool-version: 18
 
-      - name: sonar-scanner / Run with release event
+      - name: Sonar / Setup Java version
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          tool-name: ivm-java
+          tool-version: openjdk-17
+
+      - name: Sonarqube / Run with release event
         if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
         working-directory: code
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ github.event.release.tag_name }}" \
-            -Dsonar.branch.name="release/${{ github.event.release.tag_name }}"
+            -Dsonar.branch.name="release/${{ github.event.release.tag_name }}" \
+            -Dsonar.login="$SONAR_TOKEN" \
+            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
-      - name: sonar-scanner / Run with ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }} branch
+      - name: Sonarqube / Run with ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }} branch
         if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
         working-directory: code
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
-            -Dsonar.branch.name="${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}"
+            -Dsonar.branch.name="${{ github.ref_name || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
+            -Dsonar.login="$SONAR_TOKEN" \
+            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
-      - name: Run sonarcloud-scanner with release event
+      - name: SonarCloud / Run Maven Sonar goal with release event
         env:
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
           SONAR_SCANNER_OPTS: ''
         if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
         working-directory: code
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey=inditexcodingfashion_"${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ github.event.release.tag_name }}" \
             -Dsonar.branch.name="release/${{ github.event.release.tag_name }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}"
+            -Dsonar.login="${LOGIN}" \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
-      - name: Run sonarcloud-scanner
+      - name: SonarCloud / Run Maven Sonar goal
         env:
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
           SONAR_SCANNER_OPTS: ''
         if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
         working-directory: code
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey=inditexcodingfashion_"${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
-            -Dsonar.branch.name="${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
+            -Dsonar.branch.name="${{ github.ref_name || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}"
+            -Dsonar.login="${LOGIN}" \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
 
       - name: Generate Surefire HTML report
@@ -174,7 +208,7 @@ jobs:
           branch_name: ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}
 
       - name: Attach results
-        if: ${{ always() && !cancelled() }}
+        if: ${{ always() && !cancelled() && contains(inputs.ATTACH_TARGET, 'jfrog') }}
         continue-on-error: true
         uses: inditex/actions/upload-artifact@main
         with:
@@ -193,7 +227,7 @@ jobs:
             --surefirePath="${{ github.workspace }}/**/${{ fromJSON(steps.config.outputs.config).junit.unit.results.surefire_xml_report_path.path }}" \
             --jacocoPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).junit.unit.results.jacoco_report_folder.path }}/index.html"
           adam publishSonarTest \
-            --taskPath="${{ github.workspace }}/code/.scannerwork/report-task.txt" \
+            --taskPath="${{ github.workspace }}/code/target/sonar/report-task.txt" \
             --version="${{ steps.pom-data.outputs.app-version }}"
           adam publishExclusions \
             --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
@@ -211,7 +245,7 @@ jobs:
             --surefirePath="${{ github.workspace }}/**/${{ fromJSON(steps.config.outputs.config).junit.unit.results.surefire_xml_report_path.path }}" \
             --jacocoPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).junit.unit.results.jacoco_report_folder.path }}/index.html"
           adam publishSonarTest \
-            --taskPath="${{ github.workspace }}/code/.scannerwork/report-task.txt" \
+            --taskPath="${{ github.workspace }}/code/target/sonar/report-task.txt" \
             --version="${{ github.event.release.tag_name }}"
           adam publishExclusions \
             --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \

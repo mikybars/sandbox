@@ -1,0 +1,93 @@
+---
+name: code-maven-QA-mutation
+
+on:
+  workflow_dispatch:
+    inputs:
+      ATTACH_TARGET:
+        description: Target platform to upload the generated report, it does not export results if empty. (p.e. jfrog)
+        required: false
+
+env:
+  WORKFLOW_VERSION: 2.1.1
+
+jobs:
+  mutation-testing-execution:
+    runs-on: [self-hosted, testing-ivm]
+    name: Mutation Testing execution
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check where config_test is
+        id: check-where-config-test-is
+        env:
+          CONFIG_TEST_FILE: code/src/test/resources/config_test.yml
+        run: |
+          if [[ -f "${CONFIG_TEST_FILE}" ]]; then
+            echo "config-test-directory=${CONFIG_TEST_FILE}" >> "$GITHUB_OUTPUT"
+          elif [[ -f "code/config_test/config_test.yml" ]]; then
+            echo "config-test-directory=code/config_test/config_test.yml" >> "$GITHUB_OUTPUT"
+          else
+            echo "config_test.yml file not found"
+          fi
+
+      - name: Setup IVM environment
+        uses: inditex/gha-ivmactions/setup-environment@v0
+        with:
+          tool-versions-directory: code
+          distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+
+      - name: Resolve Configuration
+        id: config
+        uses: inditex/actions/resolvers/config-resolver@main
+        with:
+          create-annotations: true
+          files: |
+            application.yml
+            ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+
+      - name: Run mutation tests
+        working-directory: code
+        run: |
+          mvn -B clean verify pitest:mutationCoverage pitest:report-aggregate-module -DskipITs -Dskip.integration.tests=true
+
+      - name: Display results
+        if: ${{ always() && !cancelled() }}
+        continue-on-error: true
+        uses: inditex/actions/testing/results-summary-annotations@main
+        with:
+          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+          keys: pitest
+
+      - name: Attach results
+        if: ${{ always() && !cancelled() && contains(inputs.ATTACH_TARGET, 'jfrog') }}
+        continue-on-error: true
+        uses: inditex/actions/upload-artifact@main
+        with:
+          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
+          keys: pitest
+
+      - name: Publish mutation results to DEVINS
+        if: ${{ always() && !cancelled() }}
+        run: |
+          adam publishMutationTest \
+            --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
+            --workingDir="${{ github.workspace }}" \
+            --testType="pit" \
+            --reportPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).pitest.results.pitest_report_folder.path }}/index.html"
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "code-QA-mutation"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+
+            You can find more details in the link below :arrow_down:
