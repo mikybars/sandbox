@@ -7,10 +7,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class TipoSistemaDestinoDTO {
 
-    private Integer id;
+  private Integer id;
 
-    private String icmIdTpSistema;
+  private String icmIdTpSistema;
 
-    private String nombre;
+  private String nombre;
 
 }

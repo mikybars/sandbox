@@ -32,60 +32,60 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
 public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
 
-    @Mock
-    private TareaFaseAccionService tareaFaseAccionService;
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
-    @Mock
-    private Logger log;
+  @Mock
+  private Logger log;
 
-    @Mock
-    private ValidacionMapper validacionMapper;
+  @Mock
+  private ValidacionMapper validacionMapper;
 
-    @Mock
-    private ProcesoRepository procesoRepository;
+  @Mock
+  private ProcesoRepository procesoRepository;
 
-    @Mock
-    private ProcesoAmbitoEmpresaRepository procesoAmbitoEmpresaRepository;
+  @Mock
+  private ProcesoAmbitoEmpresaRepository procesoAmbitoEmpresaRepository;
 
-    @InjectMocks
-    private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaService;
+  @InjectMocks
+  private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaService;
 
-    @Test
-    public void executeTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito, @Random TareaFaseAccionDto tareaFaseAccion,
-        @Random Proceso proceso, @Random ProcesoAmbitoEmpresa procesoAmbitoEmpresa, @Random ValidacionDto validacionDto) {
-        runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+  @Test
+  public void executeTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito, @Random TareaFaseAccionDto tareaFaseAccion,
+      @Random Proceso proceso, @Random ProcesoAmbitoEmpresa procesoAmbitoEmpresa, @Random ValidacionDto validacionDto) {
+    runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
 
-        doReturn(proceso).when(this.procesoRepository).save(any(Proceso.class));
-        doReturn(procesoAmbitoEmpresa).when(this.procesoAmbitoEmpresaRepository).save(any(ProcesoAmbitoEmpresa.class));
-        doReturn(validacionDto).when(this.validacionMapper).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
+    doReturn(proceso).when(this.procesoRepository).save(any(Proceso.class));
+    doReturn(procesoAmbitoEmpresa).when(this.procesoAmbitoEmpresaRepository).save(any(ProcesoAmbitoEmpresa.class));
+    doReturn(validacionDto).when(this.validacionMapper).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
 
-        this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
 
-        verify(this.procesoRepository, times(1)).save(any(Proceso.class));
-        verify(this.procesoAmbitoEmpresaRepository, times(1)).save(any(ProcesoAmbitoEmpresa.class));
-        verify(this.validacionMapper, times(1)).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
-    }
+    verify(this.procesoRepository, times(1)).save(any(Proceso.class));
+    verify(this.procesoAmbitoEmpresaRepository, times(1)).save(any(ProcesoAmbitoEmpresa.class));
+    verify(this.validacionMapper, times(1)).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
+  }
 
-    @Test
-    public void executeMalAmbitoTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
-        @Random TareaFaseAccionDto tareaFaseAccion) {
-        runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+  @Test
+  public void executeMalAmbitoTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
+      @Random TareaFaseAccionDto tareaFaseAccion) {
+    runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
 
-        assertThrows(IcmclcwbException.class, () -> {
-            this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
-        });
-    }
+    assertThrows(IcmclcwbException.class, () -> {
+      this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    });
+  }
 
-    @Test
-    public void executeErrorTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
-        @Random TareaFaseAccionDto tareaFaseAccion) {
-        runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+  @Test
+  public void executeErrorTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
+      @Random TareaFaseAccionDto tareaFaseAccion) {
+    runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
 
-        doThrow(RuntimeException.class).when(this.procesoRepository).save(any(Proceso.class));
+    doThrow(RuntimeException.class).when(this.procesoRepository).save(any(Proceso.class));
 
-        assertThrows(Exception.class, () -> {
-            this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
-        });
-    }
+    assertThrows(Exception.class, () -> {
+      this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
+    });
+  }
 
 }

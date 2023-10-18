@@ -11,15 +11,14 @@ import lombok.Data;
 @Data
 public class TipoSistemaDestino {
 
-    @Id
-    @Column(name = "ID_TIPO_SISTEMA_DESTINO")
-    private Integer id;
+  @Id
+  @Column(name = "ID_TIPO_SISTEMA_DESTINO")
+  private Integer id;
 
-    @Column(name = "ICM_ID_TP_SISTEMA", nullable = false)
-    private String icmIdTpSistema;
+  @Column(name = "ICM_ID_TP_SISTEMA", nullable = false)
+  private String icmIdTpSistema;
 
-    @Column(name = "NOMBRE", nullable = false, length = 128)
-    private String nombre;
+  @Column(name = "NOMBRE", nullable = false, length = 128)
+  private String nombre;
 
 }
-

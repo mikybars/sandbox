@@ -11,11 +11,11 @@ import lombok.Data;
 @Data
 public class EstadoProceso {
 
-    @Id
-    @Column(name = "ID_ESTADO_PROCESO")
-    private Integer id;
+  @Id
+  @Column(name = "ID_ESTADO_PROCESO")
+  private Integer id;
 
-    @Column(name = "NOMBRE", nullable = false, length = 128)
-    private String nombre;
+  @Column(name = "NOMBRE", nullable = false, length = 128)
+  private String nombre;
 
 }

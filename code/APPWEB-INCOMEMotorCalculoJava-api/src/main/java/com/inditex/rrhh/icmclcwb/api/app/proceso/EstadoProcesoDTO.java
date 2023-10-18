@@ -7,8 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class EstadoProcesoDTO {
 
-    private Integer id;
+  private Integer id;
 
-    private String nombre;
+  private String nombre;
 
 }

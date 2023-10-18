@@ -9,8 +9,8 @@ import lombok.Data;
 @Builder
 public class TipoProcesoDTO {
 
-    private Integer id;
+  private Integer id;
 
-    private String nombre;
+  private String nombre;
 
 }
