@@ -48,7 +48,7 @@ on:
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.0.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -210,9 +210,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r0
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r0
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r0
+          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
+          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
         with:
           tool-versions-directory: code
 
