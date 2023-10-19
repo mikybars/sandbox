@@ -52,13 +52,12 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the retrieveM4SessionReturn property.
-     */
-    protected int retrieveM4SessionReturn;
+  /**
+   * -- GETTER -- Gets the value of the retrieveM4SessionReturn property.
+   */
+  protected int retrieveM4SessionReturn;
 
-    /**
+  /**
    * Sets the value of the retrieveM4SessionReturn property.
    *
    */
@@ -66,7 +65,8 @@ public class RetrieveM4SessionResponse implements Serializable, Cloneable, CopyT
     this.retrieveM4SessionReturn = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

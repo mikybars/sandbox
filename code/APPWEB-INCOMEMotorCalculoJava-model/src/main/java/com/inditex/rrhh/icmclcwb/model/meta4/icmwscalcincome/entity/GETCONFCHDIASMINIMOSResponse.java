@@ -2,6 +2,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -47,132 +47,135 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "getconfchdiasminimosReturn"
 })
 @XmlRootElement(name = "GETCONFCHDIASMINIMOSResponse")
-public class GETCONFCHDIASMINIMOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFCHDIASMINIMOSResponse implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "GETCONFCHDIASMINIMOSReturn", required = true)
-    protected GetconfchdiasminimosOutput getconfchdiasminimosReturn;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the getconfchdiasminimosReturn property.
-     *
-     * @return
-     *     possible object is
-     *     {@link GetconfchdiasminimosOutput }
-     *
-     */
-    public GetconfchdiasminimosOutput getGETCONFCHDIASMINIMOSReturn() {
-        return getconfchdiasminimosReturn;
+  @XmlElement(name = "GETCONFCHDIASMINIMOSReturn", required = true)
+  protected GetconfchdiasminimosOutput getconfchdiasminimosReturn;
+
+  /**
+   * Gets the value of the getconfchdiasminimosReturn property.
+   *
+   * @return possible object is {@link GetconfchdiasminimosOutput }
+   *
+   */
+  public GetconfchdiasminimosOutput getGETCONFCHDIASMINIMOSReturn() {
+    return getconfchdiasminimosReturn;
+  }
+
+  /**
+   * Sets the value of the getconfchdiasminimosReturn property.
+   *
+   * @param value allowed object is {@link GetconfchdiasminimosOutput }
+   *
+   */
+  public void setGETCONFCHDIASMINIMOSReturn(GetconfchdiasminimosOutput value) {
+    this.getconfchdiasminimosReturn = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Sets the value of the getconfchdiasminimosReturn property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link GetconfchdiasminimosOutput }
-     *
-     */
-    public void setGETCONFCHDIASMINIMOSReturn(GetconfchdiasminimosOutput value) {
-        this.getconfchdiasminimosReturn = value;
+    if (this == object) {
+      return true;
     }
+    final GETCONFCHDIASMINIMOSResponse that = ((GETCONFCHDIASMINIMOSResponse) object);
+    {
+      GetconfchdiasminimosOutput lhsGETCONFCHDIASMINIMOSReturn;
+      lhsGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
+      GetconfchdiasminimosOutput rhsGETCONFCHDIASMINIMOSReturn;
+      rhsGETCONFCHDIASMINIMOSReturn = that.getGETCONFCHDIASMINIMOSReturn();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfchdiasminimosReturn", lhsGETCONFCHDIASMINIMOSReturn),
+          LocatorUtils.property(thatLocator, "getconfchdiasminimosReturn", rhsGETCONFCHDIASMINIMOSReturn), lhsGETCONFCHDIASMINIMOSReturn,
+          rhsGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn != null), (that.getconfchdiasminimosReturn != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      GetconfchdiasminimosOutput theGETCONFCHDIASMINIMOSReturn;
+      theGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
+      strategy.appendField(locator, this, "getconfchdiasminimosReturn", buffer, theGETCONFCHDIASMINIMOSReturn,
+          (this.getconfchdiasminimosReturn != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      GetconfchdiasminimosOutput theGETCONFCHDIASMINIMOSReturn;
+      theGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfchdiasminimosReturn", theGETCONFCHDIASMINIMOSReturn),
+          currentHashCode, theGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GETCONFCHDIASMINIMOSResponse) {
+      final GETCONFCHDIASMINIMOSResponse copy = ((GETCONFCHDIASMINIMOSResponse) draftCopy);
+      {
+        Boolean getconfchdiasminimosReturnShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.getconfchdiasminimosReturn != null));
+        if (getconfchdiasminimosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
+          GetconfchdiasminimosOutput sourceGETCONFCHDIASMINIMOSReturn;
+          sourceGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
+          GetconfchdiasminimosOutput copyGETCONFCHDIASMINIMOSReturn = ((GetconfchdiasminimosOutput) strategy.copy(
+              LocatorUtils.property(locator, "getconfchdiasminimosReturn", sourceGETCONFCHDIASMINIMOSReturn),
+              sourceGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn != null)));
+          copy.setGETCONFCHDIASMINIMOSReturn(copyGETCONFCHDIASMINIMOSReturn);
+        } else {
+          if (getconfchdiasminimosReturnShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.getconfchdiasminimosReturn = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final GETCONFCHDIASMINIMOSResponse that = ((GETCONFCHDIASMINIMOSResponse) object);
-        {
-            GetconfchdiasminimosOutput lhsGETCONFCHDIASMINIMOSReturn;
-            lhsGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
-            GetconfchdiasminimosOutput rhsGETCONFCHDIASMINIMOSReturn;
-            rhsGETCONFCHDIASMINIMOSReturn = that.getGETCONFCHDIASMINIMOSReturn();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "getconfchdiasminimosReturn", lhsGETCONFCHDIASMINIMOSReturn), LocatorUtils.property(thatLocator, "getconfchdiasminimosReturn", rhsGETCONFCHDIASMINIMOSReturn), lhsGETCONFCHDIASMINIMOSReturn, rhsGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn!= null), (that.getconfchdiasminimosReturn!= null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            GetconfchdiasminimosOutput theGETCONFCHDIASMINIMOSReturn;
-            theGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
-            strategy.appendField(locator, this, "getconfchdiasminimosReturn", buffer, theGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn!= null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            GetconfchdiasminimosOutput theGETCONFCHDIASMINIMOSReturn;
-            theGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "getconfchdiasminimosReturn", theGETCONFCHDIASMINIMOSReturn), currentHashCode, theGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn!= null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCONFCHDIASMINIMOSResponse) {
-            final GETCONFCHDIASMINIMOSResponse copy = ((GETCONFCHDIASMINIMOSResponse) draftCopy);
-            {
-                Boolean getconfchdiasminimosReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.getconfchdiasminimosReturn!= null));
-                if (getconfchdiasminimosReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-                    GetconfchdiasminimosOutput sourceGETCONFCHDIASMINIMOSReturn;
-                    sourceGETCONFCHDIASMINIMOSReturn = this.getGETCONFCHDIASMINIMOSReturn();
-                    GetconfchdiasminimosOutput copyGETCONFCHDIASMINIMOSReturn = ((GetconfchdiasminimosOutput) strategy.copy(LocatorUtils.property(locator, "getconfchdiasminimosReturn", sourceGETCONFCHDIASMINIMOSReturn), sourceGETCONFCHDIASMINIMOSReturn, (this.getconfchdiasminimosReturn!= null)));
-                    copy.setGETCONFCHDIASMINIMOSReturn(copyGETCONFCHDIASMINIMOSReturn);
-                } else {
-                    if (getconfchdiasminimosReturnShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.getconfchdiasminimosReturn = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GETCONFCHDIASMINIMOSResponse();
-    }
+  public Object createNewInstance() {
+    return new GETCONFCHDIASMINIMOSResponse();
+  }
 
 }

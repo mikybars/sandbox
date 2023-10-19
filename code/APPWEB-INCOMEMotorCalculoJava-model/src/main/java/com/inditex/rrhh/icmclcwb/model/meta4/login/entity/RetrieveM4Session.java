@@ -53,16 +53,15 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSessionId property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sessionId", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSessionId property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sessionId", required = true)
   protected String aiSessionId;
 
-    /**
+  /**
    * Sets the value of the aiSessionId property.
    *
    * @param value allowed object is {@link String }
@@ -72,7 +71,8 @@ public class RetrieveM4Session implements Serializable, Cloneable, CopyTo2, Equa
     this.aiSessionId = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

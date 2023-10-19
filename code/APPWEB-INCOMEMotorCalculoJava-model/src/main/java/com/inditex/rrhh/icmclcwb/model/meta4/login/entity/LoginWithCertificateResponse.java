@@ -53,16 +53,15 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the loginWithCertificateReturn property.
-     *
-     * @return possible object is {@link M4LoginOutput }
-     */
-    @XmlElement(required = true)
+  /**
+   * -- GETTER -- Gets the value of the loginWithCertificateReturn property.
+   *
+   * @return possible object is {@link M4LoginOutput }
+   */
+  @XmlElement(required = true)
   protected M4LoginOutput loginWithCertificateReturn;
 
-    /**
+  /**
    * Sets the value of the loginWithCertificateReturn property.
    *
    * @param value allowed object is {@link M4LoginOutput }
@@ -72,7 +71,8 @@ public class LoginWithCertificateResponse implements Serializable, Cloneable, Co
     this.loginWithCertificateReturn = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

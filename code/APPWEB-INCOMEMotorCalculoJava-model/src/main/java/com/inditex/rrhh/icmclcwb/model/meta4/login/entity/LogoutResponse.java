@@ -52,13 +52,12 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the logoutReturn property.
-     */
-    protected int logoutReturn;
+  /**
+   * -- GETTER -- Gets the value of the logoutReturn property.
+   */
+  protected int logoutReturn;
 
-    /**
+  /**
    * Sets the value of the logoutReturn property.
    *
    */
@@ -66,7 +65,8 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     this.logoutReturn = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

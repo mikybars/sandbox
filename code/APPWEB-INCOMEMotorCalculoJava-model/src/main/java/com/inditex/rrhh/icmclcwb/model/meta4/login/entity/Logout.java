@@ -44,7 +44,8 @@ public class Logout implements Serializable, Cloneable, CopyTo2, Equals2, HashCo
 
   private final static long serialVersionUID = 1L;
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

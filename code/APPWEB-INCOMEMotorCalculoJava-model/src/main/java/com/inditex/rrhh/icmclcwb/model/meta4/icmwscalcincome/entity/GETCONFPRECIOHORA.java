@@ -2,6 +2,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,6 @@ import org.jvnet.jaxb2_commons.lang.ToString2;
 import org.jvnet.jaxb2_commons.lang.ToStringStrategy2;
 import org.jvnet.jaxb2_commons.locator.ObjectLocator;
 import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
-
 
 /**
  * <p>Java class for anonymous complex type.
@@ -47,132 +47,135 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
     "icmparamcalconfpreciohora"
 })
 @XmlRootElement(name = "GETCONFPRECIOHORA")
-public class GETCONFPRECIOHORA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2
-{
+public class GETCONFPRECIOHORA implements Serializable, Cloneable, CopyTo2, Equals2, HashCode2, ToString2 {
 
-    private final static long serialVersionUID = 1L;
-    @XmlElement(name = "ICM_PARAMCALCONFPRECIOHORA", required = true)
-    protected IcmParamcalconfpreciohoraBlock icmparamcalconfpreciohora;
+  private final static long serialVersionUID = 1L;
 
-    /**
-     * Gets the value of the icmparamcalconfpreciohora property.
-     *
-     * @return
-     *     possible object is
-     *     {@link IcmParamcalconfpreciohoraBlock }
-     *
-     */
-    public IcmParamcalconfpreciohoraBlock getICMPARAMCALCONFPRECIOHORA() {
-        return icmparamcalconfpreciohora;
+  @XmlElement(name = "ICM_PARAMCALCONFPRECIOHORA", required = true)
+  protected IcmParamcalconfpreciohoraBlock icmparamcalconfpreciohora;
+
+  /**
+   * Gets the value of the icmparamcalconfpreciohora property.
+   *
+   * @return possible object is {@link IcmParamcalconfpreciohoraBlock }
+   *
+   */
+  public IcmParamcalconfpreciohoraBlock getICMPARAMCALCONFPRECIOHORA() {
+    return icmparamcalconfpreciohora;
+  }
+
+  /**
+   * Sets the value of the icmparamcalconfpreciohora property.
+   *
+   * @param value allowed object is {@link IcmParamcalconfpreciohoraBlock }
+   *
+   */
+  public void setICMPARAMCALCONFPRECIOHORA(IcmParamcalconfpreciohoraBlock value) {
+    this.icmparamcalconfpreciohora = value;
+  }
+
+  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+    if ((object == null) || (this.getClass() != object.getClass())) {
+      return false;
     }
-
-    /**
-     * Sets the value of the icmparamcalconfpreciohora property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link IcmParamcalconfpreciohoraBlock }
-     *
-     */
-    public void setICMPARAMCALCONFPRECIOHORA(IcmParamcalconfpreciohoraBlock value) {
-        this.icmparamcalconfpreciohora = value;
+    if (this == object) {
+      return true;
     }
+    final GETCONFPRECIOHORA that = ((GETCONFPRECIOHORA) object);
+    {
+      IcmParamcalconfpreciohoraBlock lhsICMPARAMCALCONFPRECIOHORA;
+      lhsICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+      IcmParamcalconfpreciohoraBlock rhsICMPARAMCALCONFPRECIOHORA;
+      rhsICMPARAMCALCONFPRECIOHORA = that.getICMPARAMCALCONFPRECIOHORA();
+      if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfpreciohora", lhsICMPARAMCALCONFPRECIOHORA),
+          LocatorUtils.property(thatLocator, "icmparamcalconfpreciohora", rhsICMPARAMCALCONFPRECIOHORA), lhsICMPARAMCALCONFPRECIOHORA,
+          rhsICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora != null), (that.icmparamcalconfpreciohora != null))) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
-        if ((object == null)||(this.getClass()!= object.getClass())) {
-            return false;
+  public boolean equals(Object object) {
+    final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
+    return equals(null, null, object, strategy);
+  }
+
+  public String toString() {
+    final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
+    final StringBuilder buffer = new StringBuilder();
+    append(null, buffer, strategy);
+    return buffer.toString();
+  }
+
+  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    strategy.appendStart(locator, this, buffer);
+    appendFields(locator, buffer, strategy);
+    strategy.appendEnd(locator, this, buffer);
+    return buffer;
+  }
+
+  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+    {
+      IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
+      theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+      strategy.appendField(locator, this, "icmparamcalconfpreciohora", buffer, theICMPARAMCALCONFPRECIOHORA,
+          (this.icmparamcalconfpreciohora != null));
+    }
+    return buffer;
+  }
+
+  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+    int currentHashCode = 1;
+    {
+      IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
+      theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+      currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalconfpreciohora", theICMPARAMCALCONFPRECIOHORA),
+          currentHashCode, theICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora != null));
+    }
+    return currentHashCode;
+  }
+
+  public int hashCode() {
+    final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
+    return this.hashCode(null, strategy);
+  }
+
+  public Object clone() {
+    return copyTo(createNewInstance());
+  }
+
+  public Object copyTo(Object target) {
+    final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
+    return copyTo(null, target, strategy);
+  }
+
+  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+    if (draftCopy instanceof GETCONFPRECIOHORA) {
+      final GETCONFPRECIOHORA copy = ((GETCONFPRECIOHORA) draftCopy);
+      {
+        Boolean icmparamcalconfpreciohoraShouldBeCopiedAndSet =
+            strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalconfpreciohora != null));
+        if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.TRUE) {
+          IcmParamcalconfpreciohoraBlock sourceICMPARAMCALCONFPRECIOHORA;
+          sourceICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
+          IcmParamcalconfpreciohoraBlock copyICMPARAMCALCONFPRECIOHORA = ((IcmParamcalconfpreciohoraBlock) strategy.copy(
+              LocatorUtils.property(locator, "icmparamcalconfpreciohora", sourceICMPARAMCALCONFPRECIOHORA), sourceICMPARAMCALCONFPRECIOHORA,
+              (this.icmparamcalconfpreciohora != null)));
+          copy.setICMPARAMCALCONFPRECIOHORA(copyICMPARAMCALCONFPRECIOHORA);
+        } else {
+          if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.FALSE) {
+            copy.icmparamcalconfpreciohora = null;
+          }
         }
-        if (this == object) {
-            return true;
-        }
-        final GETCONFPRECIOHORA that = ((GETCONFPRECIOHORA) object);
-        {
-            IcmParamcalconfpreciohoraBlock lhsICMPARAMCALCONFPRECIOHORA;
-            lhsICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
-            IcmParamcalconfpreciohoraBlock rhsICMPARAMCALCONFPRECIOHORA;
-            rhsICMPARAMCALCONFPRECIOHORA = that.getICMPARAMCALCONFPRECIOHORA();
-            if (!strategy.equals(LocatorUtils.property(thisLocator, "icmparamcalconfpreciohora", lhsICMPARAMCALCONFPRECIOHORA), LocatorUtils.property(thatLocator, "icmparamcalconfpreciohora", rhsICMPARAMCALCONFPRECIOHORA), lhsICMPARAMCALCONFPRECIOHORA, rhsICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora!= null), (that.icmparamcalconfpreciohora!= null))) {
-                return false;
-            }
-        }
-        return true;
+      }
     }
+    return draftCopy;
+  }
 
-    public boolean equals(Object object) {
-        final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-        return equals(null, null, object, strategy);
-    }
-
-    public String toString() {
-        final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
-        final StringBuilder buffer = new StringBuilder();
-        append(null, buffer, strategy);
-        return buffer.toString();
-    }
-
-    public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        strategy.appendStart(locator, this, buffer);
-        appendFields(locator, buffer, strategy);
-        strategy.appendEnd(locator, this, buffer);
-        return buffer;
-    }
-
-    public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
-        {
-            IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
-            theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
-            strategy.appendField(locator, this, "icmparamcalconfpreciohora", buffer, theICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora!= null));
-        }
-        return buffer;
-    }
-
-    public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
-        int currentHashCode = 1;
-        {
-            IcmParamcalconfpreciohoraBlock theICMPARAMCALCONFPRECIOHORA;
-            theICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
-            currentHashCode = strategy.hashCode(LocatorUtils.property(locator, "icmparamcalconfpreciohora", theICMPARAMCALCONFPRECIOHORA), currentHashCode, theICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora!= null));
-        }
-        return currentHashCode;
-    }
-
-    public int hashCode() {
-        final HashCodeStrategy2 strategy = JAXBHashCodeStrategy.INSTANCE2;
-        return this.hashCode(null, strategy);
-    }
-
-    public Object clone() {
-        return copyTo(createNewInstance());
-    }
-
-    public Object copyTo(Object target) {
-        final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-        return copyTo(null, target, strategy);
-    }
-
-    public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-        final Object draftCopy = ((target == null)?createNewInstance():target);
-        if (draftCopy instanceof GETCONFPRECIOHORA) {
-            final GETCONFPRECIOHORA copy = ((GETCONFPRECIOHORA) draftCopy);
-            {
-                Boolean icmparamcalconfpreciohoraShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.icmparamcalconfpreciohora!= null));
-                if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.TRUE) {
-                    IcmParamcalconfpreciohoraBlock sourceICMPARAMCALCONFPRECIOHORA;
-                    sourceICMPARAMCALCONFPRECIOHORA = this.getICMPARAMCALCONFPRECIOHORA();
-                    IcmParamcalconfpreciohoraBlock copyICMPARAMCALCONFPRECIOHORA = ((IcmParamcalconfpreciohoraBlock) strategy.copy(LocatorUtils.property(locator, "icmparamcalconfpreciohora", sourceICMPARAMCALCONFPRECIOHORA), sourceICMPARAMCALCONFPRECIOHORA, (this.icmparamcalconfpreciohora!= null)));
-                    copy.setICMPARAMCALCONFPRECIOHORA(copyICMPARAMCALCONFPRECIOHORA);
-                } else {
-                    if (icmparamcalconfpreciohoraShouldBeCopiedAndSet == Boolean.FALSE) {
-                        copy.icmparamcalconfpreciohora = null;
-                    }
-                }
-            }
-        }
-        return draftCopy;
-    }
-
-    public Object createNewInstance() {
-        return new GETCONFPRECIOHORA();
-    }
+  public Object createNewInstance() {
+    return new GETCONFPRECIOHORA();
+  }
 
 }

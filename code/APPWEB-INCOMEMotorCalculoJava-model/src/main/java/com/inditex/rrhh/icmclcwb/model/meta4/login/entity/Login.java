@@ -57,34 +57,31 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSUser property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sUser", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSUser property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sUser", required = true)
   protected String aiSUser;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSPassword property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sPassword", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSPassword property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sPassword", required = true)
   protected String aiSPassword;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSLanguage property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sLanguage", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSLanguage property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sLanguage", required = true)
   protected String aiSLanguage;
 
-    /**
+  /**
    * Sets the value of the aiSUser property.
    *
    * @param value allowed object is {@link String }
@@ -94,7 +91,7 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     this.aiSUser = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSPassword property.
    *
    * @param value allowed object is {@link String }
@@ -104,7 +101,7 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     this.aiSPassword = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSLanguage property.
    *
    * @param value allowed object is {@link String }
@@ -114,7 +111,8 @@ public class Login implements Serializable, Cloneable, CopyTo2, Equals2, HashCod
     this.aiSLanguage = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }

@@ -51,16 +51,15 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the sessionID property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(required = true, nillable = true)
+  /**
+   * -- GETTER -- Gets the value of the sessionID property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(required = true, nillable = true)
   protected String sessionID;
 
-    /**
+  /**
    * Sets the value of the sessionID property.
    *
    * @param value allowed object is {@link String }
@@ -70,7 +69,8 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
     this.sessionID = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -151,8 +151,9 @@ public class M4LoginOutput implements Serializable, Cloneable, CopyTo2, Equals2,
         if (sessionIDShouldBeCopiedAndSet == Boolean.TRUE) {
           final String sourceSessionID;
           sourceSessionID = this.getSessionID();
-          final String copySessionID = ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
-              (this.sessionID != null)));
+          final String copySessionID =
+              ((String) strategy.copy(LocatorUtils.property(locator, "sessionID", sourceSessionID), sourceSessionID,
+                  (this.sessionID != null)));
           copy.setSessionID(copySessionID);
         } else {
           if (sessionIDShouldBeCopiedAndSet == Boolean.FALSE) {

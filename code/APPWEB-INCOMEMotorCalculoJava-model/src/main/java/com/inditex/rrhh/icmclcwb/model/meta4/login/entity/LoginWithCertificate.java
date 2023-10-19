@@ -55,25 +55,23 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSCertificate property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sCertificate", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSCertificate property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sCertificate", required = true)
   protected String aiSCertificate;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSSessionContex property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sSessionContex", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSSessionContex property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sSessionContex", required = true)
   protected String aiSSessionContex;
 
-    /**
+  /**
    * Sets the value of the aiSCertificate property.
    *
    * @param value allowed object is {@link String }
@@ -83,7 +81,7 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     this.aiSCertificate = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSSessionContex property.
    *
    * @param value allowed object is {@link String }
@@ -93,7 +91,8 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
     this.aiSSessionContex = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -210,8 +209,9 @@ public class LoginWithCertificate implements Serializable, Cloneable, CopyTo2, E
         if (aiSSessionContexShouldBeCopiedAndSet == Boolean.TRUE) {
           final String sourceAiSSessionContex;
           sourceAiSSessionContex = this.getAiSSessionContex();
-          final String copyAiSSessionContex = ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
-              sourceAiSSessionContex, (this.aiSSessionContex != null)));
+          final String copyAiSSessionContex =
+              ((String) strategy.copy(LocatorUtils.property(locator, "aiSSessionContex", sourceAiSSessionContex),
+                  sourceAiSSessionContex, (this.aiSSessionContex != null)));
           copy.setAiSSessionContex(copyAiSSessionContex);
         } else {
           if (aiSSessionContexShouldBeCopiedAndSet == Boolean.FALSE) {

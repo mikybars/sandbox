@@ -59,43 +59,39 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
 
   private final static long serialVersionUID = 1L;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSUser property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sUser", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSUser property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sUser", required = true)
   protected String aiSUser;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSPassword property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sPassword", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSPassword property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sPassword", required = true)
   protected String aiSPassword;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSLanguage property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sLanguage", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSLanguage property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sLanguage", required = true)
   protected String aiSLanguage;
 
-    /**
-     * -- GETTER --
-     *  Gets the value of the aiSRole property.
-     *
-     * @return possible object is {@link String }
-     */
-    @XmlElement(name = "ai_sRole", required = true)
+  /**
+   * -- GETTER -- Gets the value of the aiSRole property.
+   *
+   * @return possible object is {@link String }
+   */
+  @XmlElement(name = "ai_sRole", required = true)
   protected String aiSRole;
 
-    /**
+  /**
    * Sets the value of the aiSUser property.
    *
    * @param value allowed object is {@link String }
@@ -105,7 +101,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     this.aiSUser = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSPassword property.
    *
    * @param value allowed object is {@link String }
@@ -115,7 +111,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     this.aiSPassword = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSLanguage property.
    *
    * @param value allowed object is {@link String }
@@ -125,7 +121,7 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     this.aiSLanguage = value;
   }
 
-    /**
+  /**
    * Sets the value of the aiSRole property.
    *
    * @param value allowed object is {@link String }
@@ -135,7 +131,8 @@ public class LoginWithRole implements Serializable, Cloneable, CopyTo2, Equals2,
     this.aiSRole = value;
   }
 
-  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object, final EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
