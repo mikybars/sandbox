@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +13,7 @@ public class TareaLocalizacionEstadoDto implements Serializable {
 
   private static final long serialVersionUID = 5015061072450952695L;
 
-  @ApiModelProperty(value = "Identificador del registro", required = false)
+  @ApiModelProperty(value = "Identificador del registro")
   private String id;
 
   @NotNull
@@ -44,6 +43,6 @@ public class TareaLocalizacionEstadoDto implements Serializable {
 
   @NotNull
   @ApiModelProperty(value = "Dias de reparto", required = true)
-  private BigDecimal icmNumDias;
+  private Integer icmNumDias;
 
 }

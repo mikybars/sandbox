@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -64,6 +63,6 @@ public class TareaLocalizacionEstado {
 
   @NotNull
   @Column(name = "ICM_NUM_DIAS", nullable = false, precision = 23, scale = 8)
-  private BigDecimal icmNumDias;
+  private Integer icmNumDias;
 
 }
