@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -65,12 +64,12 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final TrabajoDTO trabajo = runTareaDto.getTrabajo();
     final TareaDto tarea = runTareaDto.getTarea();
-    Proceso proceso = new Proceso();
-    ProcesoAmbitoEmpresa procesoAmbitoEmpresa = new ProcesoAmbitoEmpresa();
-    EstadoProceso estadoProceso = new EstadoProceso();
-    TipoAmbito tipoAmbito = new TipoAmbito();
-    TipoProceso tipoProceso = new TipoProceso();
-    TipoSistemaDestino tipoSistemaDestino = new TipoSistemaDestino();
+    final Proceso proceso = new Proceso();
+    final ProcesoAmbitoEmpresa procesoAmbitoEmpresa = new ProcesoAmbitoEmpresa();
+    final EstadoProceso estadoProceso = new EstadoProceso();
+    final TipoAmbito tipoAmbito = new TipoAmbito();
+    final TipoProceso tipoProceso = new TipoProceso();
+    final TipoSistemaDestino tipoSistemaDestino = new TipoSistemaDestino();
 
     try {
       if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
@@ -78,7 +77,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
           || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
 
         estadoProceso.setId(EstadoProcesoEnum.PENDIENTE.getId());
-        tipoAmbito.setId(trabajo.getTipoAmbito().getId().intValue());
+        tipoAmbito.setId(TipoAmbitoEnum.EMPRESA.getId().intValue());
         tipoProceso.setId(TipoProcesoEnum.EXPORTACION.getId());
         tipoSistemaDestino.setId(TipoSistemaDestinoEnum.SIL.getId());
 
@@ -88,12 +87,12 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
         proceso.setTipoAmbito(tipoAmbito);
         proceso.setTipoProceso(tipoProceso);
         proceso.setTipoSistemaDestino(tipoSistemaDestino);
-        proceso.setFechaHoraCreacion(LocalDateTime.now());
+        proceso.setFechaHoraCreacion(trabajo.getFechaHoraCreacion().toLocalDateTime());
         proceso.setFechaInicioPeriodo(trabajo.getFechaInicioPeriodo().toLocalDate());
         proceso.setFechaFinPeriodo(trabajo.getFechaFinPeriodo().toLocalDate());
         proceso.setNombreUsuario(trabajo.getNombreUsuario());
 
-        Proceso precesoCreated = this.procesoRepository.save(proceso);
+        final Proceso precesoCreated = this.procesoRepository.save(proceso);
 
         procesoAmbitoEmpresa.setProceso(precesoCreated);
         procesoAmbitoEmpresa.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
