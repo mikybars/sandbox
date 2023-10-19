@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClasePersonaSilAmbitoDto implements Serializable {
 
-    @NotBlank
-    @ApiModelProperty(value = "Origen", required = true)
-    private String cclIdOrigen;
+  @NotBlank
+  @ApiModelProperty(value = "Origen", required = true)
+  private String cclIdOrigen;
 
-    @NotBlank
-    @ApiModelProperty(value = "Clase para origen/empresa", required = true)
-    private Integer clase;
+  @NotBlank
+  @ApiModelProperty(value = "Clase para origen/empresa", required = true)
+  private Integer clase;
 
-    @ApiModelProperty(value = "Estado para una clase")
-    private Integer estado;
+  @ApiModelProperty(value = "Estado para una clase")
+  private Integer estado;
 
 }

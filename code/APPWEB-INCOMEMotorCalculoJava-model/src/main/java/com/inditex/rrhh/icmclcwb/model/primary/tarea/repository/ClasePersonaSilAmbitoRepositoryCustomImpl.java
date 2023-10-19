@@ -16,21 +16,21 @@ import org.springframework.stereotype.Repository;
 public class ClasePersonaSilAmbitoRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<ClasePersonaSilAmbito>
     implements ClasePersonaSilAmbitoRepositoryCustom {
 
-    @Value("#{primaryQuery['ClasePersonaSilAmbitoRepositoryCustom.findClaseEstadoByCclIdOrigenAndStdIdLegEnt']}")
-    private String sqlFindClaseEstadoByCclIdOrigenAndStdIdLegEnt;
+  @Value("#{primaryQuery['ClasePersonaSilAmbitoRepositoryCustom.findClaseEstadoByCclIdOrigenAndStdIdLegEnt']}")
+  private String sqlFindClaseEstadoByCclIdOrigenAndStdIdLegEnt;
 
-    @Override
-    public List<ClasePersonaSilAmbitoDto> findClaseEstadoByCclIdOrigenAndStdIdLegEnt(@NotNull final String cclIdOrigen,
-        @NotNull final String stdIdLegEnt) {
-        final MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-        parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
+  @Override
+  public List<ClasePersonaSilAmbitoDto> findClaseEstadoByCclIdOrigenAndStdIdLegEnt(@NotNull final String cclIdOrigen,
+      @NotNull final String stdIdLegEnt) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
-        return this.query(this.sqlFindClaseEstadoByCclIdOrigenAndStdIdLegEnt, parameters,
-            (rs, rowNum) -> ClasePersonaSilAmbitoDto.builder()
-                .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
-                .clase(rs.getInt(SqlPrimaryConstants.SQL_RESULT_CLASE))
-                .estado((Integer) rs.getObject(SqlPrimaryConstants.SQL_RESULT_ESTADO))
-                .build());
-    }
+    return this.query(this.sqlFindClaseEstadoByCclIdOrigenAndStdIdLegEnt, parameters,
+        (rs, rowNum) -> ClasePersonaSilAmbitoDto.builder()
+            .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
+            .clase(rs.getInt(SqlPrimaryConstants.SQL_RESULT_CLASE))
+            .estado((Integer) rs.getObject(SqlPrimaryConstants.SQL_RESULT_ESTADO))
+            .build());
+  }
 }

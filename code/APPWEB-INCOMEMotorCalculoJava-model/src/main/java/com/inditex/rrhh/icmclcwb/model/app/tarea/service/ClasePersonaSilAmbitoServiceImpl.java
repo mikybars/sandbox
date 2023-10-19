@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClasePersonaSilAmbitoServiceImpl implements ClasePersonaSilAmbitoService {
 
-    @Autowired
-    private ClasePersonaSilAmbitoRepositoryCustom clasePersonaSilAmbitoRepositoryCustom;
+  @Autowired
+  private ClasePersonaSilAmbitoRepositoryCustom clasePersonaSilAmbitoRepositoryCustom;
 
-    @Override
-    public List<ClasePersonaSilAmbitoDto> getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(final String cclIdOrigen, final String stdIdLegEnt) {
-        return this.clasePersonaSilAmbitoRepositoryCustom.findClaseEstadoByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
-    }
+  @Override
+  public List<ClasePersonaSilAmbitoDto> getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(final String cclIdOrigen, final String stdIdLegEnt) {
+    return this.clasePersonaSilAmbitoRepositoryCustom.findClaseEstadoByCclIdOrigenAndStdIdLegEnt(cclIdOrigen, stdIdLegEnt);
+  }
 }

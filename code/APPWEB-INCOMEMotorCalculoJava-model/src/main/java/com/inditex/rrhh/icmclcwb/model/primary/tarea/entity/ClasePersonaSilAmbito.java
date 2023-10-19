@@ -22,25 +22,25 @@ import lombok.ToString;
 @ToString
 public class ClasePersonaSilAmbito {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_CLASE_PERSONA_SIL_AMBITO")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_CLASE_PERSONA_SIL_AMBITO")
+  private Long id;
 
-    @NotBlank
-    @Column(name = "CCL_ID_ORIGEN", nullable = false)
-    private String cclIdOrigen;
+  @NotBlank
+  @Column(name = "CCL_ID_ORIGEN", nullable = false)
+  private String cclIdOrigen;
 
-    @NotBlank
-    @Column(name = "STD_ID_LEG_ENT", nullable = false)
-    private String stdIdLegEnt;
+  @NotBlank
+  @Column(name = "STD_ID_LEG_ENT", nullable = false)
+  private String stdIdLegEnt;
 
-    @NotBlank
-    @Column(name = "CLASE", nullable = false)
-    private Integer clase;
+  @NotBlank
+  @Column(name = "CLASE", nullable = false)
+  private Integer clase;
 
-    @NotBlank
-    @Column(name = "ESTADO")
-    private Integer estado;
+  @NotBlank
+  @Column(name = "ESTADO")
+  private Integer estado;
 
 }
