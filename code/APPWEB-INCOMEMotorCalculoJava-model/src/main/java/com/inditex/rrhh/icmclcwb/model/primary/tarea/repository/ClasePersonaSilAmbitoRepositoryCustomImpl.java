@@ -27,10 +27,8 @@ public class ClasePersonaSilAmbitoRepositoryCustomImpl extends JdbcBatchPrimaryR
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
 
     return this.query(this.sqlFindClaseEstadoByCclIdOrigenAndStdIdLegEnt, parameters,
-        (rs, rowNum) -> ClasePersonaSilAmbitoDto.builder()
-            .cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
+        (rs, rowNum) -> ClasePersonaSilAmbitoDto.builder().cclIdOrigen(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORIGEN))
             .clase(rs.getInt(SqlPrimaryConstants.SQL_RESULT_CLASE))
-            .estado((Integer) rs.getObject(SqlPrimaryConstants.SQL_RESULT_ESTADO))
-            .build());
+            .estado((Integer) rs.getObject(SqlPrimaryConstants.SQL_RESULT_ESTADO)).build());
   }
 }
