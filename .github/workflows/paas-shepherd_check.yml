@@ -8,12 +8,12 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.0.0
 
 jobs:
   get-details:
     name: Shepherd / Get Details
-    runs-on: [self-hosted, common]
+    runs-on: [self-hosted, paasfeature]
     outputs:
       matrix: ${{ steps.pr.outputs.matrix }}
     steps:
@@ -54,7 +54,7 @@ jobs:
 
   shepherd-check:
     name: Shepherd / Deployment Check
-    runs-on: [self-hosted, common]
+    runs-on: [self-hosted, paasfeature]
     needs: get-details
     strategy:
       max-parallel: 1

@@ -1,0 +1,106 @@
+---
+version: 2
+
+registries:
+  inditex-npm:
+    type: npm-registry
+    url: https://inditex.jfrog.io/artifactory/api/npm/node-public
+    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
+    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+  inditex-maven:
+    type: maven-repository
+    url: https://inditex.jfrog.io/artifactory/maven-public
+    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
+    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+updates:
+  # AMIGA Fwk Node.js (WSC/WEB)
+  # AMIGA Fwk Web (SPA)
+  - package-ecosystem: npm
+    rebase-strategy: "disabled"
+    directory: /code
+    schedule:
+      interval: weekly
+      time: "02:00"
+      timezone: UTC
+    registries:
+      - inditex-npm
+    allow:
+      - dependency-name: "@amiga-fwk-nodejs/*"
+        dependency-type: direct
+      - dependency-name: "@amiga-fwk-web/*"
+        dependency-type: direct
+      - dependency-name: "@inditex/eslint-config"
+        dependency-type: direct
+    commit-message:
+      prefix: npm
+      include: scope
+    labels:
+      - kind/dependency
+    ignore:
+      # Ignore major version update
+      - dependency-name: "@amiga-fwk-nodejs/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@amiga-fwk-web/*"
+        update-types: ["version-update:semver-major"]
+  # AMIGA Fwk Web (WEB)
+  - package-ecosystem: npm
+    rebase-strategy: "disabled"
+    directory: /code/frontend
+    schedule:
+      interval: weekly
+      time: "02:00"
+      timezone: UTC
+    registries:
+      - inditex-npm
+    allow:
+      - dependency-name: "@amiga-fwk-web/*"
+        dependency-type: direct
+      - dependency-name: "@inditex/eslint-config"
+        dependency-type: direct
+    commit-message:
+      prefix: npm
+      include: scope
+    labels:
+      - kind/dependency
+    ignore:
+      # Ignore major version update
+      - dependency-name: "@amiga-fwk-web/*"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "maven"
+    rebase-strategy: "disabled"
+    directory: "/code"
+    schedule:
+      interval: "weekly"
+      time: "02:00"
+      timezone: UTC
+    registries:
+      - inditex-maven
+    labels:
+      - kind/dependency
+    allow:
+      # AMIGA Fwk Java (WSC/WEB)
+      - dependency-name: "com.inditex.aqsw.framework.amiga:amiga-framework"
+        dependency-type: direct
+      - dependency-name: "com.inditex.aqsw.amiga.javaformat:amiga-javaformat-maven-plugin"
+        dependency-type: direct
+      - dependency-name: "com.inditex.aqsw.pipeclie:pipe-starter-kafka"
+        dependency-type: direct
+      - dependency-name: "com.inditex.aqsw.amgjdbce*"
+        dependency-type: direct
+      - dependency-name: "com.inditex.aqsw.amiga.rules*"
+        dependency-type: direct
+      - dependency-name: "com.inditex.amigafwk:amiga-framework"
+        dependency-type: direct
+      # Darwin Telemetry and Maven Release strategies from @inditex/productivity-team
+      - dependency-name: "com.inditex.darwin.telemetry:darwin-telemetry-maven-extension"
+        dependency-type: direct
+      - dependency-name: "com.inditex.maven.release:maven-release-strategies"
+        dependency-type: direct
+    ignore:
+      # Ignore major version update
+      - dependency-name: "com.inditex.aqsw.framework.amiga*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.inditex.darwin.telemetry:darwin-telemetry-maven-extension"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.inditex.maven.release:maven-release-strategies"
+        update-types: ["version-update:semver-major"]

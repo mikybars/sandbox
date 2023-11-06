@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  WORKFLOW_VERSION: 1.81.3
+  WORKFLOW_VERSION: 2.0.2
 
 jobs:
   unit-tests:

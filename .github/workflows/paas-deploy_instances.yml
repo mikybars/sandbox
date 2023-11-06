@@ -20,13 +20,14 @@ on:
           - continue
           - rollback
           - retry
+          - cancel
       SKIP:
         description: 'Steps to be skipped during rollout flow'
         required: false
         default: ''
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.0.0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -51,10 +52,31 @@ jobs:
           user: ${{ steps.user.outputs.login }}
           token: ${{ secrets.CHATBOT_PR_PAT }}
 
+  cancel:
+    name: PaaS / Cancel related PRs
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.inputs.ACTION == 'cancel' }}
+    outputs:
+      summary: ${{ steps.cancel.outputs.summary }}
+    steps:
+      - name: Get user
+        id: user
+        run: |
+          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
+          echo "login=${login}" >> "$GITHUB_OUTPUT"
+
+      - name: PaaS / Cancel deploy PRs
+        uses: inditex/gha-paasdeployment/cancel-related-prs@v0
+        id: cancel
+        with:
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          user: ${{ steps.user.outputs.login }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   rollout:
     name: PaaS / Run rollout command in PRs
     runs-on: ubuntu-20.04
-    if: ${{ github.event.inputs.ACTION != 'merge' }}
+    if: ${{ github.event.inputs.ACTION != 'merge' && github.event.inputs.ACTION != 'cancel' }}
     outputs:
       summary: ${{ steps.post-command.outputs.summary }}
     env:
@@ -103,7 +125,7 @@ jobs:
     name: PaaS / Summary
     runs-on: ubuntu-20.04
     if: ${{ always() && !cancelled() }}
-    needs: [merge, rollout]
+    needs: [merge, rollout, cancel]
     steps:
       - name: Generate comment
         id: comment
@@ -112,7 +134,7 @@ jobs:
           first_line=$(echo "$comment" | jq -r .body | head -n1 | tr -d '\r\n')
           link=$(echo "$comment" | jq -r .html_url)
 
-          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary }}"
+          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary || needs.cancel.outputs.summary }}"
           if [ -z "${message}" ]; then
             message=":x: Unexpected error. More information in the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})."
           fi
