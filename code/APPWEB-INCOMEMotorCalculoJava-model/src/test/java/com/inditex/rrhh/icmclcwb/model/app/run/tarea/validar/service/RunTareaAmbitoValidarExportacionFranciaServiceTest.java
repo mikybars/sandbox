@@ -34,6 +34,8 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoAmbitoEmpresaRepository;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -76,6 +78,12 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
   @Mock
   private TareaFaseAccionService tareaFaseAccionService;
 
+  @Mock
+  private ProcesoRepository procesoRepository;
+
+  @Mock
+  private ProcesoAmbitoEmpresaRepository procesoAmbitoEmpresaRepository;
+
   @InjectMocks
   private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaServiceImpl;
 
@@ -87,6 +95,8 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setTipoAmbito(tipoAmbito);
     trabajo.setFechaHoraCreacion(LocalDateTime.now().atOffset(ZoneOffset.UTC));
+    trabajo.setFechaInicioPeriodo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
+    trabajo.setFechaFinPeriodo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajo);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
@@ -131,13 +141,17 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
   @Test
   public void executeLocalizacion() {
     when(this.tareaAmbitoLocalizacionService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoLocalizacionDto>());
-    this.execute(TipoAmbitoEnum.LOCALIZACION.getDto());
+    assertThrows(IcmclcwbException.class, () -> {
+      this.execute(TipoAmbitoEnum.LOCALIZACION.getDto());
+    });
   }
 
   @Test
   public void executePersona() {
     when(this.tareaAmbitoPersonaService.findByTarea(any(TareaDto.class))).thenReturn(new ArrayList<TareaAmbitoPersonaDto>());
-    this.execute(TipoAmbitoEnum.PERSONA.getDto());
+    assertThrows(IcmclcwbException.class, () -> {
+      this.execute(TipoAmbitoEnum.PERSONA.getDto());
+    });
   }
 
   @Test
