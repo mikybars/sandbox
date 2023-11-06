@@ -93,14 +93,12 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
           .getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(tareaAmbito.getCclIdOrigen(), tarea.getStdIdLegEnt());
 
       clasesEstados.stream().collect(groupingBy(ClasePersonaSilAmbitoDto::getClase))
-          .forEach((clase, list) -> {
-            clasesItems.add(ClaseResultItemDto.builder()
-                .idOrigen(list.get(0).getCclIdOrigen())
-                .idClase(clase.toString())
-                .idsEstadoSil(list.stream().map(ClasePersonaSilAmbitoDto::getEstado).map(estado -> estado.toString())
-                    .collect(Collectors.toList()))
-                .build());
-          });
+          .forEach((clase, list) -> clasesItems.add(ClaseResultItemDto.builder()
+              .idOrigen(list.get(0).getCclIdOrigen())
+              .idClase(clase.toString())
+              .idsEstadoSil(list.stream().map(ClasePersonaSilAmbitoDto::getEstado).map(estado -> estado.toString())
+                  .collect(Collectors.toList()))
+              .build()));
 
       clases.setItems(clasesItems);
 
