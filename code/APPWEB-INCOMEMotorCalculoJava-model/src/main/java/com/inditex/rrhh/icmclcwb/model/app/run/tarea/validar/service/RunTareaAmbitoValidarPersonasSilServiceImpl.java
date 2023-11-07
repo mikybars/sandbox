@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
@@ -44,9 +43,6 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
-
-  @Autowired
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Autowired
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
@@ -81,11 +77,6 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
       final List<IdPersonaLocalLocalizacionDto> personasComis = new ArrayList<>();
 
-      // llamar a Meta4 para obtener las clases y/o estado SIL
-      // final ClaseRequestDto request = ClaseRequestDto.builder().cclIdOrigen(tareaAmbito.getCclIdOrigen()).build();
-      // final ClaseResponseDto clases = this.meta4IcmWsCalcIncomeService.getClases(request);
-
-      // Establecemos de manera estática las clases/estados porque son los que Sil usa en este momento
       final ClaseResponseDto clases = ClaseResponseDto.builder().build();
 
       final List<ClaseResultItemDto> clasesItems = new ArrayList<>();
@@ -102,7 +93,7 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
       clases.setItems(clasesItems);
 
-      // obtención de las personas desde Comis usando las clases y estaod SIL
+      // obtención de las personas desde Comis usando las clases y estado SIL
       final List<CompletableFuture<List<IdPersonaLocalLocalizacionDto>>> cfsPersonas = new ArrayList<>();
       clases.getItems().forEach(clase -> {
         final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cfPersonas =
