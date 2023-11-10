@@ -87,7 +87,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
         proceso.setTipoAmbito(tipoAmbito);
         proceso.setTipoProceso(tipoProceso);
         proceso.setTipoSistemaDestino(tipoSistemaDestino);
-        proceso.setFechaHoraCreacion(trabajo.getFechaHoraCreacion().toLocalDateTime());
+        proceso.setFechaHoraCreacion(trabajo.getFechaHoraCreacion().toLocalDateTime().withNano(0));
         proceso.setFechaInicioPeriodo(trabajo.getFechaInicioPeriodo().toLocalDate());
         proceso.setFechaFinPeriodo(trabajo.getFechaFinPeriodo().toLocalDate());
         proceso.setNombreUsuario(trabajo.getNombreUsuario());
