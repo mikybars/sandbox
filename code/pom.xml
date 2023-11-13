@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>4.15.11</version>
+    <version>4.15.13</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
