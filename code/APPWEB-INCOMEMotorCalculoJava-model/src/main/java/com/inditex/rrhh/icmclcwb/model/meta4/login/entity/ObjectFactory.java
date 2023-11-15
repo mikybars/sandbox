@@ -76,22 +76,6 @@ public class ObjectFactory {
   }
 
   /**
-   * Create an instance of {@link Login }
-   *
-   */
-  public Login createLogin() {
-    return new Login();
-  }
-
-  /**
-   * Create an instance of {@link LoginResponse }
-   *
-   */
-  public LoginResponse createLoginResponse() {
-    return new LoginResponse();
-  }
-
-  /**
    * Create an instance of {@link Logout }
    *
    */
@@ -105,6 +89,22 @@ public class ObjectFactory {
    */
   public LogoutResponse createLogoutResponse() {
     return new LogoutResponse();
+  }
+
+  /**
+   * Create an instance of {@link Login }
+   *
+   */
+  public Login createLogin() {
+    return new Login();
+  }
+
+  /**
+   * Create an instance of {@link LoginResponse }
+   *
+   */
+  public LoginResponse createLoginResponse() {
+    return new LoginResponse();
   }
 
   /**
@@ -130,7 +130,7 @@ public class ObjectFactory {
    * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
    */
   @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
-  public JAXBElement<M4SoapException> createFault(M4SoapException value) {
+  public JAXBElement<M4SoapException> createFault(final M4SoapException value) {
     return new JAXBElement<M4SoapException>(_Fault_QNAME, M4SoapException.class, null, value);
   }
 

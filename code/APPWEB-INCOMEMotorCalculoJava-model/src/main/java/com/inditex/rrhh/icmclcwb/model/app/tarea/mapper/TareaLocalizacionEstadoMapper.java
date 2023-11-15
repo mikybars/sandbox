@@ -41,6 +41,7 @@ public abstract class TareaLocalizacionEstadoMapper {
   @Mapping(target = "icmIdEstado", source = "src.idEstado")
   @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
   @Mapping(target = "idTarea", source = "srcTarea.id")
+  @Mapping(target = "icmNumDias", source = "src.numDias")
   public abstract TareaLocalizacionEstadoDto estadoWlocResultItemDtoToTareaLocalizacionEstadoDto(
       EstadoWlocResultItemDto src, TareaDto srcTarea);
 
