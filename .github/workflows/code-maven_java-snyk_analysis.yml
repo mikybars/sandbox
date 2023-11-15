@@ -3,16 +3,15 @@ name: code-maven-snyk-analysis
 
 on:
   workflow_dispatch:
+  push:
+    branches: ['develop', 'develop-*', 'main', 'main-*']
+    paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
   pull_request:
-    paths:
-      - '.github/workflows/code-*-snyk_analysis.yml'
-      - 'code/**/pom.xml'
-  release:
-    types:
-      - published
+    types: [opened, synchronize, reopened]
+    paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 1.46.0
+  WORKFLOW_VERSION: 2.1.0
   WORKING_DIR: code
   DOJO_USERNAME: ${{ secrets.SRVC_FTFAUDIT_USER }}
   DOJO_PASSWORD: ${{ secrets.SRVC_FTFAUDIT_PASSWORD }}
@@ -22,40 +21,10 @@ jobs:
     runs-on: [self-hosted, testing-ivm]
     name: Snyk / Analysis execution
     steps:
-      - name: Determine artifact version
-        if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
-        id: artifact-version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          if [[ "${{ github.event_name }}" == "release" ]]; then
-            echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            tag=$(gh release view --repo "${{ github.repository }}" --json tagName --jq '.tagName')
-            if [[ $tag == "release not found" ]]; then
-              echo "$tag"
-              exit 1
-            else
-              echo "The latest release tag is $tag"
-              echo "value=$tag" >> "$GITHUB_OUTPUT"
-            fi
-          fi
-
-      - name: Determine ref to checkout
-        id: checkout-ref
-        shell: bash
-        run: |
-          if [ "${{ github.event_name }}" == "release" ] || [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "ref=refs/tags/${{ steps.artifact-version.outputs.value }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "ref=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.checkout-ref.outputs.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup IVM environment
         uses: inditex/gha-ivmactions/setup-environment@v0
@@ -97,13 +66,13 @@ jobs:
           GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Import Snyk data to DefectDojo
-        if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+        if: ${{ (github.event_name == 'workflow_dispatch') || (github.event_name == 'push' && ( (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) ) ) }}
         uses: inditex/gha-defectdojoactions/import@main
         with:
           file-path: "@${{ github.workspace }}/${{ env.WORKING_DIR }}/snyk_text/${{ steps.metadata.outputs.project-key }}_test_output.json"
           project-key: ${{ steps.metadata.outputs.project-key }}
-          version: ${{ steps.artifact-version.outputs.value }}
-          branch: ${{ github.ref_name }}
+          version: "latest"
+          branch: ${{ github.event.pull_request.head.ref }}
           scan-type: "Snyk Scan"
 
       - name: Snyk Monitor Execution

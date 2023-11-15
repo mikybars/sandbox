@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.60.0] - 2023-11-10
+
+### Added
+
+- [#78](https://github.com/inditex/mic-incomemotorcalculojava/issues/78) Totalizacion Fracia - Fix date
+
+## [4.59.0] - 2023-11-06
+
+### Added
+
+- [#46](https://github.com/inditex/mic-incomemotorcalculojava/issues/46) Feature/exportacion francia
+- [ICMCLCWB-1394](https://axinic.central.inditex.grp/jira/browse/ICMCLCWB-1394) Modificaciones cálculo
+- [ICMWEB-1509](https://axinic.central.inditex.grp/jira/browse/ICMWEB-1509) Correcciones colas AMQ
+
+## [4.58.0] - 2023-10-16
+
+### Added
+
+- [ICMWEB-1493](https://axinic.central.inditex.grp/jira/browse/ICMWEB-1493) Migraciones cálculo
+
+### Refactored
+
+- [#1](https://github.com/inditex/mic-incomemotorcalculojava/issues/1) Adapt project to GitHub reference configuration
+
 ## [4.57.0] - 2023-08-21
 
 ## [4.56.0] - 2023-07-31
@@ -349,7 +373,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.57.0...develop
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.60.0...main
+[4.60.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.59.0...4.60.0
+[4.59.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.58.0...4.59.0
+[4.58.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.57.0...4.58.0
 [4.57.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.56.0...4.57.0
 [4.56.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.55.0...4.56.0
 [4.55.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.54.0...4.55.0

@@ -4,7 +4,7 @@
 
 ## Triggers
 
-- Any `closed` pull request to `main` branch on `code` path, if no `skip-release` label was set.
+- Any `closed` pull request to `main` branch on `code` path, if no `skip-release` label and no `butler/feature-provision` label were set.
 - A manual dispatch (`workflow_dispatch`) invoked from the GitHub UI.
 
 ## Where does it run?

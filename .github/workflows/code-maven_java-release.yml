@@ -43,14 +43,14 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 1.81.3
+  WORKFLOW_VERSION: 2.0.2
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.3-node-12-ubuntu-r0
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r0
   SCM_EMAIL: srvcibot@inditex.com
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   SCM_USERNAME: butler-ci-bot
@@ -64,7 +64,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
       || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
-        || vars.DEVELOPMENT_FLOW == 'trunk-based-development'))
+        || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
     runs-on: ubuntu-20.04
     steps:
       - name: Get input parameters
@@ -81,7 +81,8 @@ jobs:
             fi
           fi
           echo "RELEASE_LABELS=$RELEASE_LABELS" >> "$GITHUB_ENV"
-          echo "BASELINE_BRANCH=${{ github.event.inputs.BASELINE || github.ref }}" >> "$GITHUB_ENV"
+          BASELINE_BRANCH=${{ github.event.inputs.BASELINE || github.ref }}
+          echo "BASELINE_BRANCH=${BASELINE_BRANCH#refs/heads/}" >> "$GITHUB_ENV"
 
       - name: Setup current release type version
         if: contains(env.RELEASE_LABELS, 'release-type/current')
@@ -160,9 +161,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r1
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r1
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r1
+          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
+          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
         with:
           tool-versions-directory: code
 

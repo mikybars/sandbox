@@ -7,7 +7,7 @@ on:
       - 'paas/**'
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.0.0
 
 jobs:
   check-changes-in-paths:
