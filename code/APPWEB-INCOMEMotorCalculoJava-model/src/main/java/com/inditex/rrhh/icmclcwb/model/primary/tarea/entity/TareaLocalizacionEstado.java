@@ -61,4 +61,8 @@ public class TareaLocalizacionEstado {
   @Column(name = "ICM_ID_ESTADO", nullable = false, length = 12)
   private String icmIdEstado;
 
+  @NotNull
+  @Column(name = "ICM_NUM_DIAS", nullable = false, precision = 23, scale = 8)
+  private Integer icmNumDias;
+
 }
