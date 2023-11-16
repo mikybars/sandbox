@@ -14,7 +14,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(imports = {Integer.class})
 @DecoratedWith(TareaLocalizacionEstadoDecorator.class)
 public abstract class TareaLocalizacionEstadoMapper {
 
@@ -41,7 +41,7 @@ public abstract class TareaLocalizacionEstadoMapper {
   @Mapping(target = "icmIdEstado", source = "src.idEstado")
   @Mapping(target = "cclIdSeccion", source = "src.idSeccion")
   @Mapping(target = "idTarea", source = "srcTarea.id")
-  @Mapping(target = "icmNumDias", source = "src.numDias")
+  @Mapping(target = "icmNumDias", expression = "java(src.getNumDias().isBlank() ? null : Integer.parseInt(src.getNumDias()))")
   public abstract TareaLocalizacionEstadoDto estadoWlocResultItemDtoToTareaLocalizacionEstadoDto(
       EstadoWlocResultItemDto src, TareaDto srcTarea);
 

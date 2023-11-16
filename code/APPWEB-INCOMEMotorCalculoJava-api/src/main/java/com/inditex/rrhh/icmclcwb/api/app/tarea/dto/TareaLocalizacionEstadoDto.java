@@ -41,7 +41,6 @@ public class TareaLocalizacionEstadoDto implements Serializable {
   @NotNull
   private LocalDateTime fechaFin;
 
-  @NotNull
   @ApiModelProperty(value = "Dias de reparto", required = true)
   private Integer icmNumDias;
 
