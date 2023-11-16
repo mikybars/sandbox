@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
 import org.jvnet.jaxb2_commons.lang.Equals2;
@@ -41,6 +42,7 @@ import org.jvnet.jaxb2_commons.locator.util.LocatorUtils;
  *
  *
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "logoutReturn"
@@ -50,25 +52,21 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
 
   private final static long serialVersionUID = 1L;
 
-  protected int logoutReturn;
-
   /**
-   * Gets the value of the logoutReturn property.
-   *
+   * -- GETTER -- Gets the value of the logoutReturn property.
    */
-  public int getLogoutReturn() {
-    return logoutReturn;
-  }
+  protected int logoutReturn;
 
   /**
    * Sets the value of the logoutReturn property.
    *
    */
-  public void setLogoutReturn(int value) {
+  public void setLogoutReturn(final int value) {
     this.logoutReturn = value;
   }
 
-  public boolean equals(ObjectLocator thisLocator, ObjectLocator thatLocator, Object object, EqualsStrategy2 strategy) {
+  public boolean equals(final ObjectLocator thisLocator, final ObjectLocator thatLocator, final Object object,
+      final EqualsStrategy2 strategy) {
     if ((object == null) || (this.getClass() != object.getClass())) {
       return false;
     }
@@ -77,50 +75,47 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
     }
     final LogoutResponse that = ((LogoutResponse) object);
     {
-      int lhsLogoutReturn;
+      final int lhsLogoutReturn;
       lhsLogoutReturn = this.getLogoutReturn();
-      int rhsLogoutReturn;
+      final int rhsLogoutReturn;
       rhsLogoutReturn = that.getLogoutReturn();
-      if (!strategy.equals(LocatorUtils.property(thisLocator, "logoutReturn", lhsLogoutReturn),
-          LocatorUtils.property(thatLocator, "logoutReturn", rhsLogoutReturn), lhsLogoutReturn, rhsLogoutReturn, true, true)) {
-        return false;
-      }
+      return strategy.equals(LocatorUtils.property(thisLocator, "logoutReturn", lhsLogoutReturn),
+          LocatorUtils.property(thatLocator, "logoutReturn", rhsLogoutReturn), lhsLogoutReturn, rhsLogoutReturn, true, true);
     }
-    return true;
   }
 
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     final EqualsStrategy2 strategy = JAXBEqualsStrategy.INSTANCE2;
-    return equals(null, null, object, strategy);
+    return this.equals(null, null, object, strategy);
   }
 
   public String toString() {
     final ToStringStrategy2 strategy = JAXBToStringStrategy.INSTANCE2;
     final StringBuilder buffer = new StringBuilder();
-    append(null, buffer, strategy);
+    this.append(null, buffer, strategy);
     return buffer.toString();
   }
 
-  public StringBuilder append(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder append(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     strategy.appendStart(locator, this, buffer);
-    appendFields(locator, buffer, strategy);
+    this.appendFields(locator, buffer, strategy);
     strategy.appendEnd(locator, this, buffer);
     return buffer;
   }
 
-  public StringBuilder appendFields(ObjectLocator locator, StringBuilder buffer, ToStringStrategy2 strategy) {
+  public StringBuilder appendFields(final ObjectLocator locator, final StringBuilder buffer, final ToStringStrategy2 strategy) {
     {
-      int theLogoutReturn;
+      final int theLogoutReturn;
       theLogoutReturn = this.getLogoutReturn();
       strategy.appendField(locator, this, "logoutReturn", buffer, theLogoutReturn, true);
     }
     return buffer;
   }
 
-  public int hashCode(ObjectLocator locator, HashCodeStrategy2 strategy) {
+  public int hashCode(final ObjectLocator locator, final HashCodeStrategy2 strategy) {
     int currentHashCode = 1;
     {
-      int theLogoutReturn;
+      final int theLogoutReturn;
       theLogoutReturn = this.getLogoutReturn();
       currentHashCode =
           strategy.hashCode(LocatorUtils.property(locator, "logoutReturn", theLogoutReturn), currentHashCode, theLogoutReturn, true);
@@ -134,24 +129,24 @@ public class LogoutResponse implements Serializable, Cloneable, CopyTo2, Equals2
   }
 
   public Object clone() {
-    return copyTo(createNewInstance());
+    return this.copyTo(this.createNewInstance());
   }
 
-  public Object copyTo(Object target) {
+  public Object copyTo(final Object target) {
     final CopyStrategy2 strategy = JAXBCopyStrategy.INSTANCE2;
-    return copyTo(null, target, strategy);
+    return this.copyTo(null, target, strategy);
   }
 
-  public Object copyTo(ObjectLocator locator, Object target, CopyStrategy2 strategy) {
-    final Object draftCopy = ((target == null) ? createNewInstance() : target);
+  public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
+    final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
     if (draftCopy instanceof LogoutResponse) {
       final LogoutResponse copy = ((LogoutResponse) draftCopy);
       {
-        Boolean logoutReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
+        final Boolean logoutReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, true);
         if (logoutReturnShouldBeCopiedAndSet == Boolean.TRUE) {
-          int sourceLogoutReturn;
+          final int sourceLogoutReturn;
           sourceLogoutReturn = this.getLogoutReturn();
-          int copyLogoutReturn =
+          final int copyLogoutReturn =
               strategy.copy(LocatorUtils.property(locator, "logoutReturn", sourceLogoutReturn), sourceLogoutReturn, true);
           copy.setLogoutReturn(copyLogoutReturn);
         } else {

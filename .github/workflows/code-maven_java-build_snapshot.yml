@@ -2,7 +2,7 @@
 name: code-maven-build-snapshot
 
 concurrency:
-  group: build-snapshot
+  group: code-build-snapshot
   cancel-in-progress: true
 
 on:
@@ -11,7 +11,7 @@ on:
     paths: ['code/**', '.github/workflows/code**']
 
 env:
-  WORKFLOW_VERSION: 1.81.3
+  WORKFLOW_VERSION: 2.1.1
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -23,7 +23,7 @@ jobs:
   build-snapshot:
     name: Build Snapshot
     runs-on: ubuntu-20.04
-    if: ${{ (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && github.ref_name == 'main') || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && github.ref_name == 'develop') }}
+    if: ${{ (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) }}
     steps:
       - name: Checkout Branch Head
         uses: actions/checkout@v3
@@ -52,9 +52,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r1
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r1
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r1
+          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
+          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
         with:
           tool-versions-directory: code
 

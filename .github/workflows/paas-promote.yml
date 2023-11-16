@@ -47,14 +47,14 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.4.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
 jobs:
   promote:
     name: Promote & Deployment PRs
-    runs-on: [self-hosted, common]
+    runs-on: [self-hosted, paasfeature]
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:
@@ -78,6 +78,12 @@ jobs:
             See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup paas-cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@v0
+        with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Validate slots
         id: validate-slots

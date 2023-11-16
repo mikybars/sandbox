@@ -1604,6 +1604,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idEmpresa", source = "idempresa")
   @Mapping(target = "idSeccion", source = "idseccion")
   @Mapping(target = "idLugarTrabajo", source = "idlugartrabajo")
+  @Mapping(target = "numDias", source = "numdias")
   EstadoWlocResultItemDto asEstadoWlocResultItemDto(IcmListaestadoRecord src);
 
   List<EstadoWlocResultItemDto> asEstadoWlocResultItemDto(List<IcmListaestadoRecord> src);

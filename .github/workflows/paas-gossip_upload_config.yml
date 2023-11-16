@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 2.2.0
+  WORKFLOW_VERSION: 2.2.1
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
   GOSSIP_SERVER_USER: oauthgossipsrv
   GOSSIP_SERVER_PASS: cyberark.AX-N-SEG-OAU-IC-OPENAMPR.OAUTH2ClientsPRO_oauthgossipsrv

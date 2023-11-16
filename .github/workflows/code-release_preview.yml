@@ -11,10 +11,10 @@ on:
     branches: ['main', 'main-*']
 
 env:
-  WORKFLOW_VERSION: 1.81.3
+  WORKFLOW_VERSION: 2.1.1
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.3-node-12-ubuntu-r0
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r0
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   PR_HEAD_REF: ${{ github.head_ref }}
 
@@ -67,6 +67,16 @@ jobs:
           git checkout ${{ github.base_ref }}
           git merge --no-ff "origin/$PR_HEAD_REF"
           echo "CD_ARGS=release --patch" >> "$GITHUB_ENV"
+
+      - name: Setup release type version and simulate merge for TBD
+        if: ${{ vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(github.head_ref, 'hotfix') && !contains(github.event.pull_request.labels.*.name, 'release-type/multi-hotfix') }}
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          git config user.name none
+          git config user.email none@inditex.com
+          git checkout ${{ github.base_ref }}
+          git merge --squash "origin/$PR_HEAD_REF" && git commit -m "$PR_TITLE (#${{ github.event.pull_request.number }})"
 
       - name: Setup current release type version
         if: ${{ (contains(github.event.pull_request.labels.*.name, 'release-type/current') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') && !contains(github.head_ref, 'hotfix') }}

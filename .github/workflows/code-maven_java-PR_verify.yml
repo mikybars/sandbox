@@ -1,6 +1,10 @@
 ---
 name: code-maven-PR-verify
 
+concurrency:
+  group: code-PR-verify-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
@@ -8,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 1.81.3
+  WORKFLOW_VERSION: 2.1.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -104,7 +108,19 @@ jobs:
           create_check: false
           check_name: "Code / Verify"
 
-      - name: sonar-scanner / Check if the project is excluded of SonarQube
+      - name: Sonar / Disable project-specific properties
+        working-directory: ${{ github.workspace }}/code
+        run: |
+          find ./ -name pom.xml -exec sed -i 's/<sonar./<disabled./g' {} +
+          find ./ -name pom.xml -exec sed -i 's/<\/sonar./<\/disabled./g' {} +
+
+      - name: Sonar / Configure input parameters
+        working-directory: ${{ github.workspace }}/code
+        run: |
+          if [[ -f './jacoco-report-aggregate/pom.xml' ]]; then JACOCO_PARAM="-pl !jacoco-report-aggregate -Dsonar.skip=false"; else JACOCO_PARAM="-Dsonar.skip=false"; fi; \
+          echo "JACOCO_SONAR_PARAM=$JACOCO_PARAM" >> "$GITHUB_ENV"
+
+      - name: Sonar / Check if the project is excluded of SonarQube
         id: check-sonarqube-exclusion
         shell: python
         run: |
@@ -122,13 +138,20 @@ jobs:
           with open(github_output, "a") as gh_out:
             gh_out.write(f'project-excluded={ hasExclusion }\n')
 
-      - name: sonar-scanner / Setup Node version
+      - name: Sonar / Setup Node version
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
         uses: inditex/gha-ivmactions/setup-tool@v0
         with:
           local-directory: code
           tool-name: ivm-node
           tool-version: 18
+
+      - name: Sonar / Setup Java version
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
+        uses: inditex/gha-ivmactions/setup-tool@v0
+        with:
+          tool-name: ivm-java
+          tool-version: openjdk-17
 
       - name: Get SonarUrl
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
@@ -137,24 +160,28 @@ jobs:
           PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
         uses: inditex/actions/testing/get-sonar-url-from-api/@main
 
-      - name: sonar-scanner / Run scanner
+      - name: SonarQube / Run Sonar Maven goal
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
         working-directory: code
         env:
           PR_HEAD_REF: ${{ github.head_ref }}
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey=${{ steps.metadata.outputs.project-key }} \
             -Dsonar.projectName=${{ steps.metadata.outputs.project-name }} \
             -Dsonar.projectVersion=${{ steps.version.outputs.app-version }} \
+            -Dsonar.login="$SONAR_TOKEN" \
+            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
             -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
             -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
             -Dsonar.pullrequest.base=${{ github.base_ref }} \
             -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} \
             -Dsonar.qualitygate.wait=true \
-            -Dsonar.qualitygate.timeout=300
+            -Dsonar.qualitygate.timeout=300 \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
-      - name: Run sonarcloud-scanner
+      - name: SonarCloud / Run Maven Sonar goal
         env:
           PR_HEAD_REF: ${{ github.head_ref }}
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
@@ -162,7 +189,8 @@ jobs:
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
         working-directory: code
         run: |
-          sonar-scanner \
+          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey="inditexcodingfashion_${{ steps.metadata.outputs.project-key }}" \
             -Dsonar.projectName="${{ steps.metadata.outputs.project-name }}" \
             -Dsonar.projectVersion="${{ steps.version.outputs.app-version }}" \
@@ -177,4 +205,5 @@ jobs:
             -Dsonar.qualitygate.timeout=300 \
             -Dsonar.pullrequest.provider=GitHub \
             -Dsonar.pullrequest.github.repository="${{ github.repository }}" \
-            -Dsonar.pullrequest.github.summary_comment=true
+            -Dsonar.pullrequest.github.summary_comment=true \
+            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"

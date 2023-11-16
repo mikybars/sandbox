@@ -27,4 +27,7 @@ public class EstadoWlocResultItemDto implements Serializable {
   private LocalDateTime fechaInicio;
 
   private String idLugarTrabajo;
+
+  private String numDias;
+
 }

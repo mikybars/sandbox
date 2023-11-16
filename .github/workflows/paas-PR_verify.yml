@@ -1,18 +1,25 @@
 ---
 name: paas-PR-verify
 
+concurrency:
+  group: paas-PR-verify-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
     paths:
-      - 'paas/**'
+      - "paas/**"
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.4.1
+  DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
   check-changes-in-paths:
     name: Check for changes in corresponding paths
     runs-on: ubuntu-20.04
+    if: github.event.action != 'closed'
     outputs:
       yaml: ${{ steps.changes.outputs.yaml }}
       yaml-files: ${{ steps.changes.outputs.yaml_files }}
@@ -41,3 +48,124 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: YAML Lint
         run: yamllint -d relaxed ${{ needs.check-changes-in-paths.outputs.yaml-files }}
+
+  check-changes-in-secrets:
+    name: Check for changes secret*.yml
+    runs-on: ubuntu-20.04
+    if: github.event.action != 'closed'
+    outputs:
+      secrets: ${{ steps.changes.outputs.secrets }}
+      secrets-files-array: ${{ steps.generate-secrets-file-list.outputs.secrets-files-array }}
+      ref-tag: ${{ steps.check-secrets-tag.outputs.ref-tag }}
+      last-check-tag: ${{ steps.check-secrets-tag.outputs.last-check-tag }}
+    steps:
+      - name: Check for changed files in specific paths
+        id: changes
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        with:
+          list-files: shell
+          filters: |
+            secrets:
+              - added|modified: 'paas/config_paas/secret**.yml'
+              - added|modified: 'paas/config_paas/secret**.yaml'
+
+      - name: Generate secrets file list
+        id: generate-secrets-file-list
+        if: steps.changes.outputs.secrets == 'true'
+        env:
+          SECRETS_FILES_LIST: ${{ steps.changes.outputs.secrets_files }}
+        run: |
+          array=$(jq -c -n --arg SECRETS_FILES_LIST "$SECRETS_FILES_LIST" '$SECRETS_FILES_LIST | split(" ")')
+          echo "secrets-files-array=$array" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        if: steps.changes.outputs.secrets == 'true'
+        uses: actions/checkout@v3
+
+      - name: Check secrets tag
+        id: check-secrets-tag
+        if: steps.changes.outputs.secrets == 'true'
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          last_check_tag="${BRANCH_NAME}-check-secrets"
+          git fetch --all --tags
+          if (git show-ref --tags --verify --quiet "refs/tags/${last_check_tag}"); then
+            echo "Tag ${last_check_tag} already exists"
+            ref_tag=$last_check_tag
+          else
+            echo "Tag ${last_check_tag} does not exist. Comparing against ${BASE_REF}"
+            ref_tag="origin/${BASE_REF}"
+          fi
+          echo "ref-tag=$ref_tag" >> "$GITHUB_OUTPUT"
+          echo "last-check-tag=$last_check_tag" >> "$GITHUB_OUTPUT"
+
+  check-secrets:
+    name: Check validity of new secrets added
+    runs-on: [self-hosted, paasfeature]
+    needs: [check-changes-in-secrets]
+    if: needs.check-changes-in-secrets.outputs.secrets == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        secret-files: ${{ fromJson(needs.check-changes-in-secrets.outputs.secrets-files-array) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Check secrets
+        uses: inditex/gha-paasdeployment/check-secrets@v0
+        with:
+          file: ${{ matrix.secret-files }}
+          branch-name: ${{ github.event.pull_request.head.ref }}
+          base-ref: ${{ github.event.pull_request.base.ref }}
+          ref-tag: ${{ needs.check-changes-in-secrets.outputs.ref-tag }}
+          last-check-tag: ${{ needs.check-changes-in-secrets.outputs.last-check-tag }}
+          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
+          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+
+  create-check-secrets-tag:
+    name: Create check-secrets tag
+    runs-on: ubuntu-20.04
+    needs: [check-secrets]
+    if: needs.check-secrets.result == 'success'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Create check-secrets tag
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+        run: |
+          last_check_tag="$BRANCH_NAME-check-secrets"
+          echo "Updating last secret check tag"
+          git tag -f "${last_check_tag}"
+          git push origin "${last_check_tag}" --force
+
+  remove-check-secrets-tag:
+    name: Remove check-secrets tag
+    runs-on: ubuntu-20.04
+    if: github.event.action == 'closed'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Remove check-secrets tag
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git fetch --tags --force
+          last_check_tag="$BRANCH_NAME-check-secrets"
+          # Check if check-secrets tag exists
+          if git show-ref --tags --verify --quiet "refs/tags/${last_check_tag}"; then
+            # Delete check-secrets tag
+            git tag -d "$last_check_tag"
+            git push origin :refs/tags/"$last_check_tag"
+          fi

@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.inditex.aqsw.framework.amiga</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>4.15.11</version>
+    <version>4.15.13</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <version>4.58.0-SNAPSHOT</version>
+  <version>4.61.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 
@@ -45,7 +45,7 @@
   <properties>
     <maven.test.skip>false</maven.test.skip>
     <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
-    <amiga-javaformat.version>2.7.0</amiga-javaformat.version>
+    <amiga-javaformat.version>2.8.0</amiga-javaformat.version>
     <junit-jupiter-params.version>5.6.3</junit-jupiter-params.version>
     <test-framework-randomizer.version>3.3.0</test-framework-randomizer.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
