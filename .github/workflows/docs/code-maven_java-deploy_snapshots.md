@@ -4,7 +4,7 @@
 
 ## Trigger
 
-- Any pull request `opened` or `closed` from branches `bugfix/`, `features/`, `hotfix/` to `develop` branch about `code` or `paas` path. This workflow will **only run** when a pull request is tagged with `autodeploy` label or merged to `develop` branch if using GitFlow.
+- Any pull request `opened` or `closed` from branches `bugfix/`, `features/`, `hotfix/` to `develop*` or `main*` branches about `code` or `paas` path. This workflow will **only runs** when a pull request is tagged with `autodeploy` label or merged to `develop` branch, if using [GitFlow branching strategy](https://github-cicd.docs.inditex.dev/githubcicd/stable/development/branching.html#gitflow).
 - `workflow_dispatch` from PRs comments with [ChatBot](https://chatbot.docs.inditex.dev/chatbot/latest/commands/deploy-in-paas.html).
 
 ## Where does it run?
