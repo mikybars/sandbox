@@ -23,12 +23,12 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 1.69.0
+  WORKFLOW_VERSION: 2.0.0
 
 jobs:
   rollout-strategy:
     name: PaaS / Deploy Rollout Strategy
-    runs-on: [self-hosted, common]
+    runs-on: [self-hosted, paasfeature]
     steps:
       - name: PaaS / Deploy rollout strategy
         uses: inditex/actions/deployment/rollout-strategy-cdm@main
