@@ -141,7 +141,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE = "idTipoDatoIndicadorDesplazamientoBase";
 
-  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoDatoVentaEntregaDomicilioLocalizacion";
+  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION =
+      "idTipoDatoVentaEntregaDomicilioLocalizacion";
 
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION =
       "idTipoDatoVentaEntregaDomicilioLocalizacionSeccion";
@@ -168,7 +169,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION = "idTipoImporteVentaFisicaAgrupacion";
 
-  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION = "idTipoImporteVentaEntregaDomicilioAgrupacion";
+  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION =
+      "idTipoImporteVentaEntregaDomicilioAgrupacion";
 
   public static final String SQL_PARAM_ID_TIPO_MINUTOS = "idTipoPresencia";
 
@@ -459,6 +461,10 @@ public class SqlPrimaryConstants {
   public static final String CALCULAR_FESTIVOS = "CALCULAR_FESTIVOS";
 
   public static final String SQL_RESULT_ENTORNO = "ENTORNO";
+
+  public static final String SQL_RESULT_CLASE = "CLASE";
+
+  public static final String SQL_RESULT_ESTADO = "ESTADO";
 
   private SqlPrimaryConstants() {
   }
