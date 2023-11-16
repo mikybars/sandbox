@@ -14,17 +14,11 @@ on:
         options:
           - 'des'
           - 'pre'
-          - 'prelt'
-          - 'preint'
-          - 'preqa'
-          - 'prepru'
           - 'pro'
-          - 'stage'
-          - 'test'
         required: true
 
 env:
-  WORKFLOW_VERSION: 1.44.0
+  WORKFLOW_VERSION: 1.45.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -37,7 +31,7 @@ jobs:
     name: Linter
     if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
