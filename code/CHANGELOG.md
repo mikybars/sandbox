@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.61.0] - 2023-11-21
+
+### Added
+
+- [ICMWEB-1502](https://axinic.central.inditex.grp/jira/browse/ICMWEB-1502) Cálculo. Nueva lógica para el reparto
+- [#59](https://github.com/inditex/mic-incomemotorcalculojava/issues/59) [ICMPRD-934] Validacion personas sil
+- [ICMWEB-1510](https://axinic.central.inditex.grp/jira/browse/ICMWEB-1510) Revisar validación de bajas
+- [ICMPRD-934](https://axinic.central.inditex.grp/jira/browse/ICMPRD-934) Revisar validacion de personas con clase empleados (correo)
+
+### Dependencies
+
+- [#87](https://github.com/inditex/mic-incomemotorcalculojava/issues/87) chore(deps): bump com.inditex.aqsw.framework.amiga:amiga-framework from 4.15.11 to 4.15.13 in /code
+- [#54](https://github.com/inditex/mic-incomemotorcalculojava/issues/54) build(deps): bump com.inditex.darwin.telemetry:darwin-telemetry-maven-extension from 2.2.0 to 2.3.0 in /code
+- [#72](https://github.com/inditex/mic-incomemotorcalculojava/issues/72) build(deps): bump com.inditex.aqsw.amiga.javaformat:amiga-javaformat-maven-plugin from 2.7.0 to 2.8.0 in /code
+
 ## [4.60.0] - 2023-11-10
 
 ### Added
@@ -373,7 +388,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.60.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.61.0...main
+[4.61.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.60.0...4.61.0
 [4.60.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.59.0...4.60.0
 [4.59.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.58.0...4.59.0
 [4.58.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.57.0...4.58.0
