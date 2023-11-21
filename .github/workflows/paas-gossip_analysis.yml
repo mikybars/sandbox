@@ -20,16 +20,16 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 2.2.0
+  WORKFLOW_VERSION: 2.2.1
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
   TMP_PATH: /tmp/gossip/sre
   CEPH_ACCESS_KEY_ID: cyberark.IE-N-DIG-INFRA-CEPH.Application-ITX-APP-500-SC-Generic-ieec1cs1rdgwlb1.central.inditex.grp-ieec-gossip_accesskey
   CEPH_SECRET_ACCESS_KEY: cyberark.IE-N-DIG-INFRA-CEPH.Application-ITX-APP-500-SC-Generic-ieec1cs1rdgwlb1.central.inditex.grp-ieec-gossip_secretkey
-  TOOL_REPORT_URL: https://sscc.central.inditex.grp
-  TOOL_REPORT_USERNAME: oauthgossipsrv
-  TOOL_REPORT_PASSWORD: cyberark.AX-N-SEG-OAU-IC-OPENAMPR.OAUTH2ClientsPRO_oauthgossipsrv
+  SSCC_URL: https://sscc.central.inditex.grp
+  OAUTH_GOSSIP_USERNAME: oauthtoolgossippro
+  OAUTH_GOSSIP_PASSWORD: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
 
 jobs:
   gossip-analysis:
@@ -87,11 +87,14 @@ jobs:
 
       - name: "Launch Gossip Config Generator"
         if: ${{ env.HAS_PRO }}
-        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v5
+        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v6
         with:
           project-key: ${{ env.PROJECT_KEY }}
           ceph-access-key-id: ${{ env.CEPH_ACCESS_KEY_ID }}
           ceph-secret-access-key: ${{ env.CEPH_SECRET_ACCESS_KEY }}
+          gossipsrv-url: ${{ env.SSCC_URL }}
+          gossipsrv-user: ${{ env.OAUTH_GOSSIP_USERNAME }}
+          gossipsrv-pass: "${{ env.OAUTH_GOSSIP_PASSWORD }}"
           tmp-path: ${{ env.TMP_PATH }}
 
       - name: "Merge Config Files"
@@ -108,34 +111,6 @@ jobs:
         if: ${{ github.base_ref == 'main' }}
         run: |
           echo "BLOCKED=--blocked" >> "$GITHUB_ENV"
-
-      - name: Get Macrodomain from Application Map
-        if: ${{ env.HAS_PRO }}
-        run: |
-          gversapp_info=$(curl -s -u ${{ secrets.SRVCGOSSIPAX_USERNAME }}:${{ secrets.SRVCGOSSIPAX_PASSWORD }} \
-          "https://sscc.central.inditex.grp/gversapp/mapaaplicaciones/getApplicationsInfo.json?criteria=%7B%22start%22%3A0,%22limit%22%3A10,%22nombreproyectojira%22%3A%22$PROJECT_KEY%22%7D")
-            GOSSIP_MACRO_DOMAIN=$(echo "$gversapp_info" | jq -r ".results[]?.macrosistemaNombre" | head -n1 | awk '{print $1;}')
-          echo "Macro Domain: $GOSSIP_MACRO_DOMAIN"
-          echo "GOSSIP_MACRO_DOMAIN=${GOSSIP_MACRO_DOMAIN}" >> "$GITHUB_ENV"
-        shell: bash
-
-      - name: "Configure Rules Namespace"
-        id: rulenamespace
-        if: ${{ env.HAS_PRO }}
-        shell: python
-        run: |
-          import os
-          macho_domain = os.environ.get('GOSSIP_MACRO_DOMAIN')
-          print(macho_domain)
-          result = "sre.common"
-          if macho_domain is not None:
-            macho_domain_lower = str(macho_domain).lower()
-            if macho_domain_lower:
-              result = "sre.common,sre." + str(macho_domain).lower()
-          print(result)
-          env_file = os.getenv('GITHUB_ENV')
-          with open(env_file, "a") as githubfile:
-            githubfile.write("RULE_NAMESPACE=" + result)
 
       - name: "Gossip analyze"
         if: ${{ env.HAS_PRO }}
@@ -154,8 +129,8 @@ jobs:
         if: ${{ always() && !cancelled() && env.HAS_PRO }}
         uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v5
         with:
-          tool-report-url: ${{ env.TOOL_REPORT_URL}}
-          tool-report-username: ${{ env.TOOL_REPORT_USERNAME }}
-          tool-report-password: ${{ env.TOOL_REPORT_PASSWORD}}
+          tool-report-url: ${{ env.SSCC_URL}}
+          tool-report-username: ${{ env.OAUTH_GOSSIP_USERNAME }}
+          tool-report-password: ${{ env.OAUTH_GOSSIP_PASSWORD}}
           result: ${{ env.TMP_PATH }}/result
           branch: ${{ github.base_ref || github.event.repository.default_branch }}

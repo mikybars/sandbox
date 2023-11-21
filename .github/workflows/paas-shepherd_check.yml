@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 2.0.0
+  WORKFLOW_VERSION: 2.4.1
 
 jobs:
   get-details:
@@ -34,14 +34,9 @@ jobs:
             # Extract permutation from head reference
             permutation=$(jq -r .head.ref ${pr_info_file} | xargs basename)
             echo "permutation=${permutation}" >> "$GITHUB_OUTPUT"
-            commit_sha=$(jq -r .head.sha ${pr_info_file})
             branch_name=$(jq -r .head.ref ${pr_info_file})
-            JSONline="{\"pr_number\":\"$pr_number\",\"commit_sha\":\"$commit_sha\",\"branch_name\":\"$branch_name\",\"permutation\":\"$permutation\"},"
+            JSONline="{\"pr_number\":\"$pr_number\",\"branch_name\":\"$branch_name\",\"permutation\":\"$permutation\"},"
             JSON="$JSON$JSONline"
-            if [ -z "$commit_sha" ]; then
-              echo "::warning ::Commit SHA not found, probably the pull request is not merged!"
-              exit 1
-            fi
           done
           if [[ $JSON == *, ]]; then
             JSON="${JSON%?}"
@@ -65,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ matrix.commit_sha }}
+          ref: ${{ matrix.branch_name }}
 
       - name: Parse info.yaml
         id: info
@@ -88,13 +83,13 @@ jobs:
             gh_out.write(f'project_name={project_name}\n')
 
       - name: PaaS / Shepherd check
-        uses: inditex/actions/deployment/shepherd-check@main
+        uses: inditex/gha-paasdeployment/shepherd-check@v0
         id: shepherd
         with:
           app-name: ${{ steps.info.outputs.project_key }}
           repo-name: ${{ steps.info.outputs.project_name }}
           deployment-folder: ${{ matrix.permutation }}
-          commit-hash: ${{ matrix.commit_sha }}
+          pr-number: ${{ matrix.pr_number }}
           branch-name: ${{ matrix.branch_name }}
           cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
           cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}

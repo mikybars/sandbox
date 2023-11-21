@@ -6,7 +6,7 @@ on:
     paths: ['monit/**', '.github/workflows/monit**']
 
 env:
-  WORKFLOW_VERSION: 1.44.0
+  WORKFLOW_VERSION: 1.45.0
 
 jobs:
   linter:
