@@ -2083,71 +2083,10 @@ UNION
                             DENSE_RANK() OVER (ORDER BY i.FechaInicio) AS DENSE_RANK,
                             i.Persona,
                              CASE
-                                    WHEN (PH.FECHADESDE > i.FechaInicio AND PH.FECHADESDE > :fechaDesde) THEN PH.FECHADESDE
-                                    WHEN i.FechaInicio < :fechaDesde THEN :fechaDesde
-                                    ELSE i.FechaInicio
-                                  END AS FechaInicio,
-                                  CASE
-                                    WHEN (PH.FECHAHASTA < i.FECHAFIN AND PH.FECHAHASTA < :fechaHasta) THEN PH.FECHAHASTA
-                                    WHEN i.FechaFin IS NULL THEN :fechaHasta
-                                    WHEN i.FechaFin > :fechaHasta THEN :fechaHasta
-                                    ELSE i.FechaFin
-                                  END AS FechaFin,
-                            i.CodigoIncidencia,
-                            i.Tienda,
-                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS RN,
-                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
-                          FROM IncidenciasSil i
-                           INNER JOIN PERSONASHISTORICO PH
-                           ON i.PERSONA = PH.PERSONA
-                          where i.TIPOINCIDENCIA = 700
-                        AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
-                        AND i.FECHAFIN >= :fechaDesde AND i.FECHAINICIO <= :fechaHasta
-                        AND (
-                          i.ESTADO NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'E')
-                          AND ORIGEN NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'O')
-                        )
-                        AND PH.FECHADESDE <= :fechaHasta
-                        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesde)
-                        AND ((PH.FECHADESDE BETWEEN I.FECHAINICIO AND I.FECHAFIN) OR (PH.FECHAHASTA BETWEEN I.FECHAINICIO AND I.FECHAFIN) OR (I.FECHAINICIO >= PH.FECHADESDE AND I.FECHAFIN <= PH.FECHAHASTA) OR (PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA IS NULL))
-                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                        AND PH.TIPOCALCULO NOT IN ('13','14','15','16')
-                ) Groups
-        ) Islands
-        GROUP BY
-        Persona,
-        CodigoIncidencia,
-        IslandId
-        UNION
-        SELECT
-            Persona AS CCL_ID_PERSON,
-            (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
-            MIN(FechaInicio) AS FECHA_INICIO,
-            MAX(FechaFin) AS FECHA_FIN
-        FROM
-            (
-                    SELECT
-                       *,
-                       CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
-                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia ORDER BY Groups.RN) AS IslandId
-                       FROM
-                       (
-                        SELECT
-                            DENSE_RANK() OVER (ORDER BY i.FechaInicio) AS DENSE_RANK,
-                            i.Persona,
-                             CASE
-                                    WHEN (PH.FECHADESDE > i.FechaInicio AND PH.FECHADESDE > :fechaDesdeAmpliado) THEN PH.FECHADESDE
                                     WHEN i.FechaInicio < :fechaDesdeAmpliado THEN :fechaDesdeAmpliado
                                     ELSE i.FechaInicio
                                   END AS FechaInicio,
                                   CASE
-                                    WHEN (PH.FECHAHASTA < i.FECHAFIN AND PH.FECHAHASTA < :fechaHasta) THEN PH.FECHAHASTA
                                     WHEN i.FechaFin IS NULL THEN :fechaHasta
                                     WHEN i.FechaFin > :fechaHasta THEN :fechaHasta
                                     ELSE i.FechaFin
@@ -2157,8 +2096,6 @@ UNION
                             ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS RN,
                             LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
                           FROM IncidenciasSil i
-                           INNER JOIN PERSONASHISTORICO PH
-                           ON i.PERSONA = PH.PERSONA
                           where i.TIPOINCIDENCIA = 700
                         AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
                         AND i.FECHAFIN >= :fechaDesdeAmpliado AND i.FECHAINICIO <= :fechaHasta
@@ -2172,11 +2109,6 @@ UNION
                                 FROM TABLASGENERALES
                                 WHERE TABLA = 9061 AND INDICADOR1 = 'O')
                         )
-                        AND PH.FECHADESDE <= :fechaHasta
-                        AND (PH.FECHAHASTA IS NULL OR PH.FECHAHASTA >= :fechaDesdeAmpliado)
-                        AND ((PH.FECHADESDE BETWEEN I.FECHAINICIO AND I.FECHAFIN) OR (PH.FECHAHASTA BETWEEN I.FECHAINICIO AND I.FECHAFIN) OR (I.FECHAINICIO >= PH.FECHADESDE AND I.FECHAFIN <= PH.FECHAHASTA) OR (PH.FECHADESDE <= I.FECHAINICIO AND PH.FECHAHASTA IS NULL))
-                        AND PH.PUESTO IS NOT NULL AND PH.PUESTO <> 99 AND PH.TIENDA IS NOT NULL
-                        AND PH.TIPOCALCULO IN ('13','14','15','16')
                 ) Groups
         ) Islands
         GROUP BY

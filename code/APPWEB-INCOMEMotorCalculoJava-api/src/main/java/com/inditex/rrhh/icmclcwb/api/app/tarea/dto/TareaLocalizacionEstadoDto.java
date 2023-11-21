@@ -13,7 +13,7 @@ public class TareaLocalizacionEstadoDto implements Serializable {
 
   private static final long serialVersionUID = 5015061072450952695L;
 
-  @ApiModelProperty(value = "Identificador del registro", required = false)
+  @ApiModelProperty(value = "Identificador del registro")
   private String id;
 
   @NotNull
@@ -40,5 +40,8 @@ public class TareaLocalizacionEstadoDto implements Serializable {
 
   @NotNull
   private LocalDateTime fechaFin;
+
+  @ApiModelProperty(value = "Dias de reparto", required = true)
+  private Integer icmNumDias;
 
 }

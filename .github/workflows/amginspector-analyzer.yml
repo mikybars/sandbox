@@ -15,8 +15,9 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 1.42.1
-  NODE_HOME: /opt/node.js/v16.13.2
+  WORKFLOW_VERSION: 1.43.0
+  TOOL_VERSIONS: |
+    ivm-node 18.12.1
 
 jobs:
   run-inspector:
@@ -28,6 +29,8 @@ jobs:
         (github.event_name == 'pull_request' && contains( github.event.pull_request.labels.*.name, 'amiga-inspector'))
       }}
     runs-on: [self-hosted, inspector]
+    env:
+      ASDF_DATA_DIR: /tmp/asdf/data
     steps:
 
       - name: Checkout
@@ -40,9 +43,24 @@ jobs:
           path: cac-amigainspectorrules
           token: ${{ secrets.GH_TOKEN_READER }}
 
-      - name: NPM / Environment setup
+      - name: IVM / Create .tool-versions
         run: |
-          echo "${NODE_HOME}/bin" >> "$GITHUB_PATH"
+          echo "$TOOL_VERSIONS" > ${{ github.workspace }}/.tool-versions
+      - name: IVM / Create ASDF_DATA_DIR
+        run: |
+          mkdir -p "$ASDF_DATA_DIR"
+      - name: IVM / Setup plugins
+        uses: inditex/gha-ivmactions/setup-plugins@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READER }}
+        with:
+          tool-versions-directory: "."
+
+      - name: IVM / Setup environment
+        uses: inditex/gha-ivmactions/setup-environment@v0
+        with:
+          tool-versions-directory: "."
+
 
       - name: Get metadata
         id: metadata

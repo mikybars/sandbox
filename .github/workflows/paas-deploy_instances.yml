@@ -16,21 +16,93 @@ on:
         required: true
         type: choice
         options:
-          - merge
-          - continue
-          - rollback
-          - retry
+          - approve
           - cancel
+          - continue
+          - merge
+          - restore
+          - retry
+          - rollback
       SKIP:
         description: 'Steps to be skipped during rollout flow'
         required: false
         default: ''
+      SUPRAENVS:
+        description: 'Supra environments used during action execution'
+        required: false
+        default: ''
+      ENVS:
+        description: 'Environments used during action execution'
+        required: false
+        default: ''
+      PLATFORMS:
+        description: 'Platforms used during action execution'
+        required: false
+        default: ''
+      TENANTS:
+        description: 'Tenants used during action execution'
+        required: false
+        default: ''
+      SLOTS:
+        description: 'Slots used during action execution'
+        required: false
+        default: 'default'
 
 env:
-  WORKFLOW_VERSION: 2.0.0
+  WORKFLOW_VERSION: 2.4.1
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DIR_PATH_STATUS: "/tmp/restore-results"
 
 jobs:
+  validate-permutations:
+    name: PaaS / Validate permutations
+    runs-on: ubuntu-20.04
+    if: ${{ contains(fromJSON('["restore", "approve"]'), github.event.inputs.ACTION) }}
+    outputs:
+      filtered-permutations: ${{ steps.filter-permutations-by-coordinates.outputs.filtered-permutations }}
+      error-message: ${{ steps.validate-slots.outputs.error-message }}
+
+    steps:
+      - name: Validate slots
+        id: validate-slots
+        uses: inditex/actions/deployment/validate-slots@main
+        with:
+          slots: ${{ github.event.inputs.SLOTS }}
+          strategy: default
+
+      - name: Stop if slots are not valid
+        if: ${{ steps.validate-slots.outputs.is-valid != 'true' }}
+        run: |
+          echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}" | tr -s '\n' ' '
+          exit 1
+
+      - name: PaaS / Filter permutations by coordinates
+        id: filter-permutations-by-coordinates
+        uses: inditex/gha-paasdeployment/filter-permutations-by-coordinates@v0
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          supraenvs: ${{ github.event.inputs.SUPRAENVS }}
+          envs: ${{ github.event.inputs.ENVS }}
+          platforms: ${{ github.event.inputs.PLATFORMS }}
+          tenants: ${{ github.event.inputs.TENANTS }}
+          slots: ${{ github.event.inputs.SLOTS }}
+
+  get-affected-prs:
+    name: PaaS / Get affected PRs
+    runs-on: ubuntu-20.04
+    if: ${{ contains(fromJSON('["restore", "approve"]'), github.event.inputs.ACTION) }}
+    outputs:
+      affected-prs: ${{ steps.affected-prs-by-issue.outputs.affected-prs }}
+
+    steps:
+      - name: PaaS / Get affected PRs by issue
+        id: affected-prs-by-issue
+        uses: inditex/gha-paasdeployment/affected-prs-by-issue@v0
+        with:
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   merge:
     name: PaaS / Merge related PRs
     runs-on: ubuntu-20.04
@@ -76,7 +148,7 @@ jobs:
   rollout:
     name: PaaS / Run rollout command in PRs
     runs-on: ubuntu-20.04
-    if: ${{ github.event.inputs.ACTION != 'merge' && github.event.inputs.ACTION != 'cancel' }}
+    if: ${{ !contains(fromJSON('["merge", "cancel", "restore", "approve"]'), github.event.inputs.ACTION) }}
     outputs:
       summary: ${{ steps.post-command.outputs.summary }}
     env:
@@ -121,11 +193,290 @@ jobs:
           echo -e ">> Summary:\n${summary}"
           echo "summary=${summary//$'\n'/%0A}" >> "$GITHUB_OUTPUT"  # Replace newlines with GitHub escape code
 
+  restore-init:
+    name: PaaS / Restore init
+    runs-on: ubuntu-20.04
+    needs: [validate-permutations, get-affected-prs]
+    if: ${{ github.event.inputs.ACTION == 'restore' }}
+    outputs:
+      permutations-info: ${{ steps.get-permutations-info.outputs.permutations-info }}
+      restore-issue-number: ${{ steps.check-and-create-issue.outputs.issue-number }}
+
+    steps:
+      - name: Add comment with started status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        id: starting-comment
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :gear: The `paas-restore` workflow is currently running
+
+            Deployment permutations are being validated and then will be restored to their second last commit respectively.
+            The pull request(s) related to this task will be opened shortly ...
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PaaS / Get permutations information
+        id: get-permutations-info
+        uses: inditex/gha-paasdeployment/get-permutations-info@v0
+        with:
+          filter-for-action: "RESTORE"
+          affected-prs: '${{ needs.get-affected-prs.outputs.affected-prs }}'
+          permutations: '${{ needs.validate-permutations.outputs.filtered-permutations }}'
+
+      - name: PaaS / Check and create issue
+        id: check-and-create-issue
+        uses: inditex/gha-paasdeployment/check-and-create-issue@v0
+        with:
+          label: "restored-from/${{ github.event.inputs.ISSUE_NUMBER }}"
+          issue-title: "[Automated] :white_check_mark: Restored pull requests from workflow ${{ github.workflow }}-${{ github.run_id }}"
+          issue-body: |
+            Workflow in progress, you will see here the results of the restore process.
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment when get restore data fails
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has occurred preparing data to restore permutations.
+
+            ${{ needs.validate-permutations.outputs.error-message }}
+
+            The `${{ github.workflow }}` workflow has failed at the `${{ github.job }}` job.
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  restore:
+    name: Restore affected PRs
+    runs-on: ubuntu-20.04
+    needs: [restore-init]
+    if: ${{ fromJson(needs.restore-init.outputs.permutations-info) }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        permutations: ${{ fromJson(needs.restore-init.outputs.permutations-info) }}
+
+    steps:
+      - name: PaaS / Restore deployment PR
+        id: restore-deployment-pr
+        uses: inditex/gha-paasdeployment/restore-deployment-pr@v0
+        with:
+          issue-or-pr-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          permutation-folder: ${{ matrix.permutations.permutation }}
+          restore-issue-number: ${{ needs.restore-init.outputs.restore-issue-number }}
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+          artifact-path: ${{ env.DIR_PATH_STATUS }}
+
+        env:
+          SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+
+      - name: Upload restore results
+        uses: actions/upload-artifact@v3
+        with:
+          name: "pr-${{ steps.restore-deployment-pr.outputs.pr-number }}-run-${{ github.run_id }}-result"
+          path: "${{ env.DIR_PATH_STATUS }}/pr-${{ steps.restore-deployment-pr.outputs.pr-number }}-run-${{ github.run_id }}-result.txt"
+          retention-days: 7
+
+      - name: Upload restore error results
+        if: ${{ steps.restore-deployment-pr.outputs.have-errors == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: "run-${{ github.run_id }}-error"
+          path: "${{ env.DIR_PATH_STATUS }}/run-${{ github.run_id }}-error.txt"
+          retention-days: 7
+
+      - name: Add comment when restoration fails
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has occurred restoring permutations.
+
+            The `${{ github.workflow }}` workflow has failed at the `${{ github.job }}` job.
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  restore-summary:
+    if: ${{ success() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+    name: Restore summary
+    runs-on: ubuntu-20.04
+    needs: [restore, restore-init]
+    outputs:
+      summary: ${{ steps.restore-summary-message.outputs.summary }}
+    steps:
+      - name: PaaS / Download restore summary
+        uses: actions/download-artifact@v3
+        with:
+          path: ${{ env.DIR_PATH_STATUS }}
+
+      - name: PaaS / Get result artifact content
+        id: get-success-results
+        continue-on-error: true
+        run: |
+          pr_result_list=""
+          for file in ${{ env.DIR_PATH_STATUS }}/*/*result.txt; do
+            if [ -e "$file" ]; then
+              content=$(cat "$file")
+              pr_result_list="${pr_result_list}${content}"
+            fi
+          done
+          echo "pr-result-list=$pr_result_list" >> "$GITHUB_OUTPUT"
+
+      - name: PaaS / Get error artifact content
+        id: get-error-results
+        continue-on-error: true
+        run: |
+          pr_errors=""
+          for error_file in ${{ env.DIR_PATH_STATUS }}/*/*error.txt; do
+            if [ -e "$error_file" ]; then
+              error_content=$(cat "$error_file")
+              pr_errors="${pr_errors}${error_content}"
+            fi
+          done
+          echo "pr-errors=$pr_errors" >> "$GITHUB_OUTPUT"
+
+      - name: Add comment with finished status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && needs.restore-init.outputs.restore-issue-number != '' }}
+        id: restore-summary-message
+        run: |
+          message="
+          #### :white_check_mark: The *paas-restore* workflow has finished
+          A issue to manage restore pull request has been created: #${{ needs.restore-init.outputs.restore-issue-number }}
+          "
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          {
+            echo "summary<<$EOF"
+            echo "$message"
+            echo "$EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Add comment with finished status in restore issue
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && needs.restore-init.outputs.restore-issue-number != '' }}
+        run: |
+          text="
+          #### :white_check_mark: The *paas-restore* workflow launched from issue #${{ github.event.inputs.ISSUE_NUMBER }} has finished
+          The next pull request(s) related to this task have been processed:
+          ${{ format(steps.get-success-results.outputs.pr-result-list, '%0A -') }}
+
+          ${{ steps.get-error-results.outputs.pr-errors }}
+          "
+          body=$(echo -e "${text//\%0A/\\n}")
+          gh issue edit ${{ needs.restore-init.outputs.restore-issue-number }} --repo ${{ github.repository }} --body "$body"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  approve:
+    name: PaaS / Approve affected PRs
+    runs-on: ubuntu-20.04
+    needs: [validate-permutations, get-affected-prs]
+    if: ${{ github.event.inputs.ACTION == 'approve' }}
+    outputs:
+      summary: ${{ steps.approve-summary-message.outputs.summary }}
+
+    permissions:
+      id-token: write  # This is required for requesting the JWT
+      issues: write  # This is required for getting user from comment
+      contents: read
+
+    steps:
+      - name: Add comment with started status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        id: starting-comment
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :gear: The `paas-deploy-instances --action approve` workflow is currently running
+
+            Affected PRs for this issue are being validated using MIMIC to act on behalf of you.
+            The pull request(s) related to this task will be approved shortly...
+            You can grant access to mimic doing click [here](https://github.com/login/oauth/authorize?client_id=Iv1.6c66202dc9c51e4d).
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PaaS / Get Affected PRs information
+        id: get-prs-to-approve-info
+        uses: inditex/gha-paasdeployment/get-permutations-info@v0
+        with:
+          filter-for-action: "APPROVE"
+          affected-prs: '${{ needs.get-affected-prs.outputs.affected-prs }}'
+          permutations: '${{ needs.validate-permutations.outputs.filtered-permutations }}'
+
+      - name: Get user
+        id: approve-user
+        run: |
+          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
+          echo "login=${login}" >> "$GITHUB_OUTPUT"
+
+      - name: Paas / Get MIMIC token
+        id: get-mimic-token
+        uses: inditex/gha-paasdeployment/get-mimic-token@v0
+        with:
+          audience: "mimic"
+
+      - name: PaaS / Approve affected PRs
+        id: approve-deployment-pr
+        uses: inditex/gha-paasdeployment/request-mimic-api@v0
+        with:
+          repository: ${{ github.repository }}
+          user: ${{ steps.approve-user.outputs.login }}
+          prs-to-process: ${{ steps.get-prs-to-approve-info.outputs.permutations-info }}
+          action: "approve"
+          mimic-app-id: ${{ vars.MIMIC_APP_ID }}
+        env:
+          MIMIC_TOKEN: ${{ steps.get-mimic-token.outputs.mimic-token }}
+
+      - name: Add comment with finished status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && steps.approve-deployment-pr.outputs.results != '' }}
+        id: approve-summary-message
+        run: |
+          message="
+          #### :white_check_mark: The *paas-approve* workflow launched from issue #${{ github.event.inputs.ISSUE_NUMBER }} has finished
+          The next pull request(s) related to this task have been processed:
+
+          ${{ steps.approve-deployment-pr.outputs.results }}
+          "
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          {
+            echo "summary<<$EOF"
+            echo "$message"
+            echo "$EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Add comment when get approve data fails
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has occurred preparing data to approve PRs.
+
+            ${{ needs.validate-permutations.outputs.error-message }}
+
+            The `${{ github.workflow }}` workflow has failed at the `${{ github.job }}` job.
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   summary:
     name: PaaS / Summary
     runs-on: ubuntu-20.04
     if: ${{ always() && !cancelled() }}
-    needs: [merge, rollout, cancel]
+    needs: [merge, rollout, cancel, restore-summary, approve]
     steps:
       - name: Generate comment
         id: comment
@@ -134,7 +485,7 @@ jobs:
           first_line=$(echo "$comment" | jq -r .body | head -n1 | tr -d '\r\n')
           link=$(echo "$comment" | jq -r .html_url)
 
-          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary || needs.cancel.outputs.summary }}"
+          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary || needs.cancel.outputs.summary || needs.restore-summary.outputs.summary || needs.approve.outputs.summary }}"
           if [ -z "${message}" ]; then
             message=":x: Unexpected error. More information in the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})."
           fi

@@ -32,7 +32,7 @@ public interface LoginService {
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithCertificate")
   @ResponseWrapper(localName = "loginWithCertificateResponse", targetNamespace = "http://schemas.meta4.com/",
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithCertificateResponse")
-  public M4LoginOutput loginWithCertificate(
+  M4LoginOutput loginWithCertificate(
       @WebParam(name = "ai_sCertificate", targetNamespace = "http://schemas.meta4.com/") String aiSCertificate,
       @WebParam(name = "ai_sSessionContex", targetNamespace = "http://schemas.meta4.com/") String aiSSessionContex)
       throws M4SoapException_Exception;
@@ -52,11 +52,25 @@ public interface LoginService {
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithRole")
   @ResponseWrapper(localName = "loginWithRoleResponse", targetNamespace = "http://schemas.meta4.com/",
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginWithRoleResponse")
-  public M4LoginOutput loginWithRole(
+  M4LoginOutput loginWithRole(
       @WebParam(name = "ai_sUser", targetNamespace = "http://schemas.meta4.com/") String aiSUser,
       @WebParam(name = "ai_sPassword", targetNamespace = "http://schemas.meta4.com/") String aiSPassword,
       @WebParam(name = "ai_sLanguage", targetNamespace = "http://schemas.meta4.com/") String aiSLanguage,
       @WebParam(name = "ai_sRole", targetNamespace = "http://schemas.meta4.com/") String aiSRole)
+      throws M4SoapException_Exception;
+
+  /**
+   *
+   * @return returns int
+   * @throws M4SoapException_Exception
+   */
+  @WebMethod
+  @WebResult(name = "logoutReturn", targetNamespace = "http://schemas.meta4.com/")
+  @RequestWrapper(localName = "logout", targetNamespace = "http://schemas.meta4.com/",
+      className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.Logout")
+  @ResponseWrapper(localName = "logoutResponse", targetNamespace = "http://schemas.meta4.com/",
+      className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LogoutResponse")
+  int logout()
       throws M4SoapException_Exception;
 
   /**
@@ -73,24 +87,10 @@ public interface LoginService {
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.Login")
   @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://schemas.meta4.com/",
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LoginResponse")
-  public M4LoginOutput login(
+  M4LoginOutput login(
       @WebParam(name = "ai_sUser", targetNamespace = "http://schemas.meta4.com/") String aiSUser,
       @WebParam(name = "ai_sPassword", targetNamespace = "http://schemas.meta4.com/") String aiSPassword,
       @WebParam(name = "ai_sLanguage", targetNamespace = "http://schemas.meta4.com/") String aiSLanguage)
-      throws M4SoapException_Exception;
-
-  /**
-   *
-   * @return returns int
-   * @throws M4SoapException_Exception
-   */
-  @WebMethod
-  @WebResult(name = "logoutReturn", targetNamespace = "http://schemas.meta4.com/")
-  @RequestWrapper(localName = "logout", targetNamespace = "http://schemas.meta4.com/",
-      className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.Logout")
-  @ResponseWrapper(localName = "logoutResponse", targetNamespace = "http://schemas.meta4.com/",
-      className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.LogoutResponse")
-  public int logout()
       throws M4SoapException_Exception;
 
   /**
@@ -105,7 +105,7 @@ public interface LoginService {
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.RetrieveM4Session")
   @ResponseWrapper(localName = "retrieveM4SessionResponse", targetNamespace = "http://schemas.meta4.com/",
       className = "com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.RetrieveM4SessionResponse")
-  public int retrieveM4Session(
+  int retrieveM4Session(
       @WebParam(name = "ai_sessionId", targetNamespace = "http://schemas.meta4.com/") String aiSessionId)
       throws M4SoapException_Exception;
 
