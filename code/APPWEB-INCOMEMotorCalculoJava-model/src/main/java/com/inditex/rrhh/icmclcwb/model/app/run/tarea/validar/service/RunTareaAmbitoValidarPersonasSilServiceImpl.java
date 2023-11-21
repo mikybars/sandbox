@@ -87,7 +87,7 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
           .forEach((clase, list) -> clasesItems.add(ClaseResultItemDto.builder()
               .idOrigen(list.get(0).getCclIdOrigen())
               .idClase(clase.toString())
-              .idsEstadoSil(list.stream().map(ClasePersonaSilAmbitoDto::getEstado).map(estado -> estado.toString())
+              .idsEstadoSil(list.stream().map(ClasePersonaSilAmbitoDto::getEstado).map(estado -> estado != null ? estado.toString() : null)
                   .collect(Collectors.toList()))
               .build()));
 
