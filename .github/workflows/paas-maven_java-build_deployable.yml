@@ -17,7 +17,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.5.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}

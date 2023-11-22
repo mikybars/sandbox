@@ -12,7 +12,7 @@ on:
       - "paas/**"
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.5.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:

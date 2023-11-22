@@ -49,15 +49,58 @@ on:
         default: 'default'
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.5.0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIR_PATH_STATUS: "/tmp/restore-results"
 
 jobs:
+
+  verify:
+    name: PaaS / Verify User Permissions in Repository
+    runs-on: ubuntu-20.04
+    if: ${{ contains(fromJSON('["merge", "approve"]'), github.event.inputs.ACTION) }}
+    needs: [validate-permutations, get-affected-prs]
+    outputs:
+      summary: ${{ steps.verify-permissions.outputs.summary }}
+      has-errors: ${{ steps.verify-permissions.outputs.has-errors }}
+
+    steps:
+      - name: ignore verify if action is approve
+        if: ${{ github.event.inputs.ACTION == 'approve' }}
+        id: skip-verify
+        run: |
+          echo "has-errors=False" >> "$GITHUB_OUTPUT"
+          echo "skip-verify=True" >> "$GITHUB_OUTPUT"
+
+      - name: Get user
+        if: ${{ steps.skip-verify.outputs.skip-verify != 'True' }}
+        id: get-user
+        run: |
+          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
+          echo "login=${login}" >> "$GITHUB_OUTPUT"
+
+      - name: PaaS / Get Affected PRs information
+        id: get-prs-to-verify-info
+        if: ${{ steps.skip-verify.outputs.skip-verify != 'True' }}
+        uses: inditex/gha-paasdeployment/get-permutations-info@v0
+        with:
+          filter-for-action: "MERGE"
+          affected-prs: '${{ needs.get-affected-prs.outputs.affected-prs }}'
+          permutations: '${{ needs.validate-permutations.outputs.filtered-permutations }}'
+
+      - name: Verify enough permissions
+        if: ${{ steps.skip-verify.outputs.skip-verify != 'True' }}
+        uses: inditex/gha-paasdeployment/verify-pr-permissions@v0
+        id: verify-permissions
+        with:
+          prs-to-process: ${{ steps.get-prs-to-verify-info.outputs.permutations-info }}
+          user: ${{ steps.get-user.outputs.login }}
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+
   validate-permutations:
     name: PaaS / Validate permutations
     runs-on: ubuntu-20.04
-    if: ${{ contains(fromJSON('["restore", "approve"]'), github.event.inputs.ACTION) }}
+    if: ${{ contains(fromJSON('["restore", "approve", "merge"]'), github.event.inputs.ACTION) }}
     outputs:
       filtered-permutations: ${{ steps.filter-permutations-by-coordinates.outputs.filtered-permutations }}
       error-message: ${{ steps.validate-slots.outputs.error-message }}
@@ -91,7 +134,7 @@ jobs:
   get-affected-prs:
     name: PaaS / Get affected PRs
     runs-on: ubuntu-20.04
-    if: ${{ contains(fromJSON('["restore", "approve"]'), github.event.inputs.ACTION) }}
+    if: ${{ contains(fromJSON('["restore", "approve", "merge"]'), github.event.inputs.ACTION) }}
     outputs:
       affected-prs: ${{ steps.affected-prs-by-issue.outputs.affected-prs }}
 
@@ -102,27 +145,6 @@ jobs:
         with:
           issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-  merge:
-    name: PaaS / Merge related PRs
-    runs-on: ubuntu-20.04
-    if: ${{ github.event.inputs.ACTION == 'merge' }}
-    outputs:
-      summary: ${{ steps.merge.outputs.summary }}
-    steps:
-      - name: Get user
-        id: user
-        run: |
-          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
-          echo "login=${login}" >> "$GITHUB_OUTPUT"
-
-      - name: PaaS / Merge deploy PRs
-        uses: inditex/actions/deployment/merge-related-prs@main
-        id: merge
-        with:
-          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
-          user: ${{ steps.user.outputs.login }}
-          token: ${{ secrets.CHATBOT_PR_PAT }}
 
   cancel:
     name: PaaS / Cancel related PRs
@@ -379,10 +401,12 @@ jobs:
   approve:
     name: PaaS / Approve affected PRs
     runs-on: ubuntu-20.04
-    needs: [validate-permutations, get-affected-prs]
-    if: ${{ github.event.inputs.ACTION == 'approve' }}
+    needs: [validate-permutations, get-affected-prs, verify]
+    if: contains(fromJSON('["approve", "merge"]'), github.event.inputs.ACTION) && needs.verify.outputs.has-errors != 'True'
+
     outputs:
       summary: ${{ steps.approve-summary-message.outputs.summary }}
+      has-errors: ${{ steps.approve-deployment-pr.outputs.has-errors }}
 
     permissions:
       id-token: write  # This is required for requesting the JWT
@@ -472,11 +496,106 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  merge:
+    name: PaaS / Merge affected PRs with MIMIC
+    runs-on: ubuntu-20.04
+    needs: [validate-permutations, get-affected-prs, approve, verify]
+    if: github.event.inputs.ACTION == 'merge' && needs.verify.outputs.has-errors != 'True' && needs.approve.outputs.has-errors != 'True'
+    outputs:
+      summary: ${{ steps.merge-summary-message.outputs.summary }}
+
+    permissions:
+      id-token: write  # This is required for requesting the JWT
+      issues: write  # This is required for getting user from comment
+      contents: read
+
+    steps:
+      - name: Add comment with started status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        id: merge-starting-comment
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :gear: The `paas-deploy-instances --action merge` workflow is currently running
+
+            Affected PRs for this issue are goona be merged using MIMIC to act on behalf of you.
+            The pull request(s) related to this task will be merge shortly...
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PaaS / Get Affected PRs information
+        id: get-prs-to-merge-info
+        uses: inditex/gha-paasdeployment/get-permutations-info@v0
+        with:
+          filter-for-action: "MERGE"
+          affected-prs: '${{ needs.get-affected-prs.outputs.affected-prs }}'
+          permutations: '${{ needs.validate-permutations.outputs.filtered-permutations }}'
+
+      - name: Get user
+        id: merge-user
+        run: |
+          login=$(gh api /repos/${{ github.repository }}/issues/comments/${{ github.event.inputs.ISSUE_COMMENT_ID }} -q '.user.login')
+          echo "login=${login}" >> "$GITHUB_OUTPUT"
+
+      - name: Paas / Get MIMIC token
+        id: merge-get-mimic-token
+        uses: inditex/gha-paasdeployment/get-mimic-token@v0
+        with:
+          audience: "mimic"
+
+      - name: PaaS / Merge affected PRs
+        id: merge-deployment-pr
+        uses: inditex/gha-paasdeployment/request-mimic-api@v0
+        with:
+          repository: ${{ github.repository }}
+          user: ${{ steps.merge-user.outputs.login }}
+          prs-to-process: ${{ steps.get-prs-to-merge-info.outputs.permutations-info }}
+          action: "merge"
+          mimic-app-id: ${{ vars.MIMIC_APP_ID }}
+        env:
+          MIMIC_TOKEN: ${{ steps.merge-get-mimic-token.outputs.mimic-token }}
+
+      - name: Add comment with finished status
+        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && steps.merge-deployment-pr.outputs.results != '' }}
+        id: merge-summary-message
+        run: |
+          message="
+          #### :white_check_mark: The *paas-merge* workflow launched from issue #${{ github.event.inputs.ISSUE_NUMBER }} has finished
+          The next pull request(s) related to this task have been merged:
+
+          ${{ steps.merge-deployment-pr.outputs.results }}
+          "
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          {
+            echo "summary<<$EOF"
+            echo "$message"
+            echo "$EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Add comment when Merge data fails
+        if: ${{ failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          body: |
+            #### :x: An error has occurred preparing data to approve PRs.
+
+            ${{ needs.validate-permutations.outputs.error-message }}
+
+            The `${{ github.workflow }}` workflow has failed at the `${{ github.job }}` job.
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   summary:
     name: PaaS / Summary
     runs-on: ubuntu-20.04
     if: ${{ always() && !cancelled() }}
-    needs: [merge, rollout, cancel, restore-summary, approve]
+    needs: [merge, rollout, cancel, restore-summary, approve, verify]
     steps:
       - name: Generate comment
         id: comment
@@ -485,7 +604,7 @@ jobs:
           first_line=$(echo "$comment" | jq -r .body | head -n1 | tr -d '\r\n')
           link=$(echo "$comment" | jq -r .html_url)
 
-          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary || needs.cancel.outputs.summary || needs.restore-summary.outputs.summary || needs.approve.outputs.summary }}"
+          message="${{ needs.merge.outputs.summary || needs.rollout.outputs.summary || needs.cancel.outputs.summary || needs.restore-summary.outputs.summary || needs.approve.outputs.summary || needs.verify.outputs.summary }}"
           if [ -z "${message}" ]; then
             message=":x: Unexpected error. More information in the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})."
           fi
