@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.1.1
+  WORKFLOW_VERSION: 2.1.2
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
