@@ -6,10 +6,10 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 2.2.1
+  WORKFLOW_VERSION: 2.2.2
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
-  GOSSIP_SERVER_USER: oauthgossipsrv
-  GOSSIP_SERVER_PASS: cyberark.AX-N-SEG-OAU-IC-OPENAMPR.OAUTH2ClientsPRO_oauthgossipsrv
+  GOSSIP_SERVER_USER: oauthtoolgossippro
+  GOSSIP_SERVER_PASS: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
 
 jobs:
   upload-config:
