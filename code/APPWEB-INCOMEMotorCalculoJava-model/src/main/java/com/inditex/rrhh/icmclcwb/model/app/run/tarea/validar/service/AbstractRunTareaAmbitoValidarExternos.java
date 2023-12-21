@@ -7,8 +7,11 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.ReglaEmpleadoExternoMeta4Service;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -27,6 +30,12 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
   @Autowired
   private TareaPersonaExternaRepositoryCustom tareaPersonaExternaRepositoryCustom;
 
+  @Autowired
+  private IncomeMetaService incomeMetaService;
+
+  @Autowired
+  private ReglaEmpleadoExternoMeta4Service reglaEmpleadoExternoMeta4Service;
+
   protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
       TareaAmbitoDto tareaAmbito);
 
@@ -43,6 +52,16 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     this.tareaPersonaExternaRepositoryCustom
         .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
             runTarea.getTarea()));
+
+    final ReglaEmpleadoExternoMeta4RequestDto request =
+        this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
+            runTarea.getTarea().getStdIdLegEnt());
+
+    if (request != null) {
+      final List<IdPersonaLocalExternaDto> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);
+
+      externos.addAll(excluidosMeta4);
+    }
 
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }

@@ -118,10 +118,14 @@ amiga:
           client-name: client-income
           ping-query:
             enabled: false
-  #          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
-  #          auth-method: BASIC
-  #          username: oauthincomedes
-  #          password: '${oauthincomedes}'
+        #          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
+        #          auth-method: BASIC
+        #          username: oauthincomedes
+        #          password: '${oauthincomedes}'
+        incomemeta:
+          base-url: http://localhost:8080/incomemeta
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
   service:
     jms:
       listener:
