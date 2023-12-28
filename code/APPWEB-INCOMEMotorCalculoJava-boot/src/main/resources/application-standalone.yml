@@ -123,7 +123,7 @@ amiga:
         #          username: oauthincomedes
         #          password: '${oauthincomedes}'
         incomemeta:
-          base-url: http://localhost:8080/incomemeta
+          base-url: http://localhost:7070/incomemeta
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
   service:

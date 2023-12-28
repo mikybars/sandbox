@@ -2,17 +2,31 @@ package com.inditex.rrhh.icmclcwb.model.app.service;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
+import com.inditex.rrhh.icmclcwb.dto.EmpleadoExternoDTO;
+import com.inditex.rrhh.icmclcwb.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.service.ExternosApi;
 
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-@Component
+@Service
+@Validated
 public class IncomeMetaServiceImpl implements IncomeMetaService {
 
+  private static final String LOG_MESSAGE = "Enviando petición a INCOMEMETA para {}...";
+
+  @Autowired
+  private Logger log;
+
+  @Autowired
+  private ExternosApi externosApi;
+
   @Override
-  public List<IdPersonaLocalExternaDto> getEmpleadosExternosExcluidosDenominador(final ReglaEmpleadoExternoMeta4RequestDto request) {
-    return null;
+  public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
+    this.log.info(LOG_MESSAGE, "llamada al método de servicio FINDEXTERNOS");
+    return this.externosApi.findExternos(request).getBody();
   }
 }
