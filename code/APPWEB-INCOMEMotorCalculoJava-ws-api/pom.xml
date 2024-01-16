@@ -10,11 +10,6 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Módulo para definición de los servicios REST</description>
 
-  <properties>
-    <income.incomemeta.openapi.version>1.4.0</income.incomemeta.openapi.version>
-    <income.incomemeta.openapi.status>stable</income.incomemeta.openapi.status>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.inditex.sscc.api</groupId>
@@ -36,21 +31,6 @@
     <dependency>
       <groupId>com.inditex.aqsw.framework.service</groupId>
       <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-rest-client</artifactId>
-    </dependency>
-    <!--<dependency>
-      <groupId>com.inditex.api</groupId>
-      <artifactId>income-mic-incomemeta-api-v3-rest-stable</artifactId>
-      <version>1.3.0</version>
-    </dependency>-->
-    <dependency>
-      <groupId>com.inditex.api</groupId>
-      <artifactId>income-mic-incomemeta-api-v3-rest-unstable</artifactId>
-      <version>1.4.0-feature-gh-127-externos-esp-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

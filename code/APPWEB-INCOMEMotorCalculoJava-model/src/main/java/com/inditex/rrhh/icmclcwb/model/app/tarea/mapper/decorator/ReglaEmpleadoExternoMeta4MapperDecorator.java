@@ -18,7 +18,7 @@ public abstract class ReglaEmpleadoExternoMeta4MapperDecorator extends ReglaEmpl
     if (!reglas.isEmpty()) {
       return ReglaEmpleadoExternoMeta4RequestDto.builder()
           .idOrganization(
-              reglas.stream().collect(groupingBy(ReglaEmpleadoExternoMeta4Dto::getCclIdOrigen)).keySet().stream().findFirst().get())
+              reglas.stream().collect(groupingBy(ReglaEmpleadoExternoMeta4Dto::getIdOrganization)).keySet().stream().findFirst().get())
           .puestos(reglas.stream().map(ReglaEmpleadoExternoMeta4Dto::getPuesto).collect(Collectors.toList())).build();
     }
 

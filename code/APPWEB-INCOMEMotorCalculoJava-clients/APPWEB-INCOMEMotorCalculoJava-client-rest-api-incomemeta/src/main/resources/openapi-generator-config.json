@@ -1,0 +1,8 @@
+{
+    "typeMappings": {
+        "OffsetDateTime": "java.time.LocalDateTime"
+    },
+    "importMappings": {
+        "java.time.OffsetDateTime": "java.time.LocalDateTime"
+    }
+}

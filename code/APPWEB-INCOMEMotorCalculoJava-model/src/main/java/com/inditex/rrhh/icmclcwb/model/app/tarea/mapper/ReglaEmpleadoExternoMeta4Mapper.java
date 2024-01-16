@@ -5,8 +5,8 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.ReglaEmpleadoExternoMeta4MapperDecorator;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;

@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.mapper;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
-import com.inditex.rrhh.icmclcwb.dto.EmpleadoExternoDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
