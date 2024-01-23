@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public interface ReglaEmpleadoExternoMeta4RepositoryCustom {
 
   /**
-   * Recupera las reglas activas para empleados externos de meta4 por origen
+   * Recupera las reglas activas para empleados externos de meta4 por origen.
    *
    * @param cclIdOrigen cclIdOrigen
    */
