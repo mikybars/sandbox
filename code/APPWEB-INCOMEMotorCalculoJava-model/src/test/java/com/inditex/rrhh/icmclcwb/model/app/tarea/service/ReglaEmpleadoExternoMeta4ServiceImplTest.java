@@ -21,7 +21,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class ReglaEmpleadoExternoMeta4ServiceImplTest {
+class ReglaEmpleadoExternoMeta4ServiceImplTest {
 
   @Mock
   private ReglaEmpleadoExternoMeta4RepositoryCustom reglaEmpleadoExternoMeta4RepositoryCustom;
@@ -33,7 +33,7 @@ public class ReglaEmpleadoExternoMeta4ServiceImplTest {
   private ReglaEmpleadoExternoMeta4ServiceImpl reglaEmpleadoExternoMeta4Service;
 
   @Test
-  public void getReglasEmpleadoExternoMeta4ActivasByCclIdOrigenTest(
+  void getReglasEmpleadoExternoMeta4ActivasByCclIdOrigenTest(
       @Random(size = 2, type = ReglaEmpleadoExternoMeta4Dto.class) final List<ReglaEmpleadoExternoMeta4Dto> reglas,
       @Random final ReglaEmpleadoExternoMeta4RequestDto reglaEmpleadoExternoMeta4RequestDto) {
     doReturn(reglas).when(this.reglaEmpleadoExternoMeta4RepositoryCustom).findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen("1", "8");

@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class IncomeMetaServiceImplTest {
+class IncomeMetaServiceImplTest {
 
   @Mock
   private Logger log;
@@ -33,7 +33,7 @@ public class IncomeMetaServiceImplTest {
   private IncomeMetaServiceImpl incomeMetaService;
 
   @Test
-  public void getEmpleadosExternosExcluidosDenominadorTest(@Random final ExternosRequestDTO request,
+  void getEmpleadosExternosExcluidosDenominadorTest(@Random final ExternosRequestDTO request,
       @Random(size = 2, type = EmpleadoExternoDTO.class) final List<EmpleadoExternoDTO> response) {
     doReturn(response).when(this.externosApi).findExternos(request);
 

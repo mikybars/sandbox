@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class ReglaEmpleadoExternoMeta4RepositoryCustomImplTest {
+class ReglaEmpleadoExternoMeta4RepositoryCustomImplTest {
 
   private final static String SQL_FIND_REGLAS = "sql";
 

@@ -40,7 +40,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class, RandomizerExtension.class})
-public class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
+class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
 
   @Mock
   private ComisAsyncService comisAsyncService;
@@ -70,20 +70,26 @@ public class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
   private RunTareaAmbitoValidarExternosBosniaServiceImpl runTareaAmbitoValidarExternosBosniaService;
 
   @Test
-  public void executeTest(@Random final ReglaEmpleadoExternoMeta4RequestDto request, @Random final ExternosRequestDTO externosRequestDTO,
+  void executeTest(@Random(size = 1, type = Integer.class) final List<Integer> puestos,
+      @Random final ExternosRequestDTO externosRequestDTO,
       @Random(size = 2, type = EmpleadoExternoDTO.class) final List<EmpleadoExternoDTO> externos,
       @Random(size = 2, type = IdPersonaLocalExternaDto.class) final List<IdPersonaLocalExternaDto> idPersonaLocalExternaDtos) {
 
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
+    tareaDto.setStdIdLegEnt("0");
     runTareaDto.setTarea(tareaDto);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen("1");
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
 
     final List<IdPersonaLocalExternaDto> lista = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalExternaDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
+
+    final ReglaEmpleadoExternoMeta4RequestDto request =
+        ReglaEmpleadoExternoMeta4RequestDto.builder().puestos(puestos).idOrganization("2").build();
 
     when(this.comisAsyncService.findExternosByClase(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(
         ComisClaseEmpleadoEnum.class))).thenReturn(cf);
