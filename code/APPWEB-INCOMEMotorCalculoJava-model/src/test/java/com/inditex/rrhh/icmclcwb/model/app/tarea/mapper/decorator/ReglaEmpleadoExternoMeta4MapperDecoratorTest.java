@@ -27,7 +27,7 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
   }
 
   @Test
-  public void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoTest(
+  void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoTest(
       @Random(size = 2, type = ReglaEmpleadoExternoMeta4Dto.class) final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 
     final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
@@ -37,7 +37,7 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
   }
 
   @Test
-  public void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoNullTest(
+  void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoNullTest(
       @Random(size = 0, type = ReglaEmpleadoExternoMeta4Dto.class) final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 
     final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
