@@ -58,9 +58,6 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
-    this.tareaPersonaExternaRepositoryCustom
-        .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
-            runTarea.getTarea()));
 
     final ReglaEmpleadoExternoMeta4RequestDto request =
         this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
@@ -72,6 +69,10 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
       externos.addAll(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(excluidosMeta4));
     }
+
+    this.tareaPersonaExternaRepositoryCustom
+        .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
+            runTarea.getTarea()));
 
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
