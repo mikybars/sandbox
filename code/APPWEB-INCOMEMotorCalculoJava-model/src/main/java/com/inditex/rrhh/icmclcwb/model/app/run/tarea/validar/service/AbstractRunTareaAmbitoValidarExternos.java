@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMappe
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,8 +65,10 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
             runTarea.getTarea().getStdIdLegEnt());
 
     if (request != null) {
-      final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(
-          this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request));
+      final ExternosRequestDTO req = this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request);
+      req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
+      req.setFechaHasta(runTarea.getTarea().getFechaInicioPeriodo());
+      final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
 
       externos.addAll(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(excluidosMeta4));
     }
