@@ -47,7 +47,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 2.5.0
+  WORKFLOW_VERSION: 2.9.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -62,6 +62,28 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+
+      - name: Compute vars
+        id: compute-vars
+        uses: inditex/gha-paasdeployment/paas-promote/compute-vars@v0
+        with:
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Reset error label if the origin is an issue
+        if: ${{ steps.compute-vars.outputs.is-issue == 'true' }}
+        run: |
+          label=$(gh issue view ${{ env.ISSUE_NUMBER }} --repo ${{ github.repository }} --json labels | jq -r '.labels[].name | select(. == "${{ env.LABEL_TO_REMOVE }}")')
+          if [[ "${label}" == "${{ env.LABEL_TO_REMOVE }}" ]]; then
+            echo "Removing label '${{ env.LABEL_TO_REMOVE }}' from previous failed execution"
+            gh issue edit ${{ env.ISSUE_NUMBER }} --remove-label ${{ env.LABEL_TO_REMOVE }} --repo ${{ github.repository }}
+          else
+            echo "Label '${{ env.LABEL_TO_REMOVE }}' not found in issue"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.inputs.ISSUE_NUMBER }}
+          LABEL_TO_REMOVE: "status/failed"
 
       - name: Add comment with started status
         if: ${{ github.event.inputs.ISSUE_NUMBER != '' }}
@@ -98,26 +120,6 @@ jobs:
           echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}" | tr -s '\n' ' '
           exit 1
 
-      - name: Verify if code deploy
-        id: verify-if-code
-        run: |
-           import os
-           code = os.path.isdir('./code')
-           github_output = os.getenv('GITHUB_OUTPUT')
-           with open(github_output, "a") as gh_out:
-             gh_out.write('code=%s\n' % (code))
-        shell: python
-
-      - name: Compute vars
-        id: compute-vars
-        run: |
-          if [[ "${{ steps.verify-if-code.outputs.code }}" == "True" ]]; then
-            DEPLOYMENT_VERSION="${{ github.event.inputs.VERSION }}"
-          else
-            DEPLOYMENT_VERSION="latest"
-          fi
-          echo "deployment-version=${DEPLOYMENT_VERSION}" >> "$GITHUB_OUTPUT"
-
       - name: Sentinel - Generate manifests
         uses: inditex/actions/sentinel@main
         id: sentinel
@@ -140,21 +142,17 @@ jobs:
         with:
           working-directory: paas
 
-      - name: BatchAsCode / Detect
-        id: detect
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        shell: python
-        run: |
-          import os
-          is_bat = ("${{ github.repository }}".split('/')[1].split('-')[0] == "bat")
-
-          github_output = os.getenv('GITHUB_OUTPUT')
-          with open(github_output, "a") as gh_out:
-            gh_out.write('is-batch=%s\n' % (is_bat))
-            gh_out.write('force-token-usage=%s\n' % (is_bat))
+      - name: Promote ML Models
+        if: ${{ steps.compute-vars.outputs.is-mlops == 'true' }}
+        uses: inditex/gha-mlopsactions/actions/paas-promote-models@v0
+        with:
+          model-list-json-path: configmap.values.amiga.mlserver.models
+          overwrite-when-version-exists: "false"
+          copy-only-this-list-of-model-versions: ""
+          remove-all-versions-before-copying: "true"
 
       - name: BatchAsCode / Copy job definitions
-        if: ${{ steps.detect.outputs.is-batch == 'True' }}
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-batch == 'true' }}
         run: |
           if [ -d '../../jobs' ]; then
             find . -maxdepth 1 -mindepth 1 -type d | while read -r dir; do
@@ -184,7 +182,7 @@ jobs:
           version: ${{ github.event.inputs.VERSION }}
           strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
           label: ${{ github.event.inputs.LABELS }}
-          force-token-usage: ${{ steps.detect.outputs.force-token-usage }}
+          force-token-usage: ${{ steps.compute-vars.outputs.force-token-usage }}
         env:
           ISSUE_NUMBER: ${{ github.event.inputs.ISSUE_NUMBER }}
           SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
@@ -224,6 +222,13 @@ jobs:
             See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).")
           issue_id=$(echo "$response" | awk -F '/' '{print $7}')
           echo "issue_number=$issue_id" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add label on failure if the origin is an issue
+        if: ${{ failure() && !cancelled() && (steps.compute-vars.outputs.is-issue == 'true') }}
+        run: |
+          gh issue edit ${{ github.event.inputs.ISSUE_NUMBER }} --add-label "status/failed" --repo ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
