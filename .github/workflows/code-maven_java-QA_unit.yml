@@ -1,6 +1,6 @@
 ---
 name: code-maven-QA-unit
-run-name: QA unit testing in ${{ github.ref_name || 'default' }} branch
+run-name: QA unit testing in ${{ github.base_ref || github.ref_name }} branch
 
 concurrency:
   group: qa-unit-${{ github.ref }}
@@ -21,7 +21,8 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.1.1
+  WORKFLOW_VERSION: 2.8.0
+  REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -37,15 +38,6 @@ jobs:
     timeout-minutes: 30
     runs-on: [self-hosted, testing-ivm]
     steps:
-      - name: Check default branch
-        id: default-branch
-        run: |
-          if [[ "${{ vars.DEVELOPMENT_FLOW }}" != "trunk-based-development" && "${{ github.event.repository.default_branch }}" == "develop" ]]; then
-            echo "DEFAULT_BRANCH=develop" >> "$GITHUB_OUTPUT"
-          else
-            echo "DEFAULT_BRANCH=main" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -112,7 +104,7 @@ jobs:
         id: get-sonar-url
         env:
           PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
-        uses: inditex/actions/testing/get-sonar-url-from-api/@main
+        uses: inditex/gha-testing/get-sonar-url-from-api/@main
 
       - name: Sonar / Setup Node version
         uses: inditex/gha-ivmactions/setup-tool@v0
@@ -141,7 +133,7 @@ jobs:
             -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
             -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
-      - name: Sonarqube / Run with ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }} branch
+      - name: Sonarqube / Run with ${{ env.REF }} branch
         if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
         working-directory: code
         run: |
@@ -150,7 +142,7 @@ jobs:
             -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
-            -Dsonar.branch.name="${{ github.ref_name || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
+            -Dsonar.branch.name="${{ env.REF }}" \
             -Dsonar.login="$SONAR_TOKEN" \
             -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
             -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
@@ -185,7 +177,7 @@ jobs:
             -Dsonar.projectKey=inditexcodingfashion_"${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
             -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
-            -Dsonar.branch.name="${{ github.ref_name || steps.default-branch.outputs.DEFAULT_BRANCH }}" \
+            -Dsonar.branch.name="${{ env.REF }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
             -Dsonar.login="${LOGIN}" \
@@ -198,14 +190,6 @@ jobs:
         continue-on-error: true
         run: |
           mvn surefire-report:report-only site:site -DoutputName=index -DalwaysGenerateSurefireReport=true -DgenerateReports=false
-      - name: Display results
-        if: ${{ always() && !cancelled() }}
-        continue-on-error: true
-        uses: inditex/actions/testing/results-summary-annotations@main
-        with:
-          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
-          keys: junit.unit
-          branch_name: ${{ github.base_ref || steps.default-branch.outputs.DEFAULT_BRANCH }}
 
       - name: Attach results
         if: ${{ always() && !cancelled() && contains(inputs.ATTACH_TARGET, 'jfrog') }}
@@ -250,6 +234,29 @@ jobs:
           adam publishExclusions \
             --projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
             --workspace="${{ github.workspace }}"
+
+      - name: Display results
+        if: ${{ always() && !cancelled() }}
+        continue-on-error: true
+        run: |
+          if [ -f "message" ]
+          then
+              MESSAGE=$(cat "message" 2>/dev/null)
+              MESSAGE=$(echo "$MESSAGE" | tr -s ' ')
+              echo "::notice title=Results [jacoco] ::$MESSAGE"
+          fi
+          if [ -f "messageSurefire" ]
+          then
+              MESSAGE=$(cat "messageSurefire" 2>/dev/null)
+              MESSAGE=$(echo "$MESSAGE" | tr -s ' ')
+              echo "::notice title=Results [karate] ::$MESSAGE"
+          fi
+          if [ -f "messageSonar" ]
+          then
+              MESSAGE=$(cat "messageSonar" 2>/dev/null)
+              MESSAGE=$(echo "$MESSAGE" | tr -s ' ')
+              echo "::notice title=Results [sonar] ::$MESSAGE"
+          fi
 
       - name: Create a Workflow Status Check to link this execution with a PR
         if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
