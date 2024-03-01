@@ -3,7 +3,7 @@ amiga:
     oauth2-client:
       clients:
         client-income:
-          client-id: oauthincome
+          client-id: oauthincomepro
     rest:
       client:
         slrhorcoms:

@@ -71,7 +71,7 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     if (request != null) {
       final ExternosRequestDTO req = this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request);
       req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
-      req.setFechaHasta(runTarea.getTarea().getFechaInicioPeriodo());
+      req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
       final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
 
       this.log.info("NUMERO EXTERNOS NUEVOS: " + excluidosMeta4.size());
