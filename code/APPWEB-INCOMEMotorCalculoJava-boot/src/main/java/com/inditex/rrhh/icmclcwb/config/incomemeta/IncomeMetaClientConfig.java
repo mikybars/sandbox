@@ -21,7 +21,7 @@ public class IncomeMetaClientConfig {
 
   @Bean(name = "incomeMetaApiClient")
   public ApiClient incomeMetaApiClient(@Qualifier("incomeMetaClient") final RestClient restClient) {
-    return new ApiClient(restClient);
+    return new ApiClient(restClient).setBasePath(restClient.getBaseUrl());
   }
 
   @Bean(name = "externosIncomeMetaApiClient")
