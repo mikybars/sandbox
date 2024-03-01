@@ -60,12 +60,9 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
 
-    ReglaEmpleadoExternoMeta4RequestDto request =
+    final ReglaEmpleadoExternoMeta4RequestDto request =
         this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
             runTarea.getTarea().getStdIdLegEnt());
-
-    // TODO ELIMINAR - FORZAR PARA PRUEBAS
-    request = ReglaEmpleadoExternoMeta4RequestDto.builder().idOrganization("0001").puestos(List.of(138)).build();
 
     if (request != null) {
       final ExternosRequestDTO req = this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request);
