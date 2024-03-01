@@ -75,6 +75,7 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
       final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
 
       this.log.info("NUMERO EXTERNOS NUEVOS: " + excluidosMeta4.size());
+      this.log.info("NUMERO EXTERNOS: " + excluidosMeta4);
       externos.addAll(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(excluidosMeta4));
       this.log.info("NUMERO EXTERNOS TOTAL: " + externos.size());
     }
