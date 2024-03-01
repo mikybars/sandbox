@@ -21,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExte
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractRunTareaAmbitoValidarExternos {
@@ -47,9 +46,6 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
   @Autowired
   private IdPersonaLocalExternaMapper idPersonaLocalExternaMapper;
 
-  @Autowired
-  private Logger log;
-
   protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
       TareaAmbitoDto tareaAmbito);
 
@@ -63,7 +59,7 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
-    this.log.info("NUMERO EXTERNOS ANTIGUOS: " + externos.size());
+
     final ReglaEmpleadoExternoMeta4RequestDto request =
         this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
             runTarea.getTarea().getStdIdLegEnt());
@@ -74,10 +70,7 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
       req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
       final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
 
-      this.log.info("NUMERO EXTERNOS NUEVOS: " + excluidosMeta4.size());
-      this.log.info("NUMERO EXTERNOS: " + excluidosMeta4);
       externos.addAll(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(excluidosMeta4));
-      this.log.info("NUMERO EXTERNOS TOTAL: " + externos.size());
     }
 
     this.tareaPersonaExternaRepositoryCustom
