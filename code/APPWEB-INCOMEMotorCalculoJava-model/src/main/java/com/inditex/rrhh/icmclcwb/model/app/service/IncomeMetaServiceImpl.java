@@ -29,6 +29,7 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
     this.log.info(LOG_MESSAGE, "llamada al método de servicio FINDEXTERNOS");
+    this.log.info("INFO REQUEST: " + request);
     return this.externosApi.findExternos(request);
   }
 }
