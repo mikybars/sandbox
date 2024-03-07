@@ -9,7 +9,8 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.1.1
+  WORKFLOW_VERSION: 2.8.0
+  IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:
   mutation-testing-execution:
@@ -49,18 +50,33 @@ jobs:
             application.yml
             ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
 
-      - name: Run mutation tests
+      - name: Determine module project nature
+        shell: python
+        run: |
+          import os
+          from xml.dom import minidom
+
+          file = minidom.parse('./code/pom.xml')
+          modules = file.getElementsByTagName('modules')
+
+          # Set env variable into a file
+          env_file = os.getenv('GITHUB_ENV')
+
+          # Open the file in append mode
+          with open(env_file, "a") as myFile:
+            myFile.write("IS_PRJ_MULTI_MODULE=%s" % (modules.length > 0 and modules[0].childNodes.length > 1))
+
+      - if: env.IS_PRJ_MULTI_MODULE == 'true'
+        name: Run mutation tests multi module project
         working-directory: code
         run: |
           mvn -B clean verify pitest:mutationCoverage pitest:report-aggregate-module -DskipITs -Dskip.integration.tests=true
 
-      - name: Display results
-        if: ${{ always() && !cancelled() }}
-        continue-on-error: true
-        uses: inditex/actions/testing/results-summary-annotations@main
-        with:
-          path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
-          keys: pitest
+      - if: env.IS_PRJ_MULTI_MODULE == 'false'
+        name: Run mutation tests single module project
+        working-directory: code
+        run: |
+          mvn -B clean verify pitest:mutationCoverage -DskipITs -Dskip.integration.tests=true
 
       - name: Attach results
         if: ${{ always() && !cancelled() && contains(inputs.ATTACH_TARGET, 'jfrog') }}
@@ -78,6 +94,17 @@ jobs:
             --workingDir="${{ github.workspace }}" \
             --testType="pit" \
             --reportPath="${{ github.workspace }}/${{ fromJSON(steps.config.outputs.config).pitest.results.pitest_report_folder.path }}/index.html"
+
+      - name: Display results
+        if: ${{ always() && !cancelled() }}
+        continue-on-error: true
+        run: |
+          if [ -f "messagePit" ]
+          then
+              MESSAGE=$(cat "messagePit" 2>/dev/null)
+              MESSAGE=$(echo "$MESSAGE" | tr -s ' ')
+              echo "::notice title=Results [pitest] ::$MESSAGE"
+          fi
 
       - name: Create a Workflow Status Check to link this execution with a PR
         if: always() && !cancelled() && github.event_name == 'workflow_dispatch'

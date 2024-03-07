@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.1.2
+  WORKFLOW_VERSION: 2.4.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -102,7 +102,7 @@ jobs:
 
       - name: Maven / Process Surefire report and annotate PR
         if: ${{ always() && !cancelled() }}
-        uses: scacap/action-surefire-report@be8172cc301d1805659f46260815db3e9ad574b2
+        uses: scacap/action-surefire-report@6efd3d10b5c1996a0724dd4c4915a073f685fefa
         with:
           fail_if_no_tests: false
           create_check: false

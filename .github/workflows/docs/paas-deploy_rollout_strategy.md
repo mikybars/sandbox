@@ -1,6 +1,6 @@
 # paas-deploy-rollout-strategy
 
-[`paas-deploy_rollout_strategy.yml`](../paas-deploy_rollout_strategy.yml) workflow allows to deploy with Spinnaker with differents rollout strategies a service deployed in a Kubernetes cluster
+[`paas-deploy_rollout_strategy.yml`](../paas-deploy_rollout_strategy.yml) workflow allows to deploy with differents rollout strategies a service deployed in a Kubernetes cluster
 
 ## Trigger
 
@@ -12,7 +12,7 @@
 
 ## Jobs
 
-- ### `rollout-strategy`
+- ### `rollout-strategy-cdm`
 
   - **Steps**
-    - [`rollout-strategy`](https://github.com/inditex/actions/tree/main/deployment/rollout-strategy) action will send requests to Spinnaker to deploy the service step by step.
+    - [`rollout-strategy-cdm`](https://github.com/inditex/actions/tree/main/deployment/rollout-strategy-cdm) action will send requests to cdmngmt to deploy the service step by step.

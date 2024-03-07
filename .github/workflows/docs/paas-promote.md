@@ -23,6 +23,7 @@
     - Promote images to `K8s` internal registries.
     - Check if repository is a **Batch** artifact based on repository name.
     - For **Batch** artifacts copy `jobs` folder in each of the folders that are generated in the PR.
+    - For MLOps projects, promote the ML models to the cluster local storage (S3 Bucket)
     - Check if Traffic Parrot mappings should be stored in PVC. If so, copy them into an S3 bucket to be used later on in the deployment stage.
     - Create `deployment` pull requests. For **Batch** artifacts, force the usage of the token provided on action. For those pull requests labeled as `manual-approval`, creates a list with their PR numbers to be _"Shepherd Checked"_ by the following job.
 

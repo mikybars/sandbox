@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  WORKFLOW_VERSION: 2.1.1
+  WORKFLOW_VERSION: 2.8.0
 
 jobs:
   sonar-check:

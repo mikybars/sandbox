@@ -11,7 +11,7 @@ on:
     paths: ['code/**', '.github/workflows/code**']
 
 env:
-  WORKFLOW_VERSION: 2.1.2
+  WORKFLOW_VERSION: 2.4.1
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
