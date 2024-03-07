@@ -10350,4 +10350,14 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     ]]>
   </entry>
 
+  <entry key="ReglaEmpleadoExternoMeta4RepositoryCustom.findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen">
+    <![CDATA[
+      SELECT CCL_ID_ORIGEN, ID_ORGANIZATION, STD_ID_LEG_ENT, PUESTO, ES_ACTIVO
+      FROM REGLA_EMPLEADO_EXTERNO_META4
+      WHERE CCL_ID_ORIGEN = :cclIdOrigen
+      AND STD_ID_LEG_ENT = :stdIdLegEnt
+      AND ES_ACTIVO = 1
+    ]]>
+  </entry>
+
 </properties>

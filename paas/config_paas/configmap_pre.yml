@@ -26,6 +26,10 @@ amiga:
           base-url: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality-pre.svc.cluster.local.:8080/dqservice
           ping-query:
             path: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality-pre.svc.cluster.local.:8081/dqservice/amiga/health
+        incomemeta:
+          base-url: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/incomemeta
+          ping-query:
+            path: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8081/incomemeta/amiga/health
   data:
     jms:
       connection-factory:

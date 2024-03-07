@@ -17,6 +17,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-incomemeta</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <!-- FWK DEPENDENCIES -->

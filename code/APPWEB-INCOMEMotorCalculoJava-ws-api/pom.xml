@@ -9,6 +9,7 @@
   <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Módulo para definición de los servicios REST</description>
+
   <dependencies>
     <dependency>
       <groupId>com.inditex.sscc.api</groupId>

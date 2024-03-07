@@ -3,7 +3,7 @@ amiga:
     oauth2-client:
       clients:
         client-income:
-          client-id: oauthincome
+          client-id: oauthincomepro
     rest:
       client:
         slrhorcoms:
@@ -26,6 +26,10 @@ amiga:
           base-url: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality.svc.cluster.local.:8080/dqservice
           ping-query:
             path: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality.svc.cluster.local.:8081/dqservice/amiga/health
+        incomemeta:
+          base-url: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8080/incomemeta
+          ping-query:
+            path: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}.svc.cluster.local.:8081/incomemeta/amiga/health
   data:
     jms:
       connection-factory:
