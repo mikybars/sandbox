@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.ReglaEmpleadoExternoMeta4Service;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
@@ -28,7 +29,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoValidarExternosBrasilServiceImplTest {
+class RunTareaAmbitoValidarExternosBrasilServiceImplTest {
 
   @Mock
   private ComisAsyncService comisAsyncService;
@@ -42,11 +43,14 @@ public class RunTareaAmbitoValidarExternosBrasilServiceImplTest {
   @Mock
   private ValidacionMapper validacionMapper;
 
+  @Mock
+  private ReglaEmpleadoExternoMeta4Service reglaEmpleadoExternoMeta4Service;
+
   @InjectMocks
   private RunTareaAmbitoValidarExternosBrasilServiceImpl runTareaAmbitoValidarExternosBrasilService;
 
   @Test
-  public void executeTest() {
+  void executeTest() {
 
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
@@ -61,6 +65,9 @@ public class RunTareaAmbitoValidarExternosBrasilServiceImplTest {
 
     when(this.comisAsyncService.findExternosByClase(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(
         ComisClaseEmpleadoEnum.class))).thenReturn(cf);
+
+    when(this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(any(String.class), any(String.class)))
+        .thenReturn(null);
 
     this.runTareaAmbitoValidarExternosBrasilService.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 

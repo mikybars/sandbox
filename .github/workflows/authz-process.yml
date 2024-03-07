@@ -13,7 +13,7 @@ on:
     paths: ['authz/**', '.github/workflows/authz**']
 
 env:
-  WORKFLOW_VERSION: 1.40.0
+  WORKFLOW_VERSION: 1.40.1
   AUTHZ_DIR: "authz/"
   PREFIX: "authz_"
   SUFFIX: ".yml"
@@ -64,7 +64,7 @@ jobs:
 
   process:
     name: Process authz configuration
-    runs-on: [self-hosted, common]
+    runs-on: [self-hosted, heimdal]
     needs: [get-supraenvs]
     if: needs.get-supraenvs.outputs.supraenvs
     steps:

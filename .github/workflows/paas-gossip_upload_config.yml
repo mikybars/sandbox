@@ -6,16 +6,16 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 2.2.1
+  WORKFLOW_VERSION: 2.2.4
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
-  GOSSIP_SERVER_USER: oauthgossipsrv
-  GOSSIP_SERVER_PASS: cyberark.AX-N-SEG-OAU-IC-OPENAMPR.OAUTH2ClientsPRO_oauthgossipsrv
+  GOSSIP_SERVER_USER: oauthtoolgossippro
+  GOSSIP_SERVER_PASS: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
 
 jobs:
   upload-config:
     name: Upload Gossip configuration
     timeout-minutes: 30
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: [self-hosted, sre]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

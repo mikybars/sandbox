@@ -2,6 +2,10 @@
 name: paas-gossip-analysis
 run-name: gossip analysis with runner ${{ inputs.RUNNER || 'RELEASE' }}
 
+concurrency:
+  group: paas-gossip-analysis-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
@@ -20,7 +24,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 2.2.1
+  WORKFLOW_VERSION: 2.2.4
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -30,35 +34,36 @@ env:
   SSCC_URL: https://sscc.central.inditex.grp
   OAUTH_GOSSIP_USERNAME: oauthtoolgossippro
   OAUTH_GOSSIP_PASSWORD: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
+  ASDF_DATA_DIR: /tmp/asdf/data
 
 jobs:
   gossip-analysis:
     name: Gossip / Analysis
     timeout-minutes: 30
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: [self-hosted, sre]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Setup IVM Python
-        uses: inditex/gha-ivmactions/setup-tool@v0
+      - name: "Check workflow appliance"
+        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v7
         with:
-          tool-name: ivm-python
-          tool-version: 3.8.11
+          workflow-type: "paas"
 
       - name: "Configure Runner SNAPSHOT"
-        if: ${{ github.event.inputs.RUNNER == 'SNAPSHOT' }}
+        if: ${{ github.event.inputs.RUNNER == 'SNAPSHOT' && env.APPLYING_WORKFLOW }}
         run: |
           echo "APP_PATH=/opt/inditex/runner-volume/tools/gossip/snapshot" >> "$GITHUB_ENV"
 
       - name: "Configure Runner RELEASE"
-        if: ${{ github.event.inputs.RUNNER == 'RELEASE' }}
+        if: ${{ github.event.inputs.RUNNER == 'RELEASE' && env.APPLYING_WORKFLOW }}
         run: |
           echo "APP_PATH=/opt/inditex/runner-volume/tools/gossip/releases" >> "$GITHUB_ENV"
 
       - name: "Check pro environment"
+        if: ${{ env.APPLYING_WORKFLOW }}
         shell: python
         run: |
           import yaml
@@ -74,7 +79,7 @@ jobs:
 
       - name: "Get metadata"
         id: metadata
-        if: ${{ env.HAS_PRO }}
+        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
         shell: python
         run: |
           import yaml
@@ -86,8 +91,8 @@ jobs:
              githubfile.write("PROJECT_KEY=" + application["metadata"]["project_key"])
 
       - name: "Launch Gossip Config Generator"
-        if: ${{ env.HAS_PRO }}
-        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v6
+        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v7
         with:
           project-key: ${{ env.PROJECT_KEY }}
           ceph-access-key-id: ${{ env.CEPH_ACCESS_KEY_ID }}
@@ -98,27 +103,27 @@ jobs:
           tmp-path: ${{ env.TMP_PATH }}
 
       - name: "Merge Config Files"
-        if: ${{ env.HAS_PRO }}
+        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
         run: |
           "$APP_PATH/$APP_NAME" merge -p "${GITHUB_WORKSPACE}/paas" -d "$TMP_PATH"/target -s "$SUPRAENVIRONMENT" -c "${GITHUB_WORKSPACE}/code"
 
       - name: "Download CEPH Rules"
-        if: ${{ env.HAS_PRO }}
+        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
         run: |
           "$APP_PATH/$APP_NAME" download -i releases/latest.zip -d "$TMP_PATH"/rules
 
       - name: "Set variables for Release"
-        if: ${{ github.base_ref == 'main' }}
+        if: ${{ github.base_ref == 'main' && env.APPLYING_WORKFLOW }}
         run: |
           echo "BLOCKED=--blocked" >> "$GITHUB_ENV"
 
       - name: "Gossip analyze"
-        if: ${{ env.HAS_PRO }}
+        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
         run: |
           "$APP_PATH/$APP_NAME" analyze -r "$TMP_PATH"/rules -t "$TMP_PATH"/target -n "$RULE_NAMESPACE" -d "$TMP_PATH"/data.json -x "$TMP_PATH"/result -l "$TMP_PATH"/appreport.html.tmpl "$BLOCKED"
 
       - name: "Upload Gossip analysis results"
-        if: ${{ always() && !cancelled() && env.HAS_PRO }}
+        if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
         uses: actions/upload-artifact@v3
         with:
           name: Gossip Analysis
@@ -126,8 +131,8 @@ jobs:
           if-no-files-found: warn
 
       - name: "Send Report Event"
-        if: ${{ always() && !cancelled() && env.HAS_PRO }}
-        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v5
+        if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v7
         with:
           tool-report-url: ${{ env.SSCC_URL}}
           tool-report-username: ${{ env.OAUTH_GOSSIP_USERNAME }}

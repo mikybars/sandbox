@@ -12,7 +12,7 @@ on:
       - "paas/**"
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.9.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
@@ -102,7 +102,7 @@ jobs:
           echo "last-check-tag=$last_check_tag" >> "$GITHUB_OUTPUT"
 
   check-secrets:
-    name: Check validity of new secrets added
+    name: Check new secrets
     runs-on: [self-hosted, paasfeature]
     needs: [check-changes-in-secrets]
     if: needs.check-changes-in-secrets.outputs.secrets == 'true'
