@@ -1,0 +1,35 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Entity
+@Table(name = "REGLA_EMPLEADO_EXTERNO_META4")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class ReglaEmpleadoExternoMeta4 {
+
+  @EmbeddedId
+  private ReglaEmpleadoExternoMeta4Pk pk;
+
+  @NotBlank
+  @Column(name = "ID_ORGANIZATION", nullable = false)
+  private String idOrganization;
+
+  @NotNull
+  @Column(name = "ES_ACTIVO")
+  private Boolean esActivo;
+
+}

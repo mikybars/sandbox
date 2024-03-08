@@ -7,9 +7,15 @@ registries:
     url: https://inditex.jfrog.io/artifactory/api/npm/node-public
     username: ${{secrets.DIST_PLAT_READER_USERNAME}}
     password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+    replaces-base: true
   inditex-maven:
     type: maven-repository
     url: https://inditex.jfrog.io/artifactory/maven-public
+    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
+    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+  inditex-poetry:
+    type: python-index
+    url: https://inditex.jfrog.io/artifactory/api/pypi/python-public/simple/
     username: ${{secrets.DIST_PLAT_READER_USERNAME}}
     password: ${{secrets.DIST_PLAT_READER_TOKEN}}
 updates:
@@ -24,24 +30,40 @@ updates:
       timezone: UTC
     registries:
       - inditex-npm
+    groups:
+      amiga-web-dependencies:
+        patterns:
+          - "@amiga-fwk-web/*"
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "@amiga-fwk-web/components-data-viz"
+      amiga-node-dependencies:
+        patterns:
+          - "@amiga-fwk-nodejs/*"
+        update-types:
+          - "minor"
+          - "patch"
     allow:
-      - dependency-name: "@amiga-fwk-nodejs/*"
-        dependency-type: direct
-      - dependency-name: "@amiga-fwk-web/*"
-        dependency-type: direct
+        # Eslint config for Inditex
       - dependency-name: "@inditex/eslint-config"
         dependency-type: direct
-    commit-message:
-      prefix: npm
-      include: scope
-    labels:
-      - kind/dependency
+        # AMIGA Fwk Web Data Viz
+      - dependency-name: "@amiga-fwk-web/components-data-viz"
+        dependency-type: direct
+        # AMIGA Fwk Node.js
+      - dependency-name: "@amiga-fwk-nodejs/*"
+        dependency-type: direct
+        # AMIGA Fwk Web
+      - dependency-name: "@amiga-fwk-web/*"
+        dependency-type: direct
     ignore:
       # Ignore major version update
-      - dependency-name: "@amiga-fwk-nodejs/*"
+      - dependency-name: "@amiga-fwk-web/components-data-viz"
         update-types: ["version-update:semver-major"]
-      - dependency-name: "@amiga-fwk-web/*"
-        update-types: ["version-update:semver-major"]
+    labels:
+      - kind/dependency
   # AMIGA Fwk Web (WEB)
   - package-ecosystem: npm
     rebase-strategy: "disabled"
@@ -52,20 +74,58 @@ updates:
       timezone: UTC
     registries:
       - inditex-npm
+    groups:
+      amiga-web-dependencies:
+        patterns:
+          - "@amiga-fwk-web/*"
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "@amiga-fwk-web/components-data-viz"
     allow:
-      - dependency-name: "@amiga-fwk-web/*"
-        dependency-type: direct
+        # Eslint config for Inditex
       - dependency-name: "@inditex/eslint-config"
         dependency-type: direct
-    commit-message:
-      prefix: npm
-      include: scope
-    labels:
-      - kind/dependency
+        # AMIGA Fwk Web Data Viz
+      - dependency-name: "@amiga-fwk-web/components-data-viz"
+        dependency-type: direct
+        # AMIGA Fwk Web
+      - dependency-name: "@amiga-fwk-web/*"
+        dependency-type: direct
     ignore:
       # Ignore major version update
-      - dependency-name: "@amiga-fwk-web/*"
+      - dependency-name: "@amiga-fwk-web/components-data-viz"
         update-types: ["version-update:semver-major"]
+    labels:
+      - kind/dependency
+  # AMIGA Tech Docs (DOCS)
+  - package-ecosystem: npm
+    rebase-strategy: "disabled"
+    directory: /docs
+    schedule:
+      interval: weekly
+      time: "02:00"
+      timezone: UTC
+    registries:
+      - inditex-npm
+    allow:
+        # Eslint config for Inditex
+      - dependency-name: "@inditex/eslint-config"
+        dependency-type: direct
+        # AMIGA Tech Docs
+      - dependency-name: "@amigatechdocs/*"
+        dependency-type: direct
+    groups:
+      amiga-tech-docs-dependencies:
+        patterns:
+          - "@amigatechdocs/*"
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - kind/dependency
+  # AMIGA Fwk Java (WSC/WEB)
   - package-ecosystem: "maven"
     rebase-strategy: "disabled"
     directory: "/code"
@@ -78,7 +138,6 @@ updates:
     labels:
       - kind/dependency
     allow:
-      # AMIGA Fwk Java (WSC/WEB)
       - dependency-name: "com.inditex.aqsw.framework.amiga:amiga-framework"
         dependency-type: direct
       - dependency-name: "com.inditex.aqsw.amiga.javaformat:amiga-javaformat-maven-plugin"
@@ -96,6 +155,9 @@ updates:
         dependency-type: direct
       - dependency-name: "com.inditex.maven.release:maven-release-strategies"
         dependency-type: direct
+      # API artifacts version update
+      - dependency-name: "com.inditex.api*"
+        dependency-type: direct
     ignore:
       # Ignore major version update
       - dependency-name: "com.inditex.aqsw.framework.amiga*"
@@ -103,4 +165,32 @@ updates:
       - dependency-name: "com.inditex.darwin.telemetry:darwin-telemetry-maven-extension"
         update-types: ["version-update:semver-major"]
       - dependency-name: "com.inditex.maven.release:maven-release-strategies"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "pip"
+    rebase-strategy: "disabled"
+    directory: "/code"
+    insecure-external-code-execution: allow
+    schedule:
+      interval: "weekly"
+      time: "03:00"
+      timezone: UTC
+    registries:
+      - inditex-poetry
+    labels:
+      - kind/dependency
+    allow:
+      # AMIGA Fwk Python
+      - dependency-name: "fwk-amigapython"
+        dependency-type: direct
+      - dependency-name: "amigapythonci"
+        dependency-type: direct
+      - dependency-name: "amigamlserver"
+        dependency-type: direct
+    ignore:
+      # Ignore major version update
+      - dependency-name: "fwk-amigapython"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "amigapythonci"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "amigamlserver"
         update-types: ["version-update:semver-major"]

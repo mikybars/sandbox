@@ -21,35 +21,23 @@ title: "Workflow: deploy-paas-instances"
 flowchart LR
     subgraph Execution
         direction TB
-        A --> B --> D
-        C --> D --> E --> F --> G
+        A --> B --> F
+        C --> F --> G
         G --> |OK| H
         G --> |KO| I
         H --> J --> K
         I --> K
         L -..-> B
-        M -....-> E
+
         A["
-            Validate
-            slots
+            Validate slots
         "]
         B("
-            Filter permutations
-            by Input
+            Filter permutations by coordinates
         ")
         C["
-            Get Affected
-            PRs
+            Get affected PRs by issue
         "]
-        D("
-            Init comment
-            on issue
-        ")
-        E("
-            Get PRs
-            information
-            for action
-        ")
         F("
             Action flow
             (see action diagrams)
@@ -76,10 +64,6 @@ flowchart LR
             if coordinates
             are empty
         "))
-        M(("
-            Approve -> OPEN
-            Restore -> MERGED
-        "))
     end
 
     subgraph Inputs
@@ -91,7 +75,11 @@ flowchart LR
             newline1["all actions"]
             newline2["
                 approve
-            restore
+                restore
+                cancel
+                continue
+                rollback
+                retry
             "]
             rollout
         end
@@ -115,241 +103,6 @@ flowchart LR
         end
     end
     Inputs --> Execution
-```
-
-### Approve action
-
-```mermaid
----
-title: "Workflow: deploy-paas-instances --action approve"
----
-flowchart LR
-    subgraph Approve
-        direction LR
-        A --> C
-        B --> C
-        C --> |"
-        Called N
-        times
-        for each
-        affected PR
-        "| 2-mimic
-        I --> J --> K
-        G --> J
-        H --> J
-        J -.- L
-        L -.- M
-        subgraph 1-prepare
-            A["
-                Get Mimic
-                token
-            "]
-            B["
-                Get user
-                from comment
-            "]
-            C["For each PR"]
-        end
-        subgraph 2-mimic
-            D --> E
-            E --> F
-            F --> |others| G
-            F --> |428| H
-            F --> |200| I
-            D["
-                Send approve
-                request to
-                mimic
-            "]
-            E["
-                Get response
-                from mimic
-            "]
-            F{"
-                http
-                code
-            "}
-            G["
-               Generic error
-               response
-            "]
-            H["
-                'Authorization needed'
-                response
-            "]
-            I["
-                Success
-                response
-            "]
-        end
-        subgraph 3-summary
-            J["
-                Merge all
-                responses
-            "]
-            K["
-                Return
-                responses
-                summary
-            "]
-            L("
-                Internally
-                Store if
-                Any Approve
-                Failed
-            ")
-            M(("
-                To use
-                in Merge
-                Workflow
-            "))
-        end
-    end
-
-```
-### Merge action
-
-```mermaid
----
-title: "Workflow: deploy-paas-instances --action merge"
----
-flowchart LR
-    subgraph Merge
-        direction LR
-        A --> C
-        B --> C
-        P --> |"NO"| Z
-        I --> J --> K
-        G --> J
-        H --> J
-        subgraph 2-prepare
-            Z["
-                Start Mimic
-                Operations
-            "]
-            A["
-                Get Mimic
-                token
-            "]
-            B["
-                Get user
-                from comment
-            "]
-            C["For each PR"]
-        end
-        C --> 3-approve
-        Z --> A
-        Z --> B
-        subgraph 4-merge
-            D --> E
-            E --> F
-            F --> |others| G
-            F --> |428| H
-            F --> |200| I
-            D["
-                Send Merge
-                request to
-                mimic
-            "]
-            E["
-                Get response
-                from mimic
-            "]
-            F{"
-                http
-                code
-            "}
-            G["
-               Generic error
-               response
-            "]
-            H["
-                'Authorization needed'
-                response
-            "]
-            I["
-                Success
-                response
-            "]
-        end
-        subgraph 5-summary
-            J["
-                Merge all
-                responses
-            "]
-            K["
-                Return
-                responses
-                summary
-            "]
-        end
-        subgraph 1-verify
-            subgraph internal-verification
-            direction LR
-                L["
-                    Check if 
-                    review by codeowner
-                    Required
-                "]
-                M["
-                    Check if user
-                    is codeowner
-                "]
-                N["
-                    User has permissions
-                "]
-                O["
-                    User in any
-                    codeowner 
-                    Group
-                "]
-                    OP["
-                    User 
-                    doesn't have 
-                    permissions
-                "]
-            end
-            P["
-                Check if any
-                missing permissions
-                in any PR 
-            "]
-            P["
-                Check if missing 
-                permissions
-                in any PR 
-            "]
-            Q["
-                Break full workflow
-            "]
-            L --> |"yes"| N
-            L --> |"no"| M
-            M --> |"yes"| N
-            M --> |"no"| O
-            P --> |"yes"| Q
-            P -.- |"Internally"| internal-verification
-            O --> |"no"| OP
-            O --> |"yes"| N
-            Q --> |"Send error"| K
-        end
-        subgraph 3-approve
-        R["
-                Execute Regular
-                approve workflow
-        "]
-        S["
-                Any error
-        "]
-        T["
-                Successful
-        "]
-        end
-        R --> S
-        R --> T
-        S --> |"Send error"| K
-        T -->  D
-    end
-
 ```
 
 ### Restore action
@@ -421,6 +174,68 @@ flowchart LR
                 Comment on
                 restore issue
                 with results
+            "]
+        end
+    end
+```
+
+### Cancel, merge & approve commands using MIMIC
+
+```mermaid
+---
+title: "Cancel, merge & approve commands using MIMIC"
+---
+
+flowchart LR
+    subgraph Mimic Actions : close - merge - approve
+        direction LR
+        1-init-mimic --> |"
+            Called N times
+            for each PR
+            in Workflow matrix
+        "| 2-execute-mimic --> |"
+            When all
+            executions finish
+        "| 3-summary-mimic
+        subgraph 1-init-mimic
+            A --> |OK| B --> C --> D -->|OK| E
+            A --> |KO| F
+            D --> |KO| F
+            A["Verify Comment Association"]
+            B["Get Affected PRs information"]
+            C["Get user"]
+            D["
+                   Check Pr permissions
+               (only cancel - merge commands)
+               "]
+            E["Add comment with started status"]
+            F["Add comment with error status"]
+        end
+        subgraph 2-execute-mimic
+            G --> H --> I --> J --> K
+            G["Get MIMIC token"]
+            H["Call Mimic approve previously if comand action is merge"]
+            I["
+                Call Mimic for action
+              (close - merge - approve)
+              "]
+            J["Delete deployment branch if comand action is cancel"]
+            K["Upload operation results"]
+        end
+        subgraph 3-summary-mimic
+            L --> M --> N
+            L["
+                Download all
+                artifacts
+            "]
+            M["
+                Prepare response
+                from
+                artifacts
+            "]
+            N["
+                Generate comment
+                with summary results
             "]
         end
     end

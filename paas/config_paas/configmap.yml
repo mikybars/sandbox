@@ -48,6 +48,12 @@ amiga:
           ping-query:
             enabled: true
             timeout: 2s
+        incomemeta:
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
+          ping-query:
+            enabled: true
+            timeout: 2s
   service:
     jms:
       listener:

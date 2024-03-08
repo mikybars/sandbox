@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <version>4.62.0-SNAPSHOT</version>
+  <version>4.63.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 
@@ -20,6 +20,7 @@
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
     <module>jacoco-report-aggregate</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-clients</module>
   </modules>
 
   <scm>

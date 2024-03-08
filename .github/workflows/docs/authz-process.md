@@ -11,8 +11,7 @@
 
 ## Where does it run?
 
-A `common` runner of the self-hosted
-[github-runners](https://github.com/inditex/github-runners).
+A [heimdal runner](https://github.com/inditex/app-heimdal/blob/main/icr/github/heimdal/runner.yml) of the self-hosted [inditex custom runners](https://icr.docs.inditex.dev/itxcr/latest/about-runners/overview.html).
 
 ## Steps
 

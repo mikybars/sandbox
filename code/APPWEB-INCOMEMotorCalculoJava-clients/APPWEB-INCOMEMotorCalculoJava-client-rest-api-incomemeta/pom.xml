@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.rrhh.icmclcwb</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava-clients</artifactId>
+    <version>4.63.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-incomemeta</artifactId>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>REST client for consuming mic-incomemeta services</description>
+
+  <properties>
+    <amiga.common.rest.generator.jsonConfigurationFile>openapi-generator-config.json</amiga.common.rest.generator.jsonConfigurationFile>
+    <amiga.common.rest.generator.generateClientAsBean>false</amiga.common.rest.generator.generateClientAsBean>
+    <income.incomemeta.openapi.version>1.5.0</income.incomemeta.openapi.version>
+    <income.incomemeta.openapi.status>stable</income.incomemeta.openapi.status>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.inditex.aqsw.framework.common</groupId>
+      <artifactId>common-framework-starter-rest-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.api</groupId>
+      <artifactId>income-mic-incomemeta-api-v3-rest-${income.incomemeta.openapi.status}</artifactId>
+      <version>${income.incomemeta.openapi.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>

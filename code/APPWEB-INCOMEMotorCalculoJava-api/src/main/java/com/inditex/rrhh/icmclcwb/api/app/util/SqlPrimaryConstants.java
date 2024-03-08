@@ -466,6 +466,10 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_RESULT_ESTADO = "ESTADO";
 
+  public static final String SQL_RESULT_ID_ORGANIZATION = "ID_ORGANIZATION";
+
+  public static final String SQL_RESULT_PUESTO = "PUESTO";
+
   private SqlPrimaryConstants() {
   }
 

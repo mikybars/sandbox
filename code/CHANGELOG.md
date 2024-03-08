@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.62.0] - 2024-03-07
+
+### Added
+
+- [ICMWEB-1539](https://axinic.central.inditex.grp/jira/browse/ICMWEB-1539) Cálculo. Análisis de cambios
+
 ## [4.61.0] - 2023-11-21
 
 ### Added
@@ -388,7 +394,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.61.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.0...main
+[4.62.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.61.0...4.62.0
 [4.61.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.60.0...4.61.0
 [4.60.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.59.0...4.60.0
 [4.59.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.58.0...4.59.0

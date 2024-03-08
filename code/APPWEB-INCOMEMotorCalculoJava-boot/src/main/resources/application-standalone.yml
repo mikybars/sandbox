@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  #port: 8080
+  port: 7070
 logging:
   level:
     root: WARN
@@ -49,6 +50,7 @@ amiga:
       default-encoding: UTF-8
     oauth2-client:
       default-client-config:
+        #uri-token: https://apigw-sscc-des.axdesocp1.central.inditex.grp/private/authenticate
         uri-token: https://sscc-int.axdesapigwlb.central.inditex.grp/private/authenticate
       clients:
         client-income:
@@ -118,10 +120,14 @@ amiga:
           client-name: client-income
           ping-query:
             enabled: false
-  #          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
-  #          auth-method: BASIC
-  #          username: oauthincomedes
-  #          password: '${oauthincomedes}'
+        #          base-url:  https://apigw-sscc-des.axdesocp1.central.inditex.grp/dqservice-srv/
+        #          auth-method: BASIC
+        #          username: oauthincomedes
+        #          password: '${oauthincomedes}'
+        incomemeta:
+          base-url: http://localhost:8080/incomemeta
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
   service:
     jms:
       listener:

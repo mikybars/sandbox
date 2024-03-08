@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  WORKFLOW_VERSION: 2.2.2
+  WORKFLOW_VERSION: 2.2.4
 
 jobs:
   gossip-analysis:

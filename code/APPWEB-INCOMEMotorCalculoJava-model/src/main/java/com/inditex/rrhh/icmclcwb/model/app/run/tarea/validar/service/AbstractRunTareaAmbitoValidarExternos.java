@@ -7,12 +7,19 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.ReglaEmpleadoExternoMeta4Service;
+import com.inditex.rrhh.icmclcwb.model.app.mapper.IdPersonaLocalExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta4Mapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +34,18 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
   @Autowired
   private TareaPersonaExternaRepositoryCustom tareaPersonaExternaRepositoryCustom;
 
+  @Autowired
+  private IncomeMetaService incomeMetaService;
+
+  @Autowired
+  private ReglaEmpleadoExternoMeta4Service reglaEmpleadoExternoMeta4Service;
+
+  @Autowired
+  private ReglaEmpleadoExternoMeta4Mapper reglaEmpleadoExternoMeta4Mapper;
+
+  @Autowired
+  private IdPersonaLocalExternaMapper idPersonaLocalExternaMapper;
+
   protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
       TareaAmbitoDto tareaAmbito);
 
@@ -40,6 +59,20 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
+
+    final ReglaEmpleadoExternoMeta4RequestDto request =
+        this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
+            runTarea.getTarea().getStdIdLegEnt());
+
+    if (request != null) {
+      final ExternosRequestDTO req = this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request);
+      req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
+      req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
+      final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
+
+      externos.addAll(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(excluidosMeta4));
+    }
+
     this.tareaPersonaExternaRepositoryCustom
         .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
             runTarea.getTarea()));
