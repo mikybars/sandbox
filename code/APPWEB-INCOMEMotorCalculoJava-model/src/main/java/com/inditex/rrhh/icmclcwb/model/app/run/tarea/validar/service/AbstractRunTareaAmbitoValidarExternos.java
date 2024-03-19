@@ -109,11 +109,13 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
         for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
           if (prevDate != null) {
             if (i == fechasTrabajadasSortedList.size() || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
-              externos.add(IdPersonaLocalExternaDto.builder()
-                  .idPersonaLocal(listaIntervalosEmpExterno.stream().findAny().get().getIdPersonaLocal())
-                  .fechaDesde(startDate)
-                  .fechaHasta(prevDate).build());
-              startDate = null;
+              if (listaIntervalosEmpExterno.stream().findFirst().isPresent()) {
+                externos.add(IdPersonaLocalExternaDto.builder()
+                    .idPersonaLocal(listaIntervalosEmpExterno.stream().findFirst().get().getIdPersonaLocal())
+                    .fechaDesde(startDate)
+                    .fechaHasta(prevDate).build());
+                startDate = null;
+              }
             }
           }
           if (startDate == null && i < fechasTrabajadasSortedList.size()) {
