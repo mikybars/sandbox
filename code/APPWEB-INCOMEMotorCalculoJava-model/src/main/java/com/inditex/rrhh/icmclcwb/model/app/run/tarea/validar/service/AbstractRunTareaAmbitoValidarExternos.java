@@ -86,8 +86,9 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
           excluidosMeta4.stream().collect(groupingBy(EmpleadoExternoDTO::getIdPersonaLocal));
 
       // Iteramos por cada empleado
-      for (final List<EmpleadoExternoDTO> listaIntervalosEmpExterno : excluidosMap.values()) {
+      for (final String idPersonaLocal : excluidosMap.keySet()) {
         final Set<LocalDate> fechasTrabajadas = new HashSet<>();
+        final List<EmpleadoExternoDTO> listaIntervalosEmpExterno = excluidosMap.get(idPersonaLocal);
 
         // Iteramos por cada intervalo perteneciente al empleado guardando las fechas en las que trabajo
         listaIntervalosEmpExterno.forEach(intervalo -> {
@@ -109,13 +110,11 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
         for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
           if (prevDate != null) {
             if (i == fechasTrabajadasSortedList.size() || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
-              if (listaIntervalosEmpExterno.stream().findFirst().isPresent()) {
-                externos.add(IdPersonaLocalExternaDto.builder()
-                    .idPersonaLocal(listaIntervalosEmpExterno.stream().findFirst().get().getIdPersonaLocal())
-                    .fechaDesde(startDate)
-                    .fechaHasta(prevDate).build());
-                startDate = null;
-              }
+              externos.add(IdPersonaLocalExternaDto.builder()
+                  .idPersonaLocal(idPersonaLocal)
+                  .fechaDesde(startDate)
+                  .fechaHasta(prevDate).build());
+              startDate = null;
             }
           }
           if (startDate == null && i < fechasTrabajadasSortedList.size()) {
