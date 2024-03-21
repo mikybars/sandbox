@@ -16,7 +16,7 @@ on:
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 2.5.0
+  WORKFLOW_VERSION: 2.6.0
   WORKING_DIR: code
   DOJO_USERNAME: ${{ secrets.SRVC_FTFAUDIT_USER }}
   DOJO_PASSWORD: ${{ secrets.SRVC_FTFAUDIT_PASSWORD }}
@@ -27,7 +27,7 @@ jobs:
     name: Snyk / Analysis execution
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -112,7 +112,7 @@ jobs:
           quality-gate-result: ${{ steps.snyk-qg-check.outputs.result }}
 
       - name: Upload snyk tests results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() && !cancelled() }}
         with:
           name: Snyk Report
