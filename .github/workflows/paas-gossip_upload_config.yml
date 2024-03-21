@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 2.2.4
+  WORKFLOW_VERSION: 2.3.0
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
   GOSSIP_SERVER_USER: oauthtoolgossippro
   GOSSIP_SERVER_PASS: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
@@ -18,10 +18,10 @@ jobs:
     runs-on: [self-hosted, sre]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Launch Gossip Server request
-        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v5
+        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v7
         with:
           gossip-server-url: ${{ env.GOSSIP_SERVER_URL }}
           gossip-server-username: ${{ env.GOSSIP_SERVER_USER }}
