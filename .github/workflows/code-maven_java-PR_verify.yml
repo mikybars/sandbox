@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.5.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -26,7 +26,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -102,7 +102,7 @@ jobs:
 
       - name: Maven / Process Surefire report and annotate PR
         if: ${{ always() && !cancelled() }}
-        uses: scacap/action-surefire-report@6efd3d10b5c1996a0724dd4c4915a073f685fefa
+        uses: scacap/action-surefire-report@a2911bd1a4412ec18dde2d93b1758b3e56d2a880
         with:
           fail_if_no_tests: false
           create_check: false
@@ -158,7 +158,7 @@ jobs:
         id: get-sonar-url
         env:
           PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
-        uses: inditex/actions/testing/get-sonar-url-from-api/@main
+        uses: inditex/gha-testing/get-sonar-url-from-api/@main
 
       - name: SonarQube / Run Sonar Maven goal
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
