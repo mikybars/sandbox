@@ -6,7 +6,7 @@ on:
     paths: ['monit/**', '.github/workflows/monit**']
 
 env:
-  WORKFLOW_VERSION: 1.45.0
+  WORKFLOW_VERSION: 1.46.0
 
 jobs:
   linter:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -34,7 +34,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
