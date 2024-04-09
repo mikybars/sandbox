@@ -6,7 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.service;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.model.app.util.FileUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.service.PrimaryServiceImpl;

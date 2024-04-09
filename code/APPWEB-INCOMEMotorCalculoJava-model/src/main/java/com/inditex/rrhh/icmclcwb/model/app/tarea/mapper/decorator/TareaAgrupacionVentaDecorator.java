@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAgrupacionVenta;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVentaMapper {
@@ -24,8 +25,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
   @Autowired
   private TareaAgrupacionVentaMapper delegate;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(TareaAgrupacionVentaDecorator.class);
 
   @Override
   public List<TareaAgrupacionVenta> ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
@@ -55,7 +55,7 @@ public abstract class TareaAgrupacionVentaDecorator extends TareaAgrupacionVenta
               .filter(x -> x.getCadenas().stream().anyMatch(y -> y.equals(item.getCadena().toString())))
               .findFirst();
           if (!optionalAgrupacion.isPresent()) {
-            log.warn("No hay agrupacion para la cadena: {}, id de tarea: {}", item.getCadena(),
+            LOG.warn("No hay agrupacion para la cadena: {}, id de tarea: {}", item.getCadena(),
                 tarea.getId());
           } else {
             idAgrupaciones.put(item.getCadena(), optionalAgrupacion.get().getId());

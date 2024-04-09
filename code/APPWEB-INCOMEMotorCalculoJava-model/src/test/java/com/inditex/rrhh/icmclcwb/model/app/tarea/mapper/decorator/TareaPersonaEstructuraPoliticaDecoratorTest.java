@@ -9,8 +9,8 @@ import static org.mockito.Mockito.doReturn;
 
 import java.util.List;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.test.randomizer.Random;
+import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoUnidadTiempoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPoliticaService;

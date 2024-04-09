@@ -6,7 +6,7 @@ import java.util.Map;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaValidarService;
 import com.inditex.rrhh.icmclcwb.service.ValidacionApi;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

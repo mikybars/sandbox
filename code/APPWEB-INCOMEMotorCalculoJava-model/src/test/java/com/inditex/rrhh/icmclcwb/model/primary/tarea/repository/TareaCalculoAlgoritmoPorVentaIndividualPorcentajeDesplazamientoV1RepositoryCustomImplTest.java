@@ -29,8 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.test.randomizer.Random;
+import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -107,8 +107,7 @@ class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repositor
   }
 
   @Test
-  public void getMapValuesTest(@Random AlgoritmoDTO algoritmo2) {
-
+  public void getMapValuesTest(@Random final AlgoritmoDTO algoritmo2) {
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();

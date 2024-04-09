@@ -59,6 +59,7 @@ amiga:
       meta4-executor:
         name: async-meta4-executor
         name-format: async-meta4-executor-%d
+        executor-type: THREAD_POOL 
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -67,6 +68,7 @@ amiga:
       ptr-venta-executor:
         name: async-ptr-venta-executor
         name-format: async-ptr-venta-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -75,6 +77,7 @@ amiga:
       ptr-presencia-executor:
         name: async-ptr-presencia-executor
         name-format: async-ptr-presencia-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -83,6 +86,7 @@ amiga:
       slrhorcoms-executor:
         name: async-slrhorcoms-executor
         name-format: async-slrhorcoms-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -91,6 +95,7 @@ amiga:
       repository-primary-executor:
         name: async-repository-primary-executor
         name-format: async-repository-primary-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -99,6 +104,7 @@ amiga:
       algoritmo-calculo-executor:
         name: async-algoritmo-calculo-executor
         name-format: async-algoritmo-calculo-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -107,6 +113,7 @@ amiga:
       calculo-executor:
         name: async-calculo-executor
         name-format: async-calculo-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -115,6 +122,7 @@ amiga:
       algoritmo-ajuste-executor:
         name: async-algoritmo-ajuste-executor
         name-format: async-algoritmo-ajuste-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -123,6 +131,7 @@ amiga:
       ajuste-executor:
         name: async-ajuste-executor
         name-format: async-ajuste-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -131,6 +140,7 @@ amiga:
       regularizar-executor:
         name: async-regularizar-executor
         name-format: async-regularizar-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -139,11 +149,14 @@ amiga:
       validacion-executor:
         name: async-validacion-executor
         name-format: async-validacion-executor-%d
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
         allow-core-thread-timeout: true
         keep-alive-time: 60s
+    metrics:
+      type: influx
   service:
     session:
       session-type: REMOTE
@@ -158,3 +171,7 @@ amiga:
       ui:
         title: '@project.name@'
         description: '@project.description@'
+    web:
+      api:
+        problem-details:
+          enabled: false

@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.AlgoritmoService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.service.AlgoritmoApi;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,9 +2,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Embeddable

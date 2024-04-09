@@ -27,20 +27,20 @@
 
     <!-- FWK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-api-validation</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-api-validation</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-aaa-oidc-ldap</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->
@@ -52,10 +52,6 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>

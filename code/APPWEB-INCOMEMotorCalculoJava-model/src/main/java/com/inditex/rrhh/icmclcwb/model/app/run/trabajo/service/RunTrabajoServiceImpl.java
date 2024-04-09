@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
@@ -29,8 +29,8 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

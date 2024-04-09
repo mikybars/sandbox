@@ -90,7 +90,7 @@ import stormpot.Timeout;
 
 public class Meta4ClientPool extends Meta4ClientPoolBase {
 
-  private static final Logger log = LoggerFactory.getLogger(Meta4ClientPool.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Meta4ClientPool.class);
 
   private final Meta4ClientFactory meta4ClientFactory;
 
@@ -106,7 +106,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
   }
 
   public void close() {
-    log.info("Inicio :: Meta4ClientPool :: close()");
+    LOG.info("Inicio :: Meta4ClientPool :: close()");
     try {
       this.pool.shutdown()
           .await(new Timeout(this.meta4ClientFactory.getMeta4ClientProperties().getShutdownTimeout(),
@@ -115,7 +115,7 @@ public class Meta4ClientPool extends Meta4ClientPoolBase {
       Thread.currentThread().interrupt();
       throw new Meta4IcmclcwbException(e.getMessage(), e);
     }
-    log.info("Fin :: Meta4ClientPool :: close()");
+    LOG.info("Fin :: Meta4ClientPool :: close()");
   }
 
   @Retryable(maxAttemptsExpression = "${app.envars.meta4.config.max-attempts}")

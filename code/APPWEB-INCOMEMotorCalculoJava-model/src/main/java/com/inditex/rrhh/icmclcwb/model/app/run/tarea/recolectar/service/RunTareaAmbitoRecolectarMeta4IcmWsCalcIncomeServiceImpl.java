@@ -115,9 +115,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -129,8 +130,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     extends AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
     implements RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.class);
 
   @Autowired
   @Qualifier(value = "recolectarProperties")
@@ -1314,7 +1314,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         AsyncUtils.exceptionally(
             this.tareaTipoHoraAsyncService.save(data, tarea), cf, cfPersist);
       } else {
-        this.log.warn("No hay tipos de hora comisionables para el origen: {}", tareaAmbitoDto.getCclIdOrigen());
+        RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.LOG.warn("No hay tipos de hora comisionables para el origen: {}",
+            tareaAmbitoDto.getCclIdOrigen());
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
     } catch (final Exception e) {

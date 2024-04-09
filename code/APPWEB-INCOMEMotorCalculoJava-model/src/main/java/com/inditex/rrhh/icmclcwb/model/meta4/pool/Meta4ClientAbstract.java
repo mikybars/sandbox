@@ -5,8 +5,8 @@ import java.io.Serializable;
 import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CxfUtils;
 
+import jakarta.xml.ws.BindingProvider;
 import javax.net.ssl.HttpsURLConnection;
-import javax.xml.ws.BindingProvider;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;

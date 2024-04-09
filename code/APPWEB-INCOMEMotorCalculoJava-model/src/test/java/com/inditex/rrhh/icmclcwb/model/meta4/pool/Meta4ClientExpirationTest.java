@@ -13,11 +13,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
-import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
-import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException;
-import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -27,9 +27,10 @@ import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertie
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
   @Qualifier("validarProperties")
   private ValidarPropertiesDto validarProperties;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaRecolectarValidarServiceImpl.class);
 
   @Autowired
   private TareaFaseService tareaFaseService;
@@ -136,7 +136,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
 
         if (CollectionUtils.isNotEmpty(runTareaValidarDuplicated)) {
           if (this.validarProperties.isLogging()) {
-            this.log.warn(
+            RunTareaRecolectarValidarServiceImpl.LOG.warn(
                 "Trabajo[{}]Tarea[{}] :: RunTareaRecolectarValidarServiceImpl :: Valores duplicados :: [{}]",
                 runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), runTareaValidarDuplicated);
           }

@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.amigafwk.service.aaa.userdetails.sso.model.UserSSO;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;

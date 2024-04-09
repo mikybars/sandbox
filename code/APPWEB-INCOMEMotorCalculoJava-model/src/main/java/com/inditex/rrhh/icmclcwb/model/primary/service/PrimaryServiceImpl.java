@@ -4,10 +4,11 @@ import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
 import com.inditex.rrhh.icmclcwb.model.app.util.FileUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryRepositoryCustom;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -18,8 +19,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class PrimaryServiceImpl implements PrimaryService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(PrimaryServiceImpl.class);
 
   @Autowired
   private PrimaryRepositoryCustom primaryRepositoryCustom;
@@ -29,14 +29,14 @@ public class PrimaryServiceImpl implements PrimaryService {
 
   @Override
   public Boolean loadDML(@Valid @NotBlank final String path) {
-    log.info("Inicio carga path {}", path);
+    LOG.info("Inicio carga path {}", path);
     Resource resource = FileUtils.getResource(this.resourceLoader, path);
-    log.info("Fin carga path {}", path);
-    log.info("Inicio load path {}", path);
+    LOG.info("Fin carga path {}", path);
+    LOG.info("Inicio load path {}", path);
 
     Boolean result = Boolean.FALSE;
     result = primaryRepositoryCustom.load(resource);
-    log.info("Fin load path {} con resultado {}", path, result);
+    LOG.info("Fin load path {} con resultado {}", path, result);
     return result;
   }
 

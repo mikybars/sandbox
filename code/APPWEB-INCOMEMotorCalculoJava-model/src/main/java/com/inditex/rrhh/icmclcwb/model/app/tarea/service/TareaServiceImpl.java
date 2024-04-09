@@ -25,9 +25,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryC
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

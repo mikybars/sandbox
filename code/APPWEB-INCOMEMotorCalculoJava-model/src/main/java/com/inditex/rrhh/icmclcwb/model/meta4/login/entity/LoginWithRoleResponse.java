@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import lombok.Getter;
 import org.jvnet.jaxb2_commons.lang.CopyStrategy2;
 import org.jvnet.jaxb2_commons.lang.CopyTo2;
@@ -146,8 +146,7 @@ public class LoginWithRoleResponse implements Serializable, Cloneable, CopyTo2, 
 
   public Object copyTo(final ObjectLocator locator, final Object target, final CopyStrategy2 strategy) {
     final Object draftCopy = ((target == null) ? this.createNewInstance() : target);
-    if (draftCopy instanceof LoginWithRoleResponse) {
-      final LoginWithRoleResponse copy = ((LoginWithRoleResponse) draftCopy);
+    if (draftCopy instanceof LoginWithRoleResponse copy) {
       {
         final Boolean loginWithRoleReturnShouldBeCopiedAndSet = strategy.shouldBeCopiedAndSet(locator, (this.loginWithRoleReturn != null));
         if (loginWithRoleReturnShouldBeCopiedAndSet == Boolean.TRUE) {

@@ -25,32 +25,32 @@
 
     <!-- FRAMEWORK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.data</groupId>
-      <artifactId>data-framework-starter-jpa</artifactId>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-reactor</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-reactor</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-rest-client</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-rest-client</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-retry</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-retry</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-metrics-annotation</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-metrics-annotation</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-mail</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-mail</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->
@@ -91,21 +91,21 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.test</groupId>
-      <artifactId>test-framework-randomizer</artifactId>
-      <version>${test-framework-randomizer.version}</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <version>${junit-jupiter-params.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.test</groupId>
+      <artifactId>test-starter-instancio</artifactId>
       <scope>test</scope>
     </dependency>
 

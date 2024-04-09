@@ -22,8 +22,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-rest-client</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-rest-client</artifactId>
     </dependency>
     <dependency>
       <groupId>com.inditex.api</groupId>

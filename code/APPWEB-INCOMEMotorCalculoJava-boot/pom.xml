@@ -24,36 +24,40 @@
 
     <!-- FWK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.data</groupId>
-      <artifactId>data-framework-starter-jpa</artifactId>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-async</artifactId>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-metrics-influx-kafka</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-rest-client</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-async</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-oauth2-client</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-rest-client</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-executor</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-oauth2-client</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-cache-datagrid-embedded</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-executor</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-cache-datagrid-remote</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-cache-datagrid-embedded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-cache-datagrid-remote</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -113,11 +117,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.test</groupId>
-      <artifactId>test-framework-randomizer</artifactId>
-      <version>3.3.0</version>
+      <groupId>com.inditex.amigafwk.test</groupId>
+      <artifactId>test-starter-instancio</artifactId>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 </project>

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,7 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
 
   private static final String LOG_MESSAGE = "Enviando petición a INCOMEMETA para {}...";
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(IncomeMetaServiceImpl.class);
 
   @Autowired
   @Qualifier("externosIncomeMetaApiClient")
@@ -28,8 +28,8 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
 
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
-    this.log.info(LOG_MESSAGE, "llamada al método de servicio FINDEXTERNOS");
-    this.log.info("INFO REQUEST: " + request);
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método de servicio FINDEXTERNOS");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + request);
     return this.externosApi.findExternos(request);
   }
 }

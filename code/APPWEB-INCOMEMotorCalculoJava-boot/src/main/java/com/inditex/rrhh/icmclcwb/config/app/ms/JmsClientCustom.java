@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.config.app.ms;
 
-import com.inditex.aqsw.framework.data.jms.JmsClient;
-import com.inditex.aqsw.framework.data.jms.JmsClientCustomizer;
+import com.inditex.amigafwk.data.jms.JmsClient;
+import com.inditex.amigafwk.data.jms.JmsClientCustomizer;
 import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
-import javax.jms.JMSException;
+import jakarta.jms.JMSException;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 

@@ -28,6 +28,8 @@ amiga:
           base-url: http://incomemeta.incomemeta.svc.cluster.local.:8080/incomemeta
           ping-query:
             path: http://incomemeta.incomemeta.svc.cluster.local.:8081/incomemeta/amiga/health
+    metrics:
+      type: influx
   data:
     jms:
       connection-factory:
@@ -470,6 +472,11 @@ amiga:
           readOnly: true
           data-source-properties:
             encrypt: false
+  service:
+    web:
+      api:
+        problem-details:
+          enabled: false
 app:
   envars:
     mail:

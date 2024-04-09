@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import java.lang.reflect.Method;
 import java.util.Collections;
 
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.WarningException;

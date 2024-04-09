@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

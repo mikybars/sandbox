@@ -1,4 +1,4 @@
-<code_scheme name="DIGITAL Engineering" version="185">
+<code_scheme name="Inditex" version="188">
   <option name="OTHER_INDENT_OPTIONS">
     <value>
       <option name="INDENT_SIZE" value="2" />
@@ -99,14 +99,10 @@
     <option name="INDENT_CHAINED_CALLS" value="false" />
   </TypeScriptCodeStyleSettings>
   <XML>
-    <option name="XML_ALIGN_ATTRIBUTES" value="false" />
-    <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
     <option name="XML_ATTRIBUTE_WRAP" value="0" />
+    <option name="XML_ALIGN_ATTRIBUTES" value="false" />
     <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
   </XML>
-  <yaml>
-    <option name="INDENT_SEQUENCE_VALUE" value="false" />
-  </yaml>
   <codeStyleSettings language="CSS">
     <indentOptions>
       <option name="INDENT_SIZE" value="2" />
@@ -147,6 +143,7 @@
     <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
     <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="0" />
     <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+    <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
     <option name="BLANK_LINES_BEFORE_PACKAGE" value="1" />
     <option name="BLANK_LINES_AROUND_FIELD" value="1" />
     <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />

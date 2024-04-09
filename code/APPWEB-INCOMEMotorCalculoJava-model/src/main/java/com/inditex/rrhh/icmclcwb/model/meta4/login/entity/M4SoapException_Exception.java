@@ -1,7 +1,7 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.login.entity;
 
-import javax.xml.ws.WebFault;
+import jakarta.xml.ws.WebFault;
 import lombok.Getter;
 
 /**
@@ -19,7 +19,7 @@ public class M4SoapException_Exception
    * -- GETTER --
    *
    * @return returns fault bean: com.inditex.rrhh.icmclcwb.model.meta4.login.entity.generated.M4SoapException
-   * 
+   *
    */
   private final M4SoapException faultInfo;
 

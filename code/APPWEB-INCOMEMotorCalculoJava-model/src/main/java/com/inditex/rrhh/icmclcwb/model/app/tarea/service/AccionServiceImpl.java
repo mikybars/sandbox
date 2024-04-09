@@ -7,9 +7,9 @@ import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.AccionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.AccionRepositoryCustom;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

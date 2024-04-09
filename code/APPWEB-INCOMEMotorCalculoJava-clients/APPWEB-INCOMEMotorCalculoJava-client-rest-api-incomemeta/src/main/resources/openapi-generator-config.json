@@ -2,7 +2,7 @@
     "typeMappings": {
         "OffsetDateTime": "java.time.LocalDateTime"
     },
-    "importMappings": {
+    "schemaMappings": {
         "java.time.OffsetDateTime": "java.time.LocalDateTime"
     }
 }

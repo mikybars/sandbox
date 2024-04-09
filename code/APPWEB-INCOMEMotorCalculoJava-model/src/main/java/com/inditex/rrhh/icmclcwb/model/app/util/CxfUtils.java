@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.CxfConstants;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.helpers.CastUtils;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CxfUtils {
 
-  private static final Logger log = LoggerFactory.getLogger(CxfUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CxfUtils.class);
 
   private CxfUtils() {
   }
@@ -132,7 +132,7 @@ public class CxfUtils {
         client.close();
       }
     } catch (final Exception e) {
-      log.error("Error cerrando el cliente cxf", e);
+      LOG.error("Error cerrando el cliente cxf", e);
     }
   }
 

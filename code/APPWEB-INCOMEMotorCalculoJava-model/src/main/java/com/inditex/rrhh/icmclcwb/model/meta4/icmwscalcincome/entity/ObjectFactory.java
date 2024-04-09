@@ -1,9 +1,9 @@
 
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 /**
@@ -2370,7 +2370,7 @@ public class ObjectFactory {
    * @return the new instance of {@link JAXBElement }{@code <}{@link M4SoapException }{@code >}
    */
   @XmlElementDecl(namespace = "http://schemas.meta4.com/", name = "fault")
-  public JAXBElement<M4SoapException> createFault(M4SoapException value) {
+  public JAXBElement<M4SoapException> createFault(final M4SoapException value) {
     return new JAXBElement<M4SoapException>(_Fault_QNAME, M4SoapException.class, null, value);
   }
 
