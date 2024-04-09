@@ -17,7 +17,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.9.0
+  WORKFLOW_VERSION: 2.11.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -42,7 +42,7 @@ jobs:
           echo "release-version=${RELEASE_TAG_NAME:-$INPUT_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.release-version.outputs.release-version }}
           fetch-depth: 0
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.identify-changes.outputs.release-version }}
           fetch-depth: 0
@@ -79,7 +79,7 @@ jobs:
         run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
 
       - name: Setup Maven Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.m2/repository
@@ -88,7 +88,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Setup asdf Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.asdf/data
