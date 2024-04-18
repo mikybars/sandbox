@@ -18,8 +18,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
@@ -49,9 +47,12 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -59,7 +60,7 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class RunTareaPrevalidarAntesServiceImplTest {
 
   @Mock
@@ -92,11 +93,9 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   @InjectMocks
   private RunTareaPrevalidarAntesServiceImpl runTareaPrevalidarAntesServiceImpl;
 
-  @Random
-  private RunTareaDto runTareaDto;
+  final RunTareaDto runTareaDto = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private FaseDto faseDto;
+  final FaseDto faseDto = Instancio.create(FaseDto.class);
 
   @Mock
   private RunPrevalidar runPrevalidar;
@@ -218,15 +217,16 @@ public class RunTareaPrevalidarAntesServiceImplTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   @Disabled
-  void runExceptionTest(@Random final TareaFaseDto tareaFase, @Random final AccionDto accionDto,
-      @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
-      @Random final TareaFaseAccionDto tareaFaseAccionDto,
-      @Random final CompletableFuture<List<ValidacionDto>> cfRun,
-      @Random final SincronizacionResponseDto sincronizacionResponseDto,
-      @Random final AccionDto accion) {
+  void runExceptionTest(final TareaFaseDto tareaFase, final AccionDto accionDto,
+      final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      final List<ValidacionDto> validacionDtoList,
+      final TareaFaseAccionDto tareaFaseAccionDto,
+      final CompletableFuture<List<ValidacionDto>> cfRun,
+      final SincronizacionResponseDto sincronizacionResponseDto,
+      final AccionDto accion) {
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)

@@ -30,8 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -44,9 +42,11 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -55,7 +55,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -103,12 +103,13 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
     assertEquals(personas, ids);
   }
 
-  @Test
-  public void getMapValuesTest(@Random AlgoritmoDTO algoritmo2) {
+  @ParameterizedTest
+  @InstancioSource
+  public void getMapValuesTest(final AlgoritmoDTO algoritmo2) {
 
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+            .thenReturn(List.of(new IdTipoDatoDto(1011)));
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -116,10 +117,10 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
     final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
     tipoComision1.setId("013");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
-        Arrays.asList(tipoComision1));
+        List.of(tipoComision1));
     when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
@@ -162,10 +163,10 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_INACTIVO));
     // tipocomision
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList("013"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(List.of("013"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
     // tipocalculo
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList("014"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(List.of("014"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
     // esDesplazamiento
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -174,7 +175,7 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     // tipoDatoLocalizacionPersonaPresencia
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-    assertEquals(Arrays.asList(1011), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
+    assertEquals(List.of(1011), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
     // excluido calculo
     assertTrue(result.containsKey(SQL_PARAM_EXCLUIDO_CALCULO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_EXCLUIDO_CALCULO));
@@ -194,7 +195,7 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
   public void calcularTest() {
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+            .thenReturn(List.of(new IdTipoDatoDto(1011)));
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);
     final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
@@ -202,10 +203,10 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
     final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
     tipoComision1.setId("013");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
-        Arrays.asList(tipoComision1));
+        List.of(tipoComision1));
     when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
@@ -253,10 +254,10 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_INACTIVO));
       // tipocomision
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
-      assertEquals(Arrays.asList("013"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+      assertEquals(List.of("013"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
       // tipocalculo
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
-      assertEquals(Arrays.asList("014"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+      assertEquals(List.of("014"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
       // esDesplazamiento
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -265,7 +266,7 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
       // tipoDatoPersonaPresencia
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-      assertEquals(Arrays.asList(1011),
+      assertEquals(List.of(1011),
           value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
       // excluido calculo
       assertTrue(value.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));

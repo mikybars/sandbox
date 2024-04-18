@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.challengepreciohoratiendase
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
@@ -11,8 +12,6 @@ import static org.mockito.Mockito.doThrow;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoCalculoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -22,16 +21,19 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RepositoryCustom;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmoTest {
 
   @Mock
@@ -50,22 +52,22 @@ class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmoTest {
   @InjectMocks
   ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmo challengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmo;
 
-  @Random
-  RunTareaDto runTarea;
+  final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
 
-  @Random
-  AlgoritmoDTO algoritmo;
+  final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
   @BeforeEach
-  void initExecuteTest(@Random(type = IdPersonaLocalDto.class, size = 2) List<IdPersonaLocalDto> ids,
-      @Random RunAlgoritmoCalculoPropertiesDto algoritmoCalculo, @Random CompletableFuture<Void> cfCalc) {
+  @ParameterizedTest
+  @InstancioSource
+  void initExecuteTest(final List<IdPersonaLocalDto> ids,
+      final RunAlgoritmoCalculoPropertiesDto algoritmoCalculo, final CompletableFuture<Void> cfCalc) {
 
     doReturn(ids).when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RepositoryCustom)
         .ids(this.algoritmo, this.runTarea.getTarea());
 
     doReturn(algoritmoCalculo).when(this.runAlgoritmoProperties).getCalculo();
 
-    for (List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, algoritmoCalculo.getBatchSize())) {
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, algoritmoCalculo.getBatchSize())) {
       doReturn(cfCalc).when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RepositoryCustom)
           .calcular(this.algoritmo, this.runTarea.getTarea(), personas);
     }
@@ -80,15 +82,17 @@ class ChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RunAlgoritmoTest {
   }
 
   @BeforeEach
-  void initExecuteExceptionTest(@Random(type = IdPersonaLocalDto.class, size = 2) List<IdPersonaLocalDto> ids,
-      @Random RunAlgoritmoCalculoPropertiesDto algoritmoCalculo, @Random CompletableFuture<Void> cfCalc) {
+  @ParameterizedTest
+  @InstancioSource
+  void initExecuteExceptionTest(final List<IdPersonaLocalDto> ids,
+      final RunAlgoritmoCalculoPropertiesDto algoritmoCalculo, final CompletableFuture<Void> cfCalc) {
 
     doReturn(ids).when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RepositoryCustom)
         .ids(this.algoritmo, this.runTarea.getTarea());
 
     doReturn(algoritmoCalculo).when(this.runAlgoritmoProperties).getCalculo();
 
-    for (List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, algoritmoCalculo.getBatchSize())) {
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, algoritmoCalculo.getBatchSize())) {
       doThrow(new RuntimeException())
           .when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionDesplazamientoBaseV1RepositoryCustom)
           .calcular(this.algoritmo, this.runTarea.getTarea(), personas);

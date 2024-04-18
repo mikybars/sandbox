@@ -9,10 +9,9 @@ import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -25,11 +24,14 @@ import com.inditex.rrhh.icmclcwb.model.app.service.VentaIntegraServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistoricoServiceImpl;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -37,7 +39,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
 
   @Mock
@@ -61,14 +63,11 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoValidarVentaIntegraServiceImpl runTareaAmbitoValidarVentaNoIntegraService;
 
-  @Random
-  private RunTareaDto runTarea;
+  final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private TareaAmbitoDto tareaAmbito;
+  final TareaAmbitoDto tareaAmbito = Instancio.create(TareaAmbitoDto.class);
 
-  @Random
-  private TareaFaseAccionDto tareaFaseAccion;
+  final TareaFaseAccionDto tareaFaseAccion = Instancio.create(TareaFaseAccionDto.class);
 
   @BeforeAll
   void setup() {
@@ -80,7 +79,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
   void executeExceptionTest() {
     doReturn(new ArrayList<IdLocalizacionEmpresaDto>()).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
-            this.tareaAmbito.getCclIdOrigen(), Arrays.asList(this.runTarea.getTarea().getStdIdLegEnt()));
+            this.tareaAmbito.getCclIdOrigen(), Collections.singletonList(this.runTarea.getTarea().getStdIdLegEnt()));
 
     this.runTareaAmbitoValidarVentaNoIntegraService.execute(this.runTarea, this.tareaAmbito, this.tareaFaseAccion);
 
@@ -89,8 +88,9 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
             Mockito.any(TareaAmbitoDto.class), Mockito.any(TareaFaseAccionDto.class), Mockito.eq(Boolean.TRUE));
   }
 
-  @Test
-  void executeTest(@Random(type = VentaIntegraDataResponseDto.class, size = 1) final List<VentaIntegraDataResponseDto> response) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeTest(final List<VentaIntegraDataResponseDto> response) {
 
     final List<IdLocalizacionEmpresaDto> tiendas = Arrays.asList(IdLocalizacionEmpresaDto.builder().id("T1").build(),
         IdLocalizacionEmpresaDto.builder().id("T2").build(),
@@ -99,7 +99,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
 
     doReturn(tiendas).when(this.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito)
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
-            this.tareaAmbito.getCclIdOrigen(), Arrays.asList(this.runTarea.getTarea().getStdIdLegEnt()));
+            this.tareaAmbito.getCclIdOrigen(), Collections.singletonList(this.runTarea.getTarea().getStdIdLegEnt()));
 
     doReturn(response).when(this.ventaIntegraService).getTiendasVentaNoIntegra(Mockito.any(VentaIntegraRequestDto.class));
 

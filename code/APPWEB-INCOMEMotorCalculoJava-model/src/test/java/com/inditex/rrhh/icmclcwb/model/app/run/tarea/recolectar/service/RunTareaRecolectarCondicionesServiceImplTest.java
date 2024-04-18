@@ -11,8 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
@@ -22,14 +20,17 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaRecolectarCondicionesServiceImplTest {
 
   @Mock
@@ -57,11 +58,11 @@ class RunTareaRecolectarCondicionesServiceImplTest {
   @InjectMocks
   private RunTareaRecolectarCondicionesServiceImpl RunTareaRecolectarCondicionesServiceImpl;
 
-  @Random
-  private RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Test
-  void runTest(@Random final CompletableFuture<Void> completableFuture) {
+  @ParameterizedTest
+  @InstancioSource
+  void runTest(final CompletableFuture<Void> completableFuture) {
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .ausenciasByRunTarea(this.runTarea);

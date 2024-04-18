@@ -9,8 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -20,14 +18,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaSer
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ComisServiceImplTest {
 
   @Mock
@@ -330,37 +330,42 @@ class ComisServiceImplTest {
         .findCondicionesResaltaSinChallenge(any(TareaDto.class));
   }
 
-  @Test
-  void findComisionManualTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito) {
+  @ParameterizedTest
+  @InstancioSource
+  void findComisionManualTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito) {
     this.comisServiceImpl.findComisionManual(runTarea, tareaAmbito);
     verify(this.comisRepositoryCustom, times(1)).findComisionManual(runTarea.getTarea());
   }
 
-  @Test
-  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto, @Random final Long maxIdPersona) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto, final Long maxIdPersona) {
     this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
     verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea(), maxIdPersona);
   }
 
-  @Test
-  void findPersonasSilEstadoNullTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
-      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasSilEstadoNullTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
+      final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(null);
     this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 
-  @Test
-  void findPersonasSilEstadoVacioTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
-      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasSilEstadoVacioTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
+      final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(new ArrayList<>());
     this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 
-  @Test
-  void findPersonasSilConEstadoTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto,
-      @Random final Long maxIdPersona, @Random final ClaseResultItemDto clase) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasSilConEstadoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
+      final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(Collections.singletonList("ea"));
     this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilConEstado(runTarea.getTarea(), maxIdPersona, clase);
@@ -400,8 +405,9 @@ class ComisServiceImplTest {
         .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
 
-  @Test
-  void validateTempComisRecuperarFranciaTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbitoDto) {
+  @ParameterizedTest
+  @InstancioSource
+  void validateTempComisRecuperarFranciaTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto) {
     this.comisServiceImpl.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1)).validateTempComisRecuperarFrancia(runTarea.getTarea());
   }

@@ -20,7 +20,8 @@
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
     <module>jacoco-report-aggregate</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-clients</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-rest-clients</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-soap-clients</module>
   </modules>
 
   <scm>

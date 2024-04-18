@@ -9,11 +9,6 @@ import jakarta.validation.constraints.Positive;
 
 public interface AlgoritmoService {
 
-  AlgoritmoDTO findByTipoCalculoId(@NotNull @Positive Long id);
-
-  AlgoritmoDTO findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive Long idTipoCalculo,
-      @NotNull @Positive Long idTipoComision);
-
   AlgoritmoDTO findById(@NotNull @Positive Integer id);
 
   List<AlgoritmoDTO> findAll();

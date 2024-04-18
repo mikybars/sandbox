@@ -8,11 +8,11 @@ import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsClient;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsConnectionFactory;
 import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryBuilder;
+import com.inditex.amigafwk.service.jms.annotation.AmigaJmsListenerContainerFactory;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -33,8 +33,7 @@ public class JmsConfig {
     return builder.type(JmsConnectionFactoryType.NONXA).build();
   }
 
-  @Bean
-  @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.trabajo")
+  @AmigaJmsListenerContainerFactory("trabajo")
   public JmsListenerContainerFactory trabajoContainerFactoryListener(
       @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
       final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
@@ -44,8 +43,7 @@ public class JmsConfig {
         .build();
   }
 
-  @Bean
-  @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.tarea")
+  @AmigaJmsListenerContainerFactory("tarea")
   public JmsListenerContainerFactory tareaContainerFactoryListener(
       @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
       final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
@@ -55,8 +53,7 @@ public class JmsConfig {
         .build();
   }
 
-  @Bean
-  @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.limpieza")
+  @AmigaJmsListenerContainerFactory("limpieza")
   public JmsListenerContainerFactory limpiezaContainerFactoryListener(
       @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
       final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {
@@ -66,8 +63,7 @@ public class JmsConfig {
         .build();
   }
 
-  @Bean
-  @ConfigurationProperties(prefix = "amiga.data.jms.listener-container-factory.programacion")
+  @AmigaJmsListenerContainerFactory("programacion")
   public JmsListenerContainerFactory programacionContainerFactoryListener(
       @Qualifier("connectionFactoryLectura") final ConnectionFactory cf,
       final JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder) {

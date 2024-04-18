@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Map;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
@@ -19,7 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTo
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
 
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +27,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 @Disabled
 public class PtrPresenciaServiceTest {
 
@@ -59,7 +58,7 @@ public class PtrPresenciaServiceTest {
     final ResponseEntity<PtrPresenciaDetalleResponseDto> response = this.ptrPresenciaClient
         .postForEntity(this.presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_DETALLE).getEndpoint(), req,
             PtrPresenciaDetalleResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -76,7 +75,7 @@ public class PtrPresenciaServiceTest {
     final ResponseEntity<PtrPresenciaTotalizadoResponseDto> ret = this.ptrPresenciaClient.postForEntity(
         this.presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TOTALIZADO).getEndpoint(), req,
         PtrPresenciaTotalizadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, ret.getStatusCode().value());
   }
 
   @Test
@@ -93,7 +92,7 @@ public class PtrPresenciaServiceTest {
     final ResponseEntity<PtrPresenciaTiendasEmpleadoResponseDto> ret = this.ptrPresenciaClient.postForEntity(
         this.presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
         PtrPresenciaTiendasEmpleadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, ret.getStatusCode().value());
   }
 
   @Test
@@ -110,7 +109,7 @@ public class PtrPresenciaServiceTest {
     final ResponseEntity<PtrPresenciaTiendasEmpleadoResponseDto> ret = this.ptrPresenciaClient.postForEntity(
         this.presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIENDAS_EMPLEADO).getEndpoint(), req,
         PtrPresenciaTiendasEmpleadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, ret.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, ret.getStatusCode().value());
   }
 
   @Test
@@ -122,7 +121,7 @@ public class PtrPresenciaServiceTest {
         .postForEntity(this.presenciasProperties.get(PtrPropertiesConstants.PRESENCIA_TIPOS_HORAS).getEndpoint(),
             req,
             PtrPresenciaTiposHorasResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, ret2.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, ret2.getStatusCode().value());
   }
 
 }

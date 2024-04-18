@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -35,8 +33,11 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -46,7 +47,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
 
   @Mock
@@ -81,24 +82,24 @@ class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
   @InjectMocks
   RunTareaAmbitoRecolectarSlrhorcomsServiceImpl runTareaAmbitoRecolectarSlrhorcomsServiceImpl;
 
-  @Random
-  RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  TareaAmbitoDto tareaAmbito;
+  TareaAmbitoDto tareaAmbito = Instancio.create(TareaAmbitoDto.class);
 
-  @Test
-  void horarioComercialFestivoByRunTareaAndTareaAmbito(@Random(type = IdEmpresaDto.class, size = 1) List<IdEmpresaDto> idEmpresaDtoList,
-      @Random(type = IdLocalizacionLocalDto.class, size = 1) List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList,
-      @Random SlrhorcomsPropertiesDto slrhorcomsPropertiesDto,
-      @Random HorarioComercialFestivosRequestDto request,
-      @Random CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos,
-      @Random ResponseDto<HorarioComercialFestivoDocDto> data,
-      @Random CompletableFuture<Void> cfSave) {
+  @ParameterizedTest
+  @InstancioSource
+  void horarioComercialFestivoByRunTareaAndTareaAmbito(
+      final List<IdEmpresaDto> idEmpresaDtoList,
+      final List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList,
+      final SlrhorcomsPropertiesDto slrhorcomsPropertiesDto,
+      final HorarioComercialFestivosRequestDto request,
+      final CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos,
+      final ResponseDto<HorarioComercialFestivoDocDto> data,
+      final CompletableFuture<Void> cfSave) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
-      ResponseDto<HorarioComercialFestivoDocDto> spiedData = Mockito.spy(data);
+      final ResponseDto<HorarioComercialFestivoDocDto> spiedData = Mockito.spy(data);
       Mockito.when(spiedData.isHasNext()).thenReturn(false);
 
       utilities.when(() -> AsyncUtils.get(cfHorarioComercialFestivos))
@@ -107,14 +108,14 @@ class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
       doReturn(true).when(this.tareaPersonaEstructuraService).calcularFestivos(this.runTarea.getTarea());
 
       doReturn(idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
-      List<String> empresasAmbito = idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+      final List<String> empresasAmbito = idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
 
       doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
               this.tareaAmbito.getCclIdOrigen(), empresasAmbito);
       doReturn(slrhorcomsPropertiesDto).when(this.slrhorcomsProperties)
           .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO);
-      List<IdLocalizacionLocalDto> iter =
+      final List<IdLocalizacionLocalDto> iter =
           StreamUtils.partition(idLocalizacionLocalDtoList, slrhorcomsPropertiesDto.getMaxFilterSize())
               .stream().findFirst().orElse(null);
 

@@ -9,11 +9,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -25,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.Catalogo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
+import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -32,7 +31,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class PtrServiceImplTest {
 
   @Mock
@@ -44,11 +43,9 @@ public class PtrServiceImplTest {
   @InjectMocks
   private PtrServiceImpl ptrServiceImpl;
 
-  @Random
-  private RunTareaDto runTareaDto;
+  final RunTareaDto runTareaDto = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private TareaAmbitoDto tareaAmbito;
+  final TareaAmbitoDto tareaAmbito = Instancio.create(TareaAmbitoDto.class);
 
   private static final String ORIGEN = "11";
 
@@ -97,9 +94,9 @@ public class PtrServiceImplTest {
     this.tareaAmbito.setCclIdOrigen("11");
 
     doReturn(null).when(this.meta4IcmWsCalcIncomeService).getCatalogo(CatalogoRequestDto
-        .builder().cclIdOrigen(tareaAmbito.getCclIdOrigen())
-        .items(Arrays.asList(CatalogoRequestItemDto
-            .builder().stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt()).build()))
+        .builder().cclIdOrigen(this.tareaAmbito.getCclIdOrigen())
+        .items(Collections.singletonList(CatalogoRequestItemDto
+            .builder().stdIdLegEnt(this.runTareaDto.getTarea().getStdIdLegEnt()).build()))
         .build());
 
     assertThrows(IcmclcwbException.class, () -> {

@@ -5,18 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
 
   @InjectMocks
@@ -26,9 +25,10 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
     return Mockito.mock(ReglaEmpleadoExternoMeta4MapperDecorator.class, Mockito.CALLS_REAL_METHODS);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoTest(
-      @Random(size = 2, type = ReglaEmpleadoExternoMeta4Dto.class) final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
+      final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 
     final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
         .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
@@ -36,9 +36,10 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
     assertNotNull(result);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoNullTest(
-      @Random(size = 0, type = ReglaEmpleadoExternoMeta4Dto.class) final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
+      final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 
     final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
         .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);

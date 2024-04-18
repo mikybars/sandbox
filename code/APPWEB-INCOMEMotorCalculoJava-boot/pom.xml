@@ -21,6 +21,11 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-client-soap-api-incomemotorcalculometa</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- FWK DEPENDENCIES -->
     <dependency>
@@ -42,6 +47,10 @@
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>
       <artifactId>common-starter-rest-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-soap-client-cxf</artifactId>
     </dependency>
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>

@@ -3,23 +3,23 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.procesar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraDesplazamientoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustomImpl;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaProcesarCondicionesServiceImplTest {
 
   @Mock
@@ -34,8 +34,9 @@ class RunTareaProcesarCondicionesServiceImplTest {
   @InjectMocks
   private RunTareaProcesarCondicionesServiceImpl runTareaProcesarCondicionesService;
 
-  @Test
-  void igualarBandasOrigenDestinoTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void igualarBandasOrigenDestinoTest(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.igualarBandasOrigenDestino(tarea);
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempBandasOrigenSinBandaDesplazamiento();
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertBandasOrigenSinBandaDesplazamiento(tarea);
@@ -44,8 +45,9 @@ class RunTareaProcesarCondicionesServiceImplTest {
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).deleteTempBandasOrigenSinBandaDesplazamiento();
   }
 
-  @Test
-  void establecerBandaOpcionOrigen(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void establecerBandaOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.establecerBandaOpcionOrigen(tarea);
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempEstructurasBaseChallenge();
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).indexTempEstructurasBaseChallenge();
@@ -59,26 +61,30 @@ class RunTareaProcesarCondicionesServiceImplTest {
 
   }
 
-  @Test
-  void crearChallengeOpcionOrigen(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void crearChallengeOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.crearChallengeOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearChallengeOpcionOrigen(tarea);
   }
 
-  @Test
-  void desactivarChallengeOpcionOrigen(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void desactivarChallengeOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.desactivarChallengeOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarChallengeOpcionOrigen(tarea);
   }
 
-  @Test
-  void crearGlobalSeccionOpcionOrigen(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void crearGlobalSeccionOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.crearGlobalSeccionOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearGlobalSeccionOpcionOrigen(tarea);
   }
 
-  @Test
-  void desactivarGlobalSeccionOpcionOrigen(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void desactivarGlobalSeccionOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.desactivarGlobalSeccionOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarGlobalSeccionOpcionOrigen(tarea);
   }

@@ -26,6 +26,12 @@ app:
         type: 2
 amiga:
   common:
+    soap:
+      client:
+        login:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+        meta4:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
     rest:
       client:
         health:
@@ -164,8 +170,10 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
+      local:
+        enable-local-test: true
       user-details:
-        sso:
+        heimdal:
           application-id: AppINCOMEMotorCalculoJava
     rest-swagger:
       ui:
@@ -175,3 +183,6 @@ amiga:
       api:
         problem-details:
           enabled: false
+    cxf:
+      generator:
+        packageMapping: http://schemas.meta4.com/=com.meta4.login

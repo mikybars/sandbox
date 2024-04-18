@@ -3,25 +3,25 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
 
   @Spy
@@ -32,8 +32,9 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
     return Mockito.mock(AbstractTareaCalculoAjusteBaseRepositoryCustom.class, Mockito.CALLS_REAL_METHODS);
   }
 
-  @Test
-  void ajustarSqlAjustarNullTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @ParameterizedTest
+  @InstancioSource
+  void ajustarSqlAjustarNullTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustar();
 
@@ -43,8 +44,9 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
 
   }
 
-  @Test
-  void getSqlAjustarTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @ParameterizedTest
+  @InstancioSource
+  void getSqlAjustarTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn("sql").when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
 
@@ -53,8 +55,9 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
     assertNotNull(result);
   }
 
-  @Test
-  void getSqlAjustarSqlAjustarBaseNullTest(@Random final AlgoritmoAjusteDto algoritmoAjuste) {
+  @ParameterizedTest
+  @InstancioSource
+  void getSqlAjustarSqlAjustarBaseNullTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
 

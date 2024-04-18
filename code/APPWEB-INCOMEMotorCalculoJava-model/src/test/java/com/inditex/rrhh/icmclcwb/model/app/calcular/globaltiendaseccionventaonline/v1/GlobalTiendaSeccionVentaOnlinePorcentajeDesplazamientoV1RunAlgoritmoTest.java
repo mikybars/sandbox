@@ -11,8 +11,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -31,7 +29,7 @@ import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
@@ -52,7 +50,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
   private GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo globalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo;
 
   @Test
-  void getSqlCalcularTest(@Random final AlgoritmoDTO algoritmo) {
+  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -67,8 +65,8 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
   }
 
   @Test
-  void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  void calcularTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -97,8 +95,8 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
   }
 
   @Test
-  void calcularExceptionTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),

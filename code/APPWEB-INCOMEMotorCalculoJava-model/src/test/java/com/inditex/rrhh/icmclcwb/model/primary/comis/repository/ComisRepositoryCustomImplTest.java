@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
@@ -38,9 +36,11 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustomImpl;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
@@ -51,7 +51,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ComisRepositoryCustomImplTest {
 
   private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
@@ -357,9 +357,10 @@ class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
   }
 
-  @Test
-  void findCondicionesDesplazamientoTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
-      @Random final IdPersonaLocalCondicionesDto condiciones) {
+  @ParameterizedTest
+  @InstancioSource
+  void findCondicionesDesplazamientoTest(final TareaDto tarea, final PeriodoDto periodo,
+      final IdPersonaLocalCondicionesDto condiciones) {
 
     // Propiedades de la clase resultado que no se usan en la consulta
     condiciones.setCclIdCodOrigen(null);
@@ -405,9 +406,10 @@ class ComisRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void findCondicionesDesplazamientoEsTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
-      @Random final IdPersonaLocalCondicionesDto condiciones) {
+  @ParameterizedTest
+  @InstancioSource
+  void findCondicionesDesplazamientoEsTest(final TareaDto tarea, final PeriodoDto periodo,
+      final IdPersonaLocalCondicionesDto condiciones) {
 
     // Propiedades de la clase resultado que no se usan en la consulta
     condiciones.setCclIdCodOrigen(null);
@@ -765,9 +767,10 @@ class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
   }
 
-  @Test
-  void findCondicionesDesplazamientoSinChallengeTest(@Random final TareaDto tarea, @Random final PeriodoDto periodo,
-      @Random final IdPersonaLocalCondicionesDto condiciones) {
+  @ParameterizedTest
+  @InstancioSource
+  void findCondicionesDesplazamientoSinChallengeTest(final TareaDto tarea, final PeriodoDto periodo,
+      final IdPersonaLocalCondicionesDto condiciones) {
 
     // Propiedades de la clase resultado que no se usan en la consulta
     condiciones.setCclIdCodOrigen(null);
@@ -833,8 +836,9 @@ class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_HASTA));
   }
 
-  @Test
-  void findComisionManual(@Random final TareaDto tarea, @Random final IdPersonaLocalComisionManualDto result) {
+  @ParameterizedTest
+  @InstancioSource
+  void findComisionManual(final TareaDto tarea, final IdPersonaLocalComisionManualDto result) {
 
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any())).thenAnswer((invocation) -> {
@@ -862,9 +866,10 @@ class ComisRepositoryCustomImplTest {
     assertEquals(result, comisiones.get(0));
   }
 
-  @Test
-  void findPersonasTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
-      @Random final Long maxIdEmpleado) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
+      final Long maxIdEmpleado) {
 
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
@@ -892,9 +897,10 @@ class ComisRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void findPersonasSilSinEstadoTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
-      @Random final Long maxIdEmpleado, @Random final ClaseResultItemDto clase) {
+  @ParameterizedTest
+    @InstancioSource
+    void findPersonasSilSinEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
+      final Long maxIdEmpleado, final ClaseResultItemDto clase) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
           final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
@@ -921,9 +927,10 @@ class ComisRepositoryCustomImplTest {
     assertEquals(result, personas.get(0));
   }
 
-  @Test
-  void findPersonasSilConEstadoTest(@Random final TareaDto tarea, @Random final IdPersonaLocalLocalizacionDto result,
-      @Random final Long maxIdEmpleado, @Random final ClaseResultItemDto clase) {
+  @ParameterizedTest
+    @InstancioSource
+    void findPersonasSilConEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
+      final Long maxIdEmpleado, final ClaseResultItemDto clase) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
           final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
@@ -999,8 +1006,9 @@ class ComisRepositoryCustomImplTest {
     assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_DESDE_AMPLIADO));
   }
 
-  @Test
-  void validateTempComisRecuperarFrancia(@Random final IdPersonaLocalDto result) {
+  @ParameterizedTest
+    @InstancioSource
+    void validateTempComisRecuperarFrancia(final IdPersonaLocalDto result) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
           final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);

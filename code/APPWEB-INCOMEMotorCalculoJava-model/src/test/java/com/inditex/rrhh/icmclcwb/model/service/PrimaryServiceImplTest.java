@@ -6,7 +6,6 @@ package com.inditex.rrhh.icmclcwb.model.service;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.model.app.util.FileUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.service.PrimaryServiceImpl;
@@ -22,7 +21,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class PrimaryServiceImplTest {
 
   @Mock
@@ -42,7 +41,7 @@ class PrimaryServiceImplTest {
 
   @Test
   void loadDMLTest() {
-    try (MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
+    try (final MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
       utilities.when(() -> FileUtils.getResource(this.resourceLoader, ""))
           .thenReturn(this.resource);
 
@@ -56,7 +55,7 @@ class PrimaryServiceImplTest {
 
   @Test
   void changelogDMLTest() {
-    try (MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
+    try (final MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
       utilities.when(() -> FileUtils.getResource(this.resourceLoader, "changelog-primary-dml.md"))
           .thenReturn(this.resource);
 
@@ -68,7 +67,7 @@ class PrimaryServiceImplTest {
 
   @Test
   void changelogDDLTest() {
-    try (MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
+    try (final MockedStatic<FileUtils> utilities = Mockito.mockStatic(FileUtils.class)) {
       utilities.when(() -> FileUtils.getResource(this.resourceLoader, "changelog-primary-ddl.md"))
           .thenReturn(this.resource);
 

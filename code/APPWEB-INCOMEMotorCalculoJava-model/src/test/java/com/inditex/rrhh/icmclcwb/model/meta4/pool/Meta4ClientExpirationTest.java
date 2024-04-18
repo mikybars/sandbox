@@ -13,6 +13,10 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
+import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -113,7 +117,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredLoginServiceNotRetrievedLoginTest()
-      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -132,7 +136,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredIcmWsCalcIncomeServiceNotRetrievedLoginTest()
-      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -151,7 +155,7 @@ class Meta4ClientExpirationTest {
 
   @Test
   void hasExpiredFalseTest()
-      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception,
+      throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException,
       com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.M4SoapException_Exception {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
@@ -174,15 +178,16 @@ class Meta4ClientExpirationTest {
   }
 
   @Test
-  void hasExpiredExceptionTest() throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException_Exception {
+  void hasExpiredExceptionTest() throws com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException {
     final Meta4ClientSession session = new Meta4ClientSession();
     session.setId("SESION");
     session.setLogin(true);
     when(this.poolable.getSession()).thenReturn(session);
     when(this.poolable.getLoginService()).thenReturn(this.loginService);
     when(this.poolable.getIcmWsCalcIncomeService()).thenReturn(this.icmWsCalcIncomeService);
-    final M4SoapException_Exception exception = new M4SoapException_Exception("",
-        new M4SoapException());
+    final com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException exception =
+        new com.inditex.rrhh.icmclcwb.model.meta4.login.entity.M4SoapException("",
+            new M4SoapException());
     doThrow(exception)
         .when(this.loginService)
         .retrieveM4Session(any(String.class));

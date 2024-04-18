@@ -1,6 +1,5 @@
 server:
-  #port: 8080
-  port: 7070
+  port: 8080
 logging:
   level:
     root: WARN
@@ -35,6 +34,16 @@ amiga:
           counter:
             enabled: true
   common:
+    soap:
+      client:
+        login:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+          username: SRVCICMCLCWSDESAX
+          password: '${SRVCICMCLCWSDESAX}'
+        meta4:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+          username: SRVCICMCLCWSDESAX
+          password: '${SRVCICMCLCWSDESAX}'
     core:
       is-production: false
     cache:
@@ -240,7 +249,14 @@ amiga:
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'
-          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
+          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
+          jdbc-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            loginTimeout: 10
+            connectionTimeout: 60
+            timerLevelForQueryTimeOut: 2
+            interruptProcessingMode: 2
+            currentSchema: GESTION_COMISION
             #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
             #          user: oincome

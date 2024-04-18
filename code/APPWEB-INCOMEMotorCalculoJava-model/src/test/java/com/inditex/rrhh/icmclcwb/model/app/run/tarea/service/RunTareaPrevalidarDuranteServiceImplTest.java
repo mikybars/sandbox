@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +19,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
@@ -51,9 +49,12 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -61,7 +62,7 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class RunTareaPrevalidarDuranteServiceImplTest {
 
   @Mock
@@ -94,14 +95,11 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
   @InjectMocks
   private RunTareaPrevalidarDuranteServiceImpl runTareaPrevalidarDuranteServiceImpl;
 
-  @Random
-  private RunTareaDto runTareaDto;
+  final RunTareaDto runTareaDto = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private FaseDto faseDto;
+  final FaseDto faseDto = Instancio.create(FaseDto.class);
 
-  @Random
-  private AccionDto accionDto;
+  final AccionDto accionDto = Instancio.create(AccionDto.class);
 
   @Mock
   private RunPrevalidar runPrevalidar;
@@ -150,8 +148,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
-    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
-        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+    final List<TareaFaseAccionDto> tareaFaseAccion =
+        Collections.singletonList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
         any(Long.class),
@@ -165,7 +163,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     final ValidacionDto validacion = new ValidacionDto();
     validacion.setResult(Boolean.TRUE);
     validacion.setIdTareaFaseAccion(1L);
-    cfValid.complete(Arrays.asList(validacion));
+    cfValid.complete(List.of(validacion));
 
     when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
     when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
@@ -192,8 +190,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
-    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
-        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+    final List<TareaFaseAccionDto> tareaFaseAccion =
+        Collections.singletonList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
         any(Long.class),
@@ -217,8 +215,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     validacion.setResult(Boolean.FALSE);
     validacion.setIdTareaFaseAccion(1L);
     validacion.setSincronizacion(Boolean.TRUE);
-    validacion.setIdPersonaLocal(Arrays.asList("111"));
-    cfValid.complete(Arrays.asList(validacion));
+    validacion.setIdPersonaLocal(List.of("111"));
+    cfValid.complete(List.of(validacion));
 
     when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
     when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);
@@ -233,13 +231,14 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
 
   }
 
-  @Test
-  void runExceptionTest(@Random final AccionDto accion,
-      @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      @Random final CompletableFuture<List<ValidacionDto>> cfRun, @Random final TareaFaseDto tareaFase,
-      @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
-      @Random final TareaFaseAccionDto tareaFaseAccionDto,
-      @Random final SincronizacionResponseDto sincronizacionResponseDto) {
+  @ParameterizedTest
+  @InstancioSource
+  void runExceptionTest(final AccionDto accion,
+      final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      final CompletableFuture<List<ValidacionDto>> cfRun, final TareaFaseDto tareaFase,
+      final List<ValidacionDto> validacionDtoList,
+      final TareaFaseAccionDto tareaFaseAccionDto,
+      final SincronizacionResponseDto sincronizacionResponseDto) {
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
@@ -329,8 +328,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
-    final List<TareaFaseAccionDto> tareaFaseAccion = Arrays
-        .asList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
+    final List<TareaFaseAccionDto> tareaFaseAccion =
+        Collections.singletonList(TareaFaseAccionDto.builder().peso(100).idTareaFase(1L).idAccion(1).build());
 
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
         any(Long.class),
@@ -354,8 +353,8 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
     validacion.setResult(Boolean.FALSE);
     validacion.setIdTareaFaseAccion(1L);
     validacion.setSincronizacion(Boolean.TRUE);
-    validacion.setIdPersonaLocal(Arrays.asList("111"));
-    cfValid.complete(Arrays.asList(validacion));
+    validacion.setIdPersonaLocal(List.of("111"));
+    cfValid.complete(List.of(validacion));
 
     when(this.runPrevalidarFactory.getRunPrevalidar(any(String.class))).thenReturn(service);
     when(service.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class))).thenReturn(cfValid);

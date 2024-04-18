@@ -5,10 +5,10 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
@@ -25,7 +25,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 
 @Disabled
 public class PtrVentaEcommerceServiceTest {
@@ -54,14 +54,14 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_LIST());
     request.setPais(PtrTestConstants.PAIS);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA));
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
     // request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
     final ResponseEntity<PtrVentaOnlineIpodResponseDto> response = this.ptrVentaClient
         .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD).getEndpoint(),
             request, PtrVentaOnlineIpodResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -70,7 +70,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_LIST());
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA));
     request.setPais(PtrTestConstants.PAIS);
     request.setAgrupacion(PtrGroupSellerTypeEnum.OPERACION_FECHA_VENDEDOR_TIENDA);
     request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_FALSE);
@@ -79,7 +79,7 @@ public class PtrVentaEcommerceServiceTest {
             this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_IPOD_INDIVIDUAL_DETALLE)
                 .getEndpoint(),
             request, PtrVentaOnlineIpodIndividualDetalleResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -89,7 +89,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST2());
     request.setPais(PtrTestConstants.PAIS);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
     request.setCadena(PtrTestConstants.getCADENA_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_CADENA);
     request.setPais(PtrTestConstants.PAIS);
@@ -99,7 +99,7 @@ public class PtrVentaEcommerceServiceTest {
                 .getEndpoint(),
             request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -109,7 +109,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST2());
     request.setPais(PtrTestConstants.PAIS);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
     request.setAgruparSeccion(PtrTestConstants.AGRUPAR_SECCION_TRUE);
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     final ResponseEntity<PtrVentaOnlineEntregaDomicilioResponseDto> response = this.ptrVentaClient
@@ -118,7 +118,7 @@ public class PtrVentaEcommerceServiceTest {
                 .getEndpoint(),
             request, PtrVentaOnlineEntregaDomicilioResponseDto.class);
 
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -126,7 +126,7 @@ public class PtrVentaEcommerceServiceTest {
     final PtrVentaOnlineEntregaTiendaRequestDto request = new PtrVentaOnlineEntregaTiendaRequestDto();
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
     request.setPais(PtrTestConstants.PAIS);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST2());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
@@ -135,7 +135,7 @@ public class PtrVentaEcommerceServiceTest {
         .postForEntity(
             this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
             request, PtrVentaOnlineEntregaTiendaResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -143,7 +143,7 @@ public class PtrVentaEcommerceServiceTest {
     final PtrVentaOnlineEntregaTiendaRequestDto request = new PtrVentaOnlineEntregaTiendaRequestDto();
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA_VENTA_ECOMMERCE));
     request.setPais(PtrTestConstants.PAIS);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST2());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
@@ -152,7 +152,7 @@ public class PtrVentaEcommerceServiceTest {
         .postForEntity(
             this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA).getEndpoint(),
             request, PtrVentaOnlineEntregaTiendaResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -160,7 +160,7 @@ public class PtrVentaEcommerceServiceTest {
     final PtrVentaOnlinePickingRequestDto request = new PtrVentaOnlinePickingRequestDto();
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA));
     request.setPais(PtrTestConstants.PAIS);
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA);
@@ -184,7 +184,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setPais(PtrTestConstants.PAIS);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA));
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
@@ -194,7 +194,7 @@ public class PtrVentaEcommerceServiceTest {
         .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
             request, PtrVentaOnlinePickingResponseDto.class);
 
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -203,7 +203,7 @@ public class PtrVentaEcommerceServiceTest {
     request.setFechaDesde(PtrTestConstants.FECHA_DESDE);
     request.setFechaHasta(PtrTestConstants.FECHA_HASTA);
     request.setPais(PtrTestConstants.PAIS);
-    request.setEmpresa(Arrays.asList(PtrTestConstants.ID_EMPRESA));
+    request.setEmpresa(List.of(PtrTestConstants.ID_EMPRESA));
     request.setTiendaOnline(PtrTestConstants.getID_TIENDA_ONLINE_LIST());
     request.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
     request.setVentaPAT(PtrTestConstants.INCLUIR_VENTA_PAT);
@@ -211,7 +211,7 @@ public class PtrVentaEcommerceServiceTest {
 
     final HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_XML);
-    headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+    headers.setAccept(List.of(MediaType.APPLICATION_XML));
 
     final HttpEntity<PtrVentaOnlinePickingRequestDto> request2 = new HttpEntity<PtrVentaOnlinePickingRequestDto>(
         request,
@@ -220,7 +220,7 @@ public class PtrVentaEcommerceServiceTest {
     final ResponseEntity<PtrVentaOnlinePickingResponseDto> response = this.ptrVentaClient
         .postForEntity(this.ventaEcommerceProperties.get(PtrPropertiesConstants.VENTA_ONLINE_PICKING).getEndpoint(),
             request2, PtrVentaOnlinePickingResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
 }

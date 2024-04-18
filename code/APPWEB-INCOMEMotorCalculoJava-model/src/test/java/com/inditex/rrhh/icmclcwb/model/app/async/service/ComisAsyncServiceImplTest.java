@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
@@ -24,13 +22,15 @@ import com.inditex.rrhh.icmclcwb.api.app.service.ComisService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ComisAsyncServiceImplTest {
 
   @Mock
@@ -75,8 +75,9 @@ class ComisAsyncServiceImplTest {
 
   }
 
-  @Test
-  void findComisionManualTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito)
+  @ParameterizedTest
+  @InstancioSource
+  void findComisionManualTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalComisionManualDto> response = new ArrayList<>();
     when(this.comisService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
@@ -85,8 +86,9 @@ class ComisAsyncServiceImplTest {
     assertEquals(response, cf.get());
   }
 
-  @Test
-  void findPersonasTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona)
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito, final Long maxIdPersona)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
     when(this.comisService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class))).thenReturn(response);
@@ -96,9 +98,10 @@ class ComisAsyncServiceImplTest {
     assertEquals(response, cf.get());
   }
 
-  @Test
-  void findPersonasSilTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto ambito, @Random final Long maxIdPersona,
-      @Random final ClaseResultItemDto clase)
+  @ParameterizedTest
+  @InstancioSource
+  void findPersonasSilTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito, final Long maxIdPersona,
+      final ClaseResultItemDto clase)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
     when(this.comisService.findPersonasSil(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class),

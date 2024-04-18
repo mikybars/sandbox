@@ -3,22 +3,22 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
@@ -48,8 +48,12 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -58,7 +62,7 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
 
   @Mock
@@ -94,14 +98,24 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   @InjectMocks
   RunTareaAmbitoRecolectarPtrPresenciaServiceImpl runTareaAmbitoRecolectarPtrPresenciaServiceImpl;
 
-  @Random
-  TareaDto tarea;
+  TareaDto tarea = Instancio.create(TareaDto.class);
 
-  @Random
-  RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  TareaAmbitoDto tareaAmbitoDto;
+  TareaAmbitoDto tareaAmbitoDto = Instancio.create(TareaAmbitoDto.class);
+
+  List<IdCadenaDto> idCadenaDtoList = Instancio.ofList(IdCadenaDto.class).size(1).create();
+
+  List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList = Instancio.ofList(IdLocalizacionLocalDto.class).size(1).create();
+
+  List<IdEmpresaDto> idEmpresaDtoList = Instancio.ofList(IdEmpresaDto.class).size(1).create();
+
+  @BeforeEach
+  void setup() {
+    this.idCadenaDtoList.get(0).setId("1");
+    this.idLocalizacionLocalDtoList.get(0).setId("1");
+    this.idEmpresaDtoList.get(0).setStdIdLegEnt("1");
+  }
 
   @Test
   void getFechaInicioPeriodoTest() {
@@ -110,47 +124,45 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
     assertNotNull(result);
   }
 
-  @Test
-  void presenciaDetallePersonaByRunTareaAndTareaAmbitoTest(@Random PtrPropertiesDto ptrPropertiesDto,
-      @Random(type = IdEmpresaDto.class, size = 2) List<IdEmpresaDto> idEmpresaDtoList,
-      @Random(type = PeriodoDto.class, size = 1) List<PeriodoDto> periodoDtoList,
-      @Random(type = IdLocalizacionLocalDto.class, size = 1) List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList,
-      @Random PtrPresenciaDetalleRequestDto ptrPresenciaDetalleRequestDto,
-      @Random CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
-      @Random PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
+  @ParameterizedTest
+  @InstancioSource
+  void presenciaDetallePersonaByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
+      final List<PeriodoDto> periodoDtoList,
+      final PtrPresenciaDetalleRequestDto ptrPresenciaDetalleRequestDto,
+      final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
+      final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       utilities.when(() -> AsyncUtils.get(cfData))
           .thenReturn(ptrPresenciaDetalleResponseDto);
 
       doReturn(ptrPropertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
       // Modificamos datos a un formato adecuado
-      idEmpresaDtoList.get(0).setStdIdLegEnt("1");
-      idEmpresaDtoList.get(1).setStdIdLegEnt("2");
-      doReturn(idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
+      this.idEmpresaDtoList.get(0).setStdIdLegEnt("1");
+      doReturn(this.idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
 
       // Modificamos datos a un formato adecuado
-      idLocalizacionLocalDtoList.get(0).setId("1");
+      this.idLocalizacionLocalDtoList.get(0).setId("1");
       // localizaciones
-      List<String> empresasAmbito = idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+      final List<String> empresasAmbito = this.idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
 
-      doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
+      doReturn(this.idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
               this.tareaAmbitoDto.getCclIdOrigen(),
               empresasAmbito);
       // ficticias
-      doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
+      doReturn(this.idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(this.tareaAmbitoDto.getCclIdOrigen(), PtrConstants.EMPRESA_0);
 
       doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
           this.runTarea.getTarea().getId(), ptrPropertiesDto.getFilter(), this.recolectarProperties);
       doReturn(ptrPresenciaDetalleRequestDto).when(this.tareaMapper)
-          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
-              periodoDtoList.get(0));
+          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(any(TareaDto.class), any(TareaAmbitoDto.class),
+              any(PeriodoDto.class));
 
       // Acondicionamiento de los datos
-      List<IdLocalizacionLocalDto> iter = StreamUtils.partition(
-          Stream.concat(idLocalizacionLocalDtoList.stream(), idLocalizacionLocalDtoList.stream())
+      final List<IdLocalizacionLocalDto> iter = StreamUtils.partition(
+          Stream.concat(this.idLocalizacionLocalDtoList.stream(), this.idLocalizacionLocalDtoList.stream())
               .collect(Collectors.toList()),
           ptrPropertiesDto.getFilter().getMaxPageSize()).stream().findFirst().orElse(null);
       ptrPresenciaDetalleRequestDto
@@ -183,46 +195,43 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
     });
   }
 
-  @Test
-  void presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbitoTest(@Random PtrPropertiesDto ptrPropertiesDto,
-      @Random(type = IdCadenaDto.class, size = 2) List<IdCadenaDto> idCadenaDtoList,
-      @Random CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
-      @Random PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto,
-      @Random(type = IdLocalizacionLocalDto.class, size = 2) List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList,
-      @Random(type = PeriodoDto.class, size = 1) List<PeriodoDto> periodoDtoList,
-      @Random PtrPresenciaDetalleRequestDto paramPresenciasDetalle) {
+  @ParameterizedTest
+  @InstancioSource
+  void presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
+      final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
+      final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto,
+      final List<PeriodoDto> periodoDtoList,
+      final PtrPresenciaDetalleRequestDto paramPresenciasDetalle) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       utilities.when(() -> AsyncUtils.get(cfData))
           .thenReturn(ptrPresenciaDetalleResponseDto);
 
       doReturn(ptrPropertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
       // Modificamos datos a un formato adecuado
-      idCadenaDtoList.get(0).setId("1");
-      idCadenaDtoList.get(1).setId("2");
-      doReturn(idCadenaDtoList).when(this.tareaLocalizacionHistoricoService).findIdCadenaDtoByIdTareaAndCclIdOrigen(
+      this.idCadenaDtoList.get(0).setId("1");
+      doReturn(this.idCadenaDtoList).when(this.tareaLocalizacionHistoricoService).findIdCadenaDtoByIdTareaAndCclIdOrigen(
           this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
-          Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
+          Collections.singletonList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
 
-      doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
+      doReturn(this.idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
-              idCadenaDtoList.stream().map(IdCadenaDto::getId).collect(Collectors.toList()));
+              this.idCadenaDtoList.stream().map(IdCadenaDto::getId).collect(Collectors.toList()));
 
       doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService)
           .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), ptrPropertiesDto.getFilter(), this.recolectarProperties);
 
       doReturn(paramPresenciasDetalle).when(this.tareaMapper)
-          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
-              periodoDtoList.get(0));
+          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(any(TareaDto.class), any(TareaAmbitoDto.class),
+              any(PeriodoDto.class));
 
-      List<IdLocalizacionLocalDto> iter = StreamUtils.partition(idLocalizacionLocalDtoList,
+      final List<IdLocalizacionLocalDto> iter = StreamUtils.partition(this.idLocalizacionLocalDtoList,
           ptrPropertiesDto.getFilter().getMaxPageSize()).stream().findFirst().orElse(null);
       iter.get(0).setId("1");
-      iter.get(1).setId("2");
 
       paramPresenciasDetalle
           .setCadena(
-              idCadenaDtoList.stream().map(a -> Integer.valueOf(a.getId())).collect(Collectors.toList()));
+              this.idCadenaDtoList.stream().map(a -> Integer.valueOf(a.getId())).collect(Collectors.toList()));
       paramPresenciasDetalle.setTienda(iter.stream()
           .map(IdLocalizacionLocalDto::getId)
           .map(Integer::valueOf)
@@ -251,48 +260,46 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
     });
   }
 
-  @Test
-  void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbitoTest(@Random PtrPropertiesDto ptrPropertiesDto,
-      @Random(type = IdEmpresaDto.class, size = 2) List<IdEmpresaDto> idEmpresaDtoList,
-      @Random(type = TareaTipoHoraDto.class, size = 2) List<TareaTipoHoraDto> tiposHoras,
-      @Random(type = IdLocalizacionLocalDto.class, size = 1) List<IdLocalizacionLocalDto> localizaciones,
-      @Random(type = PeriodoDto.class, size = 1) List<PeriodoDto> periodos,
-      @Random PtrPresenciaDetalleRequestDto paramPresenciasDetalle,
-      @Random CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
-      @Random PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto,
-      @Random CompletableFuture<Void> savePtrPresenciaDetalle) {
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+  @ParameterizedTest
+  @InstancioSource
+  void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
+      final List<TareaTipoHoraDto> tiposHoras,
+      final List<PeriodoDto> periodos,
+      final PtrPresenciaDetalleRequestDto paramPresenciasDetalle,
+      final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
+      final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto,
+      final CompletableFuture<Void> savePtrPresenciaDetalle) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       utilities.when(() -> AsyncUtils.get(cfData))
           .thenReturn(ptrPresenciaDetalleResponseDto);
 
       doReturn(ptrPropertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
-      PtrFilterPropertiesDto filter = ptrPropertiesDto.getFilter();
+      final PtrFilterPropertiesDto filter = ptrPropertiesDto.getFilter();
 
-      doReturn(idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
-      idEmpresaDtoList.get(0).setStdIdLegEnt("1");
-      idEmpresaDtoList.get(1).setStdIdLegEnt("2");
+      doReturn(this.idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
+      this.idEmpresaDtoList.get(0).setStdIdLegEnt("1");
 
       doReturn(tiposHoras).when(this.tareaTipoHoraService)
           .findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(this.runTarea.getTarea());
 
-      doReturn(localizaciones).when(this.tareaLocalizacionHistoricoService)
+      doReturn(this.idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(this.runTarea.getTarea().getId(),
               this.tareaAmbitoDto.getCclIdOrigen(),
-              idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()));
+              this.idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()));
 
       doReturn(periodos).when(this.tareaLocalizacionPresupuestoService)
           .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
       doReturn(paramPresenciasDetalle).when(this.tareaMapper)
-          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
-              periodos.get(0));
+          .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(any(TareaDto.class), any(TareaAmbitoDto.class),
+              any(PeriodoDto.class));
       // Acondicionamiento de paramPresenciasDetalle
       paramPresenciasDetalle
           .setEmpresa(
-              idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()).stream()
+              this.idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()).stream()
                   .map(Integer::valueOf).collect(Collectors.toList()));
 
-      List<IdLocalizacionLocalDto> iter = StreamUtils.partition(localizaciones,
+      final List<IdLocalizacionLocalDto> iter = StreamUtils.partition(this.idLocalizacionLocalDtoList,
           filter.getMaxPageSize()).stream().findFirst().orElse(null);
       iter.get(0).setId("1");
       paramPresenciasDetalle.setTienda(iter.stream()

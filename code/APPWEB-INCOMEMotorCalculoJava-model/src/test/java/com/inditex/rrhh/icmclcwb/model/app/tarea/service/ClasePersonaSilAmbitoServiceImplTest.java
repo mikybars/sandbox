@@ -7,18 +7,17 @@ import static org.mockito.Mockito.verify;
 
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ClasePersonaSilAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.ClasePersonaSilAmbitoRepositoryCustom;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class ClasePersonaSilAmbitoServiceImplTest {
 
   @Mock
@@ -27,9 +26,10 @@ class ClasePersonaSilAmbitoServiceImplTest {
   @InjectMocks
   private ClasePersonaSilAmbitoServiceImpl clasePersonaSilAmbitoService;
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void getClaseAndEstadoByCclIdOrigenAndStdIdLegEntTest(
-      @Random(size = 1, type = ClasePersonaSilAmbitoDto.class) final List<ClasePersonaSilAmbitoDto> claseEstados) {
+      final List<ClasePersonaSilAmbitoDto> claseEstados) {
 
     final String cclIdOrigen = "60";
     final String stdIdLegEnt = "179";

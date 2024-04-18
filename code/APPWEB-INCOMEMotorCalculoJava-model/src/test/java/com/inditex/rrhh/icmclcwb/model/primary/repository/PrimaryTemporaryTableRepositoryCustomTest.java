@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
@@ -33,9 +31,11 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
@@ -49,7 +49,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class PrimaryTemporaryTableRepositoryCustomTest {
 
   private final static String ID_TAREA_PARAM = "idTarea";
@@ -684,8 +684,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_HISTORICO);
   }
 
-  @Test
-  void mergeDateRangesTempComisHistoricoTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void mergeDateRangesTempComisHistoricoTest(final TareaDto tarea) {
     this.primaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico(tarea);
     final Map<String, Object> params = new HashMap<>();
     params.put(ID_TAREA_PARAM, tarea.getId());
@@ -694,8 +695,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     assertEquals(params, this.paramsCaptor.getValue().getValues());
   }
 
-  @Test
-  void mergeDateRangesSeccionNotEqualsTempComisHistoricoTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void mergeDateRangesSeccionNotEqualsTempComisHistoricoTest(final TareaDto tarea) {
     this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico(tarea);
     final Map<String, Object> params = new HashMap<>();
     params.put(ID_TAREA_PARAM, tarea.getId());
@@ -1209,8 +1211,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_ESTRUCTURAS_BASE_CHALLENGE);
   }
 
-  @Test
-  void insertTempEstructurasBaseChallengeTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void insertTempEstructurasBaseChallengeTest(final TareaDto tarea) {
 
     this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasBaseChallenge(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(
@@ -1253,8 +1256,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_ESTRUCTURAS_DESPLAZAMIENTO_NOCHALLENGE);
   }
 
-  @Test
-  void insertTempEstructurasDesplazamientoNoChallengeTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void insertTempEstructurasDesplazamientoNoChallengeTest(final TareaDto tarea) {
 
     this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasDesplazamientoNoChallenge(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(
@@ -1298,10 +1302,11 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_CREATE_TEMP_COMIS_COMISION_MANUAL);
   }
 
-  @Test
-  void insertTempComisComisionManualTest(@Random final IdPersonaLocalComisionManualDto comision1,
-      @Random final IdPersonaLocalComisionManualDto comision2,
-      @Random final IdPersonaLocalComisionManualDto comision3) {
+  @ParameterizedTest
+  @InstancioSource
+  void insertTempComisComisionManualTest(final IdPersonaLocalComisionManualDto comision1,
+      final IdPersonaLocalComisionManualDto comision2,
+      final IdPersonaLocalComisionManualDto comision3) {
 
     final List<IdPersonaLocalComisionManualDto> comisiones = Arrays.asList(comision1, comision2, comision3);
     this.primaryTemporaryTableRepositoryCustom.insertTempComisComisionManual(comisiones);
@@ -1321,9 +1326,10 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_INDEX_TEMP_COMIS_COMISION_MANUAL);
   }
 
-  @Test
-  void validateTempComisComisionManualTest(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1,
-      @Random final IdPersonaLocalDto persona2) {
+  @ParameterizedTest
+  @InstancioSource
+  void validateTempComisComisionManualTest(final TareaDto tarea, final IdPersonaLocalDto persona1,
+      final IdPersonaLocalDto persona2) {
 
     persona1.setStdOrHrPeriod(null);
     persona2.setStdOrHrPeriod(null);
@@ -1372,17 +1378,19 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     verify(this.jdbcTemplate).update(SQL_DELETE_TEMP_COMIS_PERSONAS_LOCALIZACIONES);
   }
 
-  @Test
-  void insertTempComisPersonasLocalizacionesTest(@Random final IdPersonaLocalLocalizacionDto persona) {
+  @ParameterizedTest
+  @InstancioSource
+  void insertTempComisPersonasLocalizacionesTest(final IdPersonaLocalLocalizacionDto persona) {
     final List<IdPersonaLocalLocalizacionDto> personas = Collections.singletonList(persona);
     this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personas);
     verify(this.jdbcTemplate).batchUpdate(eq(SQL_INSERT_TEMP_COMIS_PERSONAS_LOCALIZACIONES),
         any(BatchPreparedStatementSetter.class));
   }
 
-  @Test
-  void validateTempComisPersonas(@Random final TareaDto tarea, @Random final IdPersonaLocalDto persona1,
-      @Random final IdPersonaLocalDto persona2) {
+  @ParameterizedTest
+  @InstancioSource
+  void validateTempComisPersonas(final TareaDto tarea, final IdPersonaLocalDto persona1,
+      final IdPersonaLocalDto persona2) {
 
     persona1.setStdOrHrPeriod(null);
     persona2.setStdOrHrPeriod(null);
@@ -1411,8 +1419,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
 
   // Fin tests personas
 
-  @Test
-  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@Random final TareaDto tareaDto) {
+  @ParameterizedTest
+  @InstancioSource
+  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(final TareaDto tareaDto) {
     this.primaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura(tareaDto);
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA),
         any(SqlParameterSource.class));

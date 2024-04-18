@@ -3,8 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -12,8 +13,6 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -22,14 +21,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImplTest {
 
   @Mock
@@ -42,65 +44,64 @@ class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazam
   @InjectMocks
   private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl;
 
-  @Random
-  private AlgoritmoDTO algoritmo;
-
-  @Random
-  private TareaDto tarea;
-
-  @Random
-  private IdPersonaLocalDto persona;
-
-  @Test
-  void idsTest(@Random(type = IdPersonaLocalDto.class, size = 2) List<IdPersonaLocalDto> idPersonaLocalDtoList) {
-
-    doReturn(idPersonaLocalDtoList).when(this.tareaCalculoPersonaService).findByAlgoritmo(this.tarea, this.algoritmo);
+  @ParameterizedTest
+  @InstancioSource
+  void idsTest(final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
+    final var algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    doReturn(idPersonaLocalDtoList).when(this.tareaCalculoPersonaService).findByAlgoritmo(tarea, algoritmo);
 
     final List<IdPersonaLocalDto> result =
         this.tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl
-            .ids(this.algoritmo, this.tarea);
+            .ids(algoritmo, tarea);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
-    for (IdPersonaLocalDto item : result) {
+    assertFalse(result.isEmpty());
+    for (final IdPersonaLocalDto item : result) {
       assertNotNull(item);
     }
   }
 
-  @Test
-  void getMapvaluesTest(@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
-
+  @ParameterizedTest
+  @InstancioSource
+  void getMapvaluesTest(final List<IdTipoDatoDto> idTipoDatoDtoList) {
+    final var algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    final var persona = Instancio.create(IdPersonaLocalDto.class);
     doReturn(idTipoDatoDtoList).when(this.tipoDatoService)
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
     final Map<String, Object> result =
         this.tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl
-            .getMapValues(this.algoritmo, this.tarea, this.persona);
+            .getMapValues(algoritmo, tarea, persona);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
-    for (Object obj : result.values()) {
+    assertFalse(result.isEmpty());
+    for (final Object obj : result.values()) {
       assertNotNull(obj);
     }
   }
 
-  @Test
-  void getMapvaluesTest2(@Random(type = IdTipoDatoDto.class, size = 2) List<IdTipoDatoDto> idTipoDatoDtoList) {
-
+  @ParameterizedTest
+  @InstancioSource
+  void getMapvaluesTest2(final List<IdTipoDatoDto> idTipoDatoDtoList) {
+    final var algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    final var persona = Instancio.create(IdPersonaLocalDto.class);
     doReturn(idTipoDatoDtoList).when(this.tipoDatoService)
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
 
-    AlgoritmoDTO alg = this.algoritmo;
+    final AlgoritmoDTO alg = algoritmo;
     alg.setDesplazamiento(true);
     alg.setDesplazamientoBase(false);
 
     final Map<String, Object> result =
         this.tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl
-            .getMapValues(alg, this.tarea, this.persona);
+            .getMapValues(alg, tarea, persona);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
-    for (Object obj : result.values()) {
+    assertFalse(result.isEmpty());
+    for (final Object obj : result.values()) {
       assertNotNull(obj);
     }
   }

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioResultItemDto;
@@ -22,7 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class TareaAgrupacionVentaMapperTest {
 
   @Mock
@@ -35,7 +34,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
 
     final List<TareaAgrupacionVenta> ventas = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
@@ -51,7 +50,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
 
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
@@ -68,7 +67,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
 
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
@@ -83,7 +82,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
     assertNotNull(presencias);
@@ -97,7 +96,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
     assertNotNull(presencias);
@@ -113,7 +112,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteConImpuestos(BigDecimal.valueOf(40000D));
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-        any(List.class))).thenReturn(Arrays.asList(agrupacion));
+        any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(list, this.createTarea(), this.createAgrupaciones());
     assertNotNull(presencias);
@@ -128,7 +127,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> ventas = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());
@@ -144,7 +143,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());
@@ -162,7 +161,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());
@@ -178,7 +177,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());
@@ -194,7 +193,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());
@@ -212,7 +211,7 @@ public class TareaAgrupacionVentaMapperTest {
     agrupacion.setImporteSinImpuestos(BigDecimal.valueOf(34900D));
     when(
         this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(any(List.class), any(TareaDto.class),
-            any(List.class))).thenReturn(Arrays.asList(agrupacion));
+            any(List.class))).thenReturn(List.of(agrupacion));
     final List<TareaAgrupacionVenta> presencias = this.tareaAgrupacionVentaMapper
         .ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(list, this.createTarea(),
             this.createAgrupaciones());

@@ -9,11 +9,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -25,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -57,15 +57,6 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
 
   @InjectMocks
   private TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl;
-
-  @Random
-  private AlgoritmoDTO algoritmo;
-
-  @Random
-  private TareaDto tarea;
-
-  @Random
-  private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -105,7 +96,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
     tipoComision1.setId("011");
     tipoComision2.setId("012");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
         Arrays.asList(tipoComision1, tipoComision2));
@@ -153,7 +144,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
     assertEquals(Arrays.asList("011", "012"), result.get(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
     // tipocalculo
     assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList("010"), result.get(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(List.of("010"), result.get(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
     // esDesplazamiento
     assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
@@ -164,7 +155,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
         result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     // tipoDatoLocalizacionPersonaPresencia
     assertTrue(result.containsKey(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
-    assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
+    assertEquals(Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
         result.get(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
   }
 
@@ -179,7 +170,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
     tipoComision1.setId("011");
     tipoComision2.setId("012");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
         Arrays.asList(tipoComision1, tipoComision2));
@@ -232,7 +223,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
       assertEquals(Arrays.asList("011", "012"), value.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION));
       // tipocalculo
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-      assertEquals(Arrays.asList("010"), value.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
+      assertEquals(List.of("010"), value.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
       // esDesplazamiento
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO));
       assertEquals(SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE,
@@ -247,7 +238,7 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
       // tipoDatoLocalizacionPersonaPresencia
       assertTrue(value.hasValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
       assertEquals(
-          Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
+          Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_INCLUIDOCHALLENGE.getId()),
           value.getValue(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA));
 
     }
@@ -284,11 +275,15 @@ public class TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImp
 
   @Test
   void getMapValuesTest2() {
-    this.algoritmo.setDesplazamientoBase(true);
-    this.algoritmo.setDesplazamiento(true);
+    final var algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final var persona = Instancio.create(IdPersonaLocalDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
+
+    algoritmo.setDesplazamientoBase(true);
+    algoritmo.setDesplazamiento(true);
 
     final Map<String, Object> result = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustomImpl
-        .getMapValues(this.algoritmo, this.tarea, this.persona);
+        .getMapValues(algoritmo, tarea, persona);
 
     assertNotNull(result);
     assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

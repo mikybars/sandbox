@@ -6,14 +6,13 @@ import static org.mockito.Mockito.verify;
 
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccionVentaIntegra;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -23,7 +22,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaFaseAccionVentaIntegraRepositoryCustomImplTest {
 
   @Mock
@@ -50,8 +49,9 @@ class TareaFaseAccionVentaIntegraRepositoryCustomImplTest {
         "batchSize", 100, true);
   }
 
-  @Test
-  void saveTest(@Random(size = 2, type = TareaFaseAccionVentaIntegra.class) final List<TareaFaseAccionVentaIntegra> src) {
+  @ParameterizedTest
+  @InstancioSource
+  void saveTest(final List<TareaFaseAccionVentaIntegra> src) {
     this.tareaFaseAccionVentaIntegraRepositoryCustom.save(src);
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(), any(SqlParameterSource[].class));
     assertEquals(SQL_SAVE, this.sqlCaptor.getValue());

@@ -45,9 +45,11 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -82,9 +84,10 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
         SQL_BASE, true);
   }
 
-  @Test
-  void idsTest(@Random final TareaDto tarea, @Random final AlgoritmoDTO algoritmo,
-      @Random(type = IdPersonaLocalDto.class, size = 2) final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
+  @ParameterizedTest
+  @InstancioSource
+  void idsTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
+      final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
 
     doReturn(idPersonaLocalDtoList).when(this.tareaCalculoPersonaService).findByAlgoritmo(tarea, algoritmo);
 
@@ -99,10 +102,11 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
     }
   }
 
-  @Test
-  void getMapvaluesTest(@Random final TareaDto tarea, @Random final AlgoritmoDTO algoritmo,
-      @Random final IdPersonaLocalDto persona,
-      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoVenta) {
+  @ParameterizedTest
+  @InstancioSource
+  void getMapvaluesTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
+      final IdPersonaLocalDto persona,
+      final List<IdTipoDatoDto> tiposDatoVenta) {
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);
@@ -138,10 +142,11 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
     assertEquals(expected, result);
   }
 
-  @Test
-  void calcularTest(@Random final TareaDto tarea, @Random final AlgoritmoDTO algoritmo,
-      @Random(type = IdPersonaLocalDto.class, size = 2) final List<IdPersonaLocalDto> personas,
-      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoVenta) {
+  @ParameterizedTest
+  @InstancioSource
+  void calcularTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
+      final List<IdPersonaLocalDto> personas,
+      final List<IdTipoDatoDto> tiposDatoVenta) {
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);

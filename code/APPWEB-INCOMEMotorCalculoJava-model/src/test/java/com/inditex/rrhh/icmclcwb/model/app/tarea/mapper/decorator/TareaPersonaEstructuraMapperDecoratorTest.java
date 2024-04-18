@@ -13,8 +13,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoOpcionCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoOpcionCalculoDto;
@@ -30,14 +28,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaPersonaEstructuraMapperDecoratorTest {
 
   @Mock
@@ -53,8 +52,9 @@ class TareaPersonaEstructuraMapperDecoratorTest {
     return Mockito.mock(TareaPersonaEstructuraMapperDecorator.class, Mockito.CALLS_REAL_METHODS);
   }
 
-  @Test
-  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoEmptyListTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoEmptyListTest(final TareaDto tarea) {
 
     final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
         .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(new ArrayList<>(), tarea);
@@ -63,9 +63,10 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSinCondicionesBaseTest(
-      @Random final EstructurasComResultItemDto itemPadre, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre, final TareaDto tarea) {
 
     itemPadre.setIcmListaCondicionesBase(new ArrayList<>());
     final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
@@ -75,11 +76,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSinTipoCalculoTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final TareaDto tarea,
-      @Random final TareaPersonaEstructuraDto estructura) {
+       final EstructurasComResultItemDto itemPadre,
+       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
+       final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
         any(EstructurasComResultItemDto.class),
@@ -99,12 +101,13 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4NoChallengeTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final TareaDto tarea,
-      @Random final ListaValoresBaseResultItemDto valorBase,
-      @Random final TareaPersonaEstructuraDto estructura) {
+       final EstructurasComResultItemDto itemPadre,
+       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
+       final ListaValoresBaseResultItemDto valorBase,
+       final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
@@ -128,12 +131,13 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+    @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengePrecioHoraTiendaTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final TareaDto tarea,
-      @Random final ListaValoresBaseResultItemDto valorBase,
-      @Random final TareaPersonaEstructuraDto estructura) {
+       final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
+      final ListaValoresBaseResultItemDto valorBase,
+      final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
@@ -156,12 +160,13 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
-  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengeImporteTiendaTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final TareaDto tarea,
-      @Random final ListaValoresBaseResultItemDto valorBase,
-      @Random final TareaPersonaEstructuraDto estructura) {
+  @ParameterizedTest
+    @InstancioSource
+    void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengeImporteTiendaTest(
+       final EstructurasComResultItemDto itemPadre,
+       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
+       final ListaValoresBaseResultItemDto valorBase,
+       final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
@@ -183,11 +188,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSinValoresDestinoTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.DESTINO.getId());
@@ -232,11 +238,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSinValoresDestinoMejorOpcionTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
@@ -289,11 +296,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4NoChallengeTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
@@ -356,11 +364,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4NoChallengeMejorOpcionTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
@@ -447,11 +456,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
@@ -506,11 +516,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeMejorOpcionTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
@@ -573,11 +584,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
@@ -625,11 +637,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeMejorOpcionTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());
@@ -685,11 +698,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.ORIGEN.getId());
@@ -744,11 +758,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
             TipoOpcionCalculoEnum.ORIGEN.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeMejorOpcionTest(
-      @Random final EstructurasComResultItemDto itemPadre,
-      @Random final ListaCondicionesBaseResultItemDto itemBase, @Random final ListaCondicionesDestinoResultItemDto itemDestino,
-      @Random final ListaValoresDestinoResultItemDto valorDestino, @Random final TareaDto tarea) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
+      final ListaValoresDestinoResultItemDto valorDestino, final TareaDto tarea) {
 
     final TipoOpcionCalculoDto opcionCalculo = new TipoOpcionCalculoDto();
     opcionCalculo.setId(TipoOpcionCalculoEnum.MEJOR_OPCION.getId());

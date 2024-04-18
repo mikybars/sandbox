@@ -11,8 +11,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.amigafwk.test.randomizer.Random;
-import com.inditex.amigafwk.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -24,14 +22,15 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
@@ -51,8 +50,9 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   @InjectMocks
   private GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo globalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo;
 
-  @Test
-  void getSqlCalcularTest(@Random final AlgoritmoDTO algoritmo) {
+  @ParameterizedTest
+    @InstancioSource
+  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
             .thenReturn(SQL_CALCULAR);
@@ -64,9 +64,9 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     assertEquals(SQL_CALCULAR, result);
   }
 
-  @Test
-  void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+    @InstancioSource  void calcularTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -95,9 +95,10 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
         idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmo", 3);
   }
 
-  @Test
-  void calcularExceptionTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+    @InstancioSource
+    void calcularExceptionTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),

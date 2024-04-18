@@ -33,18 +33,6 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
   }
 
   @Override
-  public AlgoritmoDTO findByTipoCalculoId(@NotNull @Positive final Long id) {
-    return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findByTipoCalculoId(id));
-  }
-
-  @Override
-  public AlgoritmoDTO findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo,
-      @NotNull @Positive final Long idTipoComision) {
-    return this.algoritmoMapper.algoritmoToAlgoritmoDTO(
-        this.algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
-  }
-
-  @Override
   public AlgoritmoDTO findById(@NotNull @Positive final Integer id) {
     return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());
   }
