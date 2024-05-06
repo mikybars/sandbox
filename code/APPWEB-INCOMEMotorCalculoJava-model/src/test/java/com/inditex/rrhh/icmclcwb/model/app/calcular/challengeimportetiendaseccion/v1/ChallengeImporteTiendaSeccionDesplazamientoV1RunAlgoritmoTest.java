@@ -95,9 +95,9 @@ public class ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmoTest imple
   }
 
   @Test
-    public void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom
-            .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
-        assertEquals(SQL_CALCULAR, this.challengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
-    }
+  public void getSqlCalcularTest() {
+    when(this.tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom
+        .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
+    assertEquals(SQL_CALCULAR, this.challengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
+  }
 }

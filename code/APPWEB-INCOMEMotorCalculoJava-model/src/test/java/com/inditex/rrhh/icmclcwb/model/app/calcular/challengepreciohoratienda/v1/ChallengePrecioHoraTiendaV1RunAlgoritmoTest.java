@@ -59,7 +59,7 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmo
     personas.add(p2);
     when(this.tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
         any(TareaDto.class)))
-        .thenReturn(personas);
+            .thenReturn(personas);
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
 
     final CompletableFuture<Void> future = new CompletableFuture<>();
@@ -105,9 +105,9 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmo
   }
 
   @Test
-    void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.getSqlCalcular(
-            any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
-        assertEquals(SQL_CALCULAR, this.challengePrecioHoraTiendaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
-    }
+  void getSqlCalcularTest() {
+    when(this.tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.getSqlCalcular(
+        any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
+    assertEquals(SQL_CALCULAR, this.challengePrecioHoraTiendaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
+  }
 }

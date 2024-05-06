@@ -122,8 +122,9 @@ class ChallengeImporteTiendaV1RunAlgoritmoTest implements RunAlgoritmoTest {
   }
 
   @Test
-    void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoChallengeImporteTiendaV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
-        assertEquals(SQL_CALCULAR, this.challengeImporteTiendaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
-    }
+  void getSqlCalcularTest() {
+    when(this.tareaCalculoAlgoritmoChallengeImporteTiendaV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
+        .thenReturn(SQL_CALCULAR);
+    assertEquals(SQL_CALCULAR, this.challengeImporteTiendaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
+  }
 }

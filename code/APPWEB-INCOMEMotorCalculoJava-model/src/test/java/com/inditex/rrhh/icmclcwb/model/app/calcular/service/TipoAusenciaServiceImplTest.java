@@ -34,30 +34,28 @@ class TipoAusenciaServiceImplTest {
   private TipoAusenciaRepository tipoAusenciaRepository;
 
   @Test
-    void findByIcmTpAbsenceTest(){
+  void findByIcmTpAbsenceTest() {
 
-        when(this.tipoAusenciaRepository.findByIcmTpAbsence(any(String.class))).thenReturn(this.tipoAusencia);
+    when(this.tipoAusenciaRepository.findByIcmTpAbsence(any(String.class))).thenReturn(this.tipoAusencia);
 
-        when(this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class))).thenReturn(this.tipoAusenciaDto);
+    when(this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class))).thenReturn(this.tipoAusenciaDto);
 
-        this. tipoAusenciaServiceImpl.findByIcmTpAbsence("icmTpAbsence");
+    this.tipoAusenciaServiceImpl.findByIcmTpAbsence("icmTpAbsence");
 
-        verify(this.tipoAusenciaRepository, times(1)).findByIcmTpAbsence(any(String.class));
-        verify(this.tipoAusenciaMapper, times(1)).tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class));
+    verify(this.tipoAusenciaRepository, times(1)).findByIcmTpAbsence(any(String.class));
+    verify(this.tipoAusenciaMapper, times(1)).tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class));
   }
 
   @Test
-    void findByIdTest(){
-        when(this.tipoAusenciaRepository.findById(any(Integer.class))).thenReturn( Optional.ofNullable(this.tipoAusencia));
-        when(this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class))).thenReturn(this.tipoAusenciaDto);
+  void findByIdTest() {
+    when(this.tipoAusenciaRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoAusencia));
+    when(this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class))).thenReturn(this.tipoAusenciaDto);
 
-        this.tipoAusenciaServiceImpl.findById(1);
+    this.tipoAusenciaServiceImpl.findById(1);
 
-        verify(this.tipoAusenciaRepository, times(1)).findById(any(Integer.class));
-        verify(this.tipoAusenciaMapper, times(1)).tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class));
+    verify(this.tipoAusenciaRepository, times(1)).findById(any(Integer.class));
+    verify(this.tipoAusenciaMapper, times(1)).tipoAusenciaToTipoAusenciaDto(any(TipoAusencia.class));
 
-
-
-    }
+  }
 
 }

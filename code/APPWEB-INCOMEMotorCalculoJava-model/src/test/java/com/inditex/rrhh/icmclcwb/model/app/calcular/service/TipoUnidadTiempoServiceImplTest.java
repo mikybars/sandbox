@@ -36,9 +36,9 @@ class TipoUnidadTiempoServiceImplTest {
 
   @Test
   void findByIcmIdUnidadTiempoTest() {
-      when(this.tipoUnidadTiempoRepository.findByIcmIdUnidadTiempo(any(String.class))).thenReturn(this.tipoUnidadTiempo);
-      when(this.tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(any(TipoUnidadTiempo.class))).thenReturn(
-          this.tipoUnidadTiempoDto);
+    when(this.tipoUnidadTiempoRepository.findByIcmIdUnidadTiempo(any(String.class))).thenReturn(this.tipoUnidadTiempo);
+    when(this.tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(any(TipoUnidadTiempo.class))).thenReturn(
+        this.tipoUnidadTiempoDto);
 
     this.tipoUnidadTiempoServiceImpl.findByIcmIdUnidadTiempo("String");
 
@@ -48,9 +48,9 @@ class TipoUnidadTiempoServiceImplTest {
 
   @Test
   void findByIdTest() {
-      when(this.tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(any(TipoUnidadTiempo.class))).thenReturn(
-          this.tipoUnidadTiempoDto);
-      when(this.tipoUnidadTiempoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoUnidadTiempo));
+    when(this.tipoUnidadTiempoMapper.tipoUnidadTiempoToTipoUnidadTiempoDto(any(TipoUnidadTiempo.class))).thenReturn(
+        this.tipoUnidadTiempoDto);
+    when(this.tipoUnidadTiempoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoUnidadTiempo));
 
     this.tipoUnidadTiempoServiceImpl.findById(1);
 

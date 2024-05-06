@@ -34,26 +34,26 @@ class TipoPoliticaServiceImplTest {
   private TipoPoliticaMapper tipoPoliticaMapper;
 
   @Test
-    void findByIdMeta4Test(){
-        when(this.tipoPoliticaRepository.findByIcmIdTpPolitica(any(String.class))).thenReturn(this.tipoPolitica);
-        when(this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class))).thenReturn(this.tipoPoliticaDto);
+  void findByIdMeta4Test() {
+    when(this.tipoPoliticaRepository.findByIcmIdTpPolitica(any(String.class))).thenReturn(this.tipoPolitica);
+    when(this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class))).thenReturn(this.tipoPoliticaDto);
 
-        this.tipoPoliticaServiceImpl.findByIdMeta4("String");
+    this.tipoPoliticaServiceImpl.findByIdMeta4("String");
 
-        verify(this.tipoPoliticaRepository, times(1)).findByIcmIdTpPolitica(any(String.class));
-        verify(this.tipoPoliticaMapper, times(1)).tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class));
+    verify(this.tipoPoliticaRepository, times(1)).findByIcmIdTpPolitica(any(String.class));
+    verify(this.tipoPoliticaMapper, times(1)).tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class));
 
-    }
+  }
 
   @Test
-    void findByIdTest(){
-      when(this.tipoPoliticaRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoPolitica));
-      when(this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class))).thenReturn(this.tipoPoliticaDto);
+  void findByIdTest() {
+    when(this.tipoPoliticaRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoPolitica));
+    when(this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class))).thenReturn(this.tipoPoliticaDto);
 
-      this.tipoPoliticaServiceImpl.findById(1);
+    this.tipoPoliticaServiceImpl.findById(1);
 
-      verify(this.tipoPoliticaMapper, times(1)).tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class));
-      verify(this.tipoPoliticaRepository,times(1)).findById(any(Integer.class));
-    }
+    verify(this.tipoPoliticaMapper, times(1)).tipoPoliticaToTipoPoliticaDto(any(TipoPolitica.class));
+    verify(this.tipoPoliticaRepository, times(1)).findById(any(Integer.class));
+  }
 
 }

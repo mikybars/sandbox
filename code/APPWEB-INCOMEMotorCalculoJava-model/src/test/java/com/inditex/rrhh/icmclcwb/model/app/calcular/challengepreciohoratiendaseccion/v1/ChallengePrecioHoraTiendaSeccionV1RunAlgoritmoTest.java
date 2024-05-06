@@ -51,47 +51,46 @@ public class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAl
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
   @Test
-    public void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom
-            .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
+  public void getSqlCalcularTest() {
+    when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom
+        .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
 
-        final String result = this.challengePrecioHoraTiendaSeccionV1RunAlgoritmo
-            .getSqlCalcular(new AlgoritmoDTO());
+    final String result = this.challengePrecioHoraTiendaSeccionV1RunAlgoritmo
+        .getSqlCalcular(new AlgoritmoDTO());
 
-        assertEquals(SQL_CALCULAR, result);
-    }
+    assertEquals(SQL_CALCULAR, result);
+  }
 
   @Test
-    public void calcularTest() {
+  public void calcularTest() {
 
-        when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
+    when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
-        final List<IdPersonaLocalDto> personas = new ArrayList<>();
-        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
-        personas.add(p1);
-        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
-        personas.add(p2);
-        final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
-        personas.add(p3);
-        when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom
-            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
+    final List<IdPersonaLocalDto> personas = new ArrayList<>();
+    final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
+    personas.add(p1);
+    final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
+    personas.add(p2);
+    final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
+    personas.add(p3);
+    when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom
+        .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
 
-        when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom.calcular(
-            any(AlgoritmoDTO.class),
-            any(TareaDto.class), anyList())).thenReturn(
+    when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom.calcular(
+        any(AlgoritmoDTO.class),
+        any(TareaDto.class), anyList())).thenReturn(
             CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-        final long idTarea = 123L;
-        final long idTrabajo = 5675L;
-        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
-        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
-        this.challengePrecioHoraTiendaSeccionV1RunAlgoritmo.execute(runTarea, algoritmo);
+    final long idTarea = 123L;
+    final long idTrabajo = 5675L;
+    final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
+    final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
+    this.challengePrecioHoraTiendaSeccionV1RunAlgoritmo.execute(runTarea, algoritmo);
 
+    verify(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom, times(1))
+        .calcular(algoritmo, runTarea.getTarea(), personas);
 
-        verify(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom, times(1))
-            .calcular(algoritmo, runTarea.getTarea(), personas);
-
-    }
+  }
 
   @Test
   public void calcularExceptionTest() {

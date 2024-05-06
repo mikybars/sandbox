@@ -34,25 +34,25 @@ class TipoPresupuestoServiceImplTest {
   private TipoPresupuestoMapper tipoPresupuestoMapper;
 
   @Test
-    void findByIcmIdTpPresupuestoTest(){
-        when(this.tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class))).thenReturn(this.tipoPresupuestoDto);
-        when(this.tipoPresupuestoRepository.findByIcmIdTpPresupuesto(any(String.class))).thenReturn(this.tipoPresupuesto);
+  void findByIcmIdTpPresupuestoTest() {
+    when(this.tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class))).thenReturn(this.tipoPresupuestoDto);
+    when(this.tipoPresupuestoRepository.findByIcmIdTpPresupuesto(any(String.class))).thenReturn(this.tipoPresupuesto);
 
-        this.tipoPresupuestoServiceImpl.findByIcmIdTpPresupuesto("String");
+    this.tipoPresupuestoServiceImpl.findByIcmIdTpPresupuesto("String");
 
-        verify(this.tipoPresupuestoRepository,times(1)).findByIcmIdTpPresupuesto(any(String.class));
-        verify(this.tipoPresupuestoMapper,times(1)).tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class));
-    }
+    verify(this.tipoPresupuestoRepository, times(1)).findByIcmIdTpPresupuesto(any(String.class));
+    verify(this.tipoPresupuestoMapper, times(1)).tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class));
+  }
 
   @Test
-    void findByIdTest(){
-        when(this.tipoPresupuestoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoPresupuesto));
-        when(this.tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class))).thenReturn(this.tipoPresupuestoDto);
+  void findByIdTest() {
+    when(this.tipoPresupuestoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.tipoPresupuesto));
+    when(this.tipoPresupuestoMapper.tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class))).thenReturn(this.tipoPresupuestoDto);
 
-        this.tipoPresupuestoServiceImpl.findById(1);
+    this.tipoPresupuestoServiceImpl.findById(1);
 
-        verify(this.tipoPresupuestoMapper,times(1)).tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class));
-        verify(this.tipoPresupuestoRepository,times(1)).findById(any(Integer.class));
-    }
+    verify(this.tipoPresupuestoMapper, times(1)).tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class));
+    verify(this.tipoPresupuestoRepository, times(1)).findById(any(Integer.class));
+  }
 
 }
