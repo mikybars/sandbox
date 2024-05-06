@@ -36,7 +36,7 @@ class TipoVentoConceptoChallengeServiceImplTest {
     final TipoVentaConceptoChallenge tipoVentaConceptoChallenge = new TipoVentaConceptoChallenge();
     when(this.tipoVentaConceptoChallengeMapper
         .tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(any(TipoVentaConceptoChallenge.class)))
-        .thenReturn(tipoVentaConceptoChallengeDto);
+            .thenReturn(tipoVentaConceptoChallengeDto);
     when(this.tipoVentaConceptoChallengeRespository.findByIcmIdConceptoVenta(any(String.class))).thenReturn(tipoVentaConceptoChallenge);
     this.tipoVentoConceptoChallengeServiceImpl.findByIcmIdConceptoVenta("String");
 
@@ -52,7 +52,7 @@ class TipoVentoConceptoChallengeServiceImplTest {
 
     when(this.tipoVentaConceptoChallengeMapper
         .tipoVentaConceptoChallengeToTipoVentaConceptoChallengeDto(any(TipoVentaConceptoChallenge.class)))
-        .thenReturn(tipoVentaConceptoChallengeDto);
+            .thenReturn(tipoVentaConceptoChallengeDto);
     when(this.tipoVentaConceptoChallengeRespository.findById(any(Long.class))).thenReturn(Optional.ofNullable(tipoVentaConceptoChallenge));
     this.tipoVentoConceptoChallengeServiceImpl.findById(1L);
 

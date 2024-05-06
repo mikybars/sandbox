@@ -59,7 +59,7 @@ class ChallengePrecioHoraTiendaDesplazamientoV1RunAlgoritmoTest implements RunAl
     personas.add(p2);
     when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
         any(TareaDto.class)))
-        .thenReturn(personas);
+            .thenReturn(personas);
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
 
     final CompletableFuture<Void> future = new CompletableFuture<>();
