@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.Algoritmo;
@@ -75,9 +74,9 @@ class AlgoritmoServiceImplTest {
   }
 
   @Test
-  void findByIdTest(@Random final AlgoritmoDTO algoritmoDTO, @Random final Algoritmo algoritmo) {
-    when(this.algoritmoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(algoritmo));
-    when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(Algoritmo.class))).thenReturn(algoritmoDTO);
+  void findByIdTest() {
+    when(this.algoritmoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.algoritmo));
+    when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(Algoritmo.class))).thenReturn(this.algoritmoDTO);
 
     this.algoritmoServiceImpl.findById(1);
 
@@ -86,8 +85,9 @@ class AlgoritmoServiceImplTest {
   }
 
   @Test
-  void findAllTest(@Random(type = Algoritmo.class, size = 2) final List<Algoritmo> list,
-      @Random(type = AlgoritmoDTO.class, size = 2) final List<AlgoritmoDTO> listaDTO) {
+  void findAllTest() {
+    final List<Algoritmo> list = new ArrayList<>();
+    final List listaDTO = new ArrayList<>();
     when(this.algoritmoRepository.findAll()).thenReturn(list);
     when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(List.class))).thenReturn(listaDTO);
 
@@ -95,7 +95,6 @@ class AlgoritmoServiceImplTest {
 
     verify(this.algoritmoRepository, times(1)).findAll();
     verify(this.algoritmoMapper, times(1)).algoritmoToAlgoritmoDTO(any(List.class));
-
   }
 
   @Test
