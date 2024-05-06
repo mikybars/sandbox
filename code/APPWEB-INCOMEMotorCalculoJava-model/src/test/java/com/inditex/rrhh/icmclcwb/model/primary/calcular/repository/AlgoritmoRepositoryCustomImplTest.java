@@ -30,7 +30,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class AlgoritmoRepositoryCustomImplTest {
+class AlgoritmoRepositoryCustomImplTest {
 
   private final static String SQL_CUSTOM_FIND_ALGORITMOS_IDS_BY_TAREA =
       "SQL CUSTOM FIND ALGORITMOS IDS BY TAREA";

@@ -20,7 +20,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgoritmoTest {
+class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgoritmoTest {
   @Mock
   private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
 
@@ -47,10 +47,6 @@ public class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements Ru
     final CompletableFuture cf = new CompletableFuture<>();
     cf.complete(null);
     doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoPersona(any(RunTareaDto.class));
-    doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoCalculoPersona(any(RunTareaDto.class));
-    doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoLocalizacion(any(RunTareaDto.class));
-    doThrow(new RuntimeException("e"))
-        .when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoLocalizacionPersona(any(RunTareaDto.class));
     assertThrows(RuntimeException.class,
         () -> this.runTareaConsolidarByAmbitoLocalizacionService.run(this.createRunTareaDto(1344L, 2322L)));
   }

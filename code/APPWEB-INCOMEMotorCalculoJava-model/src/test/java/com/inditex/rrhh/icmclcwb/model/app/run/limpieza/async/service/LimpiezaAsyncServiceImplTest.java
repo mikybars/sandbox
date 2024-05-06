@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class LimpiezaAsyncServiceImplTest {
+class LimpiezaAsyncServiceImplTest {
   @Mock
   private LimpiezaService limpiezaService;
 

@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class PorVentaDevolucionPorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class PorVentaDevolucionPorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
   @Mock
   private Logger log;
 

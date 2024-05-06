@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
@@ -59,7 +59,7 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmo
     personas.add(p2);
     when(this.tareaCalculoAlgoritmoChallengePrecioHoraV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
         any(TareaDto.class)))
-            .thenReturn(personas);
+        .thenReturn(personas);
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(2));
 
     final CompletableFuture<Void> future = new CompletableFuture<>();
@@ -78,7 +78,7 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmoTest implements RunAlgoritmo
   }
 
   @Test
-  public void calcularExceptionTest() {
+  void calcularExceptionTest() {
 
     final List<IdPersonaLocalDto> personas = new ArrayList<>();
     final IdPersonaLocalDto p1 = new IdPersonaLocalDto();

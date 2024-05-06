@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class ChallengeImporteTiendaDesplazamientoV1RunAlgoritmoTest {
+class ChallengeImporteTiendaDesplazamientoV1RunAlgoritmoTest {
 
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 

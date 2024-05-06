@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAlgoritmoTest {
   @Mock
   private Logger log;
 
@@ -62,7 +62,7 @@ public class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAl
   }
 
   @Test
-  public void calcularTest() {
+  void calcularTest() {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
@@ -93,7 +93,7 @@ public class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAl
   }
 
   @Test
-  public void calcularExceptionTest() {
+  void calcularExceptionTest() {
 
     final List<IdPersonaLocalDto> personas = new ArrayList<>();
     final IdPersonaLocalDto p1 = new IdPersonaLocalDto();

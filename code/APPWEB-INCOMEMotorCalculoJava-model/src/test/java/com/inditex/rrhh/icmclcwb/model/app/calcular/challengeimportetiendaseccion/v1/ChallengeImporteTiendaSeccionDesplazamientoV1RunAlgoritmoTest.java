@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmoTest implements RunAlgoritmoTest {
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
   @Mock
@@ -95,7 +95,7 @@ public class ChallengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmoTest imple
   }
 
   @Test
-  public void getSqlCalcularTest() {
+  void getSqlCalcularTest() {
     when(this.tareaCalculoAlgoritmoChallengeImporteTiendaSeccionDesplazamientoV1RepositoryCustom
         .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
     assertEquals(SQL_CALCULAR, this.challengeImporteTiendaSeccionDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO()));
