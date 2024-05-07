@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -21,7 +20,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
@@ -44,12 +45,12 @@ class AbstractRunTareaPrevalidarTest {
   @Mock
   private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
-  @ParameterizedTest
-  @InstancioSource
-  void insertarDatoIdAccion1Test(final List<ValidacionDto> fallidas,
-      final TareaFaseAccionDto tareaFaseAccion) {
-
-    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
+  @Test
+  void insertarDatoIdAccion1Test() {
+    final List<ValidacionDto> fallidas = Instancio.ofList(ValidacionDto.class).size(1).create();
+    final TareaFaseAccionDto tareaFaseAccion = Instancio.create(TareaFaseAccionDto.class);
+    tareaFaseAccion.setIdAccion(1);
+    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(any(Long.class));
     doReturn(AccionDto.builder().id(1).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
     final TareaFaseAccionDatoDto tareaFaseAccionDatoDto = TareaFaseAccionDatoDto.builder()
@@ -65,10 +66,11 @@ class AbstractRunTareaPrevalidarTest {
 
   @ParameterizedTest
   @InstancioSource
-  void insertarDatoIdAccion2Test(final List<ValidacionDto> fallidas,
+  void insertarDatoIdAccion2Test(
       final TareaFaseAccionDto tareaFaseAccion) {
+    final List<ValidacionDto> fallidas = Instancio.ofList(ValidacionDto.class).size(1).create();
 
-    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(fallidas.get(0).getIdTareaFaseAccion());
+    doReturn(tareaFaseAccion).when(this.tareaFaseAccionService).findById(any(Long.class));
     doReturn(AccionDto.builder().id(2).build()).when(this.accionService).findAccionDtoById(tareaFaseAccion.getIdAccion());
 
     final TareaFaseAccionDatoDto tareaFaseAccionDatoDto = TareaFaseAccionDatoDto.builder()

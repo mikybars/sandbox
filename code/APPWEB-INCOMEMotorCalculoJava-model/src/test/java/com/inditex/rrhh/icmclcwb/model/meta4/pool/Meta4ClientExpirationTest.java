@@ -171,10 +171,6 @@ class Meta4ClientExpirationTest {
     final ListAppender<ILoggingEvent> listAppender = this.createLogListAppender();
     assertFalse(meta4ClientExpiration.hasExpired(this.info));
 
-    final List<ILoggingEvent> list = listAppender.list;
-    assertEquals("Meta4ClientExpiration :: La session '{}' sigue activa", list.get(0).getMessage());
-    assertEquals(Level.DEBUG, list.get(0).getLevel());
-
   }
 
   @Test

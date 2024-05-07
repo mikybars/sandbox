@@ -52,6 +52,7 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,9 +94,10 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
   @ParameterizedTest
   @InstancioSource
   void getMapValuesTest(final List<IdTipoDatoDto> tiposDatoVenta,
-      final List<IdTipoDatoDto> tiposDatoPresencia,
       final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(true);
@@ -104,7 +106,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     final Map<String, Object> result =
         this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RepositoryCustom
@@ -124,7 +126,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
     expected.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
         Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
     expected.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-        tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
     expected.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
     expected.put(SQL_PARAM_ID_TAREA, tarea.getId());
     expected.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);
@@ -151,9 +153,11 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
   @ParameterizedTest
   @InstancioSource
   void calcularTest(final List<IdTipoDatoDto> tiposDatoVenta,
-      final List<IdTipoDatoDto> tiposDatoPresencia, final AlgoritmoDTO algoritmo,
-      final TareaDto tarea,
-      final List<IdPersonaLocalDto> personas) {
+      final AlgoritmoDTO algoritmo,
+      final TareaDto tarea) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
+    final List<IdPersonaLocalDto> personas = Instancio.ofList(IdPersonaLocalDto.class).size(9).create();
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(true);
@@ -162,7 +166,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RepositoryCustom
         .calcular(algoritmo, tarea, personas);
@@ -189,7 +193,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
       map.put(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA,
           Collections.singletonList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId()));
       map.put(SQL_PARAM_TIPO_DATO_LOCALIZACION_PERSONA_PRESENCIA,
-          tiposDatoPresencia.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+          tiposDato.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
       map.put(SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
       map.put(SQL_PARAM_ID_TAREA, tarea.getId());
       map.put(SQL_PARAM_COMISIONABLE, SQL_VALUE_BOOLEAN_TRUE);

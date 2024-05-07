@@ -40,6 +40,7 @@ public class ResaltaManualV1RunAlgoritmo implements RunAlgoritmo {
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea,
       final AlgoritmoDTO algoritmo) {
+
     ResaltaManualV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: ResaltaManualV1RunAlgoritmo :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());

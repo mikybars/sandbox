@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;

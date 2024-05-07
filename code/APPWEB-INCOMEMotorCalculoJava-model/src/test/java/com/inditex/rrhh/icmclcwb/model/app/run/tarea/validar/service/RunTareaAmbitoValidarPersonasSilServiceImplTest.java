@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResul
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -70,8 +71,9 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
   @InstancioSource
   void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion,
-      final List<ClasePersonaSilAmbitoDto> clasesEstados,
       final IdPersonaLocalLocalizacionDto persona1) {
+
+    final List<ClasePersonaSilAmbitoDto> clasesEstados = Instancio.ofList(ClasePersonaSilAmbitoDto.class).size(1).create();
 
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf1 = new CompletableFuture<>();
     cf1.complete(Collections.singletonList(persona1));

@@ -8,7 +8,9 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4Dto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4RequestDto;
 
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
@@ -36,10 +38,10 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
     assertNotNull(result);
   }
 
-  @ParameterizedTest
-  @InstancioSource
-  void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoNullTest(
-      final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
+  @Test
+  void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoNullTest() {
+
+    final List<ReglaEmpleadoExternoMeta4Dto> reglas = Instancio.ofList(ReglaEmpleadoExternoMeta4Dto.class).size(0).create();
 
     final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
         .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);

@@ -50,6 +50,7 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -118,7 +119,9 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1
   @ParameterizedTest
   @InstancioSource
   void getMapValuesTest(final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
-      final List<IdTipoDatoDto> tiposDato, final IdPersonaLocalDto persona) {
+      final IdPersonaLocalDto persona) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 
@@ -172,9 +175,10 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1
 
   @ParameterizedTest
   @InstancioSource
-  void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea,
-       final List<IdTipoDatoDto> tiposDato,
-       final List<IdPersonaLocalDto> personas) {
+  void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
+    final List<IdPersonaLocalDto> personas = Instancio.ofList(IdPersonaLocalDto.class).size(2).create();
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 

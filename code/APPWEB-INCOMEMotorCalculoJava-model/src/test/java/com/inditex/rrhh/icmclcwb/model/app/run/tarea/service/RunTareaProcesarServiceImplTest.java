@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -19,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTar
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
@@ -52,9 +52,9 @@ class RunTareaProcesarServiceImplTest {
 
   @ParameterizedTest
   @InstancioSource
-  void runTest(final TareaFaseDto tareaFaseDto,
-      final CompletableFuture<Void> completableFuture) {
+  void runTest(final TareaFaseDto tareaFaseDto) {
 
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
     doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(),
         FaseEnum.PROCESAR.getId());
 

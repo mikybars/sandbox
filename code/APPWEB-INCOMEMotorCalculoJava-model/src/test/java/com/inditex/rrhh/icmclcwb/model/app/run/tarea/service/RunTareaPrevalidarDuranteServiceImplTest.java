@@ -233,13 +233,16 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
 
   @ParameterizedTest
   @InstancioSource
-  void runExceptionTest(final AccionDto accion,
+  void runExceptionTest(
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final CompletableFuture<List<ValidacionDto>> cfRun, final TareaFaseDto tareaFase,
       final List<ValidacionDto> validacionDtoList,
       final TareaFaseAccionDto tareaFaseAccionDto,
       final SincronizacionResponseDto sincronizacionResponseDto) {
-
+    final AccionDto accion = new AccionDto();
+    accion.setEsReaccionReintento(true);
+    accion.setReintentoMax(3);
+    accion.setId(1);
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
       doReturn(tareaFaseAccionDtoList).when(this.tareaFaseAccionService)

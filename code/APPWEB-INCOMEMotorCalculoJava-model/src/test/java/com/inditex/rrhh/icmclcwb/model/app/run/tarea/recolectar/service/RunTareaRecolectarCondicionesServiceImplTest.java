@@ -19,12 +19,11 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import org.instancio.Instancio;
-import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -60,9 +59,10 @@ class RunTareaRecolectarCondicionesServiceImplTest {
 
   RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @ParameterizedTest
-  @InstancioSource
-  void runTest(final CompletableFuture<Void> completableFuture) {
+  @Test
+  void runTest() {
+
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .ausenciasByRunTarea(this.runTarea);

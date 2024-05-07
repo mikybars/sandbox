@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.doReturn;

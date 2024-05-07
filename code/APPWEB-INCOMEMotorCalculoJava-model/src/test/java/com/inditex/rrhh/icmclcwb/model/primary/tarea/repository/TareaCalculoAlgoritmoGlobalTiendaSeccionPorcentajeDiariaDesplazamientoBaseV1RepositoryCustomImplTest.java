@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CALCULA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON;

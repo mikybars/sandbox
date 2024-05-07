@@ -3,12 +3,13 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -18,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaLocalizacionPersonaVentaDecorator;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
 
 import org.instancio.Instancio;
@@ -26,7 +28,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -81,7 +82,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest4(
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrSeccionVentaOnlineGenericType = Instancio.create(PtrSeccionVentaOnlineGenericType.class);
-    final var ptrVentaIndividualDetalleResultItemDtoList = Instancio.createList(PtrVentaIndividualDetalleResultItemDto.class);
+    final var ptrVentaIndividualDetalleResultItemDtoList = Instancio.ofList(PtrVentaIndividualDetalleResultItemDto.class).size(1).create();
     final var tarea = Instancio.create(TareaDto.class);
 
     final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();
@@ -95,7 +96,8 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
 
     tareaLocalizacionPersonaVenta.setCclIdPerson("0");
     doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
-        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(list.get(0), tarea);
+        .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(any(PtrVentaIndividualDetalleResultItemDto.class), any(
+            TareaDto.class));
 
     final List<TareaLocalizacionPersonaVenta> result = this.tareaLocalizacionPersonaVentaDecorator
         .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(list, tarea);
@@ -106,7 +108,6 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
 
   @ParameterizedTest
   @InstancioSource
-  @ValueSource(strings = {"V", "D", ""})
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaOnlineIpodIndividualDetalleResultItemDto = Instancio.create(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class);
@@ -129,22 +130,23 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest2() {
     final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta = new TareaLocalizacionPersonaVenta();
     tareaLocalizacionPersonaVenta.setActivo(Boolean.TRUE);
-    final var ptrSeccionVentaOnlineGenericType = Instancio.create(PtrSeccionVentaOnlineGenericType.class);
     final var tarea = Instancio.create(TareaDto.class);
     final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> ptrVentaOnlineIpodIndividualDetalleResultItemDtoList =
-        Instancio.createList(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class);
+        Instancio.ofList(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class).size(1).create();
 
     final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();
     seccion4.setSeccion(4);
-    seccion4.setImporteConIVA(ptrSeccionVentaOnlineGenericType.getImporteConIVA());
-    seccion4.setImporteSinIVA(ptrSeccionVentaOnlineGenericType.getImporteSinIVA());
+    seccion4.setImporteConIVA(BigDecimal.valueOf(1L));
+    seccion4.setImporteSinIVA(BigDecimal.valueOf(1L));
 
-    final List<PtrSeccionVentaOnlineGenericType> listaSeccion = Arrays.asList(ptrSeccionVentaOnlineGenericType, seccion4);
+    final List<PtrSeccionVentaOnlineGenericType> listaSeccion = List.of(seccion4);
     ptrVentaOnlineIpodIndividualDetalleResultItemDtoList.get(0).setListaSeccion(listaSeccion);
+    tareaLocalizacionPersonaVenta.setCclIdPerson("0");
+    tareaLocalizacionPersonaVenta.setTipoDato(TipoDato.builder().build());
 
     doReturn(tareaLocalizacionPersonaVenta).when(this.delegate)
         .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(
-            ptrVentaOnlineIpodIndividualDetalleResultItemDtoList.get(0), tarea);
+            any(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class), any(TareaDto.class));
 
     final List<TareaLocalizacionPersonaVenta> result = this.tareaLocalizacionPersonaVentaDecorator
         .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(

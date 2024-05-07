@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.porventa.v1;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -16,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPro
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
 
@@ -67,8 +67,9 @@ class PorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
   @ParameterizedTest
   @InstancioSource
   void executeTest(final List<IdPersonaLocalDto> ids,
-      final RunAlgoritmoCalculoPropertiesDto runAlgoritmoCalculoPropertiesDto,
-      final CompletableFuture<Void> completable) {
+      final RunAlgoritmoCalculoPropertiesDto runAlgoritmoCalculoPropertiesDto) {
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
+
     doReturn(ids).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
         .ids(this.algoritmo, this.runTarea.getTarea());
 
@@ -76,7 +77,7 @@ class PorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
     final RunAlgoritmoCalculoPropertiesDto spiedItem = Mockito.spy(runAlgoritmoCalculoPropertiesDto);
     doReturn(1).when(spiedItem).getThreadSize();
 
-    doReturn(completable).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
+    doReturn(completableFuture).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
         .calcular(this.algoritmo, this.runTarea.getTarea(), ids);
 
     final CompletableFuture<Void> result = this.porVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo

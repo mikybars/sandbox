@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;

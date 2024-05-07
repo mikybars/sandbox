@@ -49,6 +49,7 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,10 +91,10 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
   @ParameterizedTest
   @InstancioSource
   void getMapValuesTest(final List<IdTipoDatoDto> tiposDatoVenta,
-      final List<IdTipoDatoDto> tiposDatoPresencia,
       final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
 
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);
 
@@ -101,7 +102,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     final Map<String, Object> result = this.tareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom
         .getMapValues(algoritmo, tarea, persona);
@@ -144,9 +145,11 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
   @ParameterizedTest
   @InstancioSource
   void calcularTest(final List<IdTipoDatoDto> tiposDatoVenta,
-      final List<IdTipoDatoDto> tiposDatoPresencia, final AlgoritmoDTO algoritmo,
-      final TareaDto tarea,
-      final List<IdPersonaLocalDto> personas) {
+      final AlgoritmoDTO algoritmo,
+      final TareaDto tarea) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
+    final List<IdPersonaLocalDto> personas = Instancio.ofList(IdPersonaLocalDto.class).size(25).create();
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);
@@ -155,7 +158,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcen
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     this.tareaCalculoAlgoritmoGlobalTiendaSeccionPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom.calcular(algoritmo, tarea,
         personas);

@@ -13,16 +13,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 
 import org.instancio.Instancio;
-import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -58,10 +57,10 @@ class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
     this.tareaAmbito.setCclIdOrigen("2");
   }
 
-  @ParameterizedTest
-  @InstancioSource
-  void executeTest(final CompletableFuture<Void> completableFuture) {
+  @Test
+  void executeTest() {
 
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
     doReturn(completableFuture).when(this.ventasMonacoService)
         .ventaFisicaLocalizacionSeccionByRunTarea(this.runTarea);
 

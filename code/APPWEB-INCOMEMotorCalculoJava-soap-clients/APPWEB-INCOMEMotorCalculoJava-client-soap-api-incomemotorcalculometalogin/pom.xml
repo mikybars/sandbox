@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
@@ -13,6 +11,9 @@
   <name>${project.groupId}:${project.artifactId}</name>
 
   <description>SOAP client for consuming web-incomemotorcalculometa services</description>
+  <properties>
+    <amiga.service.cxf.generator.packageMapping>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.model.meta4.login.entity</amiga.service.cxf.generator.packageMapping>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -20,8 +21,5 @@
       <artifactId>common-starter-soap-client-cxf</artifactId>
     </dependency>
   </dependencies>
-  <properties>
-    <amiga.service.cxf.generator.packageMapping>http://schemas.meta4.com/=com.inditex.rrhh.icmclcwb.model.meta4.login.entity</amiga.service.cxf.generator.packageMapping>
-  </properties>
 
 </project>

@@ -44,6 +44,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
@@ -80,6 +81,9 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
 
   @Mock
   private TareaFaseService tareaFaseService;
+
+  @Mock
+  private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
   @Mock
   private SenderTarea senderTarea;
@@ -223,9 +227,13 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final List<ValidacionDto> validacionDtoList,
       final CompletableFuture<List<ValidacionDto>> cfRun,
-      final TareaFaseAccionDto tareaFaseAccionDto, final AccionDto accion,
+      final TareaFaseAccionDto tareaFaseAccionDto,
       final SincronizacionResponseDto sincronizacionResponseDto) {
 
+    final AccionDto accion = new AccionDto();
+    accion.setEsReaccionReintento(true);
+    accion.setReintentoMax(3);
+    accion.setId(1);
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)
           .findTareaFaseDtoByIdTareaAndIdFase(this.runTareaDto.getTarea().getId(), this.faseDto.getId());
