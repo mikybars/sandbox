@@ -1,0 +1,25 @@
+project:
+  name: ICMCLCWB
+  appDescription: "Servicio para el calculo de la comision"
+  platform: WS
+  category: Compensación
+  link: https://github.com/inditex/mic-incomemotorcalculojava
+  vertical:
+    - sscc
+
+authzInfo:
+  roles:
+    - roleName: ADMINISTRADOR_GLOBAL
+      permissions:
+        - ACTUATOR
+        - ADMINISTRADOR_GLOBAL
+        - impersonatePermission
+    - roleName: ADMINISTRADOR_LOCAL
+      permissions:
+        - ACTUATOR
+        - ADMINISTRADOR_LOCAL
+  relations:
+    roleRelations:
+      - roleName: ADMINISTRADOR_LOCAL
+        foreignApplications:
+          - "oauthincomepro"
