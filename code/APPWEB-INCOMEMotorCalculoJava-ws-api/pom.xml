@@ -24,14 +24,6 @@
       <groupId>com.inditex.amigafwk.service</groupId>
       <artifactId>service-starter-rest</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.service</groupId>
-      <artifactId>service-starter-aaa-oidc-ldap</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.service</groupId>
-      <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
-    </dependency>
   </dependencies>
 
 </project>

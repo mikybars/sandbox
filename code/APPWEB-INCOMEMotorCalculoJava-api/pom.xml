@@ -34,14 +34,7 @@
       <groupId>com.inditex.amigafwk.common</groupId>
       <artifactId>common-starter-api-validation</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.service</groupId>
-      <artifactId>service-starter-aaa-oidc-ldap</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.service</groupId>
-      <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
-    </dependency>
+
 
     <!-- OTHER DEPENDENCIES -->
     <dependency>
@@ -64,6 +57,14 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
     </dependency>
 
     <!-- TEST -->

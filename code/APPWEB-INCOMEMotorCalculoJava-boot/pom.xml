@@ -54,10 +54,6 @@
     </dependency>
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>
-      <artifactId>common-starter-oauth2-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.common</groupId>
       <artifactId>common-starter-executor</artifactId>
     </dependency>
     <dependency>

@@ -170,11 +170,14 @@ amiga:
       mdc-filter:
         enabled: true
     aaa:
-      local:
-        enable-local-test: true
+      paths:
+        app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
       user-details:
+        source-type: HEIMDAL
         heimdal:
-          application-id: AppINCOMEMotorCalculoJava
+          enabled: true
+          application-id: ICMCLCWB
+
     rest-swagger:
       ui:
         title: '@project.name@'
@@ -183,6 +186,3 @@ amiga:
       api:
         problem-details:
           enabled: false
-    cxf:
-      generator:
-        packageMapping: http://schemas.meta4.com/=com.meta4.login

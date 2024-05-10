@@ -1,12 +1,8 @@
 package com.inditex.rrhh.icmclcwb.ws.app.trabajo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.service.TrabajoApi;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -20,26 +16,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class TrabajoController implements TrabajoApi {
 
-  @Autowired
-  private TrabajoService trabajoService;
+    @Autowired
+    private TrabajoService trabajoService;
 
-  @Override
-  @PreAuthorize("hasAuthority('admin')")
-  public @Valid ResponseEntity<TrabajoDTO> create(@Valid @RequestBody final TrabajoDTO trabajo) {
-    return new ResponseEntity<>(this.trabajoService.create(trabajo), HttpStatus.OK);
-  }
-
-  @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex,
-      final WebRequest request) {
-    final List<String> exceptions = new ArrayList<>();
-    for (final ConstraintViolation<?> a : ex.getConstraintViolations()) {
-      exceptions.add(a.getPropertyPath().toString() + ": " + a.getMessage());
+    @Override
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR_GLOBAL','ADMINISTRADOR_LOCAL')")
+    public @Valid ResponseEntity<TrabajoDTO> create(@Valid @RequestBody final TrabajoDTO trabajo) {
+        return new ResponseEntity<>(this.trabajoService.create(trabajo), HttpStatus.OK);
     }
-    return new ResponseEntity<>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-  }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex,
+                                                            final WebRequest request) {
+        final List<String> exceptions = new ArrayList<>();
+        for (final ConstraintViolation<?> a : ex.getConstraintViolations()) {
+            exceptions.add(a.getPropertyPath().toString() + ": " + a.getMessage());
+        }
+        return new ResponseEntity<>(exceptions, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 
 }

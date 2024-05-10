@@ -164,6 +164,17 @@ amiga:
         enable-local-test: true
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
+      oidc:
+        server:
+          url: https://sscc-int.axdesapigwlb.central.inditex.grp/am/authserver/v1/oauth/jwks?realm=/intranet
+      user-details:
+        heimdal:
+          endpoint: https://apigw-sscc-des.axdesocp1.central.inditex.grp/hmdlquery/HEIMDAL
+          remote:
+            oauth-service-user:
+              uri-token: https://apigw-sscc-des.axdesocp1.central.inditex.grp/private/authenticate
+              client-id: oauthincomedes
+              client-secret: '${oauthincomedes}'
     web:
       api:
         production: false
