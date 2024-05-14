@@ -20,7 +20,7 @@ app:
             maxFilterSize: 50
     meta4:
       ping-query-custom:
-        enabled: false
+        enabled: true
         connect-timeout: 10s
         read-timeout: 10s
         type: 2

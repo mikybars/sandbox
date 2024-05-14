@@ -507,8 +507,8 @@ app:
         credentials:
           user: SRVCICMCLCWSDESAX
       ping-query-custom:
-        path: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/validationCheck
+        path: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/validationCheck
       login:
-        server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
+        server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
       icmwscalcincome:
-        server: http://develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
