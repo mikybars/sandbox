@@ -8,6 +8,7 @@ logging:
     org.apache.cxf: WARN
     org.springframework.jdbc.core: WARN
     org.springframework.jdbc.core.StatementCreatorUtils: WARN
+    org.springframework.security: TRACE
 metadata:
   domain: rhcompensa
   service: income
@@ -164,17 +165,11 @@ amiga:
         enable-local-test: true
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
-      oidc:
-        server:
-          url: https://sscc-int.axdesapigwlb.central.inditex.grp/am/authserver/v1/oauth/jwks?realm=/intranet
       user-details:
         heimdal:
-          endpoint: https://apigw-sscc-des.axdesocp1.central.inditex.grp/hmdlquery/HEIMDAL
-          remote:
-            oauth-service-user:
-              uri-token: https://apigw-sscc-des.axdesocp1.central.inditex.grp/private/authenticate
-              client-id: oauthincomedes
-              client-secret: '${oauthincomedes}'
+          local:
+            enable-local-test: true
+            json-file: /custom-local-heimdal.json
     web:
       api:
         production: false

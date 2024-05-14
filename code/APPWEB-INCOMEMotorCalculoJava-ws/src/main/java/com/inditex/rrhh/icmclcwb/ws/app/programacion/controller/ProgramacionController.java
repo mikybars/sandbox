@@ -21,7 +21,7 @@ public class ProgramacionController implements ProgramacionApi {
 
   @Override
   @PreAuthorize("hasAuthority('admin')")
-  public @Valid ResponseEntity<ProgramacionDTO> create(@Valid @RequestBody final ProgramacionDTO programacion) {
+  public @Valid ResponseEntity<ProgramacionDTO> createProgramacion(@Valid @RequestBody final ProgramacionDTO programacion) {
     return new ResponseEntity<>(this.programacionService.create(programacion), HttpStatus.OK);
   }
 

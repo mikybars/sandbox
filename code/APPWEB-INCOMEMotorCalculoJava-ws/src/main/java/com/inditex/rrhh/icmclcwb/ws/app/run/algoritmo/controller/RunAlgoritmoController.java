@@ -20,12 +20,12 @@ public class RunAlgoritmoController implements RunAlgoritmoApi {
   private RunAlgoritmoService runAlgoritmoService;
 
   @Override
-  public @Valid ResponseEntity<RunAlgoritmoDTO> findById(@PathVariable final Integer id) {
+  public @Valid ResponseEntity<RunAlgoritmoDTO> findByIdRunAlgoritmo(@PathVariable final Integer id) {
     return new ResponseEntity<>(this.runAlgoritmoService.findById(id), HttpStatus.OK);
   }
 
   @Override
-  public @Valid ResponseEntity<List<RunAlgoritmoDTO>> findAll() {
+  public @Valid ResponseEntity<List<RunAlgoritmoDTO>> findAllRunAlgoritmo() {
     return new ResponseEntity<>(this.runAlgoritmoService.findAll(), HttpStatus.OK);
   }
 

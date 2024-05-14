@@ -480,6 +480,12 @@ amiga:
       api:
         problem-details:
           enabled: false
+    aaa:
+      user-details:
+        heimdal:
+          remote:
+            oauth-service-user:
+              client-id: oauthincomepre          
 app:
   envars:
     mail:

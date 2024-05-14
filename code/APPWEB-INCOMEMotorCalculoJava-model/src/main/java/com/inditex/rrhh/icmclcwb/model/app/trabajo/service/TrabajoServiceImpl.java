@@ -148,12 +148,13 @@ public class TrabajoServiceImpl implements TrabajoService {
             .idPeriodo(trabajo.getIcmIdPeriodo().toString())
             .build());
 
+    // TODO: Revisar estas fechas
     final List<PeriodoDTO> periodos = this.periodoMapper
         .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
     if (CollectionUtils.isNotEmpty(periodos)) {
       trabajo
-          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
-      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
+          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
+      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
     }
     final TrabajoDTO result = this.trabajoMapper
         .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));

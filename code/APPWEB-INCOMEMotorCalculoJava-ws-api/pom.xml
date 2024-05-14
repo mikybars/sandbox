@@ -12,10 +12,11 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.inditex.sscc.api</groupId>
-      <artifactId>icmclcwb-income-motor-calculo-java-api-v2-rest-stable</artifactId>
-      <version>1.0.1</version>
+      <groupId>com.inditex.api</groupId>
+      <artifactId>income-income-motor-calculo-java-api-v3-rest-stable</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
     </dependency>
+
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>
       <artifactId>common-starter</artifactId>

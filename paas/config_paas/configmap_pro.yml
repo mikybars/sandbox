@@ -436,6 +436,12 @@ amiga:
       api:
         problem-details:
           enabled: false
+    aaa:
+      user-details:
+        heimdal:
+          remote:
+            oauth-service-user:
+              client-id: oauthincomepro          
 app:
   envars:
     mail:

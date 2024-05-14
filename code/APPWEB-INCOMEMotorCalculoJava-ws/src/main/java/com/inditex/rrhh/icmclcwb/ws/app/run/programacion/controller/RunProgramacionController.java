@@ -20,7 +20,7 @@ public class RunProgramacionController implements RunProgramacionApi {
 
   @Override
   @PreAuthorize("hasAuthority('admin')")
-  public ResponseEntity<List<RunProgramacionDTO>> create() {
+  public ResponseEntity<List<RunProgramacionDTO>> createRunProgramacion() {
     return new ResponseEntity<>(this.runProgramacionService.create(), HttpStatus.OK);
   }
 

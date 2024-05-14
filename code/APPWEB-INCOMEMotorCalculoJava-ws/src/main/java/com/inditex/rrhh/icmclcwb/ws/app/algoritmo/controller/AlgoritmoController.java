@@ -20,7 +20,7 @@ public class AlgoritmoController implements AlgoritmoApi {
   private AlgoritmoService algoritmoService;
 
   @Override
-  public @Valid ResponseEntity<List<AlgoritmoDTO>> findAll() {
+  public @Valid ResponseEntity<List<AlgoritmoDTO>> findAllAlgoritmo() {
     return new ResponseEntity<>(this.algoritmoService.findAll(), HttpStatus.OK);
   }
 
@@ -30,7 +30,7 @@ public class AlgoritmoController implements AlgoritmoApi {
   }
 
   @Override
-  public @Valid ResponseEntity<AlgoritmoDTO> findById(@PathVariable final Integer id) {
+  public @Valid ResponseEntity<AlgoritmoDTO> findByIdAlgoritmo(@PathVariable final Integer id) {
     return new ResponseEntity<>(this.algoritmoService.findById(id), HttpStatus.OK);
   }
 
