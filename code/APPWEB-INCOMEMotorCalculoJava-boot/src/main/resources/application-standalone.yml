@@ -8,7 +8,6 @@ logging:
     org.apache.cxf: WARN
     org.springframework.jdbc.core: WARN
     org.springframework.jdbc.core.StatementCreatorUtils: WARN
-    org.springframework.security: TRACE
 metadata:
   domain: rhcompensa
   service: income
