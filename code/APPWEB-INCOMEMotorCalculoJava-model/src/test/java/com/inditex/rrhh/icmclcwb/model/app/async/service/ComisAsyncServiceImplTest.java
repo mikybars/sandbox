@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
@@ -42,9 +45,10 @@ class ComisAsyncServiceImplTest {
   @InjectMocks
   private ComisAsyncServiceImpl comisAsyncServiceImpl;
 
-  @Test
-  void findMotivoDesplazamientoTest(@Random final RunTareaDto runTareaDto,
-      @Random final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
+  @ParameterizedTest
+  @InstancioSource
+  void findMotivoDesplazamientoTest(final RunTareaDto runTareaDto,
+      final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
     final List<IdMotivoDesplazamientoDto> response = new ArrayList<>();
     when(this.comisService.findMotivoDesplazamiento(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
     final CompletableFuture<List<IdMotivoDesplazamientoDto>> cf =
@@ -52,9 +56,10 @@ class ComisAsyncServiceImplTest {
     assertEquals(response, cf.get());
   }
 
-  @Test
-  void findPresenciasOrigenAndFechaTet(@Random final RunTareaDto runTareaDto,
-      @Random final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
+  @ParameterizedTest
+  @InstancioSource
+  void findPresenciasOrigenAndFechaTet(final RunTareaDto runTareaDto,
+      final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
     final PresenciaOrigenDto response = new PresenciaOrigenDto();
     when(this.comisService.findPresenciasOrigenAndFecha(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenReturn(response);
     final CompletableFuture<PresenciaOrigenDto> cf = this.comisAsyncServiceImpl.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbito);
@@ -170,8 +175,9 @@ class ComisAsyncServiceImplTest {
     assertEquals(response, cf.get());
   }
 
-  @Test
-  void findExternosByClaseTest(@Random final ComisClaseEmpleadoEnum comisClaseEmpleadoEnum)
+  @ParameterizedTest
+  @InstancioSource
+  void findExternosByClaseTest(final ComisClaseEmpleadoEnum comisClaseEmpleadoEnum)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalExternaDto> response = new ArrayList<>();
     when(this.comisService.findExternosByClase(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(ComisClaseEmpleadoEnum.class)))
