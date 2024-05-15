@@ -11,15 +11,15 @@ amiga:
           ping-query:
             path: http://develop.slrhorcoms.svc.cluster.local.:8081/slrhorcoms-develop/amiga/health
         ptr-venta:
-          base-url: http://develop.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd-develop
+          base-url: http://rhvtimpwsd.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbdes
           ping-query:
-            path: http://develop.rhvtimpwsd.svc.cluster.local.:8081/rhvtimpwsd-develop/amiga/health
+            path: http://rhvtimpwsd.rhvtimpwsd.svc.cluster.local.:8081/rhvtimpwsd/amiga/health
         ptr-presencia:
-          base-url: http://develop.rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd-develop
+          base-url: http://rhpresnwsd.rhpresnwsd.svc.cluster.local.:8080/rhpresnwsd
           username: srvcicmclcwbdes
           ping-query:
-            path: http://develop.rhpresnwsd.svc.cluster.local.:8081/rhpresnwsd-develop/amiga/health
+            path: http://rhpresnwsd.rhpresnwsd.svc.cluster.local.:8081/rhpresnwsd/amiga/health
         venta-integra:
           base-url: http://dqservice.dqservice.svc.cluster.local.:8080/dqservice
           ping-query:
