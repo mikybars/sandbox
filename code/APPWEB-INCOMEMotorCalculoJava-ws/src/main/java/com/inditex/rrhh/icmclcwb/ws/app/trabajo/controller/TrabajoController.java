@@ -6,6 +6,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.service.TrabajoApi;
+import com.inditex.rrhh.icmclcwb.ws.authorization.IsUser;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +27,7 @@ public class TrabajoController implements TrabajoApi {
   private TrabajoService trabajoService;
 
   @Override
-  @PreAuthorize("hasAnyAuthority('ADMINISTRADOR_GLOBAL','ADMINISTRADOR_LOCAL')")
+  @IsUser
   public @Valid ResponseEntity<TrabajoDTO> createTrabajo(@Valid @RequestBody final TrabajoDTO trabajo) {
     return new ResponseEntity<>(this.trabajoService.create(trabajo), HttpStatus.OK);
   }
