@@ -43,8 +43,15 @@ amiga:
       datasource:
         primary:
           driver-class-name: com.ibm.db2.jcc.DB2Driver
-          jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;keepAliveTimeOut=15;
           username: uincome
+          jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
+          jdbc-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            loginTimeout: 10
+            connectionTimeout: 60
+            timerLevelForQueryTimeOut: 2
+            interruptProcessingMode: 2
+            currentSchema: GESTION_COMISION
         ptr:
           driver-class-name: oracle.jdbc.OracleDriver
           jdbc-url: jdbc:oracle:thin:@(DESCRIPTION = (FAILOVER=ON)(CONNECT_TIMEOUT=3)(RETRY_COUNT=3)(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=axine6-scanpre.central.inditex.grp)(PORT=11521)))(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmpreptrdb-scan.ocimaditx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbpr01rt_gener.central.inditex.grp)))
