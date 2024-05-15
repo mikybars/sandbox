@@ -249,9 +249,7 @@ public class TestServiceImpl implements TestService {
         case HttpStatus.SC_GATEWAY_TIMEOUT:
         case 598:
         case 524:
-          TestServiceImpl.LOG.error(url
-              + ": "
-              + KO
+          TestServiceImpl.LOG.error(KO
               + ", "
               + CONTROLLED_TIMEOUT
               + ", "
@@ -264,23 +262,21 @@ public class TestServiceImpl implements TestService {
       }
 
     } catch (final Exception e) {
-      TestServiceImpl.LOG.error(url
-          + ": "
-          + KO
-          + ", "
-          + EXCEPTION
-          + ": "
-          + e);
+      TestServiceImpl.LOG.error(
+          KO
+              + ", "
+              + EXCEPTION
+              + ": "
+              + e);
       return Boolean.FALSE;
     }
 
-    TestServiceImpl.LOG.info(url
-        + ": "
-        + OK
-        + ", "
-        + CODE
-        + ": "
-        + code);
+    TestServiceImpl.LOG.info(
+        OK
+            + ", "
+            + CODE
+            + ": "
+            + code);
     return Boolean.TRUE;
   }
 
