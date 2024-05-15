@@ -12,7 +12,7 @@ on:
       - "paas/**"
 
 env:
-  WORKFLOW_VERSION: 2.9.0
+  WORKFLOW_VERSION: 2.11.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Check for changed files in specific paths
         id: changes
-        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
         with:
           list-files: shell
           filters: |
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: YAML Lint
@@ -61,7 +61,7 @@ jobs:
     steps:
       - name: Check for changed files in specific paths
         id: changes
-        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
         with:
           list-files: shell
           filters: |
@@ -80,7 +80,7 @@ jobs:
 
       - name: Checkout
         if: steps.changes.outputs.secrets == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check secrets tag
         id: check-secrets-tag
@@ -114,7 +114,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -137,7 +137,7 @@ jobs:
     if: needs.check-secrets.result == 'success'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -156,7 +156,7 @@ jobs:
     if: github.event.action == 'closed'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Remove check-secrets tag
         env:
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}

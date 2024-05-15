@@ -24,7 +24,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 2.2.4
+  WORKFLOW_VERSION: 2.3.0
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -43,7 +43,7 @@ jobs:
     runs-on: [self-hosted, sre]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -124,7 +124,7 @@ jobs:
 
       - name: "Upload Gossip analysis results"
         if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Gossip Analysis
           path: ${{ env.TMP_PATH }}/result
