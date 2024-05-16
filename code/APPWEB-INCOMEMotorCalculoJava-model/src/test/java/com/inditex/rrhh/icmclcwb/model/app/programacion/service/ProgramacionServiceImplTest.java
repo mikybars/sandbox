@@ -112,8 +112,9 @@ class ProgramacionServiceImplTest {
     final Authentication authentication = Mockito.mock(Authentication.class);
     // TODO [MDELRIO] Buscar manera de replicar este test con el nombre en blanco para cubrir test
     final HeimdalUserDetails user = new HeimdalUserDetails();
-    final HeimdalUser heimdalUser = HeimdalUtils.getHeimdalUser();
     user.setLogin("login");
+    final HeimdalUser heimdalUser = HeimdalUser.create(user, List.of("1", "2"));
+
     when(authentication.getPrincipal())
         .thenReturn(heimdalUser);
     final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
@@ -130,7 +131,6 @@ class ProgramacionServiceImplTest {
     programacion.setAmbito(new ArrayList<>());
     programacion.getAmbito().add(new ProgramacionAmbitoDTO());
     programacion.setHoraProgramacion(OffsetDateTime.MAX);
-    programacion.setNombreUsuario("Name");
 
     when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
         .thenReturn(new Programacion());
