@@ -8,18 +8,17 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailAmbitoRepositoryCustomImpl;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class MailAmbitoServiceImplTest {
 
   @Mock
@@ -28,8 +27,9 @@ class MailAmbitoServiceImplTest {
   @InjectMocks
   private MailAmbitoServiceImpl mailAmbitoService;
 
-  @Test
-  void getMailByOrigenEmpresaTest(@Random(size = 4, type = MailAmbitoDto.class) final List<MailAmbitoDto> mailAmbitos) {
+  @ParameterizedTest
+  @InstancioSource
+  void getMailByOrigenEmpresaTest(final List<MailAmbitoDto> mailAmbitos) {
 
     final String cclIdOrigen = "60";
     final String stdIdLegEnt = "179";

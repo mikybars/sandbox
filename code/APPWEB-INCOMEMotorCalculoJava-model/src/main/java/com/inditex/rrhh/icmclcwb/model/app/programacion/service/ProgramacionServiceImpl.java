@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionService;
@@ -21,10 +21,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,9 +53,9 @@ public class ProgramacionServiceImpl implements ProgramacionService {
       programacion.setProgramacionHuso(TimeUtils.ofZoneId());
     }
     if (StringUtils.isBlank(programacion.getNombreUsuario())) {
-      final UserSSO userSSO = SsoUtils.getUserSSO();
-      if (StringUtils.isNotBlank(userSSO.getUser())) {
-        programacion.setNombreUsuario(userSSO.getUser());
+      final HeimdalUser heimdalUser = HeimdalUtils.getHeimdalUser();
+      if (StringUtils.isNotBlank(heimdalUser.getLogin())) {
+        programacion.setNombreUsuario(heimdalUser.getLogin());
       }
     }
     programacion

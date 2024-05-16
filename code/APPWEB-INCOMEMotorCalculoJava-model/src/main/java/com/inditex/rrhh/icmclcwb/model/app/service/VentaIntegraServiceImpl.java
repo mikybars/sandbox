@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.ventaintegra.util.VentaIntegraClientPropert
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.retry.annotation.Retryable;
@@ -35,8 +36,7 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   @Qualifier("ventaIntegraProperties")
   private VentaIntegraPropertiesDto ventaIntegraProperties;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(VentaIntegraServiceImpl.class);
 
   @Override
   public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {

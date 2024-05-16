@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -48,14 +46,16 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -99,11 +99,12 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryC
     assertEquals(personas, ids);
   }
 
-  @Test
-  void getMapValuesTest(@Random final AlgoritmoDTO algoritmo, @Random final TareaDto tarea, @Random final IdPersonaLocalDto persona,
-      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoPersonaPresencia,
-      @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDatoVenta,
-      @Random(type = IdTipoDatoDto.class, size = 4) final List<IdTipoDatoDto> tiposDatoPresencia) {
+  @ParameterizedTest
+  @InstancioSource
+  void getMapValuesTest(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona,
+      final List<IdTipoDatoDto> tiposDatoPersonaPresencia,
+      final List<IdTipoDatoDto> tiposDatoVenta,
+      final List<IdTipoDatoDto> tiposDatoPresencia) {
 
     algoritmo.setDesplazamientoBase(false);
     algoritmo.setDesplazamiento(false);

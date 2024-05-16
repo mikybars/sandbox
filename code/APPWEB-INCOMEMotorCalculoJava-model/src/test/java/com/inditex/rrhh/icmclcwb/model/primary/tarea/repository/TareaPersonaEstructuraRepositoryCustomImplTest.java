@@ -11,12 +11,11 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -26,9 +25,11 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
@@ -41,7 +42,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   private static final String SQL_UPDATE_ACTIVO_TOPES = "SQL UPDATE ACTIVO TOPES";
@@ -168,7 +169,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   @Test
   void saveTest() {
-    final List<TareaPersonaEstructura> items = Arrays.asList(mock(TareaPersonaEstructura.class));
+    final List<TareaPersonaEstructura> items = Collections.singletonList(mock(TareaPersonaEstructura.class));
     this.tareaPersonaEstructuraRepositoryCustom.save(items);
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(),
         any(SqlParameterSource[].class));
@@ -275,8 +276,9 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void crearChallengeOpcionOrigenTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void crearChallengeOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CREAR_CHALLENGE_OPCION_ORIGEN), paramsCaptor.capture());
@@ -329,19 +331,20 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     assertEquals(8209L, map.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     // tiposCalculo
     assertTrue(map.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList(
+    assertEquals(Collections.singletonList(
         TipoCalculoEnum.GLOBAL_SECCION.getId()),
         map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
   }
 
-  @Test
-  void crearGlobalSeccionOpcionOrigenTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void crearGlobalSeccionOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_CREAR_GLOBAL_SECCION_OPCION_ORIGEN), paramsCaptor.capture());
     final Map<String, Object> expected = new HashMap<>();
-    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+    expected.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Collections.singletonList(
         TipoCalculoEnum.GLOBAL_SECCION.getId()));
     expected.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     expected.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

@@ -21,7 +21,7 @@ import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMa
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

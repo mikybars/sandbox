@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;

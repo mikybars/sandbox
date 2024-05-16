@@ -23,12 +23,17 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoResaltaManualV1RepositoryCustom;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -51,6 +56,19 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
   @InjectMocks
   private ResaltaManualV1RunAlgoritmo resaltaManualV1RunAlgoritmo;
 
+  private ListAppender<ILoggingEvent> listAppender;
+
+  @BeforeEach
+  public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ResaltaManualV1RunAlgoritmo.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+
+    logger.addAppender(this.listAppender);
+  }
+
   @Test
   public void getSqlCalcularTest() {
     when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -60,7 +78,6 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   @Test
   public void calcularTest() {
-
     when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
     final List<IdPersonaLocalDto> personas = new ArrayList<>();
@@ -83,14 +100,12 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.resaltaManualV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    verify(this.log, times(1))
-        .info("Trabajo[{}]Tarea[{}] :: Inicio :: ResaltaManualV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
+      assertEquals(4, this.listAppender.list.size());
+      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
     verify(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);
-    verify(this.log, times(1))
-        .info("Trabajo[{}]Tarea[{}] :: Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
   }
 
   @Test
@@ -108,7 +123,7 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
     final RuntimeException exception = new RuntimeException("EEEE");
     doThrow(exception).when(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom)
         .calcular(any(AlgoritmoDTO.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     final long idTarea = 123L;
     final long idTrabajo = 5675L;
@@ -116,9 +131,10 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.resaltaManualV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    verify(this.log, times(1))
-        .error("Trabajo[{}]Tarea[{}] :: ResaltaManualV1RunAlgoritmo :: KO :: Personas: {}",
-            idTrabajo, idTarea, 2, exception);
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: ResaltaManualV1RunAlgoritmo :: KO :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
 

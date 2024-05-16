@@ -11,8 +11,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -21,17 +19,24 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.AbstractV1RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom;
 
-import org.junit.jupiter.api.Test;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
@@ -51,8 +56,22 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
   @InjectMocks
   private GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo globalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo;
 
-  @Test
-  void getSqlCalcularTest(@Random final AlgoritmoDTO algoritmo) {
+  private ListAppender<ILoggingEvent> listAppender;
+
+  @BeforeEach
+  public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(AbstractV1RunAlgoritmo.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+
+    logger.addAppender(this.listAppender);
+  }
+
+  @ParameterizedTest
+    @InstancioSource
+  void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom
             .getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -66,9 +85,10 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
     assertEquals(SQL_CALCULAR, result);
   }
 
-  @Test
-  void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+    @InstancioSource
+  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -80,25 +100,16 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
 
     this.globalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    final Long idTrabajo = runTarea.getTrabajo().getId();
-    final Long idTarea = runTarea.getTarea().getId();
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo");
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", personas);
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", 3);
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", 3);
+      assertEquals(4, this.listAppender.list.size());
+      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
-  @Test
-  void calcularExceptionTest(@Random final AlgoritmoDTO algoritmo, @Random final RunTareaDto runTarea,
-      @Random(size = 3, type = IdPersonaLocalDto.class) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+  @InstancioSource
+  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -111,20 +122,10 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
 
     this.globalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    final Long idTrabajo = runTarea.getTrabajo().getId();
-    final Long idTarea = runTarea.getTarea().getId();
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo");
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", personas);
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", 3);
-    verify(this.log, times(1)).error(
-        "Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
-        idTrabajo, idTarea, "GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmo", 3, exception);
+      assertEquals(5, this.listAppender.list.size());
+      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+          this.listAppender.list.get(4).getMessage());
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }

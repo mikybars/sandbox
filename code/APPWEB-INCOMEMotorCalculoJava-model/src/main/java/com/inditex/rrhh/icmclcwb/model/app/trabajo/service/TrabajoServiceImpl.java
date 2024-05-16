@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
@@ -43,9 +43,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoReposit
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -122,15 +122,16 @@ public class TrabajoServiceImpl implements TrabajoService {
   }
 
   @Override
+  // TODO: Revisar si es login o username
   public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
     List<IdOrigenEmpresaDto> empresasNoCalcular = new ArrayList<>();
 
     trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
     trabajo.setEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE.getDto());
     if (StringUtils.isBlank(trabajo.getNombreUsuario())) {
-      final UserSSO userSSO = SsoUtils.getUserSSO();
-      if (StringUtils.isNotBlank(userSSO.getUser())) {
-        trabajo.setNombreUsuario(userSSO.getUser());
+      final HeimdalUser heimdalUser = HeimdalUtils.getHeimdalUser();
+      if (StringUtils.isNotBlank(heimdalUser.getLogin())) {
+        trabajo.setNombreUsuario(heimdalUser.getLogin());
       }
     }
 
@@ -147,12 +148,13 @@ public class TrabajoServiceImpl implements TrabajoService {
             .idPeriodo(trabajo.getIcmIdPeriodo().toString())
             .build());
 
+    // TODO: Revisar estas fechas
     final List<PeriodoDTO> periodos = this.periodoMapper
         .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
     if (CollectionUtils.isNotEmpty(periodos)) {
       trabajo
-          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
-      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo().atStartOfDay().atOffset(ZoneOffset.UTC));
+          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
+      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
     }
     final TrabajoDTO result = this.trabajoMapper
         .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));

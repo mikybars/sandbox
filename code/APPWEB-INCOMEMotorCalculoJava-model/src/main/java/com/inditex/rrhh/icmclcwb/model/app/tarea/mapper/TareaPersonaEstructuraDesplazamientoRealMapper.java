@@ -33,15 +33,17 @@ public abstract class TareaPersonaEstructuraDesplazamientoRealMapper {
   public abstract TareaPersonaEstructuraDesplazamientoRealDto tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
       TareaPersonaEstructuraDesplazamientoReal src);
 
-  public abstract List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
-      List<TareaPersonaEstructuraDesplazamientoReal> src);
+  public abstract List<
+      TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
+          List<TareaPersonaEstructuraDesplazamientoReal> src);
 
   @InheritInverseConfiguration
   public abstract TareaPersonaEstructuraDesplazamientoReal tareaPersonaEstructuraDesplazamientoRealDtoToTareaPersonaEstructuraDesplazamientoReal(
       TareaPersonaEstructuraDesplazamientoRealDto src);
 
-  public abstract List<TareaPersonaEstructuraDesplazamientoReal> tareaPersonaEstructuraDesplazamientoRealDtoToTareaPersonaEstructuraDesplazamientoReal(
-      List<TareaPersonaEstructuraDesplazamientoRealDto> src);
+  public abstract List<
+      TareaPersonaEstructuraDesplazamientoReal> tareaPersonaEstructuraDesplazamientoRealDtoToTareaPersonaEstructuraDesplazamientoReal(
+          List<TareaPersonaEstructuraDesplazamientoRealDto> src);
 
   @Mapping(target = "pk.id", ignore = true)
   @Mapping(target = "pk.fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")

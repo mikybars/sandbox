@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.MailEntorno;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

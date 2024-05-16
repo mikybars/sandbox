@@ -24,9 +24,9 @@ import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

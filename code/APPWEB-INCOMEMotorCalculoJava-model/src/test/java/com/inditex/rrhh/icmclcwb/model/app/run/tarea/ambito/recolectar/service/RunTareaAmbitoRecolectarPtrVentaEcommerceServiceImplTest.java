@@ -3,19 +3,19 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoChallengeEnum;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
@@ -29,6 +29,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPresupuestoVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
@@ -43,11 +44,15 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrIncluirVentaPatEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.async.service.PtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -56,7 +61,7 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
 
   @Mock
@@ -67,11 +72,13 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   @Qualifier(value = "recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
-  @Random
-  RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  TareaAmbitoDto tareaAmbitoDto;
+  TareaAmbitoDto tareaAmbitoDto = Instancio.create(TareaAmbitoDto.class);
+
+  List<IdCadenaDto> idCadenaDtoList = Instancio.ofList(IdCadenaDto.class).size(1).create();
+
+  List<PeriodoDto> periodoDtoList = Instancio.ofList(PeriodoDto.class).size(1).create();
 
   @Mock
   private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
@@ -101,24 +108,26 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   @Mock
   private TareaMapper tareaMapper;
 
-  @Test
-  void ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(@Random final PtrPropertiesDto ptrPropertiesDto,
-      @Random(type = IdCadenaDto.class, size = 2) final List<IdCadenaDto> idCadenaDtoList,
-      @Random(type = PeriodoDto.class, size = 1) final List<PeriodoDto> periodoDtoList,
-      @Random(type = ConfiguracionProductoVentaResultItemDto.class,
-          size = 2) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
-      @Random final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
-      @Random final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
-      @Random final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
+  @BeforeEach
+  void setup() {
+    this.idCadenaDtoList.get(0).setId("1");
+  }
+
+  @ParameterizedTest
+  @InstancioSource
+  void ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(final PtrPropertiesDto ptrPropertiesDto,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
+      final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
+      final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
+      final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       utilities.when(() -> AsyncUtils.get(cfData))
           .thenReturn(ptrVentaOnlinePickingResponseDto);
 
       doReturn(ptrPropertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_PICKING);
-      idCadenaDtoList.get(0).setId("1");
-      idCadenaDtoList.get(1).setId("2");
-      doReturn(idCadenaDtoList).when(this.tareaLocalizacionHistoricoService)
+      this.idCadenaDtoList.get(0).setId("1");
+      doReturn(this.idCadenaDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen(),
               TipoVentaConceptoEnum.SINT.getId());
 
@@ -132,17 +141,17 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
       final LocalizacionesAmbitoDto localizacionesAmbitoDto = new LocalizacionesAmbitoDto(4L);
       localizacionesAmbitoDto.setLocalizaciones(idLocalizacionLocalDtoList);
 
-      doReturn(periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
+      doReturn(this.periodoDtoList).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
           this.runTarea.getTarea().getId(), ptrPropertiesDto.getFilter(), this.recolectarProperties);
       doReturn(ptrVentaOnlinePickingRequestDto).when(this.tareaMapper)
           .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(this.runTarea.getTarea(), this.tareaAmbitoDto,
-              periodoDtoList.get(0));
+              this.periodoDtoList.get(0));
 
       doReturn(confProductoVentaResultItemDtoList).when(this.meta4IcmWsCalcIncomeSessionService)
           .getConfiguracionProductoVenta(this.runTarea.getTarea().getId(), this.tareaAmbitoDto.getCclIdOrigen());
 
       ptrVentaOnlinePickingRequestDto
-          .setCadena(idCadenaDtoList.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
+          .setCadena(this.idCadenaDtoList.stream().map(IdCadenaDto::getId).map(Integer::valueOf).collect(Collectors.toList()));
       ptrVentaOnlinePickingRequestDto.setAgrupacion(PtrGroupTypeEnum.FECHA_TIENDA_SECCION);
       ptrVentaOnlinePickingRequestDto.setAgruparSeccion(PtrAgruparSeccionEnum.TRUE.getValue());
       ptrVentaOnlinePickingRequestDto.setTienda(localizacionesAmbitoDto.getLocalizaciones());
@@ -163,15 +172,14 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
     }
   }
 
-  @Test
-  void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(@Random final PtrPropertiesDto ptrPropertiesDto,
-      @Random(type = IdLocalizacionLocalPresupuestoDto.class,
-          size = 1) final List<IdLocalizacionLocalPresupuestoDto> idLocalizacionLocalPresupuestoDto,
-      @Random(type = ConfiguracionProductoVentaResultItemDto.class,
-          size = 2) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
-      @Random final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
-      @Random final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
-      @Random final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(final PtrPropertiesDto ptrPropertiesDto,
+      final List<IdLocalizacionLocalPresupuestoDto> idLocalizacionLocalPresupuestoDto,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
+      final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
+      final CompletableFuture<PtrVentaOnlinePickingResponseDto> cfData,
+      final PtrVentaOnlinePickingResponseDto ptrVentaOnlinePickingResponseDto) {
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       utilities.when(() -> AsyncUtils.get(cfData))
@@ -191,13 +199,12 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
       doReturn(idLocalizacionLocalPresupuestoDto).when(this.tareaLocalizacionHistoricoService)
           .findTiendasPresupuestosByStdIdLegEntAndIdTarea(
               idEmpresaList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList()), this.runTarea.getTarea().getId(),
-              Arrays.asList(
+              Collections.singletonList(
                   TipoVentaConceptoChallengeEnum.SINT.getId()));
 
       doReturn(ptrVentaOnlinePickingRequestDto).when(this.tareaMapper)
           .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaOnlinePickingRequestDto(
-              this.runTarea.getTrabajo(), this.runTarea.getTarea(), this.tareaAmbitoDto,
-              idLocalizacionLocalPresupuestoDto.get(0));
+              any(TrabajoDTO.class), any(TareaDto.class), any(TareaAmbitoDto.class), any(IdLocalizacionLocalPresupuestoDto.class));
 
       doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(this.runTarea.getTarea().getId(),

@@ -11,8 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
@@ -21,7 +19,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
+import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +29,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaRecolectarCondicionesServiceImplTest {
 
   @Mock
@@ -57,11 +57,12 @@ class RunTareaRecolectarCondicionesServiceImplTest {
   @InjectMocks
   private RunTareaRecolectarCondicionesServiceImpl RunTareaRecolectarCondicionesServiceImpl;
 
-  @Random
-  private RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
   @Test
-  void runTest(@Random final CompletableFuture<Void> completableFuture) {
+  void runTest() {
+
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .ausenciasByRunTarea(this.runTarea);

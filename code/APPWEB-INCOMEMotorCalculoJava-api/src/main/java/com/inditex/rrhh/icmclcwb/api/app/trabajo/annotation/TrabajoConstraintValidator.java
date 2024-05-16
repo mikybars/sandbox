@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.util.CollectionUtils;
 
 public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoValidator, Object> {

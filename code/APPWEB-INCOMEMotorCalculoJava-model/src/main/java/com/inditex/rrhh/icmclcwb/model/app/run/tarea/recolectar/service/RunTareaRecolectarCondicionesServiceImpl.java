@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
@@ -20,8 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaRepositoryCustom {
 

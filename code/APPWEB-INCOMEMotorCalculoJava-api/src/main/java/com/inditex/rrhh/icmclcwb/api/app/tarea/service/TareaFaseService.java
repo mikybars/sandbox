@@ -7,9 +7,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaFaseService {
 

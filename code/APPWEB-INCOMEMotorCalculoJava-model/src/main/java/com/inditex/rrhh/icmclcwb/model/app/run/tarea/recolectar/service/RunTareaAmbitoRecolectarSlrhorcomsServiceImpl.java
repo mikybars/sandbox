@@ -29,9 +29,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -41,8 +42,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAmbitoRecolectarSlrhorcomsService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoRecolectarSlrhorcomsServiceImpl.class);
 
   @Autowired
   private TareaMapper tareaMapper;
@@ -103,7 +103,7 @@ public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAm
             request
                 .setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
             request.setStart(start);
-            this.log.info("Peticion de festivos: {}", request);
+            RunTareaAmbitoRecolectarSlrhorcomsServiceImpl.LOG.info("Peticion de festivos: {}", request);
             final CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos =
                 this.slrHorarioComercialAsyncService
                     .horarioComercialFestivos(request);

@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.ptr.presencia.service;
 
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
@@ -18,7 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto.PtrPresenciaTo
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.retry.annotation.Retryable;

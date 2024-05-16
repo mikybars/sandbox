@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrTestConstants;
@@ -13,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 @Disabled
 public class PtrVentaGeneralServiceTest {
 
@@ -47,7 +46,7 @@ public class PtrVentaGeneralServiceTest {
         .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
             request,
             PtrVentaTotalizadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -62,7 +61,7 @@ public class PtrVentaGeneralServiceTest {
         .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
             request,
             PtrVentaTotalizadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
   @Test
@@ -78,7 +77,7 @@ public class PtrVentaGeneralServiceTest {
         .postForEntity(this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO).getEndpoint(),
             request,
             PtrVentaTotalizadoResponseDto.class);
-    assertEquals(HttpStatus.SC_OK, response.getStatusCodeValue());
+    assertEquals(HttpStatus.SC_OK, response.getStatusCode().value());
   }
 
 }

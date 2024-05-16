@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Component;
 @Component("directoVentaPorcentajeV1")
 public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(DirectoVentaPorcentajeV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -39,12 +39,12 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-    this.log.info(
+    DirectoVentaPorcentajeV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPorcentajeV1RunAlgoritmo :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoDirectoVentaPorcentajeV1RepositoryCustom
         .ids(algoritmo, runTarea.getTarea());
-    this.log.info(
+    DirectoVentaPorcentajeV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPorcentajeV1RunAlgoritmo :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -55,7 +55,7 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
         this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-      this.log.info(
+      DirectoVentaPorcentajeV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPorcentajeV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -65,13 +65,13 @@ public class DirectoVentaPorcentajeV1RunAlgoritmo implements RunAlgoritmo {
                 runTarea.getTarea(), personas);
         AsyncUtils.exceptionally(cfCalc, cf);
       } catch (final Exception e) {
-        this.log.error(
+        DirectoVentaPorcentajeV1RunAlgoritmo.LOG.error(
             "Trabajo[{}]Tarea[{}] :: DirectoVentaPorcentajeV1RunAlgoritmo :: KO :: Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info(
+      DirectoVentaPorcentajeV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPorcentajeV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }

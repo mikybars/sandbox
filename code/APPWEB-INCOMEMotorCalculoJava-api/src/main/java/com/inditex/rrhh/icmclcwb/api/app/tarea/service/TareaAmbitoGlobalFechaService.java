@@ -4,8 +4,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalFechaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAmbitoGlobalFechaService {
 

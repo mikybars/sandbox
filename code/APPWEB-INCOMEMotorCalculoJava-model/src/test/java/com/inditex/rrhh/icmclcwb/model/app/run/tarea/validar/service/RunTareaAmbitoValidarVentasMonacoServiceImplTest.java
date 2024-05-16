@@ -8,15 +8,15 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrMonacoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 
+import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -28,7 +28,7 @@ import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
 
   @Mock
@@ -41,20 +41,15 @@ class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoValidarVentasMonacoServiceImpl runTareaAmbitoValidarVentasMonacoService;
 
-  @Random
-  private RunTareaDto runTarea;
+  final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private TareaAmbitoDto tareaAmbito;
+  final TareaAmbitoDto tareaAmbito = Instancio.create(TareaAmbitoDto.class);
 
-  @Random
-  private TareaFaseAccionDto tareaFaseAccion;
+  final TareaFaseAccionDto tareaFaseAccion = Instancio.create(TareaFaseAccionDto.class);
 
-  @Random
-  private TareaFaseAccionDto tareaFaseAccion2;
+  final TareaFaseAccionDto tareaFaseAccion2 = Instancio.create(TareaFaseAccionDto.class);
 
-  @Random
-  private ValidacionDto validacion;
+  final ValidacionDto validacion = Instancio.create(ValidacionDto.class);
 
   @BeforeAll
   void setup() {
@@ -63,8 +58,9 @@ class RunTareaAmbitoValidarVentasMonacoServiceImplTest {
   }
 
   @Test
-  void executeTest(@Random final CompletableFuture<Void> completableFuture) {
+  void executeTest() {
 
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
     doReturn(completableFuture).when(this.ventasMonacoService)
         .ventaFisicaLocalizacionSeccionByRunTarea(this.runTarea);
 

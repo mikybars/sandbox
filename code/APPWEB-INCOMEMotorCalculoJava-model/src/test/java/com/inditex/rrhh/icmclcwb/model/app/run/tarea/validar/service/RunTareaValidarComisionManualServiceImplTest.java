@@ -7,8 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarComisionManualService;
@@ -20,13 +18,14 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaValidarComisionManualServiceImplTest {
 
   @Mock
@@ -41,8 +40,9 @@ class RunTareaValidarComisionManualServiceImplTest {
   @InjectMocks
   private RunTareaValidarComisionManualServiceImpl runTareaValidarComisionManualService;
 
-  @Test
-  void executeValidacionesConErroresTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeValidacionesConErroresTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(
@@ -72,8 +72,9 @@ class RunTareaValidarComisionManualServiceImplTest {
 
   }
 
-  @Test
-  void executeSinValidacionesTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeSinValidacionesTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
     tarea.setAmbito(new ArrayList<>());
@@ -92,8 +93,9 @@ class RunTareaValidarComisionManualServiceImplTest {
 
   }
 
-  @Test
-  void executeValidacionesSinErroresTest(@Random final RunTareaDto runTarea, @Random final TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeValidacionesSinErroresTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
     when(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(

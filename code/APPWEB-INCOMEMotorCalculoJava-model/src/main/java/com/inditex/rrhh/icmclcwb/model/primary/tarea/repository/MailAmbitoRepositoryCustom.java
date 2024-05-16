@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface MailAmbitoRepositoryCustom {
 

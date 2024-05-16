@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCal
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

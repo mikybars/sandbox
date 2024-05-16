@@ -40,8 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
@@ -54,9 +52,11 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -65,7 +65,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -114,9 +114,10 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Repositor
     assertEquals(personas, ids);
   }
 
-  @Test
-  void getMapValuesTest(@Random final AlgoritmoDTO algoritmo, @Random final AlgoritmoDTO algoritmo2, @Random final TareaDto tarea,
-      @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDato, @Random final IdPersonaLocalDto persona) {
+  @ParameterizedTest
+  @InstancioSource
+  void getMapValuesTest(final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato, final IdPersonaLocalDto persona) {
 
     algoritmo.setDesplazamiento(Boolean.TRUE);
     algoritmo.setDesplazamientoBase(Boolean.FALSE);
@@ -176,10 +177,11 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Repositor
 
   }
 
-  @Test
-  void calcularTest(@Random final AlgoritmoDTO algoritmo, @Random final TareaDto tarea,
-      @Random(type = IdTipoDatoDto.class, size = 3) final List<IdTipoDatoDto> tiposDato,
-      @Random(type = IdPersonaLocalDto.class, size = 2) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+  @InstancioSource
+  void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato,
+      final List<IdPersonaLocalDto> personas) {
 
     algoritmo.setDesplazamiento(Boolean.TRUE);
     algoritmo.setDesplazamientoBase(Boolean.FALSE);

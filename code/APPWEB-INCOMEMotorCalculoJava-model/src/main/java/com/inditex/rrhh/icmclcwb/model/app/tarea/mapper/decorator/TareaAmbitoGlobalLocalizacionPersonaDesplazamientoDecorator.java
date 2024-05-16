@@ -18,8 +18,9 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDecorato
   private TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper delegate;
 
   @Override
-  public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
-      List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
+  public List<
+      TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
+          List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
     List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(src)) {
       for (GenericEmpleadoResultItemDto item : src) {

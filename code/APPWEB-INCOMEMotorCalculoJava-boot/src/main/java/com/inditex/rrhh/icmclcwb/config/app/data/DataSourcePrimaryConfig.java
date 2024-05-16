@@ -1,13 +1,13 @@
 package com.inditex.rrhh.icmclcwb.config.app.data;
 
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
-import com.inditex.aqsw.framework.data.jpa.annotations.AmigaEnableJpaRepositories;
+import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
+import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
+import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
+import com.inditex.amigafwk.data.jpa.annotations.AmigaEnableJpaRepositories;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +21,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
     "com.inditex.rrhh.icmclcwb.model.primary"})
 public class DataSourcePrimaryConfig {
 
-  @Bean(name = "primaryDataSource")
   @Primary
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.primary")
+  @AmigaJdbcDatasource(value = "primary", beanName = "primaryDataSource")
   public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }

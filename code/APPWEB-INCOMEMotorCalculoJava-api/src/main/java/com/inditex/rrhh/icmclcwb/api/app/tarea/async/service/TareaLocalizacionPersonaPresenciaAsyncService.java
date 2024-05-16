@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async("repositoryPrimaryExecutor")

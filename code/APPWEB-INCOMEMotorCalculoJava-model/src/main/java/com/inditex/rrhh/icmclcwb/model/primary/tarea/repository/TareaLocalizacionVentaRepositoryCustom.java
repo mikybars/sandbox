@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionVentaRepositoryCustom {
 

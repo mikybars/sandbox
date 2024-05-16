@@ -11,7 +11,7 @@ import stormpot.SlotInfo;
 
 public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
 
-  private static final Logger log = LoggerFactory.getLogger(Meta4ClientExpiration.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Meta4ClientExpiration.class);
 
   @Override
   public boolean hasExpired(final SlotInfo<? extends Meta4ClientPoolable> info) {
@@ -32,13 +32,13 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
         }
       }
     } catch (final Exception e) {
-      log.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
+      LOG.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
     }
     if (login) {
       if (expired) {
-        log.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
+        LOG.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
       } else {
-        log.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
+        LOG.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
       }
     }
     return expired;

@@ -1,6 +1,5 @@
 server:
-  #port: 8080
-  port: 7070
+  port: 8080
 logging:
   level:
     root: WARN
@@ -35,6 +34,16 @@ amiga:
           counter:
             enabled: true
   common:
+    soap:
+      client:
+        login:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+          username: SRVCICMCLCWSDESAX
+          password: '${SRVCICMCLCWSDESAX}'
+        meta4:
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+          username: SRVCICMCLCWSDESAX
+          password: '${SRVCICMCLCWSDESAX}'
     core:
       is-production: false
     cache:
@@ -128,6 +137,8 @@ amiga:
           base-url: http://localhost:8080/incomemeta
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
+    metrics:
+      type: influx
   service:
     jms:
       listener:
@@ -153,16 +164,22 @@ amiga:
         enable-local-test: true
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
-    rest:
-      logging:
-        is-production: false
+      user-details:
+        heimdal:
+          local:
+            enable-local-test: true
+            json-file: /custom-local-heimdal.json
+    web:
+      api:
+        production: false
+        problem-details:
+          enabled: false
   data:
     binder:
       jms-activemq:
         default:
           consumer:
             enable-dlq: false
-            send-original-payload-to-dlq: false
     jms:
       connection-factory:
         broker-escritura:
@@ -237,7 +254,14 @@ amiga:
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'
-          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;clientProgramName=${metadata.jirakey}-${metadata.slot};connectionTimeout=60;loginTimeout=10;queryTimeoutInterruptProcessingMode=2;timerLevelForQueryTimeOut=2;
+          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
+          jdbc-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            loginTimeout: 10
+            connectionTimeout: 60
+            timerLevelForQueryTimeOut: 2
+            interruptProcessingMode: 2
+            currentSchema: GESTION_COMISION
             #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
             #          user: oincome
@@ -788,12 +812,9 @@ amiga:
             encrypt: false
     jpa:
       properties:
-        #properties: '{''hibernate.hbm2ddl.auto'':''create'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.hbm2ddl.import_files'':''import-primary-ddl.sql,import-primary-dml.sql'',''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
-        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.CharSet'':''utf8'',''hibernate.connection.characterEncoding'':''utf8'',''hibernate.connection.useUnicode'':''true'',''hibernate.show_sql'':''false'',''hibernate.format_sql'':''false'',''hibernate.jdbc.batch_size'':''1000'',''hibernate.order_inserts'':''true'',''hibernate.order_updates'':''true'',''hibernate.jdbc.batch_versioned_data'':''true'',''hibernate.generate_statistics'':''true''}'
-        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect'',''hibernate.connection.isolation'':''1''}'
-        #properties: '{''hibernate.dialect'':''com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect''}'
-        hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate:
+          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+          default_schema: GESTION_COMISION
 app:
   envars:
     calculo:

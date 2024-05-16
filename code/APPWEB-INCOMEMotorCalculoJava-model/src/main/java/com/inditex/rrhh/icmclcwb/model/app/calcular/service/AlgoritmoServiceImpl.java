@@ -8,8 +8,8 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepositoryCustom;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -30,18 +30,6 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
   @Override
   public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
     return this.algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
-  }
-
-  @Override
-  public AlgoritmoDTO findByTipoCalculoId(@NotNull @Positive final Long id) {
-    return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findByTipoCalculoId(id));
-  }
-
-  @Override
-  public AlgoritmoDTO findByTipoCalculoIdAndTipoComisionId(@NotNull @Positive final Long idTipoCalculo,
-      @NotNull @Positive final Long idTipoComision) {
-    return this.algoritmoMapper.algoritmoToAlgoritmoDTO(
-        this.algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(idTipoCalculo, idTipoComision));
   }
 
   @Override

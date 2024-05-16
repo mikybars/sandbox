@@ -18,8 +18,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
@@ -46,12 +44,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
-import org.junit.jupiter.api.Disabled;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -59,7 +60,7 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class RunTareaPrevalidarAntesServiceImplTest {
 
   @Mock
@@ -87,16 +88,17 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   private TareaFaseService tareaFaseService;
 
   @Mock
+  private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
+
+  @Mock
   private Logger log;
 
   @InjectMocks
   private RunTareaPrevalidarAntesServiceImpl runTareaPrevalidarAntesServiceImpl;
 
-  @Random
-  private RunTareaDto runTareaDto;
+  final RunTareaDto runTareaDto = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private FaseDto faseDto;
+  final FaseDto faseDto = Instancio.create(FaseDto.class);
 
   @Mock
   private RunPrevalidar runPrevalidar;
@@ -218,15 +220,21 @@ public class RunTareaPrevalidarAntesServiceImplTest {
 
   }
 
-  @Test
-  @Disabled
-  void runExceptionTest(@Random final TareaFaseDto tareaFase, @Random final AccionDto accionDto,
-      @Random(type = TareaFaseAccionDto.class, size = 2) final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      @Random(type = ValidacionDto.class, size = 2) final List<ValidacionDto> validacionDtoList,
-      @Random final TareaFaseAccionDto tareaFaseAccionDto,
-      @Random final CompletableFuture<List<ValidacionDto>> cfRun,
-      @Random final SincronizacionResponseDto sincronizacionResponseDto,
-      @Random final AccionDto accion) {
+  @ParameterizedTest
+  @InstancioSource
+  void runExceptionTest(final TareaFaseDto tareaFase, final AccionDto accionDto,
+      final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
+      final TareaFaseAccionDto tareaFaseAccionDto,
+      final CompletableFuture<List<ValidacionDto>> cfRun,
+      final SincronizacionResponseDto sincronizacionResponseDto) {
+    final AccionDto accion = new AccionDto();
+    accion.setEsReaccionReintento(true);
+    accion.setReintentoMax(3);
+    accion.setId(1);
+    final List<ValidacionDto> validacionDtoList = new ArrayList<>();
+    validacionDtoList
+        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L)
+            .idMotivosDesplazamiento(List.of(1, 2)).build());
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)

@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 /*
  * Copyright (c) 2021. Inditex
  */
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -27,6 +28,9 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustomImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteBajaItRepositoryCustom;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +38,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -68,8 +73,18 @@ class RunAjusteBajaItProcesarTest {
   @InjectMocks
   private RunAjusteBajaItProcesar runAjusteBajaItProcesar;
 
+  private ListAppender<ILoggingEvent> listAppender;
+
   @BeforeEach
   public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory
+            .getLogger(RunAjusteBajaItProcesar.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+    logger.addAppender(this.listAppender);
+
     when(this.tareaCalculoAjusteBajaItRepositoryCustom.ids(any(TareaDto.class)))
         .thenReturn(this.createPersonaIds());
     final RunAlgoritmoAjustePropertiesDto properties = new RunAlgoritmoAjustePropertiesDto();
@@ -77,7 +92,7 @@ class RunAjusteBajaItProcesarTest {
     properties.setBatchSize(BATCH_SIZE);
     when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
     when(this.calculoAjusteBajaItAsyncService.ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-        ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
+        ArgumentMatchers.any())).thenReturn(CompletableFuture.completedFuture(
             AsyncConstants.NIL));
   }
 
@@ -125,8 +140,9 @@ class RunAjusteBajaItProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Ids", ID_TRABAJO,
-        ID_TAREA);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteBajaItProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
   }
 
   @Test
@@ -135,8 +151,9 @@ class RunAjusteBajaItProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteBajaItProcesar :: Ids: {}", ID_TRABAJO,
-        ID_TAREA, this.createPersonaIds());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteBajaItProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
   }
 
   @Test
@@ -145,8 +162,9 @@ class RunAjusteBajaItProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteBajaItProcesar :: Personas: {}",
-        ID_TRABAJO, ID_TAREA, this.createPersonaIds().size());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteBajaItProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
   }
 
   @Test
@@ -155,8 +173,9 @@ class RunAjusteBajaItProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Fin :: RunAjusteBajaItProcesar :: Personas: {}",
-        this.createPersonaIds().size());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteBajaItProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
   }
 
   @Test
@@ -197,12 +216,15 @@ class RunAjusteBajaItProcesarTest {
     doThrow(exception)
         .when(this.calculoAjusteBajaItAsyncService)
         .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     this.runAjusteBajaItProcesar.execute(runTarea, algoritmoAjuste);
 
     final List<IdPersonaLocalDto> personas = this.createPersonaIds();
-    verify(this.log, times(1)).error("RunAjusteBajaItProcesar :: KO :: Personas: {}", personas.size(), exception);
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("RunAjusteBajaItProcesar :: KO :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
 

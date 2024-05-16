@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface MailEntornoService {
 

@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public interface TareaValidarService {
 

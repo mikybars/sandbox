@@ -19,21 +19,14 @@
 
     <!-- FWK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.data</groupId>
-      <artifactId>data-framework-starter-jms-activemq</artifactId>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-jms-activemq</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-jms-activemq</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-jms-activemq</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-broker</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-kahadb-store</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>

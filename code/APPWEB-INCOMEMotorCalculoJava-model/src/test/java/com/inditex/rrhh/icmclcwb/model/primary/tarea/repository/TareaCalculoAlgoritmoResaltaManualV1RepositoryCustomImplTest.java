@@ -20,11 +20,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoComisionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -36,6 +35,7 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +47,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -65,15 +65,6 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
 
   @InjectMocks
   private TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImpl tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom;
-
-  @Random
-  private AlgoritmoDTO algoritmo;
-
-  @Random
-  private TareaDto tarea;
-
-  @Random
-  private IdPersonaLocalDto persona;
 
   @BeforeEach
   public void setup() throws IllegalAccessException {
@@ -113,9 +104,9 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     final TipoComisionDTO tipoComision = new TipoComisionDTO();
     tipoComision.setId(TipoComisionEnum.RESALTA_MANUAL.getId());
     when(algoritmo.getTipoComision())
-        .thenReturn(Arrays.asList(tipoComision));
+        .thenReturn(List.of(tipoComision));
     when(algoritmo.getTipoCalculo())
-        .thenReturn(Arrays.asList(tipoCalculo));
+        .thenReturn(List.of(tipoCalculo));
 
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
@@ -143,10 +134,10 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     assertEquals(persona1.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
     // tipocomision
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList(TipoComisionEnum.RESALTA_MANUAL.getId()), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(Collections.singletonList(TipoComisionEnum.RESALTA_MANUAL.getId()), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
     // tipocalculo
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList(TipoCalculoEnum.NINGUNO.getId()), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(Collections.singletonList(TipoCalculoEnum.NINGUNO.getId()), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
     // idTipoComision
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_COMISION));
     assertEquals(TipoComisionEnum.RESALTA_MANUAL.getId(), result.get(SQL_PARAM_ID_TIPO_COMISION));
@@ -169,9 +160,9 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     final TipoComisionDTO tipoComision = new TipoComisionDTO();
     tipoComision.setId(TipoComisionEnum.RESALTA_MANUAL.getId());
     when(algoritmo.getTipoComision())
-        .thenReturn(Arrays.asList(tipoComision));
+        .thenReturn(List.of(tipoComision));
     when(algoritmo.getTipoCalculo())
-        .thenReturn(Arrays.asList(tipoCalculo));
+        .thenReturn(List.of(tipoCalculo));
     final TareaDto tarea = mock(TareaDto.class);
     when(tarea.getId()).thenReturn(101L);
     final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
@@ -182,7 +173,7 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
     when(persona2.getStdOrHrPeriod()).thenReturn("02");
     final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
 
-    this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.calcular(algoritmo, tarea, personas);;
+    this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom.calcular(algoritmo, tarea, personas);
 
     // parametros de la consulta: idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, tiposCalculo,
     // tiposComision, esDesplazamiento, esDesplazamientoBase, comisionable, calcula
@@ -200,10 +191,10 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
       assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
       // tipocalculo
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
-      assertEquals(Arrays.asList(TipoCalculoEnum.NINGUNO.getId()), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+      assertEquals(Collections.singletonList(TipoCalculoEnum.NINGUNO.getId()), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
       // tipocomision
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
-      assertEquals(Arrays.asList(TipoComisionEnum.RESALTA_MANUAL.getId()),
+      assertEquals(Collections.singletonList(TipoComisionEnum.RESALTA_MANUAL.getId()),
           value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
       // idTipoComision
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_COMISION));
@@ -243,11 +234,16 @@ public class TareaCalculoAlgoritmoResaltaManualV1RepositoryCustomImplTest {
 
   @Test
   void getMapValuesTest2() {
-    this.algoritmo.setDesplazamientoBase(true);
-    this.algoritmo.setDesplazamiento(true);
+
+    final var algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    final var persona = Instancio.create(IdPersonaLocalDto.class);
+
+    algoritmo.setDesplazamientoBase(true);
+    algoritmo.setDesplazamiento(true);
 
     final Map<String, Object> result = this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom
-        .getMapValues(this.algoritmo, this.tarea, this.persona);
+        .getMapValues(algoritmo, tarea, persona);
 
     assertNotNull(result);
     assertEquals(result.get(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO), SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

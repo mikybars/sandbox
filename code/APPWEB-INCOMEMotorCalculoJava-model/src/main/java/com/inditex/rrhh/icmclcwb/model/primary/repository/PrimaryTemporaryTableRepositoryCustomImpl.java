@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

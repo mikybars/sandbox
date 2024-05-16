@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 /*
  * Copyright (c) 2021. Inditex
  */
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -27,6 +28,9 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustomImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteAntiguedadRepositoryCustom;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +38,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -71,8 +76,17 @@ class RunAjusteAntiguedadProcesarTest {
   @InjectMocks
   private RunAjusteAntiguedadProcesar runAjusteAntiguedadProcesar;
 
+  private ListAppender<ILoggingEvent> listAppender;
+
   @BeforeEach
   public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory
+            .getLogger(RunAjusteAntiguedadProcesar.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+    logger.addAppender(this.listAppender);
     when(this.tareaCalculoAjusteAntiguedadRepositoryCustom.ids(any(TareaDto.class)))
         .thenReturn(this.createPersonaIds());
     final RunAlgoritmoAjustePropertiesDto properties = new RunAlgoritmoAjustePropertiesDto();
@@ -81,7 +95,7 @@ class RunAjusteAntiguedadProcesarTest {
     when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
     when(this.calculoAjusteAntiguedadAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
         any(TareaDto.class),
-        ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
+        ArgumentMatchers.any())).thenReturn(CompletableFuture.completedFuture(
             AsyncConstants.NIL));
   }
 
@@ -128,10 +142,10 @@ class RunAjusteAntiguedadProcesarTest {
     final RunTareaDto runTarea = this.createRunTarea();
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Ids",
-        ID_TRABAJO,
-        ID_TAREA);
   }
 
   @Test
@@ -139,10 +153,10 @@ class RunAjusteAntiguedadProcesarTest {
     final RunTareaDto runTarea = this.createRunTarea();
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteAntiguedadProcesar :: Ids: {}",
-        ID_TRABAJO,
-        ID_TAREA, this.createPersonaIds());
   }
 
   @Test
@@ -150,9 +164,10 @@ class RunAjusteAntiguedadProcesarTest {
     final RunTareaDto runTarea = this.createRunTarea();
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteAntiguedadProcesar :: Personas: {}",
-        ID_TRABAJO, ID_TAREA, this.createPersonaIds().size());
   }
 
   @Test
@@ -160,9 +175,10 @@ class RunAjusteAntiguedadProcesarTest {
     final RunTareaDto runTarea = this.createRunTarea();
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
-    verify(this.log, times(1)).info("Fin :: RunAjusteAntiguedadProcesar :: Personas: {}",
-        this.createPersonaIds().size());
   }
 
   @Test
@@ -203,13 +219,15 @@ class RunAjusteAntiguedadProcesarTest {
     doThrow(exception)
         .when(this.calculoAjusteAntiguedadAsyncService)
         .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     this.runAjusteAntiguedadProcesar.execute(runTarea, algoritmoAjuste);
 
     final List<IdPersonaLocalDto> personas = this.createPersonaIds();
-    verify(this.log, times(1)).error("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", personas.size(),
-        exception);
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("RunAjusteAntiguedadProcesar :: KO :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
 

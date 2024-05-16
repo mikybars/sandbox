@@ -10,13 +10,11 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
@@ -28,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupuestoService;
@@ -53,18 +52,21 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
   @Mock
@@ -116,31 +118,31 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoRecolectarPtrMonacoServiceImpl ventasMonacoService;
 
-  @Random
-  private RunTareaDto runTarea;
+  RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private RunTareaDto runTarea2;
+  RunTareaDto runTarea2 = Instancio.create(RunTareaDto.class);
 
-  @Random
-  private TareaAmbitoDto ambito;
+  TareaAmbitoDto ambito = Instancio.create(TareaAmbitoDto.class);
+
+  List<IdCadenaDto> cadenas = Instancio.ofList(IdCadenaDto.class).size(1).create();
+
+  List<IdLocalizacionLocalDto> idLocList = Instancio.ofList(IdLocalizacionLocalDto.class).size(1).create();
 
   @BeforeAll
   void setup() {
-    this.runTarea.getTarea().setAmbito(Arrays.asList(this.ambito));
+    this.runTarea.getTarea().setAmbito(Collections.singletonList(this.ambito));
     this.runTarea.getTrabajo().getTipoAmbito().setId(4L);
-    this.runTarea2.getTarea().setAmbito(Arrays.asList(this.ambito));
+    this.runTarea2.getTarea().setAmbito(Collections.singletonList(this.ambito));
+    this.cadenas.get(0).setId("1");
+    this.idLocList.get(0).setId("1");
   }
 
-  @Test
-  void ventaFisicaLocalizacionSeccionByRunTareaTest(@Random final PeriodoDto periodo,
-      @Random(size = 1, type = IdLocalizacionLocalDto.class) final List<IdLocalizacionLocalDto> idLocList,
-      @Random final PtrVentaTotalizadoRequestDto request,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoList,
-      @Random final PtrVentaTotalizadoResponseDto ventaTotalizadoresponse) {
-
-    idLocList.get(0).setId("1");
+  @ParameterizedTest
+  @InstancioSource
+  void ventaFisicaLocalizacionSeccionByRunTareaTest(final PeriodoDto periodo,
+      final PtrVentaTotalizadoRequestDto request,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoList,
+      final PtrVentaTotalizadoResponseDto ventaTotalizadoresponse) {
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -153,9 +155,9 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
     doReturn(periodo).when(this.tareaLocalizacionPresupuestoService).findPeriodoPresupuestoYTrabajo(this.runTarea.getTarea().getId());
 
-    doReturn(idLocList).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.idLocList).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
-            this.ambito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            this.ambito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
     doReturn(propertiesDto).when(this.ventaGeneralProperties).get(PtrPropertiesConstants.VENTA_TOTALIZADO);
 
     doReturn(request).when(this.tareaMapper)
@@ -187,15 +189,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     });
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1, type = IdLocalizacionLocalDto.class) final List<IdLocalizacionLocalDto> idLocList,
-      @Random(size = 1, type = PeriodoDto.class) final List<PeriodoDto> periodos,
-      @Random final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoResult,
-      @Random final PtrVentaOnlineIpodResponseDto ventaOnlineIpodResponse) {
+      final List<PeriodoDto> periodos,
+      final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoResult,
+      final PtrVentaOnlineIpodResponseDto ventaOnlineIpodResponse) {
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -208,21 +208,19 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
     doReturn(propertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_IPOD);
 
-    cadenas.get(0).setId("1");
-    doReturn(cadenas).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.cadenas).when(this.tareaLocalizacionHistoricoService)
         .findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(),
             AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.IPOD.getId());
 
-    idLocList.get(0).setId("1");
-    doReturn(idLocList).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.idLocList).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
-            this.ambito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            this.ambito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
 
     doReturn(periodos).when(this.tareaLocalizacionPresupuestoService)
         .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
     doReturn(paramVentaOnlineIpod).when(this.tareaMapper).mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrVentaOnlineIpodRequestDto(
-        this.runTarea.getTarea(), this.ambito, periodos.get(0));
+        any(TareaDto.class), any(TareaAmbitoDto.class), any(PeriodoDto.class));
 
     confProductoResult.get(0).setIdProducto(1);
     doReturn(confProductoResult).when(this.meta4IcmWsCalcIncomeSessionService)
@@ -252,15 +250,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     });
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1, type = IdLocalizacionLocalDto.class) final List<IdLocalizacionLocalDto> idLocList,
-      @Random(size = 1, type = PeriodoDto.class) final List<PeriodoDto> periodos,
-      @Random final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
-      @Random final PtrVentaOnlinePickingResponseDto ventaOnlinePickingResponse) {
+      final List<PeriodoDto> periodos,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      final PtrVentaOnlinePickingResponseDto ventaOnlinePickingResponse) {
+    final PtrVentaOnlinePickingRequestDto paramVentaOnlinePicking = Instancio.create(PtrVentaOnlinePickingRequestDto.class);
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -273,21 +269,19 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
     doReturn(propertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_PICKING);
 
-    cadenas.get(0).setId("1");
-    doReturn(cadenas).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.cadenas).when(this.tareaLocalizacionHistoricoService)
         .findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(),
             AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.SINT.getId());
 
-    idLocList.get(0).setId("1");
-    doReturn(idLocList).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.idLocList).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-            this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
 
     doReturn(periodos).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
         this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
     doReturn(paramVentaOnlinePicking).when(this.tareaMapper).mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaOnlinePickingRequestDto(
-        this.runTarea.getTarea(), this.ambito, periodos.get(0));
+        any(TareaDto.class), any(TareaAmbitoDto.class), any(PeriodoDto.class));
 
     confProductoVentaResult.get(0).setIdProducto(1);
     doReturn(confProductoVentaResult).when(this.meta4IcmWsCalcIncomeSessionService)
@@ -315,15 +309,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     });
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1, type = IdLocalizacionLocalDto.class) final List<IdLocalizacionLocalDto> idLocList,
-      @Random(size = 1, type = PeriodoDto.class) final List<PeriodoDto> periodos,
-      @Random final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
-      @Random final PtrVentaOnlineEntregaTiendaResponseDto ptrVentaOnlineEntregaTiendaResponse) {
+      final List<PeriodoDto> periodos,
+      final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      final PtrVentaOnlineEntregaTiendaResponseDto ptrVentaOnlineEntregaTiendaResponse) {
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -333,25 +325,25 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     filter.setPeriodSize(1);
     propertiesDto.setFilter(filter);
     propertiesDto.setEndpoint("");
+    paramVentaOnlineEntregaTienda.setPais(1);
 
     doReturn(propertiesDto).when(this.ventaEcommerceProperties).get(PtrPropertiesConstants.VENTA_ONLINE_ENTREGA_TIENDA);
 
-    cadenas.get(0).setId("1");
-    doReturn(cadenas).when(this.tareaLocalizacionHistoricoService)
+    doReturn(this.cadenas).when(this.tareaLocalizacionHistoricoService)
         .findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(),
             AppConstants.STD_ID_LEG_ENT_MONACO, TipoVentaConceptoEnum.ENTREGA_TIENDA.getId());
 
-    idLocList.get(0).setId("1");
-    doReturn(idLocList).when(this.tareaLocalizacionHistoricoService)
+    this.idLocList.get(0).setId("1");
+    doReturn(this.idLocList).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-            this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
 
     doReturn(periodos).when(this.tareaLocalizacionPresupuestoService).findListaPeriodosPresupestoYTrabajo(
         this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
     doReturn(paramVentaOnlineEntregaTienda).when(this.tareaMapper)
         .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrVentaOnlineEntregaTiendaRequestDto(
-            this.runTarea.getTarea(), this.ambito, periodos.get(0));
+            any(TareaDto.class), any(TareaAmbitoDto.class), any(PeriodoDto.class));
 
     doReturn(confProductoVentaResult).when(this.meta4IcmWsCalcIncomeSessionService)
         .getConfiguracionProductoVenta(this.runTarea.getTarea().getId(), this.ambito.getCclIdOrigen());
@@ -379,13 +371,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     });
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(
-      @Random final PeriodoDto periodo, @Random final PtrVentaTotalizadoRequestDto request,
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
-      @Random final PtrVentaTotalizadoResponseDto ptrVentaTotalizadoResponse) {
+      final PeriodoDto periodo, final PtrVentaTotalizadoRequestDto request,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      final PtrVentaTotalizadoResponseDto ptrVentaTotalizadoResponse) {
+    final List<IdCadenaDto> cadenas = Instancio.ofList(IdCadenaDto.class).size(1).create();
 
     doReturn(periodo).when(this.tareaLocalizacionPresupuestoService)
         .findPeriodoPresupuestoYTrabajo(this.runTarea.getTarea().getId());
@@ -423,13 +415,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbitoTest(
-      @Random final PeriodoDto periodo, @Random final PtrPresenciaDetalleRequestDto request,
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
-      @Random final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
+      final PeriodoDto periodo, final PtrPresenciaDetalleRequestDto request,
+      final List<IdCadenaDto> cadenas,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -441,16 +433,16 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     propertiesDto.setEndpoint("");
     doReturn(propertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
 
-    doReturn(Arrays.asList(periodo)).when(this.tareaLocalizacionPresupuestoService)
+    doReturn(Collections.singletonList(periodo)).when(this.tareaLocalizacionPresupuestoService)
         .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
     final IdLocalizacionLocalDto localizacionLocalDto = new IdLocalizacionLocalDto();
     localizacionLocalDto.setId("1");
 
-    doReturn(Arrays.asList(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
+    doReturn(List.of(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
             this.ambito.getCclIdOrigen(),
-            Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
 
     doReturn(request).when(this.tareaMapper)
         .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(
@@ -480,13 +472,13 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
 
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(
-      @Random final PeriodoDto periodo, @Random final PtrPresenciaDetalleRequestDto request,
-      @Random(size = 1, type = IdCadenaDto.class) final List<IdCadenaDto> cadenas,
-      @Random(size = 1,
-          type = ConfiguracionProductoVentaResultItemDto.class) final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
-      @Random final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
+      final PeriodoDto periodo, final PtrPresenciaDetalleRequestDto request,
+      final List<IdCadenaDto> cadenas,
+      final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
+      final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto) {
 
     final PtrPropertiesDto propertiesDto = new PtrPropertiesDto();
     final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
@@ -498,16 +490,16 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
     propertiesDto.setEndpoint("");
     doReturn(propertiesDto).when(this.presenciasProperties).get(PtrPropertiesConstants.PRESENCIA_DETALLE);
 
-    doReturn(Arrays.asList(periodo)).when(this.tareaLocalizacionPresupuestoService)
+    doReturn(Collections.singletonList(periodo)).when(this.tareaLocalizacionPresupuestoService)
         .findListaPeriodosPresupestoYTrabajo(this.runTarea.getTarea().getId(), filter, this.recolectarProperties);
 
     final IdLocalizacionLocalDto localizacionLocalDto = new IdLocalizacionLocalDto();
     localizacionLocalDto.setId("1");
 
-    doReturn(Arrays.asList(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
+    doReturn(List.of(localizacionLocalDto)).when(this.tareaLocalizacionHistoricoService)
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
             this.ambito.getCclIdOrigen(),
-            Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+            List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
 
     doReturn(request).when(this.tareaMapper)
         .mergeAndTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToPtrPresenciasDetalleRequestDto(

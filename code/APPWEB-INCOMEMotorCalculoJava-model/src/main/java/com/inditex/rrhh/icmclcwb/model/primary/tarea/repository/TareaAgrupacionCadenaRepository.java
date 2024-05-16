@@ -5,7 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAgrupacionCadenaRepository extends BaseRepository<TareaAgrupacionCadena, Long> {
 

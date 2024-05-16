@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones;
 /*
  * Copyright (c) 2021. Inditex
  */
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -26,6 +27,9 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +37,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
@@ -67,8 +72,19 @@ class RunAjusteMinimoGarantizadoProcesarTest {
   @InjectMocks
   private RunAjusteMinimoGarantizadoProcesar runAjusteMinimoGarantizadoProcesar;
 
+  private ListAppender<ILoggingEvent> listAppender;
+
   @BeforeEach
   public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory
+            .getLogger(RunAjusteMinimoGarantizadoProcesar.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+
+    logger.addAppender(this.listAppender);
+
     when(this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom.ids(any(TareaDto.class)))
         .thenReturn(this.createPersonaIds());
     final RunAlgoritmoAjustePropertiesDto properties = new RunAlgoritmoAjustePropertiesDto();
@@ -77,7 +93,7 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     when(this.runAjusteProperties.getAjuste()).thenReturn(properties);
     when(this.calculoAjusteMinimoGarantizadoAsyncService.ajustar(any(AlgoritmoAjusteDto.class),
         any(TareaDto.class),
-        ArgumentMatchers.<List<IdPersonaLocalDto>>any())).thenReturn(CompletableFuture.completedFuture(
+        ArgumentMatchers.any())).thenReturn(CompletableFuture.completedFuture(
             AsyncConstants.NIL));
   }
 
@@ -125,9 +141,10 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
-        ID_TRABAJO,
-        ID_TAREA);
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
   @Test
@@ -136,9 +153,10 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMinimoGarantizadoProcesar :: Ids: {}",
-        ID_TRABAJO,
-        ID_TAREA, this.createPersonaIds());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
   @Test
@@ -147,9 +165,10 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info(
-        "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
-        ID_TRABAJO, ID_TAREA, this.createPersonaIds().size());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
   @Test
@@ -158,8 +177,10 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     final AlgoritmoAjusteDto algoritmoAjuste = this.createAlgoritmoAjuste();
     this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
-    verify(this.log, times(1)).info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
-        this.createPersonaIds().size());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
   @Test
@@ -200,13 +221,15 @@ class RunAjusteMinimoGarantizadoProcesarTest {
     doThrow(exception)
         .when(this.calculoAjusteMinimoGarantizadoAsyncService)
         .ajustar(any(AlgoritmoAjusteDto.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     this.runAjusteMinimoGarantizadoProcesar.execute(runTarea, algoritmoAjuste);
 
     final List<IdPersonaLocalDto> personas = this.createPersonaIds();
-    verify(this.log, times(1)).error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(),
-        exception);
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
 

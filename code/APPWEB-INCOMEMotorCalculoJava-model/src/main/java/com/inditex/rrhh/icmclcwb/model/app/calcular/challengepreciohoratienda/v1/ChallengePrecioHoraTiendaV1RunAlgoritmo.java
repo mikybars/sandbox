@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Component;
 @Component("challengePrecioHoraTiendaV1")
 public class ChallengePrecioHoraTiendaV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(ChallengePrecioHoraTiendaV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -39,12 +39,12 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmo implements RunAlgoritmo {
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-    this.log.info(
+    ChallengePrecioHoraTiendaV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaV1RepositoryCustom
         .ids(algoritmo, runTarea.getTarea());
-    this.log.info(
+    ChallengePrecioHoraTiendaV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -55,7 +55,7 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmo implements RunAlgoritmo {
         this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-      this.log.info(
+      ChallengePrecioHoraTiendaV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -65,13 +65,13 @@ public class ChallengePrecioHoraTiendaV1RunAlgoritmo implements RunAlgoritmo {
         AsyncUtils.exceptionally(cfCalc, cf);
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error(
+        ChallengePrecioHoraTiendaV1RunAlgoritmo.LOG.error(
             "Trabajo[{}]Tarea[{}] :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: KO :: Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info(
+      ChallengePrecioHoraTiendaV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Fin :: ChallengePrecioHoraTiendaV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }

@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
@@ -33,13 +31,14 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExte
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
 
   @Mock
@@ -69,11 +68,12 @@ class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoValidarExternosBosniaServiceImpl runTareaAmbitoValidarExternosBosniaService;
 
-  @Test
-  void executeTest(@Random(size = 1, type = Integer.class) final List<Integer> puestos,
-      @Random final ExternosRequestDTO externosRequestDTO,
-      @Random(size = 2, type = EmpleadoExternoDTO.class) final List<EmpleadoExternoDTO> externos,
-      @Random(size = 2, type = IdPersonaLocalExternaDto.class) final List<IdPersonaLocalExternaDto> idPersonaLocalExternaDtos) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeTest(final List<Integer> puestos,
+      final ExternosRequestDTO externosRequestDTO,
+      final List<EmpleadoExternoDTO> externos,
+      final List<IdPersonaLocalExternaDto> idPersonaLocalExternaDtos) {
 
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
