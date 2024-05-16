@@ -49,7 +49,6 @@ import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
 import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -219,14 +218,16 @@ public class RunTareaPrevalidarAntesServiceImplTest {
 
   @ParameterizedTest
   @InstancioSource
-  @Disabled
   void runExceptionTest(final TareaFaseDto tareaFase, final AccionDto accionDto,
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      final List<ValidacionDto> validacionDtoList,
       final TareaFaseAccionDto tareaFaseAccionDto,
       final CompletableFuture<List<ValidacionDto>> cfRun,
       final SincronizacionResponseDto sincronizacionResponseDto,
       final AccionDto accion) {
+
+    final List<ValidacionDto> validacionDtoList = new ArrayList<>();
+    validacionDtoList
+        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L).build());
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)

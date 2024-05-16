@@ -236,9 +236,11 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
   void runExceptionTest(
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final CompletableFuture<List<ValidacionDto>> cfRun, final TareaFaseDto tareaFase,
-      final List<ValidacionDto> validacionDtoList,
       final TareaFaseAccionDto tareaFaseAccionDto,
       final SincronizacionResponseDto sincronizacionResponseDto) {
+    final List<ValidacionDto> validacionDtoList = new ArrayList<>();
+    validacionDtoList
+        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L).build());
     final AccionDto accion = new AccionDto();
     accion.setEsReaccionReintento(true);
     accion.setReintentoMax(3);

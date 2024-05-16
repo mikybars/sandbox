@@ -225,10 +225,14 @@ public class RunTareaPrevalidarDespuesServiceImplTest {
   @InstancioSource
   void runExceptionTest(final TareaFaseDto tareaFase, final AccionDto accionDto,
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
-      final List<ValidacionDto> validacionDtoList,
       final CompletableFuture<List<ValidacionDto>> cfRun,
       final TareaFaseAccionDto tareaFaseAccionDto,
       final SincronizacionResponseDto sincronizacionResponseDto) {
+
+    final List<ValidacionDto> validacionDtoList = new ArrayList<>();
+    validacionDtoList
+        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L)
+            .idMotivosDesplazamiento(List.of(1, 2)).build());
 
     final AccionDto accion = new AccionDto();
     accion.setEsReaccionReintento(true);
