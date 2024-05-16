@@ -44,6 +44,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidarFactory;
+import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 
@@ -85,6 +86,9 @@ public class RunTareaPrevalidarAntesServiceImplTest {
 
   @Mock
   private TareaFaseService tareaFaseService;
+
+  @Mock
+  private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
   @Mock
   private Logger log;
@@ -229,7 +233,8 @@ public class RunTareaPrevalidarAntesServiceImplTest {
     accion.setId(1);
     final List<ValidacionDto> validacionDtoList = new ArrayList<>();
     validacionDtoList
-        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L).build());
+        .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L)
+            .idMotivosDesplazamiento(List.of(1, 2)).build());
 
     try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
       doReturn(tareaFase).when(this.tareaFaseService)
