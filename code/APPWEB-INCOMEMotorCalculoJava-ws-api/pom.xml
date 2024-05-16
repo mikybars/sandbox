@@ -14,7 +14,7 @@
     <dependency>
       <groupId>com.inditex.api</groupId>
       <artifactId>income-income-motor-calculo-java-api-v3-rest-stable</artifactId>
-      <version>1.0.4-SNAPSHOT</version>
+      <version>1.0.4</version>
     </dependency>
 
     <dependency>
