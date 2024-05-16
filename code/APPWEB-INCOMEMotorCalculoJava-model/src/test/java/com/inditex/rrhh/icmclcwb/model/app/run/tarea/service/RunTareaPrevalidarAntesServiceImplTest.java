@@ -222,9 +222,11 @@ public class RunTareaPrevalidarAntesServiceImplTest {
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final TareaFaseAccionDto tareaFaseAccionDto,
       final CompletableFuture<List<ValidacionDto>> cfRun,
-      final SincronizacionResponseDto sincronizacionResponseDto,
-      final AccionDto accion) {
-
+      final SincronizacionResponseDto sincronizacionResponseDto) {
+    final AccionDto accion = new AccionDto();
+    accion.setEsReaccionReintento(true);
+    accion.setReintentoMax(3);
+    accion.setId(1);
     final List<ValidacionDto> validacionDtoList = new ArrayList<>();
     validacionDtoList
         .add(ValidacionDto.builder().result(Boolean.FALSE).reaccionPeso(1).idPersonaLocal(List.of("1", "2")).idTareaFaseAccion(1L).build());
