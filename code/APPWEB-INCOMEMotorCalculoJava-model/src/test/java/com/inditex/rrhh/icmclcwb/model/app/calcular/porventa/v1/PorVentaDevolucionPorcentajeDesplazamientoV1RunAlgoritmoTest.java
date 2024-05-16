@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,13 +35,13 @@ class PorVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest implements Ru
   private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
   @Mock
-  private TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom;
+  private TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom;
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @InjectMocks
-  private PorVentaDevolucionPorcentajeDiariaV1RunAlgoritmo porVentaDevolucionPorcentajeDiariaV1RunAlgoritmo;
+  private PorVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmo porVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmo;
 
   @Test
   void executeTest() {
@@ -51,18 +51,18 @@ class PorVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest implements Ru
     personas.add(p1);
     personas.add(p2);
 
-    doReturn(personas).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom)
+    doReturn(personas).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom)
         .ids(any(AlgoritmoDTO.class), any(
             TareaDto.class));
     final CompletableFuture cfCalc = new CompletableFuture<>();
     cfCalc.complete(null);
-    doReturn(cfCalc).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom)
+    doReturn(cfCalc).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom)
         .calcular(any(AlgoritmoDTO.class), any(
             TareaDto.class), anyList());
     doReturn(this.createRunAlgoritmoCalculoPropertiesDto(2)).when(this.runAlgoritmoProperties).getCalculo();
 
     final CompletableFuture<Void> result =
-        this.porVentaDevolucionPorcentajeDiariaV1RunAlgoritmo.execute(this.createRunTareaDto(1L, 2L), new AlgoritmoDTO());
+        this.porVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmo.execute(this.createRunTareaDto(1L, 2L), new AlgoritmoDTO());
 
     assertNotNull(result);
   }
@@ -75,27 +75,27 @@ class PorVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmoTest implements Ru
     personas.add(p1);
     personas.add(p2);
 
-    doReturn(personas).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom)
+    doReturn(personas).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom)
         .ids(any(AlgoritmoDTO.class), any(
             TareaDto.class));
     final CompletableFuture cfCalc = new CompletableFuture<>();
     cfCalc.complete(null);
-    doThrow(new RuntimeException()).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom)
+    doThrow(new RuntimeException()).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom)
         .calcular(any(AlgoritmoDTO.class), any(
             TareaDto.class), anyList());
     doReturn(this.createRunAlgoritmoCalculoPropertiesDto(2)).when(this.runAlgoritmoProperties).getCalculo();
 
     final CompletableFuture<Void> result =
-        this.porVentaDevolucionPorcentajeDiariaV1RunAlgoritmo.execute(this.createRunTareaDto(1L, 2L), new AlgoritmoDTO());
+        this.porVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmo.execute(this.createRunTareaDto(1L, 2L), new AlgoritmoDTO());
 
     assertNotNull(result);
   }
 
   @Test
   void getSqlCalcularTest() {
-    doReturn("").when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaV1RepositoryCustom)
+    doReturn("").when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1RepositoryCustom)
         .getSqlCalcular(new AlgoritmoDTO());
-    final String result = this.porVentaDevolucionPorcentajeDiariaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO());
+    final String result = this.porVentaDevolucionPorcentajeDesplazamientoV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO());
     assertEquals("", result);
   }
 }
