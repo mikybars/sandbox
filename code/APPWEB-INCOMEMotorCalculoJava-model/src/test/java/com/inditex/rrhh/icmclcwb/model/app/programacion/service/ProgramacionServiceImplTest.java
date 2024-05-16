@@ -37,7 +37,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionRepositoryCustom;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -108,7 +107,6 @@ class ProgramacionServiceImplTest {
     assertNotNull(result.getFechaHoraSiguienteEjecucion());
   }
 
-  @Disabled
   @Test
   void createTestSso() {
     final Authentication authentication = Mockito.mock(Authentication.class);
@@ -132,6 +130,7 @@ class ProgramacionServiceImplTest {
     programacion.setAmbito(new ArrayList<>());
     programacion.getAmbito().add(new ProgramacionAmbitoDTO());
     programacion.setHoraProgramacion(OffsetDateTime.MAX);
+    programacion.setNombreUsuario("Name");
 
     when(this.programacionMapper.programacionDtoToProgramacion(any(ProgramacionDTO.class)))
         .thenReturn(new Programacion());
