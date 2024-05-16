@@ -1,7 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.AvisosGuardadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.ErorresGuardadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionRequestDto;
@@ -52,6 +55,9 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
 
   @Mock
   private ValidacionMapper validacionMapper;
+
+  @Mock
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @InjectMocks
   private RunTareaAmbitoValidarRecuperarFranciaServiceImpl runTareaAmbitoValidarRecuperarFranciaServiceImpl;
@@ -124,4 +130,19 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
         .booleanToValidacionDto(ArgumentMatchers.any(TareaAmbitoDto.class),
             ArgumentMatchers.any(TareaFaseAccionDto.class), any(Boolean.class));
   }
+
+  @Test
+    public void executeWhenExceptionThrown() {
+        // Arrange
+        when(this.comisService.validateTempComisRecuperarFrancia(any(), any()))
+            .thenThrow(new RuntimeException("Test exception"));
+
+        // Act & Assert
+        assertThrows(RuntimeException.class, () -> {
+            this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(), new TareaFaseAccionDto());
+        });
+
+        // Verify
+        verify(this.tareaFaseAccionService, times(1)).updateFechaFinAndEstado(any(), any());
+    }
 }
