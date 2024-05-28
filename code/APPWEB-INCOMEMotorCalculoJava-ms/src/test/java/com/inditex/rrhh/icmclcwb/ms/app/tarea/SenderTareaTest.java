@@ -7,7 +7,7 @@ package com.inditex.rrhh.icmclcwb.ms.app.tarea;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.aqsw.framework.data.jms.JmsClient;
+import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import org.junit.jupiter.api.Test;

@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
@@ -29,15 +27,17 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResul
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaAmbitoValidarPersonasSilServiceImplTest {
 
   @Mock
@@ -67,11 +67,13 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoValidarPersonasSilServiceImpl runTareaAmbitoValidarPersonasGlobalService;
 
-  @Test
-  void executeTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
-      @Random final TareaFaseAccionDto tareaFaseAccion,
-      @Random(type = ClasePersonaSilAmbitoDto.class, size = 1) final List<ClasePersonaSilAmbitoDto> clasesEstados,
-      @Random final IdPersonaLocalLocalizacionDto persona1) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion,
+      final IdPersonaLocalLocalizacionDto persona1) {
+
+    final List<ClasePersonaSilAmbitoDto> clasesEstados = Instancio.ofList(ClasePersonaSilAmbitoDto.class).size(1).create();
 
     final CompletableFuture<List<IdPersonaLocalLocalizacionDto>> cf1 = new CompletableFuture<>();
     cf1.complete(Collections.singletonList(persona1));
@@ -99,9 +101,10 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
         ArgumentMatchers.any(), eq(this.personasPropertiesDto), eq(runTarea.getTarea()));
   }
 
-  @Test
-  void executeExceptionTest(@Random final RunTareaDto runTarea, @Random final TareaAmbitoDto tareaAmbito,
-      @Random final TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
+       final TareaFaseAccionDto tareaFaseAccion) {
 
     when(this.clasePersonaSilAmbitoService.getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(tareaAmbito.getCclIdOrigen(),
         runTarea.getTarea().getStdIdLegEnt()))

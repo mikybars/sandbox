@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.calcular.service.RunAlgoritmoServic
 import com.inditex.rrhh.icmclcwb.dto.RunAlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.service.RunAlgoritmoApi;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +20,12 @@ public class RunAlgoritmoController implements RunAlgoritmoApi {
   private RunAlgoritmoService runAlgoritmoService;
 
   @Override
-  public @Valid ResponseEntity<RunAlgoritmoDTO> findById(@PathVariable final Integer id) {
+  public @Valid ResponseEntity<RunAlgoritmoDTO> findByIdRunAlgoritmo(@PathVariable final Integer id) {
     return new ResponseEntity<>(this.runAlgoritmoService.findById(id), HttpStatus.OK);
   }
 
   @Override
-  public @Valid ResponseEntity<List<RunAlgoritmoDTO>> findAll() {
+  public @Valid ResponseEntity<List<RunAlgoritmoDTO>> findAllRunAlgoritmo() {
     return new ResponseEntity<>(this.runAlgoritmoService.findAll(), HttpStatus.OK);
   }
 

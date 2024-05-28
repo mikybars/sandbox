@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 
 @XmlRootElement(name = "VentaOnlineTiendaResponse")

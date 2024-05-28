@@ -3,15 +3,15 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceBuilder;
-import com.inditex.aqsw.framework.data.jdbc.datasources.DataSourceType;
+import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
+import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
+import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -22,374 +22,312 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class DataSourceComisConfig {
 
-  @Bean(name = "comis1Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis1")
+  @AmigaJdbcDatasource(value = "comis1", beanName = "comis1Datasource")
   public DataSource comis1DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis2Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis2")
+  @AmigaJdbcDatasource(value = "comis2", beanName = "comis2Datasource")
   public DataSource comis2DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis3Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis3")
+  @AmigaJdbcDatasource(value = "comis3", beanName = "comis3Datasource")
   public DataSource comis3DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis4Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis4")
+  @AmigaJdbcDatasource(value = "comis4", beanName = "comis4Datasource")
   public DataSource comis4DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis5Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis5")
+  @AmigaJdbcDatasource(value = "comis5", beanName = "comis5Datasource")
   public DataSource comis5DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis6Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis6")
+  @AmigaJdbcDatasource(value = "comis6", beanName = "comis6Datasource")
   public DataSource comis6DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis7Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis7")
+  @AmigaJdbcDatasource(value = "comis7", beanName = "comis7Datasource")
   public DataSource comis7DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis8Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis8")
+  @AmigaJdbcDatasource(value = "comis8", beanName = "comis8Datasource")
   public DataSource comis8DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis9Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis9")
+  @AmigaJdbcDatasource(value = "comis9", beanName = "comis9Datasource")
   public DataSource comis9DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis10Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis10")
+  @AmigaJdbcDatasource(value = "comis10", beanName = "comis10Datasource")
   public DataSource comis10DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa8Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-8")
+  @AmigaJdbcDatasource(value = "comis11-8", beanName = "comisOrigen11Empresa8Datasource")
   public DataSource comisOrigen11Empresa8Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa20Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-20")
+  @AmigaJdbcDatasource(value = "comis11-20", beanName = "comisOrigen11Empresa20Datasource")
   public DataSource comisOrigen11Empresa20Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa233Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-233")
+  @AmigaJdbcDatasource(value = "comis11-233", beanName = "comisOrigen11Empresa233Datasource")
   public DataSource comisOrigen11Empresa233Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa28Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-28")
+  @AmigaJdbcDatasource(value = "comis11-28", beanName = "comisOrigen11Empresa28Datasource")
   public DataSource comisOrigen11Empresa28Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa33Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-33")
+  @AmigaJdbcDatasource(value = "comis11-33", beanName = "comisOrigen11Empresa33Datasource")
   public DataSource comisOrigen11Empresa33Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa101Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-101")
+  @AmigaJdbcDatasource(value = "comis11-101", beanName = "comisOrigen11Empresa101Datasource")
   public DataSource comisOrigen11Empresa101Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa11Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-11")
+  @AmigaJdbcDatasource(value = "comis11-11", beanName = "comisOrigen11Empresa11Datasource")
   public DataSource comisOrigen11Empresa11Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa2Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-2")
+  @AmigaJdbcDatasource(value = "comis11-2", beanName = "comisOrigen11Empresa2Datasource")
   public DataSource comisOrigen11Empresa2Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa30Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-30")
+  @AmigaJdbcDatasource(value = "comis11-30", beanName = "comisOrigen11Empresa30Datasource")
   public DataSource comisOrigen11Empresa30Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comisOrigen11Empresa25Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis11-25")
+  @AmigaJdbcDatasource(value = "comis11-25", beanName = "comisOrigen11Empresa25Datasource")
   public DataSource comisOrigen11Empresa25Datasource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis18Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis18")
+  @AmigaJdbcDatasource(value = "comis18", beanName = "comis18Datasource")
   public DataSource comis18DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis28Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis28")
+  @AmigaJdbcDatasource(value = "comis28", beanName = "comis28Datasource")
   public DataSource comis28DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis30Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis30")
+  @AmigaJdbcDatasource(value = "comis30", beanName = "comis30Datasource")
   public DataSource comis30DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis32Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis32")
+  @AmigaJdbcDatasource(value = "comis32", beanName = "comis32Datasource")
   public DataSource comis32DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis38Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis38")
+  @AmigaJdbcDatasource(value = "comis38", beanName = "comis38Datasource")
   public DataSource comis38DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis39Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis39")
+  @AmigaJdbcDatasource(value = "comis39", beanName = "comis39Datasource")
   public DataSource comis39DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis52Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis52")
+  @AmigaJdbcDatasource(value = "comis52", beanName = "comis52Datasource")
   public DataSource comis52DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis60Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis60")
+  @AmigaJdbcDatasource(value = "comis60", beanName = "comis60Datasource")
   public DataSource comis60DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis61Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis61")
+  @AmigaJdbcDatasource(value = "comis61", beanName = "comis61Datasource")
   public DataSource comis61DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis63Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis63")
+  @AmigaJdbcDatasource(value = "comis63", beanName = "comis63Datasource")
   public DataSource comis63DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis64Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis64")
+  @AmigaJdbcDatasource(value = "comis64", beanName = "comis64Datasource")
   public DataSource comis64DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis66Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis66")
+  @AmigaJdbcDatasource(value = "comis66", beanName = "comis66Datasource")
   public DataSource comis66DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis68Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis68")
+  @AmigaJdbcDatasource(value = "comis68", beanName = "comis68Datasource")
   public DataSource comis68DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis70Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis70")
+  @AmigaJdbcDatasource(value = "comis70", beanName = "comis70Datasource")
   public DataSource comis70DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis72Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis72")
+  @AmigaJdbcDatasource(value = "comis72", beanName = "comis72Datasource")
   public DataSource comis72DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis73Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis73")
+  @AmigaJdbcDatasource(value = "comis73", beanName = "comis73Datasource")
   public DataSource comis73DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis75Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis75")
+  @AmigaJdbcDatasource(value = "comis75", beanName = "comis75Datasource")
   public DataSource comis75DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis79Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis79")
+  @AmigaJdbcDatasource(value = "comis79", beanName = "comis79Datasource")
   public DataSource comis79DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis91Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis91")
+  @AmigaJdbcDatasource(value = "comis91", beanName = "comis91Datasource")
   public DataSource comis91DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis92Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis92")
+  @AmigaJdbcDatasource(value = "comis92", beanName = "comis92Datasource")
   public DataSource comis92DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis93Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis93")
+  @AmigaJdbcDatasource(value = "comis93", beanName = "comis93Datasource")
   public DataSource comis93DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis95Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis95")
+  @AmigaJdbcDatasource(value = "comis95", beanName = "comis95Datasource")
   public DataSource comis95DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis96Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis96")
+  @AmigaJdbcDatasource(value = "comis96", beanName = "comis96Datasource")
   public DataSource comis96DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis97Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis97")
+  @AmigaJdbcDatasource(value = "comis97", beanName = "comis97Datasource")
   public DataSource comis97DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis98Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis98")
+  @AmigaJdbcDatasource(value = "comis98", beanName = "comis98Datasource")
   public DataSource comis98DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis139Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis139")
+  @AmigaJdbcDatasource(value = "comis139", beanName = "comis139Datasource")
   public DataSource comis139DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis388Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis388")
+  @AmigaJdbcDatasource(value = "comis388", beanName = "comis388Datasource")
   public DataSource comis388DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis400Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis400")
+  @AmigaJdbcDatasource(value = "comis400", beanName = "comis400Datasource")
   public DataSource comis400DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis404Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis404")
+  @AmigaJdbcDatasource(value = "comis404", beanName = "comis404Datasource")
   public DataSource comis404DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis412Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis412")
+  @AmigaJdbcDatasource(value = "comis412", beanName = "comis412Datasource")
   public DataSource comis412DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis508Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis508")
+  @AmigaJdbcDatasource(value = "comis508", beanName = "comis508Datasource")
   public DataSource comis508DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis512Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis512")
+  @AmigaJdbcDatasource(value = "comis512", beanName = "comis512Datasource")
   public DataSource comis512DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis524Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis524")
+  @AmigaJdbcDatasource(value = "comis524", beanName = "comis524Datasource")
   public DataSource comis524DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis528Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis528")
+  @AmigaJdbcDatasource(value = "comis528", beanName = "comis528Datasource")
   public DataSource comis528DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis664Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis664")
+  @AmigaJdbcDatasource(value = "comis664", beanName = "comis664Datasource")
   public DataSource comis664DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis720Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis720")
+  @AmigaJdbcDatasource(value = "comis720", beanName = "comis720Datasource")
   public DataSource comis720DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis728Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis728")
+  @AmigaJdbcDatasource(value = "comis728", beanName = "comis728Datasource")
   public DataSource comis728DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis732Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis732")
+  @AmigaJdbcDatasource(value = "comis732", beanName = "comis732Datasource")
   public DataSource comis732DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis736Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis736")
+  @AmigaJdbcDatasource(value = "comis736", beanName = "comis736Datasource")
   public DataSource comis736DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis740Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis740")
+  @AmigaJdbcDatasource(value = "comis740", beanName = "comis740Datasource")
   public DataSource comis740DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis743Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis743")
+  @AmigaJdbcDatasource(value = "comis743", beanName = "comis743Datasource")
   public DataSource comis743DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
 
-  @Bean(name = "comis800Datasource")
-  @ConfigurationProperties(prefix = "amiga.data.jdbc.datasource.comis800")
+  @AmigaJdbcDatasource(value = "comis800", beanName = "comis800Datasource")
   public DataSource comis800DataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }

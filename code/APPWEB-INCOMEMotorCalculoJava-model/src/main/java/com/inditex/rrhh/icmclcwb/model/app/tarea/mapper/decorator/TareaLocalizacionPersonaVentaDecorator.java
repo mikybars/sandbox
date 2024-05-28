@@ -18,12 +18,12 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPer
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocalizacionPersonaVentaMapper {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(TareaLocalizacionPersonaVentaDecorator.class);
 
   @Autowired
   private TareaLocalizacionPersonaVentaMapper delegate;
@@ -40,7 +40,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
       result.setTipoDato(new TipoDato());
       result.getTipoDato().setId(TipoDatoEnum.OPERACION_DEVOLUCION_FISICA_LOCALIZACION_SECCION.getId());
     } else {
-      this.log.warn(ErrorConstants.OPERATION_NOT_VALID, src.getOperacion());
+      TareaLocalizacionPersonaVentaDecorator.LOG.warn(ErrorConstants.OPERATION_NOT_VALID, src.getOperacion());
     }
 
     if (PtrConstants.getVENDEDORES_0().contains(Integer.valueOf(result.getCclIdPerson()))) {
@@ -115,7 +115,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
       result.setTipoDato(new TipoDato());
       result.getTipoDato().setId(TipoDatoEnum.OPERACION_DEVOLUCION_ONLINE_IPOD_LOCALIZACION_SECCION.getId());
     } else {
-      this.log.warn(ErrorConstants.OPERATION_NOT_VALID, src.getOperacion());
+      TareaLocalizacionPersonaVentaDecorator.LOG.warn(ErrorConstants.OPERATION_NOT_VALID, src.getOperacion());
     }
     result.setActivo(Boolean.TRUE);
     return result;
@@ -162,7 +162,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
             if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
               result.add(item);
             } else {
-              this.log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
+              TareaLocalizacionPersonaVentaDecorator.LOG.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
             }
           }
         }
@@ -174,7 +174,7 @@ public abstract class TareaLocalizacionPersonaVentaDecorator extends TareaLocali
           if (StringUtils.isNotEmpty(item.getCclIdPerson())) {
             result.add(item);
           } else {
-            this.log.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
+            TareaLocalizacionPersonaVentaDecorator.LOG.warn(ErrorConstants.EMPTY_CCL_ID_PERSON, item);
           }
         }
       }

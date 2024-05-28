@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

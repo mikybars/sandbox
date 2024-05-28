@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.authentication.AuthMethod;
+import com.inditex.amigafwk.common.rest.client.authentication.AuthMethod;
 import com.inditex.rrhh.icmclcwb.api.utils.TypeHealthEnum;
 
 import com.fasterxml.jackson.databind.JsonNode;

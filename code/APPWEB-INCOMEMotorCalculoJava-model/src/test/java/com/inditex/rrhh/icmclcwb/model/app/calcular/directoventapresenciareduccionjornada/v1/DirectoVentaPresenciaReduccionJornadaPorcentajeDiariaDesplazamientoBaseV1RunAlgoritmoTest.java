@@ -23,12 +23,17 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -51,6 +56,20 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
+
+  private ListAppender<ILoggingEvent> listAppender;
+
+  @BeforeEach
+  public void setup() {
+    final ch.qos.logback.classic.Logger logger =
+        (ch.qos.logback.classic.Logger) LoggerFactory
+            .getLogger(DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.class);
+
+    this.listAppender = new ListAppender<>();
+    this.listAppender.start();
+
+    logger.addAppender(this.listAppender);
+  }
 
   @Test
   public void getSqlCalcularTest() {
@@ -88,17 +107,14 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     this.directoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea,
         algoritmo);
 
-    verify(this.log, times(1))
-        .info(
-            "Trabajo[{}]Tarea[{}] :: Inicio :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
     verify(this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom,
         times(1))
             .calcular(algoritmo, runTarea.getTarea(), personas);
-    verify(this.log, times(1))
-        .info(
-            "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
+
+      assertEquals(4, this.listAppender.list.size());
+      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+
   }
 
   @Test
@@ -117,7 +133,7 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     doThrow(exception).when(
         this.tareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)
         .calcular(any(AlgoritmoDTO.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     final long idTarea = 123L;
     final long idTrabajo = 5675L;
@@ -126,12 +142,13 @@ public class DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamiento
     this.directoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.execute(runTarea,
         algoritmo);
 
-    verify(this.log, times(1))
-        .error(
-            "Trabajo[{}]Tarea[{}] :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
-            idTrabajo, idTarea, 2, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals(
+        "Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaReduccionJornadaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(4).getMessage());
   }
 
 }

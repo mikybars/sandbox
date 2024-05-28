@@ -16,13 +16,13 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoBaseRepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -43,11 +43,11 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea,
       final AlgoritmoDTO algoritmo) {
-    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
+    AbstractV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName());
     final List<IdPersonaLocalDto> ids = this.getTareaCalculoAlgoritmoRespositoryCustom()
         .ids(algoritmo, runTarea.getTarea());
-    this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
+    AbstractV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), ids);
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -57,7 +57,7 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
         this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-      this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
+      AbstractV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: {} :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size());
       try {
         final CompletableFuture<Void> cfCalc = this.getTareaCalculoAlgoritmoRespositoryCustom()
@@ -67,12 +67,12 @@ public abstract class AbstractV1RunAlgoritmo implements RunAlgoritmo {
 
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
+        AbstractV1RunAlgoritmo.LOG.error("Trabajo[{}]Tarea[{}] :: {} :: KO :: Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+      AbstractV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), this.getAlgoritmoName(), personas.size());
     }
     AsyncUtils.waitAllOfIsOk(cf, cf);

@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.scheduling.annotation.Async;
 
 @Async

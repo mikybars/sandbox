@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://schemas.meta4.com/" xmlns:impl="http://schemas.meta4.com/" xmlns:tns1="http://exception.soapservices.meta4.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://schemas.meta4.com/" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://exception.soapservices.meta4.com"/>
+   <element name="loginWithCertificate">
+    <complexType>
+     <sequence>
+      <element name="ai_sCertificate" type="xsd:string"/>
+      <element name="ai_sSessionContex" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginWithCertificateResponse">
+    <complexType>
+     <sequence>
+      <element name="loginWithCertificateReturn" type="impl:M4loginOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="M4loginOutput">
+    <sequence>
+     <element name="sessionID" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="tns1:M4SoapException"/>
+   <element name="loginWithRole">
+    <complexType>
+     <sequence>
+      <element name="ai_sUser" type="xsd:string"/>
+      <element name="ai_sPassword" type="xsd:string"/>
+      <element name="ai_sLanguage" type="xsd:string"/>
+      <element name="ai_sRole" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginWithRoleResponse">
+    <complexType>
+     <sequence>
+      <element name="loginWithRoleReturn" type="impl:M4loginOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="logout">
+    <complexType/>
+   </element>
+   <element name="logoutResponse">
+    <complexType>
+     <sequence>
+      <element name="logoutReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="login">
+    <complexType>
+     <sequence>
+      <element name="ai_sUser" type="xsd:string"/>
+      <element name="ai_sPassword" type="xsd:string"/>
+      <element name="ai_sLanguage" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginResponse">
+    <complexType>
+     <sequence>
+      <element name="loginReturn" type="impl:M4loginOutput"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="retrieveM4Session">
+    <complexType>
+     <sequence>
+      <element name="ai_sessionId" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="retrieveM4SessionResponse">
+    <complexType>
+     <sequence>
+      <element name="retrieveM4SessionReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://exception.soapservices.meta4.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.meta4.com/"/>
+   <complexType name="M4SoapException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="retrieveM4SessionResponse">
+
+      <wsdl:part element="impl:retrieveM4SessionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithCertificateResponse">
+
+      <wsdl:part element="impl:loginWithCertificateResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithCertificateRequest">
+
+      <wsdl:part element="impl:loginWithCertificate" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithRoleResponse">
+
+      <wsdl:part element="impl:loginWithRoleResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+
+      <wsdl:part element="impl:login" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="M4SoapException">
+
+      <wsdl:part element="impl:fault" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="logoutRequest">
+
+      <wsdl:part element="impl:logout" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginWithRoleRequest">
+
+      <wsdl:part element="impl:loginWithRole" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="retrieveM4SessionRequest">
+
+      <wsdl:part element="impl:retrieveM4Session" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="logoutResponse">
+
+      <wsdl:part element="impl:logoutResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part element="impl:loginResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="LoginService">
+
+      <wsdl:operation name="loginWithCertificate">
+
+         <wsdl:input message="impl:loginWithCertificateRequest" name="loginWithCertificateRequest"/>
+
+         <wsdl:output message="impl:loginWithCertificateResponse" name="loginWithCertificateResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginWithRole">
+
+         <wsdl:input message="impl:loginWithRoleRequest" name="loginWithRoleRequest"/>
+
+         <wsdl:output message="impl:loginWithRoleResponse" name="loginWithRoleResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="logout">
+
+         <wsdl:input message="impl:logoutRequest" name="logoutRequest"/>
+
+         <wsdl:output message="impl:logoutResponse" name="logoutResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="login">
+
+         <wsdl:input message="impl:loginRequest" name="loginRequest"/>
+
+         <wsdl:output message="impl:loginResponse" name="loginResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="retrieveM4Session">
+
+         <wsdl:input message="impl:retrieveM4SessionRequest" name="retrieveM4SessionRequest"/>
+
+         <wsdl:output message="impl:retrieveM4SessionResponse" name="retrieveM4SessionResponse"/>
+
+         <wsdl:fault message="impl:M4SoapException" name="M4SoapException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="LoginSoapBinding" type="impl:LoginService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="loginWithCertificate">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginWithCertificateRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginWithCertificateResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="loginWithRole">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginWithRoleRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginWithRoleResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="logout">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="logoutRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="logoutResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="login">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="retrieveM4Session">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="retrieveM4SessionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="retrieveM4SessionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="M4SoapException">
+
+            <wsdlsoap:fault name="M4SoapException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="LoginServiceService">
+
+      <wsdl:port binding="impl:LoginSoapBinding" name="Login">
+
+         <wsdlsoap:address location="http://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

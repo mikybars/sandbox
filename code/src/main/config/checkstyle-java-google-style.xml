@@ -6,7 +6,7 @@
 <module name="Checker">
   <metadata name="com.inditex.cs-required_checkstyle_version" value=">=8.42"/>
 
-  <metadata name="com.inditex.cs-version" value="2.0.0"/>
+  <metadata name="com.inditex.cs-version" value="2.0.1"/>
   <metadata name="com.inditex.cs-reference_guide" value="http://google.github.io/styleguide/javaguide.html"/>
   <metadata name="com.inditex.cs-based_on" value="https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml"/>
 
@@ -20,6 +20,12 @@
     <property name="fileExtensions" value="java"/>
     <property name="max" value="140"/>
     <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+  </module>
+
+  <!-- Added to support the formatter:off formatter annotation-->
+  <module name="SuppressWithPlainTextCommentFilter">
+    <property name="offCommentFormat" value="@formatter:off"/>
+    <property name="onCommentFormat" value="@formatter:on"/>
   </module>
 
   <!-- Tab characters -->
@@ -54,7 +60,6 @@
     <property name="format" value="^\s*\*\s*@author"/>
     <property name="message" value="The ''author'' tag is not allowed."/>
   </module>
-
 
   <module name="TreeWalker">
     <!-- Follow standard declaration order           -->
@@ -185,7 +190,7 @@
         value="Local variable name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="ClassTypeParameterName">
-      <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[A-Z]$)"/>
+      <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
       <message key="name.invalidPattern"
         value="Class type name ''{0}'' must match pattern ''{1}''."/>
     </module>
@@ -224,11 +229,6 @@
     </module>
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance"/>
-    <!-- Added to support the formatter:off formatter annotation-->
-    <module name="SuppressionCommentFilter">
-      <property name="offCommentFormat" value="@formatter:off"/>
-      <property name="onCommentFormat" value="@formatter:on"/>
-    </module>
     <!-- Check Import order and separation   -->
     <module name="ImportOrder">
       <property name="groups" value="java,com.inditex,*"/>

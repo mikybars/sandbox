@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.ws.primary.controller;
 import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
 import com.inditex.rrhh.icmclcwb.service.PrimaryApi;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

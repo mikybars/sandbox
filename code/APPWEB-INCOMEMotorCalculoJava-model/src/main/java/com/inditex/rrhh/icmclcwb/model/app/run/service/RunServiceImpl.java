@@ -13,9 +13,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -24,8 +25,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunServiceImpl implements RunService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunServiceImpl.class);
 
   @Autowired
   private RunTrabajoService runTrabajoService;
@@ -52,7 +52,7 @@ public class RunServiceImpl implements RunService {
     if (trabajo != null) {
       this.runTrabajoService.run(RunTrabajoDto.builder().trabajo(trabajo).build());
     } else {
-      this.log.warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", id);
+      RunServiceImpl.LOG.warn("El Trabajo[{}] no existe o no se encuentra en una estado válido para procesar", id);
     }
   }
 
@@ -65,7 +65,7 @@ public class RunServiceImpl implements RunService {
       this.runTareaService.run(RunTareaDto.builder().trabajo(trabajo).tarea(tarea).build());
 
     } else {
-      this.log.warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", id);
+      RunServiceImpl.LOG.warn("La Tarea[{}] no existe o no se encuentra en una estado válido para procesar", id);
     }
   }
 

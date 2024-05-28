@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -28,9 +26,11 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -42,7 +42,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   private final static String SQL_UPDATE_ACTIVO_TRASLADAR = "SQL UPDATE ACTIVO TRASLADAR";
@@ -306,8 +306,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void totalizarVentaSinDevolucionLocalizacionTest(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void totalizarVentaSinDevolucionLocalizacionTest(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
 
@@ -327,8 +328,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void totalizarVentaSinDevolucionPersonasPorVenta(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void totalizarVentaSinDevolucionPersonasPorVenta(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
 
@@ -406,8 +408,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     assertEquals(expected, params);
   }
 
-  @Test
-  void totalizarDevolucionesVendedor0Test(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void totalizarDevolucionesVendedor0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0(tarea);
 
@@ -427,8 +430,9 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
     assertEquals(expected, params);
   }
 
-  @Test
-  void repartoDevolucionVendedor0Test(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void repartoDevolucionVendedor0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea);
 
@@ -518,7 +522,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
         params.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO));
     // idsTiposDato
     assertTrue(params.hasValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
-    assertEquals(Arrays.asList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()),
+    assertEquals(Collections.singletonList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO));
 
   }

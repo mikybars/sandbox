@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
-import com.inditex.aqsw.framework.common.reactor.autoconfiguration.ItxSchedulers;
+import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.amigafwk.common.reactor.autoconfiguration.ItxSchedulers;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.async.service.ProgramacionAsyncService;
@@ -31,9 +31,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,7 @@ import reactor.core.publisher.Flux;
 @Validated
 public class RunProgramacionServiceImpl implements RunProgramacionService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunProgramacionServiceImpl.class);
 
   @Autowired
   private ProgramacionService programacionService;
@@ -111,7 +111,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
             });
 
       } else {
-        this.log.warn("No existen periodos activos para la organización {}",
+        RunProgramacionServiceImpl.LOG.warn("No existen periodos activos para la organización {}",
             programacionAmbito.getIdOrganization());
       }
     });

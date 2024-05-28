@@ -1,0 +1,66 @@
+package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+
+import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
+import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
+import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
+class RunMantenimientoLimpiezaServiceImplTest {
+  @Mock
+  private TareaService tareaService;
+
+  @Mock
+  private TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
+
+  @Mock
+  private SenderLimpieza senderLimpieza;
+
+  @InjectMocks
+  private RunMantenimientoLimpiezaServiceImpl runMantenimientoLimpiezaService;
+
+  @Test
+  void runTest() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+    final CompletableFuture cf = new CompletableFuture<>();
+    cf.complete(null);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList())).thenReturn(cf);
+
+    this.runMantenimientoLimpiezaService.run();
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+  }
+
+  @Test
+  void runIdTareaTest() {
+    final CompletableFuture cf = new CompletableFuture<>();
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList())).thenReturn(cf);
+
+    this.runMantenimientoLimpiezaService.runIdTarea(1L);
+
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+  }
+}

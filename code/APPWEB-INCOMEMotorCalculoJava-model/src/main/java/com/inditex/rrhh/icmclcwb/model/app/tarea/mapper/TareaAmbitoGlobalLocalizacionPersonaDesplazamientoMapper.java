@@ -22,15 +22,17 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper {
   public abstract TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto tareaAmbitoGlobalLocalizacionPersonaDesplazamientoToTareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto(
       TareaAmbitoGlobalLocalizacionPersonaDesplazamiento src);
 
-  public abstract List<TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto> tareaAmbitoGlobalLocalizacionPersonaDesplazamientoToTareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto(
-      List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src);
+  public abstract List<
+      TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto> tareaAmbitoGlobalLocalizacionPersonaDesplazamientoToTareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto(
+          List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> src);
 
   @InheritInverseConfiguration
   public abstract TareaAmbitoGlobalLocalizacionPersonaDesplazamiento tareaAmbitoGlobalLocalizacionPersonaDesplazamientoDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
       TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto src);
 
-  public abstract List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> tareaAmbitoGlobalLocalizacionPersonaDesplazamientoDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
-      List<TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto> src);
+  public abstract List<
+      TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> tareaAmbitoGlobalLocalizacionPersonaDesplazamientoDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
+          List<TareaAmbitoGlobalLocalizacionPersonaDesplazamientoDto> src);
 
   @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
   @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
@@ -41,8 +43,9 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper {
   public abstract TareaAmbitoGlobalLocalizacionPersonaDesplazamiento genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
       GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
-  public List<TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
-      final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto) {
+  public List<
+      TareaAmbitoGlobalLocalizacionPersonaDesplazamiento> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
+          final List<GenericEmpleadoResultItemDto> src, final TareaDto tareaDto) {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 

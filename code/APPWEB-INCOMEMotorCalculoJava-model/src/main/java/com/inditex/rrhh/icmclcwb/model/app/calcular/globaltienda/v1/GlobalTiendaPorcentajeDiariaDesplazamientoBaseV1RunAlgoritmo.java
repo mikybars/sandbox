@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Component;
 @Component("globalTiendaPorcentajeDiariaDesplazamientoBaseV1")
 public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -39,12 +39,12 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo implem
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-    this.log.info(
+    GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom
         .ids(algoritmo, runTarea.getTarea());
-    this.log.info(
+    GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -55,7 +55,7 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo implem
         this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-      this.log.info(
+      GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -67,13 +67,13 @@ public class GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo implem
 
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error(
+        GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.LOG.error(
             "Trabajo[{}]Tarea[{}] :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: KO :: Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info(
+      GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }

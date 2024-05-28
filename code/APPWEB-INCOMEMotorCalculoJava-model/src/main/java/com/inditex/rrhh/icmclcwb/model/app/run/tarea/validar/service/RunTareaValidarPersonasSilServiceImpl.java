@@ -15,9 +15,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -35,8 +36,7 @@ public class RunTareaValidarPersonasSilServiceImpl implements RunPrevalidar {
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidarPersonasSilServiceImpl.class);
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(
@@ -49,7 +49,8 @@ public class RunTareaValidarPersonasSilServiceImpl implements RunPrevalidar {
             a.getCclIdOrigen(), tarea.getStdIdLegEnt())))
         .map(item -> this.runTareaAmbitoValidarPersonasSilService.execute(runTarea, item, tareaFaseAccion))
         .collect(Collectors.toList());
-    this.log.info("Trabajo[{}]Tarea[{}] :: Ok :: RunTareaValidarPersonasSilServiceImpl :: Validaciones: {}",
+    RunTareaValidarPersonasSilServiceImpl.LOG.info(
+        "Trabajo[{}]Tarea[{}] :: Ok :: RunTareaValidarPersonasSilServiceImpl :: Validaciones: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getIdTrabajo(), validaciones);
     if (CollectionUtils.isEmpty(validaciones)) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());

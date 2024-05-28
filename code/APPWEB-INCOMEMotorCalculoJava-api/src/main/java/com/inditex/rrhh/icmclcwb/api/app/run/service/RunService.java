@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.api.app.run.service;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public interface RunService {
 

@@ -19,7 +19,7 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoPersonaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

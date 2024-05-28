@@ -12,25 +12,18 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.inditex.sscc.api</groupId>
-      <artifactId>icmclcwb-income-motor-calculo-java-api-v2-rest-stable</artifactId>
-      <version>1.0.1</version>
+      <groupId>com.inditex.api</groupId>
+      <artifactId>income-income-motor-calculo-java-api-v3-rest-stable</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-rest</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-rest</artifactId>
     </dependency>
   </dependencies>
 

@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
@@ -47,9 +45,11 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -58,7 +58,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
   private static final String SQL_SAVE_ABIERTO = "SQL SAVE ABIERTO TEST";
@@ -316,12 +316,13 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, this.params.getValue().getValue(SQL_PARAM_ABIERTO));
   }
 
-  @Test
-  void compensarOnlineSeccionCerradaTest(@Random final TareaDto tarea, @Random final TrabajoDTO trabajo,
-      @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoIpod,
-      @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoSint,
-      @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoEntregaTienda,
-      @Random(size = 2, type = IdTipoDatoDto.class) final List<IdTipoDatoDto> tiposDatoEntregaDomicilio) {
+  @ParameterizedTest
+  @InstancioSource
+  void compensarOnlineSeccionCerradaTest( final TareaDto tarea, final TrabajoDTO trabajo,
+      final List<IdTipoDatoDto> tiposDatoIpod,
+      final List<IdTipoDatoDto> tiposDatoSint,
+      final List<IdTipoDatoDto> tiposDatoEntregaTienda,
+      final List<IdTipoDatoDto> tiposDatoEntregaDomicilio) {
 
     when(this.recolectarProperties.getDaysNumber()).thenReturn(3);
     when(this.tipoDatoService
@@ -385,8 +386,9 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void updateActivoTrasladadasSeccionTest(@Random final TareaDto tarea, @Random final TrabajoDTO trabajo) {
+  @ParameterizedTest
+  @InstancioSource
+  void updateActivoTrasladadasSeccionTest(final TareaDto tarea, final TrabajoDTO trabajo) {
     this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(tarea, trabajo);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION), this.params.capture());
 

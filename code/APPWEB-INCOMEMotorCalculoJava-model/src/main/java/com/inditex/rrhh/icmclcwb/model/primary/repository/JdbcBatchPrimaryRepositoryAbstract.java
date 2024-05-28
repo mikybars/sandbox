@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
   @Value("${app.envars.repository.batch-size.default}")
   private int defaultBatchSize;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(JdbcBatchPrimaryRepositoryAbstract.class);
 
   public List<Z> saveNamedJdbcBatchList(final List<Z> src, final String sql, final int batchSize) {
     for (final List<Z> iter : StreamUtils.partition(src, (batchSize != 0 ? batchSize : this.defaultBatchSize))) {
@@ -33,9 +33,9 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
         final SqlParameterSource[] itemList = SqlParameterSourceUtils.createBatch(iter.toArray());
         this.namedParameterJdbcTemplate.batchUpdate(sql, itemList);
       } catch (final DataAccessException e) {
-        this.log.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
+        JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
         iter.stream()
-            .forEach(a -> this.log.error(
+            .forEach(a -> JdbcBatchPrimaryRepositoryAbstract.LOG.error(
                 "JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error insertando items: {}", a,
                 e));
         throw e;
@@ -48,7 +48,8 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     try {
       this.namedParameterJdbcTemplate.update(sql, parameters);
     } catch (final DataAccessException e) {
-      this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando :: Items: {}", parameters,
+      JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error insertando :: Items: {}",
+          parameters,
           e);
       throw e;
     }
@@ -58,7 +59,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     try {
       return this.namedParameterJdbcTemplate.query(sql, paramSource, rowMapper);
     } catch (final DataAccessException e) {
-      this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando lista :: Items: {}",
+      JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando lista :: Items: {}",
           paramSource,
           e);
       throw e;
@@ -69,7 +70,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     try {
       return this.namedParameterJdbcTemplate.queryForObject(sql, paramSource, rowMapper);
     } catch (final DataAccessException e) {
-      this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
+      JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
           paramSource,
           e);
       throw e;
@@ -81,7 +82,7 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
     try {
       return this.namedParameterJdbcTemplate.queryForObject(sql, paramSource, requiredType);
     } catch (final DataAccessException e) {
-      this.log.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
+      JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: update :: Error consultando objeto :: Items: {}",
           paramSource,
           e);
       throw e;
