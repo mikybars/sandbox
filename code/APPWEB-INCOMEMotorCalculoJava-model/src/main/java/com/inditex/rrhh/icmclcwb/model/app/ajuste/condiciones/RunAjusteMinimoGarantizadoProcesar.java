@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMinimoGarantizadoRepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunAjusteMinimoGarantizadoProcesar.class);
 
   @Autowired
   @Qualifier("runAjusteProperties")
@@ -45,12 +45,12 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.log.info(
+    RunAjusteMinimoGarantizadoProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMinimoGarantizadoRepositoryCustom
         .ids(runTarea.getTarea());
-    this.log.info(
+    RunAjusteMinimoGarantizadoProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMinimoGarantizadoProcesar :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -60,7 +60,7 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
         this.runAjusteProperties.getAjuste().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-      this.log.info(
+      RunAjusteMinimoGarantizadoProcesar.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -71,11 +71,11 @@ public class RunAjusteMinimoGarantizadoProcesar implements RunAjuste {
         AsyncUtils.exceptionally(cfAjuste, cf);
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+        RunAjusteMinimoGarantizadoProcesar.LOG.error("RunAjusteMinimoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
+      RunAjusteMinimoGarantizadoProcesar.LOG.info("Fin :: RunAjusteMinimoGarantizadoProcesar :: Personas: {}", personas.size());
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
     }

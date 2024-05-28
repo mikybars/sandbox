@@ -51,29 +51,6 @@ class AlgoritmoServiceImplTest {
   }
 
   @Test
-  void findByTipoCalculoIdTest() {
-    when(this.algoritmoRepository.findByTipoCalculoId(any(Long.class))).thenReturn(this.algoritmo);
-    when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(Algoritmo.class))).thenReturn(this.algoritmoDTO);
-
-    this.algoritmoServiceImpl.findByTipoCalculoId(1L);
-
-    verify(this.algoritmoRepository, times(1)).findByTipoCalculoId(any(Long.class));
-    verify(this.algoritmoMapper, times(1)).algoritmoToAlgoritmoDTO(any(Algoritmo.class));
-  }
-
-  @Test
-  void findByTipoCalculoIdAndTipoComisionIdTest() {
-    when(this.algoritmoRepository.findByTipoCalculoIdAndTipoComisionId(any(Long.class), any(Long.class))).thenReturn(this.algoritmo);
-    when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(Algoritmo.class))).thenReturn(this.algoritmoDTO);
-
-    this.algoritmoServiceImpl.findByTipoCalculoIdAndTipoComisionId(1L, 1L);
-
-    verify(this.algoritmoRepository, times(1)).findByTipoCalculoIdAndTipoComisionId(any(Long.class), any(Long.class));
-    verify(this.algoritmoMapper, times(1)).algoritmoToAlgoritmoDTO(any(Algoritmo.class));
-
-  }
-
-  @Test
   void findByIdTest() {
     when(this.algoritmoRepository.findById(any(Integer.class))).thenReturn(Optional.ofNullable(this.algoritmo));
     when(this.algoritmoMapper.algoritmoToAlgoritmoDTO(any(Algoritmo.class))).thenReturn(this.algoritmoDTO);

@@ -22,15 +22,17 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper 
   public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto tareaAmbitoGlobalLocalizacionPersonaPresenciaManualToTareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto(
       TareaAmbitoGlobalLocalizacionPersonaPresenciaManual src);
 
-  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto> tareaAmbitoGlobalLocalizacionPersonaPresenciaManualToTareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto(
-      List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> src);
+  public abstract List<
+      TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto> tareaAmbitoGlobalLocalizacionPersonaPresenciaManualToTareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto(
+          List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> src);
 
   @InheritInverseConfiguration
   public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaManual tareaAmbitoGlobalLocalizacionPersonaPresenciaManualDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
       TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto src);
 
-  public abstract List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> tareaAmbitoGlobalLocalizacionPersonaPresenciaManualDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
-      List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto> src);
+  public abstract List<
+      TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> tareaAmbitoGlobalLocalizacionPersonaPresenciaManualDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
+          List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManualDto> src);
 
   @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
   @Mapping(source = "src.idLugarTrabajo", target = "stdIdWorkLocat")
@@ -41,8 +43,9 @@ public abstract class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper 
   public abstract TareaAmbitoGlobalLocalizacionPersonaPresenciaManual genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
       GenericEmpleadoResultItemDto src, TareaDto tareaDto);
 
-  public List<TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
-      List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
+  public List<
+      TareaAmbitoGlobalLocalizacionPersonaPresenciaManual> genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
+          List<GenericEmpleadoResultItemDto> src, TareaDto tareaDto) {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 

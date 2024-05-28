@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.ms.app.programacion;
 
-import com.inditex.aqsw.framework.data.jms.JmsClient;
+import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 
 import org.springframework.beans.factory.annotation.Autowired;

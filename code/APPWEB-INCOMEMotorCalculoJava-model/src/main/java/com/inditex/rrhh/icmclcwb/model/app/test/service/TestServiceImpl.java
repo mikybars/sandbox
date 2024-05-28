@@ -8,15 +8,13 @@ import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.async.service.PtrAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
@@ -58,13 +56,14 @@ import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -92,8 +91,7 @@ public class TestServiceImpl implements TestService {
   @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
   String oauthProperty;
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
 
   @Autowired
   private TestExceptionService testExceptionService;
@@ -146,9 +144,9 @@ public class TestServiceImpl implements TestService {
   }
 
   @Override
+  // TODO: REVISAR
   public SsoDTO sso() {
     final SsoDTO sso = new SsoDTO();
-    sso.setResult(SsoUtils.getUserSSO().toString());
     return sso;
   }
 
@@ -191,11 +189,11 @@ public class TestServiceImpl implements TestService {
 
     GetempleadosOutput outputGetempleados;
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    this.log.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    this.log.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    this.log.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
 
     final IcmParamcaltiendasBlock filterSearchTiendas = new IcmParamcaltiendasBlock();
     final IcmParamcaltiendasRecord itemSearchTiendas = new IcmParamcaltiendasRecord();
@@ -216,13 +214,13 @@ public class TestServiceImpl implements TestService {
 
     SearchtiendasOutput outputSearchtiendas;
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    this.log.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
 
-    this.log.error("Test sesion()");
+    TestServiceImpl.LOG.error("Test sesion()");
   }
 
   @Override
@@ -251,38 +249,34 @@ public class TestServiceImpl implements TestService {
         case HttpStatus.SC_GATEWAY_TIMEOUT:
         case 598:
         case 524:
-          this.log.error(new StringBuilder(url).append(": ")
-              .append(KO)
-              .append(", ")
-              .append(CONTROLLED_TIMEOUT)
-              .append(", ")
-              .append(CODE)
-              .append(": ")
-              .append(code)
-              .toString());
+          TestServiceImpl.LOG.error(KO
+              + ", "
+              + CONTROLLED_TIMEOUT
+              + ", "
+              + CODE
+              + ": "
+              + code);
           return Boolean.FALSE;
         default:
           break;
       }
 
     } catch (final Exception e) {
-      this.log.error(new StringBuilder(url).append(": ")
-          .append(KO)
-          .append(", ")
-          .append(EXCEPTION)
-          .append(": ")
-          .append(e)
-          .toString());
+      TestServiceImpl.LOG.error(
+          KO
+              + ", "
+              + EXCEPTION
+              + ": "
+              + e);
       return Boolean.FALSE;
     }
 
-    this.log.info(new StringBuilder(url).append(": ")
-        .append(OK)
-        .append(", ")
-        .append(CODE)
-        .append(": ")
-        .append(code)
-        .toString());
+    TestServiceImpl.LOG.info(
+        OK
+            + ", "
+            + CODE
+            + ": "
+            + code);
     return Boolean.TRUE;
   }
 
@@ -309,10 +303,10 @@ public class TestServiceImpl implements TestService {
         trabajo.setIdOrganization(sociedad);
         final TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDTO();
         trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
-        trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
+        trabajo.setOrigen(List.of(trabajoAmbitoOrigenDto));
         final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
         trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
-        trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
+        trabajo.setEmpresa(List.of(trabajoAmbitoEmpresa));
         trabajo.setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
         this.trabajoService.create(trabajo);
       }
@@ -379,7 +373,7 @@ public class TestServiceImpl implements TestService {
     this.testSociedad(sociedad, trabajo);
     final TrabajoAmbitoOrigenDTO trabajoAmbitoOrigenDto = new TrabajoAmbitoOrigenDTO();
     trabajoAmbitoOrigenDto.setCclIdOrigen(origen);
-    trabajo.setOrigen(Arrays.asList(trabajoAmbitoOrigenDto));
+    trabajo.setOrigen(List.of(trabajoAmbitoOrigenDto));
   }
 
   private void testEmpresa(final String sociedad, final String origen, final String empresa,
@@ -387,7 +381,7 @@ public class TestServiceImpl implements TestService {
     this.testOrigen(sociedad, origen, trabajo);
     final TrabajoAmbitoEmpresaDTO trabajoAmbitoEmpresa = new TrabajoAmbitoEmpresaDTO();
     trabajoAmbitoEmpresa.setStdIdLegEnt(empresa);
-    trabajo.setEmpresa(Arrays.asList(trabajoAmbitoEmpresa));
+    trabajo.setEmpresa(List.of(trabajoAmbitoEmpresa));
   }
 
   private void testLocalizacion(final String sociedad, final String origen, final String empresa,
@@ -398,7 +392,7 @@ public class TestServiceImpl implements TestService {
     trabajoAmbitoLocalizacion.setStdIdWorkLocat(localizacion);
     trabajoAmbitoLocalizacion.setStdIdLegEnt(empresa);
     trabajoAmbitoLocalizacion.setCclIdOrigen(origen);
-    trabajo.setLocalizacion(Arrays.asList(trabajoAmbitoLocalizacion));
+    trabajo.setLocalizacion(List.of(trabajoAmbitoLocalizacion));
   }
 
   private void testPersona(final String sociedad, final String origen, final String empresa, final String persona,
@@ -409,7 +403,7 @@ public class TestServiceImpl implements TestService {
     trabajoAmbitoPersona.setStdOrHrPeriod(orPersona);
     trabajoAmbitoPersona.setStdIdLegEnt(empresa);
     trabajoAmbitoPersona.setCclIdOrigen(origen);
-    trabajo.setPersona(Arrays.asList(trabajoAmbitoPersona));
+    trabajo.setPersona(List.of(trabajoAmbitoPersona));
   }
 
   @Override
@@ -507,7 +501,7 @@ public class TestServiceImpl implements TestService {
       AsyncUtils.exceptionally(cfPresenciaPtr10, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);
     } catch (final Exception e) {
-      this.log.error("ptrTestBbddAsync", e);
+      TestServiceImpl.LOG.error("ptrTestBbddAsync", e);
       AsyncUtils.cancel(cf);
       throw e;
     }
@@ -516,18 +510,18 @@ public class TestServiceImpl implements TestService {
   @Override
   public void slrhorcomsTest() {
 
-    this.log.info("URI-STRING: {}", this.oauthProperty);
+    TestServiceImpl.LOG.info("URI-STRING: {}", this.oauthProperty);
 
     final String endpoint = this.slrhorcomsProperties
         .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
         .getEndpoint();
 
-    this.log.info("ENDPOINT: {}", endpoint);
+    TestServiceImpl.LOG.info("ENDPOINT: {}", endpoint);
 
     final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
         .getForEntity(endpoint + "q=*",
             HorarioComercialFestivoDocDto[].class);
-    this.log.info("responseHorarioComercial: {}",
+    TestServiceImpl.LOG.info("responseHorarioComercial: {}",
         responseHorarioComercial);
   }
 

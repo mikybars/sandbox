@@ -3,14 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 /*
  * Copyright (c) 2021. Inditex
  */
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 
 import java.util.List;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoUnidadTiempoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPoliticaService;
@@ -24,14 +22,16 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Li
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaPersonaEstructuraPoliticaDecoratorTest {
 
   @Mock
@@ -44,94 +44,79 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   private TipoUnidadTiempoService tipoUnidadTiempoService;
 
   @InjectMocks
-  TareaPersonaEstructuraPoliticaDecorator tareaPersonaEstructuraPoliticaDecorator = getClassMock();
-
-  @Random
-  TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto;
-
-  @Random(type = TareaPersonaEstructuraPoliticaDto.class, size = 2)
-  List<TareaPersonaEstructuraPoliticaDto> tareaPersonaEstructuraPoliticaDtoList;
-
-  @Random
-  TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica;
-
-  @Random(type = TareaPersonaEstructuraPolitica.class, size = 2)
-  List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaList;
-
-  @Random
-  ComisionEmpleadoResultItemDto comisionEmpleadoResultItemDto;
-
-  @Random
-  TareaDto tarea;
-
-  @Random(type = ComisionEmpleadoResultItemDto.class, size = 2)
-  List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDtoList;
-
-  @Random(type = EstructurasPolResultItemDto.class, size = 2)
-  List<EstructurasPolResultItemDto> estructurasPolResultItemDtoList;
+  TareaPersonaEstructuraPoliticaDecorator tareaPersonaEstructuraPoliticaDecorator = this.getClassMock();
 
   private TareaPersonaEstructuraPoliticaDecorator getClassMock() {
     return Mockito.mock(TareaPersonaEstructuraPoliticaDecorator.class, Mockito.CALLS_REAL_METHODS);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPoliticaTest(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica) {
-
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica) {
+    final TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto = Instancio.create(TareaPersonaEstructuraPoliticaDto.class);
     doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(this.tareaPersonaEstructuraPoliticaDto);
+        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(tareaPersonaEstructuraPoliticaDto);
 
-    doReturn(politica).when(this.tipoPoliticaService).findByIdMeta4(this.tareaPersonaEstructuraPoliticaDto.getIdTipoPolitica());
+    doReturn(politica).when(this.tipoPoliticaService).findByIdMeta4(tareaPersonaEstructuraPoliticaDto.getIdTipoPolitica());
 
-    TareaPersonaEstructuraPolitica result = this.tareaPersonaEstructuraPoliticaDecorator
-        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(this.tareaPersonaEstructuraPoliticaDto);
+    final TareaPersonaEstructuraPolitica result = this.tareaPersonaEstructuraPoliticaDecorator
+        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(tareaPersonaEstructuraPoliticaDto);
 
     assertNotNull(result);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPoliticaTest2(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica) {
+    final List<TareaPersonaEstructuraPoliticaDto> tareaPersonaEstructuraPoliticaDtoList =
+        Instancio.createList(TareaPersonaEstructuraPoliticaDto.class);
 
-    for (TareaPersonaEstructuraPoliticaDto item : this.tareaPersonaEstructuraPoliticaDtoList) {
+    for (final TareaPersonaEstructuraPoliticaDto item : tareaPersonaEstructuraPoliticaDtoList) {
       doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
           .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(item);
 
       doReturn(politica).when(this.tipoPoliticaService).findByIdMeta4(item.getIdTipoPolitica());
     }
 
-    List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(this.tareaPersonaEstructuraPoliticaDtoList);
+    final List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPolitica(tareaPersonaEstructuraPoliticaDtoList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDtoTest(
-      @Random TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
-      @Random TipoPoliticaDto politica) {
+      final TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
+      final TipoPoliticaDto politica) {
+    final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica = Instancio.create(TareaPersonaEstructuraPolitica.class);
 
     doReturn(tareaPersonaEstructuraPoliticaDto).when(this.delegate)
-        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(this.tareaPersonaEstructuraPolitica);
+        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(tareaPersonaEstructuraPolitica);
 
     doReturn(politica).when(this.tipoPoliticaService)
-        .findById(this.tareaPersonaEstructuraPolitica.getTipoPolitica().getId());
+        .findById(tareaPersonaEstructuraPolitica.getTipoPolitica().getId());
 
-    TareaPersonaEstructuraPoliticaDto result = this.tareaPersonaEstructuraPoliticaDecorator
-        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(this.tareaPersonaEstructuraPolitica);
+    final TareaPersonaEstructuraPoliticaDto result = this.tareaPersonaEstructuraPoliticaDecorator
+        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(tareaPersonaEstructuraPolitica);
 
     assertNotNull(result);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDtoTest2(
-      @Random TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
-      @Random TipoPoliticaDto politica) {
+      final TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
+      final TipoPoliticaDto politica) {
+    final List<TareaPersonaEstructuraPolitica> tareaPersonaEstructuraPoliticaList =
+        Instancio.createList(TareaPersonaEstructuraPolitica.class);
 
-    for (TareaPersonaEstructuraPolitica item : this.tareaPersonaEstructuraPoliticaList) {
+    for (final TareaPersonaEstructuraPolitica item : tareaPersonaEstructuraPoliticaList) {
       doReturn(tareaPersonaEstructuraPoliticaDto).when(this.delegate)
           .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(item);
 
@@ -139,68 +124,77 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
           .findById(item.getTipoPolitica().getId());
     }
 
-    List<TareaPersonaEstructuraPoliticaDto> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(this.tareaPersonaEstructuraPoliticaList);
+    final List<TareaPersonaEstructuraPoliticaDto> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(tareaPersonaEstructuraPoliticaList);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPoliticaTest(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica) {
+    final ComisionEmpleadoResultItemDto comisionEmpleadoResultItemDto = Instancio.create(ComisionEmpleadoResultItemDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
 
     doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(this.comisionEmpleadoResultItemDto, this.tarea);
+        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(comisionEmpleadoResultItemDto, tarea);
 
     doReturn(politica).when(this.tipoPoliticaService)
-        .findByIdMeta4(this.comisionEmpleadoResultItemDto.getIdTipoPolitica());
+        .findByIdMeta4(comisionEmpleadoResultItemDto.getIdTipoPolitica());
 
-    TareaPersonaEstructuraPolitica result = this.tareaPersonaEstructuraPoliticaDecorator
-        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(this.comisionEmpleadoResultItemDto, this.tarea);
+    final TareaPersonaEstructuraPolitica result = this.tareaPersonaEstructuraPoliticaDecorator
+        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(comisionEmpleadoResultItemDto, tarea);
 
     assertNotNull(result);
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPoliticaTest2(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica) {
+    final List<ComisionEmpleadoResultItemDto> comisionEmpleadoResultItemDtoList = Instancio.createList(ComisionEmpleadoResultItemDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
 
-    this.comisionEmpleadoResultItemDtoList.get(0).setIdTipoPolitica("002");
-    this.comisionEmpleadoResultItemDtoList.get(0).setExcDenominador("1");
-    this.comisionEmpleadoResultItemDtoList.get(1).setIdTipoPolitica("001");
-    for (ComisionEmpleadoResultItemDto item : this.comisionEmpleadoResultItemDtoList) {
+    comisionEmpleadoResultItemDtoList.get(0).setIdTipoPolitica("002");
+    comisionEmpleadoResultItemDtoList.get(0).setExcDenominador("1");
+    comisionEmpleadoResultItemDtoList.get(1).setIdTipoPolitica("001");
+    for (final ComisionEmpleadoResultItemDto item : comisionEmpleadoResultItemDtoList) {
       doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-          .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(item, this.tarea);
+          .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(item, tarea);
 
       doReturn(politica).when(this.tipoPoliticaService)
           .findByIdMeta4(item.getIdTipoPolitica());
     }
 
-    List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(this.comisionEmpleadoResultItemDtoList, this.tarea);
+    final List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPolitica(comisionEmpleadoResultItemDtoList, tarea);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica, @Random TipoUnidadTiempoDto unidadTiempo) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {
+    final List<EstructurasPolResultItemDto> estructurasPolResultItemDtoList = Instancio.createList(EstructurasPolResultItemDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
 
-    for (EstructurasPolResultItemDto item : this.estructurasPolResultItemDtoList) {
+    for (final EstructurasPolResultItemDto item : estructurasPolResultItemDtoList) {
       item.getIcmListaCondicionesPolitica().get(0).setIdTipoPolitica("002");
       item.getIcmListaCondicionesPolitica().get(0).setExcDenominador("1");
-      for (ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
-        for (ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
+      for (final ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
+        for (final ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
           item3.setValor("1");
           item3.setTramo("1");
 
           doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, this.tarea);
+              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, tarea);
 
           doReturn(politica).when(this.tipoPoliticaService)
               .findByIdMeta4(item2.getIdTipoPolitica());
@@ -211,31 +205,33 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
       }
     }
 
-    List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(this.estructurasPolResultItemDtoList, this.tarea);
+    final List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDtoList, tarea);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest2(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica, @Random TipoUnidadTiempoDto unidadTiempo) {
-
-    for (EstructurasPolResultItemDto item : this.estructurasPolResultItemDtoList) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {
+    final List<EstructurasPolResultItemDto> estructurasPolResultItemDtoList = Instancio.createList(EstructurasPolResultItemDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    for (final EstructurasPolResultItemDto item : estructurasPolResultItemDtoList) {
       item.getIcmListaCondicionesPolitica().get(0).setIdTipoPolitica("002");
       item.getIcmListaCondicionesPolitica().get(0).setExcDenominador("1");
-      for (ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
+      for (final ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
         item2.setIdTipoPolitica("008");
         item2.setImporteMax("100");
 
-        for (ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
+        for (final ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
           item3.setValor("1");
           item3.setTramo("1");
 
           doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, this.tarea);
+              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, tarea);
 
           doReturn(politica).when(this.tipoPoliticaService)
               .findByIdMeta4(item2.getIdTipoPolitica());
@@ -246,31 +242,33 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
       }
     }
 
-    List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(this.estructurasPolResultItemDtoList, this.tarea);
+    final List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDtoList, tarea);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
-  @Test
+  @ParameterizedTest
+  @InstancioSource
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest3(
-      @Random TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
-      @Random TipoPoliticaDto politica, @Random TipoUnidadTiempoDto unidadTiempo) {
-
-    for (EstructurasPolResultItemDto item : this.estructurasPolResultItemDtoList) {
+      final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
+      final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {
+    final List<EstructurasPolResultItemDto> estructurasPolResultItemDtoList = Instancio.createList(EstructurasPolResultItemDto.class);
+    final var tarea = Instancio.create(TareaDto.class);
+    for (final EstructurasPolResultItemDto item : estructurasPolResultItemDtoList) {
       item.getIcmListaCondicionesPolitica().get(0).setIdTipoPolitica("002");
       item.getIcmListaCondicionesPolitica().get(0).setExcDenominador("1");
-      for (ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
+      for (final ListaCondicionesPoliticasResultItemDto item2 : item.getIcmListaCondicionesPolitica()) {
         item2.setIdTipoPolitica("007");
         item2.setImporteMin("10");
 
-        for (ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
+        for (final ListaValoresPoliticasResultItemDto item3 : item2.getIcmListaValoresPoliticas()) {
           item3.setValor("1");
           item3.setTramo("1");
 
           doReturn(tareaPersonaEstructuraPolitica).when(this.delegate)
-              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, this.tarea);
+              .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(item, tarea);
 
           doReturn(politica).when(this.tipoPoliticaService)
               .findByIdMeta4(item2.getIdTipoPolitica());
@@ -281,11 +279,11 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
       }
     }
 
-    List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
-        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(this.estructurasPolResultItemDtoList, this.tarea);
+    final List<TareaPersonaEstructuraPolitica> result = this.tareaPersonaEstructuraPoliticaDecorator
+        .estructurasPolResultItemDtoToTareaPersonaEstructuraPolitica(estructurasPolResultItemDtoList, tarea);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
   }
 
 }

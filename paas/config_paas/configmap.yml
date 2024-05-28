@@ -54,6 +54,8 @@ amiga:
           ping-query:
             enabled: true
             timeout: 2s
+    metrics:
+      type: influx
   service:
     jms:
       listener:
@@ -70,13 +72,16 @@ amiga:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-limpieza-queue-${metadata.slot}
       programacion-queue:
         destination-fqdn: ${metadata.tenant}.${metadata.domain}.${metadata.openshiftproject}.private.${metadata.service}-${metadata.jirakey}-programacion-queue-${metadata.slot}
+    web:
+      api:
+        problem-details:
+          enabled: false
   data:
     binder:
       jms-activemq:
         default:
           consumer:
             enable-dlq: false
-            send-original-payload-to-dlq: false
     jms:
       connection-factory:
         broker-escritura:
@@ -137,8 +142,9 @@ amiga:
           auto-commit: true
     jpa:
       properties:
-        hibernate.dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-        hibernate.default_schema: GESTION_COMISION
+        hibernate:
+          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+          default_schema: GESTION_COMISION
 app:
   envars:
     calculo:

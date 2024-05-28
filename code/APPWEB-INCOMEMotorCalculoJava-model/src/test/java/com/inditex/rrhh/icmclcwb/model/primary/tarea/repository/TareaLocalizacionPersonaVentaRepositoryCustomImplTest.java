@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -40,9 +38,11 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaVenta;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -53,7 +53,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
   private final static String SQL_SAVE = "SAVE";
@@ -103,9 +103,10 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
     assertEquals(SQL_SAVE, this.sqlCaptor.getValue());
   }
 
-  @Test
-  void totalizarDevolucionPersonaSeccionTest(@Random final TareaDto tarea,
-      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDato) {
+  @ParameterizedTest
+  @InstancioSource
+  void totalizarDevolucionPersonaSeccionTest( final TareaDto tarea,
+       final List<IdTipoDatoDto> tiposDato) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 
@@ -128,9 +129,10 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void totalizarVentaSinDevolucionPersonaSeccionTest(@Random final TareaDto tarea,
-      @Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDato) {
+  @ParameterizedTest
+    @InstancioSource
+  void totalizarVentaSinDevolucionPersonaSeccionTest(final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 
@@ -152,8 +154,9 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
     assertEquals(expected, params);
   }
 
-  @Test
-  void devolucionImporte0Test(@Random final TareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void devolucionImporte0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0(tarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_DEVOLUCION_IMPORTE_0), this.paramsCaptor.capture());

@@ -1,5 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.periodo.mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
@@ -33,4 +38,19 @@ public abstract class PeriodoMapper {
 
   public abstract List<PeriodosResultItemDto> periodoDtoToPeriodoResultItemDto(List<PeriodoDTO> src);
 
+  OffsetDateTime map(final LocalDateTime value) {
+    return value != null ? value.atOffset(ZoneOffset.UTC) : null;
+  }
+
+  LocalDateTime map(final OffsetDateTime value) {
+    return value != null ? value.toLocalDateTime() : null;
+  }
+
+  OffsetDateTime mapLocalDate(final LocalDate value) {
+    return value != null ? value.atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC) : null;
+  }
+
+  LocalDate mapLocalDate(final OffsetDateTime value) {
+    return value.toLocalDate();
+  }
 }

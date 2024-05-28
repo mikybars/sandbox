@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,7 @@ import org.springframework.stereotype.Component;
 @Component("directoVentaReduccionJornadaTopesDesplazamientoBaseV1")
 public class DirectoVentaReduccionJornadaTopesDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(DirectoVentaReduccionJornadaTopesDesplazamientoBaseV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -26,13 +26,15 @@ public class DirectoVentaReduccionJornadaTopesDesplazamientoBaseV1RunAlgoritmo i
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-    this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    DirectoVentaReduccionJornadaTopesDesplazamientoBaseV1RunAlgoritmo.LOG.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING,
+        algoritmo);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public String getSqlCalcular(final AlgoritmoDTO algoritmo) {
-    this.log.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING, algoritmo);
+    DirectoVentaReduccionJornadaTopesDesplazamientoBaseV1RunAlgoritmo.LOG.warn(ErrorConstants.RUN_ALWORITMO_NOT_IMPLEMENTED_WARNING,
+        algoritmo);
     return ErrorConstants.RUN_ALGORITMO_NOT_IMPLEMENTED_RESULT;
   }
 

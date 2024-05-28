@@ -18,9 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraMetadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraPropertiesDto;
@@ -29,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraStatisticsResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.exception.VentaIntegraIcmclcwbException;
 
+import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,7 +37,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class VentaIntegraServiceImplTest {
 
   @Mock
@@ -53,11 +52,9 @@ class VentaIntegraServiceImplTest {
   @InjectMocks
   VentaIntegraServiceImpl ventaIntegraService;
 
-  @Random
-  VentaIntegraMetadaResponseDto ventaIntegraMetadaResponseDto;
+  final VentaIntegraMetadaResponseDto ventaIntegraMetadaResponseDto = Instancio.create(VentaIntegraMetadaResponseDto.class);
 
-  @Random
-  VentaIntegraStatisticsResponseDto ventaIntegraStatisticsResponseDto;
+  final VentaIntegraStatisticsResponseDto ventaIntegraStatisticsResponseDto = Instancio.create(VentaIntegraStatisticsResponseDto.class);
 
   private <T extends Object> ResponseEntity<T> mockResponse(final T body) {
     final ResponseEntity<T> response = mock(ResponseEntity.class);

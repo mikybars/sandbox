@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.config.app.ms;
 
-import com.inditex.aqsw.framework.service.jms.JmsListenerContainerFactoryCustomizer;
+import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryCustomizer;
 import com.inditex.rrhh.icmclcwb.config.app.ObjectMapperCustom;
 
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;

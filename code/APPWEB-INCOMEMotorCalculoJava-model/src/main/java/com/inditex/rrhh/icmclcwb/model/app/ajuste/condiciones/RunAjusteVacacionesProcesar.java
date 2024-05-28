@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteVacacionesRepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RunAjusteVacacionesProcesar implements RunAjuste {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunAjusteVacacionesProcesar.class);
 
   @Autowired
   @Qualifier("runAjusteProperties")
@@ -42,11 +42,11 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
 
   @Override
   public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.log.info(
+    RunAjusteVacacionesProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteVacacionesProcesar :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteVacacionesRepositoryCustom.ids(runTarea.getTarea());
-    this.log.info(
+    RunAjusteVacacionesProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteVacacionesProcesar :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -57,7 +57,7 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
         this.runAjusteProperties.getAjuste().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-      this.log.info(
+      RunAjusteVacacionesProcesar.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteVacacionesProcesar :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -67,11 +67,11 @@ public class RunAjusteVacacionesProcesar implements RunAjuste {
         AsyncUtils.exceptionally(cfAjuste, cf);
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
+        RunAjusteVacacionesProcesar.LOG.error("RunAjusteVacacionesProcesar :: KO :: Personas: {}", personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
+      RunAjusteVacacionesProcesar.LOG.info("Fin :: RunAjusteVacacionesProcesar :: Personas: {}", personas.size());
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
     }

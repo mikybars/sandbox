@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunAjusteMaximoGarantizadoProcesar.class);
 
   @Autowired
   @Qualifier("runAjusteProperties")
@@ -42,12 +42,12 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
 
   @Override
   public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
-    this.log.info(
+    RunAjusteMaximoGarantizadoProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteMaximoGarantizadoRepositoryCustom
         .ids(runTarea.getTarea());
-    this.log.info(
+    RunAjusteMaximoGarantizadoProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteMaximoGarantizadoProcesar :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
@@ -57,7 +57,7 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
         this.runAjusteProperties.getAjuste().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-      this.log.info(
+      RunAjusteMaximoGarantizadoProcesar.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
@@ -68,11 +68,11 @@ public class RunAjusteMaximoGarantizadoProcesar implements RunAjuste {
         AsyncUtils.exceptionally(cfAjuste, cf);
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
+        RunAjusteMaximoGarantizadoProcesar.LOG.error("RunAjusteMaximoGarantizadoProcesar :: KO :: Personas: {}", personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
+      RunAjusteMaximoGarantizadoProcesar.LOG.info("Fin :: RunAjusteMaximoGarantizadoProcesar :: Personas: {}", personas.size());
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
     }

@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.ptr.venta.service;
 
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleRequestDto;
@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaInd
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.service.PtrVentaEmpleadoService;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.retry.annotation.Retryable;

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

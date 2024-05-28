@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.app.tarea;
 
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import org.junit.jupiter.api.Disabled;
@@ -11,7 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class TareaCalculoQueryTest {
 
   @Mock

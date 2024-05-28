@@ -5,7 +5,7 @@ import java.util.Collection;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TrabajoRepository extends BaseRepository<Trabajo, Long> {
 

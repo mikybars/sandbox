@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 public interface RunTareaProcesarPresenciaService {
 

@@ -6,7 +6,7 @@ package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.exception.SlrhorcomsIcmclcwbException;
@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,8 +30,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialService {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(SlrHorarioComercialServiceImpl.class);
 
   @Autowired
   @Qualifier("slrhorcomsClient")

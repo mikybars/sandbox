@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.config.app.ms;
 
-import com.inditex.aqsw.framework.data.jms.ActiveMQConnectionFactory;
-import com.inditex.aqsw.framework.data.jms.ActiveMQXAConnectionFactory;
-import com.inditex.aqsw.framework.data.jms.JmsConnectionFactoryGlobalCustomizer;
+import com.inditex.amigafwk.data.jms.ActiveMQConnectionFactory;
+import com.inditex.amigafwk.data.jms.ActiveMQXAConnectionFactory;
+import com.inditex.amigafwk.data.jms.JmsConnectionFactoryGlobalCustomizer;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 
 public class JmsConnectionFactoryGlobalCustom implements JmsConnectionFactoryGlobalCustomizer {

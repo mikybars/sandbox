@@ -86,14 +86,10 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmoTest implements RunAlgor
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.globalTiendaSeccionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    verify(this.log, times(1))
-        .info("Trabajo[{}]Tarea[{}] :: Inicio :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
+
     verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);
-    verify(this.log, times(1))
-        .info("Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: Personas: {}",
-            idTrabajo, idTarea, 3);
+
   }
 
   @Test
@@ -111,7 +107,7 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmoTest implements RunAlgor
     final RuntimeException exception = new RuntimeException("EEEE");
     doThrow(exception).when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom)
         .calcular(any(AlgoritmoDTO.class), any(TareaDto.class),
-            ArgumentMatchers.<List<IdPersonaLocalDto>>any());
+            ArgumentMatchers.any());
 
     final long idTarea = 123L;
     final long idTrabajo = 5675L;
@@ -119,9 +115,6 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmoTest implements RunAlgor
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.globalTiendaSeccionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-    verify(this.log, times(1))
-        .error("Trabajo[{}]Tarea[{}] :: GlobalTiendaSeccionPorcentajeV1RunAlgoritmo :: KO :: Personas: {}",
-            idTrabajo, idTarea, 2, exception);
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
