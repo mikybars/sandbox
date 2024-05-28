@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.63.0] - 2024-05-28
+
+### Added
+
+- [#172](https://github.com/inditex/mic-incomemotorcalculojava/issues/172) Subida primera parte del codigo migracion amiga 5
+- [INCOME-235](https://axinic.central.inditex.grp/jira/browse/INCOME-235) Test para artefacto del cálculo
+
 ## [4.62.2] - 2024-04-09
 
 ## [4.62.1] - 2024-03-21
@@ -398,7 +405,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...main
+[4.63.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...4.63.0
 [4.62.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.1...4.62.2
 [4.62.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.0...4.62.1
 [4.62.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.61.0...4.62.0
