@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaRecolectarByAmbitoServiceImplTest {
+class RunTareaRecolectarByAmbitoServiceImplTest {
   @Mock
   private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 

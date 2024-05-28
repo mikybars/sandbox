@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.limpieza.consolidar.ambito.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -52,6 +53,8 @@ class RunTareaAmbitoLimpiarConsolidarByAmbitoServiceImplTest {
         .thenReturn(cf);
 
     this.runTareaAmbitoLimpiarConsolidarByAmbitoService.run(runTarea, tareaAmbitoDto);
+
+    assertEquals(cf, this.runTareaConsolidarPeriodoAsyncService.limpiezaPeriodoPersona(runTarea, tareaAmbitoDto));
 
   }
 

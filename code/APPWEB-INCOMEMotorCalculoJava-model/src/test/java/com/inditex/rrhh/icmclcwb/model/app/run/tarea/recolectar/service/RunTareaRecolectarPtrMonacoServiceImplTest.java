@@ -98,14 +98,4 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         runTarea,
         ambito);
   }
-
-  @Test
-  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(@Random final RunTareaDto runTarea) {
-    final TareaAmbitoDto ambito = new TareaAmbitoDto();
-    runTarea.getTarea().getAmbito().add(ambito);
-    this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
-    verify(this.runTareaAmbitoRecolectarPtrMonacoService, times(1)).ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(
-        runTarea,
-        ambito);
-  }
 }

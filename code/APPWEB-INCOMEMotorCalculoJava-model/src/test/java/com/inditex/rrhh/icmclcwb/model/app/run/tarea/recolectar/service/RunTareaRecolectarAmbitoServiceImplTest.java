@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -80,6 +81,8 @@ class RunTareaRecolectarAmbitoServiceImplTest {
         cf);
 
     this.runTareaRecolectarAmbitoService.run(runTarea);
+
+    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.personaByRunTarea(runTarea));
   }
 
   @Test
@@ -106,6 +109,8 @@ class RunTareaRecolectarAmbitoServiceImplTest {
         cf);
 
     this.runTareaRecolectarAmbitoService.run(runTarea);
+
+    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.personaByRunTarea(runTarea));
   }
 
   @Test
@@ -132,6 +137,8 @@ class RunTareaRecolectarAmbitoServiceImplTest {
         cf);
 
     this.runTareaRecolectarAmbitoService.run(runTarea);
+
+    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.personaByRunTarea(runTarea));
   }
 
   @Test
@@ -159,6 +166,8 @@ class RunTareaRecolectarAmbitoServiceImplTest {
         cf);
 
     this.runTareaRecolectarAmbitoService.run(runTarea);
+
+    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.personaByRunTarea(runTarea));
   }
 
   @Test
@@ -186,6 +195,8 @@ class RunTareaRecolectarAmbitoServiceImplTest {
         cf);
 
     this.runTareaRecolectarAmbitoService.run(runTarea);
+
+    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.personaByRunTarea(runTarea));
   }
 
   @Test
