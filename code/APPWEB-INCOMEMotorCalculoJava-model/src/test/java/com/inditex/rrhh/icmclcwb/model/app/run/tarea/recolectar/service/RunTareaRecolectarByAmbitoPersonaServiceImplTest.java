@@ -2,9 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -38,6 +36,7 @@ class RunTareaRecolectarByAmbitoPersonaServiceImplTest {
   void runExceptionTest() {
     doThrow(new RuntimeException("EE")).when(this.tareaCalculoPersonaAsyncService)
         .mergePersonaCalculoByAmbitoPersona(any(RunTareaDto.class));
-    assertThrows(RuntimeException.class, () -> this.runTareaRecolectarByAmbitoPersonaService.run(new RunTareaDto()));
+    final RunTareaDto tarea = new RunTareaDto();
+    assertThrows(RuntimeException.class, () -> this.runTareaRecolectarByAmbitoPersonaService.run(tarea));
   }
 }

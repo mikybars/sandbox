@@ -2,10 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.consolidar.async.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -48,8 +45,9 @@ class RunTareaConsolidarByAmbitoServiceImplTest {
   void runExceptionTest() {
     doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoPersona(any(RunTareaDto.class));
 
+    final RunTareaDto tarea = new RunTareaDto();
     assertThrows(RuntimeException.class,
-        () -> this.runTareaConsolidarByAmbitoService.run(new RunTareaDto()));
+        () -> this.runTareaConsolidarByAmbitoService.run(tarea));
   }
 
 }

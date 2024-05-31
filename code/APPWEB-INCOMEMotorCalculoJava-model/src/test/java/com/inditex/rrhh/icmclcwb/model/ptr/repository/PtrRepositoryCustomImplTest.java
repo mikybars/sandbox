@@ -1,4 +1,3 @@
-
 package com.inditex.rrhh.icmclcwb.model.ptr.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +16,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -47,7 +42,7 @@ public class PtrRepositoryCustomImplTest {
   private ArgumentCaptor<MapSqlParameterSource> paramsCaptor;
 
   @BeforeEach
-  public void setup() throws IllegalAccessException {
+  void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.ptrRepositoryCustom,
         "sqlfindPresenciasOrigenAndFechaQuery",
         SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA, true);
@@ -57,7 +52,7 @@ public class PtrRepositoryCustomImplTest {
   }
 
   @Test
-  public void findPresenciasOrigenAndFecha() {
+  void findPresenciasOrigenAndFecha() {
     final TareaDto tarea = new TareaDto();
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
@@ -78,7 +73,7 @@ public class PtrRepositoryCustomImplTest {
   }
 
   @Test
-  public void findPresenciasOrigenAndFechaEs() {
+  void findPresenciasOrigenAndFechaEs() {
     final TareaDto tarea = new TareaDto();
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     tarea.setFechaInicioPeriodo(LocalDate.now());
