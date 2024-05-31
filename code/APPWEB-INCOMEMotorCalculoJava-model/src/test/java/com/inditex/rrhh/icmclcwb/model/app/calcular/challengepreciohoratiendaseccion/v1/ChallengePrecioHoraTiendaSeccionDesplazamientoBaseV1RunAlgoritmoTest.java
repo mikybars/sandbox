@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.challengepreciohoratiendase
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
