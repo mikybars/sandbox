@@ -23,12 +23,30 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
 - ### `identify-changes`
 
-  [identify-changes](https://github.com/inditex/actions/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
+  - **Steps**
+    - [identify-changes](https://github.com/inditex/actions/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
+    - Check if last image exists in the DP via sentcli.
+    - Set deployment configuration for the next jobs.
 
-- ### `build-and-promote`
+- ### `validate-slots`
 
-   It'll run when `identify-changes` have finished.
+  It'll run when `identify-changes` have finished.
+  
+  - **Steps**
+    - Ensure slot is present
+    - [validate-slots](https://github.com/inditex/actions/tree/main/deployment/validate-slots) action validates that the slots provided are correct to be deployed in PaaS.
+
+- ### `build-deployable`
+  It'll run when `validate-slots` have finished and if `identify-changes` detects code or configuration changes, or a latest image does not exist.
+
+- ### `create-deployment-prs`
+  It'll run if `identify-changes` and `validate-slots` have finished with a succesful result and also if `build-deployable` was skipped or finished succesfully.
+
+- ### `clean-resources`
+
+   It'll run when `create-deployment-prs` have finished and the trigger is by closed PR.
 
   - **Steps**
-    - Build and push the related **Docker image** to the [Distribution Platform](https://inditex.jfrog.io).
-    - Run [paas-promote](paas-promote.md) workflow with the corresponding input parameters.
+    - Clean up last build tag on closed PR.
+    - Detect if it is BatchAsCode.
+    - [Clean Up / Delete Folder Into Deployment Branch](https://github.com/inditex/actions/tree/main/deployment/delete-deployment-folder)
