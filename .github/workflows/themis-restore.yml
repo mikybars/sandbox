@@ -1,0 +1,105 @@
+---
+name: themis-database-restore
+
+on:
+  issues:
+    types: [labeled]
+
+env:
+  WORKFLOW_VERSION: 2.9.0
+
+jobs:
+  dbrestore:
+    runs-on: [self-hosted, database]
+    if: github.event.label.name == 'database/db-restore' || github.event_name == 'schedule'
+    name: Launch restore job
+    steps:
+      - name: Checkout my repo
+        uses: actions/checkout@v4
+
+      - name: Check sender permissions
+        if: ${{ github.event.label.name == 'database/db-restore' }}
+        uses: actions/github-script@v7
+        id: set-result
+        with:
+          result-encoding: string
+          github-token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          script: |
+              const collab = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: '${{ github.event.sender.login }}'
+              })
+              if (collab['data']['permission'] == 'admin') {
+                return
+              }
+              else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: '⛔ Database restore **canceled**: User does not have admin privilege to run the db restore.'
+                })
+                core.setFailed('User does not have admin privilege to run the db restore')
+              }
+
+      - name: Generate run uuid
+        id: uuid
+        shell: python
+        run: |
+              import uuid
+              import os
+
+              output_file = os.getenv('GITHUB_OUTPUT')
+              with open(output_file, "a") as oenv:
+                oenv.write("run_uuid=" + str(uuid.uuid4()))
+
+      - name: Run dispatcher workflow
+        uses: inditex/gha-workflowdispatch@v1
+        with:
+          workflow: database-dbrestore.yml
+          repo: inditex/gha-themis
+          token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          ref: main
+          inputs: |
+                  {
+                    "repository": "${{ github.repository }}",
+                    "ref": "${{ github.ref }}",
+                    "target_ref": "${{ github.base_ref }}",
+                    "uuid": "${{ steps.uuid.outputs.run_uuid }}",
+                    "issuenumber": "${{ github.event.issue.number || github.event.number }}"
+                  }
+
+      - name: Wait for workflow run ${{ steps.uuid.outputs.run_uuid }}
+        id: find_workflow
+        uses: inditex/gha-themis/features/commons/findwf@main
+        with:
+          run_uuid: ${{ steps.uuid.outputs.run_uuid }}
+          token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+
+      - name: Add workflow link to issue on success
+        if: ${{ github.event.label.name == 'database/db-restore' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          script: |
+                  github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: '🏁 Database restore summary can be found [here](${{ env.SUMMARY_URL }}).'
+                  })
+
+      - name: Add workflow link to issue on failure
+        if: ${{ failure() && !cancelled() && github.event.label.name == 'database/db-restore' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          script: |
+                  github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: '💥 Database restore failed. Summary can be found [here](${{ env.SUMMARY_URL }}).'
+                  })
