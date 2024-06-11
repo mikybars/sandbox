@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.5.1
+  WORKFLOW_VERSION: 2.9.2
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -196,7 +196,7 @@ jobs:
             -Dsonar.projectVersion="${{ steps.version.outputs.app-version }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}" \
+            -Dsonar.token="${LOGIN}" \
             -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
             -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
             -Dsonar.pullrequest.base=${{ github.base_ref }} \
