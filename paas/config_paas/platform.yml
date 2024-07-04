@@ -17,6 +17,8 @@ app:
   has_spnego: true
   services:
     http:
+      external_routes[*]:
+        disable_cookies: false      
       route:
         disable_cookies: false
         tls:
