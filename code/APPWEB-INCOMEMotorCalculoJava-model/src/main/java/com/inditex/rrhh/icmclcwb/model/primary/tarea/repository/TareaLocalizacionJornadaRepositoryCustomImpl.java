@@ -1,0 +1,31 @@
+package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionJornada;
+
+import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+
+public class TareaLocalizacionJornadaRepositoryCustomImpl
+    extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionJornada>
+    implements TareaLocalizacionJornadaRepositoryCustom {
+
+  @Value("#{primaryQuery['TareaLocalizacionJornadaRepositoryCustom.procesar']}")
+  private String sqlProcesar;
+
+  @Override
+  public void procesar(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
+        TipoDatoEnum.JORNADA_LOCALIZACION.getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION_PERSONA,
+        TipoDatoEnum.JORNADA_LOCALIZACION_PERSONA.getId());
+    this.update(this.sqlProcesar, parameters);
+  }
+}
