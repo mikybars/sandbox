@@ -21,16 +21,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TareaCalculoChallengeJornadaDesplazamientoV1RepositoryCustomImpl extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-    implements TareaCalculoChallengeJornadaDesplazamientoV1RepositoryCustom {
+public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImpl extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
+    implements TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoChallengeJornadaDesplazamientoV1RepositoryCustm.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoChallengeJornadaV1RepositoryCustom.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcular;
 
-  @Value("#{calculoPrimaryQuery['TareaCalculoChallengeJornadaDesplazamientoV1RepositoryCustm.calcular']} "
+  @Value("#{calculoPrimaryQuery['TareaCalculoChallengeJornadaV1RepositoryCustom.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;

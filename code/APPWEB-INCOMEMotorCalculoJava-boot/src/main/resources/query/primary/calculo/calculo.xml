@@ -10729,7 +10729,7 @@ SELECT
   </entry>
 
 
-  <entry key="TareaCalculoChallengeJornadaV1RepositoryCustm.calcular">
+  <entry key="TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom.calcular">
     <![CDATA[
     SELECT
         ESTRUCTURA.FECHA_INICIO_PERIODO,
@@ -10798,7 +10798,7 @@ SELECT
     ]]>
   </entry>
 
-  <entry key="TareaCalculoChallengeJornadaDesplazamientoV1RepositoryCustm.calcular">
+  <entry key="TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCustom.calcular">
     <![CDATA[
   SELECT
         ESTRUCTURA.FECHA_INICIO_PERIODO,
