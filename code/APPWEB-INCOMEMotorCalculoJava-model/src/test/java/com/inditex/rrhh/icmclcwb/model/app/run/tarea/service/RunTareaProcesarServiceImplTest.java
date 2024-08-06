@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarJornadaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
@@ -31,6 +32,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
 class RunTareaProcesarServiceImplTest {
+
+  @Mock
+  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
 
   @Mock
   private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
@@ -288,6 +292,12 @@ class RunTareaProcesarServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .relacionarPresupuestosEstructurasDesplazamiento(this.runTarea.getTarea());
+
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacionPersona(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .updateActivoManual(this.runTarea);
