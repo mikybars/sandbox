@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarJornadaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
@@ -36,6 +37,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
   @Autowired
   private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
+
+  @Autowired
+  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
 
   @Autowired
   private TareaFaseService tareaFaseService;
@@ -97,6 +101,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .desactivarManualOrdinalDoble(runTarea);
       AsyncUtils.exceptionally(cfDesactivarManualOrdinalDoble, cf, cfWait);
 
+      final CompletableFuture<Void> cfProcesarJornadaLocalizacionPersona = this.runTareaProcesarJornadaAsyncService
+          .procesarJornadaLocalizacionPersona(runTarea);
+      AsyncUtils.exceptionally(cfProcesarJornadaLocalizacionPersona, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
@@ -108,6 +116,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCrearGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
           .crearGlobalSeccionOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfCrearGlobalSeccionOpcionOrigen, cf, cfWait);
+
+      final CompletableFuture<Void> cfProcesarJornadaLocalizacion = this.runTareaProcesarJornadaAsyncService
+          .procesarJornadaLocalizacion(runTarea);
+      AsyncUtils.exceptionally(cfProcesarJornadaLocalizacion, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

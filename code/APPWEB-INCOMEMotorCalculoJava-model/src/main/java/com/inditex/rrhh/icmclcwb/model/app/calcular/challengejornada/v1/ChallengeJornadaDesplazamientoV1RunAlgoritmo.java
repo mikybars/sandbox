@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component("challengeJornadaV1")
+@Component("challengeJornadaDesplazamientoV1")
 public class ChallengeJornadaDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
   private static final Logger LOG = LoggerFactory.getLogger(ChallengeJornadaDesplazamientoV1RunAlgoritmo.class);
 

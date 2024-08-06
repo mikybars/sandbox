@@ -10,10 +10,12 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
+import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,12 @@ public class TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCust
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCustom.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTareaPresencia']}")
   @Getter
   private String sqlCalcular;
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCustom.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTareaPresencia']}")
   @Getter
   private String sqlCalcularBase;
 
@@ -46,6 +48,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCust
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
     final Map<String, Object> map = new HashMap<>();
     if (tarea != null) {
+      map.put(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
       map.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     }
     if (persona != null) {
@@ -58,6 +61,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCust
     map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION, TipoDatoEnum.JORNADA_LOCALIZACION.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
 
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
         algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));

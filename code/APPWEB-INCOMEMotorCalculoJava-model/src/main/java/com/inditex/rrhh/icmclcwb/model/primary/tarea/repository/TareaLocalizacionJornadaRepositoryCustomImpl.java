@@ -9,7 +9,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionJor
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TareaLocalizacionJornadaRepositoryCustomImpl
     extends JdbcBatchPrimaryRepositoryAbstract<TareaLocalizacionJornada>
     implements TareaLocalizacionJornadaRepositoryCustom {

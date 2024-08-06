@@ -10452,6 +10452,12 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
       WHERE T.ID_TAREA = :idTarea
       AND TLPJ.ID_TIPO_DATO = :idTipoDatoJornadaLocalizacionPersona
       AND TLPJ.ES_ACTIVO = :activo
+      GROUP BY
+      TLPJ.FECHA,
+      TLPJ.ID_TAREA,
+      TLPJ.CCL_ID_COD_ORIGEN,
+      TLPJ.CCL_ID_SECCION,
+      TLPJ.CCL_ID_CADENA
     ]]>
   </entry>
 
