@@ -2,17 +2,16 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
-public class DatosComunesJornada extends DatosComunes {
+public class DatosComunesPersonaVenta extends DatosComunesVenta {
 
-  @NotNull
-  @Column(name = "MINUTOS", nullable = false)
-  private Integer minutos;
-
+  @NotBlank
+  @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
+  private String cclIdPerson;
 }

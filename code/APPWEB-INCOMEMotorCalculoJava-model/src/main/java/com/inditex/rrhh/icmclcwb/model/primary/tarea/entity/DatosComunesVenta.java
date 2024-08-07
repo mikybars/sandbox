@@ -9,10 +9,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
-public class DatosComunesJornada extends DatosComunes {
+public class DatosComunesVenta extends DatosComunes {
 
   @NotNull
-  @Column(name = "MINUTOS", nullable = false)
-  private Integer minutos;
+  @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
+  private Double importeSinImpuestos;
 
+  @NotNull
+  @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
+  private Double importeConImpuestos;
 }
