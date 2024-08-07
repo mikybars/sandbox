@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 1.44.0
+  WORKFLOW_VERSION: 1.44.3
   TOOL_VERSIONS: |
     ivm-node 18.12.1
 
@@ -61,6 +61,16 @@ jobs:
         with:
           tool-versions-directory: "."
 
+      - name: IVM / Source asdf
+        run: |
+          # shellcheck source=/dev/null
+          source "$ASDF_DIR"/asdf.sh
+          echo "$PATH" >> "$GITHUB_PATH"
+
+      - name: IVM / Check versions
+        run: |
+          node --version
+          npm --version
 
       - name: Get metadata
         id: metadata

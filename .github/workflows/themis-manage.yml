@@ -1,0 +1,94 @@
+---
+name: themis-database-manage
+run-name: Themis database manage for ${{ inputs.SUPRAENVIRONMENT }} - ${{ inputs.ENVIRONMENT }}
+
+concurrency:
+  group: themis-manage-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.ENVIRONMENT }}-${{ inputs.DATASOURCE }}
+
+env:
+  WORKFLOW_VERSION: 2.9.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVIRONMENT:
+        description: 'Supra environment to manage'
+        required: true
+        default: 'dev'
+      ENVIRONMENT:
+        description: 'Environment to manage'
+        required: true
+        default: 'dev'
+      DATASOURCE:
+        description: 'Datasource name for supraenv/env'
+        required: true
+        default: 'dev-datasource'
+      ACTION:
+        description: 'Action to perform'
+        required: true
+        default: 'drop'
+      OBJECT_TYPE:
+        description: 'Object type to manage'
+        required: true
+        default: 'table'
+      OBJECT_NAME:
+        description: 'Object name to manage'
+        required: true
+        default: 'table_name'
+      MODE:
+        description: 'Drop mode to manage'
+        required: true
+        default: 'check'
+      PATH:
+        description: 'Path where datasources are located'
+        required: false
+        default: 'themis'
+      ISSUE_NUMBER:
+        description: 'Issue number to manage'
+        required: true
+
+jobs:
+  orchestrator:
+    name: Database / Runner Selector
+    runs-on: [self-hosted, database]
+    outputs:
+      runner_label: ${{ steps.runner_selector.outputs.runner_label }}
+    steps:
+      - name: Orchestrator
+        id: runner_selector
+        uses: inditex/gha-themis/features/commons/orchestration@main
+        with:
+          supraenv: ${{ inputs.SUPRAENVIRONMENT }}
+          env: ${{ inputs.ENVIRONMENT }}
+          datasource: ${{ inputs.DATASOURCE }}
+          path: ${{ inputs.PATH }}
+
+      - name: Orchestrator outputs
+        run: |
+          echo "${{ toJson(steps.runner_selector.outputs) }}"
+
+  manage:
+    name: Themis manage
+    needs: orchestrator
+    timeout-minutes: 45
+    runs-on: [self-hosted, database, "${{ needs.orchestrator.outputs.runner_label }}"]
+    steps:
+      - name: Themis manage
+        uses: inditex/gha-themis/features/ci-cd/manage@main
+        with:
+          SUPRAENVIRONMENT: ${{ inputs.SUPRAENVIRONMENT }}
+          ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+          DATASOURCE: ${{ inputs.DATASOURCE }}
+          ACTION: ${{ inputs.ACTION }}
+          OBJECT_TYPE: ${{ inputs.OBJECT_TYPE }}
+          OBJECT_NAME: ${{ inputs.OBJECT_NAME }}
+          DROP_MODE: ${{ inputs.MODE }}
+          PATH: ${{ inputs.PATH }}
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+          RUNNER_LABEL: ${{ needs.orchestrator.outputs.runner_label }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}
+          THEMIS_SNOWFLAKE_ACCOUNT: ${{ vars.THEMIS_SNOWFLAKE_ACCOUNT }}
+          THEMIS_SNOWFLAKE_PASSWORD: ${{ secrets.THEMIS_SNOWFLAKE_PASSWORD }}

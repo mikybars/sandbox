@@ -3,11 +3,12 @@
 [`paas-promote.yml`](../paas-promote.yml) workflow generates K8s templates, promotes Docker Image to internal registries and creates `deployment` pull requests.
 
 ## Trigger
+- `workflow_call` from deploy-snapshots workflow
 
-`workflow_dispatch` from:
+- `workflow_dispatch` from:
 
-- `deploy-snapshots` workflow
-- GitHub issue when you want deploy a release version.
+  - `deploy-snapshots` workflow
+  - GitHub issue when you want deploy a release version.
 
 ## Where does it run?
 

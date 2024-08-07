@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.10.0
+  WORKFLOW_VERSION: 2.16.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
@@ -162,7 +162,7 @@ jobs:
             -Dsonar.branch.name="release/${{ github.event.release.tag_name }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}" \
+            -Dsonar.token="${LOGIN}" \
             -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
       - name: SonarCloud / Run Maven Sonar goal
@@ -180,7 +180,7 @@ jobs:
             -Dsonar.branch.name="${{ env.REF }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}" \
+            -Dsonar.token="${LOGIN}" \
             -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
 
