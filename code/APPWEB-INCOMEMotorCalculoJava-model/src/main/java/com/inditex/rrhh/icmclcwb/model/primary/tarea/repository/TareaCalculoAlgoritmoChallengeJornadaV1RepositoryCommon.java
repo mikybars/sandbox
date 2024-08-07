@@ -1,12 +1,15 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
@@ -14,7 +17,20 @@ import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public abstract class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCommon extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
+
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
+
+  @Autowired
+  private TipoDatoService tipoDatoService;
+
+  @Override
+  public List<IdPersonaLocalDto> ids(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
+  }
 
   @Override
   protected Map<String, Object> getMapValues(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona) {
