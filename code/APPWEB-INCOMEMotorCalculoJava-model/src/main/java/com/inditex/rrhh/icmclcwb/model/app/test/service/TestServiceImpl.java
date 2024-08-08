@@ -78,6 +78,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class TestServiceImpl implements TestService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
+
   private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
 
   private static final String CODE = "Code";
@@ -90,8 +92,6 @@ public class TestServiceImpl implements TestService {
 
   @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
   String oauthProperty;
-
-  private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
 
   @Autowired
   private TestExceptionService testExceptionService;

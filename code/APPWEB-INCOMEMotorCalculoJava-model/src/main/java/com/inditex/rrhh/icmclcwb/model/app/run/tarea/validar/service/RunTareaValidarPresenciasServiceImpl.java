@@ -26,6 +26,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidarPresenciasServiceImpl.class);
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
@@ -34,8 +36,6 @@ public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
 
   @Autowired
   private AccionService accionService;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidarPresenciasServiceImpl.class);
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
@@ -65,16 +65,16 @@ public class RunTareaValidarPresenciasServiceImpl implements RunPrevalidar {
       validaciones.stream().filter(e -> e.getResult().equals(Boolean.FALSE))
           .forEach(e -> {
             RunTareaValidarPresenciasServiceImpl.LOG.error(
-                new StringBuilder("Trabajo[")
-                    .append(runTarea.getTarea().getIdTrabajo())
-                    .append("]")
-                    .append("Tarea[")
-                    .append(runTarea.getTarea().getId())
-                    .append("] :: ")
-                    .append("Horas PTR: ")
-                    .append(e.getPtr())
-                    .append(", Horas Comis: ")
-                    .append(e.getComis()).toString());
+                "Trabajo["
+                    + runTarea.getTarea().getIdTrabajo()
+                    + "]"
+                    + "Tarea["
+                    + runTarea.getTarea().getId()
+                    + "] :: "
+                    + "Horas PTR: "
+                    + e.getPtr()
+                    + ", Horas Comis: "
+                    + e.getComis());
           });
     }
 
