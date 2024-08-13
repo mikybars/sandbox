@@ -1,0 +1,62 @@
+---
+name: themis-database-init
+run-name: Themis database init for ${{ inputs.SUPRAENVIRONMENT }}
+
+concurrency:
+  group: themis-init-${{ inputs.SUPRAENVIRONMENT }}
+
+env:
+  WORKFLOW_VERSION: 2.9.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVIRONMENT:
+        description: 'Supra environment to deploy'
+        required: true
+      KEYVAULT:
+        description: 'Keyvault name'
+        required: true
+      SERVER:
+        description: 'Server name'
+        required: true
+      RUNNER_LABEL:
+        description: 'Runner label'
+        required: false
+      INIT_DATABASE:
+        description: 'Initialize database'
+        required: false
+        default: "no"
+      INIT_REPOSITORY:
+        description: 'Initialize repository'
+        required: false
+        default: "no"
+      ISSUE_NUMBER:
+        description: 'Issue number to deploy'
+        required: false
+
+jobs:
+  init:
+    name: Themis init
+    timeout-minutes: 180
+    runs-on: [self-hosted, database]
+    steps:
+      - name: Themis init
+        uses: inditex/gha-themis/features/ci-cd/init/@main
+        with:
+          SUPRAENVIRONMENT: ${{ inputs.SUPRAENVIRONMENT }}
+          KEYVAULT: ${{ inputs.KEYVAULT }}
+          SERVER: ${{ inputs.SERVER }}
+          RUNNER_LABEL: ${{ inputs.RUNNER_LABEL }}
+
+          INIT_DATABASE: ${{ inputs.INIT_DATABASE }}
+          INIT_REPOSITORY: ${{ inputs.INIT_REPOSITORY }}
+
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_GITHUB_TOKEN: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}
+          THEMIS_SNOWFLAKE_ACCOUNT: ${{ vars.THEMIS_SNOWFLAKE_ACCOUNT }}
+          THEMIS_SNOWFLAKE_PASSWORD: ${{ secrets.THEMIS_SNOWFLAKE_PASSWORD }}

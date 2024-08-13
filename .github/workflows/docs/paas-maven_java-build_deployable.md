@@ -4,9 +4,9 @@
 
 ## Trigger
 
+- `workflow_call`, called from the deploy_snapshots workflow with `version` as input parameter.
 - `workflow_dispatch` with `version` as input parameter.
 - Any `release` published
-- Any pull request `closed` with changes about `paas` folder.
 
 ## Where does it run?
 
@@ -31,5 +31,6 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
    It'll run when `identify-changes` have finished.
 
   - **Steps**
+    - Builds the artifact if the deployable version is a snapshot one
+    - Generates the Dockerfile with the [sentinel](https://github.com/inditex/actions/tree/main/sentinel) action
     - Build Docker Image and push it to [Distribution Platform](https://inditex.jfrog.io)
-    - Dispatch `paas-promote` workflow (if `config-changes == true`)

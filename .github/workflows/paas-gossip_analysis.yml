@@ -24,7 +24,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 2.3.0
+  WORKFLOW_VERSION: 3.0.2
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -33,7 +33,7 @@ env:
   CEPH_SECRET_ACCESS_KEY: cyberark.IE-N-DIG-INFRA-CEPH.Application-ITX-APP-500-SC-Generic-ieec1cs1rdgwlb1.central.inditex.grp-ieec-gossip_secretkey
   SSCC_URL: https://sscc.central.inditex.grp
   OAUTH_GOSSIP_USERNAME: oauthtoolgossippro
-  OAUTH_GOSSIP_PASSWORD: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
+  OAUTH_GOSSIP_PASSWORD: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro
   ASDF_DATA_DIR: /tmp/asdf/data
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: "Check workflow appliance"
-        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v7
+        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v9
         with:
           workflow-type: "paas"
 
@@ -92,8 +92,10 @@ jobs:
 
       - name: "Launch Gossip Config Generator"
         if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v7
+        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v9
         with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           project-key: ${{ env.PROJECT_KEY }}
           ceph-access-key-id: ${{ env.CEPH_ACCESS_KEY_ID }}
           ceph-secret-access-key: ${{ env.CEPH_SECRET_ACCESS_KEY }}
@@ -132,8 +134,10 @@ jobs:
 
       - name: "Send Report Event"
         if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v7
+        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v9
         with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           tool-report-url: ${{ env.SSCC_URL}}
           tool-report-username: ${{ env.OAUTH_GOSSIP_USERNAME }}
           tool-report-password: ${{ env.OAUTH_GOSSIP_PASSWORD}}
