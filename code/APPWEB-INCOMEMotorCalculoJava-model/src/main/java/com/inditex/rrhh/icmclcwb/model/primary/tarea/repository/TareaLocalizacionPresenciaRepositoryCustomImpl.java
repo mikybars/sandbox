@@ -93,6 +93,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS, SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
+        Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDODENOMINADOR.getId(),
+            TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDODENOMINADOR.getId()));
     this.update(this.sqlUpdateActivoVacio, parameters);
   }
 
