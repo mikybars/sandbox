@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.63.1] - 2024-08-14
+
+### Fixed
+
+- [INCOME-668](https://axinic.central.inditex.grp/jira/browse/INCOME-668) Totalizado de presencias a 0 en tienda 3040 FR
+
 ## [4.63.0] - 2024-05-28
 
 ### Added
@@ -405,7 +411,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...main
+[4.63.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...4.63.1
 [4.63.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...4.63.0
 [4.62.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.1...4.62.2
 [4.62.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.0...4.62.1
