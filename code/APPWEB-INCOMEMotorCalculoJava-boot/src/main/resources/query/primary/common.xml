@@ -447,11 +447,12 @@
   ]]>
   </entry>
 
-  <entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
-UPDATE TAREA_LOCALIZACION_PRESENCIA
-SET ES_ACTIVO = :activo
-WHERE ID_TAREA = :idTarea
-AND MINUTOS = :minutos
+<entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio"><![CDATA[
+  UPDATE TAREA_LOCALIZACION_PRESENCIA
+  SET ES_ACTIVO = :activo
+  WHERE ID_TAREA = :idTarea
+  AND MINUTOS = :minutos
+  AND ID_TIPO_DATO IN (:tiposDato)
 ]]></entry>
 
   <entry key="TareaLocalizacionPresenciaRepositoryCustom.updateActivoByTipoDato">
