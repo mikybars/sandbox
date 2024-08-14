@@ -3,9 +3,14 @@ name: paas-build-deployable
 run-name: "Build deployable with version=${{ inputs.VERSION || github.event.release.tag_name }}"
 
 concurrency:
-  group: "promote-main-${{ github.event.release.tag_name || github.event.inputs.VERSION }}"
+  group: "promote-main-${{ github.event.release.tag_name || inputs.VERSION }}"
 
 on:
+  workflow_call:
+    inputs:
+      VERSION:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       VERSION:
@@ -17,13 +22,14 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.11.0
+  WORKFLOW_VERSION: 3.1.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
   GITHUB_REGISTRY: ghcr.io
-  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
-  ASDF_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
 
 jobs:
   identify-changes:
@@ -38,16 +44,18 @@ jobs:
         id: release-version
         run: |
           RELEASE_TAG_NAME=${{ github.event.release.tag_name }}
-          INPUT_VERSION=${{ github.event.inputs.VERSION }}
+          INPUT_VERSION=${{ inputs.VERSION }}
           echo "release-version=${RELEASE_TAG_NAME:-$INPUT_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.release-version.outputs.release-version }}
           fetch-depth: 0
 
       - name: Check code changes
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: inditex/actions/deployment/identify-changes@main
         id: "check-code-changes"
         with:
@@ -55,6 +63,7 @@ jobs:
           paths: "code"
 
       - name: Check config changes
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: inditex/actions/deployment/identify-changes@main
         id: "check-config-changes"
         with:
@@ -66,11 +75,31 @@ jobs:
     needs: [identify-changes]
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout merge commit
+        if: github.event.pull_request.merged == true
+        uses: actions/checkout@v4
+
+      - name: Checkout head branch
+        if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Checkout
         uses: actions/checkout@v4
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         with:
           ref: ${{ needs.identify-changes.outputs.release-version }}
           fetch-depth: 0
+
+      - name: Set deploy vars
+        id: set-deploy-vars
+        run: |
+          if [[ "${{ !contains(inputs.VERSION, 'SNAPSHOT') }}" == 'true' ]] || [[ "${{ github.event.release.tag_name }}" != '' ]]; then
+            echo "APP_VERSION=release" >> "$GITHUB_OUTPUT"
+          else
+            echo "APP_VERSION=snapshot" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
@@ -96,6 +125,37 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-asdf-
 
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r3
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r2
+        with:
+          tool-versions-directory: code
+
+      - name: Build artifact
+        shell: bash
+        if: ${{ steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          docker run --workdir /app/code \
+            -u runner \
+            -e DP_USERNAME="${DP_USERNAME}" \
+            -e DP_TOKEN="${DP_TOKEN}" \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            -e MAVEN_OPTS \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -B clean install -DskipTests -Dbuild.type=snapshot
+        env:
+          MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Ddarwin-telemetry-maven-extension.output=json"
+
       - name: Checkout Released Tag and Generate Maven Reactor List
         run: |
           mkdir -p "$HOME"/.m2/repository
@@ -110,8 +170,10 @@ jobs:
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
             sh -c "\
-              mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec && \
-              mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec && \
+              if [ ${{ steps.set-deploy-vars.outputs.APP_VERSION }} = 'release' ]; then \
+                mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec; \
+                mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec; \
+              fi; \
               mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv"
 
       - name: Sentinel - Generate Dockerfile
@@ -122,7 +184,8 @@ jobs:
           working-directory: code
           token: ${{ secrets.GH_TOKEN_READER }}
         env:
-          IMAGE_BUILD_TYPE: release
+          IMAGE_BUILD_TYPE: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
+          MERGED: ${{ github.event.pull_request.merged }}
 
       - name: Build and Push Docker image
         uses: inditex/actions/docker/build-and-push@main
@@ -140,3 +203,15 @@ jobs:
         uses: inditex/actions/deployment/move-build-tag@main
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: ${{ always() && !cancelled() && steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "paas-build-deployable-${{ inputs.VERSION }}"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+            You can find more details in the link below :arrow_down:

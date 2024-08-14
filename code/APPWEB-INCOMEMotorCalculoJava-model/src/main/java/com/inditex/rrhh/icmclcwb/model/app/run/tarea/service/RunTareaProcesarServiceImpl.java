@@ -367,6 +367,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .presenciaDesplazamientoChallengePorcentaje(runTarea);
       AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
 
+      // Desactivamos las que están a 0 por seccion
+      final CompletableFuture<Void> cfUpdateActivoLocalizacionVacio = this.runTareaProcesarPresenciaAsyncService
+          .updateActivoLocalizacionVacio(runTarea);
+      AsyncUtils.exceptionally(cfUpdateActivoLocalizacionVacio, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/

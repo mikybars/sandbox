@@ -11,7 +11,7 @@ on:
     paths: ['code/**', '.github/workflows/code**']
 
 env:
-  WORKFLOW_VERSION: 2.5.1
+  WORKFLOW_VERSION: 2.9.2
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -52,9 +52,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r3
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r2
         with:
           tool-versions-directory: code
 
