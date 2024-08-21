@@ -49,7 +49,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.4.0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIR_PATH_STATUS: "/tmp/artifact-results"
 
@@ -118,6 +118,7 @@ jobs:
         with:
           action: ${{ github.event.inputs.ACTION}}
           issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          skip: ${{ github.event.inputs.SKIP }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           affected-prs: '${{ needs.get-affected-prs.outputs.affected-prs }}'
           permutations: '${{ needs.validate-permutations.outputs.filtered-permutations }}'

@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.4.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -32,13 +32,36 @@ env:
   GITHUB_REGISTRY: ghcr.io
 
 jobs:
+  set-destination-branch:
+    name: Get Destination Branch
+    runs-on: ubuntu-20.04
+    outputs:
+      release-branch: ${{ steps.release-branch.outputs.release-branch }}
+    steps:
+      - name: Checkout repository
+        if: ${{ github.event_name == 'release' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract / Destination Branch from TAG
+        if: ${{ github.event_name == 'release' }}
+        id: release-branch
+        run: |
+          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep main | cut -d '/' -f 2)
+          echo "release-branch=$branch_name" >> "$GITHUB_OUTPUT"
+
   identify-changes:
     name: Identify Changes
+    needs: [set-destination-branch]
     runs-on: ubuntu-20.04
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
       release-version: ${{ steps.release-version.outputs.release-version }}
+      supraenv: ${{ steps.deploy-vars.outputs.SUPRAENVS }}
+      labels: ${{ steps.deploy-vars.outputs.LABELS }}
+      additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
     steps:
       - name: Get released version from Github event
         id: release-version
@@ -69,6 +92,16 @@ jobs:
         with:
           tag-suffix: last-build
           paths: "paas"
+
+      - name: Set deployment configuration
+      # This step is necessary for the autodeploy when main branch is in the deploy_on.merge_to paas/deployments.yml
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
+        id: deploy-vars
+        run: |
+          echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
+          echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
+          ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ needs.set-destination-branch.outputs.release-branch }}'"}'
+          echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
 
   build-deployable:
     name: PaaS / Build Deployable & Promote
@@ -126,13 +159,15 @@ jobs:
             ${{ runner.os }}-asdf-
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r2
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r4
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code
+          filter-types: "paas"
+          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Build artifact
         shell: bash
@@ -178,7 +213,7 @@ jobs:
 
       - name: Sentinel - Generate Dockerfile
         id: sentinel
-        uses: inditex/actions/sentinel@main
+        uses: inditex/gha-paasdeployment/sentinel@v0
         with:
           app-version: ${{ needs.identify-changes.outputs.release-version }}
           working-directory: code
@@ -215,3 +250,16 @@ jobs:
             This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
             `${{ github.workflow_ref }}`
             You can find more details in the link below :arrow_down:
+
+  create-deployment-prs:
+    needs: [identify-changes, build-deployable]
+    if: ${{ github.event_name == 'release' && !failure() && !cancelled() && needs.identify-changes.result == 'success' && needs.build-deployable.result == 'success' }}
+    name: CD
+    uses: ./.github/workflows/paas-promote.yml
+    with:
+      SUPRAENVS: ${{ needs.identify-changes.outputs.supraenv }}
+      SLOTS: default
+      LABELS: ${{ needs.identify-changes.outputs.labels }}
+      VERSION: "${GITHUB_REF#refs/tags/}"
+      ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
+    secrets: inherit
