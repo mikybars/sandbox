@@ -6,7 +6,7 @@ concurrency:
   group: themis-deploy-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.ENVIRONMENT }}-${{ inputs.DATASOURCE }}
 
 env:
-  WORKFLOW_VERSION: 2.9.0
+  WORKFLOW_VERSION: 2.10.1
 
 on:
   workflow_dispatch:
@@ -17,12 +17,10 @@ on:
         default: 'dev'
       ENVIRONMENT:
         description: 'Environment to deploy'
-        required: true
-        default: 'dev'
+        required: false
       DATASOURCE:
         description: 'Datasource name for supraenv/env'
-        required: true
-        default: 'dev-datasource'
+        required: false
       MODEL:
         description: 'Model to deploy'
         required: true
