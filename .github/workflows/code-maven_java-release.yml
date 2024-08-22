@@ -43,7 +43,7 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.9.2
+  WORKFLOW_VERSION: 2.11.2
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -159,13 +159,14 @@ jobs:
           git config commit.gpgsign true
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r2
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r4
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code
+          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Yank previous release
         if: contains(env.RELEASE_LABELS, 'release-mode/yank-previous')
@@ -253,4 +254,4 @@ jobs:
           gh pr comment ${{ github.event.number }} --body "An error occurred creating the Github Release.
           Don't panic! Your artifacts were successfully uploaded to the Distribution Platform and the new release tag was created.
           You can manually complete the release by creating it in the [releases](https://github.com/inditex/%7Brepo%7D/releases)
-          page or opening up an issue at [inditex/helpme](https://github.com/inditex/helpme/) where you will have assistance."
+          page or opening up an issue at [inditex/community](https://github.com/inditex/community/) where you will have assistance."

@@ -44,11 +44,11 @@ on:
 
   pull_request:
     types: [synchronize, labeled, closed]
-    branches: ['develop', 'main', 'develop-*', 'main-*']
+    branches-ignore: [deployment]
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.4.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -59,12 +59,11 @@ env:
 
 jobs:
   identify-changes:
-    name: Identify Changes and latest image
-
-    if: (github.event_name == 'workflow_dispatch')
-      || ((github.event.action == 'synchronize' || github.event.action == 'labeled')
-        && contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed')
-      || (github.event.action == 'closed' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.base.ref, 'develop') && (vars.DEVELOPMENT_FLOW != 'trunk-based-development'))
+    name: Identify Changes
+    if: (github.event_name == 'workflow_dispatch') ||
+        ((github.event.action == 'synchronize' || github.event.action == 'labeled') &&
+        contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') ||
+        (github.event.action == 'closed' && github.event.pull_request.merged == true && !startsWith(github.event.pull_request.base.ref, 'main'))
     runs-on: ubuntu-20.04
 
     outputs:
@@ -89,6 +88,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+
+      - name: Annotate the origin trigger
+        if: ${{ inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' }}
+        run: |
+          echo "::notice title=Deployment triggered from: ::https://github.com/${GITHUB_REPOSITORY}/pull/${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}"
 
       - name: Check code changes
         uses: inditex/actions/deployment/identify-changes@main
@@ -121,7 +125,8 @@ jobs:
             echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy"}' >> "$GITHUB_OUTPUT"
           elif
             [ "${{ github.event.pull_request.merged }}" == "true" ]; then
-            echo 'ADDITIONAL_ARGS={"TRIGGER": "merged_pr"}' >> "$GITHUB_OUTPUT"
+            ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'"}'
+            echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
           else
             ADDITIONAL_ARGS="{'STRATEGY': '${{ inputs.STRATEGY }}','PERCENTAGE': '${{ inputs.PERCENTAGE }}','CONFIG_REF': ''}"
             echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
@@ -171,10 +176,10 @@ jobs:
           strategy: ${{ github.event.inputs.STRATEGY }}
 
       - name: Add comment when the slot is not valid
-        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && steps.validate-slots.outputs.error-message != '' }}
+        if: ${{ ( github.event.inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' ) && steps.validate-slots.outputs.error-message != '' }}
         uses: inditex/gha-citool/add-comment@v0
         with:
-          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER || github.event.pull_request.number }}'
           body: |
             #### :x: An error has ocurred validating the slots.
 
@@ -206,7 +211,7 @@ jobs:
   build-deployable:
     name: CI
     needs: [identify-changes, validate-slots]
-    if: ${{ needs.identify-changes.outputs.code-changes == 'true' || needs.identify-changes.outputs.config-changes == 'true' || needs.identify-changes.outputs.exists-latest-image == 'false' }}
+    if: ${{ needs.identify-changes.outputs.code-changes == 'true' || needs.identify-changes.outputs.exists-latest-image == 'false' }}
     uses: ./.github/workflows/paas-maven_java-build_deployable.yml
     with:
       VERSION: ${{ needs.identify-changes.outputs.app-version }}
@@ -225,13 +230,15 @@ jobs:
       SLOTS: ${{ needs.validate-slots.outputs.slots }}
       LABELS: ${{ inputs.LABELS || needs.identify-changes.outputs.labels }}
       VERSION: "latest"
-      ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+      ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}
       ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
     secrets: inherit
 
   clean-resources:
     name: Clean Resources
-    if: ${{ github.event.pull_request.state == 'closed' && needs.create-deployment-prs.result == 'success' }}
+    if: github.event.pull_request.state == 'closed' &&
+        (needs.create-deployment-prs.result == 'success' ||
+        (always() && startsWith(github.event.pull_request.base.ref, 'main')))
     runs-on: ubuntu-20.04
     needs: [create-deployment-prs]
     steps:

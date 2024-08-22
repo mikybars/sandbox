@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.16.0
+  WORKFLOW_VERSION: 2.19.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
@@ -30,7 +30,7 @@ env:
 
 jobs:
   unit-tests:
-    name: SonarQube / Unit Tests
+    name: SonarCloud / Unit Tests
     if: ${{ (github.event.pull_request.merged == true && (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.base_ref == 'develop' || startsWith(github.base_ref, 'develop-'))) ||
         (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.base_ref == 'main' || startsWith(github.base_ref, 'main-')))) ||
         github.event_name == 'workflow_dispatch' ||
@@ -57,7 +57,7 @@ jobs:
           fi
 
       - name: Setup IVM environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
@@ -100,58 +100,24 @@ jobs:
           if [[ -f './jacoco-report-aggregate/pom.xml' ]]; then JACOCO_PARAM="-pl !jacoco-report-aggregate -Dsonar.skip=false"; else JACOCO_PARAM="-Dsonar.skip=false"; fi; \
           echo "JACOCO_SONAR_PARAM=$JACOCO_PARAM" >> "$GITHUB_ENV"
 
-      - name: Get SonarUrl
-        id: get-sonar-url
-        env:
-          PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
-        uses: inditex/gha-testing/get-sonar-url-from-api/@main
-
       - name: Sonar / Setup Node version
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           local-directory: code
           tool-name: ivm-node
-          tool-version: 18
+          tool-version: 20
 
       - name: Sonar / Setup Java version
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
-
-      - name: Sonarqube / Run with release event
-        if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
-        working-directory: code
-        run: |
-          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-            -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
-            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
-            -Dsonar.projectVersion="${{ github.event.release.tag_name }}" \
-            -Dsonar.branch.name="release/${{ github.event.release.tag_name }}" \
-            -Dsonar.login="$SONAR_TOKEN" \
-            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
-            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
-
-      - name: Sonarqube / Run with ${{ env.REF }} branch
-        if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
-        working-directory: code
-        run: |
-          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-            -Dsonar.projectKey="${{ fromJSON(steps.config.outputs.config).metadata.project_key }}" \
-            -Dsonar.projectName="${{ fromJSON(steps.config.outputs.config).metadata.project_name }}" \
-            -Dsonar.projectVersion="${{ steps.pom-data.outputs.app-version }}" \
-            -Dsonar.branch.name="${{ env.REF }}" \
-            -Dsonar.login="$SONAR_TOKEN" \
-            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
-            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
       - name: SonarCloud / Run Maven Sonar goal with release event
         env:
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
           SONAR_SCANNER_OPTS: ''
-        if: ${{ github.event_name == 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        if: ${{ github.event_name == 'release' }}
         working-directory: code
         run: |
           JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
@@ -169,7 +135,7 @@ jobs:
         env:
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
           SONAR_SCANNER_OPTS: ''
-        if: ${{ github.event_name != 'release' && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        if: ${{ github.event_name != 'release' }}
         working-directory: code
         run: |
           JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"

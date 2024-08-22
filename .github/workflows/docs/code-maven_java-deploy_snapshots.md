@@ -37,7 +37,7 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
     - [validate-slots](https://github.com/inditex/actions/tree/main/deployment/validate-slots) action validates that the slots provided are correct to be deployed in PaaS.
 
 - ### `build-deployable`
-  It'll run when `validate-slots` have finished and if `identify-changes` detects code or configuration changes, or a latest image does not exist.
+  It'll run when `validate-slots` have finished and if `identify-changes` detects code changes or a latest image does not exist.
 
 - ### `create-deployment-prs`
   It'll run if `identify-changes` and `validate-slots` have finished with a succesful result and also if `build-deployable` was skipped or finished succesfully.
