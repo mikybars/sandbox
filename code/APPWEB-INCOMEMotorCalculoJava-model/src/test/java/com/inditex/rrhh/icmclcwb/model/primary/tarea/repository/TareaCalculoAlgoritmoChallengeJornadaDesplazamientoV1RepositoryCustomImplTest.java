@@ -128,7 +128,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCust
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia,idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     // tipoDatoLocalizacionPersonaPresencia
-    assertEquals(15, result.size()); // activo
+    assertEquals(16, result.size()); // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE,
         result.get(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
@@ -207,7 +207,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaDesplazamientoV1RepositoryCust
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value =
           values[i];
-      assertEquals(15, value.getValues().size()); // activo assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
+      assertEquals(16, value.getValues().size()); // activo assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
 
       // excluidoCalculo

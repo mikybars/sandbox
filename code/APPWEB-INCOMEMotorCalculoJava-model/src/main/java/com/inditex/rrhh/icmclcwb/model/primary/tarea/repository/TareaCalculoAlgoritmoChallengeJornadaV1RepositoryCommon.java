@@ -49,6 +49,7 @@ public abstract class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCommon ex
     map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION, TipoDatoEnum.JORNADA_LOCALIZACION.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION_PERSONA, TipoDatoEnum.JORNADA_LOCALIZACION_PERSONA.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
 
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
