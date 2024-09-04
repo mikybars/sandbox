@@ -1,0 +1,17 @@
+version: 2
+messaging:
+  owner:
+    - topic: sscc.global.pre.rhcompensa.calculo-comisiones.public.v1
+      properties:
+        partitions: 1
+        retention: 1
+        restricted: false
+        streams: false
+        replicas: consistent
+      permissions:
+        producers:
+          - artifactid: ICMCLCWB
+      publications:
+        - locationType: region
+          location:
+            - eu-southwest-es-1
