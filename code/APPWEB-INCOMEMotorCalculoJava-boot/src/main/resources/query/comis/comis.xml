@@ -2066,55 +2066,104 @@ UNION
 
   <entry key="ComisRepositoryCustom.findBajasIt">
     <![CDATA[
-        SELECT
-            Persona AS CCL_ID_PERSON,
-            (100 - (CODIGOINCIDENCIA - 7000))/100.0 AS PORCENTAJE,
-            MIN(FechaInicio) AS FECHA_INICIO,
-            MAX(FechaFin) AS FECHA_FIN
-        FROM
-            (
-                    SELECT
-                       *,
-                       CASE WHEN Groups.PreviousEndDate >= FechaInicio THEN 0 ELSE 1 END AS IslandStartInd,
-                       SUM(CASE WHEN Groups.PreviousEndDate >= dateadd(day, -1, FechaInicio) THEN 0 ELSE 1 END) OVER (PARTITION BY PERSONA, CodigoIncidencia ORDER BY Groups.RN) AS IslandId
-                       FROM
-                       (
-                        SELECT
-                            DENSE_RANK() OVER (ORDER BY i.FechaInicio) AS DENSE_RANK,
-                            i.Persona,
-                             CASE
-                                    WHEN i.FechaInicio < :fechaDesdeAmpliado THEN :fechaDesdeAmpliado
-                                    ELSE i.FechaInicio
-                                  END AS FechaInicio,
-                                  CASE
-                                    WHEN i.FechaFin IS NULL THEN :fechaHasta
-                                    WHEN i.FechaFin > :fechaHasta THEN :fechaHasta
-                                    ELSE i.FechaFin
-                                  END AS FechaFin,
-                            i.CodigoIncidencia,
-                            i.Tienda,
-                            ROW_NUMBER() OVER(PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS RN,
-                            LAG(i.FechaFin,1) OVER (PARTITION BY i.PERSONA, i.CodigoIncidencia ORDER BY i.FechaInicio, i.FechaFin) AS PreviousEndDate
-                          FROM IncidenciasSil i
-                          where i.TIPOINCIDENCIA = 700
-                        AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
-                        AND i.FECHAFIN >= :fechaDesdeAmpliado AND i.FECHAINICIO <= :fechaHasta
-                        AND (
-                          i.ESTADO NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'E')
-                          AND ORIGEN NOT IN (
-                                SELECT CONVERT(INTEGER,INDICE)
-                                FROM TABLASGENERALES
-                                WHERE TABLA = 9061 AND INDICADOR1 = 'O')
-                        )
-                ) Groups
-        ) Islands
-        GROUP BY
-        Persona,
-        CodigoIncidencia,
-        IslandId
+    WITH DistinctDates AS (
+      SELECT
+      PERSONA,
+      FECHAINICIO AS date_point
+      FROM
+       IncidenciasSil i
+      where i.TIPOINCIDENCIA = 700
+       AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
+       AND i.FECHAFIN >= :fechaDesdeAmpliado AND i.FECHAINICIO <= :fechaHasta
+       AND (
+         i.ESTADO NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'E')
+         AND ORIGEN NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+       )
+      UNION
+      SELECT
+      PERSONA,
+      DATEADD(DAY, 1, FECHAFIN) AS date_point
+      FROM
+       IncidenciasSil i
+      where i.TIPOINCIDENCIA = 700
+       AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
+       AND i.FECHAFIN >= :fechaDesdeAmpliado AND i.FECHAINICIO <= :fechaHasta
+       AND (
+         i.ESTADO NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'E')
+         AND ORIGEN NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+       )
+  ),
+  DateRanges AS (
+      SELECT PERSONA,
+             date_point AS start_date,
+             LEAD(date_point) OVER (ORDER BY PERSONA, date_point) AS end_date
+      FROM DistinctDates
+  ),
+  CalculatedValues AS (
+      SELECT I.PERSONA,
+             dr.start_date,
+             DATEADD(DAY, -1, dr.end_date) AS end_date,
+             SUM(i.CODIGOINCIDENCIA - 7000) AS value
+      FROM DateRanges dr
+      JOIN IncidenciasSil i
+       ON dr.PERSONA = i.PERSONA
+       AND dr.start_date <= i.FECHAFIN
+       AND dr.end_date > i.FECHAINICIO
+      where i.TIPOINCIDENCIA = 700
+       AND i.CODIGOINCIDENCIA >= 7000 AND i.CODIGOINCIDENCIA <= 7100
+       AND i.FECHAFIN >= :fechaDesdeAmpliado AND i.FECHAINICIO <= :fechaHasta
+       AND (
+         i.ESTADO NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'E')
+         AND ORIGEN NOT IN (
+               SELECT CONVERT(INTEGER,INDICE)
+               FROM TABLASGENERALES
+               WHERE TABLA = 9061 AND INDICADOR1 = 'O')
+       )
+      and dr.end_date IS NOT NULL
+      GROUP BY I.PERSONA, dr.start_date, dr.end_date
+  )
+  SELECT
+      PERSONA,
+      CASE WHEN MIN(START_DATE) <= :fechaDesdeAmpliado THEN :fechaDesdeAmpliado ELSE MIN(START_DATE) END AS START_DATE,
+      CASE WHEN MAX(END_DATE) >= :fechaHasta THEN :fechaHasta ELSE MAX(END_DATE) END AS END_DATE,
+      CAST(100 - VALUE AS float) / CAST(100 AS float)
+  FROM(
+          SELECT
+              *,
+              CASE WHEN Groups.PreviousEndDate + 1>= START_DATE AND VALOR_ANTERIOR = VALUE THEN 0 ELSE 1 END AS IslandStartInd,
+              SUM(CASE WHEN Groups.PreviousEndDate +1 >= START_DATE AND VALOR_ANTERIOR = VALUE THEN 0 ELSE 1 END) OVER (ORDER BY Groups.RN) AS IslandId
+          FROM
+          (
+                SELECT
+                   PERSONA,
+                   start_date,
+                   end_date,
+                   value,
+                   ROW_NUMBER() OVER (ORDER BY PERSONA,START_DATE, VALUE) AS RN,
+                   LAG(value, 1) OVER (PARTITION BY Persona ORDER BY START_DATE)  AS VALOR_ANTERIOR,
+                   MAX(end_date) OVER (PARTITION BY PERSONA ORDER BY START_DATE, end_date ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS PreviousEndDate
+                  FROM CalculatedValues
+          ) Groups
+  ) Islands
+  GROUP BY
+      PERSONA,IslandId, VALUE
+  ORDER BY
+      START_DATE
       ]]>
   </entry>
 
