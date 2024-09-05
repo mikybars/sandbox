@@ -2138,10 +2138,10 @@ UNION
       GROUP BY I.PERSONA, dr.start_date, dr.end_date
   )
   SELECT
-      PERSONA,
-      CASE WHEN MIN(START_DATE) <= :fechaDesdeAmpliado THEN :fechaDesdeAmpliado ELSE MIN(START_DATE) END AS START_DATE,
-      CASE WHEN MAX(END_DATE) >= :fechaHasta THEN :fechaHasta ELSE MAX(END_DATE) END AS END_DATE,
-      CAST(100 - VALUE AS float) / CAST(100 AS float)
+      PERSONA AS CCL_ID_PERSON,
+      CASE WHEN MIN(START_DATE) <= :fechaDesdeAmpliado THEN :fechaDesdeAmpliado ELSE MIN(START_DATE) END AS FECHA_INICIO,
+      CASE WHEN MAX(END_DATE) >= :fechaHasta THEN :fechaHasta ELSE MAX(END_DATE) END AS FECHA_FIN,
+      CASE WHEN CAST(100 - VALUE AS float) / CAST(100 AS float) BETWEEN 0 AND 1 THEN CAST(100 - VALUE AS float) / CAST(100 AS float) ELSE 9999 END AS PORCENTAJE
   FROM(
           SELECT
               *,
@@ -2163,7 +2163,7 @@ UNION
   GROUP BY
       PERSONA,IslandId, VALUE
   ORDER BY
-      START_DATE
+      FECHA_INICIO
       ]]>
   </entry>
 
