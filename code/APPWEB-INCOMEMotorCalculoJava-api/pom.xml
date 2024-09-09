@@ -35,7 +35,6 @@
       <artifactId>common-starter-api-validation</artifactId>
     </dependency>
 
-
     <!-- OTHER DEPENDENCIES -->
     <dependency>
       <groupId>org.projectlombok</groupId>
