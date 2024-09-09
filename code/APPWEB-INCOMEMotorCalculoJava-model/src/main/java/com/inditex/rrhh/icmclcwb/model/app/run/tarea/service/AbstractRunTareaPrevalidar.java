@@ -50,6 +50,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractRunTareaPrevalidar {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaPrevalidar.class);
+
   @Value("${app.envars.tarea.prevalidacion.thread-size}")
   private Integer threadSize;
 
@@ -79,8 +81,6 @@ public abstract class AbstractRunTareaPrevalidar {
 
   @Autowired
   private LimpiezaService limpiezaService;
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaPrevalidar.class);
 
   @Autowired
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;

@@ -24,7 +24,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 3.0.2
+  WORKFLOW_VERSION: 3.1.0
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -48,7 +48,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: "Check workflow appliance"
-        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v9
+        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v11
         with:
           workflow-type: "paas"
 
@@ -92,7 +92,7 @@ jobs:
 
       - name: "Launch Gossip Config Generator"
         if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v9
+        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v11
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -134,7 +134,7 @@ jobs:
 
       - name: "Send Report Event"
         if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v9
+        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v11
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}

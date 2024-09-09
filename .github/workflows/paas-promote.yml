@@ -41,7 +41,7 @@ on:
       ADDITIONAL_ARGS:
         required: false
         type: string
-        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","TARGET_BRANCH":""}'
   workflow_dispatch:
     inputs:
       SUPRAENVS:
@@ -83,7 +83,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.4.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -98,6 +98,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+
+      - name: Annotate the origin trigger
+        if: ${{ inputs.VERSION != 'latest' && inputs.ISSUE_NUMBER != '' }}
+        run: |
+          echo "::notice title=Deployment triggered from: ::https://github.com/${GITHUB_REPOSITORY}/pull/${{ inputs.ISSUE_NUMBER }}"
 
       - name: Compute vars
         id: compute-vars
@@ -157,7 +162,7 @@ jobs:
           exit 1
 
       - name: Sentinel - Generate manifests
-        uses: inditex/actions/sentinel@main
+        uses: inditex/gha-paasdeployment/sentinel@v0
         id: sentinel
         with:
           supraenvs: ${{ inputs.SUPRAENVS }}
@@ -171,6 +176,8 @@ jobs:
           working-directory: paas
           token: ${{ secrets.GH_TOKEN_READER }}
           trigger: ${{ fromJson(inputs.ADDITIONAL_ARGS).TRIGGER }}
+          config-ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+          target-branch: ${{ fromJson(inputs.ADDITIONAL_ARGS).TARGET_BRANCH }}
         env:
           MERGED: ${{ github.event.pull_request.merged }}
 

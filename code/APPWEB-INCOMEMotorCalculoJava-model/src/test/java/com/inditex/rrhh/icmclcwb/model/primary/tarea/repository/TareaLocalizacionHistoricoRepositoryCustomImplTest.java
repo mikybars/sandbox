@@ -11,6 +11,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_PORCENTAJE_CERO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -126,7 +127,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
 
   @Test
   public void saveTest() {
-    final List<TareaLocalizacionHistorico> items = Arrays.asList(mock(TareaLocalizacionHistorico.class));
+    final List<TareaLocalizacionHistorico> items = Collections.singletonList(mock(TareaLocalizacionHistorico.class));
     this.tareaLocalizacionHistoricoRepositoryCustom.save(items);
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sql.capture(), any(SqlParameterSource[].class));
     assertEquals(SQL_SAVE, this.sql.getValue());
@@ -204,7 +205,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
     assertEquals(SQL_VALUE_PORCENTAJE_CERO, this.params.getValue().getValue(SQL_PARAM_PORCENTAJE_INCLUSION));
     // idConcepto
     assertTrue(this.params.getValue().hasValue(SQL_PARAM_ID_CONCEPTO));
-    assertTrue(this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO) instanceof List);
+    assertInstanceOf(List.class, this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO));
     assertEquals(1, ((List) this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO)).size());
     assertEquals(idVentaConcepto, ((List) this.params.getValue().getValue(SQL_PARAM_ID_CONCEPTO)).get(0));
 
@@ -328,8 +329,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
   @Test
   public void findIdLocalizacionPresupuestosByStdIdLegEntAndIdTareaTest() {
     final Long idTarea = 23L;
-    final List<String> stdIdLegEnt = Arrays.asList("23");
-    final List<Long> idTipoConceptoVentaChallenge = Arrays.asList(1L);
+    final List<String> stdIdLegEnt = List.of("23");
+    final List<Long> idTipoConceptoVentaChallenge = List.of(1L);
     this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(stdIdLegEnt, idTarea,
         idTipoConceptoVentaChallenge);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
@@ -353,7 +354,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
             .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
                 TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId()),
+                TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+                TipoCalculoEnum.CHALLENGE_JORNADA.getId()),
         this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
   }
 

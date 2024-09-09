@@ -86,7 +86,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
         TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()));
+        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
 
     return this.query(this.sqlFindPersonasChallenge, map,
         (rs, rowNum) -> IdPersonaLocalDto

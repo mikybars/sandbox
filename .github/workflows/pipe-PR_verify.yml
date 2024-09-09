@@ -1,0 +1,46 @@
+---
+name: pipe-PR-verify
+on:
+  pull_request:
+    paths: ['pipe/**', '.github/workflows/pipe**']
+
+env:
+  WORKFLOW_VERSION: 1.42.2
+  DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+
+jobs:
+  pipe-verify:
+    name: Verify Pipe
+    timeout-minutes: 30
+    runs-on: [self-hosted, pipe]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+            gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: Verify Pipe
+        uses: inditex/gha-pipeactions/verify@main
+        with:
+          supraenv: "all"
+          components: "both"
+          project-dir: ${GITHUB_WORKSPACE}
+        env:
+          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
+          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}

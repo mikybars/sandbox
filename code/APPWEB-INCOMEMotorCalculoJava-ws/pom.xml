@@ -39,7 +39,6 @@
       <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
     </dependency>
 
-
     <!-- OTHER DEPENDENCIES -->
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
