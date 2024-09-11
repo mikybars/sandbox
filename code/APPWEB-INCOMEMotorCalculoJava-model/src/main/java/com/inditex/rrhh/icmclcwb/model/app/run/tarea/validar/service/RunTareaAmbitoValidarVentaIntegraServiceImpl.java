@@ -36,6 +36,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmbitoValidarVentaIntegraService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarVentaIntegraServiceImpl.class);
+
   @Autowired
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;
 
@@ -50,8 +52,6 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
 
   @Autowired
   private ValidacionMapper validacionMapper;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarVentaIntegraServiceImpl.class);
 
   @Override
   public ValidacionDto execute(

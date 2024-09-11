@@ -18,14 +18,14 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 
 public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
 
+  private static final Logger LOG = LoggerFactory.getLogger(JdbcBatchPrimaryRepositoryAbstract.class);
+
   @Autowired
   @Qualifier("primaryNamedParameterJdbcTemplate")
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Value("${app.envars.repository.batch-size.default}")
   private int defaultBatchSize;
-
-  private static final Logger LOG = LoggerFactory.getLogger(JdbcBatchPrimaryRepositoryAbstract.class);
 
   public List<Z> saveNamedJdbcBatchList(final List<Z> src, final String sql, final int batchSize) {
     for (final List<Z> iter : StreamUtils.partition(src, (batchSize != 0 ? batchSize : this.defaultBatchSize))) {
