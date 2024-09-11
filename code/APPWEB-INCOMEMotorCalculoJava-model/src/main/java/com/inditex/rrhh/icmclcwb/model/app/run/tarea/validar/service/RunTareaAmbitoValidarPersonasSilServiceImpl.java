@@ -42,6 +42,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbitoValidarPersonasSilService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarPersonasSilServiceImpl.class);
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
@@ -53,8 +55,6 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
   @Autowired
   private ValidacionMapper validacionMapper;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarPersonasSilServiceImpl.class);
 
   @Autowired
   private ClasePersonaSilAmbitoService clasePersonaSilAmbitoService;

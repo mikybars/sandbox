@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.64.0] - 2024-09-09
+
+### Added
+
+- [INCOME-484](https://axinic.central.inditex.grp/jira/browse/INCOME-484) Cálculo Álava - Datos intermedios y nuevo algoritmo
+
 ## [4.63.1] - 2024-08-14
 
 ### Fixed
@@ -411,7 +417,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.64.0...main
+[4.64.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...4.64.0
 [4.63.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...4.63.1
 [4.63.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...4.63.0
 [4.62.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.1...4.62.2
