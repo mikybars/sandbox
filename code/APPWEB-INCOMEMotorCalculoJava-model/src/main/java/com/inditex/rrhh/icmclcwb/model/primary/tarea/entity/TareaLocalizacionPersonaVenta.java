@@ -1,71 +1,18 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
-
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PERSONA_VENTA")
 @Data
-public class TareaLocalizacionPersonaVenta {
+public class TareaLocalizacionPersonaVenta extends DatosComunesPersonaVenta {
 
   @EmbeddedId
   private TareaLocalizacionPersonaVentaPk pk;
-
-  @NotNull
-  @OneToOne
-  @JoinColumn(name = "ID_TAREA", nullable = false)
-  private Tarea tarea;
-
-  @NotBlank
-  @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-  private String cclIdCodOrigen;
-
-  @NotBlank
-  @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-  private String cclIdCadena;
-
-  @NotBlank
-  @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
-  private String cclIdSeccion;
-
-  @NotBlank
-  @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
-  private String cclIdPerson;
-
-  @NotNull
-  @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23, scale = 8)
-  private BigDecimal importeSinImpuestos;
-
-  @NotNull
-  @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23, scale = 8)
-  private BigDecimal importeConImpuestos;
-
-  @ManyToOne
-  @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
-  private TipoDato tipoDato;
-
-  @NotNull
-  @Column(name = "ES_ACTIVO", nullable = false)
-  private Boolean activo;
-
-  @NotNull
-  @Column(name = "FECHA", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fecha;
 
 }

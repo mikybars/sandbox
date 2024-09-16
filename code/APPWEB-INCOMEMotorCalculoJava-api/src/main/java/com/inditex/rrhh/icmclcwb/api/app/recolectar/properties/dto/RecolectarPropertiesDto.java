@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 @Data

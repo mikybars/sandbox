@@ -14,7 +14,7 @@ on:
         required: true
 
 env:
-  WORKFLOW_VERSION: 1.45.0
+  WORKFLOW_VERSION: 1.46.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.sha}}
@@ -46,7 +46,7 @@ jobs:
     runs-on: [self-hosted, testing-ivm]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get metadata
         id: metadata

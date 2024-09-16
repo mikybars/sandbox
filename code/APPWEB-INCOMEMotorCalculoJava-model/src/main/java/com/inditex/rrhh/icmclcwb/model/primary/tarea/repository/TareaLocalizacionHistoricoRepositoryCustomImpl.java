@@ -18,10 +18,10 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -374,7 +374,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
         .asList(TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
-            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId()));
+            TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE, idTipoConceptoVentaChallenge);
 
     return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,

@@ -15,9 +15,7 @@
 
   <!-- Example: Suppress header check in package-info files -->
   <suppress checks="RegexpHeader" files="package-info.java"/>
-
   <!-- TODO: Suprimimos los check de longitud de linea. Hya nombres de variables y métodos demasiado grandes. Mirar en un futuro -->
   <!-- LineLength -> Se pasa de las columnas permitidas. Son nombres de variables y llamadas a métodos con nombres largos -->
   <suppress checks="LineLength" files="com[\\/]inditex[\\/]rrhh[\\/]icmclcwb[\\/]model[\\/]app[\\/]"/>
-
 </suppressions>

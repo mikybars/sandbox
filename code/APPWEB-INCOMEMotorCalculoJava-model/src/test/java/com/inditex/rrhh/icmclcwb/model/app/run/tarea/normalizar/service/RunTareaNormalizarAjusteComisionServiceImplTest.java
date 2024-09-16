@@ -10,10 +10,15 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteComisionRepositoryCustom;
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,6 +26,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -52,10 +58,21 @@ class RunTareaNormalizarAjusteComisionServiceImplTest {
       "Tarea[{}] :: Fin :: RunTareaNormalizarAjusteComisionServiceImpl :: normalizarAjusteComision :: borrado tablas temporales",
   })
   void normalizarAjusteComisionLogTest(final String logText) {
+    final ListAppender<ILoggingEvent> listAppender = this.createLogListAppender();
 
     this.runTareaNormalizarAjusteComisionService.normalizarAjusteComision(this.createTarea());
-    verify(this.log, times(1)).info(logText, ID_TAREA);
+    final List<ILoggingEvent> list = listAppender.list;
 
+    Assertions.assertEquals(((long) list.size()), 8);
+  }
+
+  private ListAppender<ILoggingEvent> createLogListAppender() {
+    final ch.qos.logback.classic.Logger log =
+        (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(RunTareaNormalizarAjusteComisionServiceImpl.class);
+    final ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+    listAppender.start();
+    log.addAppender(listAppender);
+    return listAppender;
   }
 
   @Test

@@ -8,9 +8,9 @@ import static org.mockito.Mockito.when;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
@@ -37,7 +37,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class MailServiceImplTest {
 
   private static final String ORGANIZATION = "organization";
@@ -116,7 +116,7 @@ public class MailServiceImplTest {
 
     tareaAmbito.setCclIdOrigen("60");
     tarea.setIdOrganization(idOrganization);
-    tarea.setAmbito(Arrays.asList(tareaAmbito));
+    tarea.setAmbito(List.of(tareaAmbito));
     tarea.setStdIdLegEnt("1");
     trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
     trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
@@ -137,7 +137,7 @@ public class MailServiceImplTest {
     when(this.meta4IcmWsCalcIncomeService.getMail(ArgumentMatchers.any(UsuarioRequestDto.class)))
         .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
     when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
-        .thenReturn(Arrays.asList("1"));
+        .thenReturn(List.of("1"));
     this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
 
     verify(this.mailSender, times(1))
@@ -147,22 +147,22 @@ public class MailServiceImplTest {
 
   @Test
   void sendMailMotivosPRO() {
-    this.sendMailMotivos(PRO, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
+    this.sendMailMotivos(PRO, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
   }
 
   @Test
   void sendMailMotivosDES() {
-    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
   }
 
   @Test
   void sendMailMotivosNullDES() {
-    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(null).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(null).build()));
   }
 
   @Test
   void sendMailMotivosEmptyDES() {
-    this.sendMailMotivos(DES, Arrays.asList(ValidacionDto.builder().idMotivosDesplazamiento(new ArrayList<>()).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(new ArrayList<>()).build()));
   }
 
   void sendMailMotivos(final String environment, final List<ValidacionDto> validaciones) {
@@ -174,11 +174,11 @@ public class MailServiceImplTest {
     ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, environment);
 
     tareaAmbito.setCclIdOrigen("60");
-    tarea.setAmbito(Arrays.asList(tareaAmbito));
+    tarea.setAmbito(List.of(tareaAmbito));
     tarea.setStdIdLegEnt("1");
 
     when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
-        .thenReturn(Arrays.asList("1"));
+        .thenReturn(List.of("1"));
 
     this.mailServiceImpl.sendMailMotivos(runTareaDto, validaciones);
 

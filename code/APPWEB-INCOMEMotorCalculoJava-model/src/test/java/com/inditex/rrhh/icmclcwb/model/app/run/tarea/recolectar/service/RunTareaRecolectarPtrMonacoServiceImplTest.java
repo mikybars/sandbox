@@ -6,22 +6,21 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @TestInstance(Lifecycle.PER_CLASS)
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class RunTareaRecolectarPtrMonacoServiceImplTest {
 
   @Mock
@@ -30,8 +29,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   @InjectMocks
   private RunTareaRecolectarPtrMonacoServiceImpl runTareaRecolectarPtrMonacoServiceImpl;
 
-  @Test
-  void presenciaDetalleComisionablePersonaByRunTareaTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void presenciaDetalleComisionablePersonaByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
@@ -39,8 +39,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
@@ -49,8 +50,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
@@ -59,8 +61,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
@@ -69,8 +72,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
@@ -79,8 +83,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
@@ -89,8 +94,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
@@ -99,8 +105,9 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
         ambito);
   }
 
-  @Test
-  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(@Random final RunTareaDto runTarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
     this.runTareaRecolectarPtrMonacoServiceImpl.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);

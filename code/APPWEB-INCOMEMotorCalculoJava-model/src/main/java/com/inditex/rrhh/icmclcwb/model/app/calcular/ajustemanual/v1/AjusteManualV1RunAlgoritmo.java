@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoAjusteManualV1RepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,7 @@ import org.springframework.stereotype.Component;
 @Component("ajusteManualV1")
 public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(AjusteManualV1RunAlgoritmo.class);
 
   @Autowired
   @Qualifier("runAlgoritmoProperties")
@@ -39,11 +39,11 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {
-    this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: AjusteManualV1RunAlgoritmo :: Ids",
+    AjusteManualV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: AjusteManualV1RunAlgoritmo :: Ids",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom
         .ids(algoritmo, runTarea.getTarea());
-    this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: AjusteManualV1RunAlgoritmo :: Ids: {}",
+    AjusteManualV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Fin :: AjusteManualV1RunAlgoritmo :: Ids: {}",
         runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), ids);
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
@@ -53,7 +53,7 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
         this.runAlgoritmoProperties.getCalculo().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAlgoritmoProperties.getCalculo().getThreadSize());
 
-      this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: AjusteManualV1RunAlgoritmo :: Personas: {}",
+      AjusteManualV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: AjusteManualV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
       try {
         final CompletableFuture<Void> cfCalc = this.tareaCalculoAlgoritmoAjusteManualV1RepositoryCustom
@@ -63,12 +63,12 @@ public class AjusteManualV1RunAlgoritmo implements RunAlgoritmo {
 
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("Trabajo[{}]Tarea[{}] :: AjusteManualV1RunAlgoritmo :: KO :: Personas: {}",
+        AjusteManualV1RunAlgoritmo.LOG.error("Trabajo[{}]Tarea[{}] :: AjusteManualV1RunAlgoritmo :: KO :: Personas: {}",
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: AjusteManualV1RunAlgoritmo :: Personas: {}",
+      AjusteManualV1RunAlgoritmo.LOG.info("Trabajo[{}]Tarea[{}] :: Fin :: AjusteManualV1RunAlgoritmo :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
     }
     AsyncUtils.waitAllOfIsOk(cf, cf);

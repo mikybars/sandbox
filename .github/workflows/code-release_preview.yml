@@ -11,7 +11,7 @@ on:
     branches: ['main', 'main-*']
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.12.0
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
   CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r0
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Check for changed files in specific paths
         id: changes
-        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
         with:
           filters: |
             paths:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -289,7 +289,7 @@ jobs:
           then
               FAILURE_MESSAGE="The \`maven-release-strategies\` plugin configuration is incorrect. See [Release Configuration documentation](https://github-cicd.docs.inditex.dev/githubcicd/stable/configuration/release-configuration.html#java-configuration) to fix it."
           else
-              FAILURE_MESSAGE="We couldn't identify this problem. Open an issue in [helpme](https://github.com/inditex/helpme) repository with the label \`helpme/productivity\` so we can help you."
+              FAILURE_MESSAGE="We couldn't identify this problem. Open an issue in [community](https://github.com/inditex/community/issues/new?assignees=&labels=kind%2Fincident%2Cproduct%2Fgithub-ecosystem&projects=inditex%2F33%2Cinditex%2F465&template=INCIDENT_GITHUB_CODE_WORKFLOWS.yml&title=%F0%9F%94%A5+%5BINCIDENT%5D+%5BGitHub+Code+Workflows%5D+%7C+Type+here+a+brief+description) repository with the label \`github-ecosystem\` so we can help you."
           fi
           gh pr comment ${{ github.event.number }} --body "
           ### :exclamation: :exclamation: :exclamation: Release Preview Failure
@@ -311,7 +311,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -338,7 +338,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false

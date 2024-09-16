@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -804,10 +804,12 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   @Override
   public void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.CHALLENGE_JORNADA.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()));
+            TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(),
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
 
     this.namedParameterJdbcTemplate.update(this.sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura, map);
   }

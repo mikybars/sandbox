@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.8.0
+  WORKFLOW_VERSION: 2.22.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     name: Mutation Testing execution
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Setup IVM environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}

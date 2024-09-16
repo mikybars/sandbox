@@ -38,8 +38,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -54,9 +52,12 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -64,7 +65,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RepositoryCustomImplTest {
 
   private final static String SQL_BASE = "SQL CALCULAR BASE";
@@ -90,11 +91,13 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
         SQL_BASE, true);
   }
 
-  @Test
-  void getMapValuesTest(@Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoVenta,
-      @Random(type = IdTipoDatoDto.class, size = 4) final List<IdTipoDatoDto> tiposDatoPresencia,
-      @Random final AlgoritmoDTO algoritmo, @Random final TareaDto tarea,
-      @Random final IdPersonaLocalDto persona) {
+  @ParameterizedTest
+  @InstancioSource
+  void getMapValuesTest(final List<IdTipoDatoDto> tiposDatoVenta,
+      final AlgoritmoDTO algoritmo, final TareaDto tarea,
+      final IdPersonaLocalDto persona) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);
@@ -103,7 +106,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     final Map<String, Object> result =
         this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RepositoryCustom
@@ -146,11 +149,14 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
     assertEquals(expected, result);
   }
 
-  @Test
-  void calcularTest(@Random(type = IdTipoDatoDto.class, size = 2) final List<IdTipoDatoDto> tiposDatoVenta,
-      @Random(type = IdTipoDatoDto.class, size = 4) final List<IdTipoDatoDto> tiposDatoPresencia, @Random final AlgoritmoDTO algoritmo,
-      @Random final TareaDto tarea,
-      @Random(type = IdPersonaLocalDto.class, size = 7) final List<IdPersonaLocalDto> personas) {
+  @ParameterizedTest
+  @InstancioSource
+  void calcularTest(final List<IdTipoDatoDto> tiposDatoVenta,
+      final AlgoritmoDTO algoritmo,
+      final TareaDto tarea) {
+
+    final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
+    final List<IdPersonaLocalDto> personas = Instancio.ofList(IdPersonaLocalDto.class).size(7).create();
 
     algoritmo.setDesplazamiento(true);
     algoritmo.setDesplazamientoBase(false);
@@ -159,7 +165,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
         .thenReturn(tiposDatoVenta);
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
-            .thenReturn(tiposDatoPresencia);
+            .thenReturn(tiposDato);
 
     this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RepositoryCustom
         .calcular(algoritmo, tarea, personas);

@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteCarenciaRepositoryCustom;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RunAjusteCarenciaProcesar implements RunAjuste {
 
-  @Autowired
-  private Logger log;
+  private static final Logger LOG = LoggerFactory.getLogger(RunAjusteCarenciaProcesar.class);
 
   @Autowired
   @Qualifier("runAjusteProperties")
@@ -44,12 +44,12 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
   @Override
   public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {
     final TareaDto tarea = runTarea.getTarea();
-    this.log.info(
+    RunAjusteCarenciaProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Ids",
         runTarea.getTrabajo().getId(), tarea.getId());
     final List<IdPersonaLocalDto> ids = this.tareaCalculoAjusteCarenciaRepositoryCustom
         .ids(tarea);
-    this.log.info(
+    RunAjusteCarenciaProcesar.LOG.info(
         "Trabajo[{}]Tarea[{}] :: Fin :: RunAjusteCarenciaProcesar :: Ids: {}",
         runTarea.getTrabajo().getId(), tarea.getId(), ids);
 
@@ -60,7 +60,7 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
         this.runAjusteProperties.getAjuste().getBatchSize())) {
       AsyncUtils.checkAsyncAvaliable(cf, this.runAjusteProperties.getAjuste().getThreadSize());
 
-      this.log.info(
+      RunAjusteCarenciaProcesar.LOG.info(
           "Trabajo[{}]Tarea[{}] :: Inicio :: RunAjusteCarenciaProcesar :: Personas: {}",
           runTarea.getTrabajo().getId(), tarea.getId(), personas.size());
       try {
@@ -71,11 +71,11 @@ public class RunAjusteCarenciaProcesar implements RunAjuste {
         AsyncUtils.exceptionally(cfAjuste, cf);
       } catch (final Exception e) {
         AsyncUtils.cancel(cf);
-        this.log.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
+        RunAjusteCarenciaProcesar.LOG.error("RunAjusteCarenciaProcesar :: KO :: Personas: {}", personas.size(), e);
         this.tareaCalculoPersonaService.updateWithEstadoAndidPersona(personas, runTarea,
             EstadoTareaCalculoPersonaEnum.KO.getDto());
       }
-      this.log.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
+      RunAjusteCarenciaProcesar.LOG.info("Fin :: RunAjusteCarenciaProcesar :: Personas: {}", personas.size());
 
       AsyncUtils.waitAllOfIsOk(cf, cf);
     }

@@ -43,7 +43,7 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.12.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -121,14 +121,14 @@ jobs:
           echo "MVN_RELEASE_ARGS=-DreleaseForce" >> "$GITHUB_ENV"
 
       - name: Checkout merge commit
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ env.BASELINE_BRANCH }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Maven Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.m2/repository
@@ -137,7 +137,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Setup asdf Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.asdf/data
@@ -159,13 +159,14 @@ jobs:
           git config commit.gpgsign true
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r4
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code
+          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Yank previous release
         if: contains(env.RELEASE_LABELS, 'release-mode/yank-previous')
@@ -198,7 +199,17 @@ jobs:
           echo "MVN_RELEASE_ARGS=$MVN_RELEASE_ARGS -DreleaseVersion=$(cat /tmp/.version)" >> "$GITHUB_ENV"
           echo "RELEASE_VERSION=$(cat /tmp/.version)" >> "$GITHUB_ENV"
 
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: false
+          skip-cache: true
+
       - name: Release Artifact
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
         run: |
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
@@ -215,14 +226,14 @@ jobs:
             --mount type=bind,src="$HOME"/.gnupg,dst=/home/runner/.gnupg \
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -B release:prepare release:perform $MVN_RELEASE_TYPE $MVN_RELEASE_ARGS
+            mvn -B release:prepare release:perform $MVN_RELEASE_TYPE $MVN_RELEASE_ARGS $MVN_BUILD_CACHE_OPTS
 
       - name: GitHub Release / Get final version number from latest tag in branch
         if: ${{ contains(env.RELEASE_LABELS, 'release-mode/skip-changelog') }}
         run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
 
       - name: Github Release / Create
-        uses: ncipollo/release-action@2792aea87063cfd0d27953ac38e3ab45afacc154
+        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
         id: github-release
         continue-on-error: true
         with:
@@ -253,4 +264,4 @@ jobs:
           gh pr comment ${{ github.event.number }} --body "An error occurred creating the Github Release.
           Don't panic! Your artifacts were successfully uploaded to the Distribution Platform and the new release tag was created.
           You can manually complete the release by creating it in the [releases](https://github.com/inditex/%7Brepo%7D/releases)
-          page or opening up an issue at [inditex/helpme](https://github.com/inditex/helpme/) where you will have assistance."
+          page or opening up an issue at [inditex/community](https://github.com/inditex/community/) where you will have assistance."

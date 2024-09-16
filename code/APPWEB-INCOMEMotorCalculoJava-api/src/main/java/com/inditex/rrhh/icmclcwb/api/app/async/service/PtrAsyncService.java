@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.scheduling.annotation.Async;
 
 @Async

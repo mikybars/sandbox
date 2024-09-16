@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.4.1
+  WORKFLOW_VERSION: 2.12.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -26,13 +26,13 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup IVM environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
@@ -66,11 +66,22 @@ jobs:
         run: |
           echo "${MAVEN_HOME}/bin" >> "$GITHUB_PATH"
 
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: false
+          skip-cache: ${{ startsWith(github.base_ref, 'main') && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release') && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') }}
+
       - name: Maven / Verify artifact with coverage
         if: ${{ !(contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries')) }}
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
         working-directory: code
         run: |
-          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+          # shellcheck disable=SC2086
+          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false $MVN_BUILD_CACHE_OPTS
 
       - name: Maven / Verify artifact with coverage and deploy PR-versioned SNAPSHOT binaries
         if: ${{ contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries') }}
@@ -102,7 +113,7 @@ jobs:
 
       - name: Maven / Process Surefire report and annotate PR
         if: ${{ always() && !cancelled() }}
-        uses: scacap/action-surefire-report@6efd3d10b5c1996a0724dd4c4915a073f685fefa
+        uses: scacap/action-surefire-report@a2911bd1a4412ec18dde2d93b1758b3e56d2a880
         with:
           fail_if_no_tests: false
           create_check: false
@@ -120,7 +131,7 @@ jobs:
           if [[ -f './jacoco-report-aggregate/pom.xml' ]]; then JACOCO_PARAM="-pl !jacoco-report-aggregate -Dsonar.skip=false"; else JACOCO_PARAM="-Dsonar.skip=false"; fi; \
           echo "JACOCO_SONAR_PARAM=$JACOCO_PARAM" >> "$GITHUB_ENV"
 
-      - name: Sonar / Check if the project is excluded of SonarQube
+      - name: Sonar / Check if the project is excluded of SonarCloud
         id: check-sonarqube-exclusion
         shell: python
         run: |
@@ -140,53 +151,25 @@ jobs:
 
       - name: Sonar / Setup Node version
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           local-directory: code
           tool-name: ivm-node
-          tool-version: 18
+          tool-version: 20
 
       - name: Sonar / Setup Java version
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
-
-      - name: Get SonarUrl
-        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
-        id: get-sonar-url
-        env:
-          PASSWORD: ${{ secrets.SRVCINTQAOPS_PASSWORD }}
-        uses: inditex/actions/testing/get-sonar-url-from-api/@main
-
-      - name: SonarQube / Run Sonar Maven goal
-        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARQUBE' }}
-        working-directory: code
-        env:
-          PR_HEAD_REF: ${{ github.head_ref }}
-        run: |
-          JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
-            -Dsonar.projectKey=${{ steps.metadata.outputs.project-key }} \
-            -Dsonar.projectName=${{ steps.metadata.outputs.project-name }} \
-            -Dsonar.projectVersion=${{ steps.version.outputs.app-version }} \
-            -Dsonar.login="$SONAR_TOKEN" \
-            -Dsonar.host.url="https://axinic.central.inditex.grp/sonar" \
-            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
-            -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
-            -Dsonar.pullrequest.base=${{ github.base_ref }} \
-            -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} \
-            -Dsonar.qualitygate.wait=true \
-            -Dsonar.qualitygate.timeout=300 \
-            -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
 
       - name: SonarCloud / Run Maven Sonar goal
         env:
           PR_HEAD_REF: ${{ github.head_ref }}
           LOGIN: ${{ secrets.SONARCLOUD_TOKEN }}
           SONAR_SCANNER_OPTS: ''
-        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 && steps.get-sonar-url.outputs.sonarUrl == 'SONARCLOUD' }}
+        if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
         working-directory: code
         run: |
           JACOCO_REPORT_PATH="$GITHUB_WORKSPACE/code/jacoco-report-aggregate/target/site/jacoco-aggregate/jacoco.xml"
@@ -196,7 +179,7 @@ jobs:
             -Dsonar.projectVersion="${{ steps.version.outputs.app-version }}" \
             -Dsonar.host.url="https://sonarcloud.io/" \
             -Dsonar.organization=inditex-sonarcloud \
-            -Dsonar.login="${LOGIN}" \
+            -Dsonar.token="${LOGIN}" \
             -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
             -Dsonar.pullrequest.branch="$PR_HEAD_REF" \
             -Dsonar.pullrequest.base=${{ github.base_ref }} \

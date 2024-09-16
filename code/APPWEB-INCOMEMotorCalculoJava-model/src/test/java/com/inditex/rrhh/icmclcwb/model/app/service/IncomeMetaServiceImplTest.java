@@ -4,22 +4,21 @@ import static org.mockito.Mockito.doReturn;
 
 import java.util.List;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class IncomeMetaServiceImplTest {
 
   @Mock
@@ -32,9 +31,10 @@ class IncomeMetaServiceImplTest {
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
 
-  @Test
-  void getEmpleadosExternosExcluidosDenominadorTest(@Random final ExternosRequestDTO request,
-      @Random(size = 2, type = EmpleadoExternoDTO.class) final List<EmpleadoExternoDTO> response) {
+  @ParameterizedTest
+  @InstancioSource
+  void getEmpleadosExternosExcluidosDenominadorTest(final ExternosRequestDTO request,
+      final List<EmpleadoExternoDTO> response) {
     doReturn(response).when(this.externosApi).findExternos(request);
 
     final List<EmpleadoExternoDTO> result = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);

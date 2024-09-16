@@ -22,16 +22,18 @@ public abstract class TareaAgrupacionConfiguracionChallengeTipoVentaMapper {
   public abstract TareaAgrupacionConfiguracionChallengeTipoVenta tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
       TareaAgrupacionConfiguracionChallengeTipoVentaDto src);
 
-  public abstract List<TareaAgrupacionConfiguracionChallengeTipoVenta> tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
-      List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src);
+  public abstract List<
+      TareaAgrupacionConfiguracionChallengeTipoVenta> tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
+          List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src);
 
   @Mapping(target = "idTarea", ignore = true)
   @Mapping(target = "icmIdConceptoVenta", ignore = true)
   public abstract TareaAgrupacionConfiguracionChallengeTipoVentaDto tareaAgrupacionConfiguracionChallengeTipoVentaToTareaAgrupacionConfiguracionChallengeTipoVentaDto(
       TareaAgrupacionConfiguracionChallengeTipoVenta src);
 
-  public abstract List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> tareaAgrupacionConfiguracionChallengeTipoVentaToTareaAgrupacionConfiguracionChallengeTipoVentaDto(
-      List<TareaAgrupacionConfiguracionChallengeTipoVenta> src);
+  public abstract List<
+      TareaAgrupacionConfiguracionChallengeTipoVentaDto> tareaAgrupacionConfiguracionChallengeTipoVentaToTareaAgrupacionConfiguracionChallengeTipoVentaDto(
+          List<TareaAgrupacionConfiguracionChallengeTipoVenta> src);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "tipoVentaConceptoChallenge", ignore = true)

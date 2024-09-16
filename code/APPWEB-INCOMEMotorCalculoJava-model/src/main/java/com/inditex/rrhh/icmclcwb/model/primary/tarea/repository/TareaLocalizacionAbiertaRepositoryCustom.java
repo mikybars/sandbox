@@ -5,7 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionAbiertaRepositoryCustom {
 

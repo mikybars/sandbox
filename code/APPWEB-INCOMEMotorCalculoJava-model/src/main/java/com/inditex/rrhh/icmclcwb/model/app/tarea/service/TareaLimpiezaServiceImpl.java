@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.util.SsoUtils;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
@@ -32,11 +32,12 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
   private TareaLimpiezaMapper tareaLimpiezaMapper;
 
   @Override
+  // TODO: Revisar si es login o username
   public TareaLimpiezaDto save(final TareaLimpiezaDto tareaLimpieza) {
     if (StringUtils.isBlank(tareaLimpieza.getNombreUsuario())) {
-      final UserSSO userSSO = SsoUtils.getUserSSO();
-      if (StringUtils.isNotBlank(userSSO.getUser())) {
-        tareaLimpieza.setNombreUsuario(userSSO.getUser());
+      final HeimdalUser heimdalUser = HeimdalUtils.getHeimdalUser();
+      if (StringUtils.isNotBlank(heimdalUser.getLogin())) {
+        tareaLimpieza.setNombreUsuario(heimdalUser.getLogin());
       }
     }
     tareaLimpieza.setEstado(EstadoLimpiezaEnum.PENDIENTE.getDto());

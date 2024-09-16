@@ -11,12 +11,18 @@ amiga:
       client:
         health:
           ping-enabled: false
+    metrics:
+      type: influx
   service:
     aaa:
       local:
         enable-local-test: true
     session:
       session-type: EMBEDDED
+    web:
+      api:
+        problem-details:
+          enabled: false
   data:
     jms:
       connection-factory:

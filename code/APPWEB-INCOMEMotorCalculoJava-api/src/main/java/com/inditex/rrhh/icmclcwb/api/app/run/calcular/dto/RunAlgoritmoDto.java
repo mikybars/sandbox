@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoDto;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-@ApiModel(description = "Modelo RunAlgoritmoDto")
 @Data
 public class RunAlgoritmoDto implements Serializable {
 

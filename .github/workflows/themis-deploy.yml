@@ -1,0 +1,91 @@
+---
+name: themis-database-deploy
+run-name: Themis database deploy for ${{ inputs.SUPRAENVIRONMENT }} - ${{ inputs.ENVIRONMENT }}
+
+concurrency:
+  group: themis-deploy-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.ENVIRONMENT }}-${{ inputs.DATASOURCE }}
+
+env:
+  WORKFLOW_VERSION: 2.10.1
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVIRONMENT:
+        description: 'Supra environment to deploy'
+        required: true
+        default: 'dev'
+      ENVIRONMENT:
+        description: 'Environment to deploy'
+        required: false
+      DATASOURCE:
+        description: 'Datasource name for supraenv/env'
+        required: false
+      MODEL:
+        description: 'Model to deploy'
+        required: true
+        default: 'MY_MODEL'
+      PATH:
+        description: 'Model path to deploy'
+        required: false
+        default: 'themis'
+      TYPE:
+        description: 'Flag to set if a full deployment is required'
+        required: true
+        default: partial
+      VERSION:
+        description: 'Model version to deploy'
+        required: false
+      ISSUE_NUMBER:
+        description: 'Issue number to deploy'
+        required: true
+      STRATEGY:
+        description: 'By default continues the execution only breaking on unexpected or controlled errors'
+        required: false
+        default: default
+
+jobs:
+  orchestrator:
+    name: Database / Runner Selector
+    runs-on: [self-hosted, database]
+    outputs:
+      runner_label: ${{ steps.runner_selector.outputs.runner_label }}
+    steps:
+      - name: Orchestrator
+        id: runner_selector
+        uses: inditex/gha-themis/features/commons/orchestration@main
+        with:
+          supraenv: ${{ inputs.SUPRAENVIRONMENT }}
+          env: ${{ inputs.ENVIRONMENT }}
+          datasource: ${{ inputs.DATASOURCE }}
+          path: ${{ inputs.PATH }}
+
+      - name: Orchestrator outputs
+        run: |
+          echo "${{ toJson(steps.runner_selector.outputs) }}"
+
+  deploy:
+    name: Themis deploy
+    needs: orchestrator
+    timeout-minutes: 900
+    runs-on: [self-hosted, database, "${{ needs.orchestrator.outputs.runner_label }}"]
+    steps:
+      - name: Themis deploy
+        uses: inditex/gha-themis/features/ci-cd/deploy@main
+        with:
+          SUPRAENVIRONMENT: ${{ inputs.SUPRAENVIRONMENT }}
+          ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+          DATASOURCE: ${{ inputs.DATASOURCE }}
+          MODEL: ${{ inputs.MODEL }}
+          PATH: ${{ inputs.PATH }}
+          TYPE: ${{ inputs.TYPE }}
+          VERSION: ${{ inputs.VERSION }}
+          STRATEGY: ${{ inputs.STRATEGY }}
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+          RUNNER_LABEL: ${{ needs.orchestrator.outputs.runner_label }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}
+          THEMIS_SNOWFLAKE_ACCOUNT: ${{ vars.THEMIS_SNOWFLAKE_ACCOUNT }}
+          THEMIS_SNOWFLAKE_PASSWORD: ${{ secrets.THEMIS_SNOWFLAKE_PASSWORD }}

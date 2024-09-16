@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.inditex.aqsw.framework.amiga</groupId>
+    <groupId>com.inditex.amigafwk</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>4.15.13</version>
+    <version>5.10.0</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <version>4.63.0-SNAPSHOT</version>
+  <version>4.66.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 
@@ -20,7 +20,8 @@
     <module>APPWEB-INCOMEMotorCalculoJava-boot</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws-api</module>
     <module>jacoco-report-aggregate</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-clients</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-rest-clients</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-soap-clients</module>
   </modules>
 
   <scm>
@@ -46,9 +47,8 @@
   <properties>
     <maven.test.skip>false</maven.test.skip>
     <!-- TODO [javierev] se excluyen ficheros markdown porque sonar los confunde con otra cosa (¿MetaDapper?) -->
-    <amiga-javaformat.version>2.8.0</amiga-javaformat.version>
+    <amiga-javaformat.version>3.1.1</amiga-javaformat.version>
     <junit-jupiter-params.version>5.6.3</junit-jupiter-params.version>
-    <test-framework-randomizer.version>3.3.0</test-framework-randomizer.version>
     <app.github.chrisvest.version>3.1</app.github.chrisvest.version>
     <app.org.jvnet.jaxb2_commons.version>0.12.0</app.org.jvnet.jaxb2_commons.version>
     <app.org.codehaus.mojo.jaxws-maven-plugin.version>2.6</app.org.codehaus.mojo.jaxws-maven-plugin.version>
@@ -125,7 +125,7 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>com.inditex.aqsw.amiga.javaformat</groupId>
+        <groupId>com.inditex.libamfmt</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
         <version>${amiga-javaformat.version}</version>
         <configuration>
@@ -134,29 +134,6 @@
               com/inditex/rrhh/icmclcwb/model/meta4/login/entity/**</excludes>
           </checkstyle>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
-        <executions>
-          <execution>
-            <id>enforce-snapshots</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <skip>${skipEnforceSnapshots}</skip>
-              <rules>
-                <requireSnapshotVersion>
-                  <failWhenParentIsRelease>false</failWhenParentIsRelease>
-                  <message>Final versions not allowed</message>
-                </requireSnapshotVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

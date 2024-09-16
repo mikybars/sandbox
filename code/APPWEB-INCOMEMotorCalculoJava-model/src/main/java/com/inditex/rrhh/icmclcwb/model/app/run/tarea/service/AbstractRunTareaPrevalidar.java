@@ -44,10 +44,13 @@ import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractRunTareaPrevalidar {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaPrevalidar.class);
 
   @Value("${app.envars.tarea.prevalidacion.thread-size}")
   private Integer threadSize;
@@ -78,9 +81,6 @@ public abstract class AbstractRunTareaPrevalidar {
 
   @Autowired
   private LimpiezaService limpiezaService;
-
-  @Autowired
-  private Logger log;
 
   @Autowired
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
@@ -130,7 +130,7 @@ public abstract class AbstractRunTareaPrevalidar {
             .build();
         final SincronizacionRequestDto request = new SincronizacionRequestDto();
         request.setData(filter);
-        this.log.info("Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Personas: {}",
+        AbstractRunTareaPrevalidar.LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Sincronizacion :: Personas: {}",
             tareaDto.getIdTrabajo(),
             tareaDto.getId(),
             e
@@ -139,7 +139,7 @@ public abstract class AbstractRunTareaPrevalidar {
         try {
           final SincronizacionResponseDto result = this.meta4IcmWsCalcIncomeService
               .sincronizacion(request);
-          this.log.info(
+          AbstractRunTareaPrevalidar.LOG.info(
               "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ok :: Personas: {}",
               tareaDto.getIdTrabajo(),
               tareaDto.getId(),
@@ -148,7 +148,7 @@ public abstract class AbstractRunTareaPrevalidar {
                   .filter(a -> a.getResultado().equals(Meta4Constants.RESULTADO_OK))
                   .map(SincronizacionResultItemDto::getIdEmpleado)
                   .collect(Collectors.toList()));
-          this.log.info(
+          AbstractRunTareaPrevalidar.LOG.info(
               "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Ko :: Personas: {}",
               tareaDto.getIdTrabajo(),
               tareaDto.getId(),
@@ -158,14 +158,14 @@ public abstract class AbstractRunTareaPrevalidar {
                   .map(SincronizacionResultItemDto::getIdEmpleado)
                   .collect(Collectors.toList()));
         } catch (final Exception e1) {
-          this.log.error(
+          AbstractRunTareaPrevalidar.LOG.error(
               "Trabajo[{}]Tarea[{}] :: Sincronizacion :: Error :: Personas: {}",
               tareaDto.getIdTrabajo(),
               tareaDto.getId(),
               e
                   .getIdPersonaLocal());
         }
-        this.log.info("Trabajo[{}]Tarea[{}] :: Fin :: Sincronizacion :: Personas: {}",
+        AbstractRunTareaPrevalidar.LOG.info("Trabajo[{}]Tarea[{}] :: Fin :: Sincronizacion :: Personas: {}",
             tareaDto.getIdTrabajo(),
             tareaDto.getId(),
             e

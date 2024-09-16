@@ -11,25 +11,30 @@ import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarJornadaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaProcesarServiceImplTest {
+
+  @Mock
+  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
 
   @Mock
   private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
@@ -47,13 +52,13 @@ class RunTareaProcesarServiceImplTest {
   @InjectMocks
   private RunTareaProcesarServiceImpl runTareaProcesarServiceImpl;
 
-  @Random
-  private RunTareaDto runTarea;
+  final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Test
-  void runTest(@Random final TareaFaseDto tareaFaseDto,
-      @Random final CompletableFuture<Void> completableFuture) {
+  @ParameterizedTest
+  @InstancioSource
+  void runTest(final TareaFaseDto tareaFaseDto) {
 
+    final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
     doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(),
         FaseEnum.PROCESAR.getId());
 
@@ -184,6 +189,9 @@ class RunTareaProcesarServiceImplTest {
         .presenciaDesplazamiento(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .updateActivoLocalizacionVacio(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .presenciaDesplazamientoChallengePorcentaje(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
@@ -288,6 +296,12 @@ class RunTareaProcesarServiceImplTest {
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .relacionarPresupuestosEstructurasDesplazamiento(this.runTarea.getTarea());
 
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacionPersona(this.runTarea);
+
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .updateActivoManual(this.runTarea);
 
@@ -303,9 +317,10 @@ class RunTareaProcesarServiceImplTest {
         .run(this.runTarea);
   }
 
-  @Test
-  void runExceptionTest(@Random final TareaFaseDto tareaFaseDto,
-      @Random final CompletableFuture<Void> completableFuture) {
+  @ParameterizedTest
+  @InstancioSource
+  void runExceptionTest(final TareaFaseDto tareaFaseDto,
+      final CompletableFuture<Void> completableFuture) {
 
     doThrow(RuntimeException.class).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTarea().getId(),
         FaseEnum.PROCESAR.getId());

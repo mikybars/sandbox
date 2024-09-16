@@ -1,17 +1,15 @@
 package com.inditex.rrhh.icmclcwb.config.ptr.presencia;
 
-import com.inditex.aqsw.framework.common.rest.client.RestClient;
-import com.inditex.aqsw.framework.common.rest.client.builder.RestClientBuilder;
+import com.inditex.amigafwk.common.rest.client.RestClient;
+import com.inditex.amigafwk.common.rest.client.annotation.AmigaRestClient;
+import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PtrPresenciaClientConfig {
 
-  @Bean(name = "ptrPresenciaClient")
-  @ConfigurationProperties(prefix = "amiga.common.rest.client.ptr-presencia")
+  @AmigaRestClient(value = "ptr-presencia", beanName = "ptrPresenciaClient")
   public RestClient ptrPresenciaClient(final RestClientBuilder builder) {
     return builder.build();
   }

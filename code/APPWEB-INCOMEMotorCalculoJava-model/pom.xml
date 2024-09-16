@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.63.0-SNAPSHOT</version>
+    <version>4.66.0-SNAPSHOT</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-model</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -22,35 +22,45 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-ms</artifactId>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-client-soap-api-incomemotorcalculometa</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-client-soap-api-incomemotorcalculometalogin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- FRAMEWORK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.data</groupId>
-      <artifactId>data-framework-starter-jpa</artifactId>
+      <groupId>com.inditex.amigafwk.data</groupId>
+      <artifactId>data-starter-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-reactor</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-reactor</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-rest-client</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-rest-client</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-retry</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-retry</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-metrics-annotation</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-metrics-annotation</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter-mail</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-mail</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->
@@ -91,15 +101,10 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.test</groupId>
-      <artifactId>test-framework-randomizer</artifactId>
-      <version>${test-framework-randomizer.version}</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -108,145 +113,12 @@
       <version>${junit-jupiter-params.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.test</groupId>
+      <artifactId>test-starter-instancio</artifactId>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
-
-  <profiles>
-
-    <profile>
-      <id>generateWSClients</id>
-      <properties>
-        <urlServidor>https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services</urlServidor>
-        <bindingDirectory>${basedir}/src/main/resources/bindings</bindingDirectory>
-        <sourceDestDir>src/main/java</sourceDestDir>
-        <sourceDestDirWsdl>src/main/resources/wsdls</sourceDestDirWsdl>
-        <generatedPackageBase>com.inditex.rrhh.icmclcwb.model.meta4</generatedPackageBase>
-
-        <loginExecution>login</loginExecution>
-        <loginService>Login?wsdl=1</loginService>
-        <loginServiceName>Login</loginServiceName>
-        <loginServicePackageName>login</loginServicePackageName>
-
-        <icmwscalcincomeExecution>icmwscalcincome</icmwscalcincomeExecution>
-        <icmwscalcincomeService>ICM_WS_CALC_INCOME?wsdl=1</icmwscalcincomeService>
-        <icmwscalcincomeServiceName>ICM_WS_CALC_INCOME</icmwscalcincomeServiceName>
-        <icmwscalcincomeServicePackageName>icmwscalcincome</icmwscalcincomeServicePackageName>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>jaxws-maven-plugin</artifactId>
-            <version>${app.org.codehaus.mojo.jaxws-maven-plugin.version}</version>
-            <dependencies>
-              <dependency>
-                <groupId>org.jvnet.jaxb2_commons</groupId>
-                <artifactId>jaxb2-basics</artifactId>
-                <version>${app.org.jvnet.jaxb2_commons.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-              </dependency>
-            </dependencies>
-            <configuration>
-              <extension>true</extension>
-              <xjcArgs>
-                <xjcArg>-Xequals</xjcArg>
-                <xjcArg>-XtoString</xjcArg>
-                <xjcArg>-XhashCode</xjcArg>
-                <xjcArg>-Xcopyable</xjcArg>
-              </xjcArgs>
-              <plugins>
-                <plugin>
-                  <groupId>org.jvnet.jaxb2_commons</groupId>
-                  <artifactId>jaxb2-basics</artifactId>
-                  <version>${app.org.jvnet.jaxb2_commons.version}</version>
-                </plugin>
-              </plugins>
-            </configuration>
-            <executions>
-
-              <execution>
-                <id>generateWSClients_${loginExecution}</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>wsimport</goal>
-                </goals>
-                <configuration>
-                  <bindingDirectory>${bindingDirectory}</bindingDirectory>
-                  <wsdlUrls>
-                    <wsdlUrl>${urlServidor}/${loginService}</wsdlUrl>
-                  </wsdlUrls>
-                  <sourceDestDir>${sourceDestDir}</sourceDestDir>
-                  <packageName>${generatedPackageBase}.${loginServicePackageName}.entity.generated</packageName>
-                </configuration>
-              </execution>
-
-              <execution>
-                <id>generateWSClients_${icmwscalcincomeExecution}</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>wsimport</goal>
-                </goals>
-                <configuration>
-                  <bindingDirectory>${bindingDirectory}</bindingDirectory>
-                  <wsdlUrls>
-                    <wsdlUrl>${urlServidor}/${icmwscalcincomeService}</wsdlUrl>
-                  </wsdlUrls>
-                  <sourceDestDir>${sourceDestDir}</sourceDestDir>
-                  <packageName>${generatedPackageBase}.${icmwscalcincomeServicePackageName}.entity.generated</packageName>
-                </configuration>
-              </execution>
-
-            </executions>
-
-          </plugin>
-
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>wagon-maven-plugin</artifactId>
-            <version>${app.org.codehaus.mojo.wagon-maven-plugin.version}</version>
-            <executions>
-
-              <execution>
-                <id>download_${loginExecution}</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>download-single</goal>
-                </goals>
-                <configuration>
-                  <url>${urlServidor}</url>
-                  <fromFile>${loginService}</fromFile>
-                  <toFile>${sourceDestDirWsdl}/${loginServiceName}.wsdl</toFile>
-                </configuration>
-              </execution>
-
-              <execution>
-                <id>download_${icmwscalcincomeExecution}</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>download-single</goal>
-                </goals>
-                <configuration>
-                  <url>${urlServidor}</url>
-                  <fromFile>${icmwscalcincomeService}</fromFile>
-                  <toFile>${sourceDestDirWsdl}/${icmwscalcincomeServiceName}.wsdl</toFile>
-                </configuration>
-              </execution>
-
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-  </profiles>
 
 </project>

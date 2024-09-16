@@ -21,15 +21,17 @@ public abstract class TareaConfiguracionChallengeDiasMinimosMapper {
   public abstract TareaConfiguracionChallengeDiasMinimos tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(
       TareaConfiguracionChallengeDiasMinimosDto src);
 
-  public abstract List<TareaConfiguracionChallengeDiasMinimos> tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(
-      List<TareaConfiguracionChallengeDiasMinimosDto> src);
+  public abstract List<
+      TareaConfiguracionChallengeDiasMinimos> tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(
+          List<TareaConfiguracionChallengeDiasMinimosDto> src);
 
   @Mapping(target = "idTarea", ignore = true)
   public abstract TareaConfiguracionChallengeDiasMinimosDto tareaConfiguracionChallengeDiasMinimosToTareaConfiguracionChallengeDiasMinimosDto(
       TareaConfiguracionChallengeDiasMinimos src);
 
-  public abstract List<TareaConfiguracionChallengeDiasMinimosDto> tareaConfiguracionChallengeDiasMinimosToTareaConfiguracionChallengeDiasMinimosDto(
-      List<TareaConfiguracionChallengeDiasMinimos> src);
+  public abstract List<
+      TareaConfiguracionChallengeDiasMinimosDto> tareaConfiguracionChallengeDiasMinimosToTareaConfiguracionChallengeDiasMinimosDto(
+          List<TareaConfiguracionChallengeDiasMinimos> src);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "tarea.id", source = "tarea.id")

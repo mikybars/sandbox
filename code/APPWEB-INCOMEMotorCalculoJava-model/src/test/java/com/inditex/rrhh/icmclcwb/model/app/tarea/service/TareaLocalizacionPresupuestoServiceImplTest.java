@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -11,12 +11,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -29,14 +26,16 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPresupu
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPresupuestoRepositoryCustomImpl;
 
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class TareaLocalizacionPresupuestoServiceImplTest {
 
   @Mock
@@ -52,16 +51,16 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   @Test
   public void findListaPeriodosPresupestoYTrabajoMesesTest() {
 
-    PeriodoDto periodo = mock(PeriodoDto.class);
+    final PeriodoDto periodo = mock(PeriodoDto.class);
     when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
     when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-    when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+    when(this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
         .thenReturn(periodo);
 
-    PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
     filter.setPeriodSize(1);
     filter.setPeriodType(PtrPageEnum.MONTHS);
-    List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+    final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
         filter);
 
     // Periodos: 3 meses
@@ -80,18 +79,18 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   @Test
   public void findListaPeriodosPresupestoYTrabajoMesesAddDaysTest() {
 
-    PeriodoDto periodo = mock(PeriodoDto.class);
+    final PeriodoDto periodo = mock(PeriodoDto.class);
     when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
     when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-    when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+    when(this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
         .thenReturn(periodo);
 
-    RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
+    final RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
     recolectarProperties.setDaysNumber(3);
-    PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
     filter.setPeriodSize(1);
     filter.setPeriodType(PtrPageEnum.MONTHS);
-    List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+    final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
         filter, recolectarProperties);
 
     // Periodos: 3 meses, el último con 3 días extra
@@ -110,16 +109,16 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   @Test
   public void findListaPeriodosPresupestoYTrabajoDiasTest() {
 
-    PeriodoDto periodo = mock(PeriodoDto.class);
+    final PeriodoDto periodo = mock(PeriodoDto.class);
     when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
     when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-    when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+    when(this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
         .thenReturn(periodo);
 
-    PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
     filter.setPeriodSize(15);
     filter.setPeriodType(PtrPageEnum.DAYS);
-    List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+    final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
         filter);
 
     // Periodos: 6 quincenas y un resto
@@ -150,18 +149,18 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   @Test
   public void findListaPeriodosPresupestoYTrabajoDiasAddDaysTest() {
 
-    PeriodoDto periodo = mock(PeriodoDto.class);
+    final PeriodoDto periodo = mock(PeriodoDto.class);
     when(periodo.getFechaFinPeriodo()).thenReturn(LocalDate.of(2020, 1, 31));
     when(periodo.getFechaInicioPeriodo()).thenReturn(LocalDate.of(2019, 11, 1));
-    when(tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
+    when(this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(any(Long.class)))
         .thenReturn(periodo);
 
-    RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
+    final RecolectarPropertiesDto recolectarProperties = new RecolectarPropertiesDto();
     recolectarProperties.setDaysNumber(3);
-    PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
+    final PtrFilterPropertiesDto filter = new PtrFilterPropertiesDto();
     filter.setPeriodSize(15);
     filter.setPeriodType(PtrPageEnum.DAYS);
-    List<PeriodoDto> periodos = tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
+    final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService.findListaPeriodosPresupestoYTrabajo(1919L,
         filter, recolectarProperties);
 
     // Periodos: 6 quincenas y un resto
@@ -191,10 +190,10 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
 
   @Test
   void saveTest() {
-    List<PresupuestosWlocResultItemDto> src = Arrays.asList(new PresupuestosWlocResultItemDto());
-    TareaDto tarea = new TareaDto();
+    final List<PresupuestosWlocResultItemDto> src = List.of(new PresupuestosWlocResultItemDto());
+    final TareaDto tarea = new TareaDto();
 
-    List<TareaLocalizacionPresupuesto> result1 = Arrays.asList(new TareaLocalizacionPresupuesto());
+    final List<TareaLocalizacionPresupuesto> result1 = List.of(new TareaLocalizacionPresupuesto());
 
     doReturn(result1).when(this.tareaLocalizacionPresupuestoMapper)
         .presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src, tarea);
@@ -206,9 +205,10 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         .save(src, tarea);
   }
 
-  @Test
-  void findLocalizacionOrdinalTarea(@Random Long idTarea, @Random Integer cclIdCodOrigen, @Random Integer cclIdSeccion,
-      @Random Integer idTipoPresupuesto, @Random(type = String.class, size = 2) List<String> stringList) {
+  @ParameterizedTest
+  @InstancioSource
+  void findLocalizacionOrdinalTarea(final Long idTarea, final Integer cclIdCodOrigen, final Integer cclIdSeccion,
+      final Integer idTipoPresupuesto, final List<String> stringList) {
 
     final LocalDate fechaInicio = LocalDate.of(1990, 2, 2);
     final LocalDate fechaFin = LocalDate.of(1990, 2, 3);
@@ -220,15 +220,16 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
 
     assertEquals(stringList, result);
 
   }
 
-  @Test
-  void findPresupuestosTest(@Random TareaDto tarea,
-      @Random(type = TareaLocalizacionPresupuestoDto.class, size = 2) List<TareaLocalizacionPresupuestoDto> listTareas) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPresupuestosTest(final TareaDto tarea,
+      final List<TareaLocalizacionPresupuestoDto> listTareas) {
 
     doReturn(listTareas).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPresupuestos(tarea);
 
@@ -238,8 +239,9 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
     assertEquals(listTareas, result.getPresupuestos());
   }
 
-  @Test
-  void findPeriodoPresupuestoYTrabajoTest(@Random Long idTarea, @Random PeriodoDto periodo) {
+  @ParameterizedTest
+  @InstancioSource
+  void findPeriodoPresupuestoYTrabajoTest(final Long idTarea, final PeriodoDto periodo) {
     doReturn(periodo).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPeriodoPresupuestoYTrabajo(idTarea);
 
     final PeriodoDto result = this.tareaLocalizacionPresupuestoService.findPeriodoPresupuestoYTrabajo(idTarea);
@@ -248,9 +250,10 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
     assertEquals(periodo, result);
   }
 
-  @Test
-  void findListaPeriodosPresupestoYTrabajoTest(@Random Long idTarea, @Random PtrFilterPropertiesDto filterProperties,
-      @Random PeriodoDto periodo) {
+  @ParameterizedTest
+  @InstancioSource
+  void findListaPeriodosPresupestoYTrabajoTest(final Long idTarea, final PtrFilterPropertiesDto filterProperties,
+      final PeriodoDto periodo) {
 
     filterProperties.setPeriodSize(0);
 
@@ -260,7 +263,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
         filterProperties);
 
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertFalse(result.isEmpty());
     assertEquals(Collections.singletonList(periodo), result);
   }
 

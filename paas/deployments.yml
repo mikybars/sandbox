@@ -7,7 +7,7 @@ supraenvironments:
             tenants:
               - name: global
                 slots:
-                  - name: default
+                  - name: develop
   - name: pre
     environments:
       - name: pre

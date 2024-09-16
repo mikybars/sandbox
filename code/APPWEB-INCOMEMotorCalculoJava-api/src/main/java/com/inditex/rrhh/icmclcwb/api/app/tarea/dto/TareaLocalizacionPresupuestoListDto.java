@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +19,6 @@ public class TareaLocalizacionPresupuestoListDto implements Serializable {
 
   private static final long serialVersionUID = -2620521240704402267L;
 
-  @NotNull
-  @ApiModelProperty(value = "Presupuestos", required = true)
   private List<TareaLocalizacionPresupuestoDto> presupuestos;
 
   /**

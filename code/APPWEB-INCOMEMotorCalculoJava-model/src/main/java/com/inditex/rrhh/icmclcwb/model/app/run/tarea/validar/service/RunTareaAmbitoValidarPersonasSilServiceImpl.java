@@ -28,8 +28,9 @@ import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMa
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,8 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbitoValidarPersonasSilService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarPersonasSilServiceImpl.class);
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
@@ -52,9 +55,6 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
   @Autowired
   private ValidacionMapper validacionMapper;
-
-  @Autowired
-  private Logger log;
 
   @Autowired
   private ClasePersonaSilAmbitoService clasePersonaSilAmbitoService;
@@ -112,13 +112,15 @@ public class RunTareaAmbitoValidarPersonasSilServiceImpl implements RunTareaAmbi
 
       // comparar la info de la tabla temporal con los datos de Income
       validationResult = this.primaryTemporaryTableRepositoryCustom.validateTempComisPersonas(tarea);
-      this.log.info("Trabajo[{}]Tarea[{}] :: Ok :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
+      RunTareaAmbitoValidarPersonasSilServiceImpl.LOG.info(
+          "Trabajo[{}]Tarea[{}] :: Ok :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getIdTrabajo(), validationResult);
 
     } catch (final Exception e) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.ERROR.getDto());
       AsyncUtils.cancel(cf);
-      this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
+      RunTareaAmbitoValidarPersonasSilServiceImpl.LOG.error(
+          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarPersonasSilServiceImpl :: PersonasSil: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getIdTrabajo(), e);
       throw e;
     } finally {

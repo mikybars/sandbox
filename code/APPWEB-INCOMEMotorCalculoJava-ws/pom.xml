@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.63.0-SNAPSHOT</version>
+    <version>4.66.0-SNAPSHOT</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-ws</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
@@ -19,20 +19,24 @@
 
     <!-- FRAMEWORK DEPENDENCIES -->
     <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-starter</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-rest</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-rest</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-oidc-ldap-spnego</artifactId>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-aaa-oidc-ldap</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.aqsw.framework.service</groupId>
-      <artifactId>service-framework-starter-aaa-userdetails-sso</artifactId>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-oauth2-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.service</groupId>
+      <artifactId>service-starter-aaa-userdetails-heimdal</artifactId>
     </dependency>
 
     <!-- OTHER DEPENDENCIES -->
@@ -64,7 +68,7 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
 

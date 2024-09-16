@@ -25,8 +25,9 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceI
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionVentaIntegraServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistoricoServiceImpl;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +35,8 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmbitoValidarVentaIntegraService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarVentaIntegraServiceImpl.class);
 
   @Autowired
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;
@@ -49,9 +52,6 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
 
   @Autowired
   private ValidacionMapper validacionMapper;
-
-  @Autowired
-  private Logger log;
 
   @Override
   public ValidacionDto execute(
@@ -92,7 +92,8 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
       this.tareaFaseAccionVentaIntegraService.save(tareaFaseAccionVentaIntegraDtoList);
 
     } catch (final Exception e) {
-      this.log.error("Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
+      RunTareaAmbitoValidarVentaIntegraServiceImpl.LOG.error(
+          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarVentaIntegraServiceImpl :: VentaIntegra: {}",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);

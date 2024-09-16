@@ -11,8 +11,6 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
@@ -29,8 +27,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.validar.properties.dto.ValidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.Instancio;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -40,7 +40,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 class RunTareaRecolectarValidarServiceImplTest {
 
   @Mock
@@ -78,15 +78,15 @@ class RunTareaRecolectarValidarServiceImplTest {
   @InjectMocks
   private RunTareaRecolectarValidarServiceImpl runTareaRecolectarValidarServiceImpl;
 
-  @Random
-  private RunTareaDto runTarea;
+  final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Test
-  void runTest(@Random TareaFaseDto tareaFaseDto,
-      @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
-      @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
+  @ParameterizedTest
+  @InstancioSource
+  void runTest(final TareaFaseDto tareaFaseDto,
+      final CompletableFuture<List<RunTareaValidarDto>> completableFuture,
+      final List<RunTareaValidarDto> runTareaValidarDtoList) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
       doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTrabajo().getId(),
           FaseEnum.VALIDAR_RECOLECCION.getId());
@@ -117,12 +117,13 @@ class RunTareaRecolectarValidarServiceImplTest {
     }
   }
 
-  @Test
-  void runExceptionTest(@Random TareaFaseDto tareaFaseDto,
-      @Random CompletableFuture<List<RunTareaValidarDto>> completableFuture,
-      @Random(type = RunTareaValidarDto.class, size = 2) List<RunTareaValidarDto> runTareaValidarDtoList) {
+  @ParameterizedTest
+  @InstancioSource
+  void runExceptionTest(final TareaFaseDto tareaFaseDto,
+      final CompletableFuture<List<RunTareaValidarDto>> completableFuture,
+      final List<RunTareaValidarDto> runTareaValidarDtoList) {
 
-    try (MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
+    try (final MockedStatic<AsyncUtils> utilities = Mockito.mockStatic(AsyncUtils.class)) {
 
       doReturn(tareaFaseDto).when(this.tareaFaseService).findTareaFaseDtoByIdTareaAndIdFase(this.runTarea.getTrabajo().getId(),
           FaseEnum.VALIDAR_RECOLECCION.getId());

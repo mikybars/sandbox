@@ -23,7 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.inditex.aqsw.framework.service.aaa.userdetails.sso.model.UserSSO;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
+import com.inditex.amigafwk.service.aaa.userdetails.heimdal.model.HeimdalUserDetails;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.service.ProgramacionAmbitoService;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
@@ -79,12 +81,12 @@ class ProgramacionServiceImplTest {
         .thenReturn(new Programacion());
     when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
     when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-    when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+    when(this.programacionAmbitoService.create(ArgumentMatchers.any(),
         any(ProgramacionDTO.class)))
             .thenReturn(new ArrayList<>());
 
     final ProgramacionDTO result = this.programacionService.create(programacion);
-    Date date = TimeUtils.nowDate(); // Generado aquí para que no se diferencien las fechas en los equals por 1 segudno
+    final Date date = TimeUtils.nowDate(); // Generado aquí para que no se diferencien las fechas en los equals por 1 segudno
     assertNotNull(result);
     assertNotNull(result.getFechaHoraCreacion());
     assertEquals(DateUtils.truncate(date, Calendar.SECOND),
@@ -109,10 +111,20 @@ class ProgramacionServiceImplTest {
   void createTestSso() {
     final Authentication authentication = Mockito.mock(Authentication.class);
     // TODO [MDELRIO] Buscar manera de replicar este test con el nombre en blanco para cubrir test
-    Mockito.when(authentication.getPrincipal()).thenReturn(new UserSSO(null, "name", "url", Arrays.asList()));
+    final HeimdalUserDetails user = new HeimdalUserDetails();
+    user.setLogin("login");
+    final HeimdalUser heimdalUser = HeimdalUser.create(user, List.of("1", "2"));
+
+    when(authentication.getPrincipal())
+        .thenReturn(heimdalUser);
     final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
     Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
+
+    when(HeimdalUtils.getHeimdalUser())
+        .thenReturn(heimdalUser);
+    when(HeimdalUtils.getHeimdalUser())
+        .thenReturn(heimdalUser);
 
     final ProgramacionDTO programacion = new ProgramacionDTO();
     programacion.setProgramacionHuso(TimeUtils.ofZoneId());
@@ -124,7 +136,7 @@ class ProgramacionServiceImplTest {
         .thenReturn(new Programacion());
     when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
     when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-    when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+    when(this.programacionAmbitoService.create(ArgumentMatchers.any(),
         any(ProgramacionDTO.class)))
             .thenReturn(new ArrayList<>());
 
@@ -161,7 +173,7 @@ class ProgramacionServiceImplTest {
         .thenReturn(new Programacion());
     when(this.programacionMapper.programacionToProgramacionDto(any(Programacion.class))).thenReturn(programacion);
     when(this.programacionRepository.save(any(Programacion.class))).thenReturn(new Programacion());
-    when(this.programacionAmbitoService.create(ArgumentMatchers.<List<ProgramacionAmbitoDTO>>any(),
+    when(this.programacionAmbitoService.create(ArgumentMatchers.any(),
         any(ProgramacionDTO.class)))
             .thenReturn(new ArrayList<>());
 

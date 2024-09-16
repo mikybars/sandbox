@@ -34,8 +34,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
@@ -47,9 +45,11 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -59,7 +59,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class,})
 class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_SAVE = "SAVE";
@@ -85,6 +85,8 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   private final static String SQL_COMPENSAR_INCLUIDO_CHALLENGE_PORCENTAJE = "COMPENSAR INCLUIDO CHALLENGE PORCENTAJE";
 
   private final static String SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE = "TOTALIZAR INCLUIDO CHALLENGE PORCENTAJE";
+
+  private final static String SQL_UPDATE_ACTIVO_VACIO = "UPDATE ACTIVO VACIO";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -129,7 +131,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarIncluidoChallengePorcentaje",
         SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
-
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlUpdateActivoVacio",
+        SQL_UPDATE_ACTIVO_VACIO, true);
   }
 
   @Test
@@ -160,6 +164,18 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
     assertEquals(Arrays.asList(5018, 5002), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
 
+  }
+
+  @Test
+  void updateActivoVacioTest() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(1222L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+        any(MapSqlParameterSource.class));
+    assertEquals(SQL_UPDATE_ACTIVO_VACIO, this.sqlCaptor.getValue());
   }
 
   @Test
@@ -1164,8 +1180,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   }
 
-  @Test
-  void totalizarEmpleadosPorVentaTest(@Random final RunTareaDto tarea) {
+  @ParameterizedTest
+  @InstancioSource
+  void totalizarEmpleadosPorVentaTest(final RunTareaDto tarea) {
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(tarea);
 

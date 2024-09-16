@@ -7,8 +7,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.aqsw.framework.test.randomizer.Random;
-import com.inditex.aqsw.framework.test.randomizer.RandomizerExtension;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -22,14 +20,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoAmbitoEmpre
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoAmbitoEmpresaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoRepository;
 
-import org.junit.jupiter.api.Test;
+import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class, RandomizerExtension.class})
+@ExtendWith({SpringExtension.class})
 public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
 
   @Mock
@@ -50,9 +49,10 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   @InjectMocks
   private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaService;
 
-  @Test
-  public void executeTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito, @Random TareaFaseAccionDto tareaFaseAccion,
-      @Random Proceso proceso, @Random ProcesoAmbitoEmpresa procesoAmbitoEmpresa, @Random ValidacionDto validacionDto) {
+  @ParameterizedTest
+  @InstancioSource
+  public void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito, final TareaFaseAccionDto tareaFaseAccion,
+      final Proceso proceso, final ProcesoAmbitoEmpresa procesoAmbitoEmpresa, final ValidacionDto validacionDto) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
 
     doReturn(proceso).when(this.procesoRepository).save(any(Proceso.class));
@@ -66,9 +66,10 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
     verify(this.validacionMapper, times(1)).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 
-  @Test
-  public void executeMalAmbitoTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
-      @Random TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  public void executeMalAmbitoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
 
     assertThrows(IcmclcwbException.class, () -> {
@@ -76,9 +77,10 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
     });
   }
 
-  @Test
-  public void executeErrorTest(@Random RunTareaDto runTarea, @Random TareaAmbitoDto tareaAmbito,
-      @Random TareaFaseAccionDto tareaFaseAccion) {
+  @ParameterizedTest
+  @InstancioSource
+  public void executeErrorTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
 
     doThrow(RuntimeException.class).when(this.procesoRepository).save(any(Proceso.class));

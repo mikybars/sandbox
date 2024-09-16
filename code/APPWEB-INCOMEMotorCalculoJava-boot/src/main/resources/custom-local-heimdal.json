@@ -1,0 +1,67 @@
+{
+  "username100": {
+    "metadata": {
+      "roles": [
+        "ADMINISTRADOR_GLOBAL"
+      ]
+    },
+    "permissions": [
+      "ACTUATOR",
+      "ADMIN",
+      "impersonatePermission"
+    ],
+    "userData": {
+      "login": "username100",
+      "name": "Nombre100",
+      "mail": "nombre100@email.com",
+      "description": "Usuario 100",
+      "employeeId": "employeeId100",
+      "employeeNumber": "employeeNumber100",
+      "company": "inditex",
+      "department": "technology",
+      "domain": "central"
+    }
+  },
+  "username200": {
+    "metadata": {
+      "roles": [
+        "ADMINISTRADOR_GLOBAL"
+      ]
+    },
+    "permissions": [
+      "USER"
+    ],
+    "userData": {
+      "login": "username200",
+      "name": "Nombre200",
+      "mail": "nombre200@email.com",
+      "description": "Usuario 200",
+      "employeeId": "employeeId200",
+      "employeeNumber": "employeeNumber200",
+      "company": "inditex",
+      "department": "technology",
+      "domain": "central"
+    }
+  },
+  "username300": {
+    "metadata": {
+      "roles": [
+          "ADMINISTRADOR_GLOBAL"
+      ]
+    },
+    "permissions": [
+      "ADMINISTRADOR_GLOBAL"
+    ],
+    "userData": {
+      "login": "username300",
+      "name": "Nombre300",
+      "mail": "nombre300@email.com",
+      "description": "Usuario 300",
+      "employeeId": "employeeId300",
+      "employeeNumber": "employeeNumber300",
+      "company": "inditex",
+      "department": "technology",
+      "domain": "central"
+    }
+  }
+}

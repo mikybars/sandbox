@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailEntornoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailEntornoRepositoryCustom;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

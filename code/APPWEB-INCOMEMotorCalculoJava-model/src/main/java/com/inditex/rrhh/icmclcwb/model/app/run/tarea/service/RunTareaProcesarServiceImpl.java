@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.aqsw.framework.common.metrics.annotation.CounterFunctionalMetric;
-import com.inditex.aqsw.framework.common.metrics.annotation.TimerFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
+import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarJornadaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
@@ -18,8 +19,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +37,9 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
   @Autowired
   private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
+
+  @Autowired
+  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
 
   @Autowired
   private TareaFaseService tareaFaseService;
@@ -97,6 +101,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           .desactivarManualOrdinalDoble(runTarea);
       AsyncUtils.exceptionally(cfDesactivarManualOrdinalDoble, cf, cfWait);
 
+      final CompletableFuture<Void> cfProcesarJornadaLocalizacionPersona = this.runTareaProcesarJornadaAsyncService
+          .procesarJornadaLocalizacionPersona(runTarea);
+      AsyncUtils.exceptionally(cfProcesarJornadaLocalizacionPersona, cf, cfWait);
+
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
@@ -108,6 +116,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfCrearGlobalSeccionOpcionOrigen = this.runTareaProcesarCondicionesAsyncService
           .crearGlobalSeccionOpcionOrigen(runTarea);
       AsyncUtils.exceptionally(cfCrearGlobalSeccionOpcionOrigen, cf, cfWait);
+
+      final CompletableFuture<Void> cfProcesarJornadaLocalizacion = this.runTareaProcesarJornadaAsyncService
+          .procesarJornadaLocalizacion(runTarea);
+      AsyncUtils.exceptionally(cfProcesarJornadaLocalizacion, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
@@ -366,6 +378,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final CompletableFuture<Void> cfPresenciaDesplazamientoChallengePorcentaje = this.runTareaProcesarPresenciaAsyncService
           .presenciaDesplazamientoChallengePorcentaje(runTarea);
       AsyncUtils.exceptionally(cfPresenciaDesplazamientoChallengePorcentaje, cf, cfWait);
+
+      // Desactivamos las que están a 0 por seccion
+      final CompletableFuture<Void> cfUpdateActivoLocalizacionVacio = this.runTareaProcesarPresenciaAsyncService
+          .updateActivoLocalizacionVacio(runTarea);
+      AsyncUtils.exceptionally(cfUpdateActivoLocalizacionVacio, cf, cfWait);
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cfWait);

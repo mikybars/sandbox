@@ -29,8 +29,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.TipoSistemaDestino
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoAmbitoEmpresaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoRepository;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,11 +42,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTareaAmbitoValidarExportacionFranciaService {
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarExportacionFranciaServiceImpl.class);
 
   @Autowired
-  private Logger log;
+  private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
   private ValidacionMapper validacionMapper;

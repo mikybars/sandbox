@@ -25,8 +25,9 @@ import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMa
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,8 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTareaAmbitoValidarRecuperarFranciaService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarRecuperarFranciaServiceImpl.class);
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
@@ -53,9 +56,6 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
   @Autowired
   @Qualifier("carenciaProperties")
   private PrevalidarPropertiesDto carenciaProperties;
-
-  @Autowired
-  private Logger log;
 
   @Autowired
   private ValidacionMapper validacionMapper;
@@ -104,12 +104,12 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
 
         liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
             .forEach(e -> e.getAvisos().getAvisos().stream().forEach(f -> {
-              this.log.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
+              RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
             }));
 
         liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
             .forEach(e -> e.getErrores().getErrores().stream().forEach(f -> {
-              this.log.warn("Error: Registro afectado:" + f.getRegistroAfectado());
+              RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Error: Registro afectado:" + f.getRegistroAfectado());
             }));
       }
 

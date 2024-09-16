@@ -2,9 +2,9 @@ package com.inditex.rrhh.icmclcwb;
 
 import java.util.TimeZone;
 
-import com.inditex.aqsw.framework.amiga.service.AmigaBootServiceApplication;
+import com.inditex.amigafwk.amiga.service.AmigaBootServiceApplication;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 
 @AmigaBootServiceApplication
