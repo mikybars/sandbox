@@ -1,7 +1,7 @@
 version: 2
 messaging:
   owner:
-    - topic: sscc.global.pre.rhcompensa.calculo-comisiones.public.v1
+    - topic: sscc.global.pre.rhcompensa.commision-calculation.public.v1
       properties:
         partitions: 1
         retention: 1
