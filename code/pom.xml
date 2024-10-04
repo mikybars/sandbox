@@ -22,6 +22,7 @@
     <module>jacoco-report-aggregate</module>
     <module>APPWEB-INCOMEMotorCalculoJava-rest-clients</module>
     <module>APPWEB-INCOMEMotorCalculoJava-soap-clients</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-pipe</module>
   </modules>
 
   <scm>
@@ -87,6 +88,11 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-pipe</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

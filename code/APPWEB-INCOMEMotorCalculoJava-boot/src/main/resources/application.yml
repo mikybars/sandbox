@@ -186,3 +186,16 @@ amiga:
       api:
         problem-details:
           enabled: false
+  data:
+    function:
+      definition: snowflake-data
+    stream:
+      output-bindings: commision-calculation-out-0
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.${metadata.tenant}.${metadata.environment}.rhcompensa.commision-calculation.public.v1
+          content-type: application/*+avro
+          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
