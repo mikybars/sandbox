@@ -11,7 +11,7 @@ on:
     paths: ['code/**', '.github/workflows/code**']
 
 env:
-  WORKFLOW_VERSION: 2.11.2
+  WORKFLOW_VERSION: 2.12.0
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -59,10 +59,20 @@ jobs:
           tool-versions-directory: code
           github-token: ${{ secrets.GH_TOKEN_READER }}
 
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: true
+
       - name: Build & Deploy Snapshots
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
         run: |
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
+          # shellcheck disable=SC2086
           docker run --workdir /app/code \
             -u runner \
             -e DP_USERNAME=${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }} \
@@ -75,4 +85,4 @@ jobs:
             --mount type=bind,src="$(pwd)",dst=/app \
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot
+            mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS

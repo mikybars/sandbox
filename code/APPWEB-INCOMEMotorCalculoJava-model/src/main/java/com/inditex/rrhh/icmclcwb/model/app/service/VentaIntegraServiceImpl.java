@@ -28,6 +28,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VentaIntegraServiceImpl implements VentaIntegraService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(VentaIntegraServiceImpl.class);
+
   @Autowired
   @Qualifier("ventaIntegraClient")
   private RestClient ventaIntegraClient;
@@ -35,8 +37,6 @@ public class VentaIntegraServiceImpl implements VentaIntegraService {
   @Autowired
   @Qualifier("ventaIntegraProperties")
   private VentaIntegraPropertiesDto ventaIntegraProperties;
-
-  private static final Logger LOG = LoggerFactory.getLogger(VentaIntegraServiceImpl.class);
 
   @Override
   public List<VentaIntegraDataResponseDto> getTiendasVentaNoIntegra(final VentaIntegraRequestDto request) {

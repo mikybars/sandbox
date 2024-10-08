@@ -12,7 +12,7 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.11.2
+  WORKFLOW_VERSION: 2.12.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -66,11 +66,22 @@ jobs:
         run: |
           echo "${MAVEN_HOME}/bin" >> "$GITHUB_PATH"
 
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: false
+          skip-cache: ${{ startsWith(github.base_ref, 'main') && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release') && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') }}
+
       - name: Maven / Verify artifact with coverage
         if: ${{ !(contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries')) }}
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
         working-directory: code
         run: |
-          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false
+          # shellcheck disable=SC2086
+          mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false $MVN_BUILD_CACHE_OPTS
 
       - name: Maven / Verify artifact with coverage and deploy PR-versioned SNAPSHOT binaries
         if: ${{ contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries') }}

@@ -48,7 +48,7 @@ on:
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 3.4.0
+  WORKFLOW_VERSION: 3.5.3
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -236,9 +236,7 @@ jobs:
 
   clean-resources:
     name: Clean Resources
-    if: github.event.pull_request.state == 'closed' &&
-        (needs.create-deployment-prs.result == 'success' ||
-        (always() && startsWith(github.event.pull_request.base.ref, 'main')))
+    if: always() && github.event.pull_request.state == 'closed'
     runs-on: ubuntu-20.04
     needs: [create-deployment-prs]
     steps:

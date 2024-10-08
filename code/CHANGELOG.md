@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.65.0] - 2024-09-16
+
+### Added
+
+- [INCOME-486](https://axinic.central.inditex.grp/jira/browse/INCOME-486) [ICMCLCWB] Total de % por reducción en incidenciasSil - VALIDACION
+
+### Dependencies
+
+- [#260](https://github.com/inditex/mic-incomemotorcalculojava/issues/260) Bump com.inditex.amigafwk:amiga-framework from 5.6.6 to 5.10.0 in /code
+
+## [4.64.0] - 2024-09-09
+
+### Added
+
+- [INCOME-484](https://axinic.central.inditex.grp/jira/browse/INCOME-484) Cálculo Álava - Datos intermedios y nuevo algoritmo
+
 ## [4.63.1] - 2024-08-14
 
 ### Fixed
@@ -411,7 +427,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...main
+[4.65.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.64.0...4.65.0
+[4.64.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...4.64.0
 [4.63.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...4.63.1
 [4.63.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...4.63.0
 [4.62.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.1...4.62.2
