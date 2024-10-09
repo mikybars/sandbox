@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -22,15 +23,14 @@ import org.springframework.validation.annotation.Validated;
 public class RunTareaAmbitoValidarExternosSpainServiceImpl extends AbstractRunTareaAmbitoValidarExternos
     implements RunTareaAmbitoValidarExternosSpainService {
 
-  @Autowired
-  private ComisAsyncService comisAsyncService;
+    @Autowired
+    private ComisAsyncService comisAsyncService;
 
-  @Override
-  protected CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(
-      final RunTareaDto runTarea,
-      final TareaAmbitoDto tareaAmbito) {
-    // return this.comisAsyncService.findExternosByMinIdPersona(runTarea, tareaAmbito, AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
-    return CompletableFuture.completedFuture(new ArrayList<>());
-  }
+    @Override
+    protected CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(
+        final RunTareaDto runTarea,
+        final TareaAmbitoDto tareaAmbito) {
+        return CompletableFuture.completedFuture(new ArrayList<>());
+    }
 
 }
