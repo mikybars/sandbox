@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.66.0] - 2024-10-09
+
+### Added
+
+- [INCOME-993](https://axinic.central.inditex.grp/jira/browse/INCOME-993) Recuperación de tramos del siguiente periodo en validacion de bajas
+
+### Dependencies
+
+- [#283](https://github.com/inditex/mic-incomemotorcalculojava/issues/283) Bump com.inditex.amigafwk:amiga-framework from 5.10.0 to 5.10.1 in /code
+
 ## [4.65.0] - 2024-09-16
 
 ### Added
@@ -427,7 +437,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...main
+[4.66.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...4.66.0
 [4.65.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.64.0...4.65.0
 [4.64.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...4.64.0
 [4.63.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...4.63.1
