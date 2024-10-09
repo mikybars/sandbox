@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.19.0
+  WORKFLOW_VERSION: 2.22.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
