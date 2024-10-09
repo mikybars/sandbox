@@ -30,108 +30,115 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExte
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractRunTareaAmbitoValidarExternos {
 
-  @Autowired
-  private ValidacionMapper validacionMapper;
+    @Autowired
+    private ValidacionMapper validacionMapper;
 
-  @Autowired
-  private TareaPersonaExternaMapper tareaPersonaExternaMapper;
+    @Autowired
+    private TareaPersonaExternaMapper tareaPersonaExternaMapper;
 
-  @Autowired
-  private TareaPersonaExternaRepositoryCustom tareaPersonaExternaRepositoryCustom;
+    @Autowired
+    private TareaPersonaExternaRepositoryCustom tareaPersonaExternaRepositoryCustom;
 
-  @Autowired
-  private IncomeMetaService incomeMetaService;
+    @Autowired
+    private IncomeMetaService incomeMetaService;
 
-  @Autowired
-  private ReglaEmpleadoExternoMeta4Service reglaEmpleadoExternoMeta4Service;
+    @Autowired
+    private ReglaEmpleadoExternoMeta4Service reglaEmpleadoExternoMeta4Service;
 
-  @Autowired
-  private ReglaEmpleadoExternoMeta4Mapper reglaEmpleadoExternoMeta4Mapper;
+    @Autowired
+    private ReglaEmpleadoExternoMeta4Mapper reglaEmpleadoExternoMeta4Mapper;
 
-  @Autowired
-  private IdPersonaLocalExternaMapper idPersonaLocalExternaMapper;
+    @Autowired
+    private IdPersonaLocalExternaMapper idPersonaLocalExternaMapper;
 
-  protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
-      TareaAmbitoDto tareaAmbito);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
 
-  public ValidacionDto execute(final RunTareaDto runTarea,
-      final TareaAmbitoDto tareaAmbito,
-      final TareaFaseAccionDto tareaFaseAccion) {
-    final List<CompletableFuture<?>> cf = new ArrayList<>();
-    final CompletableFuture<List<IdPersonaLocalExternaDto>> cfExternos = this.findExternos(runTarea, tareaAmbito);
-    AsyncUtils.exceptionally(cfExternos, cf);
+    protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
+        TareaAmbitoDto tareaAmbito);
 
-    AsyncUtils.waitAllOfIsOk(cf, cf);
+    public ValidacionDto execute(final RunTareaDto runTarea,
+        final TareaAmbitoDto tareaAmbito,
+        final TareaFaseAccionDto tareaFaseAccion) {
+        final List<CompletableFuture<?>> cf = new ArrayList<>();
+        final CompletableFuture<List<IdPersonaLocalExternaDto>> cfExternos = this.findExternos(runTarea, tareaAmbito);
+        AsyncUtils.exceptionally(cfExternos, cf);
 
-    final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
+        AsyncUtils.waitAllOfIsOk(cf, cf);
 
-    final Optional<ReglaEmpleadoExternoMeta4RequestDto> request =
-        Optional.ofNullable(
-            this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
-                runTarea.getTarea().getStdIdLegEnt()));
+        final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
 
-    if (request.isPresent()) {
-      final ExternosRequestDTO req =
-          this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request.get());
-      req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
-      req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
-      final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
+        LOG.info("Tarea[{}] - AbstractRunTareaAmbitoValidarExternos.execute(..)", runTarea.getTarea().getId());
 
-      // Agrupamos por empleado
-      final Map<String, List<EmpleadoExternoDTO>> excluidosMap =
-          excluidosMeta4.stream().collect(groupingBy(EmpleadoExternoDTO::getIdPersonaLocal));
+        final Optional<ReglaEmpleadoExternoMeta4RequestDto> request =
+            Optional.ofNullable(
+                this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
+                    runTarea.getTarea().getStdIdLegEnt()));
 
-      // Iteramos por cada empleado
-      for (final String idPersonaLocal : excluidosMap.keySet()) {
-        final Set<LocalDate> fechasTrabajadas = new HashSet<>();
-        final List<EmpleadoExternoDTO> listaIntervalosEmpExterno = excluidosMap.get(idPersonaLocal);
+        if (request.isPresent()) {
+            final ExternosRequestDTO req =
+                this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request.get());
+            req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
+            req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
+            final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
 
-        // Iteramos por cada intervalo perteneciente al empleado guardando las fechas en las que trabajo
-        listaIntervalosEmpExterno.forEach(intervalo -> {
-          LocalDate iterativeDate = intervalo.getFechaDesde();
-          while (iterativeDate.isBefore(intervalo.getFechaHasta()) || iterativeDate.isEqual(intervalo.getFechaHasta())) {
-            fechasTrabajadas.add(iterativeDate);
-            iterativeDate = iterativeDate.plusDays(1);
-          }
-        });
+            // Agrupamos por empleado
+            final Map<String, List<EmpleadoExternoDTO>> excluidosMap =
+                excluidosMeta4.stream().collect(groupingBy(EmpleadoExternoDTO::getIdPersonaLocal));
 
-        // Ordenamos las fechas de manera ascendente
-        final List<LocalDate> fechasTrabajadasSortedList = new ArrayList<>(fechasTrabajadas);
-        Collections.sort(fechasTrabajadasSortedList);
+            // Iteramos por cada empleado
+            for (final String idPersonaLocal : excluidosMap.keySet()) {
+                final Set<LocalDate> fechasTrabajadas = new HashSet<>();
+                final List<EmpleadoExternoDTO> listaIntervalosEmpExterno = excluidosMap.get(idPersonaLocal);
 
-        // Algoritmo para el cálculo de intervalos comprometidos por las fechas trabajadas
-        LocalDate prevDate = null;
-        LocalDate startDate = null;
+                // Iteramos por cada intervalo perteneciente al empleado guardando las fechas en las que trabajo
+                listaIntervalosEmpExterno.forEach(intervalo -> {
+                    LocalDate iterativeDate = intervalo.getFechaDesde();
+                    while (iterativeDate.isBefore(intervalo.getFechaHasta()) || iterativeDate.isEqual(intervalo.getFechaHasta())) {
+                        fechasTrabajadas.add(iterativeDate);
+                        iterativeDate = iterativeDate.plusDays(1);
+                    }
+                });
 
-        for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
-          if (prevDate != null) {
-            if (i == fechasTrabajadasSortedList.size() || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
-              externos.add(IdPersonaLocalExternaDto.builder()
-                  .idPersonaLocal(idPersonaLocal)
-                  .fechaDesde(startDate)
-                  .fechaHasta(prevDate).build());
-              startDate = null;
+                // Ordenamos las fechas de manera ascendente
+                final List<LocalDate> fechasTrabajadasSortedList = new ArrayList<>(fechasTrabajadas);
+                Collections.sort(fechasTrabajadasSortedList);
+
+                // Algoritmo para el cálculo de intervalos comprometidos por las fechas trabajadas
+                LocalDate prevDate = null;
+                LocalDate startDate = null;
+
+                for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
+                    if (prevDate != null) {
+                        if (i == fechasTrabajadasSortedList.size()
+                            || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
+                            externos.add(IdPersonaLocalExternaDto.builder()
+                                .idPersonaLocal(idPersonaLocal)
+                                .fechaDesde(startDate)
+                                .fechaHasta(prevDate).build());
+                            startDate = null;
+                        }
+                    }
+                    if (startDate == null && i < fechasTrabajadasSortedList.size()) {
+                        startDate = fechasTrabajadasSortedList.get(i);
+                    }
+                    if (i < fechasTrabajadasSortedList.size()) {
+                        prevDate = fechasTrabajadasSortedList.get(i);
+                    }
+                }
             }
-          }
-          if (startDate == null && i < fechasTrabajadasSortedList.size()) {
-            startDate = fechasTrabajadasSortedList.get(i);
-          }
-          if (i < fechasTrabajadasSortedList.size()) {
-            prevDate = fechasTrabajadasSortedList.get(i);
-          }
         }
-      }
+
+        this.tareaPersonaExternaRepositoryCustom
+            .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
+                runTarea.getTarea()));
+
+        return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
     }
-
-    this.tareaPersonaExternaRepositoryCustom
-        .save(this.tareaPersonaExternaMapper.idPersonaLocalExternaToTareaPersonaExterna(externos,
-            runTarea.getTarea()));
-
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
-  }
 
 }
