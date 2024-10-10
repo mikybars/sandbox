@@ -4,7 +4,13 @@ import static java.util.stream.Collectors.groupingBy;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
@@ -30,6 +36,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractRunTareaAmbitoValidarExternos {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
+
   @Autowired
   private ValidacionMapper validacionMapper;
 
@@ -53,8 +61,6 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
   protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
       TareaAmbitoDto tareaAmbito);
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
 
   public ValidacionDto execute(final RunTareaDto runTarea,
       final TareaAmbitoDto tareaAmbito,
