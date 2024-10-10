@@ -1,18 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import static java.util.stream.Collectors.groupingBy;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -29,10 +16,16 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public abstract class AbstractRunTareaAmbitoValidarExternos {
 
@@ -57,10 +50,10 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
   @Autowired
   private IdPersonaLocalExternaMapper idPersonaLocalExternaMapper;
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
-
   protected abstract CompletableFuture<List<IdPersonaLocalExternaDto>> findExternos(final RunTareaDto runTarea,
       TareaAmbitoDto tareaAmbito);
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
 
   public ValidacionDto execute(final RunTareaDto runTarea,
       final TareaAmbitoDto tareaAmbito,
