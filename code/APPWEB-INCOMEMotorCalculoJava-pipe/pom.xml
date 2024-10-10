@@ -47,6 +47,16 @@
       <artifactId>income-income-motor-calculo-java-event-v3-event-unstable</artifactId>
       <version>2.0.0-feature-pipe-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 </project>

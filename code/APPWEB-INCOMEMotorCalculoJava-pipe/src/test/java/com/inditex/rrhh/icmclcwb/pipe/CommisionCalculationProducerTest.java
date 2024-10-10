@@ -31,7 +31,7 @@ class CommisionCalculationProducerTest {
   }
 
   @Test
-  void sendMessage_withValidPayloadAndHeaders_returnsTrue() {
+  void sendMessage() {
     doReturn(true).when(this.eventsProducer).CommisionCalculation(this.event);
     assertTrue(this.producer.sendMessage(this.event));
     verify(this.eventsProducer).CommisionCalculation(this.event);
