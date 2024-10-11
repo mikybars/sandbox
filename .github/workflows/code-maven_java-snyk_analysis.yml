@@ -2,6 +2,12 @@
 name: code-maven-snyk-analysis
 run-name: "Snyk Analysis on branch '${{ github.head_ref || github.ref_name }}'"
 
+permissions:
+  contents: write
+  issues: write
+  actions: write
+  pull-requests: write
+
 concurrency:
   group: code-snyk-analysis-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
@@ -16,14 +22,14 @@ on:
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 2.6.0
+  WORKFLOW_VERSION: 2.8.0
   WORKING_DIR: code
   DOJO_USERNAME: ${{ secrets.SRVC_FTFAUDIT_USER }}
   DOJO_PASSWORD: ${{ secrets.SRVC_FTFAUDIT_PASSWORD }}
 
 jobs:
   snyk-analysis-execution:
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON( vars.RUNSON_SNYK_MAVEN_JAVA_ONPREM || '["self-hosted", "testing-ivm"]' ) }}
     name: Snyk / Analysis execution
     steps:
       - name: Checkout
@@ -32,7 +38,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup IVM environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
@@ -56,7 +62,7 @@ jobs:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
 
       - name: Setup Node version
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           local-directory: code
           tool-name: ivm-node
