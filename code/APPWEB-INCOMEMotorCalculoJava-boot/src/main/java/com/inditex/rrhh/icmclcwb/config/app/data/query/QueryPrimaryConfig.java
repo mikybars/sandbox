@@ -24,6 +24,8 @@ public class QueryPrimaryConfig {
 
   private static final String RESOURCE_COMIS = "classpath*:/query/comis/*.xml";
 
+  private static final String RESOURCE_PIPE = "classpath*:/query/pipe/*.xml";
+
   private static final String RESOURCE_PTR = "classpath*:/query/ptr/*.xml";
 
   private static final String RESOURCE_META4 = "classpath*:/query/meta4/*.xml";
@@ -91,6 +93,11 @@ public class QueryPrimaryConfig {
   @Bean(name = "comisPrimaryQuery")
   public PropertiesFactoryBean comisPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
     return this.loadBean(resourceLoader, RESOURCE_COMIS, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
+  }
+
+  @Bean(name = "pipePrimaryQuery")
+  public PropertiesFactoryBean pipePrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
+    return this.loadBean(resourceLoader, RESOURCE_PIPE, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
   }
 
   @Bean(name = "ptrPrimaryQuery")

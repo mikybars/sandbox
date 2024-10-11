@@ -24,6 +24,10 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-pipe</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-client-soap-api-incomemotorcalculometa</artifactId>
       <version>${project.version}</version>
     </dependency>

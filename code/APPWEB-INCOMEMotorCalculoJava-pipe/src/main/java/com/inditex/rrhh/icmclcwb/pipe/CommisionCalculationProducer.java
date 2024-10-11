@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CommisionCalculationProducer {
 
-    private final CommisionCalculationEventsProducer commisionCalculationEventsProducer;
+  private final CommisionCalculationEventsProducer commisionCalculationEventsProducer;
 
-    public boolean sendMessage(final CommisionCalculationEvent payload, final Header... headers) {
-        return this.commisionCalculationEventsProducer.CommisionCalculation(payload, headers);
-    }
+  public boolean sendMessage(final CommisionCalculationEvent payload, final Header... headers) {
+    return this.commisionCalculationEventsProducer.CommisionCalculation(payload, headers);
+  }
 }

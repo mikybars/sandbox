@@ -13,6 +13,7 @@
   <name>${project.groupId}:${project.artifactId}</name>
 
   <modules>
+    <module>APPWEB-INCOMEMotorCalculoJava-pipe</module>
     <module>APPWEB-INCOMEMotorCalculoJava-api</module>
     <module>APPWEB-INCOMEMotorCalculoJava-model</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
@@ -22,7 +23,6 @@
     <module>jacoco-report-aggregate</module>
     <module>APPWEB-INCOMEMotorCalculoJava-rest-clients</module>
     <module>APPWEB-INCOMEMotorCalculoJava-soap-clients</module>
-    <module>APPWEB-INCOMEMotorCalculoJava-pipe</module>
   </modules>
 
   <scm>
