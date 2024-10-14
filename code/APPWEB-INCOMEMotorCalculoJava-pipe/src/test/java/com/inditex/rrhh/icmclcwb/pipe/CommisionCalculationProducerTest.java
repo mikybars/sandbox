@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
-import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEvent;
+import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEventList;
 import com.inditex.rrhh.icmclcwb.event.pipe.CommisionCalculationEventsProducer;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,11 +23,11 @@ class CommisionCalculationProducerTest {
   @Mock
   private CommisionCalculationEventsProducer eventsProducer;
 
-  private CommisionCalculationEvent event;
+  private CommisionCalculationEventList event;
 
   @BeforeEach
   void setUp() {
-    this.event = new CommisionCalculationEvent();
+    this.event = new CommisionCalculationEventList();
   }
 
   @Test
