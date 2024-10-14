@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.pipe;
 
-import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEvent;
+import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEventList;
 import com.inditex.rrhh.icmclcwb.event.pipe.CommisionCalculationEventsProducer;
 import com.inditex.rrhh.icmclcwb.event.pipe.Header;
 
@@ -15,7 +15,7 @@ public class CommisionCalculationProducer {
 
   private final CommisionCalculationEventsProducer commisionCalculationEventsProducer;
 
-  public boolean sendMessage(final CommisionCalculationEvent payload, final Header... headers) {
+  public boolean sendMessage(final CommisionCalculationEventList payload, final Header... headers) {
     return this.commisionCalculationEventsProducer.CommisionCalculation(payload, headers);
   }
 }
