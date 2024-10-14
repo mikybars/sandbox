@@ -30,9 +30,13 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExte
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractRunTareaAmbitoValidarExternos {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaAmbitoValidarExternos.class);
 
   @Autowired
   private ValidacionMapper validacionMapper;
@@ -109,7 +113,8 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
         for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
           if (prevDate != null) {
-            if (i == fechasTrabajadasSortedList.size() || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
+            if (i == fechasTrabajadasSortedList.size()
+                || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
               externos.add(IdPersonaLocalExternaDto.builder()
                   .idPersonaLocal(idPersonaLocal)
                   .fechaDesde(startDate)

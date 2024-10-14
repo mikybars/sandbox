@@ -124,8 +124,13 @@ updates:
         dependency-type: direct
       - dependency-name: "com.inditex.maven.release:maven-release-strategies"
         dependency-type: direct
+      - dependency-name: "org.apache.maven.extensions:maven-build-cache-extension"
+        dependency-type: direct
       # API artifacts version update
       - dependency-name: "com.inditex.api*"
+        dependency-type: direct
+      # Core platform artifacts version update
+      - dependency-name: "com.inditex.openplatform*"
         dependency-type: direct
     ignore:
       # Ignore major version update
@@ -134,6 +139,10 @@ updates:
       - dependency-name: "com.inditex.darwin.telemetry:darwin-telemetry-maven-extension"
         update-types: ["version-update:semver-major"]
       - dependency-name: "com.inditex.maven.release:maven-release-strategies"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.apache.maven.extensions:maven-build-cache-extension"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "com.inditex.openplatform*"
         update-types: ["version-update:semver-major"]
   - package-ecosystem: "pip"
     rebase-strategy: "disabled"
