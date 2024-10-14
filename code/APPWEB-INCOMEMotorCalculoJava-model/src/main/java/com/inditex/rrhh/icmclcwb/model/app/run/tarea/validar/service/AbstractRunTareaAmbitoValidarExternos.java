@@ -73,8 +73,6 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
 
-    LOG.info("Tarea[{}] - AbstractRunTareaAmbitoValidarExternos.execute(..)", runTarea.getTarea().getId());
-
     final Optional<ReglaEmpleadoExternoMeta4RequestDto> request =
         Optional.ofNullable(
             this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
