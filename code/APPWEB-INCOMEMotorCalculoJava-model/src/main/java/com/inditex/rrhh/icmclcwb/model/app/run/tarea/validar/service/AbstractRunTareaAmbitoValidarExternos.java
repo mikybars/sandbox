@@ -63,8 +63,8 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
       final TareaFaseAccionDto tareaFaseAccion) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalExternaDto>> cfExternos = this.findExternos(runTarea, tareaAmbito);
-
     AsyncUtils.exceptionally(cfExternos, cf);
+
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
@@ -109,7 +109,8 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
         for (int i = 0; i <= fechasTrabajadasSortedList.size(); i++) {
           if (prevDate != null) {
-            if (i == fechasTrabajadasSortedList.size() || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
+            if (i == fechasTrabajadasSortedList.size()
+                || ChronoUnit.DAYS.between(prevDate, fechasTrabajadasSortedList.get(i)) > 1) {
               externos.add(IdPersonaLocalExternaDto.builder()
                   .idPersonaLocal(idPersonaLocal)
                   .fechaDesde(startDate)

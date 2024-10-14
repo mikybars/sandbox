@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.async.service.ComisAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalExternaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
@@ -23,7 +22,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.ReglaEmpleadoExternoMeta4Service;
-import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.IdPersonaLocalExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta4Mapper;
@@ -41,9 +39,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
 class RunTareaAmbitoValidarExternosSpainServiceImplTest {
-
-  @Mock
-  private ComisAsyncService comisAsyncService;
 
   @Mock
   private TareaPersonaExternaRepositoryCustom tareaPersonaExternaRepositoryCustom;
@@ -92,9 +87,6 @@ class RunTareaAmbitoValidarExternosSpainServiceImplTest {
     final ReglaEmpleadoExternoMeta4RequestDto request =
         ReglaEmpleadoExternoMeta4RequestDto.builder().puestos(puestos).idOrganization("2").build();
 
-    when(this.comisAsyncService.findExternosByMinIdPersona(any(RunTareaDto.class), any(TareaAmbitoDto.class),
-        any(Long.class))).thenReturn(cf);
-
     when(this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(any(String.class), any(String.class)))
         .thenReturn(request);
 
@@ -109,8 +101,6 @@ class RunTareaAmbitoValidarExternosSpainServiceImplTest {
 
     this.runTareaAmbitoValidarExternosSpainService.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
-    verify(this.comisAsyncService, timeout(1000).times(1)).findExternosByMinIdPersona(runTareaDto, tareaAmbitoDto,
-        AppConstants.MIN_ID_PERSONA_EXTERNO_ES);
     verify(this.tareaPersonaExternaMapper, timeout(1000).times(1))
         .idPersonaLocalExternaToTareaPersonaExterna(any(List.class), eq(tareaDto));
     verify(this.tareaPersonaExternaRepositoryCustom, timeout(1000).times(1)).save(any(List.class));
