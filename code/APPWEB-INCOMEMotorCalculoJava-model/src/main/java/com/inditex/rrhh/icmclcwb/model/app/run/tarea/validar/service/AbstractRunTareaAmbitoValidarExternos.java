@@ -67,8 +67,8 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
       final TareaFaseAccionDto tareaFaseAccion) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final CompletableFuture<List<IdPersonaLocalExternaDto>> cfExternos = this.findExternos(runTarea, tareaAmbito);
-    AsyncUtils.exceptionally(cfExternos, cf);
 
+    AsyncUtils.exceptionally(cfExternos, cf);
     AsyncUtils.waitAllOfIsOk(cf, cf);
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
