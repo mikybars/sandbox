@@ -2159,7 +2159,7 @@ UNION
                    MAX(end_date) OVER (PARTITION BY PERSONA ORDER BY START_DATE, end_date ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) AS PreviousEndDate
                   FROM CalculatedValues
           ) Groups
-          where start_date <= :fechaHasta
+          where start_date <= :fechaHasta and end_date >= :fechaDesdeAmpliado
   ) Islands
   GROUP BY
       PERSONA,IslandId, VALUE
