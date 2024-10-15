@@ -11,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMigrarMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaMigrarComisionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.pipe.CommisionCalculationProducer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public class TareaMigrarServiceImpl implements TareaMigrarService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TareaMigrarService.class);
 
   @Autowired
   private TareaMigrarMapper tareaMigrarMapper;
@@ -37,6 +41,8 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
   public void migrarCalculoComision(RunTareaDto runTareaDto) {
     final CommisionCalculationEventList eventList = this.tareaMigrarMapper.tareaMigrarComisionDtoListToCommisionCalculationEventList(
         this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
+    LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with size {}  ", runTareaDto.getTrabajo().getId(),
+        runTareaDto.getTarea().getId(), eventList.getEvents().size());
     this.commisionCalculationProducer.sendMessage(eventList);
   }
 }
