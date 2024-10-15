@@ -133,6 +133,7 @@
                       PERIODO.CCL_ID_PERSON,
                       PERIODO.STD_OR_HR_PERIOD,
                       PERIODO.ID_ESTADO,
+                      PERIODO.ID_TAREA_ACTUAL,
                       TAREA.FECHA_INICIO_PERIODO,
                       TAREA.FECHA_FIN_PERIODO,
                       CALCULO.FECHA,
@@ -320,7 +321,7 @@
                       AND PERSONA.FECHA_INICIO_SECCION <= CALCULO.FECHA
                       AND PERSONA.FECHA_FIN_SECCION >= CALCULO.FECHA
                     -- Inicio parametrización
-                    WHERE PERIODO_CALCULO_PERSONA.ID_TAREA_ACTUAL = :idTareaActual
+                    WHERE PERIODO.ID_TAREA_ACTUAL = :idTareaActual
                     -- Fin parametrización
                   GROUP BY
                     PERIODO.ICM_ID_PERIODO,
@@ -342,7 +343,7 @@
                   AND IMPORTE_CALCULO.FECHA = CALCULO.FECHA
                   AND IMPORTE_CALCULO.ID_TIPO_COMISION = ESTRUCTURA.ICM_ID_TP_COMISION
 				-- Inicio parametrización
-			      WHERE PERIODO_CALCULO_PERSONA.ID_TAREA_ACTUAL = :idTareaActual
+			      WHERE PERIODO.ID_TAREA_ACTUAL = :idTareaActual
 				-- Fin parametrización
                 )
               GROUP BY
