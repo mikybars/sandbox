@@ -43,14 +43,14 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.15.2
+  WORKFLOW_VERSION: 2.12.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r1
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r0
   SCM_EMAIL: srvcibot@inditex.com
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   SCM_USERNAME: butler-ci-bot
@@ -65,7 +65,7 @@ jobs:
       || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
         || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
-    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
+    runs-on: ubuntu-20.04
     steps:
       - name: Get input parameters
         run: |
@@ -162,7 +162,7 @@ jobs:
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
           ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r4
           ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code

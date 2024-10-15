@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.67.0] - 2024-10-14
+
+### Added
+
+- [INCOME-969](https://axinic.central.inditex.grp/jira/browse/INCOME-969) Eliminación de validación de externos en Personal para España
+- [#305](https://github.com/inditex/mic-incomemotorcalculojava/issues/305) Main to develop
+- [#302](https://github.com/inditex/mic-incomemotorcalculojava/issues/302) Revert "Prepare release"
+- [#301](https://github.com/inditex/mic-incomemotorcalculojava/issues/301) Prepare release
+
 ## [4.66.0] - 2024-10-09
 
 ### Added
@@ -437,7 +446,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.67.0...main
+[4.67.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...4.67.0
 [4.66.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...4.66.0
 [4.65.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.64.0...4.65.0
 [4.64.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...4.64.0
