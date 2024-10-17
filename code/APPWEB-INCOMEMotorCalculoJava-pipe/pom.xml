@@ -44,8 +44,8 @@
     </dependency>
     <dependency>
       <groupId>com.inditex.api</groupId>
-      <artifactId>income-income-motor-calculo-java-event-v3-event-unstable</artifactId>
-      <version>2.0.0-feature-pipe-SNAPSHOT</version>
+      <artifactId>income-income-motor-calculo-java-event-v3-event-stable</artifactId>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
