@@ -438,6 +438,10 @@ amiga:
           username: ncomis
           data-source-properties:
             encrypt: false
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.pro.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:
@@ -448,7 +452,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepro          
+              client-id: oauthincomepro
 app:
   envars:
     mail:

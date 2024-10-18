@@ -482,6 +482,10 @@ amiga:
           readOnly: true
           data-source-properties:
             encrypt: false
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:
@@ -492,7 +496,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepre          
+              client-id: oauthincomepre
 app:
   envars:
     mail:

@@ -479,6 +479,10 @@ amiga:
           readOnly: true
           data-source-properties:
             encrypt: false
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.des.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:

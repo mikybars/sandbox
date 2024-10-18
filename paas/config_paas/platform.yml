@@ -50,3 +50,5 @@ amq:
   slot: icmclcwb
   scheduler:
     enabled: true
+pipe:
+  enabled: true
