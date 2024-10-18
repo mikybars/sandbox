@@ -186,9 +186,6 @@ amiga:
       api:
         problem-details:
           enabled: false
-  data:
-    function:
-      definition: snowflake-data
     stream:
       output-bindings: commision-calculation-out-0
       bindings:
