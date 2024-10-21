@@ -320,9 +320,7 @@
                       AND PERSONA.FECHA_FIN_LOCALIZACION >= CALCULO.FECHA
                       AND PERSONA.FECHA_INICIO_SECCION <= CALCULO.FECHA
                       AND PERSONA.FECHA_FIN_SECCION >= CALCULO.FECHA
-                    -- Inicio parametrización
                     WHERE PERIODO.ID_TAREA_ACTUAL = :idTareaActual
-                    -- Fin parametrización
                   GROUP BY
                     PERIODO.ICM_ID_PERIODO,
                     PERIODO.CCL_ID_ORIGEN,
@@ -342,9 +340,7 @@
                   AND IMPORTE_CALCULO.STD_OR_HR_PERIOD = PERIODO.STD_OR_HR_PERIOD
                   AND IMPORTE_CALCULO.FECHA = CALCULO.FECHA
                   AND IMPORTE_CALCULO.ID_TIPO_COMISION = ESTRUCTURA.ICM_ID_TP_COMISION
-				-- Inicio parametrización
-			      WHERE PERIODO.ID_TAREA_ACTUAL = :idTareaActual
-				-- Fin parametrización
+			        WHERE PERIODO.ID_TAREA_ACTUAL = :idTareaActual
                 )
               GROUP BY
               ICM_ID_PERIODO,

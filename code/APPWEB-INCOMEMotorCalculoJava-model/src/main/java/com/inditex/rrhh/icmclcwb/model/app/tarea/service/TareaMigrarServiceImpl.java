@@ -39,6 +39,13 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
 
   @Override
   public void migrarCalculoComision(RunTareaDto runTareaDto) {
+    try {
+      this.findCalculoComisionByTareaActual(runTareaDto.getTarea());
+    } catch (final Exception e) {
+      LOG.error("[{}] [{}] :: Error invoking producer to migrate commission calculation", runTareaDto.getTrabajo().getId(),
+          runTareaDto.getTarea().getId(), e);
+      throw e;
+    }
     final CommisionCalculationEventList eventList = this.tareaMigrarMapper.tareaMigrarComisionDtoListToCommisionCalculationEventList(
         this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
     LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with size {}  ", runTareaDto.getTrabajo().getId(),
