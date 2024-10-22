@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-  <entry key="TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaAcual">
+  <entry key="TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual">
       <![CDATA[
       SELECT
         ICM_ID_PERIODO,
