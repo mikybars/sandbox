@@ -18,7 +18,7 @@ public class TareaMigrarComisionRepositoryCustomImpl
     extends JdbcBatchComisRepositoryAbstract<Integer>
     implements TareaMigrarComisionRepositoryCustom {
 
-  @Value("#{primaryQuery['TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual']}")
+  @Value("#{pipePrimaryQuery['TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual']}")
   private String sqlFindCalculoComision;
 
   @Override
