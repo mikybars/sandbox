@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,5 +47,28 @@ class RunTareaMigrarServiceImplTest {
     this.runTareaMigrarService.run(runTarea);
 
     verify(this.runTareaMigrarAsyncService, times(1)).migrarListCalculoComision(runTarea);
+  }
+
+  @Test
+  void runShouldInvokeMigrarListCalculoComisionCatch1() {
+      final RunTareaDto runTarea = this.createRunTarea();
+      when(runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
+
+      Exception exception = assertThrows(Exception.class, () -> {
+          this.runTareaMigrarService.run(runTarea);
+      });
+
+      assertTrue(exception instanceof RuntimeException);
+  }
+
+    @Test
+    void runShouldInvokeMigrarListCalculoComisionCatch() {
+        final RunTareaDto runTarea = this.createRunTarea();
+        final CompletableFuture<Void> future = CompletableFuture.completedFuture(null);
+        when(this.runTareaMigrarAsyncService.migrarListCalculoComision(runTarea)).thenReturn(future);
+        when(runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
+        this.runTareaMigrarService.run(runTarea);
+
+
   }
 }
