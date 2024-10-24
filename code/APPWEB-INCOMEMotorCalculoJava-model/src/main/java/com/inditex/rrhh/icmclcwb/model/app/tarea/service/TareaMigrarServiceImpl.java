@@ -29,7 +29,6 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
   @Autowired
   private TareaMigrarComisionRepositoryCustom tareaMigrarComisionRepositoryCustom;
 
-  @Autowired
   private CommisionCalculationProducer commisionCalculationProducer;
 
   @Override
