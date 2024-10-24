@@ -5,7 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPipeConstants;
-import com.inditex.rrhh.icmclcwb.model.comis.repository.JdbcBatchComisRepositoryAbstract;
+import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Slf4j
 public class TareaMigrarComisionRepositoryCustomImpl
-    extends JdbcBatchComisRepositoryAbstract<Integer>
+    extends JdbcBatchPrimaryRepositoryAbstract<Integer>
     implements TareaMigrarComisionRepositoryCustom {
 
   @Value("#{pipePrimaryQuery['TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual']}")
