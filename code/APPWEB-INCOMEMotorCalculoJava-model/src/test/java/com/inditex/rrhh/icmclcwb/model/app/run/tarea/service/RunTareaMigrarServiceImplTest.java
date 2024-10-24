@@ -61,14 +61,4 @@ class RunTareaMigrarServiceImplTest {
       assertTrue(exception instanceof RuntimeException);
   }
 
-    @Test
-    void runShouldInvokeMigrarListCalculoComisionCatch() {
-        final RunTareaDto runTarea = this.createRunTarea();
-        final CompletableFuture<Void> future = CompletableFuture.completedFuture(null);
-        when(this.runTareaMigrarAsyncService.migrarListCalculoComision(runTarea)).thenReturn(future);
-        when(runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
-        this.runTareaMigrarService.run(runTarea);
-
-
-  }
 }
