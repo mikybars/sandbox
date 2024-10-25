@@ -29,6 +29,7 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
   @Autowired
   private TareaMigrarComisionRepositoryCustom tareaMigrarComisionRepositoryCustom;
 
+  @Autowired
   private CommisionCalculationProducer commisionCalculationProducer;
 
   @Override
@@ -43,6 +44,11 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
           this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
       LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
+      if (this.commisionCalculationProducer == null) {
+        LOG.info("Producer is null");
+      } else {
+        LOG.info("Producer [{}] loaded with {} events", this.commisionCalculationProducer, eventList.getEvents().size());
+      }
       this.commisionCalculationProducer.sendMessage(eventList);
     } catch (final Exception e) {
       LOG.error("[{}] [{}] :: Error invoking producer to migrate commission calculation", runTareaDto.getTrabajo().getId(),
