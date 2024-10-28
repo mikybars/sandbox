@@ -23,7 +23,9 @@ updates:
   # AMIGA Fwk Web (SPA)
   - package-ecosystem: npm
     rebase-strategy: "disabled"
-    directory: /code
+    directories:
+      - "/code"
+      - "/code/frontend"
     schedule:
       interval: weekly
       time: "02:00"
@@ -46,51 +48,16 @@ updates:
           - "minor"
           - "patch"
     allow:
-        # Eslint config for Inditex
+      # Eslint config for Inditex
       - dependency-name: "@inditex/eslint-config"
         dependency-type: direct
-        # AMIGA Fwk Web Data Viz
+      # AMIGA Fwk Web Data Viz
       - dependency-name: "@amiga-fwk-web/components-data-viz"
         dependency-type: direct
-        # AMIGA Fwk Node.js
+      # AMIGA Fwk Node.js
       - dependency-name: "@amiga-fwk-nodejs/*"
         dependency-type: direct
-        # AMIGA Fwk Web
-      - dependency-name: "@amiga-fwk-web/*"
-        dependency-type: direct
-    ignore:
-      # Ignore major version update
-      - dependency-name: "@amiga-fwk-web/components-data-viz"
-        update-types: ["version-update:semver-major"]
-    labels:
-      - kind/dependency
-  # AMIGA Fwk Web (WEB)
-  - package-ecosystem: npm
-    rebase-strategy: "disabled"
-    directory: /code/frontend
-    schedule:
-      interval: weekly
-      time: "02:00"
-      timezone: UTC
-    registries:
-      - inditex-npm
-    groups:
-      amiga-web-dependencies:
-        patterns:
-          - "@amiga-fwk-web/*"
-        update-types:
-          - "minor"
-          - "patch"
-        exclude-patterns:
-          - "@amiga-fwk-web/components-data-viz"
-    allow:
-        # Eslint config for Inditex
-      - dependency-name: "@inditex/eslint-config"
-        dependency-type: direct
-        # AMIGA Fwk Web Data Viz
-      - dependency-name: "@amiga-fwk-web/components-data-viz"
-        dependency-type: direct
-        # AMIGA Fwk Web
+      # AMIGA Fwk Web
       - dependency-name: "@amiga-fwk-web/*"
         dependency-type: direct
     ignore:
@@ -110,10 +77,10 @@ updates:
     registries:
       - inditex-npm
     allow:
-        # Eslint config for Inditex
+      # Eslint config for Inditex
       - dependency-name: "@inditex/eslint-config"
         dependency-type: direct
-        # AMIGA Tech Docs
+      # AMIGA Tech Docs
       - dependency-name: "@amigatechdocs/*"
         dependency-type: direct
     groups:
@@ -141,6 +108,8 @@ updates:
       - dependency-name: "com.inditex.aqsw.framework.amiga:amiga-framework"
         dependency-type: direct
       - dependency-name: "com.inditex.aqsw.amiga.javaformat:amiga-javaformat-maven-plugin"
+        dependency-type: direct
+      - dependency-name: "com.inditex.libamfmt:amiga-javaformat-maven-plugin"
         dependency-type: direct
       - dependency-name: "com.inditex.aqsw.pipeclie:pipe-starter-kafka"
         dependency-type: direct
@@ -185,6 +154,9 @@ updates:
       - dependency-name: "amigapythonci"
         dependency-type: direct
       - dependency-name: "amigamlserver"
+        dependency-type: direct
+      # Version Catalog
+      - dependency-name: "version_catalog"
         dependency-type: direct
     ignore:
       # Ignore major version update

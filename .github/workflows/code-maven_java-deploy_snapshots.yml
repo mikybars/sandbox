@@ -44,11 +44,11 @@ on:
 
   pull_request:
     types: [synchronize, labeled, closed]
-    branches: ['develop', 'main', 'develop-*', 'main-*']
+    branches-ignore: [deployment]
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 2.11.0
+  WORKFLOW_VERSION: 3.6.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -60,15 +60,20 @@ env:
 jobs:
   identify-changes:
     name: Identify Changes
-    if: (github.event_name == 'workflow_dispatch')
-      || ((github.event.action == 'synchronize' || github.event.action == 'labeled')
-        && contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed')
-      || (github.event.action == 'closed' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.base.ref, 'develop') && (vars.DEVELOPMENT_FLOW != 'trunk-based-development'))
+    if: (github.event_name == 'workflow_dispatch') ||
+        ((github.event.action == 'synchronize' || github.event.action == 'labeled') &&
+        contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') ||
+        (github.event.action == 'closed' && github.event.pull_request.merged == true && !startsWith(github.event.pull_request.base.ref, 'main'))
     runs-on: ubuntu-20.04
 
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
+      exists-latest-image: ${{ steps.check-image.outputs.exists_latest_image }}
+      supraenv: ${{ steps.deploy-vars.outputs.SUPRAENVS }}
+      labels: ${{ steps.deploy-vars.outputs.LABELS }}
+      additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
+      app-version: ${{ steps.version.outputs.version }}
 
     steps:
       - name: Checkout merge commit
@@ -83,6 +88,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+
+      - name: Annotate the origin trigger
+        if: ${{ inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' }}
+        run: |
+          echo "::notice title=Deployment triggered from: ::https://github.com/${GITHUB_REPOSITORY}/pull/${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}"
 
       - name: Check code changes
         uses: inditex/actions/deployment/identify-changes@main
@@ -98,22 +108,52 @@ jobs:
           tag-suffix: "last-build"
           paths: "paas"
 
-  build-and-promote:
-    name: Build & Promote
+      - name: Check if last image exists in the DP via sentcli
+        uses: inditex/gha-paasdeployment/check-latest-image@main
+        id: check-image
+        with:
+          token: ${{ secrets.GH_TOKEN_READER }}
+          dp_username: ${{ env.DP_USERNAME }}
+          dp_token: ${{ env.DP_TOKEN }}
+
+      - name: Set deployment configuration
+        id: deploy-vars
+        run: |
+          echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
+          echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event.pull_request.state }}" != "closed" ] && [ "${{ contains(github.event.pull_request.labels.*.name, 'autodeploy') }}" == "true" ]; then
+            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy"}' >> "$GITHUB_OUTPUT"
+          elif
+            [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'"}'
+            echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
+          else
+            ADDITIONAL_ARGS="{'STRATEGY': '${{ inputs.STRATEGY }}','PERCENTAGE': '${{ inputs.PERCENTAGE }}','CONFIG_REF': ''}"
+            echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Store project version
+        shell: python
+        id: version
+        run: |
+          import xml.etree.ElementTree as ET
+          import os
+
+          root = ET.parse('./code/pom.xml').getroot()
+          namespace = root.tag.rpartition('}')[0] + '}'
+          version = root.find(f'{namespace}version').text
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'version={version}\n')
+
+  validate-slots:
+    name: Validate Slots
     runs-on: ubuntu-20.04
     needs: [identify-changes]
+    outputs:
+      slots: ${{ steps.slot.outputs.slots }}
 
     steps:
-      - name: Checkout merge commit
-        if: github.event.pull_request.merged == true
-        uses: actions/checkout@v4
-
-      - name: Checkout head branch
-        if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
       - name: Ensure slot is present
         id: slot
         env:
@@ -128,7 +168,6 @@ jobs:
             fi
           fi
           echo "slots=${slots}" >> "$GITHUB_OUTPUT"
-
       - name: Validate slots
         id: validate-slots
         uses: inditex/actions/deployment/validate-slots@main
@@ -137,10 +176,10 @@ jobs:
           strategy: ${{ github.event.inputs.STRATEGY }}
 
       - name: Add comment when the slot is not valid
-        if: ${{ github.event.inputs.ISSUE_NUMBER != '' && steps.validate-slots.outputs.error-message != '' }}
+        if: ${{ ( github.event.inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' ) && steps.validate-slots.outputs.error-message != '' }}
         uses: inditex/gha-citool/add-comment@v0
         with:
-          issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER || github.event.pull_request.number }}'
           body: |
             #### :x: An error has ocurred validating the slots.
 
@@ -156,177 +195,6 @@ jobs:
           echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}"
           exit 1
 
-      - name: Check if last image exists in the DP via sentcli
-        uses: inditex/gha-paasdeployment/check-latest-image@main
-        id: check-image
-        with:
-          token: ${{ secrets.GH_TOKEN_READER }}
-          dp_username: ${{ env.DP_USERNAME }}
-          dp_token: ${{ env.DP_TOKEN }}
-
-      - name: Store cache
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        uses: actions/cache@v4
-        continue-on-error: true
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Setup asdf Cache
-        uses: actions/cache@v4
-        continue-on-error: true
-        with:
-          path: ~/.asdf/data
-          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
-          restore-keys: |
-            ${{ runner.os }}-asdf-
-
-      - name: Log in to GitHub Registry
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
-
-      - name: Log in to JFrog Registry
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
-
-      - name: Store project version
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        shell: python
-        id: version
-        run: |
-          import xml.etree.ElementTree as ET
-          import os
-
-          root = ET.parse('./code/pom.xml').getroot()
-          namespace = root.tag.rpartition('}')[0] + '}'
-          version = root.find(f'{namespace}version').text
-          github_output = os.getenv('GITHUB_OUTPUT')
-          with open(github_output, "a") as gh_out:
-            gh_out.write(f'app-version={version}\n')
-
-      - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
-        env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
-        with:
-          tool-versions-directory: code
-
-      - name: Build Artifact
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        run: |
-          mkdir -p "$HOME"/.m2/repository
-          mkdir -p "$HOME"/.asdf/data
-          docker run --workdir /app/code \
-            -u runner \
-            -e DP_USERNAME="${DP_USERNAME}" \
-            -e DP_TOKEN="${DP_TOKEN}" \
-            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
-            -e NPM_EMAIL -e NPM_AUTH \
-            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
-            --mount type=bind,src="$(pwd)",dst=/app \
-            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
-            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
-            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -B clean install -DskipTests -Dbuild.type=snapshot
-
-      - name: Generate Maven Reactor List (necessary in Sentinel)
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        run: |
-          docker run --workdir /app/code \
-            -u runner \
-            -e DP_USERNAME="${DP_USERNAME}" \
-            -e DP_TOKEN="${DP_TOKEN}" \
-            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
-            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
-            --mount type=bind,src="$(pwd)",dst=/app \
-            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
-            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
-            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -q -Dexec.executable=echo -Dexec.args='${project.groupId},${project.artifactId},${project.version},${project.parent.basedir},${project.basedir},${project.build.directory}/${project.build.finalName}.${project.packaging}' exec:exec | tee code/maven_reactor_list.csv
-
-      - name: Sentinel - Create Dockerfile
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        id: sentinel
-        uses: inditex/actions/sentinel@main
-        with:
-          app-version: ${{ steps.version.outputs.app-version }}
-          working-directory: code
-          token: ${{ secrets.GH_TOKEN_READER }}
-        env:
-          IMAGE_BUILD_TYPE: snapshot
-          MERGED: ${{ github.event.pull_request.merged }}
-
-      - name: Build and push artifact
-        if: needs.identify-changes.outputs.code-changes == 'true' || steps.check-image.outputs.exists_latest_image == 'false'
-        uses: inditex/actions/docker/build-and-push@main
-        with:
-          registry: ${{ steps.sentinel.outputs.image-registry }}
-          token: ${DP_TOKEN}
-          image-name: projects/${{ steps.sentinel.outputs.image-name }}
-          tags: ${{ steps.sentinel.outputs.image-tags }}
-          path: code
-          dockerfile: code/Dockerfile
-
-      - name: Dispatch promote workflow with workflow_dispatch
-        if: github.event_name == 'workflow_dispatch'
-        uses: benc-uk/workflow-dispatch@798e70c97009500150087d30d9f11c5444830385
-        with:
-          workflow: paas-promote
-          ref: ${{ github.ref_name }}
-          inputs: |
-            {
-              "SUPRAENVS": "${{ github.event.inputs.SUPRAENVS }}",
-              "ENVS": "${{ github.event.inputs.ENVS }}",
-              "PLATFORMS": "${{ github.event.inputs.PLATFORMS }}",
-              "TENANTS": "${{ github.event.inputs.TENANTS }}",
-              "SLOTS": "${{ steps.slot.outputs.slots }}",
-              "LABELS": "${{ github.event.inputs.LABELS }}",
-              "VERSION": "latest",
-              "ISSUE_NUMBER": "${{ github.event.inputs.ISSUE_NUMBER }}",
-              "ADDITIONAL_ARGS": "{'STRATEGY': '${{ github.event.inputs.STRATEGY }}','PERCENTAGE': '${{ github.event.inputs.PERCENTAGE }}','CONFIG_REF': ''}"
-            }
-
-      - name: Dispatch promote workflow with autodeploy label
-        if: contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed'
-        uses: benc-uk/workflow-dispatch@798e70c97009500150087d30d9f11c5444830385
-        with:
-          workflow: paas-promote
-          ref: ${{ github.head_ref }}
-          inputs: |
-            {
-              "SUPRAENVS": "des,pre,pro",
-              "SLOTS": "${{ steps.slot.outputs.slots }}",
-              "LABELS": "auto-approval",
-              "VERSION": "latest",
-              "ISSUE_NUMBER": "${{github.event.pull_request.number}}",
-              "ADDITIONAL_ARGS": "{'TRIGGER': 'autodeploy'}"
-            }
-
-      - name: Dispatch promote workflow after merge
-        if: github.event.pull_request.merged == true
-        uses: benc-uk/workflow-dispatch@798e70c97009500150087d30d9f11c5444830385
-        with:
-          workflow: paas-promote
-          ref: ${{ github.base_ref }}
-          inputs: |
-            {
-              "SUPRAENVS": "des,pre,pro",
-              "SLOTS": "${{ steps.slot.outputs.slots }}",
-              "LABELS": "auto-approval",
-              "VERSION": "latest",
-              "ISSUE_NUMBER": "${{github.event.pull_request.number}}",
-              "ADDITIONAL_ARGS": "{'TRIGGER': 'merged_pr'}"
-            }
-
-      - name: Create tag from identify-changes
-        uses: inditex/actions/deployment/move-build-tag@main
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create a Workflow Status Check to link this execution with a PR
         if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
         uses: inditex/gha-citool/create-status-check@v0
@@ -339,17 +207,41 @@ jobs:
             `${{ github.workflow_ref }}`
             You can find more details in the link below :arrow_down:
 
+
+  build-deployable:
+    name: CI
+    needs: [identify-changes, validate-slots]
+    if: ${{ needs.identify-changes.outputs.code-changes == 'true' || needs.identify-changes.outputs.exists-latest-image == 'false' }}
+    uses: ./.github/workflows/paas-maven_java-build_deployable.yml
+    with:
+      VERSION: ${{ needs.identify-changes.outputs.app-version }}
+    secrets: inherit
+
+  create-deployment-prs:
+    needs: [identify-changes, validate-slots, build-deployable]
+    if: ${{ !failure() && !cancelled() && (needs.identify-changes.result == 'success' && needs.validate-slots.result == 'success' && (needs.build-deployable.result == 'success' || needs.build-deployable.result == 'skipped')) }}
+    name: CD
+    uses: ./.github/workflows/paas-promote.yml
+    with:
+      SUPRAENVS: ${{ inputs.SUPRAENVS || needs.identify-changes.outputs.supraenv }}
+      ENVS: ${{ inputs.ENVS }}
+      PLATFORMS: ${{ inputs.PLATFORMS }}
+      TENANTS: ${{ inputs.TENANTS }}
+      SLOTS: ${{ needs.validate-slots.outputs.slots }}
+      LABELS: ${{ inputs.LABELS || needs.identify-changes.outputs.labels }}
+      VERSION: "latest"
+      ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}
+      ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
+    secrets: inherit
+
   clean-resources:
     name: Clean Resources
-    if: github.event.pull_request.state == 'closed'
+    if: always() && github.event.pull_request.state == 'closed'
     runs-on: ubuntu-20.04
-    needs: [build-and-promote]
+    needs: [create-deployment-prs]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Log in to JFrog Registry
-        run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
 
       - name: Clean up last build tag on closed PR
         uses: inditex/actions/deployment/clean-up-build-tag@main

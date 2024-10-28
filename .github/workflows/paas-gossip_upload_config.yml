@@ -6,10 +6,10 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 2.3.0
+  WORKFLOW_VERSION: 3.1.0
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
   GOSSIP_SERVER_USER: oauthtoolgossippro
-  GOSSIP_SERVER_PASS: cyberark.AX-N-APP-TOOLGOSSIP.OAUTH2ClientsPRO_oauthtoolgossippro
+  GOSSIP_SERVER_PASS: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro
 
 jobs:
   upload-config:
@@ -21,8 +21,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Launch Gossip Server request
-        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v7
+        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v11
         with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           gossip-server-url: ${{ env.GOSSIP_SERVER_URL }}
           gossip-server-username: ${{ env.GOSSIP_SERVER_USER }}
           gossip-server-password: "${{ env.GOSSIP_SERVER_PASS }}"

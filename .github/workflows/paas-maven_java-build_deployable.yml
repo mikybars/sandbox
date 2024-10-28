@@ -3,9 +3,14 @@ name: paas-build-deployable
 run-name: "Build deployable with version=${{ inputs.VERSION || github.event.release.tag_name }}"
 
 concurrency:
-  group: "promote-main-${{ github.event.release.tag_name || github.event.inputs.VERSION }}"
+  group: "promote-main-${{ github.event.release.tag_name || inputs.VERSION }}"
 
 on:
+  workflow_call:
+    inputs:
+      VERSION:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       VERSION:
@@ -17,37 +22,72 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.11.0
+  WORKFLOW_VERSION: 3.6.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
   GITHUB_REGISTRY: ghcr.io
-  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
-  ASDF_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
 
 jobs:
+  set-destination-branch:
+    name: Get Destination Branch
+    runs-on: ubuntu-20.04
+    outputs:
+      release-branch: ${{ steps.release-branch.outputs.release-branch }}
+    steps:
+      - name: Checkout repository
+        if: ${{ github.event_name == 'release' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract / Destination Branch from TAG
+        if: ${{ github.event_name == 'release' }}
+        id: release-branch
+        run: |
+          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep main | cut -d '/' -f 2)
+          echo "release-branch=$branch_name" >> "$GITHUB_OUTPUT"
+
   identify-changes:
     name: Identify Changes
+    needs: [set-destination-branch]
     runs-on: ubuntu-20.04
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
       release-version: ${{ steps.release-version.outputs.release-version }}
+      supraenv: ${{ steps.deploy-vars.outputs.SUPRAENVS }}
+      labels: ${{ steps.deploy-vars.outputs.LABELS }}
+      additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
+      pr-number: ${{ steps.get-last-merged-pr.outputs.pr-number }}
     steps:
       - name: Get released version from Github event
         id: release-version
         run: |
           RELEASE_TAG_NAME=${{ github.event.release.tag_name }}
-          INPUT_VERSION=${{ github.event.inputs.VERSION }}
+          INPUT_VERSION=${{ inputs.VERSION }}
           echo "release-version=${RELEASE_TAG_NAME:-$INPUT_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.release-version.outputs.release-version }}
           fetch-depth: 0
 
+      - name: Get the last merged PR number
+        if: ${{ github.event_name == 'release' }}
+        uses: inditex/gha-paasdeployment/get-last-merged-pr@v0
+        id: get-last-merged-pr
+        with:
+          branch-name: ${{ needs.set-destination-branch.outputs.release-branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Check code changes
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: inditex/actions/deployment/identify-changes@main
         id: "check-code-changes"
         with:
@@ -55,22 +95,53 @@ jobs:
           paths: "code"
 
       - name: Check config changes
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         uses: inditex/actions/deployment/identify-changes@main
         id: "check-config-changes"
         with:
           tag-suffix: last-build
           paths: "paas"
 
+      - name: Set deployment configuration
+      # This step is necessary for the autodeploy when main branch is in the deploy_on.merge_to paas/deployments.yml
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
+        id: deploy-vars
+        run: |
+          echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
+          echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
+          ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ needs.set-destination-branch.outputs.release-branch }}'"}'
+          echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
+
   build-deployable:
     name: PaaS / Build Deployable & Promote
     needs: [identify-changes]
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout merge commit
+        if: github.event.pull_request.merged == true
+        uses: actions/checkout@v4
+
+      - name: Checkout head branch
+        if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Checkout
         uses: actions/checkout@v4
+        if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         with:
           ref: ${{ needs.identify-changes.outputs.release-version }}
           fetch-depth: 0
+
+      - name: Set deploy vars
+        id: set-deploy-vars
+        run: |
+          if [[ "${{ !contains(inputs.VERSION, 'SNAPSHOT') }}" == 'true' ]] || [[ "${{ github.event.release.tag_name }}" != '' ]]; then
+            echo "APP_VERSION=release" >> "$GITHUB_OUTPUT"
+          else
+            echo "APP_VERSION=snapshot" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
@@ -96,6 +167,39 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-asdf-
 
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+        with:
+          tool-versions-directory: code
+          filter-types: "paas"
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Build artifact
+        shell: bash
+        if: ${{ steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          docker run --workdir /app/code \
+            -u runner \
+            -e DP_USERNAME="${DP_USERNAME}" \
+            -e DP_TOKEN="${DP_TOKEN}" \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            -e MAVEN_OPTS \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -B clean install -DskipTests -Dbuild.type=snapshot
+        env:
+          MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Ddarwin-telemetry-maven-extension.output=json"
+
       - name: Checkout Released Tag and Generate Maven Reactor List
         run: |
           mkdir -p "$HOME"/.m2/repository
@@ -110,19 +214,22 @@ jobs:
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
             sh -c "\
-              mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec && \
-              mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec && \
+              if [ ${{ steps.set-deploy-vars.outputs.APP_VERSION }} = 'release' ]; then \
+                mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec; \
+                mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec; \
+              fi; \
               mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv"
 
       - name: Sentinel - Generate Dockerfile
         id: sentinel
-        uses: inditex/actions/sentinel@main
+        uses: inditex/gha-paasdeployment/sentinel@v0
         with:
           app-version: ${{ needs.identify-changes.outputs.release-version }}
           working-directory: code
           token: ${{ secrets.GH_TOKEN_READER }}
         env:
-          IMAGE_BUILD_TYPE: release
+          IMAGE_BUILD_TYPE: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
+          MERGED: ${{ github.event.pull_request.merged }}
 
       - name: Build and Push Docker image
         uses: inditex/actions/docker/build-and-push@main
@@ -140,3 +247,29 @@ jobs:
         uses: inditex/actions/deployment/move-build-tag@main
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: ${{ always() && !cancelled() && steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "paas-build-deployable-${{ inputs.VERSION }}"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+            You can find more details in the link below :arrow_down:
+
+  create-deployment-prs:
+    needs: [identify-changes, build-deployable]
+    if: ${{ github.event_name == 'release' && !failure() && !cancelled() && needs.identify-changes.result == 'success' && needs.build-deployable.result == 'success' }}
+    name: CD
+    uses: ./.github/workflows/paas-promote.yml
+    with:
+      SUPRAENVS: ${{ needs.identify-changes.outputs.supraenv }}
+      SLOTS: default
+      LABELS: ${{ needs.identify-changes.outputs.labels }}
+      VERSION: "${GITHUB_REF#refs/tags/}"
+      ISSUE_NUMBER: ${{ needs.identify-changes.outputs.pr-number }}
+      ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
+    secrets: inherit

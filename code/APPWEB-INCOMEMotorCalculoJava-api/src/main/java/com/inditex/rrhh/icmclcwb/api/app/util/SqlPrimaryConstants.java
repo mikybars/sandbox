@@ -194,6 +194,12 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES = "idTipoDatoImporteComisionVendedores";
 
+  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION_PERSONA =
+      "idTipoDatoJornadaLocalizacionPersona";
+
+  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION =
+      "idTipoDatoJornadaLocalizacion";
+
   public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
   public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";

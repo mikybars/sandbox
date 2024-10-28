@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.68.0] - 2024-10-15
+
+### Added
+
+- [INCOME-1019](https://axinic.central.inditex.grp/jira/browse/INCOME-1019) Revision empleado 98438
+
+### Dependencies
+
+- [#299](https://github.com/inditex/mic-incomemotorcalculojava/issues/299) Bump com.inditex.amigafwk:amiga-framework from 5.10.1 to 5.10.2 in /code
+
+## [4.67.0] - 2024-10-14
+
+### Added
+
+- [INCOME-969](https://axinic.central.inditex.grp/jira/browse/INCOME-969) Eliminación de validación de externos en Personal para España
+- [#305](https://github.com/inditex/mic-incomemotorcalculojava/issues/305) Main to develop
+- [#302](https://github.com/inditex/mic-incomemotorcalculojava/issues/302) Revert "Prepare release"
+- [#301](https://github.com/inditex/mic-incomemotorcalculojava/issues/301) Prepare release
+
+## [4.66.0] - 2024-10-09
+
+### Added
+
+- [INCOME-993](https://axinic.central.inditex.grp/jira/browse/INCOME-993) Recuperación de tramos del siguiente periodo en validacion de bajas
+
+### Dependencies
+
+- [#283](https://github.com/inditex/mic-incomemotorcalculojava/issues/283) Bump com.inditex.amigafwk:amiga-framework from 5.10.0 to 5.10.1 in /code
+
+## [4.65.0] - 2024-09-16
+
+### Added
+
+- [INCOME-486](https://axinic.central.inditex.grp/jira/browse/INCOME-486) [ICMCLCWB] Total de % por reducción en incidenciasSil - VALIDACION
+
+### Dependencies
+
+- [#260](https://github.com/inditex/mic-incomemotorcalculojava/issues/260) Bump com.inditex.amigafwk:amiga-framework from 5.6.6 to 5.10.0 in /code
+
+## [4.64.0] - 2024-09-09
+
+### Added
+
+- [INCOME-484](https://axinic.central.inditex.grp/jira/browse/INCOME-484) Cálculo Álava - Datos intermedios y nuevo algoritmo
+
+## [4.63.1] - 2024-08-14
+
+### Fixed
+
+- [INCOME-668](https://axinic.central.inditex.grp/jira/browse/INCOME-668) Totalizado de presencias a 0 en tienda 3040 FR
+
 ## [4.63.0] - 2024-05-28
 
 ### Added
@@ -405,7 +456,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...main
+[4.68.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.67.0...4.68.0
+[4.67.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...4.67.0
+[4.66.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...4.66.0
+[4.65.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.64.0...4.65.0
+[4.64.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.1...4.64.0
+[4.63.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.63.0...4.63.1
 [4.63.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.2...4.63.0
 [4.62.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.1...4.62.2
 [4.62.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.62.0...4.62.1

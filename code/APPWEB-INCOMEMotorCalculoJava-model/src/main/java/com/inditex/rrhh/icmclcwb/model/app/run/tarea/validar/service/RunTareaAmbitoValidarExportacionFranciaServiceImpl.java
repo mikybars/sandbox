@@ -42,10 +42,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTareaAmbitoValidarExportacionFranciaService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarExportacionFranciaServiceImpl.class);
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarExportacionFranciaServiceImpl.class);
 
   @Autowired
   private ValidacionMapper validacionMapper;

@@ -10,16 +10,17 @@ on:
     types: [opened, synchronize, reopened, closed]
     paths:
       - "paas/**"
+  workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 2.11.0
+  WORKFLOW_VERSION: 3.6.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
   check-changes-in-paths:
     name: Check for changes in corresponding paths
     runs-on: ubuntu-20.04
-    if: github.event.action != 'closed'
+    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
     outputs:
       yaml: ${{ steps.changes.outputs.yaml }}
       yaml-files: ${{ steps.changes.outputs.yaml_files }}
@@ -35,10 +36,11 @@ jobs:
               - added|modified: 'paas/**.yaml'
               - added|modified: 'paas/config_paas/**.yml'
               - added|modified: 'paas/config_paas/**.yaml'
+
   yaml-lint:
     name: PaaS / Verify
     timeout-minutes: 5
-    needs: check-changes-in-paths
+    needs: [check-changes-in-paths]
     if: needs.check-changes-in-paths.outputs.yaml == 'true'
     runs-on: ubuntu-20.04
     steps:
@@ -52,60 +54,26 @@ jobs:
   check-changes-in-secrets:
     name: Check for changes secret*.yml
     runs-on: ubuntu-20.04
-    if: github.event.action != 'closed'
+    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
     outputs:
-      secrets: ${{ steps.changes.outputs.secrets }}
-      secrets-files-array: ${{ steps.generate-secrets-file-list.outputs.secrets-files-array }}
-      ref-tag: ${{ steps.check-secrets-tag.outputs.ref-tag }}
-      last-check-tag: ${{ steps.check-secrets-tag.outputs.last-check-tag }}
+      secrets: ${{ steps.secrets-check-changes.outputs.secrets }}
+      secrets-files-array: ${{ steps.secrets-check-changes.outputs.secrets-files-array }}
+      ref-tag: ${{ steps.secrets-check-changes.outputs.ref-tag }}
+      last-check-tag: ${{ steps.secrets-check-changes.outputs.last-check-tag }}
+
     steps:
-      - name: Check for changed files in specific paths
-        id: changes
-        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
+      - name: PaaS / Check changes in secrets for PR event
+        id: secrets-check-changes
+        uses: inditex/gha-paasdeployment/paas-pr-verify/check-secret-changes@v0
         with:
-          list-files: shell
-          filters: |
-            secrets:
-              - added|modified: 'paas/config_paas/secret**.yml'
-              - added|modified: 'paas/config_paas/secret**.yaml'
-
-      - name: Generate secrets file list
-        id: generate-secrets-file-list
-        if: steps.changes.outputs.secrets == 'true'
-        env:
-          SECRETS_FILES_LIST: ${{ steps.changes.outputs.secrets_files }}
-        run: |
-          array=$(jq -c -n --arg SECRETS_FILES_LIST "$SECRETS_FILES_LIST" '$SECRETS_FILES_LIST | split(" ")')
-          echo "secrets-files-array=$array" >> "$GITHUB_OUTPUT"
-
-      - name: Checkout
-        if: steps.changes.outputs.secrets == 'true'
-        uses: actions/checkout@v4
-
-      - name: Check secrets tag
-        id: check-secrets-tag
-        if: steps.changes.outputs.secrets == 'true'
-        env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
-        run: |
-          last_check_tag="${BRANCH_NAME}-check-secrets"
-          git fetch --all --tags
-          if (git show-ref --tags --verify --quiet "refs/tags/${last_check_tag}"); then
-            echo "Tag ${last_check_tag} already exists"
-            ref_tag=$last_check_tag
-          else
-            echo "Tag ${last_check_tag} does not exist. Comparing against ${BASE_REF}"
-            ref_tag="origin/${BASE_REF}"
-          fi
-          echo "ref-tag=$ref_tag" >> "$GITHUB_OUTPUT"
-          echo "last-check-tag=$last_check_tag" >> "$GITHUB_OUTPUT"
+          head-ref: ${{ github.event.pull_request.head.ref }}
+          base-ref: ${{ github.event.pull_request.base.ref }}
 
   check-secrets:
     name: Check new secrets
     runs-on: [self-hosted, paasfeature]
     needs: [check-changes-in-secrets]
-    if: needs.check-changes-in-secrets.outputs.secrets == 'true'
+    if: ${{ needs.check-changes-in-secrets.outputs.secrets == 'true' && github.event_name != 'workflow_dispatch' }}
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -120,52 +88,99 @@ jobs:
           fetch-depth: 0
 
       - name: Check secrets
-        uses: inditex/gha-paasdeployment/check-secrets@v0
+        uses: inditex/gha-paasdeployment/check-all-secrets-proxy@v0
         with:
-          file: ${{ matrix.secret-files }}
-          branch-name: ${{ github.event.pull_request.head.ref }}
-          base-ref: ${{ github.event.pull_request.base.ref }}
+          secrets-file-path: ${{ matrix.secret-files }}
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          install-paascli: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
           ref-tag: ${{ needs.check-changes-in-secrets.outputs.ref-tag }}
-          last-check-tag: ${{ needs.check-changes-in-secrets.outputs.last-check-tag }}
-          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
-          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+
+  publish-check-secrets-message:
+    needs: [check-changes-in-secrets, check-secrets]
+    if: ${{ failure() && needs.check-changes-in-secrets.outputs.secrets == 'true' && github.event_name != 'workflow_dispatch' }}
+    name: "PaaS / Summary for check secrets action"
+    runs-on: ubuntu-20.04
+    outputs:
+      summary: ${{ steps.summary-check-secrets.outputs.summary }}
+
+    steps:
+      - name: PaaS / Summary for check secrets action
+        id: summary-check-secrets
+        uses: inditex/gha-paasdeployment/paas-pr-verify/publish-check-secrets-message@v0
+        with:
+          pr-number: "${{ github.event.pull_request.number }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   create-check-secrets-tag:
     name: Create check-secrets tag
     runs-on: ubuntu-20.04
     needs: [check-secrets]
-    if: needs.check-secrets.result == 'success'
+    if: ${{ needs.check-secrets.result == 'success' && github.event_name != 'workflow_dispatch' }}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: PaaS / Create check-secrets tag
+        id: secrets-create-check-tag
+        uses: inditex/gha-paasdeployment/paas-pr-verify/create-check-secrets-tag@v0
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-      - name: Create check-secrets tag
-        env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-        run: |
-          last_check_tag="$BRANCH_NAME-check-secrets"
-          echo "Updating last secret check tag"
-          git tag -f "${last_check_tag}"
-          git push origin "${last_check_tag}" --force
+          head-sha: ${{ github.event.pull_request.head.sha }}
+          branch-name: ${{ github.event.pull_request.head.ref }}
 
   remove-check-secrets-tag:
     name: Remove check-secrets tag
     runs-on: ubuntu-20.04
-    if: github.event.action == 'closed'
+    if: ${{ github.event.action == 'closed' && github.event_name != 'workflow_dispatch' }}
+
+    steps:
+      - name: PaaS / Remove check-secrets tag
+        id: secrets-remove-check-tag
+        uses: inditex/gha-paasdeployment/paas-pr-verify/remove-check-secrets-tag@v0
+        with:
+          head-ref: ${{ github.event.pull_request.head.ref }}
+
+  get-secret-files-list:
+    name: Get secret files list
+    runs-on: [self-hosted, paasfeature]
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    outputs:
+      files-found: ${{ steps.get-secret-files-list.outputs.files-found }}
+      secrets-files-array: ${{ steps.get-secret-files-list.outputs.secrets-files-array }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Remove check-secrets tag
-        env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-        run: |
-          git fetch --tags --force
-          last_check_tag="$BRANCH_NAME-check-secrets"
-          # Check if check-secrets tag exists
-          if git show-ref --tags --verify --quiet "refs/tags/${last_check_tag}"; then
-            # Delete check-secrets tag
-            git tag -d "$last_check_tag"
-            git push origin :refs/tags/"$last_check_tag"
-          fi
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: PaaS / Get secret files list
+        id: get-secret-files-list
+        uses: inditex/gha-paasdeployment/paas-pr-verify/get-secret-files-list@v0
+
+  check-all-secrets:
+    name: Check new secrets
+    runs-on: [self-hosted, paasfeature]
+    needs: [get-secret-files-list]
+    if: ${{ needs.get-secret-files-list.outputs.files-found == 'true' && github.event_name == 'workflow_dispatch' }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        secret-files: ${{ fromJson(needs.get-secret-files-list.outputs.secrets-files-array) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Check secrets
+        uses: inditex/gha-paasdeployment/check-all-secrets-proxy@v0
+        with:
+          secrets-file-path: ${{ matrix.secret-files }}
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          install-paascli: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}

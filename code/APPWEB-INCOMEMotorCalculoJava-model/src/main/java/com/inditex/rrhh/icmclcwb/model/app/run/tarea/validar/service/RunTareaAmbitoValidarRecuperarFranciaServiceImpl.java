@@ -39,6 +39,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTareaAmbitoValidarRecuperarFranciaService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarRecuperarFranciaServiceImpl.class);
+
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
@@ -54,8 +56,6 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
   @Autowired
   @Qualifier("carenciaProperties")
   private PrevalidarPropertiesDto carenciaProperties;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarRecuperarFranciaServiceImpl.class);
 
   @Autowired
   private ValidacionMapper validacionMapper;
