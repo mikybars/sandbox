@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.SplitListUtils.splitList;
+
 import java.util.List;
 
 import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEventList;
@@ -42,14 +44,14 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
     try {
       final CommisionCalculationEventList eventList = this.tareaMigrarMapper.tareaMigrarComisionDtoListToCommisionCalculationEventList(
           this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
-      LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with size {}  ", runTareaDto.getTrabajo().getId(),
+      LOG.info("[{}] [{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
-      if (this.commisionCalculationProducer == null) {
-        LOG.info("Producer is null");
-      } else {
-        LOG.info("Producer [{}] loaded with {} events", this.commisionCalculationProducer, eventList.getEvents().size());
-      }
-      this.commisionCalculationProducer.sendMessage(eventList);
+      final List<CommisionCalculationEventList> subLists = splitList(eventList);
+      subLists.forEach(subList -> {
+        LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with list size {} ",
+            runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), subList.getEvents().size());
+        this.commisionCalculationProducer.sendMessage(subList);
+      });
     } catch (final Exception e) {
       LOG.error("[{}] [{}] :: Error invoking producer to migrate commission calculation", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), e);

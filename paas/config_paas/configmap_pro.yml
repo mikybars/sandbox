@@ -439,6 +439,8 @@ amiga:
           data-source-properties:
             encrypt: false
     stream:
+      pipe:
+        message-max-size: 5000
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.pro.rhcompensa.commision-calculation.public.v1
