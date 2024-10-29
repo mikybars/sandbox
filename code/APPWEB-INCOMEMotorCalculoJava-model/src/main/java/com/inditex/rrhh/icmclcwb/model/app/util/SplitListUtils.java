@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SplitListUtils {
 
-  public SplitListUtils() {
-  }
-
   @Value("${icmclcwb.pipe.commision-calculation.message-max-size:5000}")
   private static int maxSize;
+
+  public SplitListUtils() {
+  }
 
   public static List<CommisionCalculationEventList> splitList(CommisionCalculationEventList originalList) {
     final List<CommisionCalculationEvent> events = originalList.getEvents();

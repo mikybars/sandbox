@@ -1,7 +1,8 @@
 package com.inditex.rrhh.icmclcwb.data;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
@@ -37,50 +38,50 @@ public class QueryPrimaryConfigTest {
   @BeforeEach
   public void setUp() throws IOException {
     MockitoAnnotations.openMocks(this);
-    when(resourceLoader.getResource(anyString())).thenReturn(resource);
-    when(resourceLoader.getResource(anyString())).thenReturn(resource);
-    when(resourcePatternResolver.getResources(anyString())).thenReturn(new Resource[]{resource});
+    when(this.resourceLoader.getResource(anyString())).thenReturn(this.resource);
+    when(this.resourceLoader.getResource(anyString())).thenReturn(this.resource);
+    when(this.resourcePatternResolver.getResources(anyString())).thenReturn(new Resource[]{this.resource});
   }
 
   @Test
   public void testPrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.primaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.primaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testCalculoPrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.calculoPrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.calculoPrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testLimpiezaPrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.limpiezaPrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.limpiezaPrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testComisPrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.comisPrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.comisPrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testPipePrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.pipePrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.pipePrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testPtrPrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.ptrPrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.ptrPrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
   @Test
   public void testMeta4PrimaryQuery() throws IOException {
-    PropertiesFactoryBean bean = queryPrimaryConfig.meta4PrimaryQuery(resourceLoader);
+    final PropertiesFactoryBean bean = this.queryPrimaryConfig.meta4PrimaryQuery(this.resourceLoader);
     assertNotNull(bean);
   }
 
