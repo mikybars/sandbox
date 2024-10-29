@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
-import static com.inditex.rrhh.icmclcwb.model.app.util.SplitListUtils.splitList;
-
 import java.util.List;
 
 import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEventList;
@@ -10,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaMigrarService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMigrarMapper;
+import com.inditex.rrhh.icmclcwb.model.app.util.SplitListUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaMigrarComisionRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.pipe.CommisionCalculationProducer;
 
@@ -24,6 +23,9 @@ import org.springframework.validation.annotation.Validated;
 public class TareaMigrarServiceImpl implements TareaMigrarService {
 
   private static final Logger LOG = LoggerFactory.getLogger(TareaMigrarService.class);
+
+  @Autowired
+  private SplitListUtils splitListUtils;
 
   @Autowired
   private TareaMigrarMapper tareaMigrarMapper;
@@ -46,7 +48,7 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
           this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
       LOG.info("[{}] [{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
-      final List<CommisionCalculationEventList> subLists = splitList(eventList);
+      final List<CommisionCalculationEventList> subLists = this.splitListUtils.splitList(eventList);
       subLists.forEach(subList -> {
         LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with list size {} ",
             runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), subList.getEvents().size());

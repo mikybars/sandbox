@@ -483,8 +483,6 @@ amiga:
           data-source-properties:
             encrypt: false
     stream:
-      pipe:
-        message-max-size: 5000
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1
@@ -525,3 +523,6 @@ app:
         server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+    pipe:
+      commission-calculation:
+        message-max-size: 5000

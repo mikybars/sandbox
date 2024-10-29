@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class SplitListUtils {
 
-  @Value("${icmclcwb.pipe.commision-calculation.message-max-size:5000}")
-  private static int maxSize;
+  @Value("${app.envars.pipe.commission-calculation.message-max-size:5000}")
+  private int maxSize;
 
   public SplitListUtils() {
   }
 
-  public static List<CommisionCalculationEventList> splitList(CommisionCalculationEventList originalList) {
+  public List<CommisionCalculationEventList> splitList(CommisionCalculationEventList originalList) {
     final List<CommisionCalculationEvent> events = originalList.getEvents();
     final int totalSize = events.size();
 
-    return IntStream.range(0, (totalSize + maxSize - 1) / maxSize)
+    return IntStream.range(0, (totalSize + this.maxSize - 1) / this.maxSize)
         .mapToObj(i -> {
           final CommisionCalculationEventList subList = new CommisionCalculationEventList();
-          subList.setEvents(events.subList(i * maxSize, Math.min(totalSize, (i + 1) * maxSize)));
+          subList.setEvents(events.subList(i * this.maxSize, Math.min(totalSize, (i + 1) * this.maxSize)));
           return subList;
         })
         .toList();
