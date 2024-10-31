@@ -169,10 +169,6 @@ amiga:
     core:
       mdc-filter:
         enabled: true
-      http:
-        session-cookie:
-          name: JSESSIONID
-          max-age: -1
     aaa:
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
