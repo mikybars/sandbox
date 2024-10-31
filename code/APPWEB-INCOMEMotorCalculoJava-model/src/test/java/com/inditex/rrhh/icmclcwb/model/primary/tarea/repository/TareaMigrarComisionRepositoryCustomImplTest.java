@@ -56,21 +56,21 @@ class TareaMigrarComisionRepositoryCustomImplTest {
         true);
   }
 
-    @Test
-    void findCalculoComisionByTareaActualReturnsEmptyListWhenNoResults() {
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1L);
+  @Test
+  void findCalculoComisionByTareaActualReturnsEmptyListWhenNoResults() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(1L);
 
-        when(this.namedParameterJdbcTemplate.query(
-            ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
-            ArgumentMatchers.any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
+    when(this.namedParameterJdbcTemplate.query(
+        ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
+        ArgumentMatchers.any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
             .thenReturn(Collections.emptyList());
 
-        final List<TareaMigrarComisionDto> result = this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
+    final List<TareaMigrarComisionDto> result = this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
 
-        assertTrue(result.isEmpty());
-    }
+    assertTrue(result.isEmpty());
+  }
 
   @Test
   void findCalculoComisionByTareaActualTest() {
@@ -165,106 +165,106 @@ class TareaMigrarComisionRepositoryCustomImplTest {
     assertEquals(expectedDto, result.get(0));
   }
 
-    @Test
-    void findCalculoComisionByTareaActualThrowsExceptionWhenQueryFails() {
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1L);
+  @Test
+  void findCalculoComisionByTareaActualThrowsExceptionWhenQueryFails() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(1L);
 
-        when(this.namedParameterJdbcTemplate.query(
-            ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
-            ArgumentMatchers.any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
+    when(this.namedParameterJdbcTemplate.query(
+        ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
+        ArgumentMatchers.any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
             .thenThrow(new RuntimeException("Database error"));
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
-        });
+    Exception exception = assertThrows(RuntimeException.class, () -> {
+      this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
+    });
 
-        assertEquals("Database error", exception.getMessage());
-    }
+    assertEquals("Database error", exception.getMessage());
+  }
 
-    @Test
-    void findCalculoComisionByTareaActualReturnsCorrectResults() {
-        final TareaDto tarea = new TareaDto();
-        tarea.setId(1L);
+  @Test
+  void findCalculoComisionByTareaActualReturnsCorrectResults() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(1L);
 
-        final TareaMigrarComisionDto expectedDto = TareaMigrarComisionDto.builder()
-            .icmIdPeriodo(1L)
-            .cclIdOrigen(2L)
-            .stdIdLegEnt(3L)
-            .cclIdPerson(4L)
-            .stdOrHrPeriod(5L)
-            .idEstado(6)
-            .fechaInicioPeriodo(LocalDate.now())
-            .fechaFinPeriodo(LocalDate.now())
-            .fecha(LocalDate.now())
-            .tiendaCalculo(7L)
-            .fechaInicioEstructura(LocalDate.now())
-            .fechaFinEstructura(LocalDate.now())
-            .cclIdSeccion(8L)
-            .banda(9L)
-            .valor(10.0f)
-            .icmIdTpComision("comision")
-            .icmIdTpCalculo("calculo")
-            .icmGrupoManual("manual")
-            .idTipoOpcionCalculo(11L)
-            .cclIdCodOrigenDestino(12L)
-            .codTipoHora(13L)
-            .minutos(14L)
-            .codTiendaPresenciaEmpleado(15L)
-            .codSeccionPresenciaEmpleado(16L)
-            .minutosTienda(17L)
-            .codTiendaPresencia(18L)
-            .codSeccionPresencia(19L)
-            .importeTotal(20.0f)
-            .importeTotalSinAjuste(21.0f)
-            .importeAjusteTotal(22.0f)
-            .importeFisica(23.0f)
-            .importeFisicaSinAjuste(24.0f)
-            .importeAjusteFisica(25.0f)
-            .importeOnlineIpod(26.0f)
-            .importeOnlineIpodSinAjuste(27.0f)
-            .importeAjusteOnlineIpod(28.0f)
-            .importeOnlineSint(29.0f)
-            .importeOnlineSintSinAjuste(30.0f)
-            .importeAjusteOnlineSint(31.0f)
-            .importeOnlineEntregaTienda(32.0f)
-            .importeOnlineEntregaTiendaSinAjuste(33.0f)
-            .importeAjusteOnlineEntregaTienda(34.0f)
-            .importeOnlineEntregaDomicilio(35.0f)
-            .importeOnlineEntregaDomicilioSinAjuste(36.0f)
-            .importeAjusteOnlineEntregaDomicilio(37.0f)
-            .ventaTotal(38.0f)
-            .ventaFisica(39.0f)
-            .ventaOnlineIpod(40.0f)
-            .ventaOnlineSint(41.0f)
-            .ventaOnlineEntregaTienda(42.0f)
-            .ventaOnlineEntregaDomicilio(43.0f)
-            .objetivo(44.0f)
-            .excepcionada(45)
-            .congelada(46)
-            .challengeVentaTotal(47.0f)
-            .challengeVentaCaja(48.0f)
-            .challengeDevoluciones(49.0f)
-            .challengeVentaOnlineIpod(50.0f)
-            .challengeVentaOnlinePicking(51.0f)
-            .challengeVentaOnlineEntregaTienda(52.0f)
-            .importeVentaFisicaIndividual(53.0f)
-            .importeDevolucionFisicaIndividual(54.0f)
-            .importeVentaOnlineIpod(55.0f)
-            .importeDevolucionIndividualIpod(56.0f)
-            .coeficienteReduccionJornada(57.0f)
-            .build();
+    final TareaMigrarComisionDto expectedDto = TareaMigrarComisionDto.builder()
+        .icmIdPeriodo(1L)
+        .cclIdOrigen(2L)
+        .stdIdLegEnt(3L)
+        .cclIdPerson(4L)
+        .stdOrHrPeriod(5L)
+        .idEstado(6)
+        .fechaInicioPeriodo(LocalDate.now())
+        .fechaFinPeriodo(LocalDate.now())
+        .fecha(LocalDate.now())
+        .tiendaCalculo(7L)
+        .fechaInicioEstructura(LocalDate.now())
+        .fechaFinEstructura(LocalDate.now())
+        .cclIdSeccion(8L)
+        .banda(9L)
+        .valor(10.0f)
+        .icmIdTpComision("comision")
+        .icmIdTpCalculo("calculo")
+        .icmGrupoManual("manual")
+        .idTipoOpcionCalculo(11L)
+        .cclIdCodOrigenDestino(12L)
+        .codTipoHora(13L)
+        .minutos(14L)
+        .codTiendaPresenciaEmpleado(15L)
+        .codSeccionPresenciaEmpleado(16L)
+        .minutosTienda(17L)
+        .codTiendaPresencia(18L)
+        .codSeccionPresencia(19L)
+        .importeTotal(20.0f)
+        .importeTotalSinAjuste(21.0f)
+        .importeAjusteTotal(22.0f)
+        .importeFisica(23.0f)
+        .importeFisicaSinAjuste(24.0f)
+        .importeAjusteFisica(25.0f)
+        .importeOnlineIpod(26.0f)
+        .importeOnlineIpodSinAjuste(27.0f)
+        .importeAjusteOnlineIpod(28.0f)
+        .importeOnlineSint(29.0f)
+        .importeOnlineSintSinAjuste(30.0f)
+        .importeAjusteOnlineSint(31.0f)
+        .importeOnlineEntregaTienda(32.0f)
+        .importeOnlineEntregaTiendaSinAjuste(33.0f)
+        .importeAjusteOnlineEntregaTienda(34.0f)
+        .importeOnlineEntregaDomicilio(35.0f)
+        .importeOnlineEntregaDomicilioSinAjuste(36.0f)
+        .importeAjusteOnlineEntregaDomicilio(37.0f)
+        .ventaTotal(38.0f)
+        .ventaFisica(39.0f)
+        .ventaOnlineIpod(40.0f)
+        .ventaOnlineSint(41.0f)
+        .ventaOnlineEntregaTienda(42.0f)
+        .ventaOnlineEntregaDomicilio(43.0f)
+        .objetivo(44.0f)
+        .excepcionada(45)
+        .congelada(46)
+        .challengeVentaTotal(47.0f)
+        .challengeVentaCaja(48.0f)
+        .challengeDevoluciones(49.0f)
+        .challengeVentaOnlineIpod(50.0f)
+        .challengeVentaOnlinePicking(51.0f)
+        .challengeVentaOnlineEntregaTienda(52.0f)
+        .importeVentaFisicaIndividual(53.0f)
+        .importeDevolucionFisicaIndividual(54.0f)
+        .importeVentaOnlineIpod(55.0f)
+        .importeDevolucionIndividualIpod(56.0f)
+        .coeficienteReduccionJornada(57.0f)
+        .build();
 
-        when(this.namedParameterJdbcTemplate.query(
-            ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
-            ArgumentMatchers.any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
+    when(this.namedParameterJdbcTemplate.query(
+        ArgumentMatchers.eq(SQL_FIND_CALCULO_COMISION),
+        ArgumentMatchers.any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<TareaMigrarComisionDto>>any()))
             .thenReturn(Collections.singletonList(expectedDto));
 
-        final List<TareaMigrarComisionDto> result = this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
+    final List<TareaMigrarComisionDto> result = this.tareaMigrarComisionRepositoryCustomImpl.findCalculoComisionByTareaActual(tarea);
 
-        assertEquals(1, result.size());
-        assertEquals(expectedDto, result.get(0));
-    }
+    assertEquals(1, result.size());
+    assertEquals(expectedDto, result.get(0));
+  }
 }
