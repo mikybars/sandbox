@@ -17,11 +17,6 @@ app:
   has_spnego: true
   services:
     http:
-      external_routes:
-        - path: /icmclcwb
-          host: des-openshift.axdesocp1.central.inditex.grp
-          route_id: icmclcwb
-          disable_cookies: false
       route:
         disable_cookies: false
         tls:
