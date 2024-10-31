@@ -65,7 +65,7 @@ amiga:
       meta4-executor:
         name: async-meta4-executor
         name-format: async-meta4-executor-%d
-        executor-type: THREAD_POOL 
+        executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
         queue-size: 2000
@@ -169,6 +169,10 @@ amiga:
     core:
       mdc-filter:
         enabled: true
+      http:
+        session-cookie:
+          name: JSESSIONID
+          max-age: -1
     aaa:
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
