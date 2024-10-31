@@ -49,7 +49,7 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
       LOG.info("[{}] [{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
       // INICIO PRUEBA ESTRES
-      eventList.setEvents(this.splitListUtils.expandListTo200k(eventList.getEvents()));
+      eventList.setEvents(this.splitListUtils.expandListTo100k(eventList.getEvents()));
       LOG.info("[{}] [{}] :: Commission calculation expanded size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
       // FIN PRUEBA ESTRES

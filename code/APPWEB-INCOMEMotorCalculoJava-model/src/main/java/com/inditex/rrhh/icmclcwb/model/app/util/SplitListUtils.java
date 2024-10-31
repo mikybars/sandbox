@@ -34,9 +34,9 @@ public class SplitListUtils {
         .toList();
   }
 
-  public List<CommisionCalculationEvent> expandListTo200k(List<CommisionCalculationEvent> originalList) {
+  public List<CommisionCalculationEvent> expandListTo100k(List<CommisionCalculationEvent> originalList) {
     final List<CommisionCalculationEvent> expandedList = new ArrayList<>(originalList);
-    while (expandedList.size() <= 200000) {
+    while (expandedList.size() <= 100000) {
       expandedList.addAll(new ArrayList<>(originalList));
     }
     return expandedList;
