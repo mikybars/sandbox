@@ -171,7 +171,10 @@ amiga:
         enabled: true
       http:
         session-cookie:
-          http-only: false
+          name: JSESSIONID
+          max-age: 3600
+          secure: true
+          http-only: true
     aaa:
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
