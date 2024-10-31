@@ -169,6 +169,9 @@ amiga:
     core:
       mdc-filter:
         enabled: true
+      http:
+        session-cookie:
+          http-only: false
     aaa:
       paths:
         app-public-path: /amiga/**,/swagger-ui**,/itx-openapi.js,/swagger-api-docs/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,/swagger-resources/**
