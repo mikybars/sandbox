@@ -48,11 +48,6 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
           this.findCalculoComisionByTareaActual(runTareaDto.getTarea()));
       LOG.info("[{}] [{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), eventList.getEvents().size());
-      // INICIO PRUEBA ESTRES
-      eventList.setEvents(this.splitListUtils.expandListTo100k(eventList.getEvents()));
-      LOG.info("[{}] [{}] :: Commission calculation expanded size {}  ", runTareaDto.getTrabajo().getId(),
-          runTareaDto.getTarea().getId(), eventList.getEvents().size());
-      // FIN PRUEBA ESTRES
       final List<CommisionCalculationEventList> subLists = this.splitListUtils.splitList(eventList);
       subLists.forEach(subList -> {
         LOG.info("[{}] [{}] :: Invoking producer to migrate commission calculation with list size {} ",

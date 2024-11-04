@@ -50,7 +50,7 @@ class RunTareaMigrarServiceImplTest {
   }
 
   @Test
-  void runShouldInvokeMigrarListCalculoComisionCatch1() {
+  void runShouldInvokeMigrarListCalculoComisionCatch() {
     final RunTareaDto runTarea = this.createRunTarea();
     when(this.runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
 
