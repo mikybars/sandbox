@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -32,13 +31,5 @@ public class SplitListUtils {
           return subList;
         })
         .toList();
-  }
-
-  public List<CommisionCalculationEvent> expandListTo100k(List<CommisionCalculationEvent> originalList) {
-    final List<CommisionCalculationEvent> expandedList = new ArrayList<>(originalList);
-    while (expandedList.size() <= 100000) {
-      expandedList.addAll(new ArrayList<>(originalList));
-    }
-    return expandedList;
   }
 }

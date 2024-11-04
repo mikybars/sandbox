@@ -1,7 +1,10 @@
 package com.inditex.rrhh.icmclcwb.pipe;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
@@ -10,7 +13,9 @@ import java.util.List;
 import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEvent;
 import com.inditex.icmclcwb.commisioncalculation.model.v1.CommisionCalculationEventList;
 import com.inditex.rrhh.icmclcwb.event.pipe.CommisionCalculationEventsProducer;
+import com.inditex.rrhh.icmclcwb.event.pipe.Header;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -177,5 +182,30 @@ class CommisionCalculationProducerTest {
     doReturn(true).when(this.eventsProducer).CommisionCalculation(this.eventList);
     assertTrue(this.producer.sendMessage(this.eventList));
     verify(this.eventsProducer).CommisionCalculation(this.eventList);
+  }
+
+  @Test
+  void sendMessageFails() {
+    doReturn(false).when(this.eventsProducer).CommisionCalculation(this.eventList);
+    assertFalse(this.producer.sendMessage(this.eventList));
+    verify(this.eventsProducer).CommisionCalculation(this.eventList);
+  }
+
+  @Test
+  void sendMessageThrowsException() {
+    doThrow(new RuntimeException("Test Exception")).when(this.eventsProducer).CommisionCalculation(this.eventList);
+    final RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+      this.producer.sendMessage(this.eventList);
+    });
+    assertEquals("Test Exception", exception.getMessage());
+    verify(this.eventsProducer).CommisionCalculation(this.eventList);
+  }
+
+  @Test
+  void sendMessageWithHeaders() {
+    final Header header = new Header("key", "value");
+    doReturn(true).when(this.eventsProducer).CommisionCalculation(this.eventList, header);
+    assertTrue(this.producer.sendMessage(this.eventList, header));
+    verify(this.eventsProducer).CommisionCalculation(this.eventList, header);
   }
 }
