@@ -17,6 +17,7 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
+                  - name: presencias
   - name: pro
     environments:
       - name: pro
@@ -26,4 +27,3 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
-                  - name: presencias
