@@ -31,6 +31,7 @@ public class ReglaEmpleadoExternoMeta4RepositoryCustomImpl
             .stdIdLegEnt(rs.getString(SqlPrimaryConstants.SQL_RESULT_EMPRESA))
             .idOrganization(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_ORGANIZATION))
             .puesto(rs.getInt(SqlPrimaryConstants.SQL_RESULT_PUESTO))
-            .esActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO)).build());
+            .esActivo(rs.getBoolean(SqlPrimaryConstants.SQL_RESULT_ES_ACTIVO))
+            .stdIdHrType(rs.getString(SqlPrimaryConstants.SQL_RESULT_STD_ID_HR_TYPE)).build());
   }
 }

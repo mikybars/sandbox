@@ -1,0 +1,83 @@
+---
+name: undeploy-paas
+run-name: Undeploy PaaS Permutations
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVS:
+        description: Environments used during action execution
+        required: true
+      PLATFORMS:
+        description: Platforms used during action execution
+        required: false
+        default: ''
+      TENANTS:
+        description: Tenants used during action execution
+        required: false
+        default: ''
+      SLOTS:
+        description: Slots used during action execution
+        required: false
+        default: ''
+      ISSUE_NUMBER:
+        description: Parent Issue from where the deletion was triggered
+        required: true
+env:
+  WORKFLOW_VERSION: 3.6.0
+
+jobs:
+  filter-permutations:
+    name: Prepare matrix inputs
+    runs-on: ubuntu-20.04
+    outputs:
+      permutations: ${{ steps.prepare.outputs.permutations }}
+    steps:
+      - name: Prepare matrix inputs
+        id: prepare
+        uses: inditex/gha-paasdeployment/undeploy-paas/filter-permutations@v0
+        with:
+          envs: ${{ inputs.ENVS }}
+          platforms: ${{ inputs.PLATFORMS }}
+          tenants: ${{ inputs.TENANTS }}
+          slots: ${{ inputs.SLOTS }}
+          token: ${{ secrets.GH_TOKEN_READER }}
+
+  create-delete-prs:
+    name: Create PRs for deletion
+    runs-on: ubuntu-20.04
+    needs: filter-permutations
+    strategy:
+      matrix:
+        permutation: ${{ fromJson(needs.filter-permutations.outputs.permutations) }}
+    outputs:
+      has-errors: ${{ steps.create-delete-pr.outputs.has-errors }}
+      already-exists: ${{ steps.create-delete-pr.outputs.already-exists }}
+      any-created: ${{ steps.create-delete-pr.outputs.any-created }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create PR for Folder Deletion
+        id: create-delete-pr
+        uses: inditex/gha-paasdeployment/undeploy-paas/delete-permutation@v0
+        with:
+          permutation: ${{ matrix.permutation }}
+          token: ${{ secrets.GH_TOKEN_PUSH }}
+          pgp-key: ${{ secrets.BUTLER_PGP_KEY }}
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+
+  generate-comment:
+    name: Aggregate results
+    runs-on: ubuntu-20.04
+    needs: create-delete-prs
+    if: always()
+    steps:
+      - name: Aggregate results and post comment
+        uses: inditex/gha-paasdeployment/undeploy-paas/generate-comment@v0
+        with:
+          has-errors: ${{ needs.create-delete-prs.outputs.has-errors }}
+          already-exists: ${{ needs.create-delete-prs.outputs.already-exists }}
+          any-created: ${{ needs.create-delete-prs.outputs.any-created }}
+          issue-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
