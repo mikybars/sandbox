@@ -476,6 +476,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_RESULT_PUESTO = "PUESTO";
 
+  public static final String SQL_RESULT_STD_ID_HR_TYPE = "STD_ID_HR_TYPE";
+
   private SqlPrimaryConstants() {
   }
 
