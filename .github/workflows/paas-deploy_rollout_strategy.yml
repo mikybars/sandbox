@@ -23,15 +23,15 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.6.0
+  WORKFLOW_VERSION: 3.9.0
 
 jobs:
   rollout-strategy:
     name: PaaS / Deploy Rollout Strategy
-    runs-on: [self-hosted, paasfeature]
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
     steps:
       - name: PaaS / Deploy rollout strategy
-        uses: inditex/actions/deployment/rollout-strategy-cdm@main
+        uses: inditex/gha-paasdeployment/deployment/rollout-strategy-cdm@v0
         id: rollout
         with:
           action: ${{ github.event.inputs.ACTION }}

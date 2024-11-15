@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -32,10 +33,11 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
   void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoTest(
       final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 
-    final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
-        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
+    final List<ReglaEmpleadoExternoMeta4RequestDto> result = this.reglaEmpleadoExternoMeta4MapperDecorator
+        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(reglas);
 
     assertNotNull(result);
+    assertFalse(result.isEmpty());
   }
 
   @Test
@@ -43,8 +45,8 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
 
     final List<ReglaEmpleadoExternoMeta4Dto> reglas = Instancio.ofList(ReglaEmpleadoExternoMeta4Dto.class).size(0).create();
 
-    final ReglaEmpleadoExternoMeta4RequestDto result = this.reglaEmpleadoExternoMeta4MapperDecorator
-        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
+    final List<ReglaEmpleadoExternoMeta4RequestDto> result = this.reglaEmpleadoExternoMeta4MapperDecorator
+        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(reglas);
 
     assertNull(result);
   }

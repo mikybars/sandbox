@@ -27,4 +27,7 @@ public class ReglaEmpleadoExternoMeta4Dto {
   @NotBlank
   private Boolean esActivo;
 
+  @NotBlank
+  private String stdIdHrType;
+
 }

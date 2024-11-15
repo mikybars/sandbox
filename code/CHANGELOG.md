@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.69.0] - 2024-11-13
+
+### Added
+
+- [INCOME-1130](https://axinic.central.inditex.grp/jira/browse/INCOME-1130) Modificar la recuperación de empleados externos para tener en cuenta el tipo de empleado
+
 ## [4.68.0] - 2024-10-15
 
 ### Added
@@ -456,7 +462,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.69.0...main
+[4.69.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...4.69.0
 [4.68.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.67.0...4.68.0
 [4.67.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...4.67.0
 [4.66.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.65.0...4.66.0

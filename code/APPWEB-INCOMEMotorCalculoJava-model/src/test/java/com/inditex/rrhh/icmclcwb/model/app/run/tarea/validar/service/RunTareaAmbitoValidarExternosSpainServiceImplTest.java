@@ -84,14 +84,15 @@ class RunTareaAmbitoValidarExternosSpainServiceImplTest {
     final CompletableFuture<List<IdPersonaLocalExternaDto>> cf = new CompletableFuture<>();
     cf.complete(lista);
 
-    final ReglaEmpleadoExternoMeta4RequestDto request =
-        ReglaEmpleadoExternoMeta4RequestDto.builder().puestos(puestos).idOrganization("2").build();
+    final List<ReglaEmpleadoExternoMeta4RequestDto> request =
+        List.of(ReglaEmpleadoExternoMeta4RequestDto.builder().puestos(puestos).idOrganization("2").build());
 
     when(this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(any(String.class), any(String.class)))
         .thenReturn(request);
 
-    when(this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request))
-        .thenReturn(externosRequestDTO);
+    when(this.reglaEmpleadoExternoMeta4Mapper
+        .reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(any(ReglaEmpleadoExternoMeta4RequestDto.class)))
+            .thenReturn(externosRequestDTO);
 
     when(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(externosRequestDTO))
         .thenReturn(externos);

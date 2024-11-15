@@ -69,17 +69,22 @@ public abstract class AbstractRunTareaAmbitoValidarExternos {
 
     final List<IdPersonaLocalExternaDto> externos = AsyncUtils.get(cfExternos);
 
-    final Optional<ReglaEmpleadoExternoMeta4RequestDto> request =
+    final Optional<List<ReglaEmpleadoExternoMeta4RequestDto>> reglas =
         Optional.ofNullable(
             this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(tareaAmbito.getCclIdOrigen(),
                 runTarea.getTarea().getStdIdLegEnt()));
 
-    if (request.isPresent()) {
-      final ExternosRequestDTO req =
-          this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(request.get());
-      req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
-      req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
-      final List<EmpleadoExternoDTO> excluidosMeta4 = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req);
+    if (reglas.isPresent()) {
+      final List<EmpleadoExternoDTO> excluidosMeta4 = new ArrayList<>();
+
+      // Peticion por cada valor diferente de STD_ID_HR_TYPE
+      reglas.get().stream().forEach(obj -> {
+        final ExternosRequestDTO req =
+            this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(obj);
+        req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
+        req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
+        excluidosMeta4.addAll(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req));
+      });
 
       // Agrupamos por empleado
       final Map<String, List<EmpleadoExternoDTO>> excluidosMap =

@@ -35,18 +35,18 @@ class ReglaEmpleadoExternoMeta4ServiceImplTest {
   @InstancioSource
   void getReglasEmpleadoExternoMeta4ActivasByCclIdOrigenTest(
       final List<ReglaEmpleadoExternoMeta4Dto> reglas,
-      final ReglaEmpleadoExternoMeta4RequestDto reglaEmpleadoExternoMeta4RequestDto) {
+      final List<ReglaEmpleadoExternoMeta4RequestDto> reglaEmpleadoExternoMeta4RequestDto) {
     doReturn(reglas).when(this.reglaEmpleadoExternoMeta4RepositoryCustom).findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen("1", "8");
     doReturn(reglaEmpleadoExternoMeta4RequestDto).when(this.reglaEmpleadoExternoMeta4Mapper)
-        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
+        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(reglas);
 
-    final ReglaEmpleadoExternoMeta4RequestDto result =
+    final List<ReglaEmpleadoExternoMeta4RequestDto> result =
         this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen("1", "8");
 
     verify(this.reglaEmpleadoExternoMeta4RepositoryCustom, times(1))
         .findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen("1", "8");
     verify(this.reglaEmpleadoExternoMeta4Mapper, times(1))
-        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
+        .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(reglas);
     assertEquals(reglaEmpleadoExternoMeta4RequestDto, result);
   }
 

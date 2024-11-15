@@ -23,7 +23,7 @@ class ReglaEmpleadoExternoMeta4MapperTest {
   void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoExceptionTest() {
     assertThrows(UnsupportedOperationException.class, () -> {
       this.reglaEmpleadoExternoMeta4Mapper
-          .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(any());
+          .reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(any());
     });
   }
 }
