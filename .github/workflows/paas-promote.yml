@@ -83,9 +83,15 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.9.0
+  WORKFLOW_VERSION: 3.11.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+
+permissions:
+  id-token: write  # This is required for requesting the JWT
+  contents: write  # This is required for merging pull request
+  issues: write
+  pull-requests: write
 
 jobs:
   promote:

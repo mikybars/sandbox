@@ -50,7 +50,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.9.0
+  WORKFLOW_VERSION: 3.11.1
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIR_PATH_STATUS: "/tmp/artifact-results"
 

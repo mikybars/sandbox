@@ -48,7 +48,7 @@ on:
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 3.9.0
+  WORKFLOW_VERSION: 3.11.1
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
