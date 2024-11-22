@@ -43,14 +43,14 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 2.20.2
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r0
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r1
   SCM_EMAIL: srvcibot@inditex.com
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   SCM_USERNAME: butler-ci-bot
@@ -65,7 +65,7 @@ jobs:
       || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
         || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
     steps:
       - name: Get input parameters
         run: |
@@ -162,7 +162,7 @@ jobs:
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
           ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r4
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
           ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code
@@ -173,7 +173,7 @@ jobs:
         run: |
           # shellcheck disable=SC2086
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
             -e GIT_AUTHOR_NAME=${SCM_USERNAME} -e GIT_AUTHOR_EMAIL=${SCM_EMAIL} -e EMAIL=${SCM_EMAIL} \
             -e ISSUE_TRACKER_PASSWORD=${{ secrets.GITHUB_TOKEN }} \
             --mount type=bind,src="$(pwd)",dst=/app \
@@ -182,12 +182,23 @@ jobs:
             changelog-drafter yank --headless --commit --drafterconfig-path .ci-drafterconfig.yml > /tmp/.yanked-version
           echo "MVN_RELEASE_ARGS=$MVN_RELEASE_ARGS -DyankRelease=$(cat /tmp/.yanked-version)" >> "$GITHUB_ENV"
 
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
       - name: Update CHANGELOG.md
         if: ${{ !contains(env.RELEASE_LABELS, 'release-mode/skip-changelog') }}
         run: |
           # shellcheck disable=SC2086
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
             -e ISSUE_TRACKER_JIRA_USERNAME=${{ secrets.SRVCJIRAGITHUBAX_USERNAME }} \
             -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRAGITHUBAX_PASSWORD }} \
             -e ISSUE_TRACKER_EXTRAHEADERS='{"itx-apikey":"${{ secrets.JANUS_JIRASIST_APIKEY }}"}' \
@@ -207,6 +218,12 @@ jobs:
           save-remote-enabled: false
           skip-cache: true
 
+      - name: Get runner resources
+        continue-on-error: true
+        uses: inditex/gha-citool/get-runner-resources@v0
+        with:
+          memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
+
       - name: Release Artifact
         env:
           MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
@@ -215,7 +232,10 @@ jobs:
           mkdir -p "$HOME"/.asdf/data
           # shellcheck disable=SC2086
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
+            -e TOTAL_CPUS \
+            -e TOTAL_MEMORY \
             -e SCM_USERNAME -e SCM_TOKEN \
             -e DP_USERNAME -e DP_TOKEN \
             -e NPM_EMAIL -e NPM_AUTH \
