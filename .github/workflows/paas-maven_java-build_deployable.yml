@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.9.0
+  WORKFLOW_VERSION: 3.12.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -178,6 +178,17 @@ jobs:
           filter-types: "paas"
           github-token: ${{ secrets.GH_TOKEN_READER }}
 
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
       - name: Get runner resources
         continue-on-error: true
         uses: inditex/gha-citool/get-runner-resources@v0
@@ -191,7 +202,8 @@ jobs:
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
             -e TOTAL_CPUS \
             -e TOTAL_MEMORY \
             -e DP_USERNAME="${DP_USERNAME}" \
@@ -213,7 +225,8 @@ jobs:
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker}} \
             -e DP_USERNAME -e DP_TOKEN \
             -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
             -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \

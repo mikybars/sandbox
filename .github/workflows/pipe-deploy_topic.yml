@@ -15,7 +15,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 1.42.2
+  WORKFLOW_VERSION: 2.0.0
 
 jobs:
   deploy-topic:
@@ -79,9 +79,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
 
-      - name: Deploy PIPE Topic
-        uses: inditex/gha-pipeactions/deploy-topic@main
+      - name: Setup paas-cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@v0
         with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Deploy No PaaS Client
+        id: deploy-no-paas
+        uses: inditex/gha-pipeactions/deploy-client-no-paas@v1
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+          working-directory: pipe
+
+      - name: Deploy PIPE Topic
+        uses: inditex/gha-pipeactions/deploy-topic@v2
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
           supraenv: ${{ steps.supraenvironment.outputs.env }}
           project-dir: ${GITHUB_WORKSPACE}
         env:
