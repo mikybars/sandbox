@@ -83,14 +83,20 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.6.0
+  WORKFLOW_VERSION: 3.12.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+
+permissions:
+  id-token: write  # This is required for requesting the JWT
+  contents: write  # This is required for merging pull request
+  issues: write
+  pull-requests: write
 
 jobs:
   promote:
     name: Promote & Deployment PRs
-    runs-on: [self-hosted, paasfeature]
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:
@@ -150,7 +156,7 @@ jobs:
 
       - name: Validate slots
         id: validate-slots
-        uses: inditex/actions/deployment/validate-slots@main
+        uses: inditex/gha-paasdeployment/deployment/validate-slots@v0
         with:
           slots: ${{ inputs.SLOTS }}
           strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
@@ -178,12 +184,14 @@ jobs:
           trigger: ${{ fromJson(inputs.ADDITIONAL_ARGS).TRIGGER }}
           config-ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
           target-branch: ${{ fromJson(inputs.ADDITIONAL_ARGS).TARGET_BRANCH }}
+          is-issue: ${{ steps.compute-vars.outputs.is-issue }}
+          issue-number: ${{ inputs.ISSUE_NUMBER }}
         env:
           MERGED: ${{ github.event.pull_request.merged }}
 
       - name: Promote images to internal registries
         if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        uses: inditex/actions/deployment/promote@main
+        uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
 
@@ -221,10 +229,20 @@ jobs:
           working-dir: paas/target_tpl
           delete: true
 
+      - name: Create PIPE users for affected environments
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/gha-pipeactions/deploy-client-paas@v1
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
+          working-directory: paas
+          token: ${{ secrets.GH_TOKEN_READER }}
+
       - name: Create PR to deploy manifests into deployment branch
         id: create-pr-manifest
         if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        uses: inditex/actions/deployment/create-pr-manifests@main
+        uses: inditex/gha-paasdeployment/deployment/create-pr-manifests@v0
         with:
           working-directory: paas
           token: ${{ secrets.CHATBOT_PR_PAT }}
