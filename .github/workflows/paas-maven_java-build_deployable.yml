@@ -14,15 +14,15 @@ on:
   workflow_dispatch:
     inputs:
       VERSION:
-        description: 'Version to build'
+        description: "Version to build"
         required: true
-        default: ''
+        default: ""
   release:
     types:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.6.0
+  WORKFLOW_VERSION: 3.12.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -34,7 +34,7 @@ env:
 jobs:
   set-destination-branch:
     name: Get Destination Branch
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
     outputs:
       release-branch: ${{ steps.release-branch.outputs.release-branch }}
     steps:
@@ -54,7 +54,7 @@ jobs:
   identify-changes:
     name: Identify Changes
     needs: [set-destination-branch]
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
@@ -88,7 +88,7 @@ jobs:
 
       - name: Check code changes
         if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
-        uses: inditex/actions/deployment/identify-changes@main
+        uses: inditex/gha-paasdeployment/deployment/identify-changes@v0
         id: "check-code-changes"
         with:
           tag-suffix: last-build
@@ -96,14 +96,14 @@ jobs:
 
       - name: Check config changes
         if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
-        uses: inditex/actions/deployment/identify-changes@main
+        uses: inditex/gha-paasdeployment/deployment/identify-changes@v0
         id: "check-config-changes"
         with:
           tag-suffix: last-build
           paths: "paas"
 
       - name: Set deployment configuration
-      # This step is necessary for the autodeploy when main branch is in the deploy_on.merge_to paas/deployments.yml
+        # This step is necessary for the autodeploy when main branch is in the deploy_on.merge_to paas/deployments.yml
         if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         id: deploy-vars
         run: |
@@ -115,7 +115,7 @@ jobs:
   build-deployable:
     name: PaaS / Build Deployable & Promote
     needs: [identify-changes]
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     steps:
       - name: Checkout merge commit
         if: github.event.pull_request.merged == true
@@ -178,6 +178,23 @@ jobs:
           filter-types: "paas"
           github-token: ${{ secrets.GH_TOKEN_READER }}
 
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Get runner resources
+        continue-on-error: true
+        uses: inditex/gha-citool/get-runner-resources@v0
+        with:
+          memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
+
       - name: Build artifact
         shell: bash
         if: ${{ steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
@@ -185,7 +202,10 @@ jobs:
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
+            -e TOTAL_CPUS \
+            -e TOTAL_MEMORY \
             -e DP_USERNAME="${DP_USERNAME}" \
             -e DP_TOKEN="${DP_TOKEN}" \
             -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
@@ -205,7 +225,8 @@ jobs:
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker}} \
             -e DP_USERNAME -e DP_TOKEN \
             -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
             -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
@@ -232,7 +253,7 @@ jobs:
           MERGED: ${{ github.event.pull_request.merged }}
 
       - name: Build and Push Docker image
-        uses: inditex/actions/docker/build-and-push@main
+        uses: inditex/gha-paasdeployment/docker/build-and-push@v0
         with:
           registry: ${{ steps.sentinel.outputs.image-registry }}
           token: ${DP_TOKEN}
@@ -240,11 +261,10 @@ jobs:
           tags: ${{ steps.sentinel.outputs.image-tags }}
           path: code
           dockerfile: code/Dockerfile
-          devinsgh-webhook-secret: ${{ secrets.DEVINSGH_WEBHOOK_SECRET }}
 
       - name: Create tag from identify-changes
         if: github.event_name != 'release'
-        uses: inditex/actions/deployment/move-build-tag@main
+        uses: inditex/gha-paasdeployment/deployment/move-build-tag@v0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 

@@ -20,7 +20,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 1.42.2
+  WORKFLOW_VERSION: 2.0.0
 
 jobs:
   deploy-connect:
@@ -90,9 +90,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
 
-      - name: Deploy PIPE Connect
-        uses: inditex/gha-pipeactions/deploy-connect@main
+      - name: Setup paas-cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@v0
         with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Deploy PIPE Connect
+        uses: inditex/gha-pipeactions/deploy-connect@v2
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
           supraenv: ${{ steps.supraenvironment.outputs.env }}
           email: ${{ github.event.inputs.NOTIFY_TO }}
           git-url: ${GITURL}
