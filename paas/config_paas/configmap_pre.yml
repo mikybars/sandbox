@@ -492,7 +492,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepre          
+              client-id: oauthincomepre
 app:
   envars:
     mail:
