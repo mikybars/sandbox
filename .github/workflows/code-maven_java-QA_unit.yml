@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.22.0
+  WORKFLOW_VERSION: 2.24.1
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
@@ -75,6 +75,17 @@ jobs:
         id: pom-data
         run: |
           echo "app-version=$(xmllint --xpath "/*[name()='project']/*[name()='version']/text()" code/pom.xml)" >> "$GITHUB_OUTPUT"
+
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Run unit tests with release event
         if: github.event_name == 'release'

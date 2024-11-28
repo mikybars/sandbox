@@ -21,11 +21,11 @@ public class ReglaEmpleadoExternoMeta4ServiceImpl implements ReglaEmpleadoExtern
   private ReglaEmpleadoExternoMeta4Mapper reglaEmpleadoExternoMeta4Mapper;
 
   @Override
-  public ReglaEmpleadoExternoMeta4RequestDto getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(final String cclIdOrigen,
+  public List<ReglaEmpleadoExternoMeta4RequestDto> getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(final String cclIdOrigen,
       final String stdIdLegEnt) {
     final List<ReglaEmpleadoExternoMeta4Dto> reglas = this.reglaEmpleadoExternoMeta4RepositoryCustom
         .findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(cclIdOrigen, stdIdLegEnt);
 
-    return this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(reglas);
+    return this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(reglas);
   }
 }

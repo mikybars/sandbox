@@ -5,7 +5,7 @@ on:
     paths: ['pipe/**', '.github/workflows/pipe**']
 
 env:
-  WORKFLOW_VERSION: 1.42.2
+  WORKFLOW_VERSION: 2.0.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 

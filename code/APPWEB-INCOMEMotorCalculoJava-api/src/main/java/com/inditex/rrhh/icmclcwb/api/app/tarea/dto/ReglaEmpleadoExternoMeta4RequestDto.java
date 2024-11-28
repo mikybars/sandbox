@@ -15,6 +15,8 @@ public class ReglaEmpleadoExternoMeta4RequestDto {
 
   private String idOrganization;
 
+  private String stdIdHrType;
+
   private List<Integer> puestos;
 
 }
