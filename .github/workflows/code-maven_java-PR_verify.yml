@@ -12,14 +12,14 @@ on:
       - '.github/workflows/code*'
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 2.20.2
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
 jobs:
   unit-tests:
     name: Code / Verify
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_ONPREM || '["self-hosted", "testing-ivm"]' ) }}
     permissions:
       contents: write
       checks: write
@@ -56,6 +56,17 @@ jobs:
           with open(github_output, "a") as gh_out:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
             gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Store project version
         id: version
