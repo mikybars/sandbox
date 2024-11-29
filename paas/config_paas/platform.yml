@@ -18,6 +18,7 @@ app:
   services:
     http:
       route:
+        disable_cookies: false
         tls:
           enabled: true
           insecure_termination_policy: Redirect
