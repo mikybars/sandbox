@@ -12,9 +12,9 @@ endpoints:
         - release-type/patch
         - release-type/multi-hotfix
   jira:
-    host: axinic.central.inditex.grp
+    host: jira.inditex.com
     path: /jira/rest/api/2/issue
-    server: https://axinic.central.inditex.grp/jira
+    server: https://jira.inditex.com/jira
 repo-type: github
 master-branch: main
 included-paths: [ '/code' ]

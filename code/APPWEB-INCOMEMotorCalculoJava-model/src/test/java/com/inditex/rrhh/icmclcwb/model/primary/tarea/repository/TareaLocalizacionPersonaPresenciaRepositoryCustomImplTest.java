@@ -489,16 +489,13 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     final MapSqlParameterSource params = this.paramsCaptor.getValue();
     // Parámetros de la consulta: idTarea, excluidoDenominador, tiposDato,
     // nuevoActivo
-    assertEquals(5, params.getValues().size());
+    assertEquals(4, params.getValues().size());
     // idTarea
     assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
     assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
     // idTiposDato
     assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
     assertEquals(Arrays.asList(12, 89), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
-    // excluidoDenominador
-    assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
-    assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_DENOMINADOR));
     // nuevoActivo
     assertTrue(params.hasValue(SQL_PARAM_NUEVO_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_NUEVO_ACTIVO));
