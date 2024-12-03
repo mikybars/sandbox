@@ -16,7 +16,7 @@ supraenvironments:
             tenants:
               - name: global
                 slots:
-                  - name: bajas
+                  - name: pipe
   - name: pro
     environments:
       - name: pro
