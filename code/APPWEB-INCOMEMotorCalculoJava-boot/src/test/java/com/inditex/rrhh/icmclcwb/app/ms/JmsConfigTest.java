@@ -1,81 +1,92 @@
 package com.inditex.rrhh.icmclcwb.app.ms;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.inditex.amigafwk.data.jms.ArtemisConnectionFactoryBuilder;
-import com.inditex.amigafwk.data.jms.JmsConnectionFactoryBuilder;
+import com.inditex.amigafwk.data.jms.JmsClient;
+import com.inditex.amigafwk.data.jms.JmsClientBuilder;
+import com.inditex.amigafwk.data.jms.JmsConnectionFactoryGlobalCustomizer;
+import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryBuilder;
 import com.inditex.rrhh.icmclcwb.config.app.ms.JmsConfig;
-import com.inditex.rrhh.icmclcwb.config.app.ms.JmsListenerContainerFactoryCustom;
+import com.inditex.rrhh.icmclcwb.config.app.ms.JmsConnectionFactoryGlobalCustom;
 
 import jakarta.jms.ConnectionFactory;
+import jakarta.jms.JMSException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class})
 public class JmsConfigTest {
 
   @Mock
-  private ArtemisConnectionFactoryBuilder artemisConnectionFactoryBuilderMock;
+  private ArtemisConnectionFactoryBuilder builderCF;
 
   @Mock
-  private JmsListenerContainerFactoryBuilder jmsListenerContainerFactoryBuilderMock;
+  private JmsListenerContainerFactoryBuilder listenerContainerFactoryBuilder;
 
   @Mock
-  private ConnectionFactory connectionFactoryMock;
-
-  @Mock
-  private JmsConnectionFactoryBuilder jmsConnectionFactoryBuilder;
+  private JmsClientBuilder jmsClientBuilder;
 
   @InjectMocks
   private JmsConfig jmsConfig;
 
   @BeforeEach
-  void setUp() {
+  public void setUp() {
     MockitoAnnotations.openMocks(this);
   }
 
   @Test
-    void trabajoContainerFactoryListenerShouldConfigureCorrectly() {
-        when(this.jmsListenerContainerFactoryBuilderMock.additionalCustomizers(any(JmsListenerContainerFactoryCustom.class)))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.connectionFactory(this.connectionFactoryMock))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.sessionTransacted(false))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.build()).thenReturn(mock(JmsListenerContainerFactory.class));
+    void connectionFactoryLecturaShouldReturnNonXAConnectionFactory() throws JMSException {
+        when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
+        when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
 
-        final JmsListenerContainerFactory factory = this.jmsConfig.trabajoContainerFactoryListener(this.connectionFactoryMock,
-            this.jmsListenerContainerFactoryBuilderMock);
-        assertNotNull(factory);
-        verify(this.jmsListenerContainerFactoryBuilderMock, times(1)).build();
+        final ConnectionFactory cf = this.jmsConfig.connectionFactoryLectura(this.builderCF);
+
+        assertNotNull(cf);
+        verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
+        verify(this.builderCF).build();
     }
 
   @Test
-    void tareaContainerFactoryListenerShouldConfigureCorrectly() {
-        when(this.jmsListenerContainerFactoryBuilderMock.additionalCustomizers(any(JmsListenerContainerFactoryCustom.class)))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.connectionFactory(this.connectionFactoryMock))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.sessionTransacted(false))
-            .thenReturn(this.jmsListenerContainerFactoryBuilderMock);
-        when(this.jmsListenerContainerFactoryBuilderMock.build()).thenReturn(mock(JmsListenerContainerFactory.class));
+    void connectionFactoryEscrituraShouldReturnNonXAConnectionFactory() throws JMSException {
+        when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
+        when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
 
-        final JmsListenerContainerFactory factory = this.jmsConfig.tareaContainerFactoryListener(this.connectionFactoryMock,
-            this.jmsListenerContainerFactoryBuilderMock);
-        assertNotNull(factory);
-        verify(this.jmsListenerContainerFactoryBuilderMock, times(1)).build();
+        final ConnectionFactory cf = this.jmsConfig.connectionFactoryEscritura(this.builderCF);
+
+        assertNotNull(cf);
+        verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
+        verify(this.builderCF).build();
     }
 
+  @Test
+  void trabajoJmsClientShouldReturnConfiguredClient() throws JMSException {
+    final ConnectionFactory cf = mock(ConnectionFactory.class);
+    final JmsClient expectedClient = mock(JmsClient.class);
+    when(this.jmsClientBuilder.additionalCustomizers(any())).thenReturn(this.jmsClientBuilder);
+    when(this.jmsClientBuilder.build()).thenReturn(expectedClient);
+
+    final JmsClient client = this.jmsConfig.trabajoJmsClient(this.jmsClientBuilder, cf);
+
+    assertNotNull(client);
+    assertEquals(expectedClient, client);
+    verify(expectedClient).setConnectionFactory(cf);
+  }
+
+  @Test
+  void globalCustomizerShouldReturnJmsConnectionFactoryGlobalCustom() {
+    final JmsConnectionFactoryGlobalCustomizer customizer = this.jmsConfig.globalCustomizer();
+
+    assertNotNull(customizer);
+    assertInstanceOf(JmsConnectionFactoryGlobalCustom.class, customizer);
+  }
 }
