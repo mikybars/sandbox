@@ -4,7 +4,6 @@ import com.inditex.amigafwk.data.jms.ArtemisConnectionFactoryBuilder;
 import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.amigafwk.data.jms.JmsClientBuilder;
 import com.inditex.amigafwk.data.jms.JmsConnectionFactoryGlobalCustomizer;
-import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsClient;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsConnectionFactory;
 import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryBuilder;
@@ -27,13 +26,13 @@ public class JmsConfig {
 
   @Primary
   @AmigaJmsConnectionFactory("broker-lectura")
-  public ConnectionFactory connectionFactoryLectura(final ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
-    return builderCF.type(JmsConnectionFactoryType.NONXA).build();
+  public ConnectionFactory connectionFactoryLectura(ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
+    return builderCF.build();
   }
 
   @AmigaJmsConnectionFactory("broker-escritura")
-  public ConnectionFactory connectionFactoryEscritura(final ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
-    return builderCF.type(JmsConnectionFactoryType.NONXA).build();
+  public ConnectionFactory connectionFactoryEscritura(ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
+    return builderCF.build();
   }
 
   @AmigaJmsListenerContainerFactory("trabajo")
