@@ -12,7 +12,6 @@ import com.inditex.amigafwk.service.jms.annotation.AmigaJmsListenerContainerFact
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,19 +20,17 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 
 @Configuration
 public class JmsConfig {
-
-  @Autowired
-  private ArtemisConnectionFactoryBuilder builderCF;
-
   @Primary
   @AmigaJmsConnectionFactory("broker-lectura")
-  public ConnectionFactory connectionFactoryLectura(ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
-    return builderCF.type(JmsConnectionFactoryType.NONXA).build();
+  public ConnectionFactory connectionFactoryLectura(final ArtemisConnectionFactoryBuilder builder)
+      throws JMSException {
+    return builder.type(JmsConnectionFactoryType.NONXA).build();
   }
 
   @AmigaJmsConnectionFactory("broker-escritura")
-  public ConnectionFactory connectionFactoryEscritura(ArtemisConnectionFactoryBuilder builderCF) throws JMSException {
-    return builderCF.type(JmsConnectionFactoryType.NONXA).build();
+  public ConnectionFactory connectionFactoryEscritura(final ArtemisConnectionFactoryBuilder builder)
+      throws JMSException {
+    return builder.type(JmsConnectionFactoryType.NONXA).build();
   }
 
   @AmigaJmsListenerContainerFactory("trabajo")
