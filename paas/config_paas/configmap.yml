@@ -87,11 +87,11 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          userName: user-write
+          user: user-write
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          userName: user-read
+          user: user-read
       listener-container-factory:
         trabajo:
           concurrency: 1
