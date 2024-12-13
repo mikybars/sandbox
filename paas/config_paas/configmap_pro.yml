@@ -42,7 +42,7 @@ amiga:
     jdbc:
       datasource:
         primary:
-          driver-class-name: com.ibm.db2.jcc.DB2Driver
+          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
           username: uincome
           jdbc-url: jdbc:db2://axindb26finv1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
           xa-properties:
@@ -448,7 +448,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepro          
+              client-id: oauthincomepro
 app:
   envars:
     mail:

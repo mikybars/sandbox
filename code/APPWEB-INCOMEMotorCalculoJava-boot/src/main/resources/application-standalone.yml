@@ -250,7 +250,7 @@ amiga:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
-          driver-class-name: com.ibm.db2.jcc.DB2Driver
+          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'
