@@ -251,6 +251,7 @@ amiga:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
           driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'

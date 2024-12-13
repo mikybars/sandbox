@@ -41,6 +41,7 @@ amiga:
       datasource:
         primary:
           driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
           xa-properties:
