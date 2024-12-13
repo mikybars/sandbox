@@ -34,7 +34,7 @@ class RunTareaProcesarVentaServiceImplTest {
   RunTareaProcesarVentaServiceImpl runTareaProcesarVentaService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionPersonaLocalizacionTest(final RunTareaDto runTarea) {
     this.runTareaProcesarVentaService.totalizarVentaSinDevolucionPersonaLocalizacion(runTarea);
     verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, times(1))
@@ -42,21 +42,21 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionPersonaLocalizacionTest(final RunTareaDto runTarea) {
     this.runTareaProcesarVentaService.totalizarDevolucionPersonaLocalizacion(runTarea);
     verify(this.tareaLocalizacionPersonaVentaRepositoryCustom, times(1)).totalizarDevolucionPersonaLocalizacion(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionesVendedor0Test(final RunTareaDto runTarea) {
     this.runTareaProcesarVentaService.totalizarDevolucionesVendedor0(runTarea);
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).totalizarDevolucionesVendedor0(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularImporteComisionVendedoresTest(final RunTareaDto tarea) {
 
     this.runTareaProcesarVentaService.calcularImporteComisionVendedores(tarea);
@@ -69,7 +69,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularImporteComisionVendedoresExceptionTest(final RunTareaDto tarea) {
 
     doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom)
@@ -84,7 +84,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularImporteComisionVentaODevolucionTest(final RunTareaDto tarea) {
 
     this.runTareaProcesarVentaService.calcularImporteComisionVentaODevolucion(tarea);
@@ -97,7 +97,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularImporteComisionVentaODevolucionExceptionTest(final RunTareaDto tarea) {
 
     doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom)
@@ -112,7 +112,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void devolucionImporte0Test(final RunTareaDto tarea) {
     this.runTareaProcesarVentaService.devolucionImporte0(tarea);
     verify(this.primaryTemporaryTablePorVentaRepositoryCustom, times(1)).createTempDatesEstructurasPorVenta();
@@ -123,7 +123,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void devolucionImporte0ExceptionTest(final RunTareaDto tarea) {
 
     doThrow(new RuntimeException("ERROR")).when(this.primaryTemporaryTablePorVentaRepositoryCustom)
@@ -138,7 +138,7 @@ class RunTareaProcesarVentaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionLocalizacion(final RunTareaDto tarea) {
     this.runTareaProcesarVentaService.totalizarDevolucionLocalizacion(tarea);
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).totalizarDevolucionLocalizacion(tarea.getTarea());

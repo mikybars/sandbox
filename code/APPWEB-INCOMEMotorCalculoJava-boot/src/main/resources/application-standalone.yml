@@ -255,7 +255,7 @@ amiga:
           username: uincome
           password: '${uincomedes}'
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
             connectionTimeout: 60

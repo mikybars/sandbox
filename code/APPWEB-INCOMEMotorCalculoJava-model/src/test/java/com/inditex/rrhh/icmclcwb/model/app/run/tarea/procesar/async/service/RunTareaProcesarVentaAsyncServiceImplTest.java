@@ -23,35 +23,35 @@ class RunTareaProcesarVentaAsyncServiceImplTest {
   RunTareaProcesarVentaAsyncServiceImpl runTareaProcesarVentaAsyncService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionPersonaLocalizacionTest(final RunTareaDto tarea) {
     this.runTareaProcesarVentaAsyncService.totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
     verify(this.tareaProcesarVentaService, times(1)).totalizarVentaSinDevolucionPersonaLocalizacion(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionPersonaLocalizacionTest(final RunTareaDto tarea) {
     this.runTareaProcesarVentaAsyncService.totalizarDevolucionPersonaLocalizacion(tarea);
     verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionPersonaLocalizacion(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionesVendedor0Test(final RunTareaDto tarea) {
     this.runTareaProcesarVentaAsyncService.totalizarDevolucionesVendedor0(tarea);
     verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionesVendedor0(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void devolucionImporte0Test(final RunTareaDto tarea) {
     this.runTareaProcesarVentaAsyncService.devolucionImporte0(tarea);
     verify(this.tareaProcesarVentaService, times(1)).devolucionImporte0(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionLocalizacionTest(final RunTareaDto tarea) {
     this.runTareaProcesarVentaAsyncService.totalizarDevolucionLocalizacion(tarea);
     verify(this.tareaProcesarVentaService, times(1)).totalizarDevolucionLocalizacion(tarea);

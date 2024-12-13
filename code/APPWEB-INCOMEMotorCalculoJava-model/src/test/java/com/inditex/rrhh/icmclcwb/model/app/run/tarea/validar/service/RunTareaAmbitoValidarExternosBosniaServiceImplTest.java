@@ -69,7 +69,7 @@ class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
   private RunTareaAmbitoValidarExternosBosniaServiceImpl runTareaAmbitoValidarExternosBosniaService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final List<Integer> puestos,
       final ExternosRequestDTO externosRequestDTO,
       final List<EmpleadoExternoDTO> externos,

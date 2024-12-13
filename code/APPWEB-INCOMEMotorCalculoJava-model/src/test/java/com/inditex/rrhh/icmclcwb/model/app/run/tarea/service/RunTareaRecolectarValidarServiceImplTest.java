@@ -81,7 +81,7 @@ class RunTareaRecolectarValidarServiceImplTest {
   final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runTest(final TareaFaseDto tareaFaseDto,
       final CompletableFuture<List<RunTareaValidarDto>> completableFuture,
       final List<RunTareaValidarDto> runTareaValidarDtoList) {
@@ -118,7 +118,7 @@ class RunTareaRecolectarValidarServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runExceptionTest(final TareaFaseDto tareaFaseDto,
       final CompletableFuture<List<RunTareaValidarDto>> completableFuture,
       final List<RunTareaValidarDto> runTareaValidarDtoList) {

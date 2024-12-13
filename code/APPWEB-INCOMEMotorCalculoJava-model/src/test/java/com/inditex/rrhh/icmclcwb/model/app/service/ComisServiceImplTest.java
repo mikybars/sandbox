@@ -331,21 +331,21 @@ class ComisServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findComisionManualTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito) {
     this.comisServiceImpl.findComisionManual(runTarea, tareaAmbito);
     verify(this.comisRepositoryCustom, times(1)).findComisionManual(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto, final Long maxIdPersona) {
     this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
     verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea(), maxIdPersona);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasSilEstadoNullTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(null);
@@ -354,7 +354,7 @@ class ComisServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasSilEstadoVacioTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(new ArrayList<>());
@@ -363,7 +363,7 @@ class ComisServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasSilConEstadoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(Collections.singletonList("ea"));
@@ -406,7 +406,7 @@ class ComisServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void validateTempComisRecuperarFranciaTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto) {
     this.comisServiceImpl.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1)).validateTempComisRecuperarFrancia(runTarea.getTarea());

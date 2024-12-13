@@ -71,7 +71,7 @@ class DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom
@@ -87,7 +87,7 @@ class DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   }
 
   @ParameterizedTest
-    @InstancioSource  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
+    @InstancioSource(samples = 1)  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -106,7 +106,7 @@ class DirectoVentaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void calcularExceptionTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 

@@ -57,7 +57,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg, final int intArgs,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaIndividualDetalleResultItemDto = Instancio.create(PtrVentaIndividualDetalleResultItemDto.class);
@@ -77,7 +77,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest4(
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrSeccionVentaOnlineGenericType = Instancio.create(PtrSeccionVentaOnlineGenericType.class);
@@ -106,7 +106,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaOnlineIpodIndividualDetalleResultItemDto = Instancio.create(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class);

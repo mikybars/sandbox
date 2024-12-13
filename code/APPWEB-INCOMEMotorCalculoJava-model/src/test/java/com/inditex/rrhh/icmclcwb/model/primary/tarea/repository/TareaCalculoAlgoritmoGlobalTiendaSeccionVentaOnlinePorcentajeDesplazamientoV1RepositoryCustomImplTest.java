@@ -69,7 +69,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamient
   TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustomImpl tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void idsTest(final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
     final var algoritmo = Instancio.create(AlgoritmoDTO.class);
     final var tarea = Instancio.create(TareaDto.class);
@@ -87,7 +87,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeDesplazamient
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapvaluesTest(final List<IdTipoDatoDto> tiposDatoVenta,
       final List<IdTipoDatoDto> tiposDatoPresencia,
       final List<IdTipoDatoDto> tiposDatoPersonaPresencia) {

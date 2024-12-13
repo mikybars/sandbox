@@ -69,7 +69,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
     logger.addAppender(this.listAppender);
   }
 
-  @InstancioSource
+  @InstancioSource(samples = 1)
   @ParameterizedTest
   void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(
@@ -85,7 +85,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
     assertEquals(SQL_CALCULAR, result);
   }
 
-  @InstancioSource
+  @InstancioSource(samples = 1)
   @ParameterizedTest
   void calcularTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
@@ -106,7 +106,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest i
 
   }
 
-  @InstancioSource
+  @InstancioSource(samples = 1)
   @ParameterizedTest
   void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {

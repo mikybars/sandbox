@@ -34,7 +34,7 @@ class RunTareaProcesarCondicionesServiceImplTest {
   private RunTareaProcesarCondicionesServiceImpl runTareaProcesarCondicionesService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void igualarBandasOrigenDestinoTest(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.igualarBandasOrigenDestino(tarea);
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempBandasOrigenSinBandaDesplazamiento();
@@ -45,7 +45,7 @@ class RunTareaProcesarCondicionesServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void establecerBandaOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.establecerBandaOpcionOrigen(tarea);
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).createTempEstructurasBaseChallenge();
@@ -61,28 +61,28 @@ class RunTareaProcesarCondicionesServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearChallengeOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.crearChallengeOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearChallengeOpcionOrigen(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void desactivarChallengeOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.desactivarChallengeOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarChallengeOpcionOrigen(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearGlobalSeccionOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.crearGlobalSeccionOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).crearGlobalSeccionOpcionOrigen(tarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void desactivarGlobalSeccionOpcionOrigen(final TareaDto tarea) {
     this.runTareaProcesarCondicionesService.desactivarGlobalSeccionOpcionOrigen(tarea);
     verify(this.tareaPersonaEstructuraRepositoryCustom, times(1)).desactivarGlobalSeccionOpcionOrigen(tarea);

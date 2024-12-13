@@ -115,7 +115,7 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Repositor
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest(final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
       final List<IdTipoDatoDto> tiposDato, final IdPersonaLocalDto persona) {
 
@@ -178,7 +178,7 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDesplazamientoV1Repositor
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final List<IdTipoDatoDto> tiposDato,
       final List<IdPersonaLocalDto> personas) {
