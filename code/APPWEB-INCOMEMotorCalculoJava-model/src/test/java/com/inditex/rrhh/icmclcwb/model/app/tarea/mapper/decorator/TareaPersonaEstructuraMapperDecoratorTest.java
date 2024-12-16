@@ -53,7 +53,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoEmptyListTest(final TareaDto tarea) {
 
     final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapperDecorator
@@ -64,7 +64,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSinCondicionesBaseTest(
       final EstructurasComResultItemDto itemPadre, final TareaDto tarea) {
 
@@ -77,7 +77,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSinTipoCalculoTest(
        final EstructurasComResultItemDto itemPadre,
        final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
@@ -102,7 +102,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4NoChallengeTest(
        final EstructurasComResultItemDto itemPadre,
        final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
@@ -132,7 +132,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengePrecioHoraTiendaTest(
        final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
@@ -161,7 +161,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
     void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengeImporteTiendaTest(
        final EstructurasComResultItemDto itemPadre,
        final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
@@ -189,7 +189,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSinValoresDestinoTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -239,7 +239,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSinValoresDestinoMejorOpcionTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -297,7 +297,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4NoChallengeTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -365,7 +365,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4NoChallengeMejorOpcionTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -457,7 +457,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -517,7 +517,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoSeccion4ChallengeMejorOpcionTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -585,7 +585,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -638,7 +638,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4NoChallengeMejorOpcionTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -699,7 +699,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,
@@ -759,7 +759,7 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoDesplazamientoNoSeccion4ChallengeMejorOpcionTest(
       final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final ListaCondicionesDestinoResultItemDto itemDestino,

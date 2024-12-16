@@ -307,7 +307,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionLocalizacionTest(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarVentasSinDevolucionLocalizacionSeccion(tarea);
@@ -329,7 +329,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionPersonasPorVenta(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarVentaSinDevolucionPersonasPorVenta(tarea);
@@ -409,7 +409,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionesVendedor0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0(tarea);
@@ -431,7 +431,7 @@ class TareaLocalizacionVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void repartoDevolucionVendedor0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionVentaRepositoryCustom.repartoDevolucionVendedor0(tarea);

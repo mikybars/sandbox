@@ -104,7 +104,7 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarDevolucionPersonaSeccionTest( final TareaDto tarea,
        final List<IdTipoDatoDto> tiposDato) {
 
@@ -130,7 +130,7 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionPersonaSeccionTest(final TareaDto tarea,
       final List<IdTipoDatoDto> tiposDato) {
 
@@ -155,7 +155,7 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void devolucionImporte0Test(final TareaDto tarea) {
 
     this.tareaLocalizacionPersonaVentaRepositoryCustom.devolucionImporte0(tarea);

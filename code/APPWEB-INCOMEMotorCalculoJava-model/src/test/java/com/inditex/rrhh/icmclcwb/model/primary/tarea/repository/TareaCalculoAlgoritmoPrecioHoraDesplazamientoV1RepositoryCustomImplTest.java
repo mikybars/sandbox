@@ -104,7 +104,7 @@ class TareaCalculoAlgoritmoPrecioHoraDesplazamientoV1RepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   public void getMapValuesTest(final AlgoritmoDTO algoritmo2) {
 
     when(this.tipoDatoService

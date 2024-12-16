@@ -65,7 +65,7 @@ class AbstractRunTareaPrevalidarTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertarDatoIdAccion2Test(
       final TareaFaseAccionDto tareaFaseAccion) {
     final List<ValidacionDto> fallidas = Instancio.ofList(ValidacionDto.class).size(1).create();

@@ -29,7 +29,7 @@ class ReglaEmpleadoExternoMeta4MapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoTest(
       final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
 

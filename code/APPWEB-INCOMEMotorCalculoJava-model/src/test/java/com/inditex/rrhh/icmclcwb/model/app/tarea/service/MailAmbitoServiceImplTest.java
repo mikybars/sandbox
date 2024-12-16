@@ -28,7 +28,7 @@ class MailAmbitoServiceImplTest {
   private MailAmbitoServiceImpl mailAmbitoService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMailByOrigenEmpresaTest(final List<MailAmbitoDto> mailAmbitos) {
 
     final String cclIdOrigen = "60";

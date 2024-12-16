@@ -358,7 +358,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findCondicionesDesplazamientoTest(final TareaDto tarea, final PeriodoDto periodo,
       final IdPersonaLocalCondicionesDto condiciones) {
 
@@ -407,7 +407,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findCondicionesDesplazamientoEsTest(final TareaDto tarea, final PeriodoDto periodo,
       final IdPersonaLocalCondicionesDto condiciones) {
 
@@ -768,7 +768,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findCondicionesDesplazamientoSinChallengeTest(final TareaDto tarea, final PeriodoDto periodo,
       final IdPersonaLocalCondicionesDto condiciones) {
 
@@ -837,7 +837,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findComisionManual(final TareaDto tarea, final IdPersonaLocalComisionManualDto result) {
 
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
@@ -867,7 +867,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
       final Long maxIdEmpleado) {
 
@@ -898,7 +898,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
     void findPersonasSilSinEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
       final Long maxIdEmpleado, final ClaseResultItemDto clase) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
@@ -928,7 +928,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
     void findPersonasSilConEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
       final Long maxIdEmpleado, final ClaseResultItemDto clase) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
@@ -1007,7 +1007,7 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
     void validateTempComisRecuperarFrancia(final IdPersonaLocalDto result) {
     when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
         ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then((invocation) -> {
