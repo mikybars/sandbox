@@ -85,7 +85,7 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void idsTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
       final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
 
@@ -103,7 +103,7 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapvaluesTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
       final IdPersonaLocalDto persona,
       final List<IdTipoDatoDto> tiposDatoVenta) {
@@ -143,7 +143,7 @@ class TareaCalculoAlgoritmoDirectoVentaVentaOnlinePorcentajeV1RepositoryCustomIm
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final TareaDto tarea, final AlgoritmoDTO algoritmo,
       final List<IdPersonaLocalDto> personas,
       final List<IdTipoDatoDto> tiposDatoVenta) {

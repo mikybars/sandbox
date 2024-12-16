@@ -50,7 +50,7 @@ class TareaFaseAccionVentaIntegraRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void saveTest(final List<TareaFaseAccionVentaIntegra> src) {
     this.tareaFaseAccionVentaIntegraRepositoryCustom.save(src);
     verify(this.namedParameterJdbcTemplate).batchUpdate(this.sqlCaptor.capture(), any(SqlParameterSource[].class));

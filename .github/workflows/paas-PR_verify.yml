@@ -13,13 +13,13 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.5.3
+  WORKFLOW_VERSION: 3.12.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
   check-changes-in-paths:
     name: Check for changes in corresponding paths
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
     outputs:
       yaml: ${{ steps.changes.outputs.yaml }}
@@ -42,7 +42,7 @@ jobs:
     timeout-minutes: 5
     needs: [check-changes-in-paths]
     if: needs.check-changes-in-paths.outputs.yaml == 'true'
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
 
   check-changes-in-secrets:
     name: Check for changes secret*.yml
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
     outputs:
       secrets: ${{ steps.secrets-check-changes.outputs.secrets }}
@@ -71,7 +71,7 @@ jobs:
 
   check-secrets:
     name: Check new secrets
-    runs-on: [self-hosted, paasfeature]
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
     needs: [check-changes-in-secrets]
     if: ${{ needs.check-changes-in-secrets.outputs.secrets == 'true' && github.event_name != 'workflow_dispatch' }}
     strategy:
@@ -101,7 +101,7 @@ jobs:
     needs: [check-changes-in-secrets, check-secrets]
     if: ${{ failure() && needs.check-changes-in-secrets.outputs.secrets == 'true' && github.event_name != 'workflow_dispatch' }}
     name: "PaaS / Summary for check secrets action"
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     outputs:
       summary: ${{ steps.summary-check-secrets.outputs.summary }}
 
@@ -115,7 +115,7 @@ jobs:
 
   create-check-secrets-tag:
     name: Create check-secrets tag
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [check-secrets]
     if: ${{ needs.check-secrets.result == 'success' && github.event_name != 'workflow_dispatch' }}
 
@@ -129,7 +129,7 @@ jobs:
 
   remove-check-secrets-tag:
     name: Remove check-secrets tag
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     if: ${{ github.event.action == 'closed' && github.event_name != 'workflow_dispatch' }}
 
     steps:
@@ -141,7 +141,7 @@ jobs:
 
   get-secret-files-list:
     name: Get secret files list
-    runs-on: [self-hosted, paasfeature]
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
     if: ${{ github.event_name == 'workflow_dispatch' }}
     outputs:
       files-found: ${{ steps.get-secret-files-list.outputs.files-found }}
@@ -160,7 +160,7 @@ jobs:
 
   check-all-secrets:
     name: Check new secrets
-    runs-on: [self-hosted, paasfeature]
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
     needs: [get-secret-files-list]
     if: ${{ needs.get-secret-files-list.outputs.files-found == 'true' && github.event_name == 'workflow_dispatch' }}
     strategy:

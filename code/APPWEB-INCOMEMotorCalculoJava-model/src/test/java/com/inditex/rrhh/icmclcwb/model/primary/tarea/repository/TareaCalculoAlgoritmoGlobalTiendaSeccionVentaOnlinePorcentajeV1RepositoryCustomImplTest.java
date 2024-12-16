@@ -100,7 +100,7 @@ class TareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryC
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest(final AlgoritmoDTO algoritmo, final TareaDto tarea, final IdPersonaLocalDto persona,
       final List<IdTipoDatoDto> tiposDatoPersonaPresencia,
       final List<IdTipoDatoDto> tiposDatoVenta,

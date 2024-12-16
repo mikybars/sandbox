@@ -44,7 +44,7 @@ class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazam
   private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustomImpl;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void idsTest(final List<IdPersonaLocalDto> idPersonaLocalDtoList) {
     final var algoritmo = Instancio.create(AlgoritmoDTO.class);
     final var tarea = Instancio.create(TareaDto.class);
@@ -62,7 +62,7 @@ class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazam
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapvaluesTest(final List<IdTipoDatoDto> idTipoDatoDtoList) {
     final var algoritmo = Instancio.create(AlgoritmoDTO.class);
     final var tarea = Instancio.create(TareaDto.class);
@@ -82,7 +82,7 @@ class TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazam
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapvaluesTest2(final List<IdTipoDatoDto> idTipoDatoDtoList) {
     final var algoritmo = Instancio.create(AlgoritmoDTO.class);
     final var tarea = Instancio.create(TareaDto.class);

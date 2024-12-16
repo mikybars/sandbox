@@ -50,7 +50,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.5.3
+  WORKFLOW_VERSION: 3.12.0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIR_PATH_STATUS: "/tmp/artifact-results"
 
@@ -58,7 +58,7 @@ jobs:
 
   get-affected-prs:
     name: PaaS / Get affected PRs
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     outputs:
       affected-prs: ${{ steps.affected-prs-by-issue.outputs.affected-prs }}
 
@@ -72,7 +72,7 @@ jobs:
 
   validate-permutations:
     name: PaaS / Validate permutations
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [get-affected-prs]
     outputs:
       filtered-permutations: ${{ steps.get-filtered-permutations.outputs.filtered-permutations }}
@@ -82,7 +82,7 @@ jobs:
       - name: Validate slots
         if: ${{ github.event.inputs.SLOTS != '' }}
         id: validate-slots
-        uses: inditex/actions/deployment/validate-slots@main
+        uses: inditex/gha-paasdeployment/deployment/validate-slots@v0
         with:
           slots: ${{ github.event.inputs.SLOTS }}
           strategy: default
@@ -106,7 +106,7 @@ jobs:
 
   rollout:
     name: PaaS / Run rollout command in PRs
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [validate-permutations, get-affected-prs]
     if: ${{ !contains(fromJSON('["merge", "cancel", "restore", "approve"]'), github.event.inputs.ACTION) }}
     outputs:
@@ -127,7 +127,7 @@ jobs:
 
   restore-init:
     name: PaaS / Restore Init
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [validate-permutations, get-affected-prs]
     if: ${{ github.event.inputs.ACTION == 'restore' }}
     outputs:
@@ -147,7 +147,7 @@ jobs:
 
   restore:
     name: Restore affected PRs
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [restore-init]
     if: ${{ fromJson(needs.restore-init.outputs.permutations-data) }}
     strategy:
@@ -172,7 +172,7 @@ jobs:
   restore-summary:
     if: ${{ success() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') }}
     name: Restore summary
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [restore, restore-init]
     outputs:
       summary: ${{ steps.summary-restore.outputs.summary }}
@@ -190,7 +190,7 @@ jobs:
 
   mimic-init:
     name: "PaaS / Init Mimic action ${{ github.event.inputs.ACTION}}"
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [validate-permutations, get-affected-prs]
     if: contains(fromJSON('["approve", "merge" ,"cancel"]'), github.event.inputs.ACTION)
     outputs:
@@ -214,7 +214,7 @@ jobs:
 
   mimic-exec:
     name: "PaaS / Execute action ${{ github.event.inputs.ACTION}} in affected PRs with MIMIC"
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [mimic-init]
     if: ${{ needs.mimic-init.outputs.permutations-data != '' && needs.mimic-init.outputs.permutations-data != '[]' }}
     permissions:
@@ -242,7 +242,7 @@ jobs:
   mimic-summary:
     if: ${{ !failure() && !cancelled() && (github.event.inputs.ISSUE_NUMBER != '') && contains(fromJSON('["approve", "merge" ,"cancel"]'), github.event.inputs.ACTION) }}
     name: "PaaS / Summary mimic action ${{ github.event.inputs.ACTION}}"
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     needs: [mimic-init, mimic-exec]
     outputs:
       summary: ${{ steps.summary-mimic.outputs.summary }}
@@ -259,7 +259,7 @@ jobs:
 
   summary:
     name: PaaS / Summary
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
     if: ${{ !failure() && !cancelled() }}
     needs: [rollout, restore-summary, mimic-summary]
     steps:

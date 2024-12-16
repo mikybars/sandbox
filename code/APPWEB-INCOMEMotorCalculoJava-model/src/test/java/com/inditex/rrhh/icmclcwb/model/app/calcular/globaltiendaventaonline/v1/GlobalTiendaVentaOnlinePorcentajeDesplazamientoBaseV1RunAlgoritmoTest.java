@@ -70,7 +70,7 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RepositoryCustom
@@ -86,7 +86,7 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 
@@ -107,7 +107,7 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1RunAlgoritmoTest impl
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 

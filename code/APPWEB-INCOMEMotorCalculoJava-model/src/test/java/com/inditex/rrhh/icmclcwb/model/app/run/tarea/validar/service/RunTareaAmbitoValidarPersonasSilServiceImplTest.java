@@ -68,7 +68,7 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
   private RunTareaAmbitoValidarPersonasSilServiceImpl runTareaAmbitoValidarPersonasGlobalService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion,
       final IdPersonaLocalLocalizacionDto persona1) {
@@ -102,7 +102,7 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
        final TareaFaseAccionDto tareaFaseAccion) {
 

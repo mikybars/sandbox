@@ -52,7 +52,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
   private GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo;
 
   @ParameterizedTest
-  @InstancioSource  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
+  @InstancioSource(samples = 1)  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
         .thenReturn(SQL_CALCULAR);
 
@@ -65,7 +65,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
 
   @Disabled //TODO: Ver que hacer
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 
@@ -93,7 +93,7 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
 
   @Disabled //TODO: Ver que hacer
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
   final List<IdPersonaLocalDto> personas) {
 

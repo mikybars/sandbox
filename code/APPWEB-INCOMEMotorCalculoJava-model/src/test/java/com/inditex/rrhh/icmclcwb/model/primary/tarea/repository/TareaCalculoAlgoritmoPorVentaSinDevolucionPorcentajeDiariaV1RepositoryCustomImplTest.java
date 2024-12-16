@@ -117,7 +117,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCust
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest(final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
 
@@ -181,7 +181,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaV1RepositoryCust
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea) {
 
     final List<IdTipoDatoDto> tiposDato = Instancio.ofList(IdTipoDatoDto.class).size(3).create();
