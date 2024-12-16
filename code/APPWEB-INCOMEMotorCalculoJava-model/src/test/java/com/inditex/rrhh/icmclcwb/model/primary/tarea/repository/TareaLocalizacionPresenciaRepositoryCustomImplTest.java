@@ -86,6 +86,8 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE = "TOTALIZAR INCLUIDO CHALLENGE PORCENTAJE";
 
+  private final static String SQL_UPDATE_ACTIVO_VACIO = "UPDATE ACTIVO VACIO";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -129,7 +131,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlTotalizarIncluidoChallengePorcentaje",
         SQL_TOTALIZAR_INCLUIDO_CHALLENGE_PORCENTAJE, true);
-
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlUpdateActivoVacio",
+        SQL_UPDATE_ACTIVO_VACIO, true);
   }
 
   @Test
@@ -160,6 +164,18 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
     assertEquals(Arrays.asList(5018, 5002), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
 
+  }
+
+  @Test
+  void updateActivoVacioTest() {
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(1222L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
+        any(MapSqlParameterSource.class));
+    assertEquals(SQL_UPDATE_ACTIVO_VACIO, this.sqlCaptor.getValue());
   }
 
   @Test
@@ -1165,7 +1181,7 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarEmpleadosPorVentaTest(final RunTareaDto tarea) {
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(tarea);

@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -138,8 +137,8 @@ public abstract class TareaLocalizacionVentaDecorator extends TareaLocalizacionV
       });
       final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder()
           .seccion(AppConstants.SECCION_4)
-          .importeConIVA(BigDecimal.valueOf(importeConIva.doubleValue()))
-          .importeSinIVA(BigDecimal.valueOf(importeSinIva.doubleValue()))
+          .importeConIVA(importeConIva.doubleValue())
+          .importeSinIVA(importeSinIva.doubleValue())
           .build();
       dtoList.add(this.delegate.responseItemDtoToTareaLocalizacionVenta(tienda, cadena, fecha, tarea, seccion4,
           tipoDatoLocalizacion));

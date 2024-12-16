@@ -246,7 +246,11 @@ public enum TipoDatoEnum {
   /* 10000 (Periodos) */
   PERIODO(10001), PERIODO_AMPLIADO(10002),
   /* 11000 (Motivos Desplazamiento) */
-  MOTIVOS_DESPLAZAMIENTO(11001);
+  MOTIVOS_DESPLAZAMIENTO(11001),
+
+  /* 12000 (Jornada laboral) */
+  JORNADA_LOCALIZACION_PERSONA(12001),
+  JORNADA_LOCALIZACION(12002);
 
   private final Integer id;
 

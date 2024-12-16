@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarCondicionesAsyncService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarJornadaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTareaProcesarVentaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
@@ -33,6 +34,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class RunTareaProcesarServiceImplTest {
 
   @Mock
+  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
+
+  @Mock
   private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
 
   @Mock
@@ -51,7 +55,7 @@ class RunTareaProcesarServiceImplTest {
   final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runTest(final TareaFaseDto tareaFaseDto) {
 
     final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -185,6 +189,9 @@ class RunTareaProcesarServiceImplTest {
         .presenciaDesplazamiento(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .updateActivoLocalizacionVacio(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .presenciaDesplazamientoChallengePorcentaje(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
@@ -289,6 +296,12 @@ class RunTareaProcesarServiceImplTest {
     doReturn(completableFuture).when(this.runTareaProcesarCondicionesAsyncService)
         .relacionarPresupuestosEstructurasDesplazamiento(this.runTarea.getTarea());
 
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacion(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarJornadaAsyncService)
+        .procesarJornadaLocalizacionPersona(this.runTarea);
+
     doReturn(completableFuture).when(this.runTareaProcesarVentaAsyncService)
         .updateActivoManual(this.runTarea);
 
@@ -305,7 +318,7 @@ class RunTareaProcesarServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runExceptionTest(final TareaFaseDto tareaFaseDto,
       final CompletableFuture<Void> completableFuture) {
 

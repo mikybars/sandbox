@@ -3,7 +3,7 @@ name: code-maven-build-snapshot
 
 concurrency:
   group: code-build-snapshot
-  cancel-in-progress: true
+  cancel-in-progress: ${{ vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
     paths: ['code/**', '.github/workflows/code**']
 
 env:
-  WORKFLOW_VERSION: 2.5.1
+  WORKFLOW_VERSION: 2.20.2
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -22,13 +22,32 @@ env:
 jobs:
   build-snapshot:
     name: Build Snapshot
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
     if: ${{ (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) }}
     steps:
+      - name: Get release commits
+        id: release-commits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ "${{ vars.DEVELOPMENT_FLOW }}" != "trunk-based-development" ]]; then
+            echo "SKIP=false" >> "$GITHUB_OUTPUT"
+          else
+            COMMIT_MESSAGE=$(gh api -H "Accept: application/vnd.github.v3+json" "/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA" | jq -cr '.commit.message')
+            if [[ "$COMMIT_MESSAGE" == *"[maven-release-plugin] Prepare release"* ||
+                  "$COMMIT_MESSAGE" == *"[maven-release-plugin] Prepare for next development iteration"* ||
+                  "$COMMIT_MESSAGE" == *"[changelog-drafter] Prepare release"* ]]; then
+              echo "SKIP=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "SKIP=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
       - name: Checkout Branch Head
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: actions/checkout@v4
 
       - name: Setup Maven Cache
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: actions/cache@v4
         continue-on-error: true
         with:
@@ -38,6 +57,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Setup asdf Cache
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: actions/cache@v4
         continue-on-error: true
         with:
@@ -47,23 +67,58 @@ jobs:
             ${{ runner.os }}-asdf-
 
       - name: Log in to GitHub Registry
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v0
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.12.0-ubuntu20.04-r2
-          ASDF_RHUBI_IMAGE_TAG: 0.12.0-rhubi-r3
-          ASDF_CENTOS_IMAGE_TAG: 0.12.0-centos-r2
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
           tool-versions-directory: code
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') && steps.release-commits.outputs.SKIP == 'false' }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: true
+
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Get runner resources
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        continue-on-error: true
+        uses: inditex/gha-citool/get-runner-resources@v0
+        with:
+          memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
 
       - name: Build & Deploy Snapshots
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
         run: |
           mkdir -p "$HOME"/.m2/repository
           mkdir -p "$HOME"/.asdf/data
+          # shellcheck disable=SC2086
           docker run --workdir /app/code \
-            -u runner \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
+            -e TOTAL_CPUS \
+            -e TOTAL_MEMORY \
             -e DP_USERNAME=${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }} \
             -e DP_TOKEN=${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }} \
             -e DT_ENDPOINT -e DT_SECRET \
@@ -74,4 +129,4 @@ jobs:
             --mount type=bind,src="$(pwd)",dst=/app \
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot
+            mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS

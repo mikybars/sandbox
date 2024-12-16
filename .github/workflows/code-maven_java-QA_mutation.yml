@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.10.0
+  WORKFLOW_VERSION: 2.24.1
   IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Setup IVM environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}

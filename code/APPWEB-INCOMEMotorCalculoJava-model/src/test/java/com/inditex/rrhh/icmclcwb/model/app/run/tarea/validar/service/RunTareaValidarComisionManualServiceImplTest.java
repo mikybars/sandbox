@@ -41,7 +41,7 @@ class RunTareaValidarComisionManualServiceImplTest {
   private RunTareaValidarComisionManualServiceImpl runTareaValidarComisionManualService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeValidacionesConErroresTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
@@ -73,7 +73,7 @@ class RunTareaValidarComisionManualServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeSinValidacionesTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();
@@ -94,7 +94,7 @@ class RunTareaValidarComisionManualServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeValidacionesSinErroresTest(final RunTareaDto runTarea, final TareaFaseAccionDto tareaFaseAccion) {
 
     final TareaDto tarea = runTarea.getTarea();

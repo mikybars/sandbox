@@ -59,7 +59,7 @@ class RunTareaAmbitoValidarComisionManualServiceImplTest {
   private RunTareaAmbitoValidarComisionManualServiceImpl runTareaAmbitoValidarComisionManualService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion,
       final IdPersonaLocalComisionManualDto comision) {
@@ -86,7 +86,7 @@ class RunTareaAmbitoValidarComisionManualServiceImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
 

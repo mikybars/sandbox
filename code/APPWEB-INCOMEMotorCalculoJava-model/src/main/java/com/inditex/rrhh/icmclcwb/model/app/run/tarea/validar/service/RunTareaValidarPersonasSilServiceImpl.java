@@ -27,6 +27,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaValidarPersonasSilServiceImpl implements RunPrevalidar {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidarPersonasSilServiceImpl.class);
+
   @Autowired
   private RunTareaAmbitoValidarPersonasSilService runTareaAmbitoValidarPersonasSilService;
 
@@ -35,8 +37,6 @@ public class RunTareaValidarPersonasSilServiceImpl implements RunPrevalidar {
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidarPersonasSilServiceImpl.class);
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(

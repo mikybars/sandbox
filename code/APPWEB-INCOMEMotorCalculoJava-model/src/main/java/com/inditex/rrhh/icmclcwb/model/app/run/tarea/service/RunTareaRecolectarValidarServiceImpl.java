@@ -40,6 +40,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarValidarService {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaRecolectarValidarServiceImpl.class);
+
   @Autowired
   private RunTareaRecolectarValidarEstructurasAsyncService runTareaRecolectarValidarEstructurasAsyncService;
 
@@ -64,8 +66,6 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
   @Autowired
   @Qualifier("validarProperties")
   private ValidarPropertiesDto validarProperties;
-
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaRecolectarValidarServiceImpl.class);
 
   @Autowired
   private TareaFaseService tareaFaseService;

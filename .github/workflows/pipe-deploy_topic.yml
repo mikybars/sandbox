@@ -1,0 +1,131 @@
+---
+name: pipe-deploy-topic
+run-name: "Args: supraenv=${{ inputs.SUPRAENV }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENV:
+        description: 'Supra environment to deploy topics'
+        required: true
+        default: ''
+      ISSUE_NUMBER:
+        description: 'ID number (issue or pull request)'
+        required: false
+        default: ''
+
+env:
+  WORKFLOW_VERSION: 2.0.0
+
+jobs:
+  deploy-topic:
+    name: Deploy PIPE Topic
+    timeout-minutes: 30
+    runs-on: [self-hosted, pipe]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check and get supraenvironment
+        id: supraenvironment
+        shell: python
+        run: |
+          import os
+          supraenv = '${{ github.event.inputs.SUPRAENV }}'.lower()
+          environments = ['des', 'pre', 'pro']
+          if supraenv not in environments:
+              print(f"::error ::Supraenvironment '{supraenv}' not supported!")
+              exit(1)
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'env={supraenv}\n')
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+            gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: PIPE Verify Topic
+        id: pr_verify
+        uses: inditex/gha-pipeactions/verify@main
+        with:
+          supraenv: ${{ steps.supraenvironment.outputs.env }}
+          components: "topics"
+          project-dir: ${GITHUB_WORKSPACE}
+          extra-features: "--extra-features ${{ github.event.inputs.ISSUE_NUMBER }} ${{ steps.metadata.outputs.project-name }}"
+        env:
+          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
+          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+
+      - name: Check PR Verify Result
+        if: ${{ failure() && !cancelled() }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: |
+            ### :warning: PIPE Topic PR verification failure
+            - **Supraenvironments**: "${{ github.event.inputs.SUPRAENV }}"
+            - **Action**: "[${{ github.workflow }}-${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
+
+      - name: Setup paas-cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@v0
+        with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Deploy No PaaS Client
+        id: deploy-no-paas
+        uses: inditex/gha-pipeactions/deploy-client-no-paas@v1
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
+          token: ${{ secrets.CHATBOT_PR_PAT }}
+          working-directory: pipe
+
+      - name: Deploy PIPE Topic
+        uses: inditex/gha-pipeactions/deploy-topic@v2
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          paas-cli: ${{ steps.setup-cli.outputs.path }}
+          supraenv: ${{ steps.supraenvironment.outputs.env }}
+          project-dir: ${GITHUB_WORKSPACE}
+        env:
+          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
+          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+
+      - name: Add comment with deployment information
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: |
+            ### :rocket: PIPE Topic deployed
+            - **Supraenvironments**: "${{ github.event.inputs.SUPRAENV }}"
+            - **Action**: "[${{ github.workflow }}-${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
+
+      - name: Create a Workflow Status Check to link this run to its corresponding PR
+        if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "pipe-deploy-topic-${{ github.event.inputs.SUPRAENV }}"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref	}}`
+            You can find more details in the link below :arrow_down:

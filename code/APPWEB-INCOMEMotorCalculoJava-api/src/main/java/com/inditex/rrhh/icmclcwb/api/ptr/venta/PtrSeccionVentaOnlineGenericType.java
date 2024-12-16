@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.api.ptr.venta;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,9 +19,9 @@ public class PtrSeccionVentaOnlineGenericType implements Serializable {
   private Integer seccion;
 
   @NotNull
-  private BigDecimal importeSinIVA;
+  private Double importeSinIVA;
 
   @NotNull
-  private BigDecimal importeConIVA;
+  private Double importeConIVA;
 
 }

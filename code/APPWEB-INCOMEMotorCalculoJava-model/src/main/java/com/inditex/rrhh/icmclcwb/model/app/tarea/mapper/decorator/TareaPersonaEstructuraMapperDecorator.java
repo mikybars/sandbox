@@ -73,7 +73,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                 && !itemBase.getIdTipoCalculo()
                     .equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
                 && !itemBase.getIdTipoCalculo()
-                    .equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
+                    .equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())
+                && !itemBase.getIdTipoCalculo()
+                    .equals(TipoCalculoEnum.CHALLENGE_JORNADA.getId())) {
               for (final Integer itemBaseValorSeccionFicticia : AppConstants.getSECCIONES()) {
                 result.add(this.delegate
                     .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
@@ -133,7 +135,9 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
                     && !itemDesplazamiento.getIdTipoCalculo()
                         .equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
                     && !itemDesplazamiento.getIdTipoCalculo()
-                        .equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
+                        .equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())
+                    && !itemBase.getIdTipoCalculo()
+                        .equals(TipoCalculoEnum.CHALLENGE_JORNADA.getId())) {
                   for (final Integer itemBaseValorSeccionFicticia : AppConstants.getSECCIONES()) {
                     if (TipoOpcionCalculoEnum.MEJOR_OPCION.getId().equals(opcion.getId())) {
                       result.add(this.delegate

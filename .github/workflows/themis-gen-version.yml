@@ -1,0 +1,23 @@
+---
+name: themis-database-generate-version
+
+concurrency:
+  group: themis-database-generate-version
+
+on:
+  pull_request:
+    branches: ['main']
+    types: [closed]
+
+env:
+  WORKFLOW_VERSION: 2.10.1
+
+jobs:
+  tagging:
+    name: Database Tagging Merge
+    timeout-minutes: 45
+    if: github.event.pull_request.merged == true
+    runs-on: [self-hosted, database]
+    steps:
+      - name: Tagging Model
+        uses: inditex/gha-themis/features/ci-cd/tag-on-merge@main

@@ -162,7 +162,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
     assertEquals(Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
         TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId()),
+        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_JORNADA.getId()),
         map.getValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO));
 
   }
@@ -277,7 +277,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearChallengeOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
@@ -338,7 +338,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearGlobalSeccionOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen(tarea);

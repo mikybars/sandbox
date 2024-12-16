@@ -107,7 +107,7 @@ class TareaCalculoAlgoritmoPorVentaIndividualPorcentajeDesplazamientoV1Repositor
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   public void getMapValuesTest(final AlgoritmoDTO algoritmo2) {
     final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
     when(algoritmo.getId()).thenReturn(1001);

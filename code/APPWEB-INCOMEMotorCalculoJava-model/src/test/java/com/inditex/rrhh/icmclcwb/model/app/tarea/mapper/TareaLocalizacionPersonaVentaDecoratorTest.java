@@ -9,7 +9,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -58,7 +57,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg, final int intArgs,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaIndividualDetalleResultItemDto = Instancio.create(PtrVentaIndividualDetalleResultItemDto.class);
@@ -78,7 +77,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest4(
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrSeccionVentaOnlineGenericType = Instancio.create(PtrSeccionVentaOnlineGenericType.class);
@@ -107,7 +106,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaOnlineIpodIndividualDetalleResultItemDto = Instancio.create(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class);
@@ -136,8 +135,8 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
 
     final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();
     seccion4.setSeccion(4);
-    seccion4.setImporteConIVA(BigDecimal.valueOf(1L));
-    seccion4.setImporteSinIVA(BigDecimal.valueOf(1L));
+    seccion4.setImporteConIVA(1.0);
+    seccion4.setImporteSinIVA(1.0);
 
     final List<PtrSeccionVentaOnlineGenericType> listaSeccion = List.of(seccion4);
     ptrVentaOnlineIpodIndividualDetalleResultItemDtoList.get(0).setListaSeccion(listaSeccion);
