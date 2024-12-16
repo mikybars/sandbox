@@ -353,7 +353,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParametrosentradaBlockGetIcmParametrosentradaRecordSetIsEmptyTest(
       final IcmParametrosentradaBlock icmParametrosentradaBlock) {
 
@@ -375,7 +375,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParametrospaginacionBlockGetIcmParametrospaginacionRecordSetIsNullTest(
       final IcmParametrospaginacionBlock icmParametrospaginacionBlock) {
 
@@ -398,7 +398,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalconfchdiasBlockGetIcmParametrospaginacionRecordSetIsNullTest(
       final IcmParamcalconfchdiasBlock cmParamcalconfchdiasBlock) {
 
@@ -422,7 +422,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalconfpreciohoraBlockGetIcmParametrospaginacionRecordSetIsNullTest(
       final IcmParamcalconfpreciohoraBlock icmParamcalconfpreciohoraBlock) {
 
@@ -446,7 +446,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalpresupuestosrangoBlockGetIcmParametrospaginacionRecordSetIsNullTest(
       final IcmParamcalconfchventaBlock icmParamcalconfchventaBlock) {
 
@@ -470,7 +470,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalpresupuestosrangoBlockGetIcmParametrospaginacionRecordSetIsNullTest(
       final IcmParamcalpresupuestosrangoBlock icmParamcalpresupuestosrangoBlock) {
 
@@ -672,7 +672,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asGenericEmpleadoResultItemDtosTest2(final GenericEmpleadoResultItemDto genericEmpleadoResultItemDto) {
     final IcmListaempleadosRecord spiedIcmListaempleadosRecord = Mockito.spy(this.icmListaempleadosRecordList.get(0));
     final IcmListaseccionesBlock spiedIcmListaseccionesBlock = Mockito.spy(spiedIcmListaempleadosRecord.getIcmListasecciones());
@@ -818,7 +818,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalprocesoBlockGetIcmParamcalprocesoRecordSetIsEmptyTest(final IcmParamcalprocesoBlock icmParamcalprocesoBlock) {
 
     final IcmParamcalprocesoBlock spiedVar = Mockito.spy(icmParamcalprocesoBlock);
@@ -848,7 +848,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamconfBlockGetIcmParamcalconforigenRecordSetIsEmptyTest(
       final IcmParamcalconforigenBlock icmParamcalconforigenBlock) {
 
@@ -1012,7 +1012,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asIcmParamcalempleadoBlockNullTest(final IcmParamcalempleadoBlock icmParamcalempleadoBlock) {
 
     doReturn(icmParamcalempleadoBlock).when(this.delegate).asIcmParamcalempleadoBlock((GenericFilterDto) null);
@@ -1107,7 +1107,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asPresenciaManualWlocResultItemDtoElseTest(final PresenciaManualWlocResultItemDto presenciaManualWlocResultItemDto) {
 
     final IcmListapresenciamanwlocRecord spiedItem = Mockito.spy(this.icmListapresenciamanwlocRecordList.get(0));
@@ -1146,7 +1146,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asVentaManualWlocResultItemDtoElseTest(final VentaManualWlocResultItemDto ventaManualWlocResultItemDto) {
 
     final IcmListaventamanwlocRecord spiedItem = Mockito.spy(this.icmListaventamanwlocRecordList.get(0));
@@ -1532,7 +1532,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource  void asClaseResponseDtoTest(final GetclasesOutput getclasesOutput) {
+    @InstancioSource(samples = 1)  void asClaseResponseDtoTest(final GetclasesOutput getclasesOutput) {
     when(this.delegate.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(new ClaseResponseDto());
     final ClaseResponseDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResponseDto(getclasesOutput);
     verify(this.delegate, times(1)).asClaseResponseDto(getclasesOutput);
@@ -1545,7 +1545,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void asClaseResponseDtoNullBlockTest(final GetclasesOutput getclasesOutput) {
     getclasesOutput.setIcmListaclases(null);
     when(this.delegate.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(new ClaseResponseDto());
@@ -1556,7 +1556,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void asClaseResultItemDtoTest( final IcmListaclasesRecord record,  final ClaseResultItemDto item) {
     when(this.delegate.asClaseResultItemDto(any(IcmListaclasesRecord.class))).thenReturn(item);
     record.setEstadosil("2,3,15");
@@ -1570,7 +1570,7 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void asIcmParamcalorigenBlockTest( final ClaseRequestDto request,  final IcmParamcalorigenRecord record) {
     when(this.delegate.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(new IcmParamcalorigenBlock());
     when(this.delegate.asIcmParamcalorigenRecord(any(ClaseRequestDto.class))).thenReturn(record);

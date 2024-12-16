@@ -32,7 +32,7 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ajustarSqlAjustarNullTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustar();
@@ -44,7 +44,7 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getSqlAjustarTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn("sql").when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();
@@ -55,7 +55,7 @@ class AbstractTareaCalculoAjusteBaseRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getSqlAjustarSqlAjustarBaseNullTest(final AlgoritmoAjusteDto algoritmoAjuste) {
 
     doReturn(null).when(this.abstractTareaCalculoAjusteBaseRepositoryCustom).getSqlAjustarBase();

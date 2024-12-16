@@ -250,18 +250,20 @@ amiga:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
-          driver-class-name: com.ibm.db2.jcc.DB2Driver
+          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
+            currentSchema: GESTION_COMISION
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
+            keepAliveTimeOut: 15
             connectionTimeout: 60
             timerLevelForQueryTimeOut: 2
             interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
             #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
             #          user: oincome

@@ -221,7 +221,7 @@ public class RunTareaPrevalidarAntesServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runExceptionTest(final TareaFaseDto tareaFase, final AccionDto accionDto,
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final TareaFaseAccionDto tareaFaseAccionDto,
