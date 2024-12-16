@@ -37,7 +37,7 @@ datagrid:
   application_cache:
     enabled: true
   session:
-    cache_name: itx.sessions
+    cache_name: "itx.sessions"
     enabled: true
     eviction:
       type: MEMORY # COUNT
