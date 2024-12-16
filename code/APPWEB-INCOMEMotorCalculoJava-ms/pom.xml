@@ -20,7 +20,7 @@
     <!-- FWK DEPENDENCIES -->
     <dependency>
       <groupId>com.inditex.amigafwk.data</groupId>
-      <artifactId>data-starter-jms-activemq</artifactId>
+      <artifactId>data-starter-jms-artemis</artifactId>
     </dependency>
     <dependency>
       <groupId>com.inditex.amigafwk.service</groupId>
