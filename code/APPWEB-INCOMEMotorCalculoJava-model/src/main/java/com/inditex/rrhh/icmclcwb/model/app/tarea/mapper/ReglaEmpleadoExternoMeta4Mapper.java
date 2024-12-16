@@ -16,12 +16,13 @@ import org.mapstruct.Mapping;
 @DecoratedWith(ReglaEmpleadoExternoMeta4MapperDecorator.class)
 public abstract class ReglaEmpleadoExternoMeta4Mapper {
 
-  public ReglaEmpleadoExternoMeta4RequestDto reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDto(
+  public List<ReglaEmpleadoExternoMeta4RequestDto> reglaEmpleadoExternoMeta4DtoListToReglaEmpleadoExternoMeta4RequestDtoList(
       final List<ReglaEmpleadoExternoMeta4Dto> reglas) {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 
   @Mapping(source = "idOrganization", target = "idOrganization")
+  @Mapping(source = "stdIdHrType", target = "stdIdHrType")
   @Mapping(source = "puestos", target = "puestos")
   public abstract ExternosRequestDTO reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(
       ReglaEmpleadoExternoMeta4RequestDto src);

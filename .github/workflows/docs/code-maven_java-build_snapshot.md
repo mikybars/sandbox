@@ -21,7 +21,8 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
 ## Jobs
 
-- ### `build-and-promote`
-
+- ### `build-snapshot`
   - **Steps**
-    - `mvn verify`
+    - Get release commits
+    - if (`is-release-commit` == false )
+      - `mvn deploy`

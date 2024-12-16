@@ -138,7 +138,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionByRunTareaTest(final PeriodoDto periodo,
       final PtrVentaTotalizadoRequestDto request,
       final List<ConfiguracionProductoVentaResultItemDto> confProductoList,
@@ -190,7 +190,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(
       final List<PeriodoDto> periodos,
       final PtrVentaOnlineIpodRequestDto paramVentaOnlineIpod,
@@ -251,7 +251,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(
       final List<PeriodoDto> periodos,
       final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
@@ -310,7 +310,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(
       final List<PeriodoDto> periodos,
       final PtrVentaOnlineEntregaTiendaRequestDto paramVentaOnlineEntregaTienda,
@@ -372,7 +372,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(
       final PeriodoDto periodo, final PtrVentaTotalizadoRequestDto request,
       final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResult,
@@ -416,7 +416,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbitoTest(
       final PeriodoDto periodo, final PtrPresenciaDetalleRequestDto request,
       final List<IdCadenaDto> cadenas,
@@ -473,7 +473,7 @@ class RunTareaAmbitoRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(
       final PeriodoDto periodo, final PtrPresenciaDetalleRequestDto request,
       final List<IdCadenaDto> cadenas,

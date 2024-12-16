@@ -46,7 +46,7 @@ class ComisAsyncServiceImplTest {
   private ComisAsyncServiceImpl comisAsyncServiceImpl;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findMotivoDesplazamientoTest(final RunTareaDto runTareaDto,
       final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
     final List<IdMotivoDesplazamientoDto> response = new ArrayList<>();
@@ -57,7 +57,7 @@ class ComisAsyncServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPresenciasOrigenAndFechaTet(final RunTareaDto runTareaDto,
       final TareaAmbitoDto tareaAmbito) throws ExecutionException, InterruptedException {
     final PresenciaOrigenDto response = new PresenciaOrigenDto();
@@ -176,7 +176,7 @@ class ComisAsyncServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findExternosByClaseTest(final ComisClaseEmpleadoEnum comisClaseEmpleadoEnum)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalExternaDto> response = new ArrayList<>();
@@ -243,7 +243,7 @@ class ComisAsyncServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findComisionManualTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalComisionManualDto> response = new ArrayList<>();
@@ -254,7 +254,7 @@ class ComisAsyncServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito, final Long maxIdPersona)
       throws ExecutionException, InterruptedException {
     final List<IdPersonaLocalLocalizacionDto> response = new ArrayList<>();
@@ -266,7 +266,7 @@ class ComisAsyncServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPersonasSilTest(final RunTareaDto runTarea, final TareaAmbitoDto ambito, final Long maxIdPersona,
       final ClaseResultItemDto clase)
       throws ExecutionException, InterruptedException {

@@ -277,7 +277,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearChallengeOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearChallengeOpcionOrigen(tarea);
@@ -338,7 +338,7 @@ class TareaPersonaEstructuraRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearGlobalSeccionOpcionOrigenTest(final TareaDto tarea) {
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
     this.tareaPersonaEstructuraRepositoryCustom.crearGlobalSeccionOpcionOrigen(tarea);

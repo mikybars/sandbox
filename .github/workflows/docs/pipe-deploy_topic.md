@@ -28,3 +28,4 @@ This workflow depends on the Pipe python scripts located on the project [clr-kaf
     - Verify Pipe configuration using [Pipe verify action](https://github.com/inditex/actions/tree/main/pipe/verify)
     - Check PR Verify result and cancel the workflow if failed, notifying it by adding a comment to the originating PR.
     - Deploy PIPE Topics, use this [Pipe deploy topic action](https://github.com/inditex/actions/tree/main/pipe/deploy-topic) to run the pipe client scripts for creating the kafka topics.
+    - Deploy PIPE client creation for no PaaS services if applies.

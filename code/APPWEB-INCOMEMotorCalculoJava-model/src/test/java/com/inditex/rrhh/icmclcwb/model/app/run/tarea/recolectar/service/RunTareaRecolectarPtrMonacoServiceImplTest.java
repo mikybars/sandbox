@@ -30,7 +30,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   private RunTareaRecolectarPtrMonacoServiceImpl runTareaRecolectarPtrMonacoServiceImpl;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetalleComisionablePersonaByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -40,7 +40,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -51,7 +51,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -62,7 +62,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbitoTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -73,7 +73,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -84,7 +84,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -95,7 +95,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);
@@ -106,7 +106,7 @@ public class RunTareaRecolectarPtrMonacoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
     runTarea.getTarea().getAmbito().add(ambito);

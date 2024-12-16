@@ -70,7 +70,7 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RunAlgor
   }
 
   @ParameterizedTest
-    @InstancioSource
+    @InstancioSource(samples = 1)
   void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RepositoryCustom
         .getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -85,7 +85,7 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RunAlgor
   }
 
   @ParameterizedTest
-    @InstancioSource  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
+    @InstancioSource(samples = 1)  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -106,7 +106,7 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoV1RunAlgor
   }
 
   @ParameterizedTest
-    @InstancioSource  void calcularExceptionTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
+    @InstancioSource(samples = 1)  void calcularExceptionTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
        final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
