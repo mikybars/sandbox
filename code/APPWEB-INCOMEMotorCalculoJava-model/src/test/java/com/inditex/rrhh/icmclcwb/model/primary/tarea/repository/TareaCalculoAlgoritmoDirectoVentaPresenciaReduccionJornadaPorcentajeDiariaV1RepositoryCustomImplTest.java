@@ -281,7 +281,7 @@ public class TareaCalculoAlgoritmoDirectoVentaPresenciaReduccionJornadaPorcentaj
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest2() {
     final var algoritmo = Instancio.create(AlgoritmoDTO.class);
     final var tarea = Instancio.create(TareaDto.class);

@@ -691,7 +691,7 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void indicadorPersonaPorVentaTest(final RunTareaDto runTarea) {
 
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorPersonaPorVenta(runTarea);

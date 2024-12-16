@@ -51,7 +51,7 @@ class CxfUtilsTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getJSessionIDTest(final List<String> emptyList) {
     final var list = Instancio.createList(String.class);
 

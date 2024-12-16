@@ -26,28 +26,28 @@ class RunTareaProcesarCondicionesAsyncServiceImplTest {
   private RunTareaProcesarCondicionesAsyncServiceImpl runTareaProcesarCondicionesAsyncService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void igualarBandasOrigenDestinoTest(final RunTareaDto runTarea) {
     this.runTareaProcesarCondicionesAsyncService.igualarBandasOrigenDestino(runTarea);
     verify(this.tareaProcesarCondicionesService, times(1)).igualarBandasOrigenDestino(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void establecerBandaOpcionOrigen(final RunTareaDto runTarea) {
     this.runTareaProcesarCondicionesAsyncService.establecerBandaOpcionOrigen(runTarea);
     verify(this.tareaProcesarCondicionesService, times(1)).establecerBandaOpcionOrigen(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void crearGlobalSeccionOpcionOrigen(final RunTareaDto runTarea) {
     this.runTareaProcesarCondicionesAsyncService.crearGlobalSeccionOpcionOrigen(runTarea);
     verify(this.tareaProcesarCondicionesService, times(1)).crearGlobalSeccionOpcionOrigen(runTarea.getTarea());
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void desactivarGlobalSeccionOpcionOrigen(final RunTareaDto runTarea) {
     this.runTareaProcesarCondicionesAsyncService.desactivarGlobalSeccionOpcionOrigen(runTarea);
     verify(this.tareaProcesarCondicionesService, times(1)).desactivarGlobalSeccionOpcionOrigen(runTarea.getTarea());

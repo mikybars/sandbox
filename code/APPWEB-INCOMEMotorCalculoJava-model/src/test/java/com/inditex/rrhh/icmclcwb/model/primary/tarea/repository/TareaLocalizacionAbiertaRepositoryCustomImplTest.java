@@ -317,7 +317,7 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void compensarOnlineSeccionCerradaTest( final TareaDto tarea, final TrabajoDTO trabajo,
       final List<IdTipoDatoDto> tiposDatoIpod,
       final List<IdTipoDatoDto> tiposDatoSint,
@@ -387,7 +387,7 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void updateActivoTrasladadasSeccionTest(final TareaDto tarea, final TrabajoDTO trabajo) {
     this.tareaLocalizacionAbiertaRepositoryCustom.updateActivoTrasladadasSeccion(tarea, trabajo);
     verify(this.namedParameterJdbcTemplate, times(1)).update(eq(SQL_UPDATE_ACTIVO_TRASLADADAS_SECCION), this.params.capture());

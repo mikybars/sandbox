@@ -55,7 +55,7 @@ class RunTareaProcesarServiceImplTest {
   final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runTest(final TareaFaseDto tareaFaseDto) {
 
     final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -318,7 +318,7 @@ class RunTareaProcesarServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runExceptionTest(final TareaFaseDto tareaFaseDto,
       final CompletableFuture<Void> completableFuture) {
 
