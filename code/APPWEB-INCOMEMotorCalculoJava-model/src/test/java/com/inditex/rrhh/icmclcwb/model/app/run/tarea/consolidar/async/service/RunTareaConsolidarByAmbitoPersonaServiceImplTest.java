@@ -2,16 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.consolidar.async.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.async.service.RunTareaConsolidarPeriodoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,12 +16,12 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgoritmoTest {
+class RunTareaConsolidarByAmbitoPersonaServiceImplTest {
   @Mock
   private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
 
   @InjectMocks
-  private RunTareaConsolidarByAmbitoLocalizacionServiceImpl runTareaConsolidarByAmbitoLocalizacionService;
+  private RunTareaConsolidarByAmbitoPersonaServiceImpl runTareaConsolidarByAmbitoPersonaService;
 
   @Test
   void runTest() {
@@ -36,7 +32,7 @@ class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgori
     when(this.runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacion(any(RunTareaDto.class))).thenReturn(cf);
     when(this.runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacionPersona(any(RunTareaDto.class))).thenReturn(cf);
 
-    this.runTareaConsolidarByAmbitoLocalizacionService.run(this.createRunTareaDto(1L, 2L));
+    this.runTareaConsolidarByAmbitoPersonaService.run(new RunTareaDto());
 
     verify(this.runTareaConsolidarPeriodoAsyncService, times(1)).mergePeriodoPersona(any(RunTareaDto.class));
     verify(this.runTareaConsolidarPeriodoAsyncService, times(1)).mergePeriodoCalculoPersona(any(RunTareaDto.class));
@@ -46,9 +42,12 @@ class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgori
 
   @Test
   void runExceptionTest() {
+
     doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoPersona(any(RunTareaDto.class));
 
+    final RunTareaDto runTarea = new RunTareaDto();
     assertThrows(RuntimeException.class,
-        () -> this.runTareaConsolidarByAmbitoLocalizacionService.run(new RunTareaDto()));
+        () -> this.runTareaConsolidarByAmbitoPersonaService.run(runTarea));
   }
+
 }

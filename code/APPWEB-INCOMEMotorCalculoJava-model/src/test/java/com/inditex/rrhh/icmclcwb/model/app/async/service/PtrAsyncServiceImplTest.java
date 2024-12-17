@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class PtrAsyncServiceImplTest {
+class PtrAsyncServiceImplTest {
   @InjectMocks
   private PtrAsyncServiceImpl ptrAsyncServiceImpl;
 
