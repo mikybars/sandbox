@@ -74,21 +74,9 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class TestServiceImpl implements TestService {
 
-  public static final String OUTPUT_GETEMPLEADOS = "outputGetempleados: {}";
-
-  public static final String URL = "https://des-openshift.axdesocp1.central.inditex.grp/";
+  private static final String OUTPUT_GETEMPLEADOS = "outputGetempleados: {}";
 
   private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
-
-  private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
-
-  private static final String CODE = "Code";
-
-  private static final String EXCEPTION = "Exception";
-
-  private static final String OK = "OK";
-
-  private static final String KO = "KO";
 
   private static final String FECHAINICIO = "2017-07-01T00:00:00.000Z";
 
