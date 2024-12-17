@@ -118,12 +118,6 @@
       <artifactId>test-starter-instancio</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.inditex.aqsw.framework.common</groupId>
-      <artifactId>common-framework-rest-client</artifactId>
-      <version>4.15.13</version>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
 
