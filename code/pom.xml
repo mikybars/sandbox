@@ -13,6 +13,7 @@
   <name>${project.groupId}:${project.artifactId}</name>
 
   <modules>
+    <module>APPWEB-INCOMEMotorCalculoJava-pipe</module>
     <module>APPWEB-INCOMEMotorCalculoJava-api</module>
     <module>APPWEB-INCOMEMotorCalculoJava-model</module>
     <module>APPWEB-INCOMEMotorCalculoJava-ws</module>
@@ -87,6 +88,11 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-ws-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-pipe</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
