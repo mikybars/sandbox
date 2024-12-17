@@ -113,7 +113,6 @@ public class RunTareaServiceImpl implements RunTareaService {
         this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
       }
       this.runTareaConsolidarService.run(runTarea);
-      this.runTareaMigrarService.run(runTarea);
       this.tareaService.updateEstadoFinal(runTarea.getTarea());
       this.tareaService.updateFechaFin(runTarea.getTarea());
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
