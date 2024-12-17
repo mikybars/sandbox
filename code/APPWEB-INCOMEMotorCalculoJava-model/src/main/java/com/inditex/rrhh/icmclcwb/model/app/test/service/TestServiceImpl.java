@@ -254,7 +254,7 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public Boolean testUrl(@NotBlank final String url) {
-    final List<String> allowedHosts = new ArrayList<String>();
+    final List<String> allowedHosts = new ArrayList<>();
     allowedHosts.add(URL);
 
     int code = HttpStatus.SC_OK;
@@ -268,18 +268,15 @@ public class TestServiceImpl implements TestService {
         code = connection.getResponseCode();
       }
 
-      switch (code) {
-        case HttpStatus.SC_REQUEST_TIMEOUT, HttpStatus.SC_GATEWAY_TIMEOUT, 598, 524:
-          TestServiceImpl.LOG.error(KO
-              + ", "
-              + CONTROLLED_TIMEOUT
-              + ", "
-              + CODE
-              + ": "
-              + code);
-          return Boolean.FALSE;
-        default:
-          break;
+      if (code == HttpStatus.SC_REQUEST_TIMEOUT || code == HttpStatus.SC_GATEWAY_TIMEOUT || code == 598 || code == 524) {
+        TestServiceImpl.LOG.error(KO
+            + ", "
+            + CONTROLLED_TIMEOUT
+            + ", "
+            + CODE
+            + ": "
+            + code);
+        return Boolean.FALSE;
       }
 
     } catch (final Exception e) {

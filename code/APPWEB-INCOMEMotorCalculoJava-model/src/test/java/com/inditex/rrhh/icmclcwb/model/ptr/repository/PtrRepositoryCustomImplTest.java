@@ -16,7 +16,11 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -25,9 +29,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class PtrRepositoryCustomImplTest {
 
-  private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
+  private static final String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
 
-  private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA_ES = "SQL FIND PRESENCIAS ORIGEN AND FECHA ES";
+  private static final String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA_ES = "SQL FIND PRESENCIAS ORIGEN AND FECHA ES";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
