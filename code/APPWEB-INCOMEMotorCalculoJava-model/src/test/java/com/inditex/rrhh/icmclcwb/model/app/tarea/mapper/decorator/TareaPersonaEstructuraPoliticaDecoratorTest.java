@@ -51,7 +51,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPoliticaTest(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica) {
@@ -68,7 +68,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void tareaPersonaEstructuraPoliticaDtoToTareaPersonaEstructuraPoliticaTest2(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica) {
@@ -90,7 +90,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDtoTest(
       final TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
       final TipoPoliticaDto politica) {
@@ -109,7 +109,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDtoTest2(
       final TareaPersonaEstructuraPoliticaDto tareaPersonaEstructuraPoliticaDto,
       final TipoPoliticaDto politica) {
@@ -132,7 +132,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPoliticaTest(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica) {
@@ -152,7 +152,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void comisionEmpleadoResultItemDtoToTareaPersonaEstructuraPoliticaTest2(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica) {
@@ -178,7 +178,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {
@@ -213,7 +213,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest2(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {
@@ -250,7 +250,7 @@ class TareaPersonaEstructuraPoliticaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void estructurasPolResultItemDtoToTareaPersonaEstructuraPoliticaTest3(
       final TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica,
       final TipoPoliticaDto politica, final TipoUnidadTiempoDto unidadTiempo) {

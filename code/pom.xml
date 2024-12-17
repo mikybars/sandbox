@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.amigafwk</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>5.10.2</version>
+    <version>5.11.2</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
@@ -133,7 +133,7 @@
       <plugin>
         <groupId>com.inditex.libamfmt</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
-        <version>${amiga-javaformat.version}</version>
+        <version>3.1.1</version>
         <configuration>
           <checkstyle>
             <excludes>com/inditex/rrhh/icmclcwb/model/meta4/icmwscalcincome/entity/**,

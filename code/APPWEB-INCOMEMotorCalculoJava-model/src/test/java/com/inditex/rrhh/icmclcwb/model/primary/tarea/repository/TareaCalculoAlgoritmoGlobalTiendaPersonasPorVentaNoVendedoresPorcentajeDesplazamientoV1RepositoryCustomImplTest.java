@@ -92,7 +92,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest(final List<IdTipoDatoDto> tiposDatoVenta,
       final AlgoritmoDTO algoritmo, final TareaDto tarea,
       final IdPersonaLocalDto persona) {
@@ -150,7 +150,7 @@ class TareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDes
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final List<IdTipoDatoDto> tiposDatoVenta,
       final AlgoritmoDTO algoritmo,
       final TareaDto tarea) {

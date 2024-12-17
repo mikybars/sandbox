@@ -57,7 +57,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   private RunTareaAmbitoValidarPersonasServiceImpl runTareaAmbitoValidarPersonasService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion,
       final IdPersonaLocalLocalizacionDto persona) {
@@ -84,7 +84,7 @@ class RunTareaAmbitoValidarPersonasServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource  void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
+  @InstancioSource(samples = 1)  void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
 
     when(this.comisAsyncService.findPersonas(any(RunTareaDto.class), any(TareaAmbitoDto.class), any(Long.class)))

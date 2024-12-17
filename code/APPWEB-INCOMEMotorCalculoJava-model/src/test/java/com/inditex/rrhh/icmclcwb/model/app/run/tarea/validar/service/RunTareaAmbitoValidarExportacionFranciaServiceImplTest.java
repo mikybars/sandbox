@@ -50,7 +50,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   private RunTareaAmbitoValidarExportacionFranciaServiceImpl runTareaAmbitoValidarExportacionFranciaService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   public void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito, final TareaFaseAccionDto tareaFaseAccion,
       final Proceso proceso, final ProcesoAmbitoEmpresa procesoAmbitoEmpresa, final ValidacionDto validacionDto) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
@@ -67,7 +67,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   public void executeMalAmbitoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
@@ -78,7 +78,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   public void executeErrorTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());

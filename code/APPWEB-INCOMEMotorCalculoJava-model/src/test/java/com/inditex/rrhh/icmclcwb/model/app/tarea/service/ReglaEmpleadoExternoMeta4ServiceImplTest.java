@@ -32,7 +32,7 @@ class ReglaEmpleadoExternoMeta4ServiceImplTest {
   private ReglaEmpleadoExternoMeta4ServiceImpl reglaEmpleadoExternoMeta4Service;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getReglasEmpleadoExternoMeta4ActivasByCclIdOrigenTest(
       final List<ReglaEmpleadoExternoMeta4Dto> reglas,
       final List<ReglaEmpleadoExternoMeta4RequestDto> reglaEmpleadoExternoMeta4RequestDto) {

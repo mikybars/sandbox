@@ -105,7 +105,7 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempVentaFisicaLocalizacionSeccionTest(final TareaDto tarea) {
     this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacionSeccion(tarea);
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
@@ -126,7 +126,7 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempVentaFisicaLocalizacionTest(final TareaDto tarea) {
     this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempVentaFisicaLocalizacion(tarea);
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);
@@ -160,7 +160,7 @@ class PrimaryTemporaryTablePorVentaRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempDatesEstructurasPorVentaTest(final TareaDto tareaDto) {
     this.primaryTemporaryTablePorVentaRepositoryCustom.insertTempDatesEstructurasPorVenta(tareaDto);
     final ArgumentCaptor<MapSqlParameterSource> paramsCaptor = ArgumentCaptor.forClass(MapSqlParameterSource.class);

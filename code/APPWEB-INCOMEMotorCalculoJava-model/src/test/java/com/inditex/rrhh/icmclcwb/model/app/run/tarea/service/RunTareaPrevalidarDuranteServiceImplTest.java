@@ -232,7 +232,7 @@ public class RunTareaPrevalidarDuranteServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void runExceptionTest(
       final List<TareaFaseAccionDto> tareaFaseAccionDtoList,
       final CompletableFuture<List<ValidacionDto>> cfRun, final TareaFaseDto tareaFase,

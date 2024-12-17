@@ -45,7 +45,7 @@ datagrid:
       size: 400MB # 1000
     lifespan: 300
 amq:
-  template: com.inditex.sentinel:senttpl-amq:2.6.0
+  template: com.inditex.sentinel:senttpl-amq:2.7.0
   force: true
   enabled: true
   slot: icmclcwb

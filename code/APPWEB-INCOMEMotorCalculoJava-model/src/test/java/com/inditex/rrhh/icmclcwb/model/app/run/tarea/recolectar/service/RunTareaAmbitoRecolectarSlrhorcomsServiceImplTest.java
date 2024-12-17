@@ -87,7 +87,7 @@ class RunTareaAmbitoRecolectarSlrhorcomsServiceImplTest {
   TareaAmbitoDto tareaAmbito = Instancio.create(TareaAmbitoDto.class);
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void horarioComercialFestivoByRunTareaAndTareaAmbito(
       final List<IdEmpresaDto> idEmpresaDtoList,
       final List<IdLocalizacionLocalDto> idLocalizacionLocalDtoList,

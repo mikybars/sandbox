@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
@@ -39,6 +39,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Searchtienda
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,6 +47,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -104,6 +106,11 @@ class TestServiceImplTest {
 
   @InjectMocks
   private TestServiceImpl testServiceImpl;
+
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
 
   @Test
   void reloj() {
@@ -172,8 +179,7 @@ class TestServiceImplTest {
   @Test
   // TODO: Revisar esto
   void testUrl() throws IOException {
-    assertFalse(this.testServiceImpl.testUrl("testUrl"));
-    // assertTrue(this.testServiceImpl.testUrl("http://www.test.com"));
+    assertTrue(this.testServiceImpl.testUrl("http://www.test.com"));
   }
 
   @Test

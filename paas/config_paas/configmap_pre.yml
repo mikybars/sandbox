@@ -42,12 +42,14 @@ amiga:
     jdbc:
       datasource:
         primary:
-          driver-class-name: com.ibm.db2.jcc.DB2Driver
+          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
+            keepAliveTimeOut: 15
             connectionTimeout: 60
             timerLevelForQueryTimeOut: 2
             interruptProcessingMode: 2
