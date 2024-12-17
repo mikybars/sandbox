@@ -2,7 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.comis.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -13,7 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.ComisClaseEmpleadoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.dto.*;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCarenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalComisionManualDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalCondicionesDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
@@ -27,7 +39,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -36,61 +52,61 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class ComisRepositoryCustomImplTest {
 
-  private final static String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
+  private static final String SQL_FIND_PRESENCIAS_ORIGEN_AND_FECHA = "SQL FIND PRESENCIAS ORIGEN AND FECHA";
 
-  private final static String SQL_FIND_MOTIVOS_DESPLAZAMIENTO = "SQL FIND MOTIVOS DESPLAZAMIENTO";
+  private static final String SQL_FIND_MOTIVOS_DESPLAZAMIENTO = "SQL FIND MOTIVOS DESPLAZAMIENTO";
 
-  private final static String SQL_FIND_FECHAS_INCIDENCIAS = "SQL FIND FECHAS INCIDENCIAS";
+  private static final String SQL_FIND_FECHAS_INCIDENCIAS = "SQL FIND FECHAS INCIDENCIAS";
 
-  private final static String SQL_FIND_FECHAS_DESPLAZAMIENTO = "SQL FIND FECHAS DESPLAZAMIENTO";
+  private static final String SQL_FIND_FECHAS_DESPLAZAMIENTO = "SQL FIND FECHAS DESPLAZAMIENTO";
 
-  private final static String SQL_FIND_CONDICIONES_HISTORICO = "SQL FIND CONDICIONES HISTORICO";
+  private static final String SQL_FIND_CONDICIONES_HISTORICO = "SQL FIND CONDICIONES HISTORICO";
 
-  private final static String SQL_FIND_CONDICIONES_HISTORICO_ES = "SQL FIND CONDICIONES HISTORICO ES";
+  private static final String SQL_FIND_CONDICIONES_HISTORICO_ES = "SQL FIND CONDICIONES HISTORICO ES";
 
-  private final static String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE = "SQL FIND CONDICIONES HISTORICO CHALLENGE";
+  private static final String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE = "SQL FIND CONDICIONES HISTORICO CHALLENGE";
 
-  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO = "SQL FIND CONDICIONES DESPLAZAMIENTO";
+  private static final String SQL_FIND_CONDICIONES_DESPLAZAMIENTO = "SQL FIND CONDICIONES DESPLAZAMIENTO";
 
-  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES = "SQL FIND CONDICIONES DESPLAZAMIENTO ES";
+  private static final String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_ES = "SQL FIND CONDICIONES DESPLAZAMIENTO ES";
 
-  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE = "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE";
+  private static final String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE = "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE";
 
-  private final static String SQL_FIND_CONDICIONES_RESALTA = "SQL FIND CONDICIONES RESALTA";
+  private static final String SQL_FIND_CONDICIONES_RESALTA = "SQL FIND CONDICIONES RESALTA";
 
-  private final static String SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS = "SQL FIND CONDICIONES RESALTA SIN PRIMA";
+  private static final String SQL_FIND_CONDICIONES_RESALTA_SIN_PRIMAS = "SQL FIND CONDICIONES RESALTA SIN PRIMA";
 
-  private final static String SQL_FIND_CONDICIONES_RESALTA_ES = "SQL FIND CONDICIONES RESALTA ES";
+  private static final String SQL_FIND_CONDICIONES_RESALTA_ES = "SQL FIND CONDICIONES RESALTA ES";
 
-  private final static String SQL_FIND_CONDICIONES_RESALTA_CHALLENGE = "SQL FIND CONDICIONES RESALTA CHALLENGE";
+  private static final String SQL_FIND_CONDICIONES_RESALTA_CHALLENGE = "SQL FIND CONDICIONES RESALTA CHALLENGE";
 
-  private final static String SQL_FIND_CONDICIONES_PRIMAS = "SQL FIND CONDICIONES PRIMA";
+  private static final String SQL_FIND_CONDICIONES_PRIMAS = "SQL FIND CONDICIONES PRIMA";
 
-  private final static String SQL_FIND_BAJAS_IT = "SQL FIND BAJAS IT";
+  private static final String SQL_FIND_BAJAS_IT = "SQL FIND BAJAS IT";
 
-  private final static String SQL_FIND_CARENCIA = "SQL FIND CARENCIA";
+  private static final String SQL_FIND_CARENCIA = "SQL FIND CARENCIA";
 
-  private final static String SQL_FIND_EXTERNOS_BY_CLASE = "SQL FIND EXERTNOS BY CLASE";
+  private static final String SQL_FIND_EXTERNOS_BY_CLASE = "SQL FIND EXERTNOS BY CLASE";
 
-  private final static String SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA = "SQL FIND EXTERNOS BY MIN ID PERSONA";
+  private static final String SQL_FIND_EXTERNOS_BY_MIN_ID_PERSONA = "SQL FIND EXTERNOS BY MIN ID PERSONA";
 
-  private final static String SQL_FIND_BAJAS_IT_ES = "SQL FIND BAJAS IT ES";
+  private static final String SQL_FIND_BAJAS_IT_ES = "SQL FIND BAJAS IT ES";
 
-  private final static String SQL_FIND_COMISION_MANUAL = "SQL FIND COMISION MANUAL";
+  private static final String SQL_FIND_COMISION_MANUAL = "SQL FIND COMISION MANUAL";
 
-  private final static String SQL_FIND_PERSONAS = "SQL FIND PERSONAS";
+  private static final String SQL_FIND_PERSONAS = "SQL FIND PERSONAS";
 
-  private final static String SQL_FIND_PERSONAS_SIL_SIN_ESTADO = "SQL FIND PERSONAS SIN ESTADO";
+  private static final String SQL_FIND_PERSONAS_SIL_SIN_ESTADO = "SQL FIND PERSONAS SIN ESTADO";
 
-  private final static String SQL_FIND_PERSONAS_SIL_CON_ESTADO = "SQL FIND PERSONAS CON ESTADO";
+  private static final String SQL_FIND_PERSONAS_SIL_CON_ESTADO = "SQL FIND PERSONAS CON ESTADO";
 
-  private final static String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE =
+  private static final String SQL_FIND_CONDICIONES_HISTORICO_CHALLENGE_INCLUIDO_PORCENTAJE =
       "SQL FIND CONDICIONES HISTORICO CHALLENGE INCLUIDO PORCENTAJE";
 
-  private final static String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE =
+  private static final String SQL_FIND_CONDICIONES_DESPLAZAMIENTO_CHALLENGE_INCLUIDO_PORCENTAJE =
       "SQL FIND CONDICIONES DESPLAZAMIENTO CHALLENGE INCLUIDO PORCENTAJE";
 
-  private final static String SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA =
+  private static final String SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA =
       "SQL VALIDATE TEMP COMIS RECUPERAR FRANCIA";
 
   @Mock

@@ -23,7 +23,7 @@ class RunTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoServiceImplTest {
   private RunTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoServiceImpl runTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoService;
 
   @Test
-  void RunTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoServiceImplTest() {
+  void findPresupuestosTest() {
     when(this.tareaLocalizacionPresupuestoService.findPresupuestos(any(TareaDto.class)))
         .thenReturn(new TareaLocalizacionPresupuestoListDto());
     this.runTareaAmbitoRecolectarMeta4IcmWsCalIncomePresupuestoService.getFechaInicioPeriodo(new TareaDto());

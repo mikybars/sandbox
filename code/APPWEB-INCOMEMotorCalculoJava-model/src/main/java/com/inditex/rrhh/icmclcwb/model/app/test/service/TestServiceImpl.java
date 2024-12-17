@@ -94,25 +94,25 @@ public class TestServiceImpl implements TestService {
 
   private static final String KO = "KO";
 
-  public static final String FECHAINICIO = "2017-07-01T00:00:00.000Z";
+  private static final String FECHAINICIO = "2017-07-01T00:00:00.000Z";
 
-  public static final String FECHAFIN = "2017-12-31T00:00:00.000Z";
+  private static final String FECHAFIN = "2017-12-31T00:00:00.000Z";
 
-  public static final String IDORIGEN = "11";
+  private static final String IDORIGEN = "11";
 
-  public static final String IDEMPRESA = "8";
+  private static final String IDEMPRESA = "8";
 
-  public static final String IDEMPLEADO = "idempleado";
+  private static final String IDEMPLEADO = "idempleado";
 
-  public static final String NUMEROREGISTROSPAGINA = "200";
+  private static final String NUMEROREGISTROSPAGINA = "200";
 
-  public static final String TIPOORDEN = "DESC";
+  private static final String TIPOORDEN = "DESC";
 
-  public static final String NUMEROPAGINA = "1";
+  private static final String NUMEROPAGINA = "1";
 
-  public static final String IDLUGARTRABAJO = "T57";
+  private static final String IDLUGARTRABAJO = "T57";
 
-  public static final String TEST_SESION = "Test sesion()";
+  private static final String TEST_SESION = "Test sesion()";
 
   @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
   String oauthProperty;
