@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -60,14 +58,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.hc.core5.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -254,47 +250,6 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public Boolean testUrl(@NotBlank final String url) {
-    final List<String> allowedHosts = new ArrayList<>();
-    allowedHosts.add(URL);
-
-    int code = HttpStatus.SC_OK;
-    try {
-      final URL siteURL = new URL(url);
-      if (allowedHosts.contains(url)) {
-        final HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
-        connection.setRequestMethod(HttpMethod.POST.name());
-        connection.setConnectTimeout(30000);
-        connection.connect();
-        code = connection.getResponseCode();
-      }
-
-      if (code == HttpStatus.SC_REQUEST_TIMEOUT || code == HttpStatus.SC_GATEWAY_TIMEOUT || code == 598 || code == 524) {
-        TestServiceImpl.LOG.error(KO
-            + ", "
-            + CONTROLLED_TIMEOUT
-            + ", "
-            + CODE
-            + ": "
-            + code);
-        return Boolean.FALSE;
-      }
-
-    } catch (final Exception e) {
-      TestServiceImpl.LOG.error(
-          KO
-              + ", "
-              + EXCEPTION
-              + ": "
-              + e);
-      return Boolean.FALSE;
-    }
-
-    TestServiceImpl.LOG.info(
-        OK
-            + ", "
-            + CODE
-            + ": "
-            + code);
     return Boolean.TRUE;
   }
 
