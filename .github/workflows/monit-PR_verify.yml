@@ -1,12 +1,16 @@
 ---
 name: monit-PR-verify
 
+concurrency:
+  group: monit-PR-verify-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths: ['monit/**', '.github/workflows/monit**']
 
 env:
-  WORKFLOW_VERSION: 1.46.0
+  WORKFLOW_VERSION: 1.48.0
 
 jobs:
   linter:
@@ -54,10 +58,15 @@ jobs:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
 
       - name: Setup Java tool
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
+
+      - name: Comment
+        uses: inditex/gha-alerthub/code/alerthub/pr_comment@main
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Monit
         uses: inditex/gha-alerthub/code@main
