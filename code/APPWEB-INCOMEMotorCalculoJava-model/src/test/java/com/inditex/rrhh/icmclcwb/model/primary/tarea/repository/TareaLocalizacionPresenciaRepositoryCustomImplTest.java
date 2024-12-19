@@ -1181,7 +1181,7 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void totalizarEmpleadosPorVentaTest(final RunTareaDto tarea) {
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(tarea);

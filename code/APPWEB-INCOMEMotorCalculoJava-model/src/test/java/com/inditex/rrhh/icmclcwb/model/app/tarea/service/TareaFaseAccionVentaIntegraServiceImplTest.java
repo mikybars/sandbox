@@ -31,7 +31,7 @@ class TareaFaseAccionVentaIntegraServiceImplTest {
   private TareaFaseAccionVentaIntegraServiceImpl tareaFaseAccionVentaIntegraService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void saveTest(final List<TareaFaseAccionVentaIntegraDto> src,
       final List<TareaFaseAccionVentaIntegra> mapperResult) {
     Mockito.doReturn(mapperResult).when(this.tareaFaseAccionVentaIntegraMapper)

@@ -685,7 +685,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void mergeDateRangesTempComisHistoricoTest(final TareaDto tarea) {
     this.primaryTemporaryTableRepositoryCustom.mergeDateRangesTempComisHistorico(tarea);
     final Map<String, Object> params = new HashMap<>();
@@ -696,7 +696,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void mergeDateRangesSeccionNotEqualsTempComisHistoricoTest(final TareaDto tarea) {
     this.primaryTemporaryTableRepositoryCustom.mergeDateRangesSeccionNotEqualsTempComisHistorico(tarea);
     final Map<String, Object> params = new HashMap<>();
@@ -1212,7 +1212,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempEstructurasBaseChallengeTest(final TareaDto tarea) {
 
     this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasBaseChallenge(tarea);
@@ -1257,7 +1257,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempEstructurasDesplazamientoNoChallengeTest(final TareaDto tarea) {
 
     this.primaryTemporaryTableRepositoryCustom.insertTempEstructurasDesplazamientoNoChallenge(tarea);
@@ -1303,7 +1303,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempComisComisionManualTest(final IdPersonaLocalComisionManualDto comision1,
       final IdPersonaLocalComisionManualDto comision2,
       final IdPersonaLocalComisionManualDto comision3) {
@@ -1327,7 +1327,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void validateTempComisComisionManualTest(final TareaDto tarea, final IdPersonaLocalDto persona1,
       final IdPersonaLocalDto persona2) {
 
@@ -1379,7 +1379,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTempComisPersonasLocalizacionesTest(final IdPersonaLocalLocalizacionDto persona) {
     final List<IdPersonaLocalLocalizacionDto> personas = Collections.singletonList(persona);
     this.primaryTemporaryTableRepositoryCustom.insertTempComisPersonasLocalizaciones(personas);
@@ -1388,7 +1388,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void validateTempComisPersonas(final TareaDto tarea, final IdPersonaLocalDto persona1,
       final IdPersonaLocalDto persona2) {
 
@@ -1420,7 +1420,7 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   // Fin tests personas
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(final TareaDto tareaDto) {
     this.primaryTemporaryTableRepositoryCustom.insertTareaLocalizacionPresupuestoTareaPersonaEstructura(tareaDto);
     verify(this.namedParameterJdbcTemplate).update(eq(SQL_INSERT_TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA),

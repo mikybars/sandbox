@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.Ru
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaNormalizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
@@ -70,6 +71,9 @@ public class RunTareaServiceImpl implements RunTareaService {
 
   @Autowired
   private RunTareaNormalizarService runTareaNormalizarService;
+
+  @Autowired
+  private RunTareaMigrarService runTareaMigrarService;
 
   @Autowired
   private TareaFaseService tareaFaseService;

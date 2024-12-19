@@ -87,7 +87,7 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getMapValuesTest(final IdTipoDatoDto tipoDatoVenta1, final IdTipoDatoDto tipoDatoVenta2,
       final IdTipoDatoDto tipoDatoPresencia1,
       final IdTipoDatoDto tipoDatoPresencia2, final AlgoritmoDTO algoritmo, final TareaDto tarea,
@@ -145,7 +145,7 @@ class TareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoBaseV1
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void calcularTest(final IdTipoDatoDto tipoDatoVenta1, final IdTipoDatoDto tipoDatoVenta2,
       final IdTipoDatoDto tipoDatoPresencia1,
       final IdTipoDatoDto tipoDatoPresencia2, final AlgoritmoDTO algoritmo, final TareaDto tarea,

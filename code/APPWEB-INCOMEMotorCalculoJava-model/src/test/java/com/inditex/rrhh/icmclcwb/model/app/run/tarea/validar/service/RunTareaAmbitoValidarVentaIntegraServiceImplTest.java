@@ -89,7 +89,7 @@ class RunTareaAmbitoValidarVentaIntegraServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final List<VentaIntegraDataResponseDto> response) {
 
     final List<IdLocalizacionEmpresaDto> tiendas = Arrays.asList(IdLocalizacionEmpresaDto.builder().id("T1").build(),

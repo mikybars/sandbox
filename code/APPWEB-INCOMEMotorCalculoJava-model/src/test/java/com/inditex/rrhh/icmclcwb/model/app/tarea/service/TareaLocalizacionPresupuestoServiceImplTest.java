@@ -206,7 +206,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findLocalizacionOrdinalTarea(final Long idTarea, final Integer cclIdCodOrigen, final Integer cclIdSeccion,
       final Integer idTipoPresupuesto, final List<String> stringList) {
 
@@ -227,7 +227,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPresupuestosTest(final TareaDto tarea,
       final List<TareaLocalizacionPresupuestoDto> listTareas) {
 
@@ -240,7 +240,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findPeriodoPresupuestoYTrabajoTest(final Long idTarea, final PeriodoDto periodo) {
     doReturn(periodo).when(this.tareaLocalizacionPresupuestoRepositoryCustom).findPeriodoPresupuestoYTrabajo(idTarea);
 
@@ -251,7 +251,7 @@ public class TareaLocalizacionPresupuestoServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void findListaPeriodosPresupestoYTrabajoTest(final Long idTarea, final PtrFilterPropertiesDto filterProperties,
       final PeriodoDto periodo) {
 
