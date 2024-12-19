@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.FECHA_AMBITO_BY_TAREA_AND_ID_TIPO_DATO;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
