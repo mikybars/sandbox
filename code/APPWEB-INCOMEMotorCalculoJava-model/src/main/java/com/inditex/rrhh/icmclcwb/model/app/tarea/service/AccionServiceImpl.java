@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ACCION_DTO_BY_ID;
+
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.AccionMapper;
@@ -29,7 +31,7 @@ public class AccionServiceImpl implements AccionService {
   private AccionMapper accionMapper;
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.accion_dto_by_id", key = "{#id}")
+  @Cacheable(value = ACCION_DTO_BY_ID, key = "{#id}")
   public AccionDto findAccionDtoById(@NotNull final Integer id) {
     return this.accionMapper.accionToAccionDto(OptionalUtils.get(this.accionRepository.findById(id)));
   }

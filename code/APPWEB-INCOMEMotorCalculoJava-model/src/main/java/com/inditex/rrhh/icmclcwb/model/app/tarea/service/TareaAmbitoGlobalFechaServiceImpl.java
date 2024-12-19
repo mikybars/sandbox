@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.FECHA_AMBITO_BY_TAREA_AND_ID_TIPO_DATO;
+
 import java.util.Arrays;
+import java.util.Collections;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalFechaDto;
@@ -29,12 +32,12 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
   @Override
   public void save(@Valid @NotNull final TareaAmbitoGlobalFechaDto src, @Valid @NotNull final TareaDto tarea) {
     this.tareaAmbitoGlobalFechaRepositoryCustom.save(
-        this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src),
+        this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Collections.singletonList(src),
             tarea));
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato", key = "{#idTarea, #idTipoDato}")
+  @Cacheable(value = FECHA_AMBITO_BY_TAREA_AND_ID_TIPO_DATO, key = "{#idTarea, #idTipoDato}")
   public PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(
       @Valid @NotNull final Long idTarea, @NotNull final Integer idTipoDato) {
     return this.tareaAmbitoGlobalFechaRepositoryCustom.findFechaAmbitoDtoByIdTareaAndIdTipoDato(idTarea,

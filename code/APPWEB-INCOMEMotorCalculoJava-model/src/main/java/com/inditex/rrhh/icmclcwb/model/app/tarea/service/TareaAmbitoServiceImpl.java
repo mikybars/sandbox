@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TAREA_AMBITO_DTO_BY_TAREA;
+
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -34,7 +36,7 @@ public class TareaAmbitoServiceImpl implements TareaAmbitoService {
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.tarea_ambito_dto_by_tarea", key = "{#tarea.id}")
+  @Cacheable(value = TAREA_AMBITO_DTO_BY_TAREA, key = "{#tarea.id}")
   public List<TareaAmbitoDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
     return this.tareaAmbitoMapper
         .tareaAmbitoToTareaAmbitoDto(this.tareaAmbitoRepository.findByTareaId(tarea.getId()));

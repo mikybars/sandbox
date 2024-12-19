@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.CALCULAR_FESTIVOS;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_LOCAL_CHALLENGE_BY_TAREA;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,13 +75,13 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_local_challenge_by_tarea", key = "{#tarea}")
+  @Cacheable(value = ID_PERSONA_LOCAL_CHALLENGE_BY_TAREA, key = "{#tarea}")
   public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.calcular_festivos", key = "{#tarea}")
+  @Cacheable(value = CALCULAR_FESTIVOS, key = "{#tarea}")
   public Boolean calcularFestivos(
       @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraRepositoryCustom.calcularFestivos(tarea);

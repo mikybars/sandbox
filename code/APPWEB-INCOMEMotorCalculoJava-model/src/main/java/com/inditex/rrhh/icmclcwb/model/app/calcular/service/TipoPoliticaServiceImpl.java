@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_POLITICA_BY_ID;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_POLITICA_BY_ID_META4;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoPoliticaDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPoliticaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoPoliticaMapper;
@@ -21,15 +24,15 @@ public class TipoPoliticaServiceImpl implements TipoPoliticaService {
   private TipoPoliticaMapper tipoPoliticaMapper;
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.tipo_politica_by_id_meta4", key = "#idMeta4")
+  @Cacheable(value = TIPO_POLITICA_BY_ID_META4, key = "#idMeta4")
   public TipoPoliticaDto findByIdMeta4(String idMeta4) {
-    return tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(tipoPoliticaRepository.findByIcmIdTpPolitica(idMeta4));
+    return this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(this.tipoPoliticaRepository.findByIcmIdTpPolitica(idMeta4));
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.tipo_politica_by_id", key = "#id")
+  @Cacheable(value = TIPO_POLITICA_BY_ID, key = "#id")
   public TipoPoliticaDto findById(Integer id) {
-    return tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(tipoPoliticaRepository.findById(id).get());
+    return this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(this.tipoPoliticaRepository.findById(id).get());
   }
 
 }

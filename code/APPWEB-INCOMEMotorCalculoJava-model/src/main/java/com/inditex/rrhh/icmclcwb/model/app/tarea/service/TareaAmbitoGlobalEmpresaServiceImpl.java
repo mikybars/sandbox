@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_EMPRESA_BY_TAREA;
+
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
@@ -36,7 +38,7 @@ public class TareaAmbitoGlobalEmpresaServiceImpl implements TareaAmbitoGlobalEmp
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_empresa_by_tarea", key = "{#idTarea}")
+  @Cacheable(value = ID_EMPRESA_BY_TAREA, key = "{#idTarea}")
   public List<IdEmpresaDto> findIdEmpresaByIdTarea(
       @Valid @NotNull final Long idTarea) {
     return this.tareaAmbitoGlobalEmpresaRepositoryCustom.findIdEmpresaByIdTarea(idTarea);

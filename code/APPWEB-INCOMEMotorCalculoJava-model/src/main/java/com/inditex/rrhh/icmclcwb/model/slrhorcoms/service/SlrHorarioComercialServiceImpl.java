@@ -3,6 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.slrhorcoms.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.HORARIO_COMERCIAL_FESTIVOS;
+
 import java.util.Arrays;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public class SlrHorarioComercialServiceImpl implements SlrHorarioComercialServic
 
   @Override
   @Retryable(maxAttemptsExpression = "${app.envars.slrhorcoms.config.max-attempts}")
-  @Cacheable(value = "itx.icmlcwb.horario_comercial_festivos", key = "#request")
+  @Cacheable(value = HORARIO_COMERCIAL_FESTIVOS, key = "#request")
   public ResponseDto<HorarioComercialFestivoDocDto> horarioComercialFestivos(
       final HorarioComercialFestivosRequestDto request) {
 
