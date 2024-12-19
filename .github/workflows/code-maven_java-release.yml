@@ -43,7 +43,7 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.20.2
+  WORKFLOW_VERSION: 2.25.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -65,7 +65,7 @@ jobs:
       || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
         || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
-    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
     steps:
       - name: Get input parameters
         run: |
@@ -127,23 +127,33 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+        with:
+          tool-versions-directory: code
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+
       - name: Setup Maven Cache
         uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ env.ASDF_IMAGE_TAG }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ env.ASDF_IMAGE_TAG }}-maven-
 
       - name: Setup asdf Cache
         uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.asdf/data
-          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          key: ${{ env.ASDF_IMAGE_TAG }}-asdf-${{ hashFiles('**/.tool-versions') }}
           restore-keys: |
-            ${{ runner.os }}-asdf-
+            ${{ env.ASDF_IMAGE_TAG }}-asdf-
 
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
@@ -157,16 +167,6 @@ jobs:
           git config user.name "$SCM_USERNAME"
           git config user.email "$SCM_EMAIL"
           git config commit.gpgsign true
-
-      - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
-        env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
-        with:
-          tool-versions-directory: code
-          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Yank previous release
         if: contains(env.RELEASE_LABELS, 'release-mode/yank-previous')

@@ -9,9 +9,10 @@ on:
   push:
     branches: ['develop', 'develop-*', 'main', 'main-*']
     paths: ['code/**', '.github/workflows/code**']
+  workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 2.20.2
+  WORKFLOW_VERSION: 2.25.0
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -22,8 +23,8 @@ env:
 jobs:
   build-snapshot:
     name: Build Snapshot
-    runs-on: ${{ fromJSON( vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-20.04"]' ) }}
-    if: ${{ (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
+    if: ${{ (github.event_name == 'workflow_dispatch') || (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) }}
     steps:
       - name: Get release commits
         id: release-commits
@@ -46,30 +47,6 @@ jobs:
         if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: actions/checkout@v4
 
-      - name: Setup Maven Cache
-        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
-        uses: actions/cache@v4
-        continue-on-error: true
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Setup asdf Cache
-        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
-        uses: actions/cache@v4
-        continue-on-error: true
-        with:
-          path: ~/.asdf/data
-          key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
-          restore-keys: |
-            ${{ runner.os }}-asdf-
-
-      - name: Log in to GitHub Registry
-        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
-        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
-
       - name: Infer ci-agents asdf image
         if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
@@ -80,6 +57,30 @@ jobs:
         with:
           tool-versions-directory: code
           github-token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Setup Maven Cache
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        uses: actions/cache@v4
+        continue-on-error: true
+        with:
+          path: ~/.m2/repository
+          key: ${{ env.ASDF_IMAGE_TAG }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ env.ASDF_IMAGE_TAG }}-maven-
+
+      - name: Setup asdf Cache
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        uses: actions/cache@v4
+        continue-on-error: true
+        with:
+          path: ~/.asdf/data
+          key: ${{ env.ASDF_IMAGE_TAG }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          restore-keys: |
+            ${{ env.ASDF_IMAGE_TAG }}-asdf-
+
+      - name: Log in to GitHub Registry
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
 
       - name: Maven / Set Maven Build Cache options
         id: maven-opts
@@ -130,3 +131,41 @@ jobs:
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
             mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS
+
+      - name: Generate SBOM
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        continue-on-error: true
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
+            -e TOTAL_CPUS \
+            -e TOTAL_MEMORY \
+            -e DP_USERNAME=${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }} \
+            -e DP_TOKEN=${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }} \
+            -e DT_ENDPOINT -e DT_SECRET \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -B org.cyclonedx:cyclonedx-maven-plugin:2.9.0:makeAggregateBom \
+              -DprojectType=application \
+              -DoutputFormat=json \
+              -DoutputName=sbom \
+              -DincludeTestScope=true \
+              -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS
+
+      - name: Upload SBOM Artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: sbom
+          path: code/target/sbom.json
