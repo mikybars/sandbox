@@ -9,12 +9,12 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.24.1
+  WORKFLOW_VERSION: 2.26.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:
   mutation-testing-execution:
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON( vars.RUNSON_SONARQUBE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
     name: Mutation Testing execution
     steps:
       - name: Checkout
