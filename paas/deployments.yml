@@ -17,7 +17,7 @@ supraenvironments:
             tenants:
               - name: global
                 slots:
-                  - name: pipe
+                  - name: default
   - name: pro
     environments:
       - name: pro
