@@ -51,3 +51,13 @@ amq:
   slot: icmclcwb
   scheduler:
     enabled: true
+redis:
+  template: com.inditex.sentinel:senttpl-redis:4.0.1
+  enabled: true
+  shared: true
+  slot: icmclcwb
+  force: true
+  replicas: 1
+  ephemeral_cache: true
+  node:
+    size: S
