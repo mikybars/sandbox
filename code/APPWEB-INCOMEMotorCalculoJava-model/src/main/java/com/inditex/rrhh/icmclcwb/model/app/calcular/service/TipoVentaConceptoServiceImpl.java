@@ -3,11 +3,15 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_VENTA_CONCEPTO_BY_ID;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_VENTA_CONCEPTO_BY_ID_META4;
 
+import java.util.Optional;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -33,8 +37,12 @@ public class TipoVentaConceptoServiceImpl implements TipoVentaConceptoService {
   @Override
   @Cacheable(value = TIPO_VENTA_CONCEPTO_BY_ID, key = "#id")
   public TipoVentaConceptoDto findById(Long id) {
-    return this.tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
-        this.tipoVentaConceptoRepository.findById(id).get());
+    final Optional<TipoVentaConcepto> optionalTipoVentaConcepto = this.tipoVentaConceptoRepository.findById(id);
+    if (optionalTipoVentaConcepto.isPresent()) {
+      return this.tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(optionalTipoVentaConcepto.get());
+    } else {
+      throw new EntityNotFoundException("TipoVentaConcepto not found");
+    }
   }
 
 }
