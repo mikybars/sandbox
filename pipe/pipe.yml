@@ -1,0 +1,11 @@
+platformgroups:
+  - sscc
+tenants:
+  - global
+environments:
+  des:
+    - des
+  pre:
+    - pre
+  pro:
+    - pro

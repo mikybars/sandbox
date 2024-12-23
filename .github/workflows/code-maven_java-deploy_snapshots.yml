@@ -48,7 +48,7 @@ on:
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 3.12.0
+  WORKFLOW_VERSION: 3.14.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -265,3 +265,4 @@ jobs:
           force-token-usage: ${{ steps.detect.outputs.force-token-usage }}
         env:
           SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}

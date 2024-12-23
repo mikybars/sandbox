@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
   <entry key="TareaLocalizacionPresenciaRepositoryCustom.save">
     <![CDATA[
     INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, MINUTOS, ID_TIPO_DATO, ES_ACTIVO, ID_TAREA, CCL_ID_CADENA, FECHA_INICIO_PERIODO)

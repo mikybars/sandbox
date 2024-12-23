@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.24.1
+  WORKFLOW_VERSION: 2.26.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
         github.event_name == 'workflow_dispatch' ||
         github.event_name == 'release' }}
     timeout-minutes: 30
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON( vars.RUNSON_SONARQUBE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

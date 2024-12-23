@@ -543,6 +543,10 @@ amiga:
           data-source-properties:
             encrypt: false
             multiSubnetFailover: true
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.des.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:
@@ -576,3 +580,6 @@ app:
         server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
       icmwscalcincome:
         server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
+    pipe:
+      commission-calculation:
+        message-max-size: 5000

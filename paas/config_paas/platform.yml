@@ -51,6 +51,7 @@ amq:
   slot: icmclcwb
   scheduler:
     enabled: true
+
 redis:
   template: com.inditex.sentinel:senttpl-redis:4.0.1
   enabled: true
@@ -61,3 +62,7 @@ redis:
   ephemeral_cache: true
   node:
     size: S
+
+pipe:
+  enabled: true
+

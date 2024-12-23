@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 1.44.3
+  WORKFLOW_VERSION: 1.45.0
   TOOL_VERSIONS: |
     ivm-node 18.12.1
 
@@ -28,7 +28,7 @@ jobs:
         github.event_name == 'push' ||
         (github.event_name == 'pull_request' && contains( github.event.pull_request.labels.*.name, 'amiga-inspector'))
       }}
-    runs-on: [self-hosted, inspector]
+    runs-on: ${{ fromJSON(vars.RUNSON_AMGINSPECTOR_ONPREM || '["self-hosted", "inspector"]') }}
     env:
       ASDF_DATA_DIR: /tmp/asdf/data
     steps:
@@ -50,14 +50,14 @@ jobs:
         run: |
           mkdir -p "$ASDF_DATA_DIR"
       - name: IVM / Setup plugins
-        uses: inditex/gha-ivmactions/setup-plugins@v0
+        uses: inditex/gha-ivmactions/setup-plugins@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READER }}
         with:
           tool-versions-directory: "."
 
       - name: IVM / Setup environment
-        uses: inditex/gha-ivmactions/setup-environment@v0
+        uses: inditex/gha-ivmactions/setup-environment@v1
         with:
           tool-versions-directory: "."
 
