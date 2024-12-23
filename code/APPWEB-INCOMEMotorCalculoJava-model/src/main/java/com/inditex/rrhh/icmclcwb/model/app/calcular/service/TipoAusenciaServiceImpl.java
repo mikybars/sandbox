@@ -3,11 +3,15 @@ package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_AUSENCIA_BY_ICM_TP_ABSENCE;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_AUSENCIA_BY_ID;
 
+import java.util.Optional;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoAusenciaDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoAusenciaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoAusenciaMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoAusencia;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoAusenciaRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -33,8 +37,12 @@ public class TipoAusenciaServiceImpl implements TipoAusenciaService {
   @Override
   @Cacheable(value = TIPO_AUSENCIA_BY_ID, key = "#id")
   public TipoAusenciaDto findById(Integer id) {
-    return this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(
-        this.tipoAusenciaRepository.findById(id).get());
+    final Optional<TipoAusencia> optionalTipoAusencia = this.tipoAusenciaRepository.findById(id);
+    if (optionalTipoAusencia.isPresent()) {
+      return this.tipoAusenciaMapper.tipoAusenciaToTipoAusenciaDto(optionalTipoAusencia.get());
+    } else {
+      throw new EntityNotFoundException("TipoAusencia not found");
+    }
   }
 
 }
