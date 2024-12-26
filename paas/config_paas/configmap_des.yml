@@ -586,4 +586,4 @@ app:
     cache:
       redis:
         cluster:
-          nodes: redis-cluster-icmclcwb.icmclcwb.svc.cluster.local.:6379
+          nodes: redis-cluster-icmclcwb.icmclcwb.svc.cluster.local:6379
