@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE_AND_DAYS;
-import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_PRESUPUESTOS_BY_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PRESUPUESTOS_BY_TAREA;
 
 import java.time.LocalDate;
@@ -68,7 +68,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
   }
 
   @Override
-  @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY, key = "{#idTarea}")
+  @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA, key = "{#idTarea}")
   public PeriodoDto findPeriodoPresupuestoYTrabajo(@NotNull final Long idTarea) {
     return this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
   }

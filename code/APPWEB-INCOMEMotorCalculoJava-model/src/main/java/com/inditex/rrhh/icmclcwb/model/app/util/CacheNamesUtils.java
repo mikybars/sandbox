@@ -43,6 +43,8 @@ public class CacheNamesUtils {
 
   public static final String PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository";
 
+  public static final String PERIODO_PRESUPUESTOS_BY_ID_TAREA = "itx.icmlcwb.periodo_presupuestos_by_id_tarea";
+
   public static final String TIPO_AUSENCIA_BY_ICM_TP_ABSENCE = "itx.icmlcwb.tipo_ausencia_by_icm_tp_absence";
 
   public static final String TIPO_AUSENCIA_BY_ID = "itx.icmlcwb.tipo_ausencia_by_id";
