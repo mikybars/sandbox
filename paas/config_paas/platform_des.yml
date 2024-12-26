@@ -6,5 +6,7 @@ app:
     states:
       - name: peak
         replicas: 1
+redis:
+  replicas: 1
 datagrid:
   replicas: 1
