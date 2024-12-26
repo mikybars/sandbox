@@ -33,6 +33,14 @@ amiga:
             enabled: true
           counter:
             enabled: true
+    cache:
+      redis:
+        host: ${qa.jdg.host:localhost}
+        port: ${qa.jdg.port:6379}
+        cluster:
+          enabled: false
+        sentinel:
+          enabled: false
   common:
     soap:
       client:
