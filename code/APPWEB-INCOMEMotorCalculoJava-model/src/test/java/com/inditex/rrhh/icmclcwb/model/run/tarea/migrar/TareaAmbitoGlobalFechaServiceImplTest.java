@@ -57,6 +57,8 @@ class TareaAmbitoGlobalFechaServiceImplTest {
     when(this.tareaAmbitoGlobalFechaRepositoryCustom.findFechaAmbitoDtoByIdTareaAndIdTipoDato(idTarea, idTipoDato))
         .thenReturn(this.periodoDto);
 
+    final PeriodoDto result = this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(idTarea, idTipoDato);
+
     verify(this.tareaAmbitoGlobalFechaRepositoryCustom).findFechaAmbitoDtoByIdTareaAndIdTipoDato(idTarea, idTipoDato);
   }
 
