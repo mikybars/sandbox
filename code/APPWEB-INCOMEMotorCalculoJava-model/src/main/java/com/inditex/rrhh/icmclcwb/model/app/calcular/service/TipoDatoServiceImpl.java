@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_TIPO_DATO_BY_ID_TIPO_GRUPO_DATO;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +23,9 @@ public class TipoDatoServiceImpl implements TipoDatoService {
   private TipoDatoRepository tipoDatoRepository;
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato", key = "{#idTipoGrupoDato}")
+  @Cacheable(value = ID_TIPO_DATO_BY_ID_TIPO_GRUPO_DATO, key = "{#idTipoGrupoDato}")
   public List<IdTipoDatoDto> findTipoDatoByTipoGrupoDato(Integer idTipoGrupoDato) {
-    List<TipoDato> tiposDato = tipoDatoRepository.findTipoDatoByTipoGrupoDato(idTipoGrupoDato);
+    final List<TipoDato> tiposDato = this.tipoDatoRepository.findTipoDatoByTipoGrupoDato(idTipoGrupoDato);
     return tiposDato.stream()
         .map(tipoDato -> IdTipoDatoDto.builder().id(tipoDato.getId()).build())
         .collect(Collectors.toList());

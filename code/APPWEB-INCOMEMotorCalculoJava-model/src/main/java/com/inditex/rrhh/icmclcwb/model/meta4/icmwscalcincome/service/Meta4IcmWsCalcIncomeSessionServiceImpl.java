@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PRODUCTO_BY_ID_TAREA_AND_ID_ORIGEN;
+
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
@@ -220,7 +222,7 @@ public class Meta4IcmWsCalcIncomeSessionServiceImpl extends Meta4PageableService
         ConfiguracionProductoVentaResultItemDto.class);
   }
 
-  @Cacheable(value = "itx.icmlcwb.id_producto_by_id_tarea_and_id_origen", key = "{#idTarea,#cclIdOrigen}")
+  @Cacheable(value = ID_PRODUCTO_BY_ID_TAREA_AND_ID_ORIGEN, key = "{#idTarea,#cclIdOrigen}")
   @Override
   public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(final Long idTarea,
       final String cclIdOrigen) {

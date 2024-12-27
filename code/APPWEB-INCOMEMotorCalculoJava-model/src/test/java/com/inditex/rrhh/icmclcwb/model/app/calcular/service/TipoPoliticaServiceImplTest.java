@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,4 +58,15 @@ class TipoPoliticaServiceImplTest {
     verify(this.tipoPoliticaRepository, times(1)).findById(any(Integer.class));
   }
 
+  @Test
+  void findByIdMeta4TestCatch() {
+    final String idMeta4 = "someIdMeta4";
+
+    when(this.tipoPoliticaRepository.findByIcmIdTpPolitica(anyString())).thenReturn(this.tipoPolitica);
+    when(this.tipoPoliticaMapper.tipoPoliticaToTipoPoliticaDto(this.tipoPolitica)).thenReturn(this.tipoPoliticaDto);
+
+    final TipoPoliticaDto result = this.tipoPoliticaServiceImpl.findByIdMeta4(idMeta4);
+
+    assertNotNull(result);
+  }
 }

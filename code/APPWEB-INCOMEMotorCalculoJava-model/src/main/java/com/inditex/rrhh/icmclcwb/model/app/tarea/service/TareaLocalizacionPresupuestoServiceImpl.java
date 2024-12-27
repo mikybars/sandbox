@@ -1,5 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE_AND_DAYS;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_PRESUPUESTOS_BY_ID_TAREA;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PRESUPUESTOS_BY_TAREA;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +59,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.presupuestos_by_tarea", key = "{#tarea}")
+  @Cacheable(value = PRESUPUESTOS_BY_TAREA, key = "{#tarea}")
   public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NonNull final TareaDto tarea) {
     return TareaLocalizacionPresupuestoListDto
         .builder()
@@ -63,13 +68,13 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea", key = "{#idTarea}")
+  @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA, key = "{#idTarea}")
   public PeriodoDto findPeriodoPresupuestoYTrabajo(@NonNull final Long idTarea) {
     return this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page",
+  @Cacheable(value = LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE,
       key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType}")
   public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull final Long idTarea,
       @NonNull final PtrFilterPropertiesDto filterProperties) {
@@ -77,7 +82,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days",
+  @Cacheable(value = LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE_AND_DAYS,
       key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType, #recolectarProperties.daysNumber}")
   public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull final Long idTarea,
       @NonNull final PtrFilterPropertiesDto filterProperties,

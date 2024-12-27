@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomepro
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -486,3 +490,7 @@ app:
     pipe:
       commission-calculation:
         message-max-size: 5000
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379

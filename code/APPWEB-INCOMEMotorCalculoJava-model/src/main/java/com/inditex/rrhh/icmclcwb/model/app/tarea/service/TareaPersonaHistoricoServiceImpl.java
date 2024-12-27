@@ -1,5 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_HISTORICO_BY_TAREA_AND_ID_ORIGEN;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_HISTORICO_BY_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_HISTORICO_GRUPO_FECHAS_BY_TAREA;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_HISTORICO_LOCALIZACION_BY_TAREA_AND_ID_ORIGEN;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_BY_TAREA;
+
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -56,7 +62,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+  @Cacheable(value = ID_PERSONA_HISTORICO_BY_TAREA_AND_ID_ORIGEN, key = "{#idTarea, #cclIdOrigen}")
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
       @NonNull final Long idTarea,
       @NonNull final String cclIdOrigen) {
@@ -66,7 +72,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato",
+  @Cacheable(value = ID_PERSONA_HISTORICO_BY_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO,
       key = "{#idTarea, #cclIdOrigen, #idsTipoDato}")
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
       @NonNull final Long idTarea,
@@ -87,13 +93,13 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.periodo_by_tarea", key = "{#idTarea}")
+  @Cacheable(value =PERIODO_BY_TAREA, key = "{#idTarea}")
   public PeriodoDto findPeriodoByIdTareaDto(@NonNull final Long idTarea) {
     return this.tareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea(idTarea);
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea", key = "{#idTarea}")
+  @Cacheable(value = ID_PERSONA_HISTORICO_GRUPO_FECHAS_BY_TAREA, key = "{#idTarea}")
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NonNull final Long idTarea) {
     return this.tareaPersonaHistoricoRepositoryCustom.findIdPersonaHistoricoDtoGrupoFechasByIdTarea(idTarea);
   }
@@ -113,7 +119,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen", key = "{#idTarea, #cclIdOrigen}")
+  @Cacheable(value = ID_PERSONA_HISTORICO_LOCALIZACION_BY_TAREA_AND_ID_ORIGEN, key = "{#idTarea, #cclIdOrigen}")
   public List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
       @NonNull final Long idTarea,
       @NonNull final String cclIdOrigen) {

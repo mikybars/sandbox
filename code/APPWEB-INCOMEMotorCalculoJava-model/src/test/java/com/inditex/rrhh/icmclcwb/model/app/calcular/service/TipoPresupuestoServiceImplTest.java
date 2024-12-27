@@ -1,6 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoPresupuestoMapper
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoPresupuestoRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -54,5 +57,12 @@ class TipoPresupuestoServiceImplTest {
     verify(this.tipoPresupuestoMapper, times(1)).tipoPresupuestoToTipoPreupuestoDto(any(TipoPresupuesto.class));
     verify(this.tipoPresupuestoRepository, times(1)).findById(any(Integer.class));
   }
+
+  @Test
+    void findByIdShouldThrowEntityNotFoundException() {
+        when(this.tipoPresupuestoRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> this.tipoPresupuestoServiceImpl.findById(1));
+    }
 
 }
