@@ -93,7 +93,7 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
   }
 
   @Override
-  @Cacheable(value =PERIODO_BY_TAREA, key = "{#idTarea}")
+  @Cacheable(value = PERIODO_BY_TAREA, key = "{#idTarea}")
   public PeriodoDto findPeriodoByIdTareaDto(@NonNull final Long idTarea) {
     return this.tareaPersonaHistoricoRepositoryCustom.findPeriodoDtoByIdTarea(idTarea);
   }
