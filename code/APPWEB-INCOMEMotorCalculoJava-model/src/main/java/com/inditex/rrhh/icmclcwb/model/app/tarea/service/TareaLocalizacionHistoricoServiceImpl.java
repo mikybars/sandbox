@@ -75,7 +75,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
   @Override
   @Cacheable(value = ID_LOCALIZACION_BY_TAREA_AND_ID_ORIGEN_IN_AMBITO, key = "{#idTarea, #cclIdOrigen}")
-  public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull final Long idTarea,
+  public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NonNull final Long idTarea,
       @NotBlank final String cclIdOrigen) {
     return this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
         idTarea,

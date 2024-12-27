@@ -15,12 +15,16 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_AMBITO_GLOBAL_FECHA")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaAmbitoGlobalFecha {
 
   @Id
