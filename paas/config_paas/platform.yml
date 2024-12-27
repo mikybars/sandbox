@@ -28,22 +28,7 @@ app:
   scaler:
     optin: true
   openshift_template: com.inditex.sentinel:senttapp-springboot:2.19.0
-datagrid:
-  shared: true
-  use_local_cache_definition: true
-  enabled: true
-  slot: icmclcwb
-  template: com.inditex.sentinel:senttpl-datagrid:2.4.1
-  force: true
-  application_cache:
-    enabled: true
-  session:
-    cache_name: "itx.sessions"
-    enabled: true
-    eviction:
-      type: MEMORY # COUNT
-      size: 400MB # 1000
-    lifespan: 300
+
 amq:
   template: com.inditex.sentinel:senttpl-amq:2.7.0
   force: true
@@ -65,4 +50,3 @@ redis:
 
 pipe:
   enabled: true
-
