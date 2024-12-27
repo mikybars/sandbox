@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionAbiertaRepositoryCustom;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,12 +28,12 @@ public class TareaLocalizacionAbiertaServiceImpl implements TareaLocalizacionAbi
   private TipoDatoService tipoDatoService;
 
   @Override
-  public void saveAbierto(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDTO trabajoDto) {
+  public void saveAbierto(@Valid @NonNull final TareaDto tareaDto, @Valid @NonNull final TrabajoDTO trabajoDto) {
     this.tareaLocalizacionAbiertaRepositoryCustom.saveAbierto(tareaDto, trabajoDto);
   }
 
   @Override
-  public void saveCerrado(@Valid @NotNull final TareaDto tareaDto, @Valid @NotNull final TrabajoDTO trabajoDto) {
+  public void saveCerrado(@Valid @NonNull final TareaDto tareaDto, @Valid @NonNull final TrabajoDTO trabajoDto) {
     final List<IdTipoDatoDto> ids = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_LOCALIZACION.getId());
     this.tareaLocalizacionAbiertaRepositoryCustom.saveCerrado(tareaDto, trabajoDto,

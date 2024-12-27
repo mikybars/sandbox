@@ -8,14 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaConfiguracionChallengeDiasMinimosService {
 
-  void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
-      @Valid @NotNull final TareaDto tarea);
+  void save(@Valid @NonNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
+      @Valid @NonNull final TareaDto tarea);
 
-  void saveConfChDiasMinimosResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
-      @Valid @NotNull final TareaDto tarea);
+  void saveConfChDiasMinimosResultItemDto(@Valid @NonNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
+      @Valid @NonNull final TareaDto tarea);
 
 }

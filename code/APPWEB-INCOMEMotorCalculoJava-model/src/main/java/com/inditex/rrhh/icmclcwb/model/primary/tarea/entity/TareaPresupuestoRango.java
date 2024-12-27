@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PRESUPUESTO_RANGO")
@@ -28,12 +28,12 @@ public class TareaPresupuestoRango {
   @Column(name = "ID_TAREA_PRESUPUESTO_RANGO")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
   private TipoPresupuesto tipoPresupuesto;
@@ -42,12 +42,12 @@ public class TareaPresupuestoRango {
   @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
   private String stdIdLegEnt;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;

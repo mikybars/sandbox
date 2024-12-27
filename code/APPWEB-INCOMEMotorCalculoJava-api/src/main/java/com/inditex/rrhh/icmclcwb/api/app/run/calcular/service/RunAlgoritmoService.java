@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.dto.RunAlgoritmoDTO;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface RunAlgoritmoService {
 
-  RunAlgoritmoDTO findById(@NotNull @Positive Integer id);
+  RunAlgoritmoDTO findById(@NonNull @Positive Integer id);
 
   List<RunAlgoritmoDTO> findAll();
 

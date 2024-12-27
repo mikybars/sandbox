@@ -30,7 +30,7 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class RunTrabajoServiceImpl implements RunTrabajoService {
   @CounterFunctionalMetric(metricName = "RunTrabajoService.run.counter", metricGroupName = "RunTrabajoServiceGroup",
       metricDescription = "RunTrabajoService.run.counter")
   @Override
-  public RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
+  public RunTrabajoDto run(@NonNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo) {
     final TrabajoDTO trabajo = runTrabajo.getTrabajo();
     try {
       this.trabajoService.updateEstado(trabajo, EstadoTrabajoEnum.EN_CURSO.getDto());

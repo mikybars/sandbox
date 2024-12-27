@@ -5,24 +5,24 @@ import java.io.Serializable;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class RunTareaDto implements Serializable {
 
   private static final long serialVersionUID = -2999803240189313755L;
 
-  @NotNull
+  @NonNull
   private TrabajoDTO trabajo;
 
-  @NotNull
+  @NonNull
   private TareaDto tarea;
 
 }

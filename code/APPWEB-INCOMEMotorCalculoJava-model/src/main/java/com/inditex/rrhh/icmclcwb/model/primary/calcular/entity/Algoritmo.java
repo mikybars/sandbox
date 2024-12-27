@@ -11,27 +11,31 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "ALGORITMO")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Algoritmo {
 
   @Id
   @Column(name = "ID_ALGORITMO")
   private Integer id;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
   private Boolean desplazamiento;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
   private Boolean desplazamientoBase;
 

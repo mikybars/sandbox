@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
@@ -24,17 +24,17 @@ public class TareaPersonaEstructuraDesplazamiento {
   @EmbeddedId
   private TareaPersonaEstructuraDesplazamientoPk pk;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_EFECTIVA", nullable = false)
   private TipoOpcionCalculo tipoOpcionCalculoEfectiva;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_ESTRUCTURA", nullable = false)
   private TipoOpcionCalculo tipoOpcionCalculoEstructura;
@@ -63,29 +63,29 @@ public class TareaPersonaEstructuraDesplazamiento {
   @Column(name = "STD_ID_WORK_LOCAT_DESTINO", nullable = false, length = 48)
   private String stdIdWorkLocatDestino;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_HORAS_ORIGEN", nullable = false)
   private Boolean horasOrigen;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_HORAS_DESTINO", nullable = false)
   private Boolean horasDestino;
 
-  @NotNull
+  @NonNull
   @Column(name = "ORDINAL_ESTRUCTURA", nullable = false)
   private Integer ordinalEstructura;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

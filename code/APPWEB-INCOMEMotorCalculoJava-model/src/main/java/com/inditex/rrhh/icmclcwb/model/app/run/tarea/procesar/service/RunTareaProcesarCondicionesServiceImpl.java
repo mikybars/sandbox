@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -84,7 +84,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
-  public void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea) {
+  public void establecerBandaOpcionOrigen(@Valid @NonNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempEstructurasBaseChallenge();
       this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasBaseChallenge();
@@ -102,7 +102,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
   public void igualarBandasOrigenDestino(
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempBandasOrigenSinBandaDesplazamiento();
       this.primaryTemporaryTableRepositoryCustom.insertBandasOrigenSinBandaDesplazamiento(tarea);
@@ -116,7 +116,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
   public void relacionarPresupuestosEstructurasDesplazamiento(
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempEstructura();
       this.primaryTemporaryTableRepositoryCustom.indexTempEstructura();

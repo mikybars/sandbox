@@ -18,8 +18,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PRESUPUESTO_VENTA")
@@ -31,17 +31,17 @@ public class TareaLocalizacionPresupuestoVenta {
   @Column(name = "ID_TAREA_LOCALIZACION_PRESUPUESTO_VENTA")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;
@@ -58,19 +58,19 @@ public class TareaLocalizacionPresupuestoVenta {
   @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
   private String cclIdSeccion;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_ORDINAL", nullable = false)
   private Integer ordinal;
 
-  @NotNull
+  @NonNull
   @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
   private Double importeSinImpuestos;
 
-  @NotNull
+  @NonNull
   @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
   private Double importeConImpuestos;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
   private TipoPresupuesto tipoPresupuesto;
@@ -87,7 +87,7 @@ public class TareaLocalizacionPresupuestoVenta {
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

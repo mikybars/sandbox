@@ -12,26 +12,26 @@ import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrFilterPropertiesDto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionPresupuestoService {
 
-  void save(@Valid @NotNull @NotEmpty final List<PresupuestosWlocResultItemDto> src,
-      @Valid @NotNull final TareaDto tarea);
+  void save(@Valid @NonNull @NotEmpty final List<PresupuestosWlocResultItemDto> src,
+      @Valid @NonNull final TareaDto tarea);
 
-  TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NotNull final TareaDto tarea);
+  TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NonNull final TareaDto tarea);
 
-  PeriodoDto findPeriodoPresupuestoYTrabajo(@NotNull final Long idTarea);
+  PeriodoDto findPeriodoPresupuestoYTrabajo(@NonNull final Long idTarea);
 
-  List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea,
-      @NotNull PtrFilterPropertiesDto filterProperties,
+  List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull Long idTarea,
+      @NonNull PtrFilterPropertiesDto filterProperties,
       RecolectarPropertiesDto recolectarProperties);
 
-  List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull Long idTarea,
-      @NotNull PtrFilterPropertiesDto filterProperties);
+  List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull Long idTarea,
+      @NonNull PtrFilterPropertiesDto filterProperties);
 
-  List<String> findLocalizacionOrdinalTarea(@NotNull Long idTarea, @NotNull Integer cclIdCodOrigen,
-      @NotNull Integer cclIdSeccion, @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin,
-      @NotNull Integer idTipoPresupuesto);
+  List<String> findLocalizacionOrdinalTarea(@NonNull Long idTarea, @NonNull Integer cclIdCodOrigen,
+      @NonNull Integer cclIdSeccion, @NonNull LocalDate fechaInicio, @NonNull LocalDate fechaFin,
+      @NonNull Integer idTipoPresupuesto);
 
 }

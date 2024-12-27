@@ -7,8 +7,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFase;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaFaseRepositoryCustom {
 
@@ -27,15 +27,15 @@ public interface TareaFaseRepositoryCustom {
    * @param idFase Some javadoc.
    * @return Some javadoc.
    */
-  TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NotNull @Positive Long idTarea,
-      @NotNull @Positive Integer idFase);
+  TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NonNull @Positive Long idTarea,
+      @NonNull @Positive Integer idFase);
 
   /**
    * Some javadoc.
    *
    * @param tareaFaseDto Some javadoc.
    */
-  void updateFechaInicio(@NotNull TareaFaseDto tareaFaseDto);
+  void updateFechaInicio(@NonNull TareaFaseDto tareaFaseDto);
 
   /**
    * Some javadoc.
@@ -43,7 +43,7 @@ public interface TareaFaseRepositoryCustom {
    * @param idTarea Some javadoc.
    * @return Some javadoc.
    */
-  List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull @Positive Long idTarea);
+  List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NonNull @Positive Long idTarea);
 
   /**
    * Some javadoc.
@@ -52,8 +52,8 @@ public interface TareaFaseRepositoryCustom {
    * @param estadoTareaFaseActualDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@NotNull TareaDto tareaDto,
-      @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@NonNull TareaDto tareaDto,
+      @NonNull EstadoTareaFaseDto estadoTareaFaseActualDto, @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
@@ -61,7 +61,7 @@ public interface TareaFaseRepositoryCustom {
    * @param tareaFaseDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto, @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaFinAndEstado(@NonNull TareaFaseDto tareaFaseDto, @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
@@ -69,21 +69,21 @@ public interface TareaFaseRepositoryCustom {
    * @param tareaFaseDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaInicioAndFechaFinAndEstado(@NotNull TareaFaseDto tareaFaseDto,
-      @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaInicioAndFechaFinAndEstado(@NonNull TareaFaseDto tareaFaseDto,
+      @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaDto Some javadoc.
    */
-  void updateActivoByIdTarea(@NotNull TareaDto tareaDto);
+  void updateActivoByIdTarea(@NonNull TareaDto tareaDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaFaseDto Some javadoc.
    */
-  void updateActivoByIdTareaFase(@NotNull TareaFaseDto tareaFaseDto);
+  void updateActivoByIdTareaFase(@NonNull TareaFaseDto tareaFaseDto);
 
 }

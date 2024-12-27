@@ -8,12 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROCESO_AMBITO_EMPRESA")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProcesoAmbitoEmpresa {
 
   @Id
@@ -21,16 +25,16 @@ public class ProcesoAmbitoEmpresa {
   @Column(name = "ID_PROCESO_AMBITO_EMPRESA")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_PROCESO", nullable = false)
   private Proceso proceso;
 
-  @NotNull
+  @NonNull
   @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
   private String cclIdOrigen;
 
-  @NotNull
+  @NonNull
   @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
   private String stdIdLegEnt;
 

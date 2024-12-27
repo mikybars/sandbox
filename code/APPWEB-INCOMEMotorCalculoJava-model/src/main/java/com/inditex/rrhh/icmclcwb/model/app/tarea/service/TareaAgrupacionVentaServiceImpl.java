@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionVentaMapp
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionVentaRepositoryCustom;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,9 +27,9 @@ public class TareaAgrupacionVentaServiceImpl implements TareaAgrupacionVentaServ
   private TareaAgrupacionVentaMapper tareaAgrupacionVentaMapper;
 
   @Override
-  public void savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-      @Valid @NotNull final TareaDto tarea,
-      @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
+  public void savePtrVentaTotalizadoResponse(@Valid @NonNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NonNull final TareaDto tarea,
+      @Valid @NonNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
     tareaAgrupacionVentaRepositoryCustom.save(
         tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
             dto.getVentaTotalizado(), tarea, agrupaciones));
@@ -37,15 +37,15 @@ public class TareaAgrupacionVentaServiceImpl implements TareaAgrupacionVentaServ
 
   @Override
   public void savePtrVentaOnlineEntregaDomicilioResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
-      @Valid @NotNull final TareaDto tarea, @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
+      @Valid @NonNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+      @Valid @NonNull final TareaDto tarea, @Valid @NonNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
     tareaAgrupacionVentaRepositoryCustom.save(
         tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
             dto.getVentaOnline(), tarea, agrupaciones));
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaDomicilio(@Valid @NotNull final TareaDto tarea) {
+  public void updateActivoVentaOnlineEntregaDomicilio(@Valid @NonNull final TareaDto tarea) {
     tareaAgrupacionVentaRepositoryCustom.updateActivo(tarea);
   }
 

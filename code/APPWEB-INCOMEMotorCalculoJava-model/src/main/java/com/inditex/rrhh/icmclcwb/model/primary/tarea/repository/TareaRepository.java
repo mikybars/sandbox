@@ -6,12 +6,12 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaRepository extends BaseRepository<Tarea, Long> {
 
-  List<Tarea> findByTrabajoId(@NotNull final Long id);
+  List<Tarea> findByTrabajoId(@NonNull final Long id);
 
-  Tarea findByIdAndEstadoIdIn(@NotNull final Long id, final Collection<Integer> estados);
+  Tarea findByIdAndEstadoIdIn(@NonNull final Long id, final Collection<Integer> estados);
 
 }

@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAmbitoGlobalFechaMa
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalFechaRepositoryCustom;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
   private TareaAmbitoGlobalFechaMapper tareaAmbitoGlobalFechaMapper;
 
   @Override
-  public void save(@Valid @NotNull final TareaAmbitoGlobalFechaDto src, @Valid @NotNull final TareaDto tarea) {
+  public void save(@Valid @NonNull final TareaAmbitoGlobalFechaDto src, @Valid @NonNull final TareaDto tarea) {
     this.tareaAmbitoGlobalFechaRepositoryCustom.save(
         this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(Arrays.asList(src),
             tarea));
@@ -36,7 +36,7 @@ public class TareaAmbitoGlobalFechaServiceImpl implements TareaAmbitoGlobalFecha
   @Override
   @Cacheable(value = "itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato", key = "{#idTarea, #idTipoDato}")
   public PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-      @Valid @NotNull final Long idTarea, @NotNull final Integer idTipoDato) {
+      @Valid @NonNull final Long idTarea, @NonNull final Integer idTipoDato) {
     return this.tareaAmbitoGlobalFechaRepositoryCustom.findFechaAmbitoDtoByIdTareaAndIdTipoDato(idTarea,
         idTipoDato);
   }

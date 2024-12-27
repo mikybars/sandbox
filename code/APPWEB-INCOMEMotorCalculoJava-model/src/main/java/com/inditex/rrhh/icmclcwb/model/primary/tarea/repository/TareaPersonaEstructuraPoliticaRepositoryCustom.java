@@ -8,15 +8,15 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaPersonaEstructuraPoliticaRepositoryCustom {
 
   List<TareaPersonaEstructuraPolitica> save(List<TareaPersonaEstructuraPolitica> src);
 
-  void updateImporteEstructuraPoliticas(@NotNull TareaDto tarea, @NotNull TrabajoDTO trabajoDto);
+  void updateImporteEstructuraPoliticas(@NonNull TareaDto tarea, @NonNull TrabajoDTO trabajoDto);
 
-  Boolean existePolitica(@NotNull TareaDto tarea,
-      @NotNull @NotEmpty List<TipoPoliticaEnum> politicas);
+  Boolean existePolitica(@NonNull TareaDto tarea,
+      @NonNull @NotEmpty List<TipoPoliticaEnum> politicas);
 
 }

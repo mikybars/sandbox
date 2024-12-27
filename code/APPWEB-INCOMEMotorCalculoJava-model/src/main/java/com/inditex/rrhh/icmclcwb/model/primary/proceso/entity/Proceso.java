@@ -13,12 +13,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROCESO")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Proceso {
 
   @Id
@@ -26,35 +30,35 @@ public class Proceso {
   @Column(name = "ID_PROCESO")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_ESTADO_PROCESO", nullable = false)
   private EstadoProceso estadoProceso;
 
-  @NotNull
+  @NonNull
   @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
   private String idOrganization;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_ID_PERIODO", nullable = false)
   private Long icmIdPeriodo;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
   private TipoAmbito tipoAmbito;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_PROCESO", nullable = false)
   private TipoProceso tipoProceso;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_SISTEMA_DESTINO", nullable = false)
   private TipoSistemaDestino tipoSistemaDestino;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private LocalDateTime fechaHoraCreacion;
 
@@ -64,15 +68,15 @@ public class Proceso {
   @Column(name = "FECHA_HORA_FIN_PROCESO", nullable = true)
   private LocalDateTime fechaHoraFinProceso;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   private LocalDate fechaInicioPeriodo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_PERIODO", nullable = false)
   private LocalDate fechaFinPeriodo;
 
-  @NotNull
+  @NonNull
   @Column(name = "NOMBRE_USUARIO", nullable = false, length = 32)
   private String nombreUsuario;
 

@@ -8,14 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChT
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAgrupacionConfiguracionChallengeTipoVentaService {
 
-  void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
-      @Valid @NotNull final TareaDto tarea);
+  void save(@Valid @NonNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
+      @Valid @NonNull final TareaDto tarea);
 
-  void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
-      @Valid @NotNull final TareaDto tarea);
+  void saveConfChTpVentaResultItemDto(@Valid @NonNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
+      @Valid @NonNull final TareaDto tarea);
 
 }

@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +39,7 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
       metricGroupName = "RunTareaRecolectarCondicionesBaseService",
       metricDescription = "RunTareaRecolectarCondicionesBaseService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
+  public void run(@NonNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       /*-----------------------------------------------------------------*/

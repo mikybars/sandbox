@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -44,8 +44,8 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(
-      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -59,7 +59,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
-      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto, @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaTotalizado())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -72,8 +72,8 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
-      @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaOnlineIpodResponseDto dto,
+      @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -87,7 +87,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(
-      @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -101,7 +101,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -115,7 +115,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
 
   @Override
   public List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NonNull final TareaDto tarea) {
     final List<TareaLocalizacionVentaDto> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(dto.getVentaOnline())) {
       result.addAll(this.tareaLocalizacionVentaMapper.tareaLocalizacionVentaToTareaLocalizacionVentaDto(
@@ -129,7 +129,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
   }
 
   @Override
-  public void updateActivoVentaOnlineIpod(@Valid @NotNull final TareaDto tarea) {
+  public void updateActivoVentaOnlineIpod(@Valid @NonNull final TareaDto tarea) {
     final List<IdTipoDatoDto> tipos = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_IPOD_LOCALIZACION.getId());
     this.tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.IPOD,
@@ -137,7 +137,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
   }
 
   @Override
-  public void updateActivoVentaOnlinePicking(@Valid @NotNull final TareaDto tarea) {
+  public void updateActivoVentaOnlinePicking(@Valid @NonNull final TareaDto tarea) {
     final List<IdTipoDatoDto> tipos = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_SINT_LOCALIZACION.getId());
     this.tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.SINT,
@@ -145,7 +145,7 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaTienda(@Valid @NotNull final TareaDto tarea) {
+  public void updateActivoVentaOnlineEntregaTienda(@Valid @NonNull final TareaDto tarea) {
     final List<IdTipoDatoDto> tipos = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_ONLINE_ENTREGATIENDA_LOCALIZACION.getId());
     this.tareaLocalizacionVentaRepositoryCustom.updateActivo(tarea, TipoVentaConceptoEnum.ENTREGA_TIENDA,
@@ -153,8 +153,8 @@ public class TareaLocalizacionVentaServiceImpl implements TareaLocalizacionVenta
   }
 
   @Override
-  public void save(@Valid @NotNull @NotEmpty final List<VentaManualWlocResultItemDto> src,
-      @Valid @NotNull final TareaDto tareaDto) {
+  public void save(@Valid @NonNull @NotEmpty final List<VentaManualWlocResultItemDto> src,
+      @Valid @NonNull final TareaDto tareaDto) {
     this.tareaLocalizacionVentaRepositoryCustom.save(this.tareaLocalizacionVentaMapper
         .genericTiendaResultItemDtoToTareaLocalizacionVenta(src, tareaDto));
   }

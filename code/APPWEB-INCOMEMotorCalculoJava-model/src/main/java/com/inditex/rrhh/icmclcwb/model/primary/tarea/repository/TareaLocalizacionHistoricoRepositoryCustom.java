@@ -12,18 +12,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHis
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionHistoricoRepositoryCustom {
 
   List<TareaLocalizacionHistorico> save(List<TareaLocalizacionHistorico> src);
 
-  List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull @Positive Long idTarea,
+  List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NonNull @Positive Long idTarea,
       @NotBlank String cclIdOrigen);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
-      @NotNull @Positive Long idTarea,
+      @NonNull @Positive Long idTarea,
       @NotBlank String cclIdOrigen);
 
   List<IdCadenaDto> getCadenasByTareaAndOrigen(final Long idTarea, final String cclIdOrigen,
@@ -35,52 +35,52 @@ public interface TareaLocalizacionHistoricoRepositoryCustom {
       final String stdIdLegEnt, List<Long> idsVentaConcepto);
 
   List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(
-      @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
+      @NonNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(
-      @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
+      @NonNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NotNull List<String> tiposCalculo);
+      @NonNull @Positive Long idTarea, @NotBlank String cclCodOrigen, @NonNull List<String> tiposCalculo);
 
   List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionLocalDtoPresupuestosByIdTarea(
-      @NotNull @Positive final Long idTarea);
+      @NonNull @Positive final Long idTarea);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt);
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt);
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull List<String> tiposCalculo);
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt, @NonNull List<String> tiposCalculo);
 
   List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-      @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
-      @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge);
+      @NonNull @NotEmpty final List<String> stdIdLegEnt, @NonNull @Positive final Long idTarea,
+      @NonNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
-      @NotNull @Positive Long idTarea, @NotNull @Positive Integer idTipoPresupuesto,
-      @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin);
+      @NonNull @Positive Long idTarea, @NonNull @Positive Integer idTipoPresupuesto,
+      @NonNull LocalDate fechaInicio, @NonNull LocalDate fechaFin);
 
   List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
-      @NotNull @Positive Long idTarea);
+      @NonNull @Positive Long idTarea);
 
-  void mergeLocalizacionFicticia(@NotNull Long idTarea, @NotNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
+  void mergeLocalizacionFicticia(@NonNull Long idTarea, @NonNull String cclIdOrigen, @NotBlank String stdIdLegEnt);
 
-  List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NotNull String cclIdOrigen,
+  List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(@NonNull String cclIdOrigen,
       @NotBlank String stdIdLegEnt);
 
   List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull @NotEmpty List<String> stdIdLegEnt);
+      @NonNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NonNull @NotEmpty List<String> stdIdLegEnt);
 
   List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(Long idTarea, String cclIdOrigen,
       List<Long> idVentaConcepto);
 
   List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
-      @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NotNull List<String> idsCadena);
+      @NonNull @Positive Long idTarea, @NotBlank String cclIdOrigen, @NonNull List<String> idsCadena);
 
 }

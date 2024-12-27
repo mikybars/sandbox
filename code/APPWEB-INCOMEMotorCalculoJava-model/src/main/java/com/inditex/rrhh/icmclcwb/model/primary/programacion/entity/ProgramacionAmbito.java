@@ -9,12 +9,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROGRAMACION_AMBITO")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProgramacionAmbito {
 
   @Id
@@ -22,7 +26,7 @@ public class ProgramacionAmbito {
   @Column(name = "ID_PROGRAMACION_AMBITO")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_PROGRAMACION", nullable = false)
   private Programacion programacion;

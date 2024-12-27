@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_ESTADO")
@@ -26,7 +26,7 @@ public class TareaLocalizacionEstado {
   @Column(name = "ID_TAREA_LOCALIZACION_ESTADO")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -47,12 +47,12 @@ public class TareaLocalizacionEstado {
   @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
   private String cclIdSeccion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;
@@ -61,7 +61,7 @@ public class TareaLocalizacionEstado {
   @Column(name = "ICM_ID_ESTADO", nullable = false, length = 12)
   private String icmIdEstado;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_NUM_DIAS", nullable = false, precision = 23, scale = 8)
   private Integer icmNumDias;
 

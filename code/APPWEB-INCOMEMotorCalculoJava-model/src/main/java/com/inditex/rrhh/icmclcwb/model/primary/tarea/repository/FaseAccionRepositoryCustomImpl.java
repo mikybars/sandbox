@@ -9,8 +9,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.FaseAccion;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -28,7 +28,7 @@ public class FaseAccionRepositoryCustomImpl
   private String sqlFindByIdFase;
 
   @Override
-  public List<FaseAccionDto> findByIdFase(@NotNull @Positive final Integer idFase) {
+  public List<FaseAccionDto> findByIdFase(@NonNull @Positive final Integer idFase) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
     return this.query(this.sqlFindByIdFase, parameters,

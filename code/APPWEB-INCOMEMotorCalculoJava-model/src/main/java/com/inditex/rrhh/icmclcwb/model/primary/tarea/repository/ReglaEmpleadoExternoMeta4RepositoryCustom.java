@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ReglaEmpleadoExternoMeta4Dto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface ReglaEmpleadoExternoMeta4RepositoryCustom {
 
@@ -13,7 +13,7 @@ public interface ReglaEmpleadoExternoMeta4RepositoryCustom {
    *
    * @param cclIdOrigen cclIdOrigen
    */
-  List<ReglaEmpleadoExternoMeta4Dto> findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(@NotNull String cclIdOrigen,
-      @NotNull String stdIdLegEnt);
+  List<ReglaEmpleadoExternoMeta4Dto> findReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(@NonNull String cclIdOrigen,
+      @NonNull String stdIdLegEnt);
 
 }

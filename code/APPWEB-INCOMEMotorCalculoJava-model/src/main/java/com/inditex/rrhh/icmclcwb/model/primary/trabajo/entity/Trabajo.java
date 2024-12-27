@@ -17,12 +17,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TRABAJO")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Trabajo {
 
   @Id
@@ -34,19 +38,19 @@ public class Trabajo {
   @Column(name = "NOMBRE_USUARIO", nullable = false, length = 12)
   private String nombreUsuario;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private LocalDateTime fechaHoraCreacion;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_ID_PERIODO", nullable = false)
   private Long icmIdPeriodo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   private LocalDate fechaInicioPeriodo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_PERIODO", nullable = false)
   private LocalDate fechaFinPeriodo;
 
@@ -60,7 +64,7 @@ public class Trabajo {
   @Column(name = "ID_ORGANIZATION", nullable = false, length = 48)
   private String idOrganization;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
   private TipoAmbito tipoAmbito;
@@ -69,7 +73,7 @@ public class Trabajo {
   @JoinColumn(name = "ID_PROGRAMACION")
   private Programacion programacion;
 
-  @NotNull
+  @NonNull
   @ManyToOne
   @JoinColumn(name = "ID_ESTADO_TRABAJO", nullable = false)
   private EstadoTrabajo estado;

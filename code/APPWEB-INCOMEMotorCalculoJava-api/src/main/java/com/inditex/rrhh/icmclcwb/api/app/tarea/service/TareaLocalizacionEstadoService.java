@@ -8,14 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.Estado
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionEstadoService {
 
   List<TareaLocalizacionEstadoDto> save(
-      @Valid @NotNull @NotEmpty List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto);
+      @Valid @NonNull @NotEmpty List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto);
 
   List<TareaLocalizacionEstadoDto> merge(
-      @Valid @NotNull @NotEmpty List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
-      @Valid @NotNull TareaDto tarea);
+      @Valid @NonNull @NotEmpty List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
+      @Valid @NonNull TareaDto tarea);
 }

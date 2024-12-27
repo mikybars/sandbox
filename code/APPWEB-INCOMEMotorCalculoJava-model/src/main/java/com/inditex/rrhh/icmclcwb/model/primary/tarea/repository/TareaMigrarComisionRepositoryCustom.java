@@ -5,9 +5,9 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaMigrarComisionRepositoryCustom {
 
-  List<TareaMigrarComisionDto> findCalculoComisionByTareaActual(@NotNull TareaDto tarea);
+  List<TareaMigrarComisionDto> findCalculoComisionByTareaActual(@NonNull TareaDto tarea);
 }

@@ -6,21 +6,21 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunTareaRecolectarPtrMonacoService {
 
-  void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void ventaFisicaLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void presenciaDetalleComisionablePersonaByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 
-  void presenciaDetallePersonaIncluidoCommerceByRunTarea(@NotNull @Valid RunTareaDto runTarea);
+  void presenciaDetallePersonaIncluidoCommerceByRunTarea(@NonNull @Valid RunTareaDto runTarea);
 }

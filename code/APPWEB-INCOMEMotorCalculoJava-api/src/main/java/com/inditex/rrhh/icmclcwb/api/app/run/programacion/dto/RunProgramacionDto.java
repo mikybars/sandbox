@@ -6,24 +6,24 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionDto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RunProgramacionDto implements Serializable {
 
   private static final long serialVersionUID = 8443425889094187729L;
 
-  @NotNull
+  @NonNull
   private ProgramacionDto programacion;
 
-  @NotNull
+  @NonNull
   @NotEmpty
   private List<RunProgramacionPeriodoDto> runProgramacionPeriodo;
 

@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_HISTORICO")
@@ -22,7 +22,7 @@ public class TareaPersonaHistorico {
   @EmbeddedId
   private TareaPersonaHistoricoPk pk;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -55,32 +55,32 @@ public class TareaPersonaHistorico {
   @Column(name = "CCL_ID_SECCION", nullable = false)
   private String cclIdSeccion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_SECCION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioSeccion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_SECCION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinSeccion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_LOCALIZACION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioLocalizacion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_LOCALIZACION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinLocalizacion;

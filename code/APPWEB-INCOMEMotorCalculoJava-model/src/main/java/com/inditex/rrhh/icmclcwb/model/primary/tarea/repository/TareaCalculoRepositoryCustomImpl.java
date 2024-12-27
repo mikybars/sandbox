@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculo;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -29,7 +29,7 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   private String sqlRegularizarChallenge;
 
   @Override
-  public void regularizarMejorOpcion(@NotNull final TareaDto tareaDto) {
+  public void regularizarMejorOpcion(@NonNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
@@ -39,7 +39,7 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   }
 
   @Override
-  public void regularizarMejorOpcionSinFechas(@NotNull final TareaDto tareaDto) {
+  public void regularizarMejorOpcionSinFechas(@NonNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
@@ -49,7 +49,7 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   }
 
   @Override
-  public void regularizarMejorOpcionSinFechasTodoPeriodo(@NotNull final TareaDto tareaDto) {
+  public void regularizarMejorOpcionSinFechasTodoPeriodo(@NonNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
@@ -59,8 +59,8 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   }
 
   @Override
-  public void regularizarChallenge(@NotNull final TareaDto tareaDto,
-      @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
+  public void regularizarChallenge(@NonNull final TareaDto tareaDto,
+      @NonNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, idPersonaLocalChallengeDto.getCclIdPerson());

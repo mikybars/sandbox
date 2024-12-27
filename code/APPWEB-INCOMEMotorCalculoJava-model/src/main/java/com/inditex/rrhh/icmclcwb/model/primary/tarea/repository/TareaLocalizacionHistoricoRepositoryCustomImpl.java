@@ -20,8 +20,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHis
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -106,7 +106,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -124,7 +124,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -143,8 +143,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -160,8 +160,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -178,8 +178,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -196,7 +196,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -215,7 +215,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -235,8 +235,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull final List<String> idsCadena) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull final List<String> idsCadena) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -313,7 +313,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, final String cclCodOrigen, final List<String> tiposCalculo) {
+      @NonNull @Positive final Long idTarea, final String cclCodOrigen, final List<String> tiposCalculo) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, tiposCalculo);
@@ -329,9 +329,9 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt,
-      @NotNull final List<String> tiposCalculo) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt,
+      @NonNull final List<String> tiposCalculo) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, tiposCalculo);
@@ -348,7 +348,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionLocalDtoPresupuestosByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -364,8 +364,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalPresupuestoDto> findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(
-      @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
-      @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge) {
+      @NonNull @NotEmpty final List<String> stdIdLegEnt, @NonNull @Positive final Long idTarea,
+      @NonNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -388,8 +388,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
-      @NotNull @Positive final Long idTarea, @NotNull @Positive final Integer idTipoPresupuesto,
-      @NotNull final LocalDate fechaInicio, @NotNull final LocalDate fechaFin) {
+      @NonNull @Positive final Long idTarea, @NonNull @Positive final Integer idTipoPresupuesto,
+      @NonNull final LocalDate fechaInicio, @NonNull final LocalDate fechaFin) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_PRESUPUESTO, idTipoPresupuesto);
@@ -404,7 +404,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
 
@@ -415,8 +415,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
   }
 
   @Override
-  public void mergeLocalizacionFicticia(@NotNull final Long idTarea,
-      @NotNull final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
+  public void mergeLocalizacionFicticia(@NonNull final Long idTarea,
+      @NonNull final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -427,7 +427,7 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(
-      @NotNull final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
+      @NonNull final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
     params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);

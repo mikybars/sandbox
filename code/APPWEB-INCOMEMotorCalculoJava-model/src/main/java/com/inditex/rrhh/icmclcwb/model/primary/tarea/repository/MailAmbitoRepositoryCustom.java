@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface MailAmbitoRepositoryCustom {
 
@@ -17,6 +17,6 @@ public interface MailAmbitoRepositoryCustom {
    * @param cclIdOrigen cclIdOrigen
    * @param stdIdLegEnt stdIdLegEnt
    */
-  List<MailAmbitoDto> findMailByCclIdOrigenAndStdIdLegEnt(@NotNull String cclIdOrigen, @NotNull String stdIdLegEnt);
+  List<MailAmbitoDto> findMailByCclIdOrigenAndStdIdLegEnt(@NonNull String cclIdOrigen, @NonNull String stdIdLegEnt);
 
 }

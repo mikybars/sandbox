@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS")
@@ -26,7 +26,7 @@ public class TareaConfiguracionChallengeDiasMinimos {
   @Column(name = "ID_TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -35,16 +35,16 @@ public class TareaConfiguracionChallengeDiasMinimos {
   @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
   private String icmIdTpCalculo;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_MIN_NUM_DAYS", nullable = false)
   private Integer icmMinNumDays;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;

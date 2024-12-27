@@ -6,27 +6,27 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaRepositoryCustom {
 
-  void updateFechaFin(@NotNull final TareaDto tarea);
+  void updateFechaFin(@NonNull final TareaDto tarea);
 
-  void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
+  void updateFechaInicioAndEstado(@NonNull final TareaDto tarea, @NonNull final EstadoTareaDto estado);
 
-  void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado);
+  void updateEstado(@NonNull final TareaDto tarea, @NonNull final EstadoTareaDto estado);
 
-  void updateEstadoFinal(@NotNull final TareaDto tarea);
+  void updateEstadoFinal(@NonNull final TareaDto tarea);
 
   List<IdTareaDTO> findLimpieza();
 
   Integer totalLimpieza();
 
-  List<IdTareaDTO> findLimpiezaByIdTarea(@NotNull final Long idTarea);
+  List<IdTareaDTO> findLimpiezaByIdTarea(@NonNull final Long idTarea);
 
   // Comienzo de normalización de tareas consolidadas (para borrar)
 
-  List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(@NotNull final Integer limit);
+  List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(@NonNull final Integer limit);
 
   Integer totalTareasConsolidadesSinAjusteComision();
 

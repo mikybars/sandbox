@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ClasePersonaSilAmbitoDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface ClasePersonaSilAmbitoRepositoryCustom {
 
@@ -14,5 +14,5 @@ public interface ClasePersonaSilAmbitoRepositoryCustom {
    * @param cclIdOrigen cclIdOrigen
    * @param stdIdLegEnt stdIdLegEnt
    */
-  List<ClasePersonaSilAmbitoDto> findClaseEstadoByCclIdOrigenAndStdIdLegEnt(@NotNull String cclIdOrigen, @NotNull String stdIdLegEnt);
+  List<ClasePersonaSilAmbitoDto> findClaseEstadoByCclIdOrigenAndStdIdLegEnt(@NonNull String cclIdOrigen, @NonNull String stdIdLegEnt);
 }

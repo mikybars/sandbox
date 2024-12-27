@@ -8,19 +8,19 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async("repositoryPrimaryExecutor")
 public interface TareaLocalizacionPersonaPresenciaAsyncService {
 
-  CompletableFuture<Void> save(@NotNull List<GenericEmpleadoResultItemDto> src, @NotNull TareaDto tareaDto);
+  CompletableFuture<Void> save(@NonNull List<GenericEmpleadoResultItemDto> src, @NonNull TareaDto tareaDto);
 
-  CompletableFuture<Void> updateActivo(@NotNull RunTareaDto runTareaDto);
+  CompletableFuture<Void> updateActivo(@NonNull RunTareaDto runTareaDto);
 
-  CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull List<PtrPresenciaDetalleResultItemDto> src,
-      @NotNull TareaDto tareaDto, @NotNull Integer idTipoDato);
+  CompletableFuture<Void> savePtrPresenciaDetalle(@NonNull List<PtrPresenciaDetalleResultItemDto> src,
+      @NonNull TareaDto tareaDto, @NonNull Integer idTipoDato);
 
-  CompletableFuture<Void> updateActivoPersonasExternas(@NotNull RunTareaDto runTareaDto);
+  CompletableFuture<Void> updateActivoPersonasExternas(@NonNull RunTareaDto runTareaDto);
 
 }

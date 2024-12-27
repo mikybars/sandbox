@@ -3,31 +3,32 @@ package com.inditex.rrhh.icmclcwb.api.ventaintegra.dto;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
 public class VentaIntegraRequestDto implements Serializable {
 
-  @NotNull
+  @NonNull
   private Integer idOrigen;
 
-  @NotNull
+  @NonNull
   private Integer idEmpresa;
 
-  @NotNull
+  @NonNull
   private String fechaDesde;
 
-  @NotNull
+  @NonNull
   private String fechaHasta;
 
-  @NotNull
+  @NonNull
   private List<Integer> listaTiendas;
 
   private LocalDateTime fechaLimite;

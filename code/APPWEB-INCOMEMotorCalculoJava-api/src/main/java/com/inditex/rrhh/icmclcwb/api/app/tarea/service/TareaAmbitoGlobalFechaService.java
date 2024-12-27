@@ -5,12 +5,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalFechaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAmbitoGlobalFechaService {
 
-  void save(@Valid @NotNull TareaAmbitoGlobalFechaDto src, @Valid @NotNull TareaDto tarea);
+  void save(@Valid @NonNull TareaAmbitoGlobalFechaDto src, @Valid @NonNull TareaDto tarea);
 
-  PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@Valid @NotNull Long idTarea, @NotNull Integer idTipoDato);
+  PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@Valid @NonNull Long idTarea, @NonNull Integer idTipoDato);
 
 }

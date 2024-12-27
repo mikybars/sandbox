@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoLocal
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,8 +27,8 @@ public class TareaAmbitoLocalizacionServiceImpl implements TareaAmbitoLocalizaci
 
   @Override
   public List<TareaAmbitoLocalizacionDto> create(
-      @Valid @NotNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<TareaAmbitoLocalizacionDto> tareaAmbitoLocalizacion,
+      @Valid @NonNull final TareaDto tarea) {
     return tareaAmbitoLocalizacionMapper.tareaAmbitoLocalizacionToTareaAmbitoLocalizacionDto(
         tareaAmbitoLocalizacionRepository.saveAll(tareaAmbitoLocalizacionMapper
             .mergeTareaAmbitoLocalizacionDtoAndTareaDtoToTareaAmbitoLocalizacion(tareaAmbitoLocalizacion,
@@ -36,7 +36,7 @@ public class TareaAmbitoLocalizacionServiceImpl implements TareaAmbitoLocalizaci
   }
 
   @Override
-  public List<TareaAmbitoLocalizacionDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
+  public List<TareaAmbitoLocalizacionDto> findByTarea(@Valid @NonNull final TareaDto tarea) {
     return tareaAmbitoLocalizacionMapper.tareaAmbitoLocalizacionToTareaAmbitoLocalizacionDto(
         tareaAmbitoLocalizacionRepository.findByTareaId(tarea.getId()));
   }

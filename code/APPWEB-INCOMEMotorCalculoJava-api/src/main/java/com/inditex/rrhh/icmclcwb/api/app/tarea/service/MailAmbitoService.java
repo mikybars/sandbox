@@ -5,10 +5,10 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
  */
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface MailAmbitoService {
 
-  List<String> getMailByCclIdOrigenAndStdIdLegEnt(@NotNull String cclIdOrigen, @NotNull String stdIdLegEnt);
+  List<String> getMailByCclIdOrigenAndStdIdLegEnt(@NonNull String cclIdOrigen, @NonNull String stdIdLegEnt);
 
 }

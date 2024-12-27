@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionVentaServi
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   private TareaAgrupacionVentaService tareaAgrupacionVentaService;
 
   @Override
-  public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -35,7 +35,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -44,7 +44,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -53,7 +53,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -62,7 +62,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -71,7 +71,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -80,7 +80,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaRangoOnlineSintLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineSintLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -89,7 +89,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -98,7 +98,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -107,22 +107,22 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
   }
 
   @Override
-  public void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void updateActivoVentaOnlineIpodByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void updateActivoVentaOnlinePickingByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+  public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
     tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
   }
 

@@ -23,9 +23,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -114,7 +114,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
   }
 
   @Override
-  public void activa(@Positive @NotNull final Long id) {
+  public void activa(@Positive @NonNull final Long id) {
     this.programacionRepositoryCustom.activa(id);
   }
 
@@ -124,12 +124,12 @@ public class ProgramacionServiceImpl implements ProgramacionService {
   }
 
   @Override
-  public void desactiva(@Positive @NotNull final Long id) {
+  public void desactiva(@Positive @NonNull final Long id) {
     this.programacionRepositoryCustom.desactiva(id);
   }
 
   @Override
-  public ProgramacionDTO findById(@Positive @NotNull final Long id) {
+  public ProgramacionDTO findById(@Positive @NonNull final Long id) {
     final ProgramacionDTO programacionDto = this.programacionMapper
         .programacionToProgramacionDto(this.programacionRepository.findById(id).get());
     programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
@@ -138,7 +138,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
   @Override
   public ProgramacionDTO findActivoById(
-      @Positive @NotNull final Long id) {
+      @Positive @NonNull final Long id) {
     final ProgramacionDTO programacionDto = this.programacionMapper
         .programacionToProgramacionDto(this.programacionRepository.findByIdAndActivoTrue(id));
     programacionDto.setAmbito(this.programacionAmbitoService.findByProgramacion(programacionDto));
@@ -146,7 +146,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
   }
 
   @Override
-  public ProgramacionDTO findPendienteById(@Positive @NotNull final Long id) {
+  public ProgramacionDTO findPendienteById(@Positive @NonNull final Long id) {
     final ProgramacionDTO programacionDto = this.programacionMapper
         .programacionToProgramacionDto(this.programacionRepository
             .findByIdAndFechaHoraSiguienteEjecucionBeforeAndActivoTrue(id, TimeUtils.nowLocalDateTime()));
@@ -156,7 +156,7 @@ public class ProgramacionServiceImpl implements ProgramacionService {
 
   @Override
   public void updateFechaSiguienteEjecucion(
-      @NotNull @NotEmpty final List<ProgramacionDTO> programaciones) {
+      @NonNull @NotEmpty final List<ProgramacionDTO> programaciones) {
     // Se obtienen todas las fechas por programacion
     final Map<LocalDateTime, List<ProgramacionDTO>> map = new HashMap<>();
     programaciones.stream().forEach(programacion -> {

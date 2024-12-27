@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CONFIGURACION_PRECIO_HORA")
@@ -26,25 +26,25 @@ public class TareaConfiguracionPrecioHora {
   @Column(name = "ID_TAREA_CONFIGURACION_PRECIO_HORA")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_CK_TP_HORA_COMIS", nullable = false)
   private Boolean icmCkTpHoraComis;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_CK_TP_HORA_INC_PTPO", nullable = false)
   private Boolean icmCkTpHoraIncPtpo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;

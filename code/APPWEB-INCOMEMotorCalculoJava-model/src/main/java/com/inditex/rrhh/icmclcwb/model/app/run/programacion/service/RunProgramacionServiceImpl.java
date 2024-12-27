@@ -32,7 +32,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class RunProgramacionServiceImpl implements RunProgramacionService {
   @CounterFunctionalMetric(metricName = "RunProgramacionService.run.counter",
       metricGroupName = "RunProgramacionServiceGroup", metricDescription = "RunProgramacionService.run.counter")
   @Override
-  public RunProgramacionDTO run(@NotNull @Valid final Long id) {
+  public RunProgramacionDTO run(@NonNull @Valid final Long id) {
     // Se usa el findById en lugar de findPendienteById id porque ya no están marcadas como pendientes
     final ProgramacionDTO programacion = this.programacionService.findActivoById(id);
     final RunProgramacionDTO runProgramacion = new RunProgramacionDTO();

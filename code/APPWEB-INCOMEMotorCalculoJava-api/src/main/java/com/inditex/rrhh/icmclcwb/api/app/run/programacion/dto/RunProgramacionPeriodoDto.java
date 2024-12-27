@@ -6,11 +6,11 @@ import com.inditex.rrhh.icmclcwb.api.app.programacion.dto.ProgramacionAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodoDto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -20,10 +20,10 @@ public class RunProgramacionPeriodoDto implements Serializable {
 
   private static final long serialVersionUID = 8443425889094187729L;
 
-  @NotNull
+  @NonNull
   private ProgramacionAmbitoDto programacionAmbito;
 
-  @NotNull
+  @NonNull
   private PeriodoDto periodo;
 
   private TrabajoDto trabajo;

@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_COEFICIENTE")
@@ -27,7 +27,7 @@ public class TareaPersonaCoeficiente {
   @Column(name = "ID_TAREA_PERSONA_COEFICIENTE")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -44,27 +44,27 @@ public class TareaPersonaCoeficiente {
   @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
   private String cclIdPerson;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_PARCIAL", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioPar;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_PARCIAL", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinPar;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_COMPLETA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioCom;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN_COMPLETA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinCom;
 
-  @NotNull
+  @NonNull
   @Column(name = "COEFICIENTE", nullable = false, precision = 23, scale = 8)
   private BigDecimal coeficiente;
 

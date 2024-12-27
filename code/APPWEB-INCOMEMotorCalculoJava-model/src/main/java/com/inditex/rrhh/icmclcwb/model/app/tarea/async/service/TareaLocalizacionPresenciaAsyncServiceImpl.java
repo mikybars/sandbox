@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenci
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +21,8 @@ public class TareaLocalizacionPresenciaAsyncServiceImpl
   private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
 
   @Override
-  public CompletableFuture<Void> save(@NotNull final List<PresenciaManualWlocResultItemDto> src,
-      @NotNull final TareaDto tareaDto) {
+  public CompletableFuture<Void> save(@NonNull final List<PresenciaManualWlocResultItemDto> src,
+      @NonNull final TareaDto tareaDto) {
     this.tareaLocalizacionPresenciaService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
