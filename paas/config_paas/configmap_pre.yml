@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomepre
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa-pre.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:

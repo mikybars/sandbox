@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -70,7 +72,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository", key = "{#idTarea}")
+  @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY, key = "{#idTarea}")
   public PeriodoDto findPeriodoPresupuestoYTrabajo(final Long idTarea) {
 
     final MapSqlParameterSource maps = new MapSqlParameterSource();
