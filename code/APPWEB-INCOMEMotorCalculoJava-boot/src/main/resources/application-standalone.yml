@@ -33,14 +33,7 @@ amiga:
             enabled: true
           counter:
             enabled: true
-    cache:
-      redis:
-        host: ${qa.jdg.host:localhost}
-        port: ${qa.jdg.port:6379}
-        cluster:
-          enabled: false
-        sentinel:
-          enabled: false
+
   common:
     soap:
       client:
@@ -54,7 +47,14 @@ amiga:
           password: '${SRVCICMCLCWSDESAX}'
     core:
       is-production: false
-
+    cache:
+      redis:
+        host: ${qa.jdg.host:localhost}
+        port: ${qa.jdg.port:6379}
+        cluster:
+          enabled: false
+        sentinel:
+          enabled: false
     mail:
       host: localhost
       port: 25
@@ -270,7 +270,7 @@ amiga:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
-          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
           maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
