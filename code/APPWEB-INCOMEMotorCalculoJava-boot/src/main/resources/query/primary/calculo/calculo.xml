@@ -86,6 +86,19 @@
     ]]>
   </entry>
 
+  <entry key="TareaCalculoAlgoritmoBaseRepository.calcular.whereTareaChallengePresencia">
+    <![CDATA[
+  WHERE ESTRUCTURA.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+  AND ESTRUCTURA.ID_TAREA = :idTarea
+  AND ESTRUCTURA.ES_ACTIVO = 1
+  AND ESTRUCTURA.CCL_ID_PERSON = :cclIdPerson
+  AND ESTRUCTURA.STD_OR_HR_PERIOD = :stdOrHrPeriod
+  AND ESTRUCTURA.ICM_ID_TP_CALCULO IN (:tiposCalculo)
+  AND ESTRUCTURA.ICM_ID_TP_COMISION IN (:tiposComision)
+  AND ESTRUCTURA.ES_DESPLAZAMIENTO = :esDesplazamiento
+  AND ESTRUCTURA.ES_DESPLAZAMIENTO_BASE = :esDesplazamientoBase
+    ]]>
+  </entry>
   <entry key="TareaCalculoAlgoritmoBaseRepository.calcular.whereSinTareaChallengePorcentaje">
     <![CDATA[
   WHERE ESTRUCTURA.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
