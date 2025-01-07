@@ -53,8 +53,6 @@ amiga:
         port: ${qa.jdg.port:6379}
         cluster:
           enabled: false
-        sentinel:
-          enabled: false
     mail:
       host: localhost
       port: 25
