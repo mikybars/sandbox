@@ -13,18 +13,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommonFieldsTaskLocation extends CommonFieldsTaskEntity {
+public class CommonFieldsTaskLocationGeo extends CommonFieldsTaskLocation {
 
   @NotBlank
-  @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
-  private String cclIdCodOrigen;
+  @Column(name = "STD_ID_COUNTRY", nullable = false, length = 8)
+  private String stdIdCountry;
 
   @NotBlank
-  @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
-  private String stdIdWorkLocat;
-
-  @NotBlank
-  @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
-  private String cclIdCadena;
+  @Column(name = "STD_ID_SUB_GEO_DIV", length = 16)
+  private String stdIdSubGeoDiv;
 
 }
