@@ -16,7 +16,7 @@ import org.jspecify.annotations.NonNull;
 @Entity
 @Table(name = "TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA")
 @Data
-public class TareaAgrupacionConfiguracionChallengeTipoVenta extends CommonFieldsTask {
+public class TareaAgrupacionConfiguracionChallengeTipoVenta extends CommonFieldsTaskOrigin {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 @Entity
 @Table(name = "TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS")
 @Data
-public class TareaConfiguracionChallengeDiasMinimos extends CommonFieldsTask {
+public class TareaConfiguracionChallengeDiasMinimos extends CommonFieldsTaskOrigin {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
