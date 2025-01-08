@@ -8,7 +8,6 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,9 +35,5 @@ public class CommonFieldsTask {
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;
-
-  @NotBlank
-  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-  private String cclIdOrigen;
 
 }
