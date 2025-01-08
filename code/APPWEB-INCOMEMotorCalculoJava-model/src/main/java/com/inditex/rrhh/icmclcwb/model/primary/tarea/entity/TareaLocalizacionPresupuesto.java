@@ -26,7 +26,7 @@ import org.jspecify.annotations.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TareaLocalizacionPresupuesto extends CommonFieldsTaskOrigin {
+public class TareaLocalizacionPresupuesto extends CommonFieldsTaskEntity {
 
   // TODO [JAVIEREV] Introducir campos, si es que procede: cumplida
 
