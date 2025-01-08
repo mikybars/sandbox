@@ -9,8 +9,6 @@ services:
     environment:
       - "AMQ_STORAGE_USAGE_LIMIT=100 mb"
       - "AMQ_JMXTRANX_AGENT=false"
-      - "AMQ_USER=usr-admin"
-      - "AMQ_PASSWORD=admin"
       - "AMQ_NAME=broker"
     volumes:
       - "./amq:/opt/conf/secret"

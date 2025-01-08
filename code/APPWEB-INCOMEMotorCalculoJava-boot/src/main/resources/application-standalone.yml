@@ -199,10 +199,10 @@ amiga:
             - classpath*:/commisioncalculation/**/imports/*.avsc
           schema-sources:
             - classpath*:/commisioncalculation/**/*.avsc
-        kafka-brokers: ${qa.kafka.host:localhost}:${qa.kafka.port:30810}
+        kafka-brokers: localhost:30810
         developer-mode: true
         registry-client:
-          endpoint: http://${qa.schemaregistry.host:localhost}:${qa.schemaregistry.port:31210}
+          endpoint: http://localhost:31210
 
     binder:
       jms-activemq:
@@ -214,15 +214,15 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:30020}
-          userName: ${qa.amq.brokerAmqCFWrite.username:usr-admin}
-          password: ${qa.amq.brokerAmqCFWrite.password:admin}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:30020}
-          userName: ${qa.amq.brokerAmqCFRead.username:usr-admin}
-          password: ${qa.amq.brokerAmqCFRead.password:admin}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
       listener-container-factory:
         trabajo:
           concurrency: 1
@@ -283,8 +283,8 @@ amiga:
           maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
-          password: C2IYgNZKpjmz
-          jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
+          password: '${uincomedes}'
+          jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
           xa-properties:
             currentSchema: GESTION_COMISION
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
