@@ -5,8 +5,6 @@ import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -17,15 +15,10 @@ import org.jspecify.annotations.NonNull;
 @Entity
 @Table(name = "TAREA_PERSONA_HISTORICO")
 @Data
-public class TareaPersonaHistorico {
+public class TareaPersonaHistorico extends CommonFieldsTaskEntity {
 
   @EmbeddedId
   private TareaPersonaHistoricoPk pk;
-
-  @NonNull
-  @OneToOne
-  @JoinColumn(name = "ID_TAREA", nullable = false)
-  private Tarea tarea;
 
   @NotBlank
   @Column(name = "STD_ID_HR", nullable = false)
@@ -48,22 +41,8 @@ public class TareaPersonaHistorico {
   private String stdIdWorkLocat;
 
   @NotBlank
-  @Column(name = "CCL_ID_ORIGEN", nullable = false)
-  private String cclIdOrigen;
-
-  @NotBlank
   @Column(name = "CCL_ID_SECCION", nullable = false)
   private String cclIdSeccion;
-
-  @NonNull
-  @Column(name = "FECHA_INICIO", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaInicio;
-
-  @NonNull
-  @Column(name = "FECHA_FIN", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaFin;
 
   @NonNull
   @Column(name = "FECHA_INICIO_SECCION", nullable = false)
@@ -88,9 +67,5 @@ public class TareaPersonaHistorico {
   @Column(name = "FECHA_ANTIGUEDAD", nullable = true)
   @Temporal(TemporalType.DATE)
   private Date fechaAntiguedad;
-
-  @NotBlank
-  @Column(name = "STD_ID_LEG_ENT", nullable = false)
-  private String stdIdLegEnt;
 
 }
