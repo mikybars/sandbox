@@ -177,21 +177,25 @@ amiga:
           enabled: false
   data:
     stream:
-        bindings:
-            commision-calculation-out-0:
-            binder: kafka-pipe
-            destination: sscc.${metadata.tenant}.${metadata.environment}.rhcompensa.commision-calculation.public.v1
-            fail-startup-on-validation-error: false
-        schema:
-          kafka-brokers: ${qa.kafka.host:localhost}:${qa.kafka.port:30810}
-          developer-mode: true
-          registry-client:
-            endpoint: http://${qa.schemaregistry.host:localhost}:${qa.schemaregistry.port:31210}
-          confluent:
-            schema-registry-client:
-              schema-registry-url: ${amiga.data.stream.schema.registry-client.endpoint}
-              map-capacity: 500
-              mock: false
+      output-bindings: commision-calculation-out-0
+      bindings:
+        commision-calculation-out-0:
+          content-type: application/*+avro
+          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
+      schema:
+        avro:
+          schema-imports:
+            - classpath*:/pipe/**/imports/*.avsc
+            - classpath*:/commisioncalculation/**/imports/*.avsc
+          schema-sources:
+            - classpath*:/commisioncalculation/**/*.avsc
+        kafka-brokers: localhost:30810
+        developer-mode: true
+        registry-client:
+          endpoint: http://localhost:31210
 
     binder:
       jms-activemq:
@@ -203,15 +207,15 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFWrite.username:usr-write}
-          password: ${qa.amq.brokerAmqCFWrite.password:write}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFRead.username:usr-read}
-          password: ${qa.amq.brokerAmqCFRead.password:read}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
       listener-container-factory:
         trabajo:
           concurrency: 1
@@ -1426,4 +1430,10 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-
+spring:
+  docker:
+    compose:
+      skip:
+        in-tests: false
+      file: "file:@project.parent.basedir@/src/test/resources/compose/docker-compose.yml"
+      lifecycle-management: start-and-stop

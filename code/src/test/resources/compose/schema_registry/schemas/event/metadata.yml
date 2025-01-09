@@ -1,0 +1,19 @@
+api:
+  name: "Income Motor Calculo Java Event v3"
+  version: "2.0.0"
+  metadata:
+    version: "1.0"
+  status: stable # not mandatory: stable, experimental, draft, deprecated, sunset
+  definition: asyncapi.yml # mandatory, the api definition file path
+  scope: public # not mandatory: internet, public, vertical, private
+  type: application # not mandatory: application, shell, kernel  
+  visibility: "PUBLIC"
+  description: API for PIPE events Avro
+  contact: # not mandatory
+    name: Income Team
+    email: income@inditex.com
+  owner: # not mandatory
+   name: Income Team
+   email: income@inditex.com
+  tags: # not mandatory
+    - API Income
