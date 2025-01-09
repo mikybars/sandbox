@@ -135,61 +135,61 @@ amiga:
             encrypt: false
         comis11-8:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalPull
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalPull;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalOysho
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalOysho;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalDutti
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalDutti;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXPRESQL1:11433;databaseName=PersonalBsk
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalBsk;multiSubnetFailover=true;
           username: ncomis
           data-source-properties:
             encrypt: false
