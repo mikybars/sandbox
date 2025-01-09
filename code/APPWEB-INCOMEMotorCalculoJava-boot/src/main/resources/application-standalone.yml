@@ -33,14 +33,7 @@ amiga:
             enabled: true
           counter:
             enabled: true
-    cache:
-      redis:
-        host: ${qa.jdg.host:localhost}
-        port: ${qa.jdg.port:6379}
-        cluster:
-          enabled: false
-        sentinel:
-          enabled: false
+
   common:
     soap:
       client:
@@ -55,11 +48,11 @@ amiga:
     core:
       is-production: false
     cache:
-      remote:
-        enabled: false
-      embedded:
-        enabled: true
-        cache-names: itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen,itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen,itx.icmlcwb.periodo_by_tarea,itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea,itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea,itx.icmlcwb.id_persona_local_challenge_by_tarea,itx.icmlcwb.presupuestos_by_tarea,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days,itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository,itx.icmlcwb.tipo_ausencia_by_icm_tp_absence,itx.icmlcwb.tipo_ausencia_by_id,itx.icmlcwb.tipo_opcion_calculo_by_id_meta4,itx.icmlcwb.tipo_politica_by_id_meta4,itx.icmlcwb.tipo_politica_by_id,itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto,itx.icmlcwb.tipo_presupuesto_by_id,itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo,itx.icmlcwb.tipo_unidad_tiempo_by_id,itx.icmlcwb.tipo_venta_concepto_by_id_meta4,itx.icmlcwb.tipo_venta_concepto_by_id,itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta,itx.icmlcwb.tipo_venta_concepto_challenge_by_id,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa,itx.icmlcwb.id_localizacion_local_presupuestos_by_id_empresa_and_id_tarea,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea,itx.icmlcwb.id_empresa_by_tarea,itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.accion_dto_by_id,itx.icmlcwb.tarea_ambito_dto_by_tarea,itx.icmlcwb.get_sistema_destino,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_cadena,itx.icmlcwb.horario_comercial_festivos,itx.icmlcwb.calcular_festivos,itx.icmlcwb.get_tipos_hora,itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen,itx.icmlcwb.get_clases,itx.icmlcwb.periodo_presupuestos_by_id_tarea,itx.icmlcwb.id_localizacion_by_tarea
+      redis:
+        host: ${qa.jdg.host:localhost}
+        port: ${qa.jdg.port:6379}
+        cluster:
+          enabled: false
     mail:
       host: localhost
       port: 25
@@ -184,21 +177,25 @@ amiga:
           enabled: false
   data:
     stream:
-        bindings:
-            commision-calculation-out-0:
-            binder: kafka-pipe
-            destination: sscc.${metadata.tenant}.${metadata.environment}.rhcompensa.commision-calculation.public.v1
-            fail-startup-on-validation-error: false
-        schema:
-          kafka-brokers: ${qa.kafka.host:localhost}:${qa.kafka.port:30810}
-          developer-mode: true
-          registry-client:
-            endpoint: http://${qa.schemaregistry.host:localhost}:${qa.schemaregistry.port:31210}
-          confluent:
-            schema-registry-client:
-              schema-registry-url: ${amiga.data.stream.schema.registry-client.endpoint}
-              map-capacity: 500
-              mock: false
+      output-bindings: commision-calculation-out-0
+      bindings:
+        commision-calculation-out-0:
+          content-type: application/*+avro
+          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
+      schema:
+        avro:
+          schema-imports:
+            - classpath*:/pipe/**/imports/*.avsc
+            - classpath*:/commisioncalculation/**/imports/*.avsc
+          schema-sources:
+            - classpath*:/commisioncalculation/**/*.avsc
+        kafka-brokers: localhost:30810
+        developer-mode: true
+        registry-client:
+          endpoint: http://localhost:31210
 
     binder:
       jms-activemq:
@@ -210,15 +207,15 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFWrite.username:usr-write}
-          password: ${qa.amq.brokerAmqCFWrite.password:write}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFRead.username:usr-read}
-          password: ${qa.amq.brokerAmqCFRead.password:read}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
       listener-container-factory:
         trabajo:
           concurrency: 1
@@ -275,7 +272,7 @@ amiga:
         primary:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
-          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
           maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
@@ -1433,4 +1430,10 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-
+spring:
+  docker:
+    compose:
+      skip:
+        in-tests: false
+      file: "file:@project.parent.basedir@/src/test/resources/compose/docker-compose.yml"
+      lifecycle-management: start-and-stop
