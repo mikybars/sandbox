@@ -4,17 +4,17 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface AlgoritmoAjusteService {
 
-  List<Long> customFindAjustePesosByTarea(@NotNull @Positive Long id);
+  List<Long> customFindAjustePesosByTarea(@NonNull @Positive Long id);
 
-  AlgoritmoAjusteDto findById(@NotNull @Positive Integer id);
+  AlgoritmoAjusteDto findById(@NonNull @Positive Integer id);
 
-  List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive Long id);
+  List<AlgoritmoAjusteDto> findByPeso(@NonNull @Positive Long id);
 
-  List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive Long idTarea, @NotNull @Positive Long peso);
+  List<Integer> customFindAjusteIdsByTareaAndPeso(@NonNull @Positive Long idTarea, @NonNull @Positive Long peso);
 
 }

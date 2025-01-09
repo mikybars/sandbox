@@ -7,8 +7,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -19,7 +19,7 @@ public class TareaPersonaEstructuraDesplazamientoPk implements Serializable {
   @Column(name = "ID_TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
   private Long id;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioPeriodo;

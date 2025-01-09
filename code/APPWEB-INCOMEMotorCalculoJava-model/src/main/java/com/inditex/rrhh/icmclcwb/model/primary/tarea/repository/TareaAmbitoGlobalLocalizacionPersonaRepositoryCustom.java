@@ -2,10 +2,10 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAmbitoGlobalLocalizacionPersonaRepositoryCustom {
 
-  void mergePersonaLocalizacion(@NotNull final RunTareaDto tareaDto);
+  void mergePersonaLocalizacion(@NonNull final RunTareaDto tareaDto);
 
 }

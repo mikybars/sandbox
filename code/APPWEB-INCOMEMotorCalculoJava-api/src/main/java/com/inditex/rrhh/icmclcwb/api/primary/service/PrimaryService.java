@@ -2,17 +2,17 @@ package com.inditex.rrhh.icmclcwb.api.primary.service;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.core.io.Resource;
 
 public interface PrimaryService {
 
   Boolean loadDML(@Valid @NotBlank final String path);
 
-  @NotNull
+  @NonNull
   Resource changelogDML();
 
-  @NotNull
+  @NonNull
   Resource changelogDDL();
 
 }

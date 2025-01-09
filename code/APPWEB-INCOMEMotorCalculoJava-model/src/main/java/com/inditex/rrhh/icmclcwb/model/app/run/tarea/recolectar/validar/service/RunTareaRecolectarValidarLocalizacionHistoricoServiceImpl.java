@@ -13,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ public class RunTareaRecolectarValidarLocalizacionHistoricoServiceImpl
   private TareaValidarAsyncService tareaValidarAsyncService;
 
   @Override
-  public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
+  public List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea) {
     List<RunTareaValidarDto> result = new ArrayList<>();
     List<CompletableFuture<?>> cf = new ArrayList<>();
     try {

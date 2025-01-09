@@ -6,20 +6,20 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.PtrSeccionPresenciasGenericType;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 public class PtrPresenciaDetalleResultItemDto implements Serializable {
 
   private static final long serialVersionUID = -2286264737159679411L;
 
-  @NotNull
+  @NonNull
   private Integer tienda;
 
   private Integer seccion;
 
-  @NotNull
+  @NonNull
   private Integer persona;
 
   @NotBlank

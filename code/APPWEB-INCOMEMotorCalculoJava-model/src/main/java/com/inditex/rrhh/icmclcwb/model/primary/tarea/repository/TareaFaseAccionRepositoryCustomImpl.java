@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -62,8 +62,8 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-      @NotNull @Positive final Long idTarea, @NotNull final Integer idFase,
-      @NotNull final Integer idPuntoEjecucion) {
+      @NonNull @Positive final Long idTarea, @NonNull final Integer idFase,
+      @NonNull final Integer idPuntoEjecucion) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
@@ -98,8 +98,8 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
-      @NotNull @Positive final Long idTarea, @NotNull final Integer idFase, @NotNull final Integer idAccion,
-      @NotNull final Integer idPuntoEjecucion) {
+      @NonNull @Positive final Long idTarea, @NonNull final Integer idFase, @NonNull final Integer idAccion,
+      @NonNull final Integer idPuntoEjecucion) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
@@ -135,8 +135,8 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-      @NotNull @Positive final Long idTarea, @NotNull final Integer idFase,
-      @NotNull final Integer idPuntoEjecucion) {
+      @NonNull @Positive final Long idTarea, @NonNull final Integer idFase,
+      @NonNull final Integer idPuntoEjecucion) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_FASE, idFase);
@@ -153,7 +153,7 @@ public class TareaFaseAccionRepositoryCustomImpl
   }
 
   @Override
-  public void updateFechaInicio(@NotNull final TareaFaseAccionDto tareaFaseAccionDto) {
+  public void updateFechaInicio(@NonNull final TareaFaseAccionDto tareaFaseAccionDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, EstadoTareaFaseAccionEnum.PENDIENTE.getId());
@@ -162,8 +162,8 @@ public class TareaFaseAccionRepositoryCustomImpl
   }
 
   @Override
-  public void updateFechaFinAndEstado(@NotNull final TareaFaseAccionDto tareaFaseAccionDto,
-      @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+  public void updateFechaFinAndEstado(@NonNull final TareaFaseAccionDto tareaFaseAccionDto,
+      @NonNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, tareaFaseAccionDto.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
@@ -174,9 +174,9 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(
-      @NotNull final TareaFaseDto tareaFaseDto,
-      @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
-      @NotNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
+      @NonNull final TareaFaseDto tareaFaseDto,
+      @NonNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
+      @NonNull final EstadoTareaFaseAccionDto estadoTareaFaseAccionDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaFaseDto.getIdTarea());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estadoTareaFaseAccionDto.getId());
@@ -188,8 +188,8 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public Integer countReintentosByIdTareaAndIdAccionAndIdEstado(
-      @NotNull final TareaFaseAccionDto tareaFaseAccionDto,
-      @NotNull final TareaFaseDto tareaFaseDto) {
+      @NonNull final TareaFaseAccionDto tareaFaseAccionDto,
+      @NonNull final TareaFaseDto tareaFaseDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaFaseDto.getIdTarea());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaFaseAccionEnum.KO.getId());
@@ -199,7 +199,7 @@ public class TareaFaseAccionRepositoryCustomImpl
 
   @Override
   public TareaFaseAccionDto findById(
-      @NotNull @Positive final Long idTareaFaseAccion) {
+      @NonNull @Positive final Long idTareaFaseAccion) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_FASE_ACCION, idTareaFaseAccion);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -16,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class DesplazamientoRealDto implements Serializable {
 
-  @NotNull
+  @NonNull
   private LocalDate fechaInicio;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaFin;
 
   private String cclIdOrigen;

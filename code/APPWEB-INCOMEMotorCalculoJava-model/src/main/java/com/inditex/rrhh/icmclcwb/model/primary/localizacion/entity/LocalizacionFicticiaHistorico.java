@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "LOCALIZACION_FICTICIA_HISTORICO")
@@ -20,7 +20,7 @@ public class LocalizacionFicticiaHistorico {
   @EmbeddedId
   private LocalizacionFicticiaHistoricoPk pk;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;

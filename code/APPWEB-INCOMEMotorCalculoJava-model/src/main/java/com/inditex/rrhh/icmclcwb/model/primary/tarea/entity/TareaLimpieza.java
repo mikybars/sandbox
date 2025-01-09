@@ -13,12 +13,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LIMPIEZA")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaLimpieza {
 
   @Id
@@ -26,22 +30,22 @@ public class TareaLimpieza {
   @Column(name = "ID_TAREA_LIMPIEZA")
   private Long id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_ESTADO_LIMPIEZA", nullable = false)
   private EstadoLimpieza estado;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_LIMPIEZA", nullable = false)
   private TipoLimpieza tipo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private Date fechaHoraCreacion;
 

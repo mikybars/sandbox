@@ -4,17 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaPersonaHistoricoDto implements Serializable {
 
   private static final long serialVersionUID = 1168987218682802281L;
 
   private String id;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
   @NotBlank
@@ -48,7 +52,7 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
   private Date fechaAntiguedad;
 
-  @NotNull
+  @NonNull
   private Long stdIdLegEnt;
 
 }

@@ -8,12 +8,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAgrupacionConfiguracionService {
 
   List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
-      @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
-      @Valid @NotNull final RunTareaDto tarea);
+      @Valid @NonNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+      @Valid @NonNull final RunTareaDto tarea);
 
 }

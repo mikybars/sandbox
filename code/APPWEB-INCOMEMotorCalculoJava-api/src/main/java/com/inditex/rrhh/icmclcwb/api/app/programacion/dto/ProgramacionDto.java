@@ -8,11 +8,11 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -24,12 +24,12 @@ public class ProgramacionDto implements Serializable {
 
   private Long id;
 
-  @NotNull
+  @NonNull
   private LocalTime horaProgramacion;
 
   private String programacionHuso;
 
-  @NotNull
+  @NonNull
   private Boolean activo;
 
   private String nombreUsuario;
@@ -40,10 +40,10 @@ public class ProgramacionDto implements Serializable {
 
   private LocalDateTime fechaHoraSiguienteEjecucion;
 
-  @NotNull
+  @NonNull
   private TipoAmbitoDto tipoAmbito;
 
-  @NotNull
+  @NonNull
   @NotEmpty
   private List<ProgramacionAmbitoDto> ambito;
 

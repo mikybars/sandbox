@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunLimpiezaService {
 
-  void run(@NotNull @Valid final RunLimpiezaDto runLimpieza);
+  void run(@NonNull @Valid final RunLimpiezaDto runLimpieza);
 
 }

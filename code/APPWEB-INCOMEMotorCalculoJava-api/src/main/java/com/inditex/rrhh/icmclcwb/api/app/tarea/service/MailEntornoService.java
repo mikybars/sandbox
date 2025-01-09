@@ -1,8 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface MailEntornoService {
 
-  Boolean findEsActivoByEntorno(@NotNull String entorno);
+  Boolean findEsActivoByEntorno(@NonNull String entorno);
 }

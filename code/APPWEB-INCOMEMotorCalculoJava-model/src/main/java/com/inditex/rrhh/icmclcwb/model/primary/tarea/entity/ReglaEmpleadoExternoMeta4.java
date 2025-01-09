@@ -5,12 +5,12 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "REGLA_EMPLEADO_EXTERNO_META4")
@@ -28,7 +28,7 @@ public class ReglaEmpleadoExternoMeta4 {
   @Column(name = "ID_ORGANIZATION", nullable = false)
   private String idOrganization;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO")
   private Boolean esActivo;
 

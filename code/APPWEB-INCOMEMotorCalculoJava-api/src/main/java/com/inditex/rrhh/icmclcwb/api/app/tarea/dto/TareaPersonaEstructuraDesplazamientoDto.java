@@ -5,32 +5,36 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
 
   private static final long serialVersionUID = -7730621144181571265L;
 
   private String id;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
-  @NotNull
+  @NonNull
   private LocalDateTime fechaInicio;
 
-  @NotNull
+  @NonNull
   private LocalDateTime fechaFin;
 
   @NotBlank
   private String idMotivoDesplazamiento;
 
-  @NotNull
+  @NonNull
   private Integer idTipoOpcionCalculoEstructura;
 
-  @NotNull
+  @NonNull
   private Integer idTipoOpcionCalculoEfectiva;
 
   @NotBlank
@@ -48,13 +52,13 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
   @NotBlank
   private String icmIdTpReqCom;
 
-  @NotNull
+  @NonNull
   private Boolean horasOrigen;
 
-  @NotNull
+  @NonNull
   private Boolean horasDestino;
 
-  @NotNull
+  @NonNull
   private Boolean activo;
 
   @NotBlank
@@ -78,16 +82,16 @@ public class TareaPersonaEstructuraDesplazamientoDto implements Serializable {
   @NotBlank
   private String icmIdEstrComisionPadre;
 
-  @NotNull
+  @NonNull
   private Integer ordinalEstructura;
 
   @NotBlank
   private String icmIdEstructuraAmbito;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaInicioPeriodo;
 
-  @NotNull
+  @NonNull
   private Boolean totalCondiciones;
 
 }

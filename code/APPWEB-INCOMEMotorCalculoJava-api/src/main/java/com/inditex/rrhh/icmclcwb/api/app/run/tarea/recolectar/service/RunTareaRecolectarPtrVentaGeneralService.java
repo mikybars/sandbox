@@ -3,21 +3,21 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunTareaRecolectarPtrVentaGeneralService {
 
-  void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+  void ventaFisicaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
 
-  void ventaFisicaCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+  void ventaFisicaCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
 
-  void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
+  void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
 
-  void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea);
+  void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@NonNull @Valid RunTareaDto runTarea);
 
   void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
-      @NotNull @Valid RunTareaDto runTarea);
+      @NonNull @Valid RunTareaDto runTarea);
 
-  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(@NotNull @Valid RunTareaDto runTarea);
+  void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(@NonNull @Valid RunTareaDto runTarea);
 
 }

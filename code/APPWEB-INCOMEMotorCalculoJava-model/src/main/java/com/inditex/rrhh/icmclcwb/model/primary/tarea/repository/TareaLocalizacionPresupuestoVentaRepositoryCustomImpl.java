@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuestoVenta;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -40,7 +40,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
   private String sqlTotalizar;
 
   @Override
-  public void updateActivoExcepcionada(@NotNull final RunTareaDto runTareaDto) {
+  public void updateActivoExcepcionada(@NonNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -50,7 +50,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
   }
 
   @Override
-  public void updateActivoCongelada(@NotNull final RunTareaDto runTareaDto) {
+  public void updateActivoCongelada(@NonNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -66,7 +66,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
   }
 
   @Override
-  public void updateActivoCongeladaSeccion(@NotNull final RunTareaDto runTareaDto) {
+  public void updateActivoCongeladaSeccion(@NonNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -80,7 +80,7 @@ public class TareaLocalizacionPresupuestoVentaRepositoryCustomImpl
   }
 
   @Override
-  public void totalizar(@NotNull final RunTareaDto runTareaDto) {
+  public void totalizar(@NonNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

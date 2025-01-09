@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,18 +18,22 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CALCULO_AJUSTE_COMISION")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaCalculoAjusteComision {
 
   @EmbeddedId
   private TareaCalculoAjusteComisionPk pk;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -41,16 +46,16 @@ public class TareaCalculoAjusteComision {
   @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
   private String stdOrHrPeriod;
 
-  @NotNull
+  @NonNull
   @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
   private BigDecimal importe;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
   private TipoComision tipoComision;

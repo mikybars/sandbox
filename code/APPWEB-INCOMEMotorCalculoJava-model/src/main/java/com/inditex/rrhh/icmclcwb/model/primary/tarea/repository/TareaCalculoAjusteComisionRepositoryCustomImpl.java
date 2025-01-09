@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoAjusteComision;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -22,7 +22,7 @@ public class TareaCalculoAjusteComisionRepositoryCustomImpl
   private String sqlNormalizarAjusteComision;
 
   @Override
-  public void normalizarAjusteComision(@NotNull final TareaDto runTarea) {
+  public void normalizarAjusteComision(@NonNull final TareaDto runTarea) {
 
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTarea.getId());

@@ -5,30 +5,30 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionAbiertaRepositoryCustom {
 
-  void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto);
+  void saveAbierto(@NonNull final TareaDto tareaDto, @NonNull final TrabajoDTO trabajoDto);
 
-  void saveCerrado(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto,
-      @NotNull List<Integer> idTipoImporteVenta);
+  void saveCerrado(@NonNull final TareaDto tareaDto, @NonNull final TrabajoDTO trabajoDto,
+      @NonNull List<Integer> idTipoImporteVenta);
 
-  void trasladar(@NotNull final TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta);
+  void trasladar(@NonNull final TareaDto tareaDto, @NonNull List<Integer> idTipoImporteVenta);
 
-  void compensar(@NotNull final TareaDto tareaDto, @NotNull List<Integer> idTipoImporteVenta);
+  void compensar(@NonNull final TareaDto tareaDto, @NonNull List<Integer> idTipoImporteVenta);
 
-  void saveAbiertoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto);
+  void saveAbiertoSeccion(@NonNull final TareaDto tareaDto, final TrabajoDTO trabajoDto);
 
-  void saveCerradoSeccion(@NotNull final TareaDto tareaDto, final TrabajoDTO trabajoDto,
-      @NotNull List<Integer> idTipoImporteVenta);
+  void saveCerradoSeccion(@NonNull final TareaDto tareaDto, final TrabajoDTO trabajoDto,
+      @NonNull List<Integer> idTipoImporteVenta);
 
-  void compensarOnlineSeccionCerrada(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto);
+  void compensarOnlineSeccionCerrada(@NonNull final TareaDto tareaDto, @NonNull final TrabajoDTO trabajoDto);
 
-  void updateActivoTrasladadasSeccion(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto);
+  void updateActivoTrasladadasSeccion(@NonNull final TareaDto tarea, @NonNull final TrabajoDTO trabajoDto);
 
-  void agruparOnlineSeccionDia(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto);
+  void agruparOnlineSeccionDia(@NonNull final TareaDto tarea, @NonNull final TrabajoDTO trabajoDto);
 
-  void updateActivoTrasladadasTotalizado(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto);
+  void updateActivoTrasladadasTotalizado(@NonNull final TareaDto tarea, @NonNull final TrabajoDTO trabajoDto);
 
 }

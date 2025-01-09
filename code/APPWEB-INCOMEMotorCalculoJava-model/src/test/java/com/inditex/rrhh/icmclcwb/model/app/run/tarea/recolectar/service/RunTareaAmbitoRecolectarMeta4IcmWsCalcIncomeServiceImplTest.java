@@ -1480,6 +1480,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     final TareaDto tarea = new TareaDto();
     tarea.setId(11L);
     tarea.setStdIdLegEnt(idEmpresa);
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
     final Meta4PropertiesDto properties = new Meta4PropertiesDto();
     final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
     filter.setMaxPersistenceSize(3);
@@ -1501,7 +1503,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(cfSave);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.tiposHoraByRunTareaAndTareaAmbito(
-        RunTareaDto.builder().tarea(tarea).build(), TareaAmbitoDto.builder().cclIdOrigen(idOrigen).build());
+        RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build(), TareaAmbitoDto.builder().cclIdOrigen(idOrigen).build());
 
     verify(this.meta4IcmWsCalcIncomeAsyncService, times(1)).getTiposHora(request);
     verify(this.tareaTipoHoraAsyncService, times(1)).save(response, tarea);

@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,15 +29,15 @@ public class PeriodoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryReposito
   private String sqlLimpiezaPeriodoPersona;
 
   @Override
-  public void mergePeriodoPersona(@NotNull final RunTareaDto tareaDto) {
+  public void mergePeriodoPersona(@NonNull final RunTareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     this.namedParameterJdbcTemplate.update(this.sqlMergePeriodoPersona, params);
   }
 
   @Override
-  public void limpiezaPeriodoPersona(@NotNull final RunTareaDto tareaDto,
-      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoPersona(@NonNull final RunTareaDto tareaDto,
+      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN,

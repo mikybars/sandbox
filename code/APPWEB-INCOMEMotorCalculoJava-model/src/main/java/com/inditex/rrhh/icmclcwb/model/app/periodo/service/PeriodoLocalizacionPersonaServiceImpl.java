@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionPersonaRepositoryCustom;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,13 +18,13 @@ public class PeriodoLocalizacionPersonaServiceImpl implements PeriodoLocalizacio
   private PeriodoLocalizacionPersonaRepositoryCustom periodoLocalizacionPersonaRepositoryCustom;
 
   @Override
-  public void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto) {
+  public void mergePeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto) {
     this.periodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto,
-      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto,
+      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoLocalizacionPersonaRepositoryCustom.limpiezaPeriodoLocalizacionPersona(tareaDto, tareaAmbitoDto);
   }
 

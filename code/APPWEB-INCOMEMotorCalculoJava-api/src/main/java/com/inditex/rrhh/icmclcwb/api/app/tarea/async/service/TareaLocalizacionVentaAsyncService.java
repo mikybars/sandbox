@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async("repositoryPrimaryExecutor")
@@ -32,6 +32,6 @@ public interface TareaLocalizacionVentaAsyncService {
   CompletableFuture<Void> savePtrVentaOnlineEntregaDomicilioResponse(PtrVentaOnlineEntregaDomicilioResponseDto dto,
       TareaDto tarea);
 
-  CompletableFuture<Void> save(@NotNull List<VentaManualWlocResultItemDto> src, @NotNull TareaDto tareaDto);
+  CompletableFuture<Void> save(@NonNull List<VentaManualWlocResultItemDto> src, @NonNull TareaDto tareaDto);
 
 }

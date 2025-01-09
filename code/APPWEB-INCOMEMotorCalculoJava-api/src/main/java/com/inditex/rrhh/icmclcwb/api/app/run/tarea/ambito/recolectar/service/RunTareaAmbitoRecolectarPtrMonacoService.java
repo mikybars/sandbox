@@ -7,15 +7,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunTareaAmbitoRecolectarPtrMonacoService {
 
   void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
       @Valid TareaAmbitoDto tareaAmbito);
@@ -24,11 +24,11 @@ public interface RunTareaAmbitoRecolectarPtrMonacoService {
       @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid TareaAmbitoDto tareaAmbito);
 
   void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid TareaAmbitoDto tareaAmbito);
 
   void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid TareaAmbitoDto tareaAmbito);
 }

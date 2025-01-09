@@ -6,10 +6,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunTareaRecolectarValidarEstructurasService {
 
-  List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea);
+  List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea);
 
 }

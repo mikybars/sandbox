@@ -2,12 +2,12 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionVentaRepositoryProcesarCustom {
 
-  void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NotNull final TareaDto tareaDto);
+  void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NonNull final TareaDto tareaDto);
 
-  void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull TareaDto tareaDto);
+  void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NonNull TareaDto tareaDto);
 
 }

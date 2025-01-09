@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +35,7 @@ public class RunTareaAmbitoLimpiarConsolidarByAmbitoServiceImpl
       metricGroupName = "RunTareaAmbitoLimpiarConsolidarByAmbitoServiceGroup",
       metricDescription = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
+  public void run(@NonNull @Valid final RunTareaDto runTarea, @NonNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<Void> cfPeriodo = this.runTareaConsolidarPeriodoAsyncService

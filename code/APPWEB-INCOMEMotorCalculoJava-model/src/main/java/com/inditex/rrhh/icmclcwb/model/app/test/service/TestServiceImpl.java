@@ -55,10 +55,10 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryC
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -275,7 +275,7 @@ public class TestServiceImpl implements TestService {
   }
 
   @Override
-  public void testBloqueos(@NotNull final Long limit) {
+  public void testBloqueos(@NonNull final Long limit) {
     AppTestConstants.getTEST().stream().collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
       Collections.shuffle(collected);
       return collected.stream();
@@ -489,7 +489,7 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public AjusteComisionDTO normalizarAjusteComision(
-      @Positive @NotNull final Integer limit) {
+      @Positive @NonNull final Integer limit) {
 
     final AjusteComisionDTO result = new AjusteComisionDTO();
     final List<IdTareaDTO> tareasAEjecutar = this.tareaRepositoryCustom

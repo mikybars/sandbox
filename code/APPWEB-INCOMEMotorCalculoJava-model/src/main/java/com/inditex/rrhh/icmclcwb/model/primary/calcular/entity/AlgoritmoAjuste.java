@@ -7,19 +7,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "ALGORITMO_AJUSTE")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlgoritmoAjuste {
 
   @Id
   @Column(name = "ID_ALGORITMO_AJUSTE")
   private Integer id;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_POLITICA")
   private TipoPolitica tipoPolitica;
@@ -28,11 +32,11 @@ public class AlgoritmoAjuste {
   @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
   private String nombre;
 
-  @NotNull
+  @NonNull
   @Column(name = "PESO", nullable = false)
   private Long peso;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

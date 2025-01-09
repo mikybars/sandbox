@@ -14,37 +14,37 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionPresupuestoVentaService {
 
   List<TareaLocalizacionPresupuestoVentaDto> save(
-      @Valid @NotNull @NotEmpty final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta);
+      @Valid @NonNull @NotEmpty final List<TareaLocalizacionPresupuestoVentaDto> tareaLocalizacionPresupuestoVenta);
 
   List<TareaLocalizacionPresupuestoVentaDto> save(
-      @Valid @NotNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull @NotEmpty final List<VentaCongeladaResultItemDto> ventaCongelada,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaTotalizadoResponse(
-      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-      @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NonNull final IdLocalizacionLocalPresupuestoDto iter,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineIpodResponse(
-      @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
-      @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineIpodResponseDto dto,
+      @Valid @NonNull final IdLocalizacionLocalPresupuestoDto iter,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlinePickingResponse(
-      @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto,
-      @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlinePickingResponseDto dto,
+      @Valid @NonNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto,
-      @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineEntregaTiendaResponseDto dto,
+      @Valid @NonNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionPresupuestoVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
-      @Valid @NotNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
+      @Valid @NonNull final IdLocalizacionLocalPresupuestoDto iter, @Valid @NonNull final TareaDto tarea);
 
 }

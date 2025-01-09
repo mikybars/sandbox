@@ -18,8 +18,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -71,7 +71,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -89,8 +89,8 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull final List<Integer> idsTipoDato) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull final List<Integer> idsTipoDato) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
@@ -109,7 +109,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
   }
 
   @Override
-  public PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive final Long idTarea) {
+  public PeriodoDto findPeriodoDtoByIdTarea(@NonNull @Positive final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
 
@@ -129,7 +129,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -143,7 +143,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
@@ -166,8 +166,8 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
-      @NotNull @Positive final Long idTarea, @NotNull final String cclIdOrigen,
-      @NotNull final TipoVentaConceptoEnum tipoVentaConcepto) {
+      @NonNull @Positive final Long idTarea, @NonNull final String cclIdOrigen,
+      @NonNull final TipoVentaConceptoEnum tipoVentaConcepto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_PORCENTAJE_INCLUSION,
@@ -185,7 +185,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
-      @NotNull final List<Integer> idsTipoDato) {
+      @NonNull final List<Integer> idsTipoDato) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idsTipoDato);
     return this.query(this.sqlFindIdTipoCalculoAndIdTipoComisionByIdsTiposDato, parameters,
@@ -203,7 +203,7 @@ public class TareaPersonaHistoricoRepositoryCustomImpl
 
   @Override
   public List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);

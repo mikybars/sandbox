@@ -1,38 +1,28 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA")
 @Data
-public class TareaPersonaEstructura {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TareaPersonaEstructura extends CommonFieldsTask {
 
   @EmbeddedId
   private TareaPersonaEstructuraPk pk;
-
-  @NotNull
-  @OneToOne
-  @JoinColumn(name = "ID_TAREA", nullable = false)
-  private Tarea tarea;
-
-  @NotBlank
-  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-  private String cclIdOrigen;
 
   @NotBlank
   @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
@@ -69,29 +59,19 @@ public class TareaPersonaEstructura {
   @Column(name = "ICM_ID_TP_COMISION", nullable = false, length = 48)
   private String icmIdTpComision;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_VALOR", nullable = false, precision = 23, scale = 8)
   private BigDecimal valor;
 
-  @NotNull
-  @Column(name = "FECHA_INICIO", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaInicio;
-
-  @NotNull
-  @Column(name = "FECHA_FIN", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaFin;
-
-  @NotNull
+  @NonNull
   @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
   private Boolean desplazamiento;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
   private Boolean desplazamientoBase;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
@@ -124,7 +104,7 @@ public class TareaPersonaEstructura {
   @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
   private String icmIdEstrComisionBase;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
   private Integer tope;
 
@@ -132,11 +112,11 @@ public class TareaPersonaEstructura {
   @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
   private String icmIdTpEstructura;
 
-  @NotNull
+  @NonNull
   @Column(name = "ICM_GRUPO_MANUAL", nullable = false)
   private String icmGrupoManual;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_FESTIVO", nullable = false)
   private Boolean festivo;
 

@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +24,7 @@ public class TareaLocalizacionVentaRespositoryProcesarCustomImpl
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Override
-  public void procesarRepartoEntregaDomicilio(@NotNull final TareaDto tareaDto) {
+  public void procesarRepartoEntregaDomicilio(@NonNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     // Filtros de la consulta
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION,

@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ public class TareaLocalizacionEstadoServiceImpl implements TareaLocalizacionEsta
 
   @Override
   public List<TareaLocalizacionEstadoDto> save(
-      @Valid @NotNull @NotEmpty final List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto) {
+      @Valid @NonNull @NotEmpty final List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto) {
     return this.tareaLocalizacionEstadoMapper.tareaLocalizacionEstadoToTareaLocalizacionEstadoDto(
         this.tareaLocalizacionEstadoRepositoryCustom.save(this.tareaLocalizacionEstadoMapper
             .tareaLocalizacionEstadoDtoToTareaLocalizacionEstado(tareaLocalizacionEstadoDto)));
@@ -36,8 +36,8 @@ public class TareaLocalizacionEstadoServiceImpl implements TareaLocalizacionEsta
 
   @Override
   public List<TareaLocalizacionEstadoDto> merge(
-      @Valid @NotNull @NotEmpty final List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
+      @Valid @NonNull final TareaDto tarea) {
     return this.tareaLocalizacionEstadoMapper
         .estadoWlocResultItemDtoToTareaLocalizacionEstadoDto(estadoWlocResultItemDto, tarea);
   }

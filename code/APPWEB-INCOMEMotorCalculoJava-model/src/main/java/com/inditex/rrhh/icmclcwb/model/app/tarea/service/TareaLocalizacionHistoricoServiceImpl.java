@@ -37,8 +37,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
   @Override
   public List<TareaLocalizacionHistoricoDto> save(
-      @Valid @NotNull @NotEmpty final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico) {
+      @Valid @NonNull @NotEmpty final List<TareaLocalizacionHistoricoDto> tareaLocalizacionHistorico) {
     return this.tareaLocalizacionHistoricoMapper.tareaLocalizacionHistoricoToTareaLocalizacionHistoricoDto(
         this.tareaLocalizacionHistoricoRepositoryCustom.save(this.tareaLocalizacionHistoricoMapper
             .tareaLocalizacionHistoricoDtoToTareaLocalizacionHistorico(tareaLocalizacionHistorico)));
@@ -67,15 +67,15 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
   @Override
   public List<TareaLocalizacionHistoricoDto> merge(
-      @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
+      @Valid @NonNull final TareaDto tarea) {
     return this.tareaLocalizacionHistoricoMapper
         .genericLocalizacionResultItemDtoToTareaLocalizacionHistoricoDto(genericTiendaResultItemDto, tarea);
   }
 
   @Override
   @Cacheable(value = ID_LOCALIZACION_BY_TAREA_AND_ID_ORIGEN_IN_AMBITO, key = "{#idTarea, #cclIdOrigen}")
-  public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NotNull final Long idTarea,
+  public List<IdLocalizacionDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(@NonNull final Long idTarea,
       @NotBlank final String cclIdOrigen) {
     return this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito(
         idTarea,
@@ -86,7 +86,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_AND_ID_CADENA,
       key = "{#idTarea, #cclIdOrigen, #idsCadena}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(
-      @NotNull final Long idTarea, @NotBlank final String cclIdOrigen, @NotNull final List<String> idsCadena) {
+      @NonNull final Long idTarea, @NotBlank final String cclIdOrigen, @NonNull final List<String> idsCadena) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalDtoByIdTareaAndIdOrigenAndIdCadena(idTarea, cclIdOrigen, idsCadena);
   }
@@ -95,7 +95,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_IN_AMBITO,
       key = "{#idTarea, #cclIdOrigen}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(
-      @NotNull final Long idTarea, @NotBlank final String cclIdOrigen) {
+      @NonNull final Long idTarea, @NotBlank final String cclIdOrigen) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenInAmbito(idTarea, cclIdOrigen);
   }
@@ -104,16 +104,16 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_AND_ID_EMPRESA_IN_AMBITO,
       key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(idTarea, cclIdOrigen, stdIdLegEnt);
   }
 
   @Override
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalInCadenaAndProvinciaDtoByIdTareaAndIdOrigenAndIdEmpresaInAmbito(idTarea,
             cclIdOrigen, stdIdLegEnt);
@@ -123,24 +123,24 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_BY_TAREA_AND_ID_ORIGEN_AND_ID_EMPRESA_IN_AMBITO,
       key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
   public List<IdLocalizacionEmpresaDto> findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(idTarea, cclIdOrigen, stdIdLegEnt);
   }
 
   @Override
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN, key = "{#idTarea, #cclIdOrigen}")
-  public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
+  public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(@NonNull final Long idTarea,
       @NotBlank final String cclIdOrigen) {
     return this.tareaLocalizacionHistoricoRepository.findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigen(idTarea,
         cclIdOrigen);
   }
 
   @Override
-  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
+  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NonNull final Long idTarea,
       @NotBlank final String cclIdOrigen,
-      @NotNull final Long idVentaConcepto) {
+      @NonNull final Long idVentaConcepto) {
     return this.findIdCadenaDtoByIdTareaAndCclIdOrigen(idTarea, cclIdOrigen,
         Collections.singletonList(idVentaConcepto));
   }
@@ -149,22 +149,22 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_CADENA_BY_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO,
       key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
   public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(
-      @NotNull final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull final List<Long> idVentaConcepto) {
+      @NonNull final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull final List<Long> idVentaConcepto) {
     return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen,
         idVentaConcepto);
   }
 
   @Override
   @Cacheable(value = ID_CADENA_BY_TAREA_AND_ID_ORIGEN, key = "{#idTarea, #cclIdOrigen}")
-  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NotNull final Long idTarea,
+  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigen(@NonNull final Long idTarea,
       @NotBlank final String cclIdOrigen) {
     return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigen(idTarea, cclIdOrigen);
   }
 
   @Override
-  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(@NotNull final Long idTarea,
-      @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt, @NotNull final Long idVentaConcepto) {
+  public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(@NonNull final Long idTarea,
+      @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt, @NonNull final Long idVentaConcepto) {
 
     return this.tareaLocalizacionHistoricoRepositoryCustom.getCadenasByTareaAndOrigenAndEmpresa(idTarea, cclIdOrigen,
         stdIdLegEnt, Collections.singletonList(idVentaConcepto));
@@ -174,8 +174,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_CADENA_BY_TAREA_AND_ID_ORIGEN_AND_TIPO_DATO_NOT_IN_AMBITO,
       key = "{#idTarea, #cclIdOrigen, #idVentaConcepto}")
   public List<IdCadenaDto> findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(
-      @NotNull final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull final List<Long> idVentaConcepto) {
+      @NonNull final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull final List<Long> idVentaConcepto) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdCadenaDtoByIdTareaAndCclIdOrigenAndTipoDatoNotInAmbito(idTarea,
             cclIdOrigen,
@@ -186,8 +186,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_AND_ID_TIPO_CALCULO,
       key = "{#idTarea, #cclCodOrigen, #idTipoCalculo}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-      @NotNull final List<String> idTipoCalculo) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+      @NonNull final List<String> idTipoCalculo) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndTipoCalculoInAmbitoLocalizacion(idTarea, cclCodOrigen,
             idTipoCalculo);
@@ -197,9 +197,9 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_AND_ID_EMPRESA_AND_ID_TIPO_CALCULO,
       key = "{#idTarea, #cclCodOrigen, #stdIdLegEnt, #idTipoCalculo}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt,
-      @NotNull final List<String> idTipoCalculo) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclCodOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt,
+      @NonNull final List<String> idTipoCalculo) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntAndTipoCalculoInAmbitoLocalizacion(idTarea,
             cclCodOrigen,
@@ -209,7 +209,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Override
   @Cacheable(value = ID_LOCALIZACION_LOCAL_PRESUPUESTOS_BY_TAREA, key = "{#idTarea}")
   public List<IdLocalizacionLocalPresupuestoDto> findTiendasPresupuestosByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     return this.tareaLocalizacionHistoricoRepositoryCustom.findIdLocalizacionLocalDtoPresupuestosByIdTarea(idTarea);
   }
 
@@ -217,8 +217,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_PRESUPUESTOS_BY_ID_EMPRESA_AND_ID_TAREA,
       key = "{#stdIdLegEnt, #idTarea, #idTipoConceptoVentaChallenge}")
   public List<IdLocalizacionLocalPresupuestoDto> findTiendasPresupuestosByStdIdLegEntAndIdTarea(
-      @NotNull @NotEmpty final List<String> stdIdLegEnt, @NotNull @Positive final Long idTarea,
-      @NotNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge) {
+      @NonNull @NotEmpty final List<String> stdIdLegEnt, @NonNull @Positive final Long idTarea,
+      @NonNull @NotEmpty final List<Long> idTipoConceptoVentaChallenge) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea(stdIdLegEnt, idTarea, idTipoConceptoVentaChallenge);
   }
@@ -227,8 +227,8 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_TAREA_AND_ID_ORIGEN_AND_IDS_EMPRESA,
       key = "{#idTarea, #cclIdOrigen, #stdIdLegEnt}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEnt(
-      @NotNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
-      @NotNull @NotEmpty final List<String> stdIdLegEnt) {
+      @NonNull @Positive final Long idTarea, @NotBlank final String cclIdOrigen,
+      @NonNull @NotEmpty final List<String> stdIdLegEnt) {
     return this.tareaLocalizacionHistoricoRepository
         .findIdLocalizacionLocalDtoByIdTareaAndCClIdOrigenAndStdIdLegEntList(idTarea,
             cclIdOrigen, stdIdLegEnt);
@@ -238,10 +238,10 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Cacheable(value = ID_LOCALIZACION_LOCAL_BY_ID_TIPO_PRESUPUESTO_AND_FECHA_AND_TAREA,
       key = "{#idTarea, #idTipoPresupuesto, #fechaInicio, #fechaFin}")
   public List<IdLocalizacionLocalDto> findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(
-      @NotNull @Positive final Long idTarea,
-      @NotNull @Positive final Integer idTipoPresupuesto,
-      @NotNull final LocalDate fechaInicio,
-      @NotNull final LocalDate fechaFin) {
+      @NonNull @Positive final Long idTarea,
+      @NonNull @Positive final Integer idTipoPresupuesto,
+      @NonNull final LocalDate fechaInicio,
+      @NonNull final LocalDate fechaFin) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionLocalByIdTipoPresupuestoAndFechaAndIdTarea(idTarea, idTipoPresupuesto, fechaInicio,
             fechaFin);
@@ -250,13 +250,13 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
   @Override
   @Cacheable(value = ID_LOCALIZACION_BY_TAREA, key = "{#idTarea}")
   public List<IdLocalizacionDto> findIdLocalizacionByIdTarea(
-      @NotNull @Positive final Long idTarea) {
+      @NonNull @Positive final Long idTarea) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findIdLocalizacionByIdTarea(idTarea);
   }
 
   @Override
-  public void mergeLocalizacionFicticia(@NotNull final Long idTarea, @NotNull final String cclIdOrigen,
+  public void mergeLocalizacionFicticia(@NonNull final Long idTarea, @NonNull final String cclIdOrigen,
       @NotBlank final String stdIdLegEnt) {
     this.tareaLocalizacionHistoricoRepositoryCustom
         .mergeLocalizacionFicticia(idTarea, cclIdOrigen, stdIdLegEnt);
@@ -264,7 +264,7 @@ public class TareaLocalizacionHistoricoServiceImpl implements TareaLocalizacionH
 
   @Override
   public List<IdLocalizacionLocalDto> findLocalizacionFicticiaByIdOrigenAndIdEmpresa(
-      @NotNull final String cclIdOrigen,
+      @NonNull final String cclIdOrigen,
       @NotBlank final String stdIdLegEnt) {
     return this.tareaLocalizacionHistoricoRepositoryCustom
         .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(cclIdOrigen, stdIdLegEnt);

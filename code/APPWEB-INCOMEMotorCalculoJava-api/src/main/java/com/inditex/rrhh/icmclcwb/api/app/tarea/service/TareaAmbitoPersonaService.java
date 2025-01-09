@@ -7,13 +7,13 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAmbitoPersonaService {
 
-  List<TareaAmbitoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
+  List<TareaAmbitoPersonaDto> findByTarea(@Valid @NonNull final TareaDto tarea);
 
-  List<TareaAmbitoPersonaDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
-      @Valid @NotNull final TareaDto tarea);
+  List<TareaAmbitoPersonaDto> create(@Valid @NonNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
+      @Valid @NonNull final TareaDto tarea);
 
 }

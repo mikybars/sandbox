@@ -5,10 +5,10 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
  */
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaCalculoAjusteComisionRepositoryCustom {
 
-  void normalizarAjusteComision(@NotNull TareaDto runTarea);
+  void normalizarAjusteComision(@NonNull TareaDto runTarea);
 
 }

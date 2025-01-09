@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionVentaRepositoryCustom {
 
@@ -28,12 +28,12 @@ public interface TareaLocalizacionVentaRepositoryCustom {
 
   void calcularImporteComisionVentaODevolucion(TareaDto tarea);
 
-  void updateActivoNegativoTotalizado(@NotNull TareaDto tarea);
+  void updateActivoNegativoTotalizado(@NonNull TareaDto tarea);
 
-  void totalizarDevolucionesVendedor0(@NotNull TareaDto tarea);
+  void totalizarDevolucionesVendedor0(@NonNull TareaDto tarea);
 
-  void repartoDevolucionVendedor0(@NotNull TareaDto tarea);
+  void repartoDevolucionVendedor0(@NonNull TareaDto tarea);
 
-  void updateActivoManual(@NotNull TareaDto tarea);
+  void updateActivoManual(@NonNull TareaDto tarea);
 
 }
