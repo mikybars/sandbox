@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPoliticaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoPoliticaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoPoliticaRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoPoliticaServiceImpl implements TipoPoliticaService {
 
-  @Autowired
-  private TipoPoliticaRepository tipoPoliticaRepository;
+  private final TipoPoliticaRepository tipoPoliticaRepository;
 
-  @Autowired
-  private TipoPoliticaMapper tipoPoliticaMapper;
+  private final TipoPoliticaMapper tipoPoliticaMapper;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_politica_by_id_meta4", key = "#idMeta4")

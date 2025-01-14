@@ -3,22 +3,23 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrMonacoService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrMonacoServiceImpl implements RunTareaRecolectarPtrMonacoService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarPtrMonacoService runTareaAmbitoRecolectarPtrMonacoService;
+  private final RunTareaAmbitoRecolectarPtrMonacoService runTareaAmbitoRecolectarPtrMonacoService;
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {

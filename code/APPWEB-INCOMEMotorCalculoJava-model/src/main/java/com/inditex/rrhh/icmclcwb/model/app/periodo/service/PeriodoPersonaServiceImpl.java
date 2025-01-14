@@ -6,16 +6,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoPersonaRepositoryCustom;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class PeriodoPersonaServiceImpl implements PeriodoPersonaService {
 
-  @Autowired
-  private PeriodoPersonaRepositoryCustom periodoPersonaRepositoryCustom;
+  private final PeriodoPersonaRepositoryCustom periodoPersonaRepositoryCustom;
 
   @Override
   public void mergePeriodoPersona(@NotNull final RunTareaDto tareaDto) {

@@ -9,16 +9,16 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
 
-  @Autowired
-  private LimpiezaService limpiezaService;
+  private final LimpiezaService limpiezaService;
 
   @Override
   public CompletableFuture<Void> limpiezaTareaPersonaHistorico(@NotNull @Valid TareaDto tarea) {

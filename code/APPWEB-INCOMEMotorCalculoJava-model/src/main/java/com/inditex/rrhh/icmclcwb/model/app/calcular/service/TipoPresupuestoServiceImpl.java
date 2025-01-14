@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoPresupuestoService
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoPresupuestoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoPresupuestoRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoPresupuestoServiceImpl implements TipoPresupuestoService {
 
-  @Autowired
-  private TipoPresupuestoRepository tipoPresupuestoRepository;
+  private final TipoPresupuestoRepository tipoPresupuestoRepository;
 
-  @Autowired
-  private TipoPresupuestoMapper tipoPresupuestoMapper;
+  private final TipoPresupuestoMapper tipoPresupuestoMapper;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto", key = "#icmIdTpPresupuesto")

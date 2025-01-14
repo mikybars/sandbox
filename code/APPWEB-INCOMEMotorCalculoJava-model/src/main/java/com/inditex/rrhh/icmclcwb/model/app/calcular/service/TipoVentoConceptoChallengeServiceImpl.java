@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoChall
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoChallengeRespository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoVentoConceptoChallengeServiceImpl implements TipoVentaConceptoChallengeService {
 
-  @Autowired
-  private TipoVentaConceptoChallengeRespository tipoVentaConceptoChallengeRespository;
+  private final TipoVentaConceptoChallengeRespository tipoVentaConceptoChallengeRespository;
 
-  @Autowired
-  private TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
+  private final TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta",

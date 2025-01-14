@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoAusenciaService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoAusenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoAusenciaRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoAusenciaServiceImpl implements TipoAusenciaService {
 
-  @Autowired
-  private TipoAusenciaMapper tipoAusenciaMapper;
+  private final TipoAusenciaMapper tipoAusenciaMapper;
 
-  @Autowired
-  private TipoAusenciaRepository tipoAusenciaRepository;
+  private final TipoAusenciaRepository tipoAusenciaRepository;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_ausencia_by_icm_tp_absence", key = "#icmTpAbsence")

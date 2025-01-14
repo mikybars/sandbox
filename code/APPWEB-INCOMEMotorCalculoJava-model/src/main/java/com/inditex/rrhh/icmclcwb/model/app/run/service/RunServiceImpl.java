@@ -15,35 +15,30 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunServiceImpl implements RunService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunServiceImpl.class);
 
-  @Autowired
-  private RunTrabajoService runTrabajoService;
+  private final RunTrabajoService runTrabajoService;
 
-  @Autowired
-  private TrabajoService trabajoService;
+  private final TrabajoService trabajoService;
 
-  @Autowired
-  private RunTareaService runTareaService;
+  private final RunTareaService runTareaService;
 
-  @Autowired
-  private TareaService tareaService;
+  private final TareaService tareaService;
 
-  @Autowired
-  private RunLimpiezaService runLimpiezaService;
+  private final RunLimpiezaService runLimpiezaService;
 
-  @Autowired
-  private RunProgramacionService runProgramacionService;
+  private final RunProgramacionService runProgramacionService;
 
   @Override
   public void runTrabajo(@NotNull @Positive final Long id) {

@@ -7,15 +7,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaPresupuestosService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrPresenciaPresupuestosAsyncServiceImpl
     implements RunTareaRecolectarPtrPresenciaPresupuestosAsyncService {
 
-  @Autowired
-  private RunTareaRecolectarPtrPresenciaPresupuestosService runTareaRecolectarPtrPresenciaPresupuestosService;
+  private final RunTareaRecolectarPtrPresenciaPresupuestosService runTareaRecolectarPtrPresenciaPresupuestosService;
 
   @Override
   public CompletableFuture<Void> presenciaEmpleadoTiendaByRunTarea(RunTareaDto runTarea) {

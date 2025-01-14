@@ -10,14 +10,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrMonacoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrMonacoAsyncServiceImpl implements RunTareaRecolectarPtrMonacoAsyncService {
 
-  @Autowired
-  private RunTareaRecolectarPtrMonacoService runTareaRecolectarPtrMonacoService;
+  private final RunTareaRecolectarPtrMonacoService runTareaRecolectarPtrMonacoService;
 
   @Override
   public CompletableFuture<Void> presenciaDetallePersonaIncluidoCommerceByRunTarea(final RunTareaDto runTarea) {

@@ -13,17 +13,17 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVen
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarValidarLocalizacionVentaServiceImpl
     implements RunTareaRecolectarValidarLocalizacionVentaService {
 
-  @Autowired
-  private TareaValidarAsyncService tareaValidarAsyncService;
+  private final TareaValidarAsyncService tareaValidarAsyncService;
 
   @Override
   public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {

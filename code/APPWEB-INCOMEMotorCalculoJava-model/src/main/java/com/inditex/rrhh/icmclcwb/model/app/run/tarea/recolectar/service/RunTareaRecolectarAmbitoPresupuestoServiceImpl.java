@@ -28,46 +28,36 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarAmbitoPresupuestoServiceImpl implements RunTareaRecolectarAmbitoPresupuestoService {
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
+  private final TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
 
-  @Autowired
-  private TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
+  private final TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
 
-  @Autowired
-  private TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
+  private final TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrPresenciaPresupuestosAsyncService runTareaRecolectarPtrPresenciaPresupuestosAsyncService;
+  private final RunTareaRecolectarPtrPresenciaPresupuestosAsyncService runTareaRecolectarPtrPresenciaPresupuestosAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
+  private final RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
+  private final RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
+  private final RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
 
-  @Autowired
-  private LimpiezaAsyncService limpiezaAsyncService;
+  private final LimpiezaAsyncService limpiezaAsyncService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoPresupuestoService.run.timer",

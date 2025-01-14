@@ -60,58 +60,40 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmbitoRecolectarPtrMonacoService {
 
-  @Autowired
-  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
+  private final TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-  @Autowired
-  private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
+  private final PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
-  @Autowired
-  private PtrPresenciaAsyncService ptrPresenciaAsyncService;
+  private final PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
+  private final TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
-  @Autowired
-  private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
+  private final PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
-  @Autowired
-  @Qualifier("ventaGeneralProperties")
-  private Map<String, PtrPropertiesDto> ventaGeneralProperties;
+  private final Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
-  @Autowired
-  @Qualifier("presenciasProperties")
-  private Map<String, PtrPropertiesDto> presenciasProperties;
+  private final Map<String, PtrPropertiesDto> presenciasProperties;
 
-  @Autowired
-  @Qualifier("recolectarProperties")
-  private RecolectarPropertiesDto recolectarProperties;
+  private final RecolectarPropertiesDto recolectarProperties;
 
-  @Autowired
-  @Qualifier("ventaEcommerceProperties")
-  private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+  private final Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,

@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoUnidadTiempoServic
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoUnidadTiempoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoUnidadTiempoRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoUnidadTiempoServiceImpl implements TipoUnidadTiempoService {
 
-  @Autowired
-  private TipoUnidadTiempoMapper tipoUnidadTiempoMapper;
+  private final TipoUnidadTiempoMapper tipoUnidadTiempoMapper;
 
-  @Autowired
-  private TipoUnidadTiempoRepository tipoUnidadTiempoRepository;
+  private final TipoUnidadTiempoRepository tipoUnidadTiempoRepository;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo", key = "#icmIdUnidadTiempo")

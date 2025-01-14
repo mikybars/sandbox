@@ -5,20 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoServi
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoVentaConceptoServiceImpl implements TipoVentaConceptoService {
 
-  @Autowired
-  private TipoVentaConceptoMapper tipoVentaConceptoMapper;
+  private final TipoVentaConceptoMapper tipoVentaConceptoMapper;
 
-  @Autowired
-  private TipoVentaConceptoRepository tipoVentaConceptoRepository;
+  private final TipoVentaConceptoRepository tipoVentaConceptoRepository;
 
   @Override
   @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_by_id_meta4", key = "#idMeta4")
