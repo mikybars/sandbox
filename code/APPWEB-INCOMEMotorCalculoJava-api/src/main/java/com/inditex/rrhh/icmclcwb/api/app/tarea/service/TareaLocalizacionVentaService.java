@@ -13,38 +13,38 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizado
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionVentaService {
 
   List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponse(
-      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionVentaDto> savePtrVentaTotalizadoResponseRepartoOnline(
-      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionVentaDto> savePtrVentaOnlineIpodResponse(
-      @Valid @NotNull final PtrVentaOnlineIpodResponseDto dto,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineIpodResponseDto dto,
+      @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionVentaDto> savePtrVentaOnlinePickingResponse(
-      @Valid @NotNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlinePickingResponseDto dto, @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaTiendaResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineEntregaTiendaResponseDto dto, @Valid @NonNull final TareaDto tarea);
 
   List<TareaLocalizacionVentaDto> savePtrVentaOnlineEntregaDomicilioResponse(
-      @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final TareaDto tarea);
+      @Valid @NonNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NonNull final TareaDto tarea);
 
-  void updateActivoVentaOnlineIpod(@Valid @NotNull final TareaDto tarea);
+  void updateActivoVentaOnlineIpod(@Valid @NonNull final TareaDto tarea);
 
-  void updateActivoVentaOnlinePicking(@Valid @NotNull final TareaDto tarea);
+  void updateActivoVentaOnlinePicking(@Valid @NonNull final TareaDto tarea);
 
-  void updateActivoVentaOnlineEntregaTienda(@Valid @NotNull final TareaDto tarea);
+  void updateActivoVentaOnlineEntregaTienda(@Valid @NonNull final TareaDto tarea);
 
-  void save(@Valid @NotNull @NotEmpty List<VentaManualWlocResultItemDto> src,
-      @Valid @NotNull TareaDto tareaDto);
+  void save(@Valid @NonNull @NotEmpty List<VentaManualWlocResultItemDto> src,
+      @Valid @NonNull TareaDto tareaDto);
 
 }

@@ -28,7 +28,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +69,7 @@ public class RunTareaRecolectarValidarServiceImpl implements RunTareaRecolectarV
       metricGroupName = "RunTareaRecolectarValidarServiceGroup",
       metricDescription = "RunTareaRecolectarValidarService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
+  public void run(@NonNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       this.tareaFaseService.updateFechaInicio(

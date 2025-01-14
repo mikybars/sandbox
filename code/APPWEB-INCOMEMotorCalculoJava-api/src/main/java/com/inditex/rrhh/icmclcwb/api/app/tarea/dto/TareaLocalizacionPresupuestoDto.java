@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -18,7 +18,7 @@ public class TareaLocalizacionPresupuestoDto implements Serializable {
 
   private static final long serialVersionUID = -7248640494629053287L;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
   private LocalDate fechaInicio;

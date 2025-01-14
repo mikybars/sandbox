@@ -1,10 +1,17 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_VENTA_CONCEPTO_BY_ID;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.TIPO_VENTA_CONCEPTO_BY_ID_META4;
+
+import java.util.Optional;
+
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoVentaConceptoDto;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoVentaConceptoService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,17 +27,21 @@ public class TipoVentaConceptoServiceImpl implements TipoVentaConceptoService {
   private final TipoVentaConceptoRepository tipoVentaConceptoRepository;
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_by_id_meta4", key = "#idMeta4")
+  @Cacheable(value = TIPO_VENTA_CONCEPTO_BY_ID_META4, key = "#idMeta4")
   public TipoVentaConceptoDto findByIdMeta4(String idMeta4) {
-    return tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
-        tipoVentaConceptoRepository.findByIcmIdConceptoVenta(idMeta4));
+    return this.tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
+        this.tipoVentaConceptoRepository.findByIcmIdConceptoVenta(idMeta4));
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.tipo_venta_concepto_by_id", key = "#id")
+  @Cacheable(value = TIPO_VENTA_CONCEPTO_BY_ID, key = "#id")
   public TipoVentaConceptoDto findById(Long id) {
-    return tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(
-        tipoVentaConceptoRepository.findById(id).get());
+    final Optional<TipoVentaConcepto> optionalTipoVentaConcepto = this.tipoVentaConceptoRepository.findById(id);
+    if (optionalTipoVentaConcepto.isPresent()) {
+      return this.tipoVentaConceptoMapper.tipoVentaConceptoToTipoVentaConceptoDto(optionalTipoVentaConcepto.get());
+    } else {
+      throw new EntityNotFoundException("TipoVentaConcepto not found");
+    }
   }
 
 }

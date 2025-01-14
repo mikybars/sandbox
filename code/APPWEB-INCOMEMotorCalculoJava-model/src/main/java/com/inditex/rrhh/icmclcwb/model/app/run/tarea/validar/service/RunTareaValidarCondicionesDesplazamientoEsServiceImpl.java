@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -34,8 +34,8 @@ public class RunTareaValidarCondicionesDesplazamientoEsServiceImpl implements Ru
   private AccionService accionService;
 
   @Override
-  public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
+  public CompletableFuture<List<ValidacionDto>> execute(@NonNull @Valid final RunTareaDto runTarea,
+      @NonNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
     final TareaDto tareaDto = runTarea.getTarea();
     this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
     final List<ValidacionDto> validaciones = runTarea.getTarea()

@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoO
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,15 +27,15 @@ public class TrabajoAmbitoOrigenServiceImpl implements TrabajoAmbitoOrigenServic
 
   @Override
   public List<TrabajoAmbitoOrigenDTO> create(
-      @Valid @NotNull @NotEmpty final List<TrabajoAmbitoOrigenDTO> trabajoAmbitoOrigen,
-      @NotNull final TrabajoDTO trabajo) {
+      @Valid @NonNull @NotEmpty final List<TrabajoAmbitoOrigenDTO> trabajoAmbitoOrigen,
+      @NonNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
         this.trabajoAmbitoOrigenRepository.saveAll(this.trabajoAmbitoOrigenMapper
             .mergeTrabajoAmbitoOrigenDtoAndTrabajoDtoToTrabajoAmbitoOrigen(trabajoAmbitoOrigen, trabajo)));
   }
 
   @Override
-  public List<TrabajoAmbitoOrigenDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo) {
+  public List<TrabajoAmbitoOrigenDTO> findByTrabajo(@Valid @NonNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoOrigenMapper.trabajoAmbitoOrigenToTrabajoAmbitoOrigenDto(
         this.trabajoAmbitoOrigenRepository.findByTrabajoId(trabajo.getId()));
   }

@@ -44,7 +44,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -81,7 +81,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -137,7 +137,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void ventaFisicaCadenaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -191,7 +191,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -250,7 +250,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -311,7 +311,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
   @Override
   public void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
       @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -372,7 +372,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
   @Override
   public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
       @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {

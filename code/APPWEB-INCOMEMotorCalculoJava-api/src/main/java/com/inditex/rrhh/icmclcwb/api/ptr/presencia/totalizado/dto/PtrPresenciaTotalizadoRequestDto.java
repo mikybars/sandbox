@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.totalizado.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jspecify.annotations.NonNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class PtrPresenciaTotalizadoRequestDto implements Serializable {
 
   private List<Integer> cadena;
 
-  @NotNull
+  @NonNull
   private Integer origen;
 
   private List<Integer> empresa;

@@ -11,13 +11,13 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.scheduling.annotation.Async;
 
 public interface CalculoAjusteAntiguedadAsyncService {
 
   @Async("ajusteExecutor")
-  CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste, @NotNull final TareaDto tarea,
-      @NotNull @NotEmpty final List<IdPersonaLocalDto> personas);
+  CompletableFuture<Void> ajustar(@NonNull final AlgoritmoAjusteDto algoritmoAjuste, @NonNull final TareaDto tarea,
+      @NonNull @NotEmpty final List<IdPersonaLocalDto> personas);
 
 }

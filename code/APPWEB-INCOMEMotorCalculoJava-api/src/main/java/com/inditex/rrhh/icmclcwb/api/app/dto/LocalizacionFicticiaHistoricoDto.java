@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 public class LocalizacionFicticiaHistoricoDto implements Serializable {
@@ -30,10 +30,10 @@ public class LocalizacionFicticiaHistoricoDto implements Serializable {
   @NotBlank
   private String cclIdCadena;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaInicio;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaFin;
 
 }

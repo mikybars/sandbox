@@ -34,7 +34,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -63,7 +63,7 @@ public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
 
   @Override
   public void ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {

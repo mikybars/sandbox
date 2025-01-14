@@ -26,8 +26,8 @@ import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -61,12 +61,12 @@ public class TareaServiceImpl implements TareaService {
   private SenderTarea senderTarea;
 
   @Override
-  public TareaDto save(@Valid @NotNull final TareaDto tarea) {
+  public TareaDto save(@Valid @NonNull final TareaDto tarea) {
     return this.tareaMapper.tareaToTareaDto(this.tareaRepository.save(this.tareaMapper.tareaDtoToTarea(tarea)));
   }
 
   @Override
-  public TareaDto find(@NotNull @Positive final Long id) {
+  public TareaDto find(@NonNull @Positive final Long id) {
     final TareaDto tarea = this.tareaMapper.tareaToTareaDto(this.tareaRepository.findById(id).get());
     tarea.setAmbito(this.tareaAmbitoService.findByTarea(tarea));
     tarea.setLocalizacion(this.tareaAmbitoLocalizacionService.findByTarea(tarea));
@@ -76,14 +76,14 @@ public class TareaServiceImpl implements TareaService {
 
   @Override
   public TareaDto findByIdLimpieza(
-      @NotNull @Positive final Long idLimpieza) {
+      @NonNull @Positive final Long idLimpieza) {
     // TODO [javierev] mejorar esta obtención de tarea
     final TareaLimpiezaDto tareaLimpiezaDto = this.tareaLimpiezaService.find(idLimpieza);
     return tareaLimpiezaDto != null ? this.find(tareaLimpiezaDto.getIdTarea()) : null;
   }
 
   @Override
-  public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
+  public TareaDto findByIdWithStates(@NonNull @Positive Long id) {
 
     Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
     if (tareaData == null) {
@@ -100,7 +100,7 @@ public class TareaServiceImpl implements TareaService {
   }
 
   @Override
-  public TareaDto create(@Valid @NotNull final TrabajoDTO trabajo, @Valid @NotNull final TareaDto tarea) {
+  public TareaDto create(@Valid @NonNull final TrabajoDTO trabajo, @Valid @NonNull final TareaDto tarea) {
     tarea.setFechaHoraCreacion(LocalDateTime.now());
     tarea.setEstado(EstadoTareaEnum.PENDIENTE.getDto());
     final TareaDto result = this.save(tarea);
@@ -122,7 +122,7 @@ public class TareaServiceImpl implements TareaService {
   }
 
   @Override
-  public List<TareaDto> create(@Valid @NotNull final TrabajoDTO trabajo) {
+  public List<TareaDto> create(@Valid @NonNull final TrabajoDTO trabajo) {
     final List<TareaDto> result = new ArrayList<>();
     this.tareaMapper.mergeTrabajoAmbitoEmpresaDtoAndTrabajoDtoToTareaDto(trabajo.getEmpresa(), trabajo)
         .forEach(item -> result.add(this.create(trabajo, item)));
@@ -130,28 +130,28 @@ public class TareaServiceImpl implements TareaService {
   }
 
   @Override
-  public List<TareaDto> findByTrabajoId(@NotNull @Positive final Long id) {
+  public List<TareaDto> findByTrabajoId(@NonNull @Positive final Long id) {
     return this.tareaMapper.tareaToTareaDto(this.tareaRepository.findByTrabajoId(id));
   }
 
   @Override
-  public void updateFechaFin(@Valid @NotNull final TareaDto tarea) {
+  public void updateFechaFin(@Valid @NonNull final TareaDto tarea) {
     this.tareaRepositoryCustom.updateFechaFin(tarea);
   }
 
   @Override
-  public void updateFechaInicioAndEstado(@Valid @NotNull final TareaDto tarea,
-      @Valid @NotNull final EstadoTareaDto estado) {
+  public void updateFechaInicioAndEstado(@Valid @NonNull final TareaDto tarea,
+      @Valid @NonNull final EstadoTareaDto estado) {
     this.tareaRepositoryCustom.updateFechaInicioAndEstado(tarea, estado);
   }
 
   @Override
-  public void updateEstado(@Valid @NotNull final TareaDto tarea, @Valid @NotNull final EstadoTareaDto estado) {
+  public void updateEstado(@Valid @NonNull final TareaDto tarea, @Valid @NonNull final EstadoTareaDto estado) {
     this.tareaRepositoryCustom.updateEstado(tarea, estado);
   }
 
   @Override
-  public void updateEstadoFinal(@Valid @NotNull final TareaDto tarea) {
+  public void updateEstadoFinal(@Valid @NonNull final TareaDto tarea) {
     this.tareaRepositoryCustom.updateEstadoFinal(tarea);
   }
 
@@ -168,7 +168,7 @@ public class TareaServiceImpl implements TareaService {
   }
 
   @Override
-  public RunMantenimientoLimpiezaDTO findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
+  public RunMantenimientoLimpiezaDTO findLimpiezaByIdTarea(@NonNull @Positive final Long idTarea) {
     final List<IdTareaDTO> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
     final Integer total = this.tareaRepositoryCustom.totalLimpieza();
     final RunMantenimientoLimpiezaDTO limpieza = new RunMantenimientoLimpiezaDTO();

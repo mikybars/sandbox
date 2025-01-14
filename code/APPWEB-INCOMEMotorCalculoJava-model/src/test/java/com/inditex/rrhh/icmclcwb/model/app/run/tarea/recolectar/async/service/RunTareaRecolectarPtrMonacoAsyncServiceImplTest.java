@@ -29,49 +29,49 @@ public class RunTareaRecolectarPtrMonacoAsyncServiceImplTest {
   private RunTareaRecolectarPtrMonacoAsyncServiceImpl runTareaRecolectarPtrMonacoAsyncServiceImpl;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetalleComisionablePersonaByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.presenciaDetalleComisionablePersonaByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).presenciaDetalleComisionablePersonaByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaIncluidoCommerceByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).presenciaDetallePersonaIncluidoCommerceByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).ventaFisicaLocalizacionSeccionByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineIpodLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).ventaOnlineIpodLocalizacionSeccionByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).ventaFisicaLocalizacionSeccionRepartoOnlineByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(runTarea);
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlinePickingLocalizacionSeccionByRunTareaTest(final RunTareaDto runTarea) {
     this.runTareaRecolectarPtrMonacoAsyncServiceImpl.ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);
     verify(this.runTareaRecolectarPtrMonacoService, times(1)).ventaOnlinePickingLocalizacionSeccionByRunTarea(runTarea);

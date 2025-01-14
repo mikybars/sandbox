@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface PrimaryTemporaryTableRepositoryCustom {
 
@@ -187,14 +187,14 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    *
    * @return Some javadoc.
    */
-  List<IdPersonaLocalDto> validateTempComisBajaIt(@NotNull TareaDto tarea);
+  List<IdPersonaLocalDto> validateTempComisBajaIt(@NonNull TareaDto tarea);
 
   /**
    * Some javadoc.
    *
    * @return Some javadoc.
    */
-  List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull TareaDto tarea);
+  List<IdPersonaLocalDto> validateTempComisCarencia(@NonNull TareaDto tarea);
 
   /**
    * Some javadoc.
@@ -254,7 +254,7 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    *
    * @param algoritmoDto Some javadoc.
    */
-  void insertTempAlgoritmo(@NotNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
+  void insertTempAlgoritmo(@NonNull List<GenericAlgoritmoPropertiesDto> algoritmoDto);
 
   /**
    * Some javadoc.
@@ -336,21 +336,21 @@ public interface PrimaryTemporaryTableRepositoryCustom {
    *
    * @param tareaDto Some javadoc.
    */
-  void insertTempPresupuestos(@NotNull TareaDto tareaDto);
+  void insertTempPresupuestos(@NonNull TareaDto tareaDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaDto Some javadoc.
    */
-  void insertTempEstructura(@NotNull TareaDto tareaDto);
+  void insertTempEstructura(@NonNull TareaDto tareaDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaDto Some javadoc.
    */
-  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull TareaDto tareaDto);
+  void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NonNull TareaDto tareaDto);
 
   /**
    * Some javadoc.

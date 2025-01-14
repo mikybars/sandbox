@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.70.0] - 2024-12-19
+
+### Added
+
+- [INCOME-734](https://jira.inditex.com/jira/browse/INCOME-734) Aprovisionamiento y configuración PIPE
+- [INCOME-300](https://jira.inditex.com/jira/browse/INCOME-300) Tests INCOMEMotorCalculoJava-model
+- [INCOME-946](https://jira.inditex.com/jira/browse/INCOME-946) Challenge Jornada - Contabilizar horas de todos los empleados con posición en la tienda
+- [INCOME-1199](https://jira.inditex.com/jira/browse/INCOME-1199) Modificación cadenas de conexión - ICMCLCWB - DES
+- [INCOME-1024](https://jira.inditex.com/jira/browse/INCOME-1024) Migración Artemis
+- [ICMWEB-1549](https://jira.inditex.com/jira/browse/ICMWEB-1549) Optimizacion de consultas
+- [INCOME-1266](https://jira.inditex.com/jira/browse/INCOME-1266) Actualizacion version arquetipo
+- [INCOME-1194](https://jira.inditex.com/jira/browse/INCOME-1194) Modificación consulta que envia datos vía pipe
+- [INCOME-1077](https://jira.inditex.com/jira/browse/INCOME-1077) Procesado de presencias manuales/reales
+- [#362](https://github.com/inditex/mic-incomemotorcalculojava/issues/362) [Darwin Bot] Update `.drafterconfig` to use `jira.inditex.com`
+- [INCOME-278](https://jira.inditex.com/jira/browse/INCOME-278) Configuración de política de baja it en el motor de cálculo
+- [INCOME-996](https://jira.inditex.com/jira/browse/INCOME-996) [ICMCLCWB] Refactorización validación externos
+- [INCOME-782](https://jira.inditex.com/jira/browse/INCOME-782) Validación PRE Configuración de política de baja it en el motor de cálculo
+- [INCOME-1034](https://jira.inditex.com/jira/browse/INCOME-1034) Validaciones PRE envío mensajes a PIPE
+
+### Fixed
+
+- [INCOME-979](https://jira.inditex.com/jira/browse/INCOME-979) Corrección de configuración baja it en el proceso de normalización
+
 ## [4.69.0] - 2024-11-13
 
 ### Added
@@ -462,7 +485,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.69.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.70.0...main
+[4.70.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.69.0...4.70.0
 [4.69.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...4.69.0
 [4.68.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.67.0...4.68.0
 [4.67.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.66.0...4.67.0

@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.Ru
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaNormalizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
@@ -26,7 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -62,6 +63,8 @@ public class RunTareaServiceImpl implements RunTareaService {
 
   private final TareaFaseService tareaFaseService;
 
+  private final RunTareaMigrarService runTareaMigrarService;
+
   private final TareaFaseAccionService tareaFaseAccionService;
 
   @Auditoria
@@ -70,7 +73,7 @@ public class RunTareaServiceImpl implements RunTareaService {
   @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup",
       metricDescription = "RunTareaService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
+  public void run(@NonNull @Valid final RunTareaDto runTarea) {
     try {
       if (runTarea.getTarea().getFechaHoraInicioTarea() != null) {
         this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());

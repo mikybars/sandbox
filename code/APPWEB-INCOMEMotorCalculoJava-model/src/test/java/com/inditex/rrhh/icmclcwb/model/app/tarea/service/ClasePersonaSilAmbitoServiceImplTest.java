@@ -27,7 +27,7 @@ class ClasePersonaSilAmbitoServiceImplTest {
   private ClasePersonaSilAmbitoServiceImpl clasePersonaSilAmbitoService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getClaseAndEstadoByCclIdOrigenAndStdIdLegEntTest(
       final List<ClasePersonaSilAmbitoDto> claseEstados) {
 

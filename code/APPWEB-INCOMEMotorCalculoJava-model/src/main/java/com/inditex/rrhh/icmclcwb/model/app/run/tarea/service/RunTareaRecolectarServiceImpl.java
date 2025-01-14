@@ -15,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -44,7 +44,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
       metricGroupName = "RunTareaRecolectarServiceGroup",
       metricDescription = "RunTareaRecolectarService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
+  public void run(@NonNull @Valid final RunTareaDto runTarea) {
     this.tareaFaseService.updateFechaInicio(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.RECOLECTAR.getId()));

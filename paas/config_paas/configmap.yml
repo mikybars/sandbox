@@ -13,6 +13,7 @@ amiga:
             enabled: true
           counter:
             enabled: true
+
   common:
     mail:
       host: mail.inditex.grp
@@ -56,6 +57,10 @@ amiga:
             timeout: 2s
     metrics:
       type: influx
+    cache:
+      redis:
+        cluster:
+          enabled: true
   service:
     jms:
       listener:
@@ -87,11 +92,11 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          userName: usr-write
+          user: usr-write
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          userName: usr-read
+          user: usr-read
       listener-container-factory:
         trabajo:
           concurrency: 1

@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -26,8 +26,8 @@ public class ProgramacionAmbitoLocalizacionServiceImpl implements ProgramacionAm
 
   @Override
   public List<ProgramacionAmbitoLocalizacionDTO> create(
-      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacion,
-      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @Valid @NonNull @NotEmpty final List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacion,
+      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoLocalizacionMapper
         .programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
             this.programacionAmbitoLocalizacionRepository.saveAll(this.programacionAmbitoLocalizacionMapper
@@ -37,7 +37,7 @@ public class ProgramacionAmbitoLocalizacionServiceImpl implements ProgramacionAm
 
   @Override
   public List<ProgramacionAmbitoLocalizacionDTO> findByProgramacionAmbito(
-      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoLocalizacionMapper
         .programacionAmbitoLocalizacionToProgramacionAmbitoLocalizacionDto(
             this.programacionAmbitoLocalizacionRepository

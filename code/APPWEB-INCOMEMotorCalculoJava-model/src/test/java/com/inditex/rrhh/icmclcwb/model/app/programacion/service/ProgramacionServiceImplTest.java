@@ -307,12 +307,15 @@ class ProgramacionServiceImplTest {
   void updateFechaSiguienteEjecucionTest() {
 
     final ProgramacionDTO programacion1 = new ProgramacionDTO();
+    programacion1.id(1L);
     programacion1.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
     programacion1.setProgramacionHuso(TimeUtils.ofZoneId());
     final ProgramacionDTO programacion2 = new ProgramacionDTO();
+    programacion2.id(2L);
     programacion2.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
     programacion2.setProgramacionHuso(TimeUtils.ofZoneId());
     final ProgramacionDTO programacion3 = new ProgramacionDTO();
+    programacion3.id(3L);
     programacion3.setHoraProgramacion(OffsetDateTime.now(ZoneId.systemDefault()));
     programacion3.setProgramacionHuso(TimeUtils.ofZoneId());
 

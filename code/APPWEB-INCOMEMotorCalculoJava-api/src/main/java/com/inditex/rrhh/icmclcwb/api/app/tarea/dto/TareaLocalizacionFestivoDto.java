@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionFestivoDto implements Serializable {
@@ -13,13 +13,13 @@ public class TareaLocalizacionFestivoDto implements Serializable {
 
   private String id;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
-  @NotNull
+  @NonNull
   private Long stdIdWorkLocat;
 
-  @NotNull
+  @NonNull
   private Date fecha;
 
 }

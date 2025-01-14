@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionPresupuestoVentaDto implements Serializable {
@@ -13,10 +13,10 @@ public class TareaLocalizacionPresupuestoVentaDto implements Serializable {
 
   private String id;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
-  @NotNull
+  @NonNull
   private Long cclIdCodOrigen;
 
   @NotBlank
@@ -25,13 +25,13 @@ public class TareaLocalizacionPresupuestoVentaDto implements Serializable {
   @NotBlank
   private String cclIdCadena;
 
-  @NotNull
+  @NonNull
   private Integer ordinal;
 
-  @NotNull
+  @NonNull
   private Double importeSinImpuestos;
 
-  @NotNull
+  @NonNull
   private Double importeConImpuestos;
 
   private Integer idTipoPresupuesto;
@@ -41,10 +41,10 @@ public class TareaLocalizacionPresupuestoVentaDto implements Serializable {
   @NotBlank
   private String cclIdOrigen;
 
-  @NotNull
+  @NonNull
   private Boolean activo;
 
-  @NotNull
+  @NonNull
   private Integer idTipoDato;
 
 }

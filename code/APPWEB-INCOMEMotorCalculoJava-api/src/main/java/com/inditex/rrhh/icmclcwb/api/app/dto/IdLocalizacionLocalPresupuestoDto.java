@@ -3,29 +3,29 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class IdLocalizacionLocalPresupuestoDto implements Serializable {
 
   private static final long serialVersionUID = 9216418821010267785L;
 
   private String id;
 
-  @NotNull
+  @NonNull
   private Integer idTipoPresupuesto;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaInicio;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaFin;
 
 }

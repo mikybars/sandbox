@@ -6,10 +6,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaDto implements Serializable {
 
   private static final long serialVersionUID = -7287619714621366577L;
@@ -18,7 +22,7 @@ public class TareaDto implements Serializable {
 
   private EstadoTareaDto estado;
 
-  @NotNull
+  @NonNull
   private Long idTrabajo;
 
   private LocalDateTime fechaHoraCreacion;
@@ -33,10 +37,10 @@ public class TareaDto implements Serializable {
   @NotBlank
   private String stdIdLegEnt;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaInicioPeriodo;
 
-  @NotNull
+  @NonNull
   private LocalDate fechaFinPeriodo;
 
   private List<TareaAmbitoDto> ambito;

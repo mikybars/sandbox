@@ -4,20 +4,20 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomePresupuestosService {
 
   void personaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito);
 
-  void localizacionByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+  void localizacionByRunTareaAndTareaAmbito(@NonNull @Valid final RunTareaDto runTarea,
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito);
 
-  void empleadosPresenciaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+  void empleadosPresenciaByRunTareaAndTareaAmbito(@NonNull @Valid final RunTareaDto runTarea,
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito);
 
-  void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
+  void empleadosDesplazamientoByRunTareaAndTareaAmbito(@NonNull @Valid final RunTareaDto runTarea,
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito);
 
 }

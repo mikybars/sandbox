@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomepre
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa-pre.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -36,18 +40,20 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
           driver-class-name: com.ibm.db2.jcc.DB2Driver
+          maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
+            keepAliveTimeOut: 15
             connectionTimeout: 60
             timerLevelForQueryTimeOut: 2
             interruptProcessingMode: 2
@@ -482,6 +488,10 @@ amiga:
           readOnly: true
           data-source-properties:
             encrypt: false
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:
@@ -519,3 +529,6 @@ app:
         server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+    pipe:
+      commission-calculation:
+        message-max-size: 5000

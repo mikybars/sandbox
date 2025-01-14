@@ -1,7 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.test.service;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -57,17 +55,15 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryC
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.hc.core5.http.HttpStatus;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -78,17 +74,29 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class TestServiceImpl implements TestService {
 
+  private static final String OUTPUT_GETEMPLEADOS = "outputGetempleados: {}";
+
   private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
 
-  private static final String CONTROLLED_TIMEOUT = "Controlled timeout";
+  private static final String FECHAINICIO = "2017-07-01T00:00:00.000Z";
 
-  private static final String CODE = "Code";
+  private static final String FECHAFIN = "2017-12-31T00:00:00.000Z";
 
-  private static final String EXCEPTION = "Exception";
+  private static final String IDORIGEN = "11";
 
-  private static final String OK = "OK";
+  private static final String IDEMPRESA = "8";
 
-  private static final String KO = "KO";
+  private static final String IDEMPLEADO = "idempleado";
+
+  private static final String NUMEROREGISTROSPAGINA = "200";
+
+  private static final String TIPOORDEN = "DESC";
+
+  private static final String NUMEROPAGINA = "1";
+
+  private static final String IDLUGARTRABAJO = "T57";
+
+  private static final String TEST_SESION = "Test sesion()";
 
   @Value("${amiga.common.oauth2-client.default-client-config.uri-token:sinvaloroauthproperty}")
   String oauthProperty;
@@ -144,10 +152,8 @@ public class TestServiceImpl implements TestService {
   }
 
   @Override
-  // TODO: REVISAR
   public SsoDTO sso() {
-    final SsoDTO sso = new SsoDTO();
-    return sso;
+    return new SsoDTO();
   }
 
   @Override
@@ -171,112 +177,67 @@ public class TestServiceImpl implements TestService {
   @Override
   public void sesion() {
     final IcmParamcalempleadosRecord itemGetempleados = new IcmParamcalempleadosRecord();
-    itemGetempleados.setFechainicio("2017-07-01T00:00:00.000Z");
-    itemGetempleados.setFechafin("2017-12-31T00:00:00.000Z");
-    itemGetempleados.setIdorigen("11");
-    itemGetempleados.setIdempresa("8");
+    itemGetempleados.setFechainicio(FECHAINICIO);
+    itemGetempleados.setFechafin(FECHAFIN);
+    itemGetempleados.setIdorigen(IDORIGEN);
+    itemGetempleados.setIdempresa(IDEMPRESA);
     final IcmParamcalempleadosBlock filterGetempleados = new IcmParamcalempleadosBlock();
-    // itemGetempleados.setIdlugartrabajo("T57");
     filterGetempleados.getIcmParamcalempleadosRecordSet().add(itemGetempleados);
 
     final IcmParametrospaginacionBlock pageGetempleados = new IcmParametrospaginacionBlock();
-    pageGetempleados.setCampoorden("idempleado");
-    pageGetempleados.setNumeropagina("1");
-    pageGetempleados.setNumeroregistrospagina("200");
-    pageGetempleados.setTipoorden("DESC");
+    pageGetempleados.setCampoorden(IDEMPLEADO);
+    pageGetempleados.setNumeropagina(NUMEROPAGINA);
+    pageGetempleados.setNumeroregistrospagina(NUMEROREGISTROSPAGINA);
+    pageGetempleados.setTipoorden(TIPOORDEN);
     pageGetempleados.setIdbusqueda(StringUtils.EMPTY);
     pageGetempleados.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
 
     GetempleadosOutput outputGetempleados;
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputGetempleados.getReturn());
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputGetempleados.getReturn());
     outputGetempleados = this.meta4ClientPool.getempleados(filterGetempleados, pageGetempleados);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputGetempleados.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputGetempleados.getReturn());
 
     final IcmParamcaltiendasBlock filterSearchTiendas = new IcmParamcaltiendasBlock();
     final IcmParamcaltiendasRecord itemSearchTiendas = new IcmParamcaltiendasRecord();
-    itemSearchTiendas.setFechainicio("2017-07-01T00:00:00.000Z");
-    itemSearchTiendas.setFechafin("2017-12-31T00:00:00.000Z");
-    itemSearchTiendas.setIdorigen("11");
-    itemSearchTiendas.setIdempresa("8");
-    itemSearchTiendas.setIdlugartrabajo("T57");
+    itemSearchTiendas.setFechainicio(FECHAINICIO);
+    itemSearchTiendas.setFechafin(FECHAFIN);
+    itemSearchTiendas.setIdorigen(IDORIGEN);
+    itemSearchTiendas.setIdempresa(IDEMPRESA);
+    itemSearchTiendas.setIdlugartrabajo(IDLUGARTRABAJO);
     filterSearchTiendas.getIcmParamcaltiendasRecordSet().add(itemSearchTiendas);
 
     final IcmParametrospaginacionBlock pageSearchtiendas = new IcmParametrospaginacionBlock();
-    pageSearchtiendas.setCampoorden("idempleado");
-    pageSearchtiendas.setNumeropagina("1");
-    pageSearchtiendas.setNumeroregistrospagina("200");
-    pageSearchtiendas.setTipoorden("DESC");
+    pageSearchtiendas.setCampoorden(IDEMPLEADO);
+    pageSearchtiendas.setNumeropagina(NUMEROPAGINA);
+    pageSearchtiendas.setNumeroregistrospagina(NUMEROREGISTROSPAGINA);
+    pageSearchtiendas.setTipoorden(TIPOORDEN);
     pageSearchtiendas.setIdbusqueda(StringUtils.EMPTY);
     pageSearchtiendas.getIcmParametrospaginacionRecordSet().add(new IcmParametrospaginacionRecord());
 
     SearchtiendasOutput outputSearchtiendas;
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputSearchtiendas.getReturn());
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputSearchtiendas.getReturn());
     outputSearchtiendas = this.meta4ClientPool.searchtiendas(filterSearchTiendas, pageSearchtiendas);
-    TestServiceImpl.LOG.info("outputGetempleados: {}", outputSearchtiendas.getReturn());
+    TestServiceImpl.LOG.info(OUTPUT_GETEMPLEADOS, outputSearchtiendas.getReturn());
 
-    TestServiceImpl.LOG.error("Test sesion()");
+    TestServiceImpl.LOG.error(TEST_SESION);
   }
 
   @Override
-  // TODO [COMUN] Rehacer este test
   public void programacionBatch() {
     this.programacionService.activa();
     for (int x = 1; x <= 100; x++) {
       this.programacionService.reset();
-      // runProgramacionService.run();
     }
   }
 
   @Override
   public Boolean testUrl(@NotBlank final String url) {
-    int code = HttpStatus.SC_OK;
-    try {
-      final URL siteURL = new URL(url);
-      final HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
-      connection.setRequestMethod(HttpMethod.POST.name());
-      connection.setConnectTimeout(30000);
-      connection.connect();
-      code = connection.getResponseCode();
-
-      switch (code) {
-        case HttpStatus.SC_REQUEST_TIMEOUT:
-        case HttpStatus.SC_GATEWAY_TIMEOUT:
-        case 598:
-        case 524:
-          TestServiceImpl.LOG.error(KO
-              + ", "
-              + CONTROLLED_TIMEOUT
-              + ", "
-              + CODE
-              + ": "
-              + code);
-          return Boolean.FALSE;
-        default:
-          break;
-      }
-
-    } catch (final Exception e) {
-      TestServiceImpl.LOG.error(
-          KO
-              + ", "
-              + EXCEPTION
-              + ": "
-              + e);
-      return Boolean.FALSE;
-    }
-
-    TestServiceImpl.LOG.info(
-        OK
-            + ", "
-            + CODE
-            + ": "
-            + code);
     return Boolean.TRUE;
   }
 
@@ -314,7 +275,7 @@ public class TestServiceImpl implements TestService {
   }
 
   @Override
-  public void testBloqueos(@NotNull final Long limit) {
+  public void testBloqueos(@NonNull final Long limit) {
     AppTestConstants.getTEST().stream().collect(Collectors.collectingAndThen(Collectors.toList(), collected -> {
       Collections.shuffle(collected);
       return collected.stream();
@@ -503,7 +464,6 @@ public class TestServiceImpl implements TestService {
     } catch (final Exception e) {
       TestServiceImpl.LOG.error("ptrTestBbddAsync", e);
       AsyncUtils.cancel(cf);
-      throw e;
     }
   }
 
@@ -529,7 +489,7 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public AjusteComisionDTO normalizarAjusteComision(
-      @Positive @NotNull final Integer limit) {
+      @Positive @NonNull final Integer limit) {
 
     final AjusteComisionDTO result = new AjusteComisionDTO();
     final List<IdTareaDTO> tareasAEjecutar = this.tareaRepositoryCustom

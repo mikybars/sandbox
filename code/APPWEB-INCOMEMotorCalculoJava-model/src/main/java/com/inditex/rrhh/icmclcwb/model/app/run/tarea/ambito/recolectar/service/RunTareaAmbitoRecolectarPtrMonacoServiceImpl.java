@@ -59,7 +59,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -97,7 +97,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -149,7 +149,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
   @Override
   public void ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -354,7 +354,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
   @Override
   public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -405,7 +405,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
   @Override
   public void presenciaDetalleComisionablePersonaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();
@@ -467,7 +467,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
 
   @Override
   public void presenciaDetallePersonaIncluidoCommerceByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();

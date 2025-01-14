@@ -5,7 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class TareaAgrupacionCadenaRepositoryCustomImpl
   private String sqlSave;
 
   @Override
-  public List<TareaAgrupacionCadena> save(@NotNull final List<TareaAgrupacionCadena> agrupaciones) {
+  public List<TareaAgrupacionCadena> save(@NonNull final List<TareaAgrupacionCadena> agrupaciones) {
     return this.saveNamedJdbcBatchList(agrupaciones, this.sqlSave, this.batchSize);
   }
 

@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +18,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
   private final RunTareaAmbitoRecolectarPtrPresenciaService runTareaAmbitoRecolectarPtrPresenciaService;
 
   @Override
-  public void presenciaDetalleComisionablePersonaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void presenciaDetalleComisionablePersonaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -27,7 +27,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
   }
 
   @Override
-  public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void presenciaEmpleadoTiendaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -37,7 +37,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
   @Override
   public void presenciaDetalleIncluidoCommercePersonaByRunTarea(
-      @NotNull @Valid final RunTareaDto runTarea) {
+      @NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -47,7 +47,7 @@ public class RunTareaRecolectarPtrPresenciaServiceImpl implements RunTareaRecole
 
   @Override
   public void presenciaDetallePersonaHorasSindicalesByRunTarea(
-      @NotNull @Valid final RunTareaDto runTarea) {
+      @NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()

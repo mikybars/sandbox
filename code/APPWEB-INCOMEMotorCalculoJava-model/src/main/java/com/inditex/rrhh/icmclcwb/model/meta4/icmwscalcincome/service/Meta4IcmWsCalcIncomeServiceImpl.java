@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.GET_SISTEMA_DESTINO;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.GET_TIPOS_HORA;
+
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -1046,7 +1049,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.get_sistema_destino", key = "{#request.cclIdOrigen}")
+  @Cacheable(value = GET_SISTEMA_DESTINO, key = "{#request.cclIdOrigen}")
   public SistemaDestinoResponseDto getSistemaDestino(
       final SistemaDestinoRequestDto request) {
 
@@ -1068,7 +1071,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.get_tipos_hora", key = "{#request.idOrigen, #request.idsEmpresa}")
+  @Cacheable(value = GET_TIPOS_HORA, key = "{#request.idOrigen, #request.idsEmpresa}")
   public TiposHoraResponseDto getTiposHora(
       final TiposHoraRequestDto request) {
 
@@ -1089,7 +1092,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.get_tipos_hora", key = "{#request.cclIdOrigen}")
+  @Cacheable(value = GET_TIPOS_HORA, key = "{#request.cclIdOrigen}")
   public ClaseResponseDto getClases(
       final ClaseRequestDto request) {
     final IcmParamcalorigenBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request);

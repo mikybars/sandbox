@@ -51,7 +51,7 @@ class ChallengePrecioHoraTiendaSeccionV1RunAlgoritmoTest implements RunAlgoritmo
   private final static String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 
   @Test
-  public void getSqlCalcularTest() {
+  void getSqlCalcularTest() {
     when(this.tareaCalculoAlgoritmoChallengePrecioHoraTiendaSeccionV1RepositoryCustom
         .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
 

@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +61,7 @@ public class RunTrabajoServiceImplTest {
 
   private RunTrabajoDto createRunTrabajo(final Long id) {
     final RunTrabajoDto runTrabajoDto = new RunTrabajoDto();
-    runTrabajoDto.setTarea(Arrays.asList(new TareaDto()));
+    runTrabajoDto.setTarea(List.of(new TareaDto()));
     final TrabajoDTO trabajoDto = new TrabajoDTO();
     final TipoAmbitoDTO tipoAmbito = new TipoAmbitoDTO();
     final TrabajoAmbitoOrigenDTO origen = new TrabajoAmbitoOrigenDTO();
@@ -90,7 +90,7 @@ public class RunTrabajoServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN)).thenReturn(m4);
     when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(m4);
     when(this.meta4IcmWsCalcIncomeSessionService.getOrigen(any(OrigenRequestDto.class)))
-        .thenReturn(Arrays.asList(origen));
+        .thenReturn(List.of(origen));
     this.runTrabajoService.run(runTrabajoDto);
 
   }
@@ -106,7 +106,7 @@ public class RunTrabajoServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN)).thenReturn(m4);
     when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(m4);
     when(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class)))
-        .thenReturn(Arrays.asList(empresa));
+        .thenReturn(List.of(empresa));
 
     this.runTrabajoService.run(runTrabajoDto);
 
@@ -116,7 +116,7 @@ public class RunTrabajoServiceImplTest {
   void runEmpresaTest() {
 
     final RunTrabajoDto runTrabajoDto = this.createRunTrabajo(TipoAmbitoEnum.EMPRESA.getId());
-    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).build();
+    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).activo(true).build();
     final Meta4PropertiesDto m4 = new Meta4PropertiesDto();
     m4.setPage(new PageDto());
     final IdOrigenEmpresaDto empresa = new IdOrigenEmpresaDto();
@@ -124,7 +124,7 @@ public class RunTrabajoServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.ORIGEN)).thenReturn(m4);
     when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(m4);
     when(this.trabajoService.findEmpresasCalcularProgramados(any(TrabajoDTO.class), any(List.class), any(List.class)))
-        .thenReturn(Arrays.asList(empresa));
+        .thenReturn(List.of(empresa));
     this.runTrabajoService.run(runTrabajoDto);
 
   }

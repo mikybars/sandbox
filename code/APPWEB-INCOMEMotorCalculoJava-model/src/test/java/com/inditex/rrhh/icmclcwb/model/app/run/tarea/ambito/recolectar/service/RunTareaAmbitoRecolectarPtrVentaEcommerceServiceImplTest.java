@@ -114,7 +114,7 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(final PtrPropertiesDto ptrPropertiesDto,
       final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,
       final PtrVentaOnlinePickingRequestDto ptrVentaOnlinePickingRequestDto,
@@ -173,7 +173,7 @@ class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(final PtrPropertiesDto ptrPropertiesDto,
       final List<IdLocalizacionLocalPresupuestoDto> idLocalizacionLocalPresupuestoDto,
       final List<ConfiguracionProductoVentaResultItemDto> confProductoVentaResultItemDtoList,

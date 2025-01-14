@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.MailAmbito;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ public class MailAmbitoRepositoryCustomImpl
    * @param stdIdLegEnt stdIdLegEnt
    */
   @Override
-  public List<MailAmbitoDto> findMailByCclIdOrigenAndStdIdLegEnt(@NotNull final String cclIdOrigen, @NotNull final String stdIdLegEnt) {
+  public List<MailAmbitoDto> findMailByCclIdOrigenAndStdIdLegEnt(@NonNull final String cclIdOrigen, @NonNull final String stdIdLegEnt) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);

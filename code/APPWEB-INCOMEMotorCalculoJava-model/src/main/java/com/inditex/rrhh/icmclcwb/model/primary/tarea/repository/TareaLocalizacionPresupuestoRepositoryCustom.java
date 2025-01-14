@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionPresupuestoRepositoryCustom {
 
@@ -22,8 +22,8 @@ public interface TareaLocalizacionPresupuestoRepositoryCustom {
 
   void updateActivoBandasSinExcepcion(TareaDto tarea);
 
-  List<String> findLocalizacionOrdinalTarea(@NotNull Long idTarea, @NotNull Integer cclIdCodOrigen,
-      @NotNull Integer cclIdSeccion, @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin,
-      @NotNull Integer idTipoPresupuesto);
+  List<String> findLocalizacionOrdinalTarea(@NonNull Long idTarea, @NonNull Integer cclIdCodOrigen,
+      @NonNull Integer cclIdSeccion, @NonNull LocalDate fechaInicio, @NonNull LocalDate fechaFin,
+      @NonNull Integer idTipoPresupuesto);
 
 }

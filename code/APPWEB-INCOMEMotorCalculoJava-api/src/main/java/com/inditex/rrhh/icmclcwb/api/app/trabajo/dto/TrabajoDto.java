@@ -8,10 +8,12 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
+@NoArgsConstructor
 public class TrabajoDto implements Serializable {
 
   private static final long serialVersionUID = 6263836371385557891L;
@@ -26,7 +28,7 @@ public class TrabajoDto implements Serializable {
 
   private LocalDateTime fechaHoraCreacion;
 
-  @NotNull
+  @NonNull
   private Long icmIdPeriodo;
 
   private LocalDate fechaInicioPeriodo;
@@ -40,7 +42,7 @@ public class TrabajoDto implements Serializable {
   @NotBlank
   private String idOrganization;
 
-  @NotNull
+  @NonNull
   private TipoAmbitoDto tipoAmbito;
 
   private List<TrabajoAmbitoOrigenDto> origen;

@@ -14,11 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROGRAMACION")
@@ -33,15 +33,15 @@ public class Programacion {
   @Column(name = "ID_PROGRAMACION")
   private Long id;
 
-  @NotNull
+  @NonNull
   @Column(name = "HORA_PROGRAMACION", nullable = false)
   private LocalTime horaProgramacion;
 
-  @NotNull
+  @NonNull
   @Column(name = "PROGRAMACION_HUSO", length = 12, nullable = false)
   private String programacionHuso;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
@@ -49,18 +49,18 @@ public class Programacion {
   @Column(name = "NOMBRE_USUARIO", length = 12, nullable = false)
   private String nombreUsuario;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private LocalDateTime fechaHoraCreacion;
 
   @Column(name = "FECHA_HORA_ULTIMA_EJECUCION", nullable = true)
   private LocalDateTime fechaHoraUltimaEjecucion;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA_HORA_SIGUIENTE_EJECUCION", nullable = false)
   private LocalDateTime fechaHoraSiguienteEjecucion;
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
   private TipoAmbito tipoAmbito;

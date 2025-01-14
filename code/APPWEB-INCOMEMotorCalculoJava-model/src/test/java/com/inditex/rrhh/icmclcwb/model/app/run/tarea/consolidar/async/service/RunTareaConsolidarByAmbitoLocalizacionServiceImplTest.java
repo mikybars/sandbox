@@ -35,7 +35,9 @@ class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgori
     when(this.runTareaConsolidarPeriodoAsyncService.mergePeriodoCalculoPersona(any(RunTareaDto.class))).thenReturn(cf);
     when(this.runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacion(any(RunTareaDto.class))).thenReturn(cf);
     when(this.runTareaConsolidarPeriodoAsyncService.mergePeriodoLocalizacionPersona(any(RunTareaDto.class))).thenReturn(cf);
+
     this.runTareaConsolidarByAmbitoLocalizacionService.run(this.createRunTareaDto(1L, 2L));
+
     verify(this.runTareaConsolidarPeriodoAsyncService, times(1)).mergePeriodoPersona(any(RunTareaDto.class));
     verify(this.runTareaConsolidarPeriodoAsyncService, times(1)).mergePeriodoCalculoPersona(any(RunTareaDto.class));
     verify(this.runTareaConsolidarPeriodoAsyncService, times(1)).mergePeriodoLocalizacion(any(RunTareaDto.class));
@@ -44,10 +46,9 @@ class RunTareaConsolidarByAmbitoLocalizacionServiceImplTest implements RunAlgori
 
   @Test
   void runExceptionTest() {
-    final CompletableFuture cf = new CompletableFuture<>();
-    cf.complete(null);
     doThrow(new RuntimeException("e")).when(this.runTareaConsolidarPeriodoAsyncService).mergePeriodoPersona(any(RunTareaDto.class));
+
     assertThrows(RuntimeException.class,
-        () -> this.runTareaConsolidarByAmbitoLocalizacionService.run(this.createRunTareaDto(1344L, 2322L)));
+        () -> this.runTareaConsolidarByAmbitoLocalizacionService.run(new RunTareaDto()));
   }
 }

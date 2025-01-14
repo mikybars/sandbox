@@ -5,12 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TIPO_POLITICA")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoPolitica {
 
   @Id
@@ -25,7 +29,7 @@ public class TipoPolitica {
   @Column(name = "ICM_ID_TP_POLITICAS", length = 24, nullable = false)
   private String icmIdTpPolitica;
 
-  @NotNull
+  @NonNull
   @Column(name = "PESO", nullable = false)
   private Integer peso;
 

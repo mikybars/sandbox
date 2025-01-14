@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.CALCULAR_FESTIVOS;
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.ID_PERSONA_LOCAL_CHALLENGE_BY_TAREA;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -41,8 +44,8 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
 
   @Override
   public List<TareaPersonaEstructuraDto> save(
-      @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+      @Valid @NonNull final TareaDto tarea) {
     // Guardado de estructuras
     final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapper
         .tareaPersonaEstructuraToTareaPersonaEstructuraDto(
@@ -65,22 +68,22 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
 
   @Override
   public List<TareaPersonaEstructuraDto> mergeEstructurasComResultItemDto(
-      @Valid @NotNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<EstructurasComResultItemDto> estructurasComResultItemDto,
+      @Valid @NonNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraMapper
         .estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDto(estructurasComResultItemDto, tarea);
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.id_persona_local_challenge_by_tarea", key = "{#tarea}")
-  public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NotNull final TareaDto tarea) {
+  @Cacheable(value = ID_PERSONA_LOCAL_CHALLENGE_BY_TAREA, key = "{#tarea}")
+  public List<IdPersonaLocalDto> findPersonasChallenge(@Valid @NonNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraRepositoryCustom.findPersonasChallenge(tarea);
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.calcular_festivos", key = "{#tarea}")
+  @Cacheable(value = CALCULAR_FESTIVOS, key = "{#tarea}")
   public Boolean calcularFestivos(
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraRepositoryCustom.calcularFestivos(tarea);
   }
 

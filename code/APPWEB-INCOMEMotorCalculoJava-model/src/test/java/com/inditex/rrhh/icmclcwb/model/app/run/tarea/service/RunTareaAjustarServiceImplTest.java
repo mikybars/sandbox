@@ -98,7 +98,7 @@ class RunTareaAjustarServiceImplTest {
   void runUpdateFechaInicioTest() {
 
     final RunTareaDto runTarea = this.createRunTarea();
-    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).build();
+    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).activo(true).build();
     when(this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(any(Long.class), any(Integer.class)))
         .thenReturn(fase);
 
@@ -113,7 +113,7 @@ class RunTareaAjustarServiceImplTest {
   void runUpdateFechaFinAndEstadoTest() {
 
     final RunTareaDto runTarea = this.createRunTarea();
-    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).build();
+    final TareaFaseDto fase = TareaFaseDto.builder().id(199L).activo(true).build();
     when(this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(any(Long.class), any(Integer.class)))
         .thenReturn(fase);
 

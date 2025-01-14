@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ public class RunLimpiezaServiceImpl implements RunLimpiezaService {
   @CounterFunctionalMetric(metricName = "RunLimpiezaService.run.counter", metricGroupName = "RunLimpiezaServiceGroup",
       metricDescription = "RunLimpiezaService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunLimpiezaDto runLimpieza) {
+  public void run(@NonNull @Valid final RunLimpiezaDto runLimpieza) {
     this.limpiezaService.runTarea(runLimpieza);
   }
 

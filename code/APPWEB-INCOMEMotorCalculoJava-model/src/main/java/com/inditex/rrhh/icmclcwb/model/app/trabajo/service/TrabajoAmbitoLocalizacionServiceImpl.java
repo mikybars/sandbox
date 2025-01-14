@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoL
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,8 +27,8 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
 
   @Override
   public List<TrabajoAmbitoLocalizacionDTO> create(
-      @Valid @NotNull @NotEmpty final List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacion,
-      @NotNull final TrabajoDTO trabajo) {
+      @Valid @NonNull @NotEmpty final List<TrabajoAmbitoLocalizacionDTO> trabajoAmbitoLocalizacion,
+      @NonNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
         this.trabajoAmbitoLocalizacionRepository.saveAll(this.trabajoAmbitoLocalizacionMapper
             .mergeTrabajoAmbitoLocalizacionDtoAndTrabajoDtoToTrabajoAmbitoLocalizacion(
@@ -36,7 +36,7 @@ public class TrabajoAmbitoLocalizacionServiceImpl implements TrabajoAmbitoLocali
   }
 
   @Override
-  public List<TrabajoAmbitoLocalizacionDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo) {
+  public List<TrabajoAmbitoLocalizacionDTO> findByTrabajo(@Valid @NonNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoLocalizacionMapper.trabajoAmbitoLocalizacionToTrabajoAmbitoLocalizacionDto(
         this.trabajoAmbitoLocalizacionRepository.findByTrabajoId(trabajo.getId()));
   }

@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseReposit
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -35,7 +35,7 @@ public class TareaFaseServiceImpl implements TareaFaseService {
   private FaseService faseService;
 
   @Override
-  public List<TareaFaseDto> create(@Valid @NotNull final RunTareaDto runTareaDto) {
+  public List<TareaFaseDto> create(@Valid @NonNull final RunTareaDto runTareaDto) {
     final TareaDto tareaDto = runTareaDto.getTarea();
     return this.save(this.faseService.findAll()
         .stream()
@@ -51,7 +51,7 @@ public class TareaFaseServiceImpl implements TareaFaseService {
 
   @Override
   public List<TareaFaseDto> save(
-      @Valid @NotNull @NotEmpty final List<TareaFaseDto> tareaFase) {
+      @Valid @NonNull @NotEmpty final List<TareaFaseDto> tareaFase) {
     return this.tareaFaseMapper
         .tareaFaseToTareaFaseDto(
             this.tareaFaseRepositoryCustom.save(this.tareaFaseMapper
@@ -59,51 +59,51 @@ public class TareaFaseServiceImpl implements TareaFaseService {
   }
 
   @Override
-  public TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NotNull final Long idTarea,
-      @NotNull final Integer idFase) {
+  public TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NonNull final Long idTarea,
+      @NonNull final Integer idFase) {
     return this.tareaFaseRepositoryCustom.findTareaFaseDtoByIdTareaAndIdFase(idTarea, idFase);
   }
 
   @Override
-  public List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull final Long idTarea) {
+  public List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NonNull final Long idTarea) {
     return this.tareaFaseRepositoryCustom.findTareaFaseDtoByIdTarea(idTarea);
   }
 
   @Override
-  public void updateFechaInicio(@Valid @NotNull final TareaFaseDto tareaFaseDto) {
+  public void updateFechaInicio(@Valid @NonNull final TareaFaseDto tareaFaseDto) {
     this.tareaFaseRepositoryCustom.updateFechaInicio(tareaFaseDto);
   }
 
   @Override
-  public void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NotNull final TareaDto tareaDto,
-      @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
-      @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
+  public void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NonNull final TareaDto tareaDto,
+      @Valid @NonNull final EstadoTareaFaseDto estadoTareaFaseActualDto,
+      @Valid @NonNull final EstadoTareaFaseDto estadoTareaFaseDto) {
     this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(tareaDto,
         estadoTareaFaseActualDto,
         estadoTareaFaseDto);
   }
 
   @Override
-  public void updateActivo(@Valid @NotNull final RunTareaDto runTareaDto) {
+  public void updateActivo(@Valid @NonNull final RunTareaDto runTareaDto) {
     this.tareaFaseRepositoryCustom.updateActivoByIdTarea(runTareaDto.getTarea());
   }
 
   @Override
-  public void updateActivoByIdTareaFase(@Valid @NotNull final TareaFaseDto tareaFaseDto) {
+  public void updateActivoByIdTareaFase(@Valid @NonNull final TareaFaseDto tareaFaseDto) {
     this.tareaFaseRepositoryCustom.updateActivoByIdTareaFase(tareaFaseDto);
   }
 
   @Override
   public void updateFechaFinAndEstado(
-      @Valid @NotNull final TareaFaseDto tareaFaseDto,
-      @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
+      @Valid @NonNull final TareaFaseDto tareaFaseDto,
+      @Valid @NonNull final EstadoTareaFaseDto estadoTareaFaseDto) {
     this.tareaFaseRepositoryCustom.updateFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
   }
 
   @Override
   public void updateFechaInicioAndFechaFinAndEstado(
-      @Valid @NotNull final TareaFaseDto tareaFaseDto,
-      @Valid @NotNull final EstadoTareaFaseDto estadoTareaFaseDto) {
+      @Valid @NonNull final TareaFaseDto tareaFaseDto,
+      @Valid @NonNull final EstadoTareaFaseDto estadoTareaFaseDto) {
     this.tareaFaseRepositoryCustom.updateFechaInicioAndFechaFinAndEstado(tareaFaseDto, estadoTareaFaseDto);
   }
 

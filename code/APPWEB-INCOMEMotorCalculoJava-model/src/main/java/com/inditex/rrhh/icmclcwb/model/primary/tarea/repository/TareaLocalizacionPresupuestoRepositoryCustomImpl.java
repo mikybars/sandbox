@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.RowMapper;
@@ -70,7 +72,7 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
   }
 
   @Override
-  @Cacheable(value = "itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository", key = "{#idTarea}")
+  @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA_REPOSITORY, key = "{#idTarea}")
   public PeriodoDto findPeriodoPresupuestoYTrabajo(final Long idTarea) {
 
     final MapSqlParameterSource maps = new MapSqlParameterSource();
@@ -108,9 +110,9 @@ public class TareaLocalizacionPresupuestoRepositoryCustomImpl
 
   @Override
   public List<String> findLocalizacionOrdinalTarea(
-      @NotNull final Long idTarea, @NotNull final Integer cclIdCodOrigen, @NotNull final Integer cclIdSeccion,
-      @NotNull final LocalDate fechaInicio, @NotNull final LocalDate fechaFin,
-      @NotNull final Integer idTipoPresupuesto) {
+      @NonNull final Long idTarea, @NonNull final Integer cclIdCodOrigen, @NonNull final Integer cclIdSeccion,
+      @NonNull final LocalDate fechaInicio, @NonNull final LocalDate fechaFin,
+      @NonNull final Integer idTipoPresupuesto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN, cclIdCodOrigen);

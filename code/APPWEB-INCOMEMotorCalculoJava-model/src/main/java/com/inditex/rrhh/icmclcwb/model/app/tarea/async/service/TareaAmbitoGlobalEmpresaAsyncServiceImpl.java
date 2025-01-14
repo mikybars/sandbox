@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,8 @@ public class TareaAmbitoGlobalEmpresaAsyncServiceImpl implements TareaAmbitoGlob
 
   @Override
   public CompletableFuture<Void> save(
-      @Valid @NotNull @NotEmpty final List<TareaAmbitoGlobalEmpresaDto> src,
-      @Valid @NotNull final TareaDto tarea) {
+      @Valid @NonNull @NotEmpty final List<TareaAmbitoGlobalEmpresaDto> src,
+      @Valid @NonNull final TareaDto tarea) {
     this.tareaAmbitoGlobalEmpresaService.save(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

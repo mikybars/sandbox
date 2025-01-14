@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrVentaGeneralService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +18,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
   private final RunTareaAmbitoRecolectarPtrVentaGeneralService runTareaAmbitoRecolectarPtrVentaGeneralService;
 
   @Override
-  public void ventaFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaFisicaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -27,7 +27,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
   }
 
   @Override
-  public void ventaFisicaCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaFisicaCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -36,7 +36,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
   }
 
   @Override
-  public void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
+  public void ventaRangoFisicaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -46,7 +46,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
   @Override
   public void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
-      @NotNull @Valid final RunTareaDto runTarea) {
+      @NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -56,7 +56,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
   @Override
   public void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
-      @NotNull @Valid final RunTareaDto runTarea) {
+      @NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -67,7 +67,7 @@ public class RunTareaRecolectarPtrVentaGeneralServiceImpl implements RunTareaRec
 
   @Override
   public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
-      @NotNull @Valid final RunTareaDto runTarea) {
+      @NonNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()

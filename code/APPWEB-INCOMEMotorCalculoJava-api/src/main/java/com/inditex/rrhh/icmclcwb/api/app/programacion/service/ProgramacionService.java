@@ -7,8 +7,8 @@ import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface ProgramacionService {
 
@@ -26,18 +26,18 @@ public interface ProgramacionService {
 
   void activa();
 
-  void activa(@Positive @NotNull final Long id);
+  void activa(@Positive @NonNull final Long id);
 
   void desactiva();
 
-  void desactiva(@Positive @NotNull final Long id);
+  void desactiva(@Positive @NonNull final Long id);
 
-  ProgramacionDTO findById(@Positive @NotNull final Long id);
+  ProgramacionDTO findById(@Positive @NonNull final Long id);
 
-  ProgramacionDTO findActivoById(@Positive @NotNull final Long id);
+  ProgramacionDTO findActivoById(@Positive @NonNull final Long id);
 
-  ProgramacionDTO findPendienteById(@Positive @NotNull Long id);
+  ProgramacionDTO findPendienteById(@Positive @NonNull Long id);
 
-  void updateFechaSiguienteEjecucion(@NotNull @NotEmpty List<ProgramacionDTO> programaciones);
+  void updateFechaSiguienteEjecucion(@NonNull @NotEmpty List<ProgramacionDTO> programaciones);
 
 }

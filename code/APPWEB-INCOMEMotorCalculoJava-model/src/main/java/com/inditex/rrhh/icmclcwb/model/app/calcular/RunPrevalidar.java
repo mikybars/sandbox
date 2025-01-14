@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.scheduling.annotation.Async;
 
 public interface RunPrevalidar {
@@ -20,7 +20,7 @@ public interface RunPrevalidar {
    * @param tareaFaseAccion Some javadoc.
    */
   @Async("validacionExecutor")
-  CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaFaseAccionDto tareaFaseAccion);
+  CompletableFuture<List<ValidacionDto>> execute(@NonNull @Valid RunTareaDto runTarea,
+      @NonNull @Valid TareaFaseAccionDto tareaFaseAccion);
 
 }

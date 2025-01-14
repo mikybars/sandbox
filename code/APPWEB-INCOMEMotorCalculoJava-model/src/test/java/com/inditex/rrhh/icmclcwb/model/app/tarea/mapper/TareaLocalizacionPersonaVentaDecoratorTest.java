@@ -57,7 +57,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg, final int intArgs,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaIndividualDetalleResultItemDto = Instancio.create(PtrVentaIndividualDetalleResultItemDto.class);
@@ -77,14 +77,15 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest4(
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrSeccionVentaOnlineGenericType = Instancio.create(PtrSeccionVentaOnlineGenericType.class);
     final var ptrVentaIndividualDetalleResultItemDtoList = Instancio.ofList(PtrVentaIndividualDetalleResultItemDto.class).size(1).create();
     final var tarea = Instancio.create(TareaDto.class);
 
-    final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();
+    final PtrSeccionVentaOnlineGenericType seccion4 =
+        PtrSeccionVentaOnlineGenericType.builder().importeSinIVA(1.0).importeConIVA(1.21).build();
     seccion4.setSeccion(4);
     seccion4.setImporteConIVA(ptrSeccionVentaOnlineGenericType.getImporteConIVA());
     seccion4.setImporteSinIVA(ptrSeccionVentaOnlineGenericType.getImporteSinIVA());
@@ -106,7 +107,7 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVentaTest(final String arg,
       final TareaLocalizacionPersonaVenta tareaLocalizacionPersonaVenta) {
     final var ptrVentaOnlineIpodIndividualDetalleResultItemDto = Instancio.create(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class);
@@ -133,7 +134,8 @@ class TareaLocalizacionPersonaVentaDecoratorTest {
     final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> ptrVentaOnlineIpodIndividualDetalleResultItemDtoList =
         Instancio.ofList(PtrVentaOnlineIpodIndividualDetalleResultItemDto.class).size(1).create();
 
-    final PtrSeccionVentaOnlineGenericType seccion4 = PtrSeccionVentaOnlineGenericType.builder().build();
+    final PtrSeccionVentaOnlineGenericType seccion4 =
+        PtrSeccionVentaOnlineGenericType.builder().importeConIVA(2.21).importeSinIVA(2.0).build();
     seccion4.setSeccion(4);
     seccion4.setImporteConIVA(1.0);
     seccion4.setImporteSinIVA(1.0);

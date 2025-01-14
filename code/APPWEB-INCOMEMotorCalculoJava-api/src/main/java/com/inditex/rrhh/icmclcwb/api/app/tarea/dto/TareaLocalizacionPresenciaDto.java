@@ -3,15 +3,15 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionPresenciaDto {
 
   private Long id;
 
-  @NotNull
+  @NonNull
   private Long idTarea;
 
   private LocalDate fecha;
@@ -25,7 +25,7 @@ public class TareaLocalizacionPresenciaDto {
   @NotBlank
   private String cclIdCadena;
 
-  @NotNull
+  @NonNull
   private Long minutos;
 
 }

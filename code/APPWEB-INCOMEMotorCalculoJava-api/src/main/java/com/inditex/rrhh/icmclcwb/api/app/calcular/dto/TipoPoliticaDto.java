@@ -2,9 +2,13 @@ package com.inditex.rrhh.icmclcwb.api.app.calcular.dto;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoPoliticaDto implements Serializable {
 
   private static final long serialVersionUID = 8374699593681829924L;

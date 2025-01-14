@@ -12,14 +12,18 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @MappedSuperclass
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DatosComunes {
 
-  @NotNull
+  @NonNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -40,11 +44,11 @@ public class DatosComunes {
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;
 
-  @NotNull
+  @NonNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
-  @NotNull
+  @NonNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;

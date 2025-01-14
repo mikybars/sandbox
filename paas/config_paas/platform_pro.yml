@@ -9,3 +9,5 @@ app:
     optin: false
 datagrid:
   replicas: 2
+redis:
+  replicas: 3

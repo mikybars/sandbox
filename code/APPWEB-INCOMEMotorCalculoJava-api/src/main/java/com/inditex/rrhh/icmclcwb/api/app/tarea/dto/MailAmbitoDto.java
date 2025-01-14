@@ -3,12 +3,13 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -25,7 +26,7 @@ public class MailAmbitoDto {
   @NotBlank
   private String mail;
 
-  @NotNull
+  @NonNull
   private Boolean esActivo;
 
 }

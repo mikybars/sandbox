@@ -7,10 +7,14 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PtrVentaOnlineEntregaTiendaResultItemDto implements Serializable {
 
   private static final long serialVersionUID = 6505538499356493218L;
@@ -30,10 +34,10 @@ public class PtrVentaOnlineEntregaTiendaResultItemDto implements Serializable {
 
   private String ano;
 
-  @NotNull
+  @NonNull
   private BigDecimal importeSinIVA;
 
-  @NotNull
+  @NonNull
   private BigDecimal importeConIVA;
 
   private List<PtrSeccionVentaOnlineGenericType> listaSeccion;

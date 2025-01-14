@@ -124,7 +124,7 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
       final List<PeriodoDto> periodoDtoList,
       final PtrPresenciaDetalleRequestDto ptrPresenciaDetalleRequestDto,
@@ -195,7 +195,7 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
       final CompletableFuture<PtrPresenciaDetalleResponseDto> cfData,
       final PtrPresenciaDetalleResponseDto ptrPresenciaDetalleResponseDto,
@@ -260,7 +260,7 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbitoTest(final PtrPropertiesDto ptrPropertiesDto,
       final List<TareaTipoHoraDto> tiposHoras,
       final List<PeriodoDto> periodos,

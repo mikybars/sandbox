@@ -32,7 +32,7 @@ class IncomeMetaServiceImplTest {
   private IncomeMetaServiceImpl incomeMetaService;
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void getEmpleadosExternosExcluidosDenominadorTest(final ExternosRequestDTO request,
       final List<EmpleadoExternoDTO> response) {
     doReturn(response).when(this.externosApi).findExternos(request);

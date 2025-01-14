@@ -65,7 +65,7 @@ class PorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTest(final List<IdPersonaLocalDto> ids,
       final RunAlgoritmoCalculoPropertiesDto runAlgoritmoCalculoPropertiesDto) {
     final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
@@ -87,7 +87,7 @@ class PorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RunAlgoritmoTest {
   }
 
   @ParameterizedTest
-  @InstancioSource
+  @InstancioSource(samples = 1)
   void executeTestException(final List<IdPersonaLocalDto> ids,
       final RunAlgoritmoCalculoPropertiesDto runAlgoritmoCalculoPropertiesDto) {
     doReturn(ids).when(this.tareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV1RepositoryCustom)

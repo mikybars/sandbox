@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomepro
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -43,11 +47,13 @@ amiga:
       datasource:
         primary:
           driver-class-name: com.ibm.db2.jcc.DB2Driver
+          maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axindb26finv1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
+            keepAliveTimeOut: 15
             connectionTimeout: 60
             timerLevelForQueryTimeOut: 2
             interruptProcessingMode: 2
@@ -438,6 +444,10 @@ amiga:
           username: ncomis
           data-source-properties:
             encrypt: false
+    stream:
+      bindings:
+        commision-calculation-out-0:
+          destination: sscc.global.pro.rhcompensa.commision-calculation.public.v1
   service:
     web:
       api:
@@ -448,7 +458,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepro          
+              client-id: oauthincomepro
 app:
   envars:
     mail:
@@ -477,3 +487,10 @@ app:
         #server: https://sscc.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://icmclcws.axinocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+    pipe:
+      commission-calculation:
+        message-max-size: 5000
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379

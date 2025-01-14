@@ -33,6 +33,7 @@ amiga:
             enabled: true
           counter:
             enabled: true
+
   common:
     soap:
       client:
@@ -47,11 +48,11 @@ amiga:
     core:
       is-production: false
     cache:
-      remote:
-        enabled: false
-      embedded:
-        enabled: true
-        cache-names: itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_cadena_by_tarea_and_id_origen,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen_and_tipo_dato,itx.icmlcwb.id_producto_by_id_tarea_and_id_origen,itx.icmlcwb.id_tipo_dato_by_id_tipo_grupo_dato,itx.icmlcwb.id_persona_historico_by_tarea_and_id_origen,itx.icmlcwb.periodo_by_tarea,itx.icmlcwb.id_persona_historico_grupo_fechas_by_tarea,itx.icmlcwb.id_localizacion_local_presupuestos_by_tarea,itx.icmlcwb.id_persona_local_challenge_by_tarea,itx.icmlcwb.presupuestos_by_tarea,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page,itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days,itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository,itx.icmlcwb.tipo_ausencia_by_icm_tp_absence,itx.icmlcwb.tipo_ausencia_by_id,itx.icmlcwb.tipo_opcion_calculo_by_id_meta4,itx.icmlcwb.tipo_politica_by_id_meta4,itx.icmlcwb.tipo_politica_by_id,itx.icmlcwb.tipo_presupuesto_by_icm_id_tp_presupuesto,itx.icmlcwb.tipo_presupuesto_by_id,itx.icmlcwb.tipo_unidad_tiempo_by_icm_id_unidad_tiempo,itx.icmlcwb.tipo_unidad_tiempo_by_id,itx.icmlcwb.tipo_venta_concepto_by_id_meta4,itx.icmlcwb.tipo_venta_concepto_by_id,itx.icmlcwb.tipo_venta_concepto_challenge_by_icm_id_concepto_venta,itx.icmlcwb.tipo_venta_concepto_challenge_by_id,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_ids_empresa,itx.icmlcwb.id_localizacion_local_presupuestos_by_id_empresa_and_id_tarea,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_and_id_tipo_calculo,itx.icmlcwb.id_localizacion_local_by_id_tipo_presupuesto_and_fecha_and_tarea,itx.icmlcwb.id_empresa_by_tarea,itx.icmlcwb.fecha_ambito_by_tarea_and_id_tipo_dato,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.accion_dto_by_id,itx.icmlcwb.tarea_ambito_dto_by_tarea,itx.icmlcwb.get_sistema_destino,itx.icmlcwb.id_localizacion_by_tarea_and_id_origen_and_id_empresa_in_ambito,itx.icmlcwb.id_cadena_by_tarea_and_id_origen_and_tipo_dato_not_in_ambito,itx.icmlcwb.id_localizacion_local_by_tarea_and_id_origen_and_id_cadena,itx.icmlcwb.horario_comercial_festivos,itx.icmlcwb.calcular_festivos,itx.icmlcwb.get_tipos_hora,itx.icmlcwb.id_persona_historico_localizacion_by_tarea_and_id_origen,itx.icmlcwb.get_clases,itx.icmlcwb.periodo_presupuestos_by_id_tarea,itx.icmlcwb.id_localizacion_by_tarea
+      redis:
+        host: ${qa.jdg.host:localhost}
+        port: ${qa.jdg.port:6379}
+        cluster:
+          enabled: false
     mail:
       host: localhost
       port: 25
@@ -175,6 +176,27 @@ amiga:
         problem-details:
           enabled: false
   data:
+    stream:
+      output-bindings: commision-calculation-out-0
+      bindings:
+        commision-calculation-out-0:
+          content-type: application/*+avro
+          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
+      schema:
+        avro:
+          schema-imports:
+            - classpath*:/pipe/**/imports/*.avsc
+            - classpath*:/commisioncalculation/**/imports/*.avsc
+          schema-sources:
+            - classpath*:/commisioncalculation/**/*.avsc
+        kafka-brokers: localhost:30810
+        developer-mode: true
+        registry-client:
+          endpoint: http://localhost:31210
+
     binder:
       jms-activemq:
         default:
@@ -185,15 +207,15 @@ amiga:
         broker-escritura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFWrite.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFWrite.username:usr-write}
-          password: ${qa.amq.brokerAmqCFWrite.password:write}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
         broker-lectura:
           minPoolSize: 10
           maxPoolSize: 20
-          brokerURL: ${qa.amq.brokerAmqCFRead.url:tcp://localhost:61616}
-          userName: ${qa.amq.brokerAmqCFRead.username:usr-read}
-          password: ${qa.amq.brokerAmqCFRead.password:read}
+          brokerURL: tcp://localhost:30020
+          userName: admin
+          password: password
       listener-container-factory:
         trabajo:
           concurrency: 1
@@ -251,17 +273,19 @@ amiga:
           #init-connection-sql: set schema GESTION_COMISION
           #[BBDD][ITX][NON_XA][INICIO]
           driver-class-name: com.ibm.db2.jcc.DB2Driver
+          maximum-pool-size: 10
           #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][INICIO]
           username: uincome
           password: '${uincomedes}'
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          jdbc-properties:
+          xa-properties:
+            currentSchema: GESTION_COMISION
             clientProgramName: ${metadata.jirakey}-${metadata.slot}
             loginTimeout: 10
+            keepAliveTimeOut: 15
             connectionTimeout: 60
             timerLevelForQueryTimeOut: 2
             interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
             #[BBDD][ITX][NON_XA][DES][GESTION_COMISION][FIN]
             #[BBDD][ITX][NON_XA][DES][DESARROLLO_RRHH][INICIO]
             #          user: oincome
@@ -348,468 +372,526 @@ amiga:
         #[PTR][ITX][DES][XA][FIN]
         comis1:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis3:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis4:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis5:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis6:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis7:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis8:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis9:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis10:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-8:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-101:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-11:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-2:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis11-25:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis18:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis30:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis32:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis38:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis39:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis52:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis60:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis61:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis63:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis64:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis66:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis68:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis72:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis75:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis79:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis92:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis93:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis96:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis97:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis98:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis139:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis388:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis400:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis404:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis412:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis508:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis512:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis524:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis528:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis664:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis720:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis728:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis732:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis736:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis740:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis743:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
         comis800:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXDESSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
           username: ncomis
           password: '${ncomisdes}'
           readOnly: true
           data-source-properties:
             encrypt: false
+            multiSubnetFailover: true
     jpa:
       properties:
         hibernate:
@@ -1348,4 +1430,10 @@ app:
             filter:
               maxPageSize: 50
               maxPersistenceSize: 3
-
+spring:
+  docker:
+    compose:
+      skip:
+        in-tests: false
+      file: "file:@project.parent.basedir@/src/test/resources/compose/docker-compose.yml"
+      lifecycle-management: start-and-stop

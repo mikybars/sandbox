@@ -34,6 +34,8 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.Proceso;
+import com.inditex.rrhh.icmclcwb.model.primary.proceso.entity.ProcesoAmbitoEmpresa;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoAmbitoEmpresaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.proceso.repository.ProcesoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
@@ -92,14 +94,19 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
+    tareaDto.setIdOrganization("1");
+    tareaDto.setStdIdLegEnt("2");
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setTipoAmbito(tipoAmbito);
     trabajo.setFechaHoraCreacion(LocalDateTime.now().atOffset(ZoneOffset.UTC));
     trabajo.setFechaInicioPeriodo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
     trabajo.setFechaFinPeriodo(LocalDateTime.now().atOffset(ZoneOffset.UTC));
+    trabajo.setIcmIdPeriodo(1L);
+    trabajo.setNombreUsuario("usuario");
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajo);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
+    tareaAmbitoDto.setCclIdOrigen("1");
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
     faseDto.setId(1);
@@ -115,6 +122,8 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceTest {
     response.getData().add(result);
 
     when(this.meta4IcmWsCalcIncomeService.planificacion(any(PlanificacionRequestDto.class))).thenReturn(response);
+    when(this.procesoRepository.save(any())).thenReturn(new Proceso());
+    when(this.procesoAmbitoEmpresaRepository.save(any())).thenReturn(new ProcesoAmbitoEmpresa());
 
     this.runTareaAmbitoValidarExportacionFranciaServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 

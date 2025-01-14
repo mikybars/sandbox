@@ -5,13 +5,13 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalFecha;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.jspecify.annotations.NonNull;
 
 public interface TareaAmbitoGlobalFechaRepositoryCustom {
 
   List<TareaAmbitoGlobalFecha> save(List<TareaAmbitoGlobalFecha> src);
 
-  PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@NotNull @Positive Long idTarea, @NotNull Integer idTipoDato);
+  PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@NonNull @Positive Long idTarea, @NonNull Integer idTipoDato);
 
 }
