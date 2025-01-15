@@ -5,18 +5,19 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProc
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionJornadaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaJornadaRepositoryCustom;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-@RequiredArgsConstructor
 public class RunTareaProcesarJornadaServiceImpl implements RunTareaProcesarJornadaService {
 
-  private final TareaLocalizacionPersonaJornadaRepositoryCustom tareaLocalizacionPersonaJornadaRepositoryCustom;
+  @Autowired
+  private TareaLocalizacionPersonaJornadaRepositoryCustom tareaLocalizacionPersonaJornadaRepositoryCustom;
 
-  private final TareaLocalizacionJornadaRepositoryCustom tareaLocalizacionJornadaRepositoryCustom;
+  @Autowired
+  private TareaLocalizacionJornadaRepositoryCustom tareaLocalizacionJornadaRepositoryCustom;
 
   @Override
   public void procesarJornadaLocalizacionPersona(final RunTareaDto runTarea) {

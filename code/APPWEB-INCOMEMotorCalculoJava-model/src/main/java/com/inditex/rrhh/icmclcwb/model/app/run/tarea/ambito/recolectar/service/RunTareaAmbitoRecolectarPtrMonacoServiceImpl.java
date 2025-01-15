@@ -60,40 +60,53 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmbitoRecolectarPtrMonacoService {
 
-  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  @Autowired
+  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  @Autowired
+  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  @Autowired
+  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  private final TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
+  @Autowired
+  private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
-  private final TareaMapper tareaMapper;
+  @Autowired
+  private TareaMapper tareaMapper;
 
-  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  @Autowired
+  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-  private final PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
+  @Autowired
+  private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
-  private final PtrPresenciaAsyncService ptrPresenciaAsyncService;
+  @Autowired
+  private PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
-  private final TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
+  @Autowired
+  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
-  private final PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
+  @Autowired
+  private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
-  private final Map<String, PtrPropertiesDto> ventaGeneralProperties;
+  @Autowired
+  private Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
-  private final Map<String, PtrPropertiesDto> presenciasProperties;
+  @Autowired
+  private Map<String, PtrPropertiesDto> presenciasProperties;
 
-  private final RecolectarPropertiesDto recolectarProperties;
+  @Autowired
+  private RecolectarPropertiesDto recolectarProperties;
 
-  private final Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+  @Autowired
+  private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
