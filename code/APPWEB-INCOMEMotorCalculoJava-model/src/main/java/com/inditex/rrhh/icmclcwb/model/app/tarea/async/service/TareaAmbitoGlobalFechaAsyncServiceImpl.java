@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaSer
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,8 @@ public class TareaAmbitoGlobalFechaAsyncServiceImpl implements TareaAmbitoGlobal
   private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
 
   @Override
-  public CompletableFuture<Void> save(@Valid @NonNull final TareaAmbitoGlobalFechaDto src,
-      @Valid @NonNull final TareaDto tarea) {
+  public CompletableFuture<Void> save(@Valid @NotNull final TareaAmbitoGlobalFechaDto src,
+      @Valid @NotNull final TareaDto tarea) {
     this.tareaAmbitoGlobalFechaService.save(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

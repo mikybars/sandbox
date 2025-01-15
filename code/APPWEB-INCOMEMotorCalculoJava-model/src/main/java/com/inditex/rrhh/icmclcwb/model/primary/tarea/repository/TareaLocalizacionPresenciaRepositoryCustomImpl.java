@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -88,7 +87,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void updateActivoVacio(@NonNull final RunTareaDto runTareaDto) {
+  public void updateActivoVacio(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_MINUTOS, SqlPrimaryConstants.SQL_VALUE_MINUTOS_CERO);
@@ -100,7 +99,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensar(@NonNull final RunTareaDto runTareaDto) {
+  public void compensar(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -123,7 +122,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void totalizar(@NonNull final RunTareaDto runTareaDto) {
+  public void totalizar(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -148,7 +147,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void totalizarEcommerce(@NonNull final RunTareaDto runTareaDto) {
+  public void totalizarEcommerce(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -168,7 +167,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void totalizarEmpleadosPorVenta(@NonNull final RunTareaDto runTareaDto) {
+  public void totalizarEmpleadosPorVenta(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -187,7 +186,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensarLocalizacionManual(@NonNull final RunTareaDto runTareaDto) {
+  public void compensarLocalizacionManual(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
@@ -203,7 +202,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
   @Override
   public void repartirPresenciasSindicalesLocalizacion(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ABIERTO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -220,7 +219,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
   @Override
   public void repartirPresenciasSindicalesLocalizacionSeccion(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -235,7 +234,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
   @Override
   public void totalizarEcommerceSeccion(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -252,7 +251,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
 
   @Override
   public void totalizarPresenciasSindicalesLocalizacion(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_TIPO_DATO,
@@ -266,7 +265,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void totalizarIncluidoChallengePorcentaje(@NonNull final RunTareaDto runTareaDto) {
+  public void totalizarIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -287,7 +286,7 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@NonNull final RunTareaDto runTareaDto) {
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);

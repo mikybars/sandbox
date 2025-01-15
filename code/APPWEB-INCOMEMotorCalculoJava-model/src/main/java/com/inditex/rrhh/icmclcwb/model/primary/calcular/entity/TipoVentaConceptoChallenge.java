@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TIPO_VENTA_CONCEPTO_CHALLENGE")
@@ -37,7 +36,7 @@ public class TipoVentaConceptoChallenge {
   @Column(name = "ICM_ID_CONCEPTO_VENTA", length = 8, nullable = false)
   private String icmIdConceptoVenta;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_VENTA", nullable = false)
   private TipoVenta tipoVenta;

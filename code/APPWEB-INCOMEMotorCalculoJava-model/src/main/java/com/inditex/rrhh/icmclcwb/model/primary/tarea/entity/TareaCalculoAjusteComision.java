@@ -21,7 +21,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CALCULO_AJUSTE_COMISION")
@@ -33,7 +32,7 @@ public class TareaCalculoAjusteComision {
   @EmbeddedId
   private TareaCalculoAjusteComisionPk pk;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -46,16 +45,16 @@ public class TareaCalculoAjusteComision {
   @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
   private String stdOrHrPeriod;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
   private BigDecimal importe;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
   private TipoComision tipoComision;

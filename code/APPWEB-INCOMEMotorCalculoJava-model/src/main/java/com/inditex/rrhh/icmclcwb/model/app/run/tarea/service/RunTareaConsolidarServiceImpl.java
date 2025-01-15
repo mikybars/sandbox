@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarSer
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +40,7 @@ public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService 
       metricGroupName = "RunTareaConsolidarServiceGroup",
       metricDescription = "RunTareaConsolidarService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final TrabajoDTO trabajo = runTarea.getTrabajo();
     if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
         || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())

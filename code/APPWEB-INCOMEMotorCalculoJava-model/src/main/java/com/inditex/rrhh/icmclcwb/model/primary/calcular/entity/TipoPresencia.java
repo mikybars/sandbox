@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TIPO_PRESENCIA")
@@ -25,7 +24,7 @@ public class TipoPresencia {
   @Column(name = "DESCRIPCION", length = /* TAMANO_DESC */ 255, nullable = false)
   private String descripcion;
 
-  @NonNull
+  @NotNull
   @Column(name = "PESO", nullable = false)
   private Long peso;
 

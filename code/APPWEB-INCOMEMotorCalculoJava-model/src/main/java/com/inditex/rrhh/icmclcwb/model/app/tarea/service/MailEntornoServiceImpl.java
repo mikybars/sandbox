@@ -4,7 +4,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailEntornoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailEntornoRepositoryCustom;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ public class MailEntornoServiceImpl implements MailEntornoService {
   private MailEntornoRepositoryCustom mailEntornoRepositoryCustom;
 
   @Override
-  public Boolean findEsActivoByEntorno(@NonNull final String entorno) {
+  public Boolean findEsActivoByEntorno(@NotNull final String entorno) {
 
     final MailEntornoDto mailEntornoDto = this.mailEntornoRepositoryCustom
         .findMailEntornoDtoByEntorno(entorno);

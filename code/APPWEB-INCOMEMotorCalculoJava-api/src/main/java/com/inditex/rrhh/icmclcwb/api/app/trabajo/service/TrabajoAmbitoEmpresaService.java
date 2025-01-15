@@ -7,14 +7,13 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 
 public interface TrabajoAmbitoEmpresaService {
 
-  List<TrabajoAmbitoEmpresaDTO> findByTrabajo(@Valid @NonNull final TrabajoDTO trabajo);
+  List<TrabajoAmbitoEmpresaDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo);
 
   List<TrabajoAmbitoEmpresaDTO> create(
-      @Valid @NonNull @NotEmpty final List<TrabajoAmbitoEmpresaDTO> programacionAmbitoEmpresa,
-      @NonNull final TrabajoDTO trabajo);
+      @Valid @NotNull @NotEmpty final List<TrabajoAmbitoEmpresaDTO> programacionAmbitoEmpresa,
+      @NotNull final TrabajoDTO trabajo);
 
 }

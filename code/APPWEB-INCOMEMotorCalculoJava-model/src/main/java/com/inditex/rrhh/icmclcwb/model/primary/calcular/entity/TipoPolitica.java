@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TIPO_POLITICA")
@@ -29,7 +28,7 @@ public class TipoPolitica {
   @Column(name = "ICM_ID_TP_POLITICAS", length = 24, nullable = false)
   private String icmIdTpPolitica;
 
-  @NonNull
+  @NotNull
   @Column(name = "PESO", nullable = false)
   private Integer peso;
 

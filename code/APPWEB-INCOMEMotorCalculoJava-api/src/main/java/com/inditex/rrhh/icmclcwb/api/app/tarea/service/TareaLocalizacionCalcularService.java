@@ -7,11 +7,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionCalcularService {
 
-  void save(@Valid @NonNull @NotEmpty final List<GenericTiendaResultItemDto> src,
-      @Valid @NonNull final TareaDto tareaDto);
+  void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
+      @Valid @NotNull final TareaDto tareaDto);
 
 }

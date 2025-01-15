@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +56,7 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
   }
 
   @Override
-  public void activa(@Positive @NonNull final Long id) {
+  public void activa(@Positive @NotNull final Long id) {
     final MapSqlParameterSource arg = new MapSqlParameterSource();
     arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROGRAMACION, id);
@@ -72,7 +71,7 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
   }
 
   @Override
-  public void desactiva(@Positive @NonNull final Long id) {
+  public void desactiva(@Positive @NotNull final Long id) {
     final MapSqlParameterSource arg = new MapSqlParameterSource();
     arg.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROGRAMACION, id);
@@ -81,7 +80,7 @@ public class ProgramacionRepositoryCustomImpl implements ProgramacionRepositoryC
 
   @Override
   public void updateFechaSiguienteEjecucion(
-      @NonNull @NotEmpty final List<IdProgramacionDto> idProgramacion,
+      @NotNull @NotEmpty final List<IdProgramacionDto> idProgramacion,
       final LocalDateTime fechaSiguienteEjecucion) {
     final MapSqlParameterSource arg = new MapSqlParameterSource();
     arg.addValue(SqlPrimaryConstants.SQL_PARAM_ID_PROGRAMACION,

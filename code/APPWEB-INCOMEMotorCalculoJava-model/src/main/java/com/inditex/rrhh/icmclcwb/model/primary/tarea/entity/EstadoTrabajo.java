@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "ESTADO_TRABAJO")
@@ -27,11 +26,11 @@ public class EstadoTrabajo {
   @Column(name = "NOMBRE", length = /* TAMANO_NOMBRE */ 128, nullable = false)
   private String nombre;
 
-  @NonNull
+  @NotNull
   @Column(name = "PESO", nullable = false)
   private Integer peso;
 
-  @NonNull
+  @NotNull
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_ESTADO_TAREA")
   private EstadoTarea estadoTarea;

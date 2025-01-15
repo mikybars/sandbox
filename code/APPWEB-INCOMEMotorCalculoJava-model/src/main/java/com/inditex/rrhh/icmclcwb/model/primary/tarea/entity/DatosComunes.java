@@ -15,7 +15,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @MappedSuperclass
 @Data
@@ -23,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 @AllArgsConstructor
 public class DatosComunes {
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -44,11 +43,11 @@ public class DatosComunes {
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;

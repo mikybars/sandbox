@@ -16,7 +16,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LIMPIEZA")
@@ -30,22 +29,22 @@ public class TareaLimpieza {
   @Column(name = "ID_TAREA_LIMPIEZA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_ESTADO_LIMPIEZA", nullable = false)
   private EstadoLimpieza estado;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_LIMPIEZA", nullable = false)
   private TipoLimpieza tipo;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private Date fechaHoraCreacion;
 

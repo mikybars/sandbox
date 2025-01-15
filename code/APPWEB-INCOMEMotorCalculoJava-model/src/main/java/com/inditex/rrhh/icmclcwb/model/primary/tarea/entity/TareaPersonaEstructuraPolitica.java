@@ -13,7 +13,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA_POLITICA")
@@ -39,7 +38,7 @@ public class TareaPersonaEstructuraPolitica extends CommonFieldsTaskOrigin {
   @Column(name = "ICM_ID_ESTR_POLITICAS", nullable = false)
   private String idEstructuraPolitica;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_POLITICA")
   private TipoPolitica tipoPolitica;
@@ -47,7 +46,7 @@ public class TareaPersonaEstructuraPolitica extends CommonFieldsTaskOrigin {
   @Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
   private Boolean excluidoDenominador;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_UNIDAD_TIEMPO")
   private TipoUnidadTiempo tipoUnidadTiempo;
@@ -56,15 +55,15 @@ public class TareaPersonaEstructuraPolitica extends CommonFieldsTaskOrigin {
   @Column(name = "ICM_NUM_UNIDADES", nullable = false)
   private String numeroUnidades;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_PORCENTAJE", nullable = false, precision = 23, scale = 8)
   private BigDecimal valor;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_TRAMO", nullable = false)
   private Integer tramo;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_IMPORTE", nullable = true, precision = 23, scale = 8)
   private BigDecimal importe;
 

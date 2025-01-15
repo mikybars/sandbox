@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PRESUPUESTO_RANGO")
@@ -23,7 +22,7 @@ public class TareaPresupuestoRango extends CommonFieldsTask {
   @Column(name = "ID_TAREA_PRESUPUESTO_RANGO")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
   private TipoPresupuesto tipoPresupuesto;

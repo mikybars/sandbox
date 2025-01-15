@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -26,7 +25,7 @@ public class MailAmbitoDto {
   @NotBlank
   private String mail;
 
-  @NonNull
+  @NotNull
   private Boolean esActivo;
 
 }

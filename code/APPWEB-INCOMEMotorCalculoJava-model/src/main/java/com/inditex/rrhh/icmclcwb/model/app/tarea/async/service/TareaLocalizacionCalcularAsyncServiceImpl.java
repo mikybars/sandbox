@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionCalcular
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class TareaLocalizacionCalcularAsyncServiceImpl implements TareaLocalizac
   private TareaLocalizacionCalcularService tareaLocalizacionCalcularService;
 
   @Override
-  public CompletableFuture<Void> save(@NonNull List<GenericTiendaResultItemDto> src, @NonNull TareaDto tareaDto) {
+  public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto) {
     tareaLocalizacionCalcularService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

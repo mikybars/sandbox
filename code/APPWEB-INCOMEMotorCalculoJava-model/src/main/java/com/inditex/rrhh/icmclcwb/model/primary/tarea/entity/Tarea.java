@@ -18,7 +18,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA")
@@ -36,7 +35,7 @@ public class Tarea {
   @JoinColumn(name = "ID_ESTADO_TAREA", nullable = false)
   private EstadoTarea estado;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private Date fechaHoraCreacion;
 
@@ -54,15 +53,15 @@ public class Tarea {
   @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
   private String stdIdLegEnt;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   private LocalDate fechaInicioPeriodo;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_FIN_PERIODO", nullable = false)
   private LocalDate fechaFinPeriodo;
 
-  @NonNull
+  @NotNull
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_TRABAJO")
   private Trabajo trabajo;

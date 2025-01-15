@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -638,7 +637,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
 
   @Override
   public List<IdPersonaLocalDto> validateTempComisBajaIt(
-      @NonNull final TareaDto tarea) {
+      @NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
@@ -684,7 +683,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   }
 
   @Override
-  public List<IdPersonaLocalDto> validateTempComisCarencia(@NonNull final TareaDto tarea) {
+  public List<IdPersonaLocalDto> validateTempComisCarencia(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlComisConstants.SQL_PARAM_ID_TAREA, tarea.getId());
 
@@ -713,7 +712,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   }
 
   @Override
-  public void insertTempAlgoritmo(@NonNull final List<GenericAlgoritmoPropertiesDto> algoritmoDto) {
+  public void insertTempAlgoritmo(@NotNull final List<GenericAlgoritmoPropertiesDto> algoritmoDto) {
     for (final List<GenericAlgoritmoPropertiesDto> iter : StreamUtils.partition(algoritmoDto, this.batchSize)) {
       this.jdbcTemplate.batchUpdate(this.sqlInsertTempComisAlgoritmo,
           new BatchPreparedStatementSetter() {
@@ -748,7 +747,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   }
 
   @Override
-  public void insertTempEstructura(@NonNull final TareaDto tareaDto) {
+  public void insertTempEstructura(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -793,7 +792,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   }
 
   @Override
-  public void insertTempPresupuestos(@NonNull final TareaDto tareaDto) {
+  public void insertTempPresupuestos(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -802,7 +801,7 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
   }
 
   @Override
-  public void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NonNull final TareaDto tareaDto) {
+  public void insertTareaLocalizacionPresupuestoTareaPersonaEstructura(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.CHALLENGE_JORNADA.getId());
     map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,

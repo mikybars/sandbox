@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -18,10 +17,10 @@ public class PtrVentaOnlineIpodRequestDto implements Serializable {
 
   private static final long serialVersionUID = -621566192491672941L;
 
-  @NonNull
+  @NotNull
   private String fechaDesde;
 
-  @NonNull
+  @NotNull
   private String fechaHasta;
 
   private Integer pais;

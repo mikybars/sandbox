@@ -12,7 +12,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA")
@@ -59,19 +58,19 @@ public class TareaPersonaEstructura extends CommonFieldsTask {
   @Column(name = "ICM_ID_TP_COMISION", nullable = false, length = 48)
   private String icmIdTpComision;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_VALOR", nullable = false, precision = 23, scale = 8)
   private BigDecimal valor;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
   private Boolean desplazamiento;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
   private Boolean desplazamientoBase;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
@@ -104,7 +103,7 @@ public class TareaPersonaEstructura extends CommonFieldsTask {
   @Column(name = "ICM_ID_ESTR_COMISION_BASE", nullable = false, length = 48)
   private String icmIdEstrComisionBase;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ORD_TOPE", nullable = false, length = 48)
   private Integer tope;
 
@@ -112,11 +111,11 @@ public class TareaPersonaEstructura extends CommonFieldsTask {
   @Column(name = "ICM_ID_TP_ESTRUCTURA", nullable = false, length = 48)
   private String icmIdTpEstructura;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_GRUPO_MANUAL", nullable = false)
   private String icmGrupoManual;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_FESTIVO", nullable = false)
   private Boolean festivo;
 

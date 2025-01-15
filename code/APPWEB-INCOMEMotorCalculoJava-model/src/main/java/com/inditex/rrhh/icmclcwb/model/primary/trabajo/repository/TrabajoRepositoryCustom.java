@@ -6,14 +6,12 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import org.jspecify.annotations.NonNull;
-
 public interface TrabajoRepositoryCustom {
 
-  void updateEstado(@NonNull final TrabajoDTO trabajo, @NonNull final EstadoTrabajoDTO estado);
+  void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);
 
-  void updateFechaFin(@NonNull final TrabajoDTO trabajo);
+  void updateFechaFin(@NotNull final TrabajoDTO trabajo);
 
-  List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NonNull final TrabajoDTO trabajo, @NonNull final List<String> stdIdLegEnt,
-      @NonNull final List<String> cclIdOrigen);
+  List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo, @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen);
 }

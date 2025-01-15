@@ -8,7 +8,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalFecha;
 
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -33,8 +32,8 @@ public class TareaAmbitoGlobalFechaRepositoryCustomImpl extends
   }
 
   @Override
-  public PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@NonNull @Positive final Long idTarea,
-      @NonNull final Integer idTipoDato) {
+  public PeriodoDto findFechaAmbitoDtoByIdTareaAndIdTipoDato(@NotNull @Positive final Long idTarea,
+      @NotNull final Integer idTipoDato) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO, idTipoDato);

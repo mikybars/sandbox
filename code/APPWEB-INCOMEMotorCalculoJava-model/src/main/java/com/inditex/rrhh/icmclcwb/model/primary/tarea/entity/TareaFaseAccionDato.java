@@ -16,7 +16,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_FASE_ACCION_DATO")
@@ -30,7 +29,7 @@ public class TareaFaseAccionDato {
   @EmbeddedId
   private TareaFaseAccionDatoPk pk;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;

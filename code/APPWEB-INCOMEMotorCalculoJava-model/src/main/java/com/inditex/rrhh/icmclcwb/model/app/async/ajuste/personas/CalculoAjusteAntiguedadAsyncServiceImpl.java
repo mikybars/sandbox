@@ -27,9 +27,9 @@ public class CalculoAjusteAntiguedadAsyncServiceImpl implements CalculoAjusteAnt
   private CalculoAjusteAntiguedadService calculoAjusteAntiguedadService;
 
   @Override
-  public CompletableFuture<Void> ajustar(@NonNull final AlgoritmoAjusteDto algoritmoAjuste,
-      @NonNull final TareaDto tarea,
-      @NonNull @NotEmpty final List<IdPersonaLocalDto> personas) {
+  public CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste,
+      @NotNull final TareaDto tarea,
+      @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
     this.calculoAjusteAntiguedadService.ajustar(algoritmoAjuste, tarea, personas);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

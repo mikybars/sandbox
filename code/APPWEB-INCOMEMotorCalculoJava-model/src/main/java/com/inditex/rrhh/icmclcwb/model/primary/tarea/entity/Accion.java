@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "ACCION")
@@ -36,11 +35,11 @@ public class Accion {
   @Column(name = "REACCION_PESO", nullable = true)
   private Integer peso;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_REACCION_ESPERAR", nullable = false)
   private Boolean esReaccionEsperar;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_REACCION_REINTENTO", nullable = false)
   private Boolean esReaccionReintento;
 

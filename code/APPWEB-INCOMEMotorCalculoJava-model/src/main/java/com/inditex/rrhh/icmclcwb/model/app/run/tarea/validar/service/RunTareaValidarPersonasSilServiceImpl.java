@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,8 @@ public class RunTareaValidarPersonasSilServiceImpl implements RunPrevalidar {
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(
-      @NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
     final TareaDto tarea = runTarea.getTarea();
     this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
     final List<ValidacionDto> validaciones = tarea.getAmbito().stream()

@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROCESO_AMBITO_EMPRESA")
@@ -25,16 +24,16 @@ public class ProcesoAmbitoEmpresa {
   @Column(name = "ID_PROCESO_AMBITO_EMPRESA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_PROCESO", nullable = false)
   private Proceso proceso;
 
-  @NonNull
+  @NotNull
   @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
   private String cclIdOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
   private String stdIdLegEnt;
 

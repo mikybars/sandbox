@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
   private String id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   @NotBlank
@@ -52,7 +52,7 @@ public class TareaPersonaHistoricoDto implements Serializable {
 
   private Date fechaAntiguedad;
 
-  @NonNull
+  @NotNull
   private Long stdIdLegEnt;
 
 }

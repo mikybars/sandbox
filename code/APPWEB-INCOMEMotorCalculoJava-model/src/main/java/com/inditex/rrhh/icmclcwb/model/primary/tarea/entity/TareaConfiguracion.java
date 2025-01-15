@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CONFIGURACION")
@@ -22,15 +21,15 @@ public class TareaConfiguracion extends CommonFieldsTaskOrigin {
   @Column(name = "COD_TIPO_HORA", nullable = true)
   private Integer codTipoHora;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_CK_VENTA_IMPUESTOS", nullable = false)
   private Boolean icmCkVentaImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_CK_INC_IVA_EVAL_PTPO", nullable = false)
   private Boolean icmCkIncIvaEvalPtpo;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_CK_RED_JORNADA", nullable = false)
   private Boolean icmCkRedJornada;
 

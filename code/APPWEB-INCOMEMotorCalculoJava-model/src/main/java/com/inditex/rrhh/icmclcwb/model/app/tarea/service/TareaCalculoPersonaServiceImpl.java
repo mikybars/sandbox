@@ -17,7 +17,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPers
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,44 +40,44 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
   private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
-  public void updateWithEstadoAndidPersona(@Valid @NonNull @NotEmpty final List<IdPersonaLocalDto> personas,
-      @Valid @NonNull final RunTareaDto runTareaDto, @Valid @NonNull final EstadoTareaPersonaDto estado) {
+  public void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
+      @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado) {
     this.tareaCalculoPersonaRepositoryCustom.updateWithEstadoAndidPersona(
         personas.stream().map(e -> e.getIdPersonaLocal()).collect(Collectors.toList()), runTareaDto, estado);
   }
 
   @Override
-  public void updateWithEstado(@Valid @NonNull final RunTareaDto runTareaDto,
-      @Valid @NonNull final EstadoTareaPersonaDto estadoActual,
-      @Valid @NonNull final EstadoTareaPersonaDto estadoNuevo) {
+  public void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
+      @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
+      @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo) {
     this.tareaCalculoPersonaRepositoryCustom.updateWithEstado(runTareaDto, estadoActual, estadoNuevo);
   }
 
   @Override
-  public void mergePersonaCalculoByAmbito(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void mergePersonaCalculoByAmbito(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbito(runTareaDto);
   }
 
   @Override
-  public void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoLocalizacion(runTareaDto);
   }
 
   @Override
-  public void mergePersonaCalculoByAmbitoPersona(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaCalculoPersonaRepositoryCustom.mergePersonaCalculoByAmbitoPersona(runTareaDto);
   }
 
   @Override
-  public List<TareaCalculoPersonaDto> findByTarea(@Valid @NonNull final TareaDto tarea) {
+  public List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
     return this.tareaCalculoPersonaMapper.tareaCalculoPersonaToTareaCalculoPersonaDto(
         this.tareaCalculoPersonaRepository.findByTareaId(tarea.getId()));
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
-  public List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final AlgoritmoDTO algoritmo) {
+  public List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final AlgoritmoDTO algoritmo) {
     final List<IdPersonaLocalDto> personas;
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempAlgoritmo();
@@ -95,8 +94,8 @@ public class TareaCalculoPersonaServiceImpl implements TareaCalculoPersonaServic
   }
 
   @Override
-  public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final String idTipoPolitica) {
+  public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final String idTipoPolitica) {
     return this.tareaCalculoPersonaRepositoryCustom.findByTareaAndIdEstadoAndIdTipoPolitica(tarea,
         idTipoPolitica);
   }

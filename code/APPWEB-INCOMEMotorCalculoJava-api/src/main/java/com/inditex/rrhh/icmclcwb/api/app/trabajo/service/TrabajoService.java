@@ -12,23 +12,22 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface TrabajoService {
 
-  TrabajoDTO find(@NonNull @Positive final Long id);
+  TrabajoDTO find(@NotNull @Positive final Long id);
 
   TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo);
 
-  TrabajoDTO merge(@Valid @NonNull final ProgramacionDTO programacion,
-      @Valid @NonNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NonNull final PeriodoDTO periodo);
+  TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
+      @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo);
 
-  void updateFechaFin(@NonNull final TrabajoDTO trabajo);
+  void updateFechaFin(@NotNull final TrabajoDTO trabajo);
 
-  void updateEstado(@NonNull final TrabajoDTO trabajo, @NonNull final EstadoTrabajoDTO estado);
+  void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);
 
-  TrabajoDTO findByIdWithStates(@NonNull @Positive final Long id);
+  TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id);
 
-  List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NonNull final TrabajoDTO trabajo, @NonNull final List<String> stdIdLegEnt,
-      @NonNull final List<String> cclIdOrigen);
+  List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo, @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen);
 }

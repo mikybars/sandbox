@@ -10,19 +10,18 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Es
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaPersonaEstructuraPoliticaService {
 
   List<TareaPersonaEstructuraPoliticaDto> save(
-      @Valid @NonNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoSeccionEstructuraPolitica,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoSeccionEstructuraPolitica,
+      @Valid @NotNull final TareaDto tarea);
 
   List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
-      @Valid @NonNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
+      @Valid @NotNull final TareaDto tarea);
 
-  Boolean existePolitica(@Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull @NotEmpty final List<TipoPoliticaEnum> politicas);
+  Boolean existePolitica(@Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas);
 
 }

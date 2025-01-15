@@ -12,7 +12,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROGRAMACION_AMBITO")
@@ -26,7 +25,7 @@ public class ProgramacionAmbito {
   @Column(name = "ID_PROGRAMACION_AMBITO")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_PROGRAMACION", nullable = false)
   private Programacion programacion;

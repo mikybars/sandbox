@@ -14,7 +14,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "ALGORITMO")
@@ -27,15 +26,15 @@ public class Algoritmo {
   @Column(name = "ID_ALGORITMO")
   private Integer id;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_DESPLAZAMIENTO", nullable = false)
   private Boolean desplazamiento;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_DESPLAZAMIENTO_BASE", nullable = false)
   private Boolean desplazamientoBase;
 

@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
@@ -18,12 +18,12 @@ public class LocalizacionesAmbitoDto {
 
   private List<Integer> localizaciones = null;
 
-  @NonNull
+  @NotNull
   private Long idAmbito;
 
   public void setLocalizaciones(List<IdLocalizacionLocalDto> ids) {
     if (ids != null) {
-      localizaciones = ids.stream()
+      this.localizaciones = ids.stream()
           .map(IdLocalizacionLocalDto::getId)
           .map(Integer::valueOf)
           .collect(Collectors.toList());
@@ -31,12 +31,12 @@ public class LocalizacionesAmbitoDto {
   }
 
   public boolean obtenerLocalizaciones() {
-    return TipoAmbitoEnum.PERSONA.getId().equals(idAmbito)
-        || TipoAmbitoEnum.LOCALIZACION.getId().equals(idAmbito);
+    return TipoAmbitoEnum.PERSONA.getId().equals(this.idAmbito)
+        || TipoAmbitoEnum.LOCALIZACION.getId().equals(this.idAmbito);
   }
 
   public boolean hasData() {
-    return !obtenerLocalizaciones() || !CollectionUtils.isEmpty(localizaciones);
+    return !this.obtenerLocalizaciones() || !CollectionUtils.isEmpty(this.localizaciones);
   }
 
 }

@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +32,7 @@ public class RunTareaConsolidarByAmbitoPersonaServiceImpl implements RunTareaCon
       metricGroupName = "RunTareaConsolidarByAmbitoPersonaServiceGroup",
       metricDescription = "RunTareaConsolidarByAmbitoPersonaService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<Void> cfPeriodo = this.runTareaConsolidarPeriodoAsyncService

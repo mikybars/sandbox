@@ -5,17 +5,17 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
 @AllArgsConstructor
 public class RunTareaPrevalidarDto implements Serializable {
 
-  @NonNull
+  @NotNull
   private List<TareaFaseAccionDto> tareaFaseAccion;
 
 }

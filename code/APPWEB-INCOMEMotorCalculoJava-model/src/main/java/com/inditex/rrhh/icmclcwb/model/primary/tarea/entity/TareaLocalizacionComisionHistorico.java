@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_COMISION_HISTORICO")
@@ -28,7 +27,7 @@ public class TareaLocalizacionComisionHistorico extends CommonFieldsTask {
   @Column(name = "STD_ID_WORK_LOCAT", nullable = false, length = 48)
   private String stdIdWorkLocat;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_COMISIONABLE", nullable = false)
   private Boolean comisionable;
 

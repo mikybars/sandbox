@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguraci
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,15 +26,15 @@ public class TareaConfiguracionPrecioHoraServiceImpl implements TareaConfiguraci
   private TareaConfiguracionPrecioHoraRepositoryCustom tareaConfiguracionPrecioHoraRepositoryCustom;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaConfiguracionPrecioHoraRepositoryCustom.save(
         tareaConfiguracionPrecioHoraMapper.tareaConfiguracionPrecioHoraDtoToTareaConfiguracionPrecioHora(src));
   }
 
   @Override
-  public void saveConfPrecioHoraResultItemDto(@Valid @NonNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaConfiguracionPrecioHoraRepositoryCustom.save(
         tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src,
             tarea));

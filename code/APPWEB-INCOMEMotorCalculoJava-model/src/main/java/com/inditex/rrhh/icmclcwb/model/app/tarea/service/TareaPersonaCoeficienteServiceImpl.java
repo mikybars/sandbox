@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaCoef
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -26,8 +25,8 @@ public class TareaPersonaCoeficienteServiceImpl implements TareaPersonaCoeficien
   private TareaPersonaCoeficienteMapper tareaPersonaCoeficienteMapper;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
-      @Valid @NonNull final TareaDto tareaDto) {
+  public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+      @Valid @NotNull final TareaDto tareaDto) {
     tareaPersonaCoeficienteRepositoryCustom.save(tareaPersonaCoeficienteMapper
         .genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(src, tareaDto));
   }

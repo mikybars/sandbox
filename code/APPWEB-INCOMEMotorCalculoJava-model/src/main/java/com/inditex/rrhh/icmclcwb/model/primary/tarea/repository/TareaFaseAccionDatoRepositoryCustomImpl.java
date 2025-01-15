@@ -5,7 +5,6 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccionDato;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +23,7 @@ public class TareaFaseAccionDatoRepositoryCustomImpl
    * Guarda en TAREA_FASE_ACCION_DATO.
    */
   @Override
-  public void save(@NonNull List<TareaFaseAccionDato> src) {
+  public void save(@NotNull List<TareaFaseAccionDato> src) {
 
     this.saveNamedJdbcBatchList(src, this.sqlSave, this.batchSize);
 

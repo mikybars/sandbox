@@ -8,7 +8,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -21,52 +20,52 @@ public class LimpiezaAsyncServiceImpl implements LimpiezaAsyncService {
   private LimpiezaService limpiezaService;
 
   @Override
-  public CompletableFuture<Void> limpiezaTareaPersonaHistorico(@NonNull @Valid TareaDto tarea) {
+  public CompletableFuture<Void> limpiezaTareaPersonaHistorico(@NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaPersonaHistorico(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> limpiezaTareaLocalizacionHistorico(@NonNull @Valid TareaDto tarea) {
+  public CompletableFuture<Void> limpiezaTareaLocalizacionHistorico(@NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaLocalizacionHistorico(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> limpiezaTareaGlobalLocalizacionPersona(@NonNull @Valid TareaDto tarea) {
+  public CompletableFuture<Void> limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaGlobalLocalizacionPersona(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
-      @NonNull @Valid TareaDto tarea) {
+      @NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(
-      @NonNull @Valid TareaDto tarea) {
+      @NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NonNull @Valid TareaDto tarea) {
+  public CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaAmbitoLocalizacion(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
-      @NonNull @Valid TareaDto tarea) {
+      @NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NonNull @Valid TareaDto tarea) {
+  public CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid TareaDto tarea) {
     limpiezaService.limpiezaTareaAmbitoGlobalPersona(tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +36,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
   private String sqlfindNumeroEmpresasCalculadas;
 
   @Override
-  public void updateEstado(@NonNull final TrabajoDTO trabajo, @NonNull final EstadoTrabajoDTO estado) {
+  public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, trabajo.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
@@ -46,7 +45,7 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
   }
 
   @Override
-  public void updateFechaFin(@NonNull final TrabajoDTO trabajo) {
+  public void updateFechaFin(@NotNull final TrabajoDTO trabajo) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, trabajo.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
@@ -54,9 +53,9 @@ public class TrabajoRepositoryCustomImpl implements TrabajoRepositoryCustom {
   }
 
   @Override
-  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NonNull final TrabajoDTO trabajo,
-      @NonNull final List<String> stdIdLegEnt,
-      @NonNull final List<String> cclIdOrigen) {
+  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo,
+      @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen) {
 
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);

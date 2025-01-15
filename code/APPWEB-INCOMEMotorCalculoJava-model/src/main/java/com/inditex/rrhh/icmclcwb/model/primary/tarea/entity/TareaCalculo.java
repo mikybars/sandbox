@@ -18,7 +18,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CALCULO")
@@ -28,27 +27,27 @@ public class TareaCalculo {
   @EmbeddedId
   private TareaCalculoPk pk;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_ALGORITMO", nullable = false)
   private Algoritmo algoritmo;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_CALCULO", nullable = false)
   private TipoCalculo tipoCalculo;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_COMISION", nullable = false)
   private TipoComision tipoComision;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
   private BigDecimal importe;
 
@@ -68,7 +67,7 @@ public class TareaCalculo {
   @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
   private String stdOrHrPeriod;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumns({
       @JoinColumn(name = "ID_TAREA_PERSONA_ESTRUCTURA", referencedColumnName = "ID_TAREA_PERSONA_ESTRUCTURA",
@@ -111,12 +110,12 @@ public class TareaCalculo {
           insertable = false, updatable = false)})
   private TareaLocalizacionPersonaVenta localizacionPersonaVenta;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_MANUAL", nullable = false)
   private Boolean manual;
 

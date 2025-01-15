@@ -20,7 +20,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoServ
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,7 @@ public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegulari
       metricGroupName = "RunTareaRegularizarChallengeServiceGroup",
       metricDescription = "RunTareaRegularizarChallengeService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     this.tareaFaseService.updateFechaInicio(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.REGULARIZAR_CHALLENGE.getId()));

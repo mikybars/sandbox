@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class PtrPresenciaTiposHorasRequestDto implements Serializable {
 
   private static final long serialVersionUID = 8473916136604243658L;
 
-  @NonNull
+  @NotNull
   private Integer origen;
 
   private Integer tipoHora;

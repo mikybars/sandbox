@@ -3,12 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2021. Inditex
  */
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
-import org.jspecify.annotations.NonNull;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 public interface TareaCalculoAjusteComisionRepositoryCustom {
 
-  void normalizarAjusteComision(@NonNull TareaDto runTarea);
+  void normalizarAjusteComision(@NotNull TareaDto runTarea);
 
 }

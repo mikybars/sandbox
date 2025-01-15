@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTipoHoraRep
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaTipoHoraRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -31,15 +30,15 @@ public class TareaTipoHoraServiceImpl implements TareaTipoHoraService {
 
   @Override
   public List<TareaTipoHoraDto> save(
-      @Valid @NonNull final TiposHoraResponseDto dto,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull final TiposHoraResponseDto dto,
+      @Valid @NotNull final TareaDto tarea) {
     return this.mapper.tareaTipoHoraListTotareaTipoHoraDtoList(this.tareaTipoHoraRepositoryCustom.save(
         this.mapper.tiposHorasResponseDtoToTareaTipoHora(dto, tarea)));
   }
 
   @Override
   public List<TareaTipoHoraDto> findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull final TareaDto tarea) {
     return this.mapper.tareaTipoHoraListTotareaTipoHoraDtoList(
         this.tareaTipoHoraRepository.findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(tarea.getId(),
             true));

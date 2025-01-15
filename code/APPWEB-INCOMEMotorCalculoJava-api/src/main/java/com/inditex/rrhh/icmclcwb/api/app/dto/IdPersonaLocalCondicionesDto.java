@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -21,10 +21,10 @@ public class IdPersonaLocalCondicionesDto implements Serializable {
   @NotBlank
   private String idPersonaLocal;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaDesde;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaHasta;
 
   private String cclIdCodOrigen;

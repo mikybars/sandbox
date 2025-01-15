@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,8 @@ public class TareaLocalizacionVentaAsyncServiceImpl implements TareaLocalizacion
   private TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
   @Override
-  public CompletableFuture<Void> save(@NonNull final List<VentaManualWlocResultItemDto> src,
-      @NonNull final TareaDto tareaDto) {
+  public CompletableFuture<Void> save(@NotNull final List<VentaManualWlocResultItemDto> src,
+      @NotNull final TareaDto tareaDto) {
     this.tareaLocalizacionVentaService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

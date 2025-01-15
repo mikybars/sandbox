@@ -5,7 +5,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomeService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +18,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 
   @Override
-  public void fechaAmbitoAndEmpresaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void fechaAmbitoAndEmpresaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -28,7 +27,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void personaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -37,7 +36,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void localizacionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -46,7 +45,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void empleadosPresenciaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void empleadosPresenciaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -55,7 +54,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void coefJornadaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void coefJornadaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -64,7 +63,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void flagCalculaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void flagCalculaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -73,7 +72,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void presenciaManualByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void presenciaManualByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -82,7 +81,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void presenciaManualLocalizacionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void presenciaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -91,7 +90,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void ventaManualLocalizacionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaManualLocalizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -100,7 +99,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void estructurasComByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void estructurasComByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -109,7 +108,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void estructurasPolByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void estructurasPolByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -118,7 +117,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void tiendasComisionableByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void tiendasComisionableByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -127,7 +126,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void configuracionVentaOnlineByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void configuracionVentaOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
@@ -135,7 +134,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void agrupacionesCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void agrupacionesCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
@@ -143,7 +142,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void localizacionesOnlineByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void localizacionesOnlineByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .forEach(item -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService
@@ -151,7 +150,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void empleadosDesplazamientoByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void empleadosDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -160,7 +159,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void ausenciasByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ausenciasByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -169,7 +168,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void configuraciones(@NonNull @Valid final RunTareaDto runTarea) {
+  public void configuraciones(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -178,7 +177,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void confChallengeDiasMinimosByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void confChallengeDiasMinimosByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -187,7 +186,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void presupuestosWlocByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void presupuestosWlocByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -196,7 +195,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void confPrecioHoraByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void confPrecioHoraByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -205,7 +204,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void confChallengeTipoVentaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void confChallengeTipoVentaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -214,7 +213,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void presupuestosRangoByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void presupuestosRangoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -223,7 +222,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void ventaCongeladaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaCongeladaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -232,7 +231,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void desplazamientoRealByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void desplazamientoRealByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -241,7 +240,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
   }
 
   @Override
-  public void localizacionCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void localizacionCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -251,7 +250,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Override
   public void estructurasPolCadenaByRunTarea(
-      @NonNull @Valid final RunTareaDto runTarea) {
+      @NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -261,7 +260,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Override
   public void empleadosCadenaByRunTarea(
-      @NonNull @Valid final RunTareaDto runTarea) {
+      @NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -271,7 +270,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Override
   public void tiposHoraByRunTarea(
-      @NonNull @Valid final RunTareaDto runTarea) {
+      @NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -281,7 +280,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Override
   public void estadoWlocByRunTarea(
-      @NonNull @Valid final RunTareaDto runTarea) {
+      @NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()

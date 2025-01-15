@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA")
@@ -23,11 +22,11 @@ public class TareaAgrupacionConfiguracionChallengeTipoVenta extends CommonFields
   @Column(name = "ID_TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
   private Long icmIdAgrupacionOnline;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_VENTA_CONCEPTO_CHALLENGE", nullable = false)
   private TipoVentaConceptoChallenge tipoVentaConceptoChallenge;

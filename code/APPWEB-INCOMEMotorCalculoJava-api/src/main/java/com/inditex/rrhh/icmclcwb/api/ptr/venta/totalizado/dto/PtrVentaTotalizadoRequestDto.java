@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +17,13 @@ public class PtrVentaTotalizadoRequestDto implements Serializable {
 
   private static final long serialVersionUID = -529195772706345954L;
 
-  @NonNull
+  @NotNull
   private String fechaDesde;
 
-  @NonNull
+  @NotNull
   private String fechaHasta;
 
-  @NonNull
+  @NotNull
   private Integer pais;
 
   private List<Integer> cadena;

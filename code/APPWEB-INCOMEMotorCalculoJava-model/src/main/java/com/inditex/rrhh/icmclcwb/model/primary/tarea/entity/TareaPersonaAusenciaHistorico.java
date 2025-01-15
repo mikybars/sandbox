@@ -12,7 +12,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_AUSENCIA_HISTORICO")
@@ -32,7 +31,7 @@ public class TareaPersonaAusenciaHistorico extends CommonFieldsTaskOrigin {
   @Column(name = "CCL_ID_PERSON", nullable = false, length = 48)
   private String cclIdPerson;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_AUSENCIA")
   private TipoAusencia tipoAusencia;

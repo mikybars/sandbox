@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS")
@@ -24,7 +23,7 @@ public class TareaConfiguracionChallengeDiasMinimos extends CommonFieldsTaskOrig
   @Column(name = "ICM_ID_TP_CALCULO", nullable = false, length = 48)
   private String icmIdTpCalculo;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_MIN_NUM_DAYS", nullable = false)
   private Integer icmMinNumDays;
 

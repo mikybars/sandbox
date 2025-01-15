@@ -21,8 +21,8 @@ public class TareaLocalizacionPresenciaAsyncServiceImpl
   private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
 
   @Override
-  public CompletableFuture<Void> save(@NonNull final List<PresenciaManualWlocResultItemDto> src,
-      @NonNull final TareaDto tareaDto) {
+  public CompletableFuture<Void> save(@NotNull final List<PresenciaManualWlocResultItemDto> src,
+      @NotNull final TareaDto tareaDto) {
     this.tareaLocalizacionPresenciaService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

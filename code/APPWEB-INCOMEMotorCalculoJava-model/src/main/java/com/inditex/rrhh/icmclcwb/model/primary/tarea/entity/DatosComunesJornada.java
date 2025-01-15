@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
@@ -15,7 +14,7 @@ import org.jspecify.annotations.NonNull;
 @AllArgsConstructor
 public class DatosComunesJornada extends DatosComunes {
 
-  @NonNull
+  @NotNull
   @Column(name = "MINUTOS", nullable = false)
   private Integer minutos;
 

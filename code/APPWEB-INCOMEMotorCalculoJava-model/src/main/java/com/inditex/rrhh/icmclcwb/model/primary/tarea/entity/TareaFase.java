@@ -15,7 +15,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_FASE")
@@ -31,22 +30,22 @@ public class TareaFase {
   @Column(name = "ID_TAREA_FASE")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_FASE", nullable = false)
   private Fase fase;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_ESTADO_TAREA_FASE", nullable = false)
   private EstadoTareaFase estadoTareaFase;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private Date fechaHoraCreacion;
 
@@ -56,7 +55,7 @@ public class TareaFase {
   @Column(name = "FECHA_HORA_FIN", nullable = true)
   private Date fechaHoraFin;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

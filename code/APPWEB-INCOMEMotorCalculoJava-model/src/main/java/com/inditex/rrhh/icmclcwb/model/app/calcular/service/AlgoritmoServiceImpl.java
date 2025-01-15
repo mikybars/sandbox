@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepo
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepositoryCustom;
 
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,12 +27,12 @@ public class AlgoritmoServiceImpl implements AlgoritmoService {
   private AlgoritmoMapper algoritmoMapper;
 
   @Override
-  public List<Integer> customFindAlgoritmosIdsByTarea(@NonNull @Positive final Long id) {
+  public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
     return this.algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
   }
 
   @Override
-  public AlgoritmoDTO findById(@NonNull @Positive final Integer id) {
+  public AlgoritmoDTO findById(@NotNull @Positive final Integer id) {
     return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());
   }
 

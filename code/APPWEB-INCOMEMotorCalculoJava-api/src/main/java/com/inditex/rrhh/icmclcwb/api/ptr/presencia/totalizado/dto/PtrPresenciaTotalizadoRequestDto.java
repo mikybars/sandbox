@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +26,7 @@ public class PtrPresenciaTotalizadoRequestDto implements Serializable {
 
   private List<Integer> cadena;
 
-  @NonNull
+  @NotNull
   private Integer origen;
 
   private List<Integer> empresa;

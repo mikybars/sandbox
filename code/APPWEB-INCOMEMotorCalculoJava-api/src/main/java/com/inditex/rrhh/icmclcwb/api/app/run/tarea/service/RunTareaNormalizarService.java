@@ -3,13 +3,14 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaNormalizarService {
 
-  void run(@NonNull @Valid final RunTareaDto runTarea);
+  void run(@NotNull @Valid final RunTareaDto runTarea);
 
 }

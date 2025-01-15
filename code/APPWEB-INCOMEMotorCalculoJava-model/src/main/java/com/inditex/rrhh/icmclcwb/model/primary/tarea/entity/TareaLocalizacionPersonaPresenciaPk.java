@@ -8,7 +8,6 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -19,7 +18,7 @@ public class TareaLocalizacionPersonaPresenciaPk implements Serializable {
   @Column(name = "ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioPeriodo;

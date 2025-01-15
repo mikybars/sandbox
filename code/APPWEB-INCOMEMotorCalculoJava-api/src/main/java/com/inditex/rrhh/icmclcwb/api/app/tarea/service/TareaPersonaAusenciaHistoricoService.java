@@ -8,15 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaPersonaAusenciaHistoricoService {
 
   List<TareaPersonaAusenciaHistoricoDto> saveAusenciaResultItemDto(
-      @Valid @NonNull @NotEmpty final List<AusenciasResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<AusenciasResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
   List<TareaPersonaAusenciaHistoricoDto> save(
-      @Valid @NonNull @NotEmpty final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico);
+      @Valid @NotNull @NotEmpty final List<TareaPersonaAusenciaHistoricoDto> tareaPersonaAusenciaHistorico);
 
 }

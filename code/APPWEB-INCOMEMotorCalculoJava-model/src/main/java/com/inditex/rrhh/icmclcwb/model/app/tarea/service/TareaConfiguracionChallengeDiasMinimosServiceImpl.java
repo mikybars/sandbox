@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguraci
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +27,8 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
   private TareaConfiguracionChallengeDiasMinimosRepositoryCustom tareaConfiguracionChallengeDiasMinimosRepositoryCustom;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
         tareaConfiguracionChallengeDiasMinimosMapper
             .tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(src));
@@ -37,8 +36,8 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
 
   @Override
   public void saveConfChDiasMinimosResultItemDto(
-      @Valid @NonNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
         tareaConfiguracionChallengeDiasMinimosMapper
             .confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(src, tarea));

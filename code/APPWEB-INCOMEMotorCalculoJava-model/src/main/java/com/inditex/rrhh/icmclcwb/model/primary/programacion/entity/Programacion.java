@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PROGRAMACION")
@@ -33,15 +32,15 @@ public class Programacion {
   @Column(name = "ID_PROGRAMACION")
   private Long id;
 
-  @NonNull
+  @NotNull
   @Column(name = "HORA_PROGRAMACION", nullable = false)
   private LocalTime horaProgramacion;
 
-  @NonNull
+  @NotNull
   @Column(name = "PROGRAMACION_HUSO", length = 12, nullable = false)
   private String programacionHuso;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 
@@ -49,18 +48,18 @@ public class Programacion {
   @Column(name = "NOMBRE_USUARIO", length = 12, nullable = false)
   private String nombreUsuario;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private LocalDateTime fechaHoraCreacion;
 
   @Column(name = "FECHA_HORA_ULTIMA_EJECUCION", nullable = true)
   private LocalDateTime fechaHoraUltimaEjecucion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_SIGUIENTE_EJECUCION", nullable = false)
   private LocalDateTime fechaHoraSiguienteEjecucion;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_AMBITO", nullable = false)
   private TipoAmbito tipoAmbito;

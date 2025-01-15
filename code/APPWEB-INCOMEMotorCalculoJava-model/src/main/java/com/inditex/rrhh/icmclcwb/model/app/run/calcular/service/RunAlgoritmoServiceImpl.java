@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -30,7 +29,7 @@ public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
   private RunAlgoritmoFactory runAlgoritmoFactory;
 
   @Override
-  public RunAlgoritmoDTO findById(@NonNull @Positive final Integer id) {
+  public RunAlgoritmoDTO findById(@NotNull @Positive final Integer id) {
     final RunAlgoritmoDTO result = new RunAlgoritmoDTO();
     final AlgoritmoDTO algoritmo = this.algoritmoMapper
         .algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());

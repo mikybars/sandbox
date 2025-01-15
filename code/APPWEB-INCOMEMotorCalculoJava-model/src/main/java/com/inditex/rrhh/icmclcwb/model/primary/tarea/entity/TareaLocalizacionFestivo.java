@@ -14,7 +14,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_FESTIVO")
@@ -30,12 +29,12 @@ public class TareaLocalizacionFestivo {
   @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
   private String cclIdCodOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;

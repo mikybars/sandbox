@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +27,8 @@ public class TareaLocalizacionOnlineHistoricoServiceImpl implements TareaLocaliz
   private TareaLocalizacionOnlineHistoricoRepositoryCustom tareaLocalizacionOnlineHistoricoRepositoryCustom;
 
   @Override
-  public List<LocalizacionOnlineDto> save(@Valid @NonNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     List<TareaLocalizacionOnlineHistorico> tiendas = tareaLocalizacionOnlineHistoricoMapper
         .getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(src, tarea);
     return tareaLocalizacionOnlineHistoricoMapper.getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(

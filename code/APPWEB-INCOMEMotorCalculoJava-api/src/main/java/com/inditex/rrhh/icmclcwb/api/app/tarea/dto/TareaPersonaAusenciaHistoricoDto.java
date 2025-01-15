@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaPersonaAusenciaHistoricoDto implements Serializable {
@@ -15,7 +15,7 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   @NotBlank
@@ -27,15 +27,15 @@ public class TareaPersonaAusenciaHistoricoDto implements Serializable {
   @NotBlank
   private String cclIdOrigen;
 
-  @NonNull
+  @NotNull
   private Date fechaInicio;
 
-  @NonNull
+  @NotNull
   private Date fechaFin;
 
   private Integer idTipoAusencia;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaInicioPeriodo;
 
 }

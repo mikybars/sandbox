@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "PERIODO_CALCULO_PERSONA")
@@ -21,21 +20,21 @@ public class PeriodoCalculoPersona {
   @EmbeddedId
   private PeriodoCalculoPersonaPk pk;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA_ACTUAL", nullable = false)
   private Tarea tareaActual;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA_ULTIMA", nullable = false)
   private Tarea tareaUltima;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_CREACION", nullable = false)
   private Date fechaHoraCreacion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_HORA_ACTUALIZACION", nullable = false)
   private Date fechaHoraActualizacion;
 
@@ -43,7 +42,7 @@ public class PeriodoCalculoPersona {
   @JoinColumn(name = "ID_ESTADO", nullable = false)
   private EstadoPeriodoCalculoPersona estado;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_BLOQUEADO", nullable = false)
   private Boolean bloqueado;
 

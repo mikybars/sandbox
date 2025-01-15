@@ -14,7 +14,6 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -27,7 +26,7 @@ public class TareaCalculoAjusteComisionPk implements Serializable {
   @Column(name = "ID_TAREA_CALCULO_AJUSTE_COMISION")
   private Long id;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO_PERIODO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioPeriodo;

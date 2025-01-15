@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -29,8 +28,8 @@ public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionC
 
   @Override
   public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
-      @Valid @NonNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
-      @Valid @NonNull final RunTareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
+      @Valid @NotNull final RunTareaDto tarea) {
     List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
         .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
     return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(

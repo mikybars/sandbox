@@ -9,7 +9,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionFestivoS
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,8 @@ public class TareaLocalizacionFestivoAsyncServiceImpl implements TareaLocalizaci
 
   @Override
   public CompletableFuture<Void> save(
-      @NonNull final List<HorarioComercialFestivoDocDto> src,
-      @NonNull final TareaDto tarea) {
+      @NotNull final List<HorarioComercialFestivoDocDto> src,
+      @NotNull final TareaDto tarea) {
     this.tareaLocalizacionFestivoService.save(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

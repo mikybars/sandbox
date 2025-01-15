@@ -10,7 +10,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,8 +26,8 @@ public class TareaLocalizacionFestivoServiceImpl implements TareaLocalizacionFes
 
   @Override
   public void save(
-      @Valid @NonNull @NotEmpty final List<HorarioComercialFestivoDocDto> src,
-      @Valid @NonNull final TareaDto tareaDto) {
+      @Valid @NotNull @NotEmpty final List<HorarioComercialFestivoDocDto> src,
+      @Valid @NotNull final TareaDto tareaDto) {
     this.tareaLocalizacionFestivoRepositoryCustom.save(
         this.tareaLocalizacionFestivoMapper.horarioComercialFestivoDocDtoToTareaLocalizacionFestivo(src,
             tareaDto));

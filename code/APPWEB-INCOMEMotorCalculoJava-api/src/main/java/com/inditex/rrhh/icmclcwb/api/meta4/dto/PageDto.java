@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -29,31 +29,28 @@ public class PageDto implements Serializable {
 
   private String idBusqueda;
 
-  @NonNull
+  @NotNull
   private Integer numeroPagina;
 
   private Integer numeroTotalPaginas;
 
-  @NonNull
+  @NotNull
   private Integer numeroRegistrosPagina;
 
   private Integer numeroTotalResultados;
 
   public boolean hasNext() {
-    boolean result = false;
+    final boolean result = this.numeroPagina != null
+        && ((this.numeroTotalPaginas == null && (int) this.numeroPagina == NumberUtils.INTEGER_ZERO)
+            || (this.numeroTotalPaginas != null && this.numeroPagina < this.numeroTotalPaginas));
     // Primera carga, en las iteraciones cuando no hay registros, llega
     // {numeroPagina: 0, numeroTotalPaginas: 0}
-    if (numeroPagina != null
-        && ((numeroTotalPaginas == null && Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0)
-            || (numeroTotalPaginas != null && Integer.compare(numeroPagina, numeroTotalPaginas) < 0))) {
-      result = true;
-    }
     return result;
   }
 
   public PageDto next() {
-    if (hasNext()) {
-      setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
+    if (this.hasNext()) {
+      this.setNumeroPagina(Integer.valueOf(this.numeroPagina.intValue() + 1));
     } else {
       throw new Meta4IcmclcwbException("Error en la paginacion");
     }

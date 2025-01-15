@@ -41,7 +41,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -88,8 +87,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
   }
 
   @Override
-  public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+  public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();
@@ -151,8 +150,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
   @Override
   public void presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbito(
-      @NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();
@@ -213,8 +212,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
   @Override
   public void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(
-      @NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();

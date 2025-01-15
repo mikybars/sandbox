@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -19,13 +19,13 @@ public class IdLocalizacionLocalPresupuestoDto implements Serializable {
 
   private String id;
 
-  @NonNull
+  @NotNull
   private Integer idTipoPresupuesto;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaInicio;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaFin;
 
 }

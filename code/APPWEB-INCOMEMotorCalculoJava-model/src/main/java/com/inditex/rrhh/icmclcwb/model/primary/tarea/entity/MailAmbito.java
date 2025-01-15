@@ -13,7 +13,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "MAIL_AMBITO")
@@ -27,7 +26,7 @@ public class MailAmbito {
   @EmbeddedId
   private MailAmbitoPk pk;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO")
   private Boolean esActivo;
 

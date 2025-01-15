@@ -11,29 +11,29 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaCalculoPersonaService {
 
-  void mergePersonaCalculoByAmbito(@Valid @NonNull final RunTareaDto runTareaDto);
+  void mergePersonaCalculoByAmbito(@Valid @NotNull final RunTareaDto runTareaDto);
 
-  List<TareaCalculoPersonaDto> findByTarea(@Valid @NonNull final TareaDto tarea);
+  List<TareaCalculoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea);
 
-  void updateWithEstadoAndidPersona(@Valid @NonNull @NotEmpty final List<IdPersonaLocalDto> personas,
-      @Valid @NonNull final RunTareaDto runTareaDto, @Valid @NonNull final EstadoTareaPersonaDto estado);
+  void updateWithEstadoAndidPersona(@Valid @NotNull @NotEmpty final List<IdPersonaLocalDto> personas,
+      @Valid @NotNull final RunTareaDto runTareaDto, @Valid @NotNull final EstadoTareaPersonaDto estado);
 
-  void updateWithEstado(@Valid @NonNull final RunTareaDto runTareaDto,
-      @Valid @NonNull final EstadoTareaPersonaDto estadoActual,
-      @Valid @NonNull final EstadoTareaPersonaDto estadoNuevo);
+  void updateWithEstado(@Valid @NotNull final RunTareaDto runTareaDto,
+      @Valid @NotNull final EstadoTareaPersonaDto estadoActual,
+      @Valid @NotNull final EstadoTareaPersonaDto estadoNuevo);
 
-  void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NonNull final RunTareaDto runTareaDto);
+  void mergePersonaCalculoByAmbitoLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto);
 
-  void mergePersonaCalculoByAmbitoPersona(@Valid @NonNull final RunTareaDto runTareaDto);
+  void mergePersonaCalculoByAmbitoPersona(@Valid @NotNull final RunTareaDto runTareaDto);
 
-  List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final AlgoritmoDTO idAlgoritmo);
+  List<IdPersonaLocalDto> findByAlgoritmo(@Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final AlgoritmoDTO idAlgoritmo);
 
-  List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final String idTipoPolitica);
+  List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final String idTipoPolitica);
 
 }

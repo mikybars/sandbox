@@ -11,25 +11,24 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaCalculoPersonaRepositoryCustom {
 
-  void mergePersonaCalculoByAmbito(@NonNull RunTareaDto tareaDto);
+  void mergePersonaCalculoByAmbito(@NotNull RunTareaDto tareaDto);
 
   void updateWithEstadoAndidPersona(List<String> cclIdPerson, RunTareaDto runTareaDto, EstadoTareaPersonaDto estado);
 
   void updateWithEstado(RunTareaDto runTareaDto, EstadoTareaPersonaDto estadoActual,
       EstadoTareaPersonaDto estadoNuevo);
 
-  void mergePersonaCalculoByAmbitoLocalizacion(@NonNull RunTareaDto tareaDto);
+  void mergePersonaCalculoByAmbitoLocalizacion(@NotNull RunTareaDto tareaDto);
 
-  void mergePersonaCalculoByAmbitoPersona(@NonNull RunTareaDto tareaDto);
+  void mergePersonaCalculoByAmbitoPersona(@NotNull RunTareaDto tareaDto);
 
-  List<IdPersonaLocalDto> findByAlgoritmo(@NonNull final TareaDto tarea, @NotBlank final AlgoritmoDTO algoritmo);
+  List<IdPersonaLocalDto> findByAlgoritmo(@NotNull final TareaDto tarea, @NotBlank final AlgoritmoDTO algoritmo);
 
-  List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NonNull final TareaDto tarea,
-      @NonNull @Positive String idTipoPolitica);
+  List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
+      @NotNull @Positive String idTipoPolitica);
 
   /**
    * Some javadoc.

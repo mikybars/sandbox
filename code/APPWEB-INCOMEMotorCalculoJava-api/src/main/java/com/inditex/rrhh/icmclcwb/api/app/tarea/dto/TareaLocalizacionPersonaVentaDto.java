@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionPersonaVentaDto implements Serializable {
@@ -14,7 +14,7 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   private LocalDate fecha;
@@ -25,10 +25,10 @@ public class TareaLocalizacionPersonaVentaDto implements Serializable {
   @NotBlank
   private String cclIdPerson;
 
-  @NonNull
+  @NotNull
   private Double importeSinImpuestos;
 
-  @NonNull
+  @NotNull
   private Double importeConImpuestos;
 
   private Long idTipoImporteVenta;

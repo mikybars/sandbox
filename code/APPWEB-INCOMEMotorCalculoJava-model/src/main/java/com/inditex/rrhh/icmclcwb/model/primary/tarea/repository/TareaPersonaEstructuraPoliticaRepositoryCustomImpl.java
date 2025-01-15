@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructuraPolitica;
 
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -46,7 +45,7 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
   }
 
   @Override
-  public void updateImporteEstructuraPoliticas(@NonNull final TareaDto tarea, @NonNull final TrabajoDTO trabajoDto) {
+  public void updateImporteEstructuraPoliticas(@NotNull final TareaDto tarea, @NotNull final TrabajoDTO trabajoDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,
@@ -56,8 +55,8 @@ public class TareaPersonaEstructuraPoliticaRepositoryCustomImpl
   }
 
   @Override
-  public Boolean existePolitica(@NonNull final TareaDto tarea,
-      @NonNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
+  public Boolean existePolitica(@NotNull final TareaDto tarea,
+      @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
     final Map<String, Object> parameters = new HashMap<>();
     parameters.put(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     parameters.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA,

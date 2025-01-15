@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "MAIL_ENTORNO")
@@ -26,7 +25,7 @@ public class MailEntorno {
   @Column(name = "ENTORNO", nullable = false)
   private String entorno;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean esActivo;
 }

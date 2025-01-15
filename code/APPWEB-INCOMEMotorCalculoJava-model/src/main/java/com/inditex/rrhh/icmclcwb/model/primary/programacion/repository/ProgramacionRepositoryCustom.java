@@ -7,7 +7,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdProgramacionDto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface ProgramacionRepositoryCustom {
 
@@ -15,13 +14,13 @@ public interface ProgramacionRepositoryCustom {
 
   void activa();
 
-  void activa(@Positive @NonNull final Long id);
+  void activa(@Positive @NotNull final Long id);
 
   void desactiva();
 
-  void desactiva(@Positive @NonNull final Long id);
+  void desactiva(@Positive @NotNull final Long id);
 
-  void updateFechaSiguienteEjecucion(@NonNull @NotEmpty final List<IdProgramacionDto> idProgramacion,
-      @NonNull LocalDateTime fechaSiguienteEjeucion);
+  void updateFechaSiguienteEjecucion(@NotNull @NotEmpty final List<IdProgramacionDto> idProgramacion,
+      @NotNull LocalDateTime fechaSiguienteEjeucion);
 
 }

@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +27,8 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
   private TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
         tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
@@ -37,8 +36,8 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
   }
 
   @Override
-  public void saveConfChTpVentaResultItemDto(@Valid @NonNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
         tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src, tarea));

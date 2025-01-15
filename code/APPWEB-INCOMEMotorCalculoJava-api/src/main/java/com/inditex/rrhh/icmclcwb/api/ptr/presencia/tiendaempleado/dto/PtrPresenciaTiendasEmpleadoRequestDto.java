@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +15,7 @@ public class PtrPresenciaTiendasEmpleadoRequestDto {
 
   private String fechaHasta;
 
-  @NonNull
+  @NotNull
   private Integer origen;
 
   private List<Integer> cadena;

@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.entity.PeriodoCalculoPersona;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +37,7 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
   private String sqlFindEmpleadosValidarRecuperar;
 
   @Override
-  public void mergePeriodoCalculoPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_PERIODO_PERSONA,
@@ -56,8 +55,8 @@ public class PeriodoCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryR
   }
 
   @Override
-  public void limpiezaPeriodoCalculoPersona(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_DESBLOQUEADO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);

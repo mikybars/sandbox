@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,7 +73,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   // Fin de normalización de tareas consolidadas (para borrar)
 
   @Override
-  public void updateFechaFin(@NonNull final TareaDto tarea) {
+  public void updateFechaFin(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVA_FECHA, TimeUtils.nowDate());
@@ -82,7 +81,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   }
 
   @Override
-  public void updateFechaInicioAndEstado(@NonNull final TareaDto tarea, @NonNull final EstadoTareaDto estado) {
+  public void updateFechaInicioAndEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
@@ -91,7 +90,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   }
 
   @Override
-  public void updateEstado(@NonNull final TareaDto tarea, @NonNull final EstadoTareaDto estado) {
+  public void updateEstado(@NotNull final TareaDto tarea, @NotNull final EstadoTareaDto estado) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_ESTADO, estado.getId());
@@ -99,7 +98,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   }
 
   @Override
-  public void updateEstadoFinal(@NonNull final TareaDto tarea) {
+  public void updateEstadoFinal(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaEnum.EN_CURSO.getId());
@@ -147,7 +146,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
   }
 
   @Override
-  public List<IdTareaDTO> findLimpiezaByIdTarea(@NonNull final Long idTarea) {
+  public List<IdTareaDTO> findLimpiezaByIdTarea(@NotNull final Long idTarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA,
@@ -177,7 +176,7 @@ public class TareaRepositoryCustomImpl implements TareaRepositoryCustom {
 
   @Override
   public List<IdTareaDTO> findTareasConsolidadesSinAjusteComision(
-      @NonNull final Integer limit) {
+      @NotNull final Integer limit) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO, EstadoTareaEnum.FINALIZADO_SIN_ERRORES.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_LIMIT, limit);

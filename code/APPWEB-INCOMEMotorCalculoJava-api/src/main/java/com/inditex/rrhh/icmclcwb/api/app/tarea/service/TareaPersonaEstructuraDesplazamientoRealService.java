@@ -9,18 +9,17 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.Despl
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaPersonaEstructuraDesplazamientoRealService {
 
   List<TareaPersonaEstructuraDesplazamientoRealDto> save(
-      @Valid @NonNull @NotEmpty List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructura,
-      @Valid @NonNull TareaDto tarea);
+      @Valid @NotNull @NotEmpty List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructura,
+      @Valid @NotNull TareaDto tarea);
 
-  List<DesplazamientoRealDto> findDesplazamientoReal(@Valid @NonNull TareaDto tarea);
+  List<DesplazamientoRealDto> findDesplazamientoReal(@Valid @NotNull TareaDto tarea);
 
   List<TareaPersonaEstructuraDesplazamientoRealDto> saveDesplazamientoRealResultItemDto(
-      @Valid @NonNull @NotEmpty List<DesplazamientoRealResultItemDto> desplazamientoReal,
-      @Valid @NonNull TareaDto tarea);
+      @Valid @NotNull @NotEmpty List<DesplazamientoRealResultItemDto> desplazamientoReal,
+      @Valid @NotNull TareaDto tarea);
 
 }

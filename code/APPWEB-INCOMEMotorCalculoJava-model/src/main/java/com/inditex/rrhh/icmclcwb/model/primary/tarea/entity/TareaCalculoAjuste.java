@@ -16,7 +16,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_CALCULO_AJUSTE")
@@ -35,12 +34,12 @@ public class TareaCalculoAjuste {
           insertable = false, updatable = false)})
   private TareaPersonaEstructuraPolitica tareaPersonaEstructuraPolitica;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
@@ -53,11 +52,11 @@ public class TareaCalculoAjuste {
   @Column(name = "STD_OR_HR_PERIOD", nullable = false, length = 48)
   private String stdOrHrPeriod;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE", nullable = false, precision = 23, scale = 8)
   private BigDecimal importe;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_ALGORITMO_AJUSTE", nullable = false)
   private AlgoritmoAjuste algoritmoAjuste;

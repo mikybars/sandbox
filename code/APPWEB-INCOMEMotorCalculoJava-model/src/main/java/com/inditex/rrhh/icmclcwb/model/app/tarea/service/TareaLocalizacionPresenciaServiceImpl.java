@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,73 +26,73 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
   private TareaLocalizacionPresenciaMapper tareaLocalizacionPresenciaMapper;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<PresenciaManualWlocResultItemDto> src,
-      @Valid @NonNull final TareaDto tareaDto) {
+  public void save(@Valid @NotNull @NotEmpty final List<PresenciaManualWlocResultItemDto> src,
+      @Valid @NotNull final TareaDto tareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.save(this.tareaLocalizacionPresenciaMapper
         .presenciaManualLocalizacionResultItemDtoToTareaLocalizacionPresencia(src, tareaDto));
   }
 
   @Override
-  public void updateActivoVacio(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void updateActivoVacio(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTareaDto);
   }
 
   @Override
-  public void compensar(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void compensar(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTareaDto);
   }
 
   @Override
-  public void totalizar(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void totalizar(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTareaDto);
   }
 
   @Override
-  public void totalizarEcommerce(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void totalizarEcommerce(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerce(runTareaDto);
   }
 
   @Override
-  public void totalizarEmpleadosPorVenta(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void totalizarEmpleadosPorVenta(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEmpleadosPorVenta(runTareaDto);
   }
 
   @Override
-  public void compensarLocalizacionManual(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void compensarLocalizacionManual(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual(runTareaDto);
   }
 
   @Override
   public void repartirPresenciasSindicalesLocalizacion(
-      @Valid @NonNull final RunTareaDto runTareaDto) {
+      @Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTareaDto);
   }
 
   @Override
   public void repartirPresenciasSindicalesLocalizacionSeccion(
-      @Valid @NonNull final RunTareaDto runTareaDto) {
+      @Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTareaDto);
   }
 
   @Override
   public void totalizarEcommerceSeccion(
-      @Valid @NonNull final RunTareaDto runTarea) {
+      @Valid @NotNull final RunTareaDto runTarea) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
   }
 
   @Override
   public void totalizarPresenciasSindicalesLocalizacion(
-      @Valid @NonNull final RunTareaDto runTarea) {
+      @Valid @NotNull final RunTareaDto runTarea) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
   }
 
   @Override
-  public void totalizarIncluidoChallengePorcentaje(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void totalizarIncluidoChallengePorcentaje(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje(runTareaDto);
   }
 
   @Override
-  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid @NonNull final RunTareaDto runTareaDto) {
+  public void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManualIncluidoChallengePorcentaje(runTareaDto);
   }
 

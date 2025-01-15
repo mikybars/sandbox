@@ -2,11 +2,11 @@ package com.inditex.rrhh.icmclcwb.api.ptr.venta;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -18,10 +18,10 @@ public class PtrSeccionVentaOnlineGenericType implements Serializable {
 
   private Integer seccion;
 
-  @NonNull
+  @NotNull
   private Double importeSinIVA;
 
-  @NonNull
+  @NotNull
   private Double importeConIVA;
 
 }

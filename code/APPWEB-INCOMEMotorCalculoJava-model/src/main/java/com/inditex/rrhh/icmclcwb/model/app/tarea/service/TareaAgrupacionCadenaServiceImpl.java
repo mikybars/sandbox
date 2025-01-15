@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -33,8 +32,8 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
   private TareaAgrupacionCadenaRepository tareaAgrupacionCadenaRepository;
 
   @Override
-  public List<TareaAgrupacionCadenaDto> save(@Valid @NonNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaMapper
         .getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
     return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
@@ -42,7 +41,7 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
   }
 
   @Override
-  public List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NonNull final TareaDto tarea) {
+  public List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NotNull final TareaDto tarea) {
     List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
     return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
   }

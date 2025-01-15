@@ -12,7 +12,7 @@ import org.jspecify.annotations.NonNull;
 
 public interface TareaLocalizacionOnlineHistoricoService {
 
-  List<LocalizacionOnlineDto> save(@Valid @NonNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
 }

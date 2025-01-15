@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Accion;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -28,7 +27,7 @@ public class AccionRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstra
   private String sqlFindByIdAccionAndIdOrigenAndStdIdLegEnt;
 
   @Override
-  public Boolean findByIdAccionAndIdOrigenAndStdIdLegEnt(@NonNull @Positive final Integer idAccion,
+  public Boolean findByIdAccionAndIdOrigenAndStdIdLegEnt(@NotNull @Positive final Integer idAccion,
       @NotBlank final String cclIdOrigen, @NotBlank final String stdIdLegEnt) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ACCION, idAccion);

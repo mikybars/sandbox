@@ -10,7 +10,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_HISTORICO")
@@ -44,22 +43,22 @@ public class TareaPersonaHistorico extends CommonFieldsTaskEntity {
   @Column(name = "CCL_ID_SECCION", nullable = false)
   private String cclIdSeccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO_SECCION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioSeccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_FIN_SECCION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinSeccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO_LOCALIZACION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicioLocalizacion;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_FIN_LOCALIZACION", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFinLocalizacion;

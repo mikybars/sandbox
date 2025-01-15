@@ -28,7 +28,7 @@ public class TareaLocalizacionEstadoServiceImpl implements TareaLocalizacionEsta
 
   @Override
   public List<TareaLocalizacionEstadoDto> save(
-      @Valid @NonNull @NotEmpty final List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto) {
+      @Valid @NotNull @NotEmpty final List<TareaLocalizacionEstadoDto> tareaLocalizacionEstadoDto) {
     return this.tareaLocalizacionEstadoMapper.tareaLocalizacionEstadoToTareaLocalizacionEstadoDto(
         this.tareaLocalizacionEstadoRepositoryCustom.save(this.tareaLocalizacionEstadoMapper
             .tareaLocalizacionEstadoDtoToTareaLocalizacionEstado(tareaLocalizacionEstadoDto)));
@@ -36,8 +36,8 @@ public class TareaLocalizacionEstadoServiceImpl implements TareaLocalizacionEsta
 
   @Override
   public List<TareaLocalizacionEstadoDto> merge(
-      @Valid @NonNull @NotEmpty final List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<EstadoWlocResultItemDto> estadoWlocResultItemDto,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaLocalizacionEstadoMapper
         .estadoWlocResultItemDtoToTareaLocalizacionEstadoDto(estadoWlocResultItemDto, tarea);
   }

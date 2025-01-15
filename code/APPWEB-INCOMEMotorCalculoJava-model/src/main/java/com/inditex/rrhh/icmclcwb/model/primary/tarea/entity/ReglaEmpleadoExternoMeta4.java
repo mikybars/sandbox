@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "REGLA_EMPLEADO_EXTERNO_META4")
@@ -28,7 +27,7 @@ public class ReglaEmpleadoExternoMeta4 {
   @Column(name = "ID_ORGANIZATION", nullable = false)
   private String idOrganization;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO")
   private Boolean esActivo;
 

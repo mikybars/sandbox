@@ -13,7 +13,6 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -30,8 +29,8 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
 
   @Override
   public List<TareaPersonaEstructuraPoliticaDto> save(
-      @Valid @NonNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoEstructuraPolitica,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<ComisionEmpleadoResultItemDto> tareaEmpleadoEstructuraPolitica,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraPoliticaMapper
         .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
             this.tareaPersonaEstructuraPoliticaRepositoryCustom.save(this.tareaPersonaEstructuraPoliticaMapper
@@ -41,8 +40,8 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
 
   @Override
   public List<TareaPersonaEstructuraPoliticaDto> saveEstructurasPolResultItemDto(
-      @Valid @NonNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<EstructurasPolResultItemDto> estructurasPolResultItemDto,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraPoliticaMapper
         .tareaPersonaEstructuraPoliticaToTareaPersonaEstructuraPoliticaDto(
             this.tareaPersonaEstructuraPoliticaRepositoryCustom.save(this.tareaPersonaEstructuraPoliticaMapper
@@ -52,7 +51,7 @@ public class TareaPersonaEstructuraPoliticaServiceImpl implements TareaPersonaEs
 
   @Override
   public Boolean existePolitica(
-      @Valid @NonNull final TareaDto tarea, @Valid @NonNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
+      @Valid @NotNull final TareaDto tarea, @Valid @NotNull @NotEmpty final List<TipoPoliticaEnum> politicas) {
     return this.tareaPersonaEstructuraPoliticaRepositoryCustom.existePolitica(tarea, politicas);
   }
 
