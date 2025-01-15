@@ -5,6 +5,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaAmbitoGlobalEmpresa;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TareaAmbitoGlobalEmpresaRepositoryCustom {

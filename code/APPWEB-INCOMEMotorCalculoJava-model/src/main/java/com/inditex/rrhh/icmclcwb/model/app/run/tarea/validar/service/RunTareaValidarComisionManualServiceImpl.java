@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;

@@ -6,6 +6,8 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaRepository extends BaseRepository<Tarea, Long> {
 
   List<Tarea> findByTrabajoId(@NotNull final Long id);

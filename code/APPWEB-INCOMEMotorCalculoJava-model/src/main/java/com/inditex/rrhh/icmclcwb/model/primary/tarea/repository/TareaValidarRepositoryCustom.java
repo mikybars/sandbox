@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TareaValidarRepositoryCustom {

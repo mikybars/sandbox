@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;

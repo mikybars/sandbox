@@ -6,6 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TrabajoRepositoryCustom {
 
   void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado);

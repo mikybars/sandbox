@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaFaseAccionR
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

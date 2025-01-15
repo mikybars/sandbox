@@ -44,6 +44,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoReposit
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

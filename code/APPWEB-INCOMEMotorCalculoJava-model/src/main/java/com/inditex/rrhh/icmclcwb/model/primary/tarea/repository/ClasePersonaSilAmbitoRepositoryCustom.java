@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ClasePersonaSilAmbitoDto;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface ClasePersonaSilAmbitoRepositoryCustom {
 
   /**

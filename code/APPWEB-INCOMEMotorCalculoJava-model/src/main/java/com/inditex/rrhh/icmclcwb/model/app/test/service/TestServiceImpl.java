@@ -55,6 +55,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryC
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;

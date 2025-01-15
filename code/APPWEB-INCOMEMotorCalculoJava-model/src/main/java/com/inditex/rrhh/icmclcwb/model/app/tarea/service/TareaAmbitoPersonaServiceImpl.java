@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoPerso
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,15 +29,15 @@ public class TareaAmbitoPersonaServiceImpl implements TareaAmbitoPersonaService 
   public List<TareaAmbitoPersonaDto> create(
       @Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
       @Valid @NotNull final TareaDto tarea) {
-    return tareaAmbitoPersonaMapper
-        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.saveAll(tareaAmbitoPersonaMapper
+    return this.tareaAmbitoPersonaMapper
+        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(this.tareaAmbitoPersonaRepository.saveAll(this.tareaAmbitoPersonaMapper
             .mergeTareaAmbitoPersonaDtoAndTareaDtoToTareaAmbitoPersona(tareaAmbitoPersona, tarea)));
   }
 
   @Override
   public List<TareaAmbitoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
-    return tareaAmbitoPersonaMapper
-        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
+    return this.tareaAmbitoPersonaMapper
+        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(this.tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
   }
 
 }

@@ -6,6 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaRepositoryCustom {
 
   void updateFechaFin(@NotNull final TareaDto tarea);

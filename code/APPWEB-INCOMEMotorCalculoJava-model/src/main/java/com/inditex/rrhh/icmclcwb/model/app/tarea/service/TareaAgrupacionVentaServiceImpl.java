@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionVentaMapp
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionVentaRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -29,8 +30,8 @@ public class TareaAgrupacionVentaServiceImpl implements TareaAgrupacionVentaServ
   public void savePtrVentaTotalizadoResponse(@Valid @NotNull final PtrVentaTotalizadoResponseDto dto,
       @Valid @NotNull final TareaDto tarea,
       @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
-    tareaAgrupacionVentaRepositoryCustom.save(
-        tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
+    this.tareaAgrupacionVentaRepositoryCustom.save(
+        this.tareaAgrupacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaAgrupacionVenta(
             dto.getVentaTotalizado(), tarea, agrupaciones));
   }
 
@@ -38,14 +39,14 @@ public class TareaAgrupacionVentaServiceImpl implements TareaAgrupacionVentaServ
   public void savePtrVentaOnlineEntregaDomicilioResponse(
       @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto,
       @Valid @NotNull final TareaDto tarea, @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones) {
-    tareaAgrupacionVentaRepositoryCustom.save(
-        tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
+    this.tareaAgrupacionVentaRepositoryCustom.save(
+        this.tareaAgrupacionVentaMapper.ventaOnlineEntregaDomicilioResultItemDtoToTareaAgrupacionVenta(
             dto.getVentaOnline(), tarea, agrupaciones));
   }
 
   @Override
   public void updateActivoVentaOnlineEntregaDomicilio(@Valid @NotNull final TareaDto tarea) {
-    tareaAgrupacionVentaRepositoryCustom.updateActivo(tarea);
+    this.tareaAgrupacionVentaRepositoryCustom.updateActivo(tarea);
   }
 
 }

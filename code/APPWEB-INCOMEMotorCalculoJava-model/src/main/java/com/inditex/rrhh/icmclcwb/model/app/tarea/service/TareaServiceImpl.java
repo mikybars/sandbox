@@ -26,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.ms.app.tarea.SenderTarea;
 import com.inditex.rrhh.icmclcwb.ms.app.tarea.TareaPriorityEnum;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,7 +85,7 @@ public class TareaServiceImpl implements TareaService {
   @Override
   public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
 
-    Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
+    final Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
     if (tareaData == null) {
       return null;
     }

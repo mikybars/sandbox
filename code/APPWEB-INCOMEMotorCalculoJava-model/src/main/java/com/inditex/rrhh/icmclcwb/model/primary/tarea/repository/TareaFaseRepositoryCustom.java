@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFase;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TareaFaseRepositoryCustom {

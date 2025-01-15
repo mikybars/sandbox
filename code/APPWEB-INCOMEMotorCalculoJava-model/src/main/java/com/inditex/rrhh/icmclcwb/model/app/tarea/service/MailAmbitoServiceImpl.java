@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.MailAmbitoRepositoryCustomImpl;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

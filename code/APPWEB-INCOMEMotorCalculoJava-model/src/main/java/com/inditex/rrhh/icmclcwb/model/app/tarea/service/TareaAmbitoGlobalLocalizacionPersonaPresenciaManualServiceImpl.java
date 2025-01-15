@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGloba
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +29,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaManualServiceImpl
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
       @Valid @NotNull final TareaDto tareaDto) {
-    tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save(
-        tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper
+    this.tareaAmbitoGlobalLocalizacionPersonaPresenciaManualRepositoryCustom.save(
+        this.tareaAmbitoGlobalLocalizacionPersonaPresenciaManualMapper
             .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(src, tareaDto));
   }
 

@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoServ
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalPersonaS
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalPersonaRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public class TareaAmbitoGlobalPersonaServiceImpl implements TareaAmbitoGlobalPer
 
   @Override
   public void mergePersona(@Valid @NotNull final RunTareaDto runTareaDto) {
-    tareaAmbitoGlobalPersonaRepositoryCustom.mergePersona(runTareaDto);
+    this.tareaAmbitoGlobalPersonaRepositoryCustom.mergePersona(runTareaDto);
   }
 
 }

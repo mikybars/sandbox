@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

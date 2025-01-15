@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TareaPersonaHistoricoRepositoryCustom {

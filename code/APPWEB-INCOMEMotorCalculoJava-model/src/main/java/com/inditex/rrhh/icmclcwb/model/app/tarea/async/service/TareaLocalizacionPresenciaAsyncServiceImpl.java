@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenci
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

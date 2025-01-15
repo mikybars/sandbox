@@ -30,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,10 +29,10 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
   @Override
   public List<TareaLocalizacionComisionHistoricoDto> save(
       @Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
-    return mapper
+    return this.mapper
         .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
-            tareaLocalizacionComisionHistoricoRepositoryCustom
-                .save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
+            this.tareaLocalizacionComisionHistoricoRepositoryCustom
+                .save(this.mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
                     tareaLocalizacionHistorico)));
   }
 
@@ -39,7 +40,7 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
   public List<TareaLocalizacionComisionHistoricoDto> merge(
       @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
       @Valid @NotNull final TareaDto tarea) {
-    return mapper
+    return this.mapper
         .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
   }
 

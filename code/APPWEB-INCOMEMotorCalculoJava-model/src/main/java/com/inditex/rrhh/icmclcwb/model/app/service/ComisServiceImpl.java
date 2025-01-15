@@ -25,6 +25,7 @@ import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHol
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -452,11 +453,9 @@ public class ComisServiceImpl implements ComisService {
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
     if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
       ClientDatabaseContextHolder
-          .set(ClientDatabase.getClient(new StringBuilder()
-              .append(tareaAmbito.getCclIdOrigen())
-              .append(AppConstants.UNDERSCORE)
-              .append(runTareaDto.getTarea().getStdIdLegEnt())
-              .toString()));
+          .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()
+              + AppConstants.UNDERSCORE
+              + runTareaDto.getTarea().getStdIdLegEnt()));
     } else {
       ClientDatabaseContextHolder
           .set(ClientDatabase

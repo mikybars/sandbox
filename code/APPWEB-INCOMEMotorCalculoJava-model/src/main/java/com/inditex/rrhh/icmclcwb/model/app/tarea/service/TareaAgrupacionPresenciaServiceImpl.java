@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionPresenciaS
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionPresenciaRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public class TareaAgrupacionPresenciaServiceImpl implements TareaAgrupacionPrese
 
   @Override
   public void calcularPresenciasTotalesAgrupacion(@Valid @NotNull final TareaDto tarea) {
-    tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
+    this.tareaAgrupacionPresenciaRepositoryCustom.calcularPresenciasTotalesAgrupacion(tarea);
   }
 
 }

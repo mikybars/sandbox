@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHis
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

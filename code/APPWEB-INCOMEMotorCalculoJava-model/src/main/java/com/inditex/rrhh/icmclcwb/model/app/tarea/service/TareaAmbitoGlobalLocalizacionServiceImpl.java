@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalLocaliza
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoGlobalLocalizacionRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public class TareaAmbitoGlobalLocalizacionServiceImpl implements TareaAmbitoGlob
 
   @Override
   public void mergeLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
-    tareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion(runTareaDto);
+    this.tareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion(runTareaDto);
   }
 
 }
