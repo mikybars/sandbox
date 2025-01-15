@@ -5,6 +5,8 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuestoVenta;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaLocalizacionPresupuestoVentaRepositoryCustom {
 
   List<TareaLocalizacionPresupuestoVenta> save(List<TareaLocalizacionPresupuestoVenta> src);

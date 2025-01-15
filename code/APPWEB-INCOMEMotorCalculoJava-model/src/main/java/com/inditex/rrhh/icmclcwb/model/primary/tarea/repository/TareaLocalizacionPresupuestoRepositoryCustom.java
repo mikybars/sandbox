@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLocalizacionPresupuestoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresupuesto;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaLocalizacionPresupuestoRepositoryCustom {
 
   List<TareaLocalizacionPresupuesto> save(final List<TareaLocalizacionPresupuesto> src);

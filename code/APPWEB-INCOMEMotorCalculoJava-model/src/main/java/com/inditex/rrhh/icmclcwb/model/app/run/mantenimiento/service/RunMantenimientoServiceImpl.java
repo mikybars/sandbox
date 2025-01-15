@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunM
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

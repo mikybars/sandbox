@@ -5,6 +5,8 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaLocalizacionAbiertaRepositoryCustom {
 
   void saveAbierto(@NotNull final TareaDto tareaDto, @NotNull final TrabajoDTO trabajoDto);

@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

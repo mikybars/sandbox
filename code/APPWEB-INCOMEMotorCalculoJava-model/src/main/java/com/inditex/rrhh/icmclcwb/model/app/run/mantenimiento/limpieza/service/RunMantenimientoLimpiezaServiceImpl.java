@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

@@ -6,6 +6,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface ProgramacionRepository extends BaseRepository<Programacion, Long> {

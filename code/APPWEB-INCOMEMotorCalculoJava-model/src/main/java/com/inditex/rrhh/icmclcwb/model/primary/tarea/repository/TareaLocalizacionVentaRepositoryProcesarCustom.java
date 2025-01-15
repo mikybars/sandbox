@@ -2,6 +2,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaLocalizacionVentaRepositoryProcesarCustom {
 
   void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NotNull final TareaDto tareaDto);
