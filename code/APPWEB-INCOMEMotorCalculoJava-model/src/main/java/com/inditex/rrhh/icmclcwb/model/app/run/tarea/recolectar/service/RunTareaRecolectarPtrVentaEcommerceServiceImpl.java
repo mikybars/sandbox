@@ -106,22 +106,22 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
 
   @Override
   public void updateActivoVentaOnlineIpodByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-      this.tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlinePickingByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-      this.tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-      this.tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-      this.tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
+    this.tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
   }
 
 }
