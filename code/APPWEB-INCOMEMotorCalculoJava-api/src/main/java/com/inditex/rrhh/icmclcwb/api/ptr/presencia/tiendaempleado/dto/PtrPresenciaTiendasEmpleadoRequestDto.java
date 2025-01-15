@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiendaempleado.dto;
 
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaTipoHoraService {
 

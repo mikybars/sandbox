@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.Despl
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaPersonaEstructuraDesplazamientoRealService {
 

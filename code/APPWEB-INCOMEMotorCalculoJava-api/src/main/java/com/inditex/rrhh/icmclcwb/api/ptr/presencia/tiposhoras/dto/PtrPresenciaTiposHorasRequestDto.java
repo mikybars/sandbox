@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.api.ptr.presencia.tiposhoras.dto;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

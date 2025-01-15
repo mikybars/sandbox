@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TareaService {

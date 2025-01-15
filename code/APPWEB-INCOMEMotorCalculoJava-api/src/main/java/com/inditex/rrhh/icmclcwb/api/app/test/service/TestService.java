@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public interface TestService {
