@@ -12,8 +12,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.Tarea;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,10 +26,10 @@ public class RunTareaRecolectarValidarAmbitoServiceImpl implements RunTareaRecol
 
   @Override
   public List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea) {
-    List<RunTareaValidarDto> result = new ArrayList<>();
-    List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<RunTareaValidarDto> result = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
-      CompletableFuture<List<String>> cfValidAmbito = tareaValidarAsyncService
+      final CompletableFuture<List<String>> cfValidAmbito = this.tareaValidarAsyncService
           .validateAmbito(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfValidAmbito, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);

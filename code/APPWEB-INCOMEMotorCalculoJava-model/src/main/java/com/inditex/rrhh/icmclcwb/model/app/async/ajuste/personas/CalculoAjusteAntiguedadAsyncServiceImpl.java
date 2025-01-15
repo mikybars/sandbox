@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.personas;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -14,9 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 

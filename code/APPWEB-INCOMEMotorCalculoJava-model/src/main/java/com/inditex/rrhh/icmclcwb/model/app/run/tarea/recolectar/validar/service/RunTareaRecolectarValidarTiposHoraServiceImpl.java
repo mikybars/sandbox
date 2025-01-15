@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaTipoHora;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -27,10 +27,10 @@ public class RunTareaRecolectarValidarTiposHoraServiceImpl implements RunTareaRe
 
   @Override
   public List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea) {
-    List<RunTareaValidarDto> result = new ArrayList<>();
-    List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<RunTareaValidarDto> result = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
-      CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = tareaValidarAsyncService
+      final CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = this.tareaValidarAsyncService
           .checkDuplicatedTiposHora(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfDuplicatedLocalizacionHistorico, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);

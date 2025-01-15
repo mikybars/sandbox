@@ -5,8 +5,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaPresupuestosService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,7 +23,7 @@ public class RunTareaRecolectarPtrPresenciaPresupuestosServiceImpl
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
             .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
   }
 
