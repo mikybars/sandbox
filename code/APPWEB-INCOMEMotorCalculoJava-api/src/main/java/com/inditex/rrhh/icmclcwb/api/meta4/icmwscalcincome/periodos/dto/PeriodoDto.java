@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class PeriodoDto implements Serializable {
@@ -13,10 +13,10 @@ public class PeriodoDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaInicioPeriodo;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaFinPeriodo;
 
 }

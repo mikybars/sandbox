@@ -16,8 +16,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryReposi
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersona;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -52,8 +52,8 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
   private String sqlFindIdTipoCalculoAndIdTipoComisionByIdAlgoritmo;
 
   @Override
-  public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NonNull final TareaDto tarea,
-      @NonNull @Positive final String idTipoPolitica) {
+  public List<IdPersonaLocalDto> findByTareaAndIdEstadoAndIdTipoPolitica(@NotNull final TareaDto tarea,
+      @NotNull @Positive final String idTipoPolitica) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_TAREA_PERSONA_KO,
@@ -72,7 +72,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
   }
 
   @Override
-  public List<IdPersonaLocalDto> findByAlgoritmo(@NonNull final TareaDto tarea,
+  public List<IdPersonaLocalDto> findByAlgoritmo(@NotNull final TareaDto tarea,
       @NotBlank final AlgoritmoDTO algoritmo) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -113,7 +113,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
   }
 
   @Override
-  public void mergePersonaCalculoByAmbito(@NonNull final RunTareaDto tareaDto) {
+  public void mergePersonaCalculoByAmbito(@NotNull final RunTareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
@@ -125,7 +125,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
   }
 
   @Override
-  public void mergePersonaCalculoByAmbitoLocalizacion(@NonNull final RunTareaDto tareaDto) {
+  public void mergePersonaCalculoByAmbitoLocalizacion(@NotNull final RunTareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());
@@ -137,7 +137,7 @@ public class TareaCalculoPersonaRepositoryCustomImpl extends JdbcBatchPrimaryRep
   }
 
   @Override
-  public void mergePersonaCalculoByAmbitoPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePersonaCalculoByAmbitoPersona(@NotNull final RunTareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tareaDto.getTarea().getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, tareaDto.getTarea().getStdIdLegEnt());

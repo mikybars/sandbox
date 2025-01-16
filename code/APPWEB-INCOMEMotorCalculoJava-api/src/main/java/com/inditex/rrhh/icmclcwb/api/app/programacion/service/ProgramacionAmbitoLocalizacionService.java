@@ -7,15 +7,15 @@ import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoLocalizacionDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface ProgramacionAmbitoLocalizacionService {
 
   List<ProgramacionAmbitoLocalizacionDTO> create(
-      @Valid @NonNull @NotEmpty final List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacion,
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito);
+      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoLocalizacionDTO> programacionAmbitoLocalizacion,
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito);
 
   List<ProgramacionAmbitoLocalizacionDTO> findByProgramacionAmbito(
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito);
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito);
 
 }

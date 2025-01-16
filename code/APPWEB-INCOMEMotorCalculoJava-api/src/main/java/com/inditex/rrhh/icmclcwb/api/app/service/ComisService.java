@@ -17,8 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface ComisService {
 
@@ -140,7 +140,7 @@ public interface ComisService {
    * @return lista de externos
    */
   List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(@Valid RunTareaDto runTareaDto,
-      @Valid TareaAmbitoDto tareaAmbito, @NonNull @Positive Long minIdPersona);
+      @Valid TareaAmbitoDto tareaAmbito, @NotNull @Positive Long minIdPersona);
 
   /**
    * Some javadoc.
@@ -240,7 +240,7 @@ public interface ComisService {
    * @return Lista de personas.
    */
   List<IdPersonaLocalLocalizacionDto> findPersonas(@Valid RunTareaDto runTareaDto,
-      @Valid TareaAmbitoDto tareaAmbito, @NonNull Long maxIdPersona);
+      @Valid TareaAmbitoDto tareaAmbito, @NotNull Long maxIdPersona);
 
   /**
    * Obtiene las personas con sus respectivas localizaciones para orígenes SIL.
@@ -252,7 +252,7 @@ public interface ComisService {
    * @return Lista de personas.
    */
   List<IdPersonaLocalLocalizacionDto> findPersonasSil(@Valid RunTareaDto runTareaDto,
-      @Valid TareaAmbitoDto tareaAmbito, @NonNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
+      @Valid TareaAmbitoDto tareaAmbito, @NotNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
 
   List<IdPersonaLocalCondicionesDto> findCondicionesHistoricoChallengeIncluidoPorcentaje(@Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito);

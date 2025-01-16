@@ -4,16 +4,16 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface AlgoritmoService {
 
-  AlgoritmoDTO findById(@NonNull @Positive Integer id);
+  AlgoritmoDTO findById(@NotNull @Positive Integer id);
 
   List<AlgoritmoDTO> findAll();
 
-  List<Integer> customFindAlgoritmosIdsByTarea(@NonNull @Positive Long id);
+  List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive Long id);
 
   Boolean checkDuplicatedActives();
 

@@ -5,28 +5,28 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
 public interface LimpiezaAsyncService {
 
-  CompletableFuture<Void> limpiezaTareaPersonaHistorico(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
 
-  CompletableFuture<Void> limpiezaTareaLocalizacionHistorico(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaLocalizacionHistorico(@NotNull @Valid final TareaDto tarea);
 
-  CompletableFuture<Void> limpiezaTareaGlobalLocalizacionPersona(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid final TareaDto tarea);
 
   CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(
-      @NonNull @Valid final TareaDto tarea);
+      @NotNull @Valid final TareaDto tarea);
 
-  CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea);
 
-  CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea);
 
   CompletableFuture<Void> limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(
-      @NonNull @Valid final TareaDto tarea);
+      @NotNull @Valid final TareaDto tarea);
 
-  CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NonNull @Valid final TareaDto tarea);
+  CompletableFuture<Void> limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea);
 
 }

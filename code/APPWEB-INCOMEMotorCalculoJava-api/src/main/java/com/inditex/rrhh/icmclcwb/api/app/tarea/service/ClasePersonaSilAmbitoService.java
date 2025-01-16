@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.ClasePersonaSilAmbitoDto;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface ClasePersonaSilAmbitoService {
 
-  List<ClasePersonaSilAmbitoDto> getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(@NonNull String cclIdOrigen, @NonNull String stdIdLegEnt);
+  List<ClasePersonaSilAmbitoDto> getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(@NotNull String cclIdOrigen, @NotNull String stdIdLegEnt);
 
 }

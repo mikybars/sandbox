@@ -5,7 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +19,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosServiceImpl
   private RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomePresupuestosService runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 
   @Override
-  public void personaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -28,7 +28,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosServiceImpl
   }
 
   @Override
-  public void localizacionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -37,7 +37,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosServiceImpl
   }
 
   @Override
-  public void empleadosPresenciaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void empleadosPresenciaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
@@ -46,7 +46,7 @@ public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosServiceImpl
   }
 
   @Override
-  public void empleadosDesplazamientoByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void empleadosDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()

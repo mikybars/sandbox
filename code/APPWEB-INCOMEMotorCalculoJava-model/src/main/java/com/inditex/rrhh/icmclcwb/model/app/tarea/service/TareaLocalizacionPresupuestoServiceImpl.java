@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -41,8 +41,8 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
   private TareaLocalizacionPresupuestoMapper tareaLocalizacionPresupuestoMapper;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<PresupuestosWlocResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
+  public void save(@Valid @NotNull @NotEmpty final List<PresupuestosWlocResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
     this.tareaLocalizacionPresupuestoRepositoryCustom.save(
         this.tareaLocalizacionPresupuestoMapper.presupuestosWlocResultItemDtoToTareaLocalizacionPresupuesto(src,
             tarea));
@@ -50,9 +50,9 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
 
   @Override
   public List<String> findLocalizacionOrdinalTarea(
-      @NonNull final Long idTarea, @NonNull final Integer cclIdCodOrigen, @NonNull final Integer cclIdSeccion,
-      @NonNull final LocalDate fechaInicio, @NonNull final LocalDate fechaFin,
-      @NonNull final Integer idTipoPresupuesto) {
+      @NotNull final Long idTarea, @NotNull final Integer cclIdCodOrigen, @NotNull final Integer cclIdSeccion,
+      @NotNull final LocalDate fechaInicio, @NotNull final LocalDate fechaFin,
+      @NotNull final Integer idTipoPresupuesto) {
     return this.tareaLocalizacionPresupuestoRepositoryCustom.findLocalizacionOrdinalTarea(idTarea,
         cclIdCodOrigen,
         cclIdSeccion, fechaInicio, fechaFin, idTipoPresupuesto);
@@ -60,7 +60,7 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
 
   @Override
   @Cacheable(value = PRESUPUESTOS_BY_TAREA, key = "{#tarea}")
-  public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NonNull final TareaDto tarea) {
+  public TareaLocalizacionPresupuestoListDto findPresupuestos(@Valid @NotNull final TareaDto tarea) {
     return TareaLocalizacionPresupuestoListDto
         .builder()
         .presupuestos(this.tareaLocalizacionPresupuestoRepositoryCustom.findPresupuestos(tarea))
@@ -69,30 +69,30 @@ public class TareaLocalizacionPresupuestoServiceImpl implements TareaLocalizacio
 
   @Override
   @Cacheable(value = PERIODO_PRESUPUESTOS_BY_ID_TAREA, key = "{#idTarea}")
-  public PeriodoDto findPeriodoPresupuestoYTrabajo(@NonNull final Long idTarea) {
+  public PeriodoDto findPeriodoPresupuestoYTrabajo(@NotNull final Long idTarea) {
     return this.tareaLocalizacionPresupuestoRepositoryCustom.findPeriodoPresupuestoYTrabajo(idTarea);
   }
 
   @Override
   @Cacheable(value = LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE,
       key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType}")
-  public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull final Long idTarea,
-      @NonNull final PtrFilterPropertiesDto filterProperties) {
+  public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull final Long idTarea,
+      @NotNull final PtrFilterPropertiesDto filterProperties) {
     return this.findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties, 0);
   }
 
   @Override
   @Cacheable(value = LIST_PERIODO_PRESUPUESTOS_BY_ID_TAREA_AND_PAGE_AND_DAYS,
       key = "{#idTarea, #filterProperties.periodSize, #filterProperties.periodType, #recolectarProperties.daysNumber}")
-  public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NonNull final Long idTarea,
-      @NonNull final PtrFilterPropertiesDto filterProperties,
+  public List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(@NotNull final Long idTarea,
+      @NotNull final PtrFilterPropertiesDto filterProperties,
       final RecolectarPropertiesDto recolectarProperties) {
     return this.findListaPeriodosPresupestoYTrabajo(idTarea, filterProperties,
         recolectarProperties.getDaysNumber());
   }
 
   private List<PeriodoDto> findListaPeriodosPresupestoYTrabajo(final Long idTarea,
-      @NonNull final PtrFilterPropertiesDto filterProperties, final Integer daysToAdd) {
+      @NotNull final PtrFilterPropertiesDto filterProperties, final Integer daysToAdd) {
     final PeriodoDto periodo = this.tareaLocalizacionPresupuestoRepositoryCustom
         .findPeriodoPresupuestoYTrabajo(idTarea);
 

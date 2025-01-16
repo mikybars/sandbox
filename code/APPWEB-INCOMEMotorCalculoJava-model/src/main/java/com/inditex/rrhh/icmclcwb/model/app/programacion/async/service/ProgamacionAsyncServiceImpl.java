@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.async.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -12,7 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class ProgamacionAsyncServiceImpl implements ProgramacionAsyncService {
 
   @Override
   public CompletableFuture<Void> updateFechaSiguienteEjecucion(
-      @NonNull @NotEmpty final List<ProgramacionDTO> programacion) {
+      @NotNull @NotEmpty final List<ProgramacionDTO> programacion) {
     this.programacionService.updateFechaSiguienteEjecucion(programacion);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

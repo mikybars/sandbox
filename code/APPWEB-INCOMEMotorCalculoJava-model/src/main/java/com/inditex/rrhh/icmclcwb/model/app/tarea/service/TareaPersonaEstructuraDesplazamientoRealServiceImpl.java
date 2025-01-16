@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -30,8 +30,8 @@ public class TareaPersonaEstructuraDesplazamientoRealServiceImpl
 
   @Override
   public List<TareaPersonaEstructuraDesplazamientoRealDto> save(
-      @Valid @NonNull @NotEmpty final List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoReal,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDesplazamientoRealDto> tareaPersonaEstructuraDesplazamientoReal,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraDesplazamientoRealMapper
         .tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
             this.tareaPersonaEstructuraDesplazamientoRealRepositoryCustom
@@ -42,8 +42,8 @@ public class TareaPersonaEstructuraDesplazamientoRealServiceImpl
 
   @Override
   public List<TareaPersonaEstructuraDesplazamientoRealDto> saveDesplazamientoRealResultItemDto(
-      @Valid @NonNull @NotEmpty final List<DesplazamientoRealResultItemDto> desplazamientoReal,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<DesplazamientoRealResultItemDto> desplazamientoReal,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraDesplazamientoRealMapper
         .tareaPersonaEstructuraDesplazamientoRealToTareaPersonaEstructuraDesplazamientoRealDto(
             this.tareaPersonaEstructuraDesplazamientoRealRepositoryCustom
@@ -53,7 +53,7 @@ public class TareaPersonaEstructuraDesplazamientoRealServiceImpl
   }
 
   @Override
-  public List<DesplazamientoRealDto> findDesplazamientoReal(@Valid @NonNull final TareaDto tarea) {
+  public List<DesplazamientoRealDto> findDesplazamientoReal(@Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaEstructuraDesplazamientoRealRepositoryCustom.findDesplazamientoReal(tarea);
   }
 

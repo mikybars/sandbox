@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunM
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimientoService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +39,7 @@ public class RunMantenimientoServiceImpl implements RunMantenimientoService {
       metricGroupName = "RunMantenimientoServiceGroup",
       metricDescription = "RunMantenimientoService.runIdTarea.counter")
   @Override
-  public RunMantenimientoDTO runIdTarea(@NonNull final Long id) {
+  public RunMantenimientoDTO runIdTarea(@NotNull final Long id) {
     final RunMantenimientoDTO mto = new RunMantenimientoDTO();
     mto.setRunMantenimientoLimpieza(this.runMantenimientoLimpiezaService.runIdTarea(id));
     return mto;

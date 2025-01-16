@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoAmbitoP
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,8 +27,8 @@ public class TrabajoAmbitoPersonaServiceImpl implements TrabajoAmbitoPersonaServ
 
   @Override
   public List<TrabajoAmbitoPersonaDTO> create(
-      @Valid @NonNull @NotEmpty final List<TrabajoAmbitoPersonaDTO> trabajoAmbitoPersona,
-      @NonNull final TrabajoDTO trabajo) {
+      @Valid @NotNull @NotEmpty final List<TrabajoAmbitoPersonaDTO> trabajoAmbitoPersona,
+      @NotNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaToTrabajoAmbitoPersonaDto(
         this.trabajoAmbitoPersonaRepository
             .saveAll(this.trabajoAmbitoPersonaMapper
@@ -37,7 +37,7 @@ public class TrabajoAmbitoPersonaServiceImpl implements TrabajoAmbitoPersonaServ
   }
 
   @Override
-  public List<TrabajoAmbitoPersonaDTO> findByTrabajo(@Valid @NonNull final TrabajoDTO trabajo) {
+  public List<TrabajoAmbitoPersonaDTO> findByTrabajo(@Valid @NotNull final TrabajoDTO trabajo) {
     return this.trabajoAmbitoPersonaMapper.trabajoAmbitoPersonaToTrabajoAmbitoPersonaDto(
         this.trabajoAmbitoPersonaRepository.findByTrabajoId(trabajo.getId()));
   }

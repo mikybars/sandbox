@@ -10,13 +10,13 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async("repositoryPrimaryExecutor")
 public interface ProgramacionAsyncService {
 
   CompletableFuture<Void> updateFechaSiguienteEjecucion(
-      @NonNull @NotEmpty final List<ProgramacionDTO> idProgramacion);
+      @NotNull @NotEmpty final List<ProgramacionDTO> idProgramacion);
 
 }

@@ -4,11 +4,11 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaAmbitoRecolectarSlrhorcomsService {
 
   void horarioComercialFestivoByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito);
 
 }

@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaAmbitoRecolectarPtrVentaEcommerceService {
 
@@ -18,21 +18,21 @@ public interface RunTareaAmbitoRecolectarPtrVentaEcommerceService {
       @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaOnlineIpodLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaRangoOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
   void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid RunTareaDto runTarea,
-      @NonNull @Valid TareaAmbitoDto tareaAmbito);
+      @NotNull @Valid TareaAmbitoDto tareaAmbito);
 
 }

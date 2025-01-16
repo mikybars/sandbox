@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoLimpiezaDto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -17,16 +17,16 @@ public class TareaLimpiezaDto implements Serializable {
 
   private static final long serialVersionUID = -170294147407207684L;
 
-  @NonNull
+  @NotNull
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
-  @NonNull
+  @NotNull
   private EstadoLimpiezaDto estado;
 
-  @NonNull
+  @NotNull
   private TipoLimpiezaDto tipo;
 
   private LocalDateTime fechaHoraCreacion;

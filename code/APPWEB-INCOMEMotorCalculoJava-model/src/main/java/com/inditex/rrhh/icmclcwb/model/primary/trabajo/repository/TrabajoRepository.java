@@ -5,10 +5,10 @@ import java.util.Collection;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TrabajoRepository extends BaseRepository<Trabajo, Long> {
 
-  Trabajo findByIdAndEstadoIdIn(@NonNull final Long id, final Collection<Integer> estados);
+  Trabajo findByIdAndEstadoIdIn(@NotNull final Long id, final Collection<Integer> estados);
 
 }

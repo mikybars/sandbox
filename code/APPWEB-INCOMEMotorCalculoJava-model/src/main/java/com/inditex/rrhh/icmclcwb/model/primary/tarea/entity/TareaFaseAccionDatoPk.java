@@ -10,10 +10,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -25,7 +25,7 @@ public class TareaFaseAccionDatoPk implements Serializable {
   @JoinColumn(name = "ID_TAREA_FASE_ACCION", nullable = false)
   private TareaFaseAccion tareaFaseAccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "DATO", nullable = false)
   private String dato;
 

@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguraci
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -27,11 +27,11 @@ public class TareaConfiguracionServiceImpl implements TareaConfiguracionService 
   private TareaConfiguracionRepositoryCustom tareaConfiguracionRepositoryCustom;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<ConfiguracionItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
-    List<TareaConfiguracion> configuraciones = tareaConfiguracionMapper
+  public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
+    final List<TareaConfiguracion> configuraciones = this.tareaConfiguracionMapper
         .getConfiguracionItemDtoToTareaConfiguracion(src, tarea);
-    tareaConfiguracionRepositoryCustom.save(configuraciones);
+    this.tareaConfiguracionRepositoryCustom.save(configuraciones);
   }
 
 }

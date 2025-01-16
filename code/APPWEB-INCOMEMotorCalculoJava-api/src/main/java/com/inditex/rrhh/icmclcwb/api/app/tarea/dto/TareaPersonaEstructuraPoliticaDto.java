@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaPersonaEstructuraPoliticaDto implements Serializable {
@@ -14,7 +14,7 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   @NotBlank
@@ -35,13 +35,13 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
   @NotBlank
   private String idTipoPolitica;
 
-  @NonNull
+  @NotNull
   private Date fechaInicio;
 
-  @NonNull
+  @NotNull
   private Date fechaFin;
 
-  @NonNull
+  @NotNull
   private Boolean excluidoDenominador;
 
   @NotBlank
@@ -53,7 +53,7 @@ public class TareaPersonaEstructuraPoliticaDto implements Serializable {
   @NotBlank
   private String valor;
 
-  @NonNull
+  @NotNull
   private Integer tramo;
 
   private String numMesesCalcMedia;

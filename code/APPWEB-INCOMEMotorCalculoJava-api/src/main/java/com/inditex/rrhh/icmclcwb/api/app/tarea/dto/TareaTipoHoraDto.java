@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaTipoHoraDto implements Serializable {
@@ -16,24 +16,24 @@ public class TareaTipoHoraDto implements Serializable {
   @NotBlank
   private Integer idTipoHora;
 
-  @NonNull
+  @NotNull
   private Boolean excluidoCalculo;
 
-  @NonNull
+  @NotNull
   private Boolean excluidoDenominador;
 
-  @NonNull
+  @NotNull
   private Boolean incluidoVenta;
 
-  @NonNull
+  @NotNull
   private Boolean incluidoChallenge;
 
-  @NonNull
+  @NotNull
   private Boolean incluidoEcommerce;
 
   private Boolean excluidoDenominadorYRepartidoProvincia;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
 }

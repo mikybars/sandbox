@@ -5,10 +5,10 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface IncomeMetaService {
 
-  List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(@NonNull ExternosRequestDTO request);
+  List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(@NotNull ExternosRequestDTO request);
 
 }

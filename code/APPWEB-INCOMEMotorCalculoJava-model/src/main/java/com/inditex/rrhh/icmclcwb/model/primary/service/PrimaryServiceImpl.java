@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryRepositoryCusto
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +30,24 @@ public class PrimaryServiceImpl implements PrimaryService {
   @Override
   public Boolean loadDML(@Valid @NotBlank final String path) {
     LOG.info("Inicio carga path {}", path);
-    Resource resource = FileUtils.getResource(this.resourceLoader, path);
+    final Resource resource = FileUtils.getResource(this.resourceLoader, path);
     LOG.info("Fin carga path {}", path);
     LOG.info("Inicio load path {}", path);
 
     Boolean result = Boolean.FALSE;
-    result = primaryRepositoryCustom.load(resource);
+    result = this.primaryRepositoryCustom.load(resource);
     LOG.info("Fin load path {} con resultado {}", path, result);
     return result;
   }
 
   @Override
-  public @NonNull Resource changelogDML() {
-    return FileUtils.getResource(resourceLoader, "changelog-primary-dml.md");
+  public @NotNull Resource changelogDML() {
+    return FileUtils.getResource(this.resourceLoader, "changelog-primary-dml.md");
   }
 
   @Override
-  public @NonNull Resource changelogDDL() {
-    return FileUtils.getResource(resourceLoader, "changelog-primary-ddl.md");
+  public @NotNull Resource changelogDDL() {
+    return FileUtils.getResource(this.resourceLoader, "changelog-primary-ddl.md");
   }
 
 }

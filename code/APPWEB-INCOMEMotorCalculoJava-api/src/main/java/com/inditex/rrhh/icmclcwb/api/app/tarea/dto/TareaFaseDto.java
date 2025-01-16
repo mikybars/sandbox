@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -29,7 +29,7 @@ public class TareaFaseDto implements Serializable {
 
   private LocalDateTime fechaHoraFin;
 
-  @NonNull
+  @NotNull
   private Boolean activo;
 
 }

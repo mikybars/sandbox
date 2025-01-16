@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -23,16 +23,16 @@ public class TareaFaseAccionVentaIntegraPk implements Serializable {
   @JoinColumn(name = "ID_TAREA_FASE_ACCION", nullable = false)
   private TareaFaseAccion tareaFaseAccion;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;
 
-  @NonNull
+  @NotNull
   @Column(name = "TIENDA", nullable = false)
   private String tienda;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_DESINTEGRIDAD", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaDesintegridad;

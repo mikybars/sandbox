@@ -10,7 +10,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.individualdetalle.dto.PtrVentaIndividualDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleResultItemDto;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +22,15 @@ public class TareaLocalizacionPersonaVentaAsyncServiceImpl implements TareaLocal
 
   @Override
   public CompletableFuture<Void> savePtrVentaIndividualDetalleResultItem(
-      @NonNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
-    tareaLocalizacionPersonaVentaService.savePtrVentaIndividualDetalleResultItem(operaciones, tarea);
+      @NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaService.savePtrVentaIndividualDetalleResultItem(operaciones, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResultItem(
-      @NonNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
-    tareaLocalizacionPersonaVentaService.savePtrVentaOnlineIpodIndividualDetalleResultItem(operaciones, tarea);
+      @NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaService.savePtrVentaOnlineIpodIndividualDetalleResultItem(operaciones, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

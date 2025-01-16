@@ -9,13 +9,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.Agrup
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAgrupacionCadenaService {
 
-  List<TareaAgrupacionCadenaDto> save(@Valid @NonNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
-  List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NonNull final TareaDto tarea);
+  List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NotNull final TareaDto tarea);
 
 }

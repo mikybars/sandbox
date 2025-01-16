@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Override
-  public void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NonNull final TareaDto tareaDto) {
+  public void procesarRepartoEntregaDomicilioPorVentasAgrupaciones(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION,
         TipoDatoEnum.VENTA_ONLINE_ENTREGADOMICILIO_AGRUPACIONONLINE.getId());
@@ -54,7 +54,7 @@ public class TareaLocalizacionVentaRepositoryProcesarCustomImpl
   }
 
   @Override
-  public void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NonNull final TareaDto tareaDto) {
+  public void procesarRepartoEntregaDomicilioPorPresenciaAgrupaciones(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     // Parametros para filtrar
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION,
