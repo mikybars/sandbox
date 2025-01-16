@@ -10,13 +10,13 @@ on:
     paths: ['monit/**', '.github/workflows/monit**']
 
 env:
-  WORKFLOW_VERSION: 1.48.0
+  WORKFLOW_VERSION: 1.49.0
 
 jobs:
   linter:
     name: Linter
     timeout-minutes: 30
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
 
   alert_checker:
     name: Alerthub / Verify
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
     steps:
 
       - name: Checkout
