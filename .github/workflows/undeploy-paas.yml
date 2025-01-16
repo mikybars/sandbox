@@ -24,12 +24,12 @@ on:
         description: Parent Issue from where the deletion was triggered
         required: true
 env:
-  WORKFLOW_VERSION: 3.14.0
+  WORKFLOW_VERSION: 3.16.0
 
 jobs:
   filter-permutations:
     name: Prepare matrix inputs
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
     outputs:
       permutations: ${{ steps.prepare.outputs.permutations }}
     steps:
@@ -45,7 +45,7 @@ jobs:
 
   create-delete-prs:
     name: Create PRs for deletion
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
     needs: filter-permutations
     strategy:
       matrix:
@@ -69,7 +69,7 @@ jobs:
 
   generate-comment:
     name: Aggregate results
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-20.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
     needs: create-delete-prs
     if: always()
     steps:

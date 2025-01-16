@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.2.0
   GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
   GOSSIP_SERVER_USER: oauthtoolgossippro
   GOSSIP_SERVER_PASS: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro
@@ -15,7 +15,7 @@ jobs:
   upload-config:
     name: Upload Gossip configuration
     timeout-minutes: 30
-    runs-on: [self-hosted, sre]
+    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '["self-hosted", "sre"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
