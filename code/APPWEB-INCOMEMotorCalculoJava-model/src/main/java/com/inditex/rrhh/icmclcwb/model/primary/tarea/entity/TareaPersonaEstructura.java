@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TareaPersonaEstructura extends CommonFieldsTask {
+public class TareaPersonaEstructura extends CommonFieldsTaskOrigin {
 
   @EmbeddedId
   private TareaPersonaEstructuraPk pk;
