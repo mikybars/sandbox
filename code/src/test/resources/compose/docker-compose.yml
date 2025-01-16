@@ -37,3 +37,9 @@ services:
     image: inditex-docker.jfrog.io/devenv/zookeeper:7.3.2-r0
     ports:
       - "2181:2181"
+  redis:
+    image: inditex-docker.jfrog.io/devenv/redis:6.0.5-r3
+    environment:
+      - "REDIS_CONFIG=/tmp/redis.conf"
+    ports:
+      - "31110:6379"
