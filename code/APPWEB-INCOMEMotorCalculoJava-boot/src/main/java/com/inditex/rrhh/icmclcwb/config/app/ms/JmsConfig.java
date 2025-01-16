@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.config.app.ms;
 import com.inditex.amigafwk.data.jms.ArtemisConnectionFactoryBuilder;
 import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.amigafwk.data.jms.JmsClientBuilder;
-import com.inditex.amigafwk.data.jms.JmsConnectionFactoryGlobalCustomizer;
 import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsClient;
 import com.inditex.amigafwk.data.jms.annotation.AmigaJmsConnectionFactory;
@@ -13,7 +12,6 @@ import com.inditex.amigafwk.service.jms.annotation.AmigaJmsListenerContainerFact
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jms.config.JmsListenerContainerFactory;
@@ -107,11 +105,6 @@ public class JmsConfig {
     final JmsClient jmsClient = builder.additionalCustomizers(new JmsClientCustom()).build();
     jmsClient.setConnectionFactory(cf);
     return jmsClient;
-  }
-
-  @Bean
-  public JmsConnectionFactoryGlobalCustomizer globalCustomizer() {
-    return new JmsConnectionFactoryGlobalCustom();
   }
 
 }

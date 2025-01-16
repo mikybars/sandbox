@@ -86,7 +86,9 @@
     ]]>
   </entry>
 
-  <entry key="TareaCalculoAlgoritmoBaseRepository.calcular.whereTareaChallengePresencia">
+
+
+  <entry key="TareaCalculoAlgoritmoBaseRepository.calcular.whereTareaChallenge">
     <![CDATA[
   WHERE ESTRUCTURA.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
   AND ESTRUCTURA.ID_TAREA = :idTarea
