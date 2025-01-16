@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Builder
 @ToString
@@ -27,12 +29,12 @@ public class PageDto implements Serializable {
 
   private String idBusqueda;
 
-  @NotNull
+  @NonNull
   private Integer numeroPagina;
 
   private Integer numeroTotalPaginas;
 
-  @NotNull
+  @NonNull
   private Integer numeroRegistrosPagina;
 
   private Integer numeroTotalResultados;

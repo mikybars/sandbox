@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
@@ -18,7 +18,7 @@ public class LocalizacionesAmbitoDto {
 
   private List<Integer> localizaciones = null;
 
-  @NotNull
+  @NonNull
   private Long idAmbito;
 
   public void setLocalizaciones(List<IdLocalizacionLocalDto> ids) {
