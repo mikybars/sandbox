@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaProcesarCondicionesService {
 
@@ -16,7 +16,7 @@ public interface RunTareaProcesarCondicionesService {
 
   void relacionarPresupuestosEstructurasSinDesplazamiento(@Valid final TareaDto tarea);
 
-  void relacionarPresupuestosEstructurasDesplazamiento(@Valid @NonNull final TareaDto tarea);
+  void relacionarPresupuestosEstructurasDesplazamiento(@Valid @NotNull final TareaDto tarea);
 
   void desactivarChallengeOpcionOrigen(@Valid TareaDto tarea);
 
@@ -24,11 +24,11 @@ public interface RunTareaProcesarCondicionesService {
 
   void desactivarManualOrdinalDoble(@Valid TareaDto tarea);
 
-  void igualarBandasOrigenDestino(@Valid @NonNull final TareaDto tarea);
+  void igualarBandasOrigenDestino(@Valid @NotNull final TareaDto tarea);
 
   void desactivarGlobalSeccionOpcionOrigen(@Valid TareaDto tarea);
 
   void crearGlobalSeccionOpcionOrigen(@Valid TareaDto tarea);
 
-  void establecerBandaOpcionOrigen(@Valid @NonNull final TareaDto tarea);
+  void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea);
 }

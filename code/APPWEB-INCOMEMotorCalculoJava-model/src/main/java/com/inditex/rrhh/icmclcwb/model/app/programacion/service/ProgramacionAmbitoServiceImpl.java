@@ -17,8 +17,8 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoRepository;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -40,8 +40,8 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
   private final ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
 
   @Override
-  public List<ProgramacionAmbitoDTO> create(@Valid @NonNull final List<ProgramacionAmbitoDTO> programacionAmbito,
-      @NonNull final ProgramacionDTO programacion) {
+  public List<ProgramacionAmbitoDTO> create(@Valid @NotNull final List<ProgramacionAmbitoDTO> programacionAmbito,
+      @NotNull final ProgramacionDTO programacion) {
     final List<ProgramacionAmbitoDTO> result = new ArrayList<>();
     programacionAmbito.forEach(item -> {
       final ProgramacionAmbitoDTO programacionAmbitoResult = this.programacionAmbitoMapper
@@ -79,7 +79,7 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
   }
 
   @Override
-  public List<ProgramacionAmbitoDTO> findByProgramacion(@NonNull final ProgramacionDTO programacion) {
+  public List<ProgramacionAmbitoDTO> findByProgramacion(@NotNull final ProgramacionDTO programacion) {
     final List<ProgramacionAmbitoDTO> result = this.programacionAmbitoMapper
         .programacionAmbitoToProgramacionAmbitoDto(
             this.programacionAmbitoRepository.findByProgramacionId(programacion.getId()));

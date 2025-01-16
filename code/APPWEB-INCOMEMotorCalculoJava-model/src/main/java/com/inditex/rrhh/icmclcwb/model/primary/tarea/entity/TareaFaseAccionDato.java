@@ -11,12 +11,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_FASE_ACCION_DATO")
@@ -30,7 +30,7 @@ public class TareaFaseAccionDato {
   @EmbeddedId
   private TareaFaseAccionDatoPk pk;
 
-  @NonNull
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;

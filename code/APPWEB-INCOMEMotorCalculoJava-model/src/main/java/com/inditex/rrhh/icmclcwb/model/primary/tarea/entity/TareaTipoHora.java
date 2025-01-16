@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_TIPO_HORA")
@@ -21,7 +21,7 @@ public class TareaTipoHora {
   @Column(name = "ID_TAREA_TIPO_HORA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @Column(name = "COD_TIPO_HORA", nullable = false)
   private Integer idTipoHora;
 
@@ -46,7 +46,7 @@ public class TareaTipoHora {
   @Column(name = "ES_INCLUIDO_CHALLENGE_PORCENTAJE", nullable = false)
   private Boolean incluidoChallengePorcentaje;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;

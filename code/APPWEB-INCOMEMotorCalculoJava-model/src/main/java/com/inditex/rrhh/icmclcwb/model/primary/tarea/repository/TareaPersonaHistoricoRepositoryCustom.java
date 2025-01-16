@@ -11,33 +11,33 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaPersonaHistoricoRepositoryCustom {
 
   List<TareaPersonaHistorico> save(List<TareaPersonaHistorico> src);
 
   List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(
-      @NonNull @Positive Long idTarea,
-      @NotBlank String cclIdOrigen, @NonNull List<Integer> idsTipoDato);
+      @NotNull @Positive Long idTarea,
+      @NotBlank String cclIdOrigen, @NotNull List<Integer> idsTipoDato);
 
-  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NonNull @Positive Long idTarea,
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndIdOrigenInAmbito(@NotNull @Positive Long idTarea,
       @NotBlank String cclIdOrigen);
 
-  PeriodoDto findPeriodoDtoByIdTarea(@NonNull @Positive Long idTarea);
+  PeriodoDto findPeriodoDtoByIdTarea(@NotNull @Positive Long idTarea);
 
-  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NonNull @Positive Long idTarea);
+  List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoGrupoFechasByIdTarea(@NotNull @Positive Long idTarea);
 
-  List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NonNull @Positive Long idTarea);
+  List<IdPersonaLocalChallengeDto> findIdPersonaLocalCompensacionChallengeByIdTarea(@NotNull @Positive Long idTarea);
 
   List<IdPersonaHistoricoDto> findIdPersonaHistoricoDtoByIdTareaAndConfiguracionVentaOnlineEntregaDomicilio(
-      @NonNull @Positive Long idTarea, @NonNull String cclIdOrigen,
-      @NonNull TipoVentaConceptoEnum tipoVentaConcepto);
+      @NotNull @Positive Long idTarea, @NotNull String cclIdOrigen,
+      @NotNull TipoVentaConceptoEnum tipoVentaConcepto);
 
   List<GenericAlgoritmoPropertiesDto> findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(
-      @NonNull List<Integer> idsTipoDato);
+      @NotNull List<Integer> idsTipoDato);
 
   List<IdPersonaHIstoricoLocalizacionDto> findIdPersonaHistoricoLocalizacionDtoByIdTareaAndIdOrigenInAmbito(
-      @NonNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
+      @NotNull @Positive Long idTarea, @NotBlank String cclIdOrigen);
 }

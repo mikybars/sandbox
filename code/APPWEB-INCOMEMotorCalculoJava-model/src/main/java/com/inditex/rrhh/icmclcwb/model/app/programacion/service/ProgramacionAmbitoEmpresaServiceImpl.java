@@ -10,8 +10,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,8 +26,8 @@ public class ProgramacionAmbitoEmpresaServiceImpl implements ProgramacionAmbitoE
 
   @Override
   public List<ProgramacionAmbitoEmpresaDTO> create(
-      @Valid @NonNull @NotEmpty final List<ProgramacionAmbitoEmpresaDTO> programacionAmbitoEmpresa,
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoEmpresaDTO> programacionAmbitoEmpresa,
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoEmpresaMapper.programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
         this.programacionAmbitoEmpresaRepository.saveAll(this.programacionAmbitoEmpresaMapper
             .mergeProgramacionAmbitoEmpresaDtoAndProgramacionDtoToProgramacionAmbitoEmpresa(
@@ -36,7 +36,7 @@ public class ProgramacionAmbitoEmpresaServiceImpl implements ProgramacionAmbitoE
 
   @Override
   public List<ProgramacionAmbitoEmpresaDTO> findByProgramacionAmbito(
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoEmpresaMapper.programacionAmbitoEmpresaToProgramacionAmbitoEmpresaDto(
         this.programacionAmbitoEmpresaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
   }

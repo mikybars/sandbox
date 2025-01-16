@@ -15,8 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -28,9 +28,9 @@ public class CalculoAjusteMaximoGarantizadoAsyncServiceImpl implements CalculoAj
   private final CalculoAjusteMaximoGarantizadoService calculoAjusteMaximoGarantizadoService;
 
   @Override
-  public CompletableFuture<Void> ajustar(@NonNull final AlgoritmoAjusteDto algoritmoAjuste,
-      @NonNull final TareaDto tarea,
-      @NonNull @NotEmpty final List<IdPersonaLocalDto> personas) {
+  public CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste,
+      @NotNull final TareaDto tarea,
+      @NotNull @NotEmpty final List<IdPersonaLocalDto> personas) {
     this.calculoAjusteMaximoGarantizadoService.ajustar(algoritmoAjuste, tarea, personas);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

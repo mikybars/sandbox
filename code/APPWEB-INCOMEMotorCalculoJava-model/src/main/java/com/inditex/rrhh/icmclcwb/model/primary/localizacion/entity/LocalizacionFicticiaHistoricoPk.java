@@ -8,8 +8,8 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Embeddable
 @Data
@@ -27,7 +27,7 @@ public class LocalizacionFicticiaHistoricoPk implements Serializable {
   @Column(name = "CCL_ID_COD_ORIGEN", nullable = false, length = 48)
   private String cclIdCodOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;

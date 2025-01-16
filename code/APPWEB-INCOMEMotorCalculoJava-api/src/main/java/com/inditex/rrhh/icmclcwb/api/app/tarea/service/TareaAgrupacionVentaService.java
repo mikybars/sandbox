@@ -8,18 +8,18 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVen
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoResponseDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAgrupacionVentaService {
 
   void savePtrVentaTotalizadoResponse(
-      @Valid @NonNull final PtrVentaTotalizadoResponseDto dto, @Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final List<TareaAgrupacionCadenasDto> agrupaciones);
+      @Valid @NotNull final PtrVentaTotalizadoResponseDto dto, @Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
 
   void savePtrVentaOnlineEntregaDomicilioResponse(
-      @Valid @NonNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NonNull final TareaDto tarea,
-      @Valid @NonNull final List<TareaAgrupacionCadenasDto> agrupaciones);
+      @Valid @NotNull final PtrVentaOnlineEntregaDomicilioResponseDto dto, @Valid @NotNull final TareaDto tarea,
+      @Valid @NotNull final List<TareaAgrupacionCadenasDto> agrupaciones);
 
-  void updateActivoVentaOnlineEntregaDomicilio(@Valid @NonNull final TareaDto tarea);
+  void updateActivoVentaOnlineEntregaDomicilio(@Valid @NotNull final TareaDto tarea);
 
 }

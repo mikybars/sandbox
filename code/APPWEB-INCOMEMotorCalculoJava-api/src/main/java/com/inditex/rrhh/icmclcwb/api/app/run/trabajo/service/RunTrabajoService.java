@@ -4,10 +4,10 @@ import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTrabajoService {
 
-  RunTrabajoDto run(@NonNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo);
+  RunTrabajoDto run(@NotNull @Valid @TrabajoValidator final RunTrabajoDto runTrabajo);
 
 }

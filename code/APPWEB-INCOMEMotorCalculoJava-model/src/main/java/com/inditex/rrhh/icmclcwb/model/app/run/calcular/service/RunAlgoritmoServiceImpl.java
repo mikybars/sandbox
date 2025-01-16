@@ -10,9 +10,9 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -28,7 +28,7 @@ public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
   private final RunAlgoritmoFactory runAlgoritmoFactory;
 
   @Override
-  public RunAlgoritmoDTO findById(@NonNull @Positive final Integer id) {
+  public RunAlgoritmoDTO findById(@NotNull @Positive final Integer id) {
     final RunAlgoritmoDTO result = new RunAlgoritmoDTO();
     final AlgoritmoDTO algoritmo = this.algoritmoMapper
         .algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());

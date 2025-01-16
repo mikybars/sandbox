@@ -7,11 +7,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAmbitoGlobalLocalizacionPersonaPresenciaManualService {
 
-  void save(@Valid @NonNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
-      @Valid @NonNull final TareaDto tareaDto);
+  void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
+      @Valid @NotNull final TareaDto tareaDto);
 
 }

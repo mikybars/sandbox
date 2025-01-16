@@ -21,8 +21,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRep
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -232,7 +232,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   private int batchSize;
 
   @Override
-  public void limpieza(@NonNull @Valid final TareaDto tarea, @NonNull @Valid final TareaAmbitoDto ambito) {
+  public void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito) {
 
     final List<MapSqlParameterSource> cclIdCodOrigenBatchArgs = this.getParametersLocal(tarea, ambito);
     final List<MapSqlParameterSource> stdIdWorkLocatBatchArgs = this.getParametersMeta4(tarea, ambito);
@@ -404,8 +404,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Override
   public void limpiezaTareaProfunda(
-      @NonNull @Valid final TareaDto tarea,
-      @NonNull @Valid final TareaAmbitoDto ambito) {
+      @NotNull @Valid final TareaDto tarea,
+      @NotNull @Valid final TareaAmbitoDto ambito) {
 
     this.limpieza(tarea, ambito);
 
@@ -422,7 +422,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
         idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
   }
 
-  protected void limpiezaTareaCalculoAjusteComision(@NonNull @Valid final TareaDto tarea) {
+  protected void limpiezaTareaCalculoAjusteComision(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaCalculoAjusteComision = this
         .getParametersPersonaLocalStdOrPeriod(tarea,
             this.sqlPersonasTareaCalculoAjusteComision);
@@ -433,7 +433,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
   }
 
-  protected void limpiezaTareaFaseAccionDato(@NonNull @Valid final TareaDto tarea) {
+  protected void limpiezaTareaFaseAccionDato(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersTareaFaseAccionDato = this
         .getParametersTareaFaseAccionDato(tarea,
             this.sqlTareaFaseAccionDato);
@@ -444,7 +444,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
   }
 
-  protected void limpiezaTareaFaseAccionVentaIntegra(@NonNull @Valid final TareaDto tarea) {
+  protected void limpiezaTareaFaseAccionVentaIntegra(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersTareaFaseAccionVentaIntegra = this
         .getParametersTareaFaseAccionDato(tarea,
             this.sqlTareaFaseAccionVentaIntegra);
@@ -455,7 +455,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
   }
 
-  protected void limpiezaTareaFaseAccion(@NonNull @Valid final TareaDto tarea) {
+  protected void limpiezaTareaFaseAccion(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersTareaFaseAccion = this
         .getParametersTareaFaseAccion(tarea,
             this.sqlTareaFaseAccion);
@@ -467,7 +467,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaPersonaHistorico(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaPersonaHistorico = this
         .getParametersPersonaLocalStdOrPeriod(tarea,
             this.sqlPersonasTareaPersonaHistorico);
@@ -479,14 +479,14 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaLocalizacionHistorico(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaLocalizacionHistorico(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> idTareaBatchArgs = this.getParametersTarea(tarea);
     this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaLocalizacionHistorico,
         idTareaBatchArgs.toArray(new MapSqlParameterSource[0]));
   }
 
   @Override
-  public void limpiezaTareaGlobalLocalizacionPersona(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersona = this
         .getParametersPersonaLocal(
             tarea, this.sqlPersonasTareaAmbitoGlobalLocalizacionPersona);
@@ -498,7 +498,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento = this
         .getParametersPersonaLocal(
             tarea, this.sqlPersonasTareaAmbitoGlobalLocalizacionPersonaDesplazamiento);
@@ -511,7 +511,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersonaPresencia = this
         .getParametersPersonaLocal(
             tarea, this.sqlPersonasTareaAmbitoGlobalLocalizacionPersonaPresencia);
@@ -523,8 +523,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaAmbitoLocalizacion(@NonNull @Valid final TareaDto tarea,
-      @NonNull @Valid final TareaAmbitoDto ambito) {
+  public void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea,
+      @NotNull @Valid final TareaAmbitoDto ambito) {
     final List<MapSqlParameterSource> stdIdWorkLocatBatchArgs = this.getParametersMeta4(tarea, ambito);
     this.limpiezaTareaAmbitoLocalizacion(stdIdWorkLocatBatchArgs);
   }
@@ -537,7 +537,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual = this
         .getParametersPersonaLocal(
             tarea, this.sqlPersonasTareaAmbitoGlobalLocalizacionPersonaPresenciaManual);
@@ -550,7 +550,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalPersona(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaAmbitoGlobalPersona = this.getParametersPersonaLocal(
         tarea,
         this.sqlPersonasTareaAmbitoGlobalPersona);
@@ -563,7 +563,7 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Override
   public void limpiezaTareaPersonaExterna(
-      @NonNull @Valid final TareaDto tarea) {
+      @NotNull @Valid final TareaDto tarea) {
     final List<MapSqlParameterSource> parametersPersonaTareaPersonaExterna = this.getParametersPersonaLocal(tarea,
         this.sqlPersonasTareaPersonaExterna);
     for (final List<MapSqlParameterSource> iter : StreamUtils.partition(parametersPersonaTareaPersonaExterna,
@@ -575,20 +575,20 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Override
   public void updateEstado(
-      @NonNull @Positive final Long idTareaLimpieza,
-      @NonNull @Valid final EstadoLimpiezaDto estado) {
+      @NotNull @Positive final Long idTareaLimpieza,
+      @NotNull @Valid final EstadoLimpiezaDto estado) {
     this.tareaLimpiezaRepositoryCustom.updateEstado(idTareaLimpieza, estado);
   }
 
   @Override
   public void updateFechaFinalizacion(
-      @NonNull @Positive final Long idTareaLimpieza) {
+      @NotNull @Positive final Long idTareaLimpieza) {
     this.tareaLimpiezaRepositoryCustom.updateFechaFinalizacion(idTareaLimpieza);
   }
 
   @Override
   public void inicioLimpieza(
-      @NonNull @Positive final Long idTareaLimpieza) {
+      @NotNull @Positive final Long idTareaLimpieza) {
     this.tareaLimpiezaRepositoryCustom.inicioLimpieza(idTareaLimpieza);
   }
 

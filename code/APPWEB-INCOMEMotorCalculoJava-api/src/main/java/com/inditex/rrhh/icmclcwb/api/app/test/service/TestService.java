@@ -5,8 +5,8 @@ import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
 import com.inditex.rrhh.icmclcwb.dto.SsoDTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface TestService {
 
@@ -22,7 +22,7 @@ public interface TestService {
 
   void programacionBatch();
 
-  void testBloqueos(@NonNull final Long limit);
+  void testBloqueos(@NotNull final Long limit);
 
   void trabajoFase1a();
 
@@ -44,7 +44,7 @@ public interface TestService {
 
   // Comienzo de normalización de tareas consolidadas (para borrar)
 
-  AjusteComisionDTO normalizarAjusteComision(@Positive @NonNull final Integer limit);
+  AjusteComisionDTO normalizarAjusteComision(@Positive @NotNull final Integer limit);
 
   // Fin de normalización de tareas consolidadas (para borrar)
 

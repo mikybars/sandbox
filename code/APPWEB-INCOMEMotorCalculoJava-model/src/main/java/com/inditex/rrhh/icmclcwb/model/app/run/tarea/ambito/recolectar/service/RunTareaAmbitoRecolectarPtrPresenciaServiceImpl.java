@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -41,7 +41,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -88,8 +88,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
   }
 
   @Override
-  public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+  public void presenciaDetallePersonaByRunTareaAndTareaAmbito(@NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();
@@ -151,8 +151,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
   @Override
   public void presenciaDetallePersonaIncluidoEcommerceByRunTareaAndTareaAmbito(
-      @NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();
@@ -162,7 +162,7 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
       final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
               tareaAmbito.getCclIdOrigen(),
-              Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
+              Collections.singletonList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
       if (CollectionUtils.isNotEmpty(cadenas)) {
         for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
             this.tareaLocalizacionHistoricoService
@@ -213,8 +213,8 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
 
   @Override
   public void presenciaDetallePersonaHorasSindicalesByRunTareaAndTareaAmbito(
-      @NonNull @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final RunTareaDto runTarea,
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TareaDto tarea = runTarea.getTarea();

@@ -9,7 +9,7 @@
 
 ## Where does it run?
 
-`ubuntu-20.04` GitHub cloud runner.
+`ubuntu-24.04` GitHub cloud runner.
 
 ## Diagrams for the workflow and actions
 

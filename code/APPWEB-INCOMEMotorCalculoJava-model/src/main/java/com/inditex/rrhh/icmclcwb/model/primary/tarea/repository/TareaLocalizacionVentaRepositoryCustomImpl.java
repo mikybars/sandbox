@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -14,7 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionVenta;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -245,7 +246,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
   }
 
   @Override
-  public void updateActivoNegativoTotalizado(@NonNull final TareaDto tarea) {
+  public void updateActivoNegativoTotalizado(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -253,13 +254,13 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-        Arrays.asList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()));
+        Collections.singletonList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()));
 
     this.update(this.sqlUpdateActivoNegativoTotalizado, parameters);
   }
 
   @Override
-  public void totalizarDevolucionesVendedor0(@NonNull final TareaDto tarea) {
+  public void totalizarDevolucionesVendedor0(@NotNull final TareaDto tarea) {
 
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
@@ -277,7 +278,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
   }
 
   @Override
-  public void repartoDevolucionVendedor0(@NonNull final TareaDto tarea) {
+  public void repartoDevolucionVendedor0(@NotNull final TareaDto tarea) {
 
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
@@ -296,7 +297,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
   }
 
   @Override
-  public void updateActivoManual(@NonNull final TareaDto tarea) {
+  public void updateActivoManual(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId());

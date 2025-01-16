@@ -17,10 +17,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_VENTA")
@@ -34,17 +34,17 @@ public class TareaAgrupacionVenta {
   @Column(name = "ID_TAREA_AGRUPACION_VENTA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
   private Long icmIdAgrupacionOnline;
 
@@ -56,15 +56,15 @@ public class TareaAgrupacionVenta {
   @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
   private String cclIdOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false, precision = 23, scale = 8)
   private BigDecimal importeSinImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false, precision = 23, scale = 8)
   private BigDecimal importeConImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

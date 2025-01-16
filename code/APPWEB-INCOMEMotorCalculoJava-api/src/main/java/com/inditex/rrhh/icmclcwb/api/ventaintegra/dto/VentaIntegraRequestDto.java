@@ -8,27 +8,27 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
 public class VentaIntegraRequestDto implements Serializable {
 
-  @NonNull
+  @NotNull
   private Integer idOrigen;
 
-  @NonNull
+  @NotNull
   private Integer idEmpresa;
 
-  @NonNull
+  @NotNull
   private String fechaDesde;
 
-  @NonNull
+  @NotNull
   private String fechaHasta;
 
-  @NonNull
+  @NotNull
   private List<Integer> listaTiendas;
 
   private LocalDateTime fechaLimite;

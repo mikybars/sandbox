@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,19 +28,19 @@ public class TareaLocalizacionPersonaVentaServiceImpl implements TareaLocalizaci
 
   @Override
   public void savePtrVentaIndividualDetalleResultItem(
-      @Valid @NonNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
-      @Valid @NonNull final TareaDto tarea) {
-    tareaLocalizacionPersonaVentaRepositoryCustom.save(
-        tareaLocalizacionPersonaVentaMapper
+      @Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
+      @Valid @NotNull final TareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.save(
+        this.tareaLocalizacionPersonaVentaMapper
             .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
   }
 
   @Override
   public void savePtrVentaOnlineIpodIndividualDetalleResultItem(
-      @Valid @NonNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
-      @Valid @NonNull final TareaDto tarea) {
-    tareaLocalizacionPersonaVentaRepositoryCustom.save(
-        tareaLocalizacionPersonaVentaMapper
+      @Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
+      @Valid @NotNull final TareaDto tarea) {
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.save(
+        this.tareaLocalizacionPersonaVentaMapper
             .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones,
                 tarea));
   }

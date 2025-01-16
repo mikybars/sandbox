@@ -3,12 +3,12 @@ package com.inditex.rrhh.icmclcwb.model.primary.periodo.repository;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface PeriodoPersonaRepositoryCustom {
 
-  void mergePeriodoPersona(@NonNull RunTareaDto tareaDto);
+  void mergePeriodoPersona(@NotNull RunTareaDto tareaDto);
 
-  void limpiezaPeriodoPersona(@NonNull RunTareaDto tareaDto, @NonNull TareaAmbitoDto tareaAmbitoDto);
+  void limpiezaPeriodoPersona(@NotNull RunTareaDto tareaDto, @NotNull TareaAmbitoDto tareaAmbitoDto);
 
 }

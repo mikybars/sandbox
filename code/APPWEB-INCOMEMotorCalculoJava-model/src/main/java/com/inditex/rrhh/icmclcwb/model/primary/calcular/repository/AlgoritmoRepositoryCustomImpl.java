@@ -7,8 +7,8 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,11 +31,11 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
   private String sqlCheckDuplicatedActives;
 
   @Override
-  public List<Integer> customFindAlgoritmosIdsByTarea(@NonNull @Positive final Long idTarea) {
-    MapSqlParameterSource parameters = new MapSqlParameterSource();
+  public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    return namedParameterJdbcTemplate.query(sqlCustomFindAlgoritmosIdsByTarea, parameters,
+    return this.namedParameterJdbcTemplate.query(this.sqlCustomFindAlgoritmosIdsByTarea, parameters,
         new RowMapper<Integer>() {
           @Override
           public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -46,9 +46,9 @@ public class AlgoritmoRepositoryCustomImpl implements AlgoritmoRepositoryCustom 
 
   @Override
   public Boolean checkDuplicatedActives() {
-    MapSqlParameterSource parameters = new MapSqlParameterSource();
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
-    List<Integer> value = namedParameterJdbcTemplate.query(sqlCheckDuplicatedActives, parameters,
+    final List<Integer> value = this.namedParameterJdbcTemplate.query(this.sqlCheckDuplicatedActives, parameters,
         new RowMapper<Integer>() {
           public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
             return rs.getInt(1);

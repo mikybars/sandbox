@@ -13,8 +13,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +25,7 @@ public class ProgamacionAsyncServiceImpl implements ProgramacionAsyncService {
 
   @Override
   public CompletableFuture<Void> updateFechaSiguienteEjecucion(
-      @NonNull @NotEmpty final List<ProgramacionDTO> programacion) {
+      @NotNull @NotEmpty final List<ProgramacionDTO> programacion) {
     this.programacionService.updateFechaSiguienteEjecucion(programacion);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

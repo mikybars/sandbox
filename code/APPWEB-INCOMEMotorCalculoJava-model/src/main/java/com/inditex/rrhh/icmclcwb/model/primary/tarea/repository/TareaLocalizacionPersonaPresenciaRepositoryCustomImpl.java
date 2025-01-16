@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -105,7 +105,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   private TipoDatoService tipoDatoService;
 
   @Override
-  public void indicadorPresencia(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorPresencia(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -122,7 +122,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void presenciaDesplazamiento(@NonNull final RunTareaDto runTareaDto) {
+  public void presenciaDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -143,7 +143,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void presenciaDesplazamientoChallengePorcentaje(@NonNull final RunTareaDto runTareaDto) {
+  public void presenciaDesplazamientoChallengePorcentaje(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -161,7 +161,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorPresenciaDesplazamiento(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorPresenciaDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -177,7 +177,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorPresenciaDesplazamientoBase(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorPresenciaDesplazamientoBase(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -197,7 +197,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
   @Override
   public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -212,7 +212,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void updateActivoVacio(@NonNull final RunTareaDto runTareaDto) {
+  public void updateActivoVacio(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
@@ -225,7 +225,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void updateActivo(@NonNull final RunTareaDto runTareaDto) {
+  public void updateActivo(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO,
@@ -239,7 +239,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensar(@NonNull final RunTareaDto runTareaDto) {
+  public void compensar(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_EXCLUIDO_DENOMINADOR,
@@ -259,7 +259,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void compensarChallenge(@NonNull final RunTareaDto runTareaDto) {
+  public void compensarChallenge(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE,
@@ -277,7 +277,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void presenciasIncluidoVenta(@NonNull final RunTareaDto runTareaDto) {
+  public void presenciasIncluidoVenta(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -294,7 +294,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void presenciasHorasFijas(@NonNull final RunTareaDto runTareaDto) {
+  public void presenciasHorasFijas(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -307,7 +307,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void presenciasHorasFijasDesplazamiento(@NonNull final RunTareaDto runTareaDto) {
+  public void presenciasHorasFijasDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -320,7 +320,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorPersonaPorVenta(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorPersonaPorVenta(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_CALCULO, TipoCalculoEnum.POR_VENTA.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION, AppConstants.SECCION_4);
@@ -339,7 +339,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoDirectoVenta(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoDirectoVenta(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -355,7 +355,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoDirectoVentaSinPresencias(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoDirectoVentaSinPresencias(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -371,7 +371,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoBaseDirectoVenta(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoBaseDirectoVenta(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -387,7 +387,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoBaseDirectoVentaOtraTienda(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -403,7 +403,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -420,7 +420,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoDirectoVentaCambioFuncion(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoDirectoVentaCambioFuncion(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -437,7 +437,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   }
 
   @Override
-  public void indicadorDesplazamientoChallengeImporteTienda(@NonNull final RunTareaDto runTareaDto) {
+  public void indicadorDesplazamientoChallengeImporteTienda(@NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -460,7 +460,7 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
 
   @Override
   public void updateActivoPersonasExternas(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

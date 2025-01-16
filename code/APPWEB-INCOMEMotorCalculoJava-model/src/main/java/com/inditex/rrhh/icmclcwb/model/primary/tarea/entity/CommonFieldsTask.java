@@ -8,11 +8,11 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @EqualsAndHashCode
 @MappedSuperclass
@@ -21,17 +21,17 @@ import org.jspecify.annotations.NonNull;
 @AllArgsConstructor
 public class CommonFieldsTask {
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_INICIO", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaInicio;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA_FIN", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fechaFin;

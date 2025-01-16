@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -33,18 +33,18 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
   private TareaAgrupacionCadenaRepository tareaAgrupacionCadenaRepository;
 
   @Override
-  public List<TareaAgrupacionCadenaDto> save(@Valid @NonNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
-    List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaMapper
+  public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
+    final List<TareaAgrupacionCadena> agrupaciones = this.tareaAgrupacionCadenaMapper
         .getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
-    return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
-        tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
+    return this.tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+        this.tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
   }
 
   @Override
-  public List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NonNull final TareaDto tarea) {
-    List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
-    return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
+  public List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NotNull final TareaDto tarea) {
+    final List<TareaAgrupacionCadena> agrupaciones = this.tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
+    return this.tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
   }
 
 }

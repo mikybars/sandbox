@@ -15,8 +15,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Builder
 @ToString
 public class PageDto implements Serializable {
@@ -40,20 +40,17 @@ public class PageDto implements Serializable {
   private Integer numeroTotalResultados;
 
   public boolean hasNext() {
-    boolean result = false;
+    final boolean result = this.numeroPagina != null
+        && ((this.numeroTotalPaginas == null && (int) this.numeroPagina == NumberUtils.INTEGER_ZERO)
+            || (this.numeroTotalPaginas != null && this.numeroPagina < this.numeroTotalPaginas));
     // Primera carga, en las iteraciones cuando no hay registros, llega
     // {numeroPagina: 0, numeroTotalPaginas: 0}
-    if (numeroPagina != null
-        && ((numeroTotalPaginas == null && Integer.compare(numeroPagina, NumberUtils.INTEGER_ZERO) == 0)
-            || (numeroTotalPaginas != null && Integer.compare(numeroPagina, numeroTotalPaginas) < 0))) {
-      result = true;
-    }
     return result;
   }
 
   public PageDto next() {
-    if (hasNext()) {
-      setNumeroPagina(Integer.valueOf(numeroPagina.intValue() + 1));
+    if (this.hasNext()) {
+      this.setNumeroPagina(Integer.valueOf(this.numeroPagina.intValue() + 1));
     } else {
       throw new Meta4IcmclcwbException("Error en la paginacion");
     }

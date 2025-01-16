@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface AccionService {
 
@@ -14,7 +14,7 @@ public interface AccionService {
    * @param id Some javadoc.
    * @return Some javadoc.
    */
-  AccionDto findAccionDtoById(@NonNull Integer id);
+  AccionDto findAccionDtoById(@NotNull Integer id);
 
   /**
    * Some javadoc.
@@ -24,7 +24,7 @@ public interface AccionService {
    * @param stdIdLegEnt Some javadoc.
    * @return Some javadoc.
    */
-  Boolean findByIdAccionAndIdOrigenAndStdIdLegEnt(@NonNull @Positive Integer idAccion, @NotBlank String cclIdOrigen,
+  Boolean findByIdAccionAndIdOrigenAndStdIdLegEnt(@NotNull @Positive Integer idAccion, @NotBlank String cclIdOrigen,
       @NotBlank String stdIdLegEnt);
 
 }

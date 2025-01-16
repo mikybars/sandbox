@@ -8,9 +8,9 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -28,7 +28,7 @@ public class TrabajoDto implements Serializable {
 
   private LocalDateTime fechaHoraCreacion;
 
-  @NonNull
+  @NotNull
   private Long icmIdPeriodo;
 
   private LocalDate fechaInicioPeriodo;
@@ -42,7 +42,7 @@ public class TrabajoDto implements Serializable {
   @NotBlank
   private String idOrganization;
 
-  @NonNull
+  @NotNull
   private TipoAmbitoDto tipoAmbito;
 
   private List<TrabajoAmbitoOrigenDto> origen;

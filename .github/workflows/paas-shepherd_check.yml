@@ -8,12 +8,12 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.14.0
+  WORKFLOW_VERSION: 3.16.0
 
 jobs:
   get-details:
     name: Shepherd / Get Details
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
     outputs:
       matrix: ${{ steps.pr.outputs.matrix }}
     steps:
@@ -49,7 +49,7 @@ jobs:
 
   shepherd-check:
     name: Shepherd / Deployment Check
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
     needs: get-details
     strategy:
       max-parallel: 1

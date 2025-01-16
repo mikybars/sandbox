@@ -8,8 +8,8 @@ import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository.LimpiezaRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,7 +23,7 @@ public class LimpiezaServiceImpl implements LimpiezaService {
   private final TrabajoService trabajoService;
 
   @Override
-  public void runTarea(@NonNull @Valid final RunLimpiezaDto limpieza) {
+  public void runTarea(@NotNull @Valid final RunLimpiezaDto limpieza) {
     final TareaDto tarea = limpieza.getTarea();
     try {
       this.limpiezaRepositoryCustom.inicioLimpieza(limpieza.getId());
@@ -38,48 +38,48 @@ public class LimpiezaServiceImpl implements LimpiezaService {
   }
 
   @Override
-  public void limpiezaAmbito(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaAmbito(@NotNull @Valid final TareaDto tarea) {
     tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
   }
 
   @Override
-  public void limpiezaTareaPersonaHistorico(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaPersonaHistorico(tarea);
   }
 
   @Override
-  public void limpiezaTareaLocalizacionHistorico(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaLocalizacionHistorico(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaLocalizacionHistorico(tarea);
   }
 
   @Override
-  public void limpiezaTareaGlobalLocalizacionPersona(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaGlobalLocalizacionPersona(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaGlobalLocalizacionPersona(tarea);
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(tarea);
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresencia(tarea);
   }
 
   @Override
-  public void limpiezaTareaAmbitoLocalizacion(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoLocalizacion(@NotNull @Valid final TareaDto tarea) {
     tarea.getAmbito()
         .forEach(ambito -> this.limpiezaRepositoryCustom.limpiezaTareaAmbitoLocalizacion(tarea, ambito));
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalLocalizacionPersonaPresenciaManual(tarea);
   }
 
   @Override
-  public void limpiezaTareaAmbitoGlobalPersona(@NonNull @Valid final TareaDto tarea) {
+  public void limpiezaTareaAmbitoGlobalPersona(@NotNull @Valid final TareaDto tarea) {
     this.limpiezaRepositoryCustom.limpiezaTareaAmbitoGlobalPersona(tarea);
   }
 

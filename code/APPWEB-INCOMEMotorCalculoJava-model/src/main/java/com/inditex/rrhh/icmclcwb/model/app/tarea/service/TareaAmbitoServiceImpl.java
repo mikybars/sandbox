@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAmbitoRepos
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -29,15 +29,15 @@ public class TareaAmbitoServiceImpl implements TareaAmbitoService {
   private TareaAmbitoMapper tareaAmbitoMapper;
 
   @Override
-  public List<TareaAmbitoDto> create(@Valid @NonNull @NotEmpty final List<TareaAmbitoDto> tareaAmbito,
-      @Valid @NonNull final TareaDto tarea) {
+  public List<TareaAmbitoDto> create(@Valid @NotNull @NotEmpty final List<TareaAmbitoDto> tareaAmbito,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaAmbitoMapper.tareaAmbitoToTareaAmbitoDto(this.tareaAmbitoRepository
         .saveAll(this.tareaAmbitoMapper.mergeTareaAmbitoDtoAndTareaDtoToTareaAmbito(tareaAmbito, tarea)));
   }
 
   @Override
   @Cacheable(value = TAREA_AMBITO_DTO_BY_TAREA, key = "{#tarea.id}")
-  public List<TareaAmbitoDto> findByTarea(@Valid @NonNull final TareaDto tarea) {
+  public List<TareaAmbitoDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
     return this.tareaAmbitoMapper
         .tareaAmbitoToTareaAmbitoDto(this.tareaAmbitoRepository.findByTareaId(tarea.getId()));
   }
