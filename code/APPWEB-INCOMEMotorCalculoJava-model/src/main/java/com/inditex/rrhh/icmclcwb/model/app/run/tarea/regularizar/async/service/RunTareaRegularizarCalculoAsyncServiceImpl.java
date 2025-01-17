@@ -7,14 +7,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.async.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.regularizar.service.RunTareaRegularizarCalculoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRegularizarCalculoAsyncServiceImpl implements RunTareaRegularizarCalculoAsyncService {
 
-  @Autowired
-  private RunTareaRegularizarCalculoService runTareaRegularizarService;
+  private final RunTareaRegularizarCalculoService runTareaRegularizarService;
 
   @Override
   public CompletableFuture<Void> regularizarCalculoMejorOpcion(final RunTareaDto runTarea) {

@@ -17,29 +17,24 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteCarenciaRepositoryCustom;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunAjusteCarenciaProcesar implements RunAjuste {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunAjusteCarenciaProcesar.class);
 
-  @Autowired
-  @Qualifier("runAjusteProperties")
-  private RunAjustePropertiesDto runAjusteProperties;
+  private final RunAjustePropertiesDto runAjusteProperties;
 
-  @Autowired
-  private CalculoAjusteCarenciaAsyncService calculoAjusteCarenciaAsyncService;
+  private final CalculoAjusteCarenciaAsyncService calculoAjusteCarenciaAsyncService;
 
-  @Autowired
-  private TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
+  private final TareaCalculoAjusteCarenciaRepositoryCustom tareaCalculoAjusteCarenciaRepositoryCustom;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+  private final TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Override
   public void execute(final RunTareaDto runTarea, final AlgoritmoAjusteDto algoritmoAjuste) {

@@ -16,26 +16,22 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("directoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1")
+@RequiredArgsConstructor
 public class DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
 
   private static final Logger LOG = LoggerFactory.getLogger(DirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RunAlgoritmo.class);
 
-  @Autowired
-  @Qualifier("runAlgoritmoProperties")
-  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  private final RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
-  @Autowired
-  private TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
+  private final TareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom tareaCalculoAlgoritmoDirectoVentaReduccionJornadaPorcentajeDiariaDesplazamientoV1RepositoryCustom;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+  private final TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {

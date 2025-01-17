@@ -21,8 +21,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,24 +29,19 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoValidarCondicionesHistoricoServiceImpl
     implements RunTareaAmbitoValidarCondicionesHistoricoService {
 
-  @Autowired
-  private ComisAsyncService comisAsyncService;
+  private final ComisAsyncService comisAsyncService;
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private final PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
-  @Autowired
-  private ValidacionMapper validacionMapper;
+  private final ValidacionMapper validacionMapper;
 
-  @Autowired
-  @Qualifier("historicoProperties")
-  private PrevalidarPropertiesDto historicoProperties;
+  private final PrevalidarPropertiesDto historicoProperties;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)

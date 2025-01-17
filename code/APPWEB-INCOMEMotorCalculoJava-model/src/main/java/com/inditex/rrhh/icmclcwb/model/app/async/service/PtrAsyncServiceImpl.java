@@ -9,14 +9,14 @@ import com.inditex.rrhh.icmclcwb.api.app.service.PtrService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PtrAsyncServiceImpl implements PtrAsyncService {
 
-  @Autowired
-  private PtrService ptrService;
+  private final PtrService ptrService;
 
   @Override
   public CompletableFuture<PresenciaOrigenDto> findPresenciasOrigenAndFecha(@Valid final RunTareaDto runTareaDto,

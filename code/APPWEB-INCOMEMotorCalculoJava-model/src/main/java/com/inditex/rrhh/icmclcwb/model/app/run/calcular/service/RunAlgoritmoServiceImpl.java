@@ -12,22 +12,20 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepo
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunAlgoritmoServiceImpl implements RunAlgoritmoService {
 
-  @Autowired
-  private AlgoritmoRepository algoritmoRepository;
+  private final AlgoritmoRepository algoritmoRepository;
 
-  @Autowired
-  private AlgoritmoMapper algoritmoMapper;
+  private final AlgoritmoMapper algoritmoMapper;
 
-  @Autowired
-  private RunAlgoritmoFactory runAlgoritmoFactory;
+  private final RunAlgoritmoFactory runAlgoritmoFactory;
 
   @Override
   public RunAlgoritmoDTO findById(@NotNull @Positive final Integer id) {

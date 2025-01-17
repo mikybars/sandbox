@@ -7,15 +7,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncServiceImpl
     implements RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosAsyncService {
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService runTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService;
 
   @Override
   public CompletableFuture<Void> personaByRunTarea(RunTareaDto runTarea) {

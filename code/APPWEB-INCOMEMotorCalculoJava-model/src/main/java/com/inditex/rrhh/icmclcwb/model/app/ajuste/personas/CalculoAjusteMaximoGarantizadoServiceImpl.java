@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import java.util.Arrays;
 import java.util.List;
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteMaximoGarantizadoService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -14,18 +14,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CalculoAjusteMaximoGarantizadoServiceImpl extends AbstractCalculoAjusteBaseService implements
     CalculoAjusteMaximoGarantizadoService {
 
-  @Autowired
-  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  private final PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
-  @Autowired
-  private TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
+  private final TareaCalculoAjusteMaximoGarantizadoRepositoryCustom tareaCalculoAjusteMaximoGarantizadoRepositoryCustom;
 
   @Override
   protected void precondiciones(final TareaDto tarea,

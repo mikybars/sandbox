@@ -9,19 +9,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository.LimpiezaRepos
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class LimpiezaServiceImpl implements LimpiezaService {
 
-  @Autowired
-  private LimpiezaRepositoryCustom limpiezaRepositoryCustom;
+  private final LimpiezaRepositoryCustom limpiezaRepositoryCustom;
 
-  @Autowired
-  private TrabajoService trabajoService;
+  private final TrabajoService trabajoService;
 
   @Override
   public void runTarea(@NotNull @Valid final RunLimpiezaDto limpieza) {

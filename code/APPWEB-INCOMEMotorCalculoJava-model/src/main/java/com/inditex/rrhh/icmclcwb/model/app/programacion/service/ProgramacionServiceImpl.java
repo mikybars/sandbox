@@ -25,26 +25,23 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class ProgramacionServiceImpl implements ProgramacionService {
 
-  @Autowired
-  private ProgramacionRepositoryCustom programacionRepositoryCustom;
+  private final ProgramacionRepositoryCustom programacionRepositoryCustom;
 
-  @Autowired
-  private ProgramacionRepository programacionRepository;
+  private final ProgramacionRepository programacionRepository;
 
-  @Autowired
-  private ProgramacionMapper programacionMapper;
+  private final ProgramacionMapper programacionMapper;
 
-  @Autowired
-  private ProgramacionAmbitoService programacionAmbitoService;
+  private final ProgramacionAmbitoService programacionAmbitoService;
 
   @Override
   public ProgramacionDTO create(@Valid final ProgramacionDTO programacion) {
