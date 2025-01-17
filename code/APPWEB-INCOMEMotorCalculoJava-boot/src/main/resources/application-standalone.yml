@@ -49,8 +49,8 @@ amiga:
       is-production: false
     cache:
       redis:
-        host: ${qa.jdg.host:localhost}
-        port: ${qa.jdg.port:6379}
+        host: localhost
+        port: 31110
         cluster:
           enabled: false
     mail:
@@ -94,20 +94,20 @@ amiga:
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
-          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd-develop
+          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd
           ping-query:
             enabled: true
             timeout: 2s
-            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd-develop/amiga/health
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd/amiga/health
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: '${srvcicmclcwbdes}'
         ptr-presencia:
-          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd-develop
+          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd
           ping-query:
             enabled: true
             timeout: 2s
-            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd-develop/amiga/health
+            path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd/amiga/health
           auth-method: BASIC
           username: srvcicmclcwbdes
           password: '${srvcicmclcwbdes}'

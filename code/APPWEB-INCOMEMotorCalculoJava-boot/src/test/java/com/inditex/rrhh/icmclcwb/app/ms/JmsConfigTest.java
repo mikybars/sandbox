@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.app.ms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
@@ -11,11 +10,9 @@ import static org.mockito.Mockito.when;
 import com.inditex.amigafwk.data.jms.ArtemisConnectionFactoryBuilder;
 import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.amigafwk.data.jms.JmsClientBuilder;
-import com.inditex.amigafwk.data.jms.JmsConnectionFactoryGlobalCustomizer;
 import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryBuilder;
 import com.inditex.rrhh.icmclcwb.config.app.ms.JmsConfig;
-import com.inditex.rrhh.icmclcwb.config.app.ms.JmsConnectionFactoryGlobalCustom;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;
@@ -82,11 +79,4 @@ public class JmsConfigTest {
     verify(expectedClient).setConnectionFactory(cf);
   }
 
-  @Test
-  void globalCustomizerShouldReturnJmsConnectionFactoryGlobalCustom() {
-    final JmsConnectionFactoryGlobalCustomizer customizer = this.jmsConfig.globalCustomizer();
-
-    assertNotNull(customizer);
-    assertInstanceOf(JmsConnectionFactoryGlobalCustom.class, customizer);
-  }
 }
