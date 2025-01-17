@@ -22,9 +22,9 @@ public class Meta4ClientPoolConfig {
   public Meta4ClientPool meta4ClientPool(
       @Qualifier("meta4LoginClientFactory") final Meta4ClientAbstract<LoginService> meta4LoginClientFactory,
       @Qualifier("meta4IcmWsCalcIncomeClientFactory") final Meta4ClientAbstract<IcmWsCalcIncomeService> meta4IcmWsCalcIncomeClientFactory) {
-    final Meta4ClientFactory meta4ClientFactory = new Meta4ClientFactory();
-    meta4ClientFactory.setMeta4ClientCredentials(this.config.getCredentials());
-    meta4ClientFactory.setMeta4ClientProperties(this.config.getPool());
+    Meta4ClientFactory meta4ClientFactory = new Meta4ClientFactory();
+    meta4ClientFactory.setMeta4ClientCredentials(config.getCredentials());
+    meta4ClientFactory.setMeta4ClientProperties(config.getPool());
     meta4ClientFactory.setLoginServiceFactory(meta4LoginClientFactory);
     meta4ClientFactory.setIcmWsCalcIncomeServiceFactory(meta4IcmWsCalcIncomeClientFactory);
     return new Meta4ClientPool(meta4ClientFactory);
