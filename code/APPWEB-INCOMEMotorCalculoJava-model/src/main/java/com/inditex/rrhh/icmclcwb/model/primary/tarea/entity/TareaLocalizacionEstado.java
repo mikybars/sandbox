@@ -7,8 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_ESTADO")
@@ -32,7 +32,7 @@ public class TareaLocalizacionEstado extends CommonFieldsTaskEntity {
   @Column(name = "ICM_ID_ESTADO", nullable = false, length = 12)
   private String icmIdEstado;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_NUM_DIAS", nullable = false, precision = 23, scale = 8)
   private Integer icmNumDias;
 

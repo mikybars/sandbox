@@ -5,21 +5,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable {
 
   private String id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
-  @NonNull
+  @NotNull
   private LocalDateTime fechaInicio;
 
-  @NonNull
+  @NotNull
   private LocalDateTime fechaFin;
 
   @NotBlank
@@ -43,7 +43,7 @@ public class TareaPersonaEstructuraDesplazamientoRealDto implements Serializable
   @NotBlank
   private String icmIdEstructuraAmbito;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaInicioPeriodo;
 
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.repository.BaseRepository;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAgrupacionCadenaRepository extends BaseRepository<TareaAgrupacionCadena, Long> {
 
-  List<TareaAgrupacionCadena> findByTareaId(@NonNull final Long id);
+  List<TareaAgrupacionCadena> findByTareaId(@NotNull final Long id);
 
 }

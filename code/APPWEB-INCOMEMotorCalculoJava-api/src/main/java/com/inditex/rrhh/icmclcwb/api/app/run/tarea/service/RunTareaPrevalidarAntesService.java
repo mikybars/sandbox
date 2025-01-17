@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaPrevalidarAntesService {
 
@@ -14,6 +14,6 @@ public interface RunTareaPrevalidarAntesService {
    * @param runTareaDto Some javadoc.
    * @param faseDto Some javadoc.
    */
-  void run(@NonNull @Valid RunTareaDto runTareaDto, @NonNull @Valid FaseDto faseDto);
+  void run(@NotNull @Valid RunTareaDto runTareaDto, @NotNull @Valid FaseDto faseDto);
 
 }

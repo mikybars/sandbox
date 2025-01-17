@@ -9,7 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaFaseService {
 
@@ -19,7 +19,7 @@ public interface TareaFaseService {
    * @param tareaFase Some javadoc.
    * @return Some javadoc.
    */
-  List<TareaFaseDto> save(@Valid @NonNull @NotEmpty List<TareaFaseDto> tareaFase);
+  List<TareaFaseDto> save(@Valid @NotNull @NotEmpty List<TareaFaseDto> tareaFase);
 
   /**
    * Some javadoc.
@@ -27,14 +27,14 @@ public interface TareaFaseService {
    * @param runTareaDto Some javadoc.
    * @return Some javadoc.
    */
-  List<TareaFaseDto> create(@Valid @NonNull RunTareaDto runTareaDto);
+  List<TareaFaseDto> create(@Valid @NotNull RunTareaDto runTareaDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaFaseDto Some javadoc.
    */
-  void updateFechaInicio(@Valid @NonNull TareaFaseDto tareaFaseDto);
+  void updateFechaInicio(@Valid @NotNull TareaFaseDto tareaFaseDto);
 
   /**
    * Some javadoc.
@@ -43,7 +43,7 @@ public interface TareaFaseService {
    * @param idFase Some javadoc.
    * @return Some javadoc.
    */
-  TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NonNull Long idTarea, @NonNull Integer idFase);
+  TareaFaseDto findTareaFaseDtoByIdTareaAndIdFase(@NotNull Long idTarea, @NotNull Integer idFase);
 
   /**
    * Some javadoc.
@@ -52,9 +52,9 @@ public interface TareaFaseService {
    * @param estadoTareaFaseActualDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NonNull TareaDto tareaDto,
-      @Valid @NonNull EstadoTareaFaseDto estadoTareaFaseActualDto,
-      @Valid @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaInicioAndFechaFinAndEstadoByIdTareaAndEstadoActual(@Valid @NotNull TareaDto tareaDto,
+      @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseActualDto,
+      @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
@@ -62,7 +62,7 @@ public interface TareaFaseService {
    * @param idTarea Some javadoc.
    * @return Some javadoc.
    */
-  List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NonNull Long idTarea);
+  List<TareaFaseDto> findTareaFaseDtoByIdTarea(@NotNull Long idTarea);
 
   /**
    * Some javadoc.
@@ -70,8 +70,8 @@ public interface TareaFaseService {
    * @param tareaFaseDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaFinAndEstado(@Valid @NonNull TareaFaseDto tareaFaseDto,
-      @Valid @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
+      @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
@@ -79,21 +79,21 @@ public interface TareaFaseService {
    * @param tareaFaseDto Some javadoc.
    * @param estadoTareaFaseDto Some javadoc.
    */
-  void updateFechaInicioAndFechaFinAndEstado(@Valid @NonNull TareaFaseDto tareaFaseDto,
-      @Valid @NonNull EstadoTareaFaseDto estadoTareaFaseDto);
+  void updateFechaInicioAndFechaFinAndEstado(@Valid @NotNull TareaFaseDto tareaFaseDto,
+      @Valid @NotNull EstadoTareaFaseDto estadoTareaFaseDto);
 
   /**
    * Some javadoc.
    *
    * @param runTareaDto Some javadoc.
    */
-  void updateActivo(@Valid @NonNull RunTareaDto runTareaDto);
+  void updateActivo(@Valid @NotNull RunTareaDto runTareaDto);
 
   /**
    * Some javadoc.
    *
    * @param tareaFaseDto Some javadoc.
    */
-  void updateActivoByIdTareaFase(@Valid @NonNull TareaFaseDto tareaFaseDto);
+  void updateActivoByIdTareaFase(@Valid @NotNull TareaFaseDto tareaFaseDto);
 
 }

@@ -24,7 +24,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.2.0
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -40,7 +40,7 @@ jobs:
   gossip-analysis:
     name: Gossip / Analysis
     timeout-minutes: 30
-    runs-on: [self-hosted, sre]
+    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '["self-hosted", "sre"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class TareaLocalizacionVentaDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   private LocalDate fecha;
@@ -29,15 +29,15 @@ public class TareaLocalizacionVentaDto implements Serializable {
   @NotBlank
   private String cclIdSeccion;
 
-  @NonNull
+  @NotNull
   private Double importeSinImpuestos;
 
-  @NonNull
+  @NotNull
   private Double importeConImpuestos;
 
   private Long idTipoImporteVenta;
 
-  @NonNull
+  @NotNull
   private Boolean activo;
 
 }

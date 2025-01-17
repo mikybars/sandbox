@@ -4,11 +4,11 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaCalculoService {
 
-  void regularizarChallenge(@Valid @NonNull final RunTareaDto runTareaDto,
-      @Valid @NonNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
+  void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto,
+      @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto);
 
 }

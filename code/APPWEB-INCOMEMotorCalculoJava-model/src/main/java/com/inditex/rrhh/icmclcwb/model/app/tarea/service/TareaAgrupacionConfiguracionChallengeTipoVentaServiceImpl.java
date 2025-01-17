@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionC
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -28,19 +28,19 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
   private TareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom;
 
   @Override
-  public void save(@Valid @NonNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
-      @Valid @NonNull final TareaDto tarea) {
-    tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-        tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+  public void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
+      @Valid @NotNull final TareaDto tarea) {
+    this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
+        this.tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
                 src));
   }
 
   @Override
-  public void saveConfChTpVentaResultItemDto(@Valid @NonNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea) {
-    tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-        tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+  public void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea) {
+    this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
+        this.tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src, tarea));
   }
 

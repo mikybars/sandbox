@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaPersonaCoeficienteDto implements Serializable {
@@ -15,7 +15,7 @@ public class TareaPersonaCoeficienteDto implements Serializable {
 
   private String id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   @NotBlank
@@ -35,7 +35,7 @@ public class TareaPersonaCoeficienteDto implements Serializable {
 
   private Date fechaFinCom;
 
-  @NonNull
+  @NotNull
   private BigDecimal coeficiente;
 
 }

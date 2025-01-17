@@ -7,10 +7,10 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrSeccionVentaOnlineGenericType;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -32,10 +32,10 @@ public class PtrVentaOnlinePickingResultItemDto implements Serializable {
 
   private Integer tienda;
 
-  @NonNull
+  @NotNull
   private BigDecimal importeSinIVA;
 
-  @NonNull
+  @NotNull
   private BigDecimal importeConIVA;
 
   private String ano;

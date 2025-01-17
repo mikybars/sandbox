@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 1.48.0
+  WORKFLOW_VERSION: 1.49.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -22,7 +22,7 @@ jobs:
     name: Linter
     if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 30
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
   monit:
     name: Monit
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
     steps:
       - name: Set environment
         if: ${{ github.event_name == 'workflow_dispatch' }}

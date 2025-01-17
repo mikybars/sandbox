@@ -8,16 +8,16 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.P
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionPersonaVentaService {
 
   void savePtrVentaIndividualDetalleResultItem(
-      @Valid @NonNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
+      @Valid @NotNull final TareaDto tarea);
 
   void savePtrVentaOnlineIpodIndividualDetalleResultItem(
-      @Valid @NonNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
+      @Valid @NotNull final TareaDto tarea);
 
 }

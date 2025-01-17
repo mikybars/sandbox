@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
@@ -28,7 +28,7 @@ public class DatosComunesPersonaJornada extends DatosComunesJornada {
   @Column(name = "STD_ID_LEG_ENT", nullable = false, length = 48)
   private String stdIdLegEnt;
 
-  @NonNull
+  @NotNull
   @Column(name = "COD_TIPO_HORA", nullable = false)
   private Integer codTipoHora;
 }

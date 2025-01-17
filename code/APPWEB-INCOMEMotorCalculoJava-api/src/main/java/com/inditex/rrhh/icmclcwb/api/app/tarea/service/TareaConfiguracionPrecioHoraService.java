@@ -8,14 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.Co
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaConfiguracionPrecioHoraService {
 
-  void save(@Valid @NonNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
-  void saveConfPrecioHoraResultItemDto(@Valid @NonNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.dto.RunProgramacionDTO;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunProgramacionService {
 
   List<RunProgramacionDTO> create();
 
-  RunProgramacionDTO run(@NonNull @Valid final Long id);
+  RunProgramacionDTO run(@NotNull @Valid final Long id);
 
 }

@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +41,7 @@ public class RunTareaRegularizarServiceImpl implements RunTareaRegularizarServic
       metricGroupName = "RunTareaRegularizarServiceGroup",
       metricDescription = "RunTareaRegularizarService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {

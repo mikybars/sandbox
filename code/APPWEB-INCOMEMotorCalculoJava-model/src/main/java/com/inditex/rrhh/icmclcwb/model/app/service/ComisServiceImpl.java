@@ -25,8 +25,8 @@ import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHol
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ComisRepositoryCustom;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -282,7 +282,7 @@ public class ComisServiceImpl implements ComisService {
   public List<IdPersonaLocalExternaDto> findExternosByMinIdPersona(
       @Valid final RunTareaDto runTareaDto,
       @Valid final TareaAmbitoDto tareaAmbito,
-      @NonNull @Positive final Long minIdPersona) {
+      @NotNull @Positive final Long minIdPersona) {
     List<IdPersonaLocalExternaDto> externos = null;
     try {
       this.setContext(runTareaDto, tareaAmbito);
@@ -372,7 +372,7 @@ public class ComisServiceImpl implements ComisService {
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonas(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NonNull final Long maxIdPersona) {
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
     try {
       this.setContext(runTareaDto, tareaAmbito);
       return this.comisRepositoryCustom.findPersonas(runTareaDto.getTarea(), maxIdPersona);
@@ -383,7 +383,7 @@ public class ComisServiceImpl implements ComisService {
 
   @Override
   public List<IdPersonaLocalLocalizacionDto> findPersonasSil(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NonNull final Long maxIdPersona,
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona,
       @Valid final ClaseResultItemDto clase) {
     List<IdPersonaLocalLocalizacionDto> personas;
     try {
@@ -453,11 +453,9 @@ public class ComisServiceImpl implements ComisService {
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
     if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
       ClientDatabaseContextHolder
-          .set(ClientDatabase.getClient(new StringBuilder()
-              .append(tareaAmbito.getCclIdOrigen())
-              .append(AppConstants.UNDERSCORE)
-              .append(runTareaDto.getTarea().getStdIdLegEnt())
-              .toString()));
+          .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()
+              + AppConstants.UNDERSCORE
+              + runTareaDto.getTarea().getStdIdLegEnt()));
     } else {
       ClientDatabaseContextHolder
           .set(ClientDatabase

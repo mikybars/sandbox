@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.service;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaRecolectarPreAmbitoService {
 
-  void run(@NonNull @Valid RunTareaDto runTarea);
+  void run(@NotNull @Valid RunTareaDto runTarea);
 
 }

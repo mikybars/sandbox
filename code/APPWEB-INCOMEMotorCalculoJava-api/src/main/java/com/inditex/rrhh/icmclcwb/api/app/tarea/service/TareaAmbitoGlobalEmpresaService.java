@@ -8,12 +8,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAmbitoGlobalEmpresaService {
 
-  void save(@Valid @NonNull @NotEmpty List<TareaAmbitoGlobalEmpresaDto> src, @Valid @NonNull TareaDto tarea);
+  void save(@Valid @NotNull @NotEmpty List<TareaAmbitoGlobalEmpresaDto> src, @Valid @NotNull TareaDto tarea);
 
-  List<IdEmpresaDto> findIdEmpresaByIdTarea(@Valid @NonNull Long idTarea);
+  List<IdEmpresaDto> findIdEmpresaByIdTarea(@Valid @NotNull Long idTarea);
 
 }

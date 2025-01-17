@@ -7,12 +7,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaTipoHoraDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraResponseDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaTipoHoraService {
 
-  List<TareaTipoHoraDto> save(@Valid @NonNull final TiposHoraResponseDto dto, @Valid @NonNull final TareaDto tarea);
+  List<TareaTipoHoraDto> save(@Valid @NotNull final TiposHoraResponseDto dto, @Valid @NotNull final TareaDto tarea);
 
-  List<TareaTipoHoraDto> findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(@Valid @NonNull final TareaDto tarea);
+  List<TareaTipoHoraDto> findByIdTareaAndExcluidoDenominadorYRepartidoProvincia(@Valid @NotNull final TareaDto tarea);
 
 }

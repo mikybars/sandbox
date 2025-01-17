@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionAbiertaDto implements Serializable {
@@ -14,19 +14,19 @@ public class TareaLocalizacionAbiertaDto implements Serializable {
 
   private String id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
-  @NonNull
+  @NotNull
   private Long cclIdCodOrigen;
 
   @NotBlank
   private String cclIdSeccion;
 
-  @NonNull
+  @NotNull
   private Date fecha;
 
-  @NonNull
+  @NotNull
   private Boolean abierto;
 
 }

@@ -17,7 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
@@ -253,7 +253,7 @@ public interface ComisAsyncService {
   CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito,
-      @NonNull Long maxIdPersona);
+      @NotNull Long maxIdPersona);
 
   /**
    * Obtiene las personas con sus respectivas localizaciones.
@@ -267,7 +267,7 @@ public interface ComisAsyncService {
   CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonasSil(
       @Valid RunTareaDto runTareaDto,
       @Valid TareaAmbitoDto tareaAmbito,
-      @NonNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
+      @NotNull Long maxIdPersona, @Valid ClaseResultItemDto clase);
 
   CompletableFuture<List<IdPersonaLocalCondicionesDto>> findCondicionesHistoricoChallengeIncluidoPorcentaje(
       @Valid RunTareaDto runTareaDto,

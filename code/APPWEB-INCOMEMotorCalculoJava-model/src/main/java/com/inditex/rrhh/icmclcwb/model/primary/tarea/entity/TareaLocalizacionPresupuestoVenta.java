@@ -14,8 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PRESUPUESTO_VENTA")
@@ -39,19 +39,19 @@ public class TareaLocalizacionPresupuestoVenta extends CommonFieldsTaskOrigin {
   @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
   private String cclIdSeccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ORDINAL", nullable = false)
   private Integer ordinal;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
   private Double importeSinImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
   private Double importeConImpuestos;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_PRESUPUESTO", nullable = false)
   private TipoPresupuesto tipoPresupuesto;
@@ -64,7 +64,7 @@ public class TareaLocalizacionPresupuestoVenta extends CommonFieldsTaskOrigin {
   @JoinColumn(name = "ID_TIPO_DATO", nullable = false)
   private TipoDato tipoDato;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

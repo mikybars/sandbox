@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,28 +23,28 @@ public class TareaLocalizacionPersonaPresenciaAsyncServiceImpl
   private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
 
   @Override
-  public CompletableFuture<Void> save(@NonNull final List<GenericEmpleadoResultItemDto> src,
-      @NonNull final TareaDto tareaDto) {
+  public CompletableFuture<Void> save(@NotNull final List<GenericEmpleadoResultItemDto> src,
+      @NotNull final TareaDto tareaDto) {
     this.tareaLocalizacionPersonaPresenciaService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> savePtrPresenciaDetalle(@NonNull final List<PtrPresenciaDetalleResultItemDto> src,
-      @NonNull final TareaDto tareaDto, @NonNull final Integer idTipoDato) {
+  public CompletableFuture<Void> savePtrPresenciaDetalle(@NotNull final List<PtrPresenciaDetalleResultItemDto> src,
+      @NotNull final TareaDto tareaDto, @NotNull final Integer idTipoDato) {
     this.tareaLocalizacionPersonaPresenciaService.savePtrPresenciaDetalle(src, tareaDto, idTipoDato);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> updateActivo(@NonNull final RunTareaDto runTareaDto) {
+  public CompletableFuture<Void> updateActivo(@NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPersonaPresenciaService.updateActivo(runTareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> updateActivoPersonasExternas(
-      @NonNull final RunTareaDto runTareaDto) {
+      @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPersonaPresenciaService.updateActivoPersonasExternas(runTareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
