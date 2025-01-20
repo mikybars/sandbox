@@ -77,7 +77,7 @@ public abstract class TareaPersonaHistoricoMapper {
   @Mapping(target = "cclIdSeccion", source = "src.cclIdSeccion")
   @Mapping(target = "idTarea", source = "tarea.id")
   @Mapping(target = "fechaInicioPeriodo", source = "tarea.fechaInicioPeriodo")
-  public abstract TareaPersonaHistorico empleadoDtoToTareaPersonaHistoricoDto(EmpleadoDTO src, TareaDto tarea);
+  public abstract TareaPersonaHistoricoDto empleadoDtoToTareaPersonaHistoricoDto(EmpleadoDTO src, TareaDto tarea);
 
   public List<TareaPersonaHistoricoDto> empleadoDtoToTareaPersonaHistoricoDto(
       final List<EmpleadoDTO> src, final TareaDto tarea) {
