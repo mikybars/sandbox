@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.71.0] - 2025-01-20
+
+### Added
+
+- [INCOME-1367](https://jira.inditex.com/jira/browse/INCOME-1367) Optimización consulta localizaciones
+- [INCOME-658](https://jira.inditex.com/jira/browse/INCOME-658) [ICMCLCWB] Incidencias Sonar
+- [INCOME-1436](https://jira.inditex.com/jira/browse/INCOME-1436) Docker compose - Redis
+- [INCOME-1424](https://jira.inditex.com/jira/browse/INCOME-1424) ICMCLCWB - Corrección errores afectados por la migración a JSpecify
+- [INCOME-1319](https://jira.inditex.com/jira/browse/INCOME-1319) ICMCLCWB - JSpecify para anotaciones null
+- [INCOME-1350](https://jira.inditex.com/jira/browse/INCOME-1350) Docker Compose
+- [INCOME-1309](https://jira.inditex.com/jira/browse/INCOME-1309) GR - Empleados con importe negativo
+- [INCOME-1026](https://jira.inditex.com/jira/browse/INCOME-1026) Actualizar cache a Redis
+
+### Dependencies
+
+- [#456](https://github.com/inditex/mic-incomemotorcalculojava/issues/456) Bump com.inditex.amigafwk:amiga-framework from 5.11.2 to 5.12.0 in /code
+
+### Fixed
+
+- [INCOME-1290](https://jira.inditex.com/jira/browse/INCOME-1290) Venta challenge en pantalla web
+
 ## [4.70.0] - 2024-12-19
 
 ### Added
@@ -485,7 +506,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.70.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...main
+[4.71.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.70.0...4.71.0
 [4.70.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.69.0...4.70.0
 [4.69.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...4.69.0
 [4.68.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.67.0...4.68.0
