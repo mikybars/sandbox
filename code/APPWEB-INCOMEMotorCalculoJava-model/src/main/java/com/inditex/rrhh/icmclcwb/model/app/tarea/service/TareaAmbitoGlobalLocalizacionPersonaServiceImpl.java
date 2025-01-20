@@ -19,7 +19,7 @@ public class TareaAmbitoGlobalLocalizacionPersonaServiceImpl implements TareaAmb
 
   @Override
   public void mergePersonaLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
-    tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTareaDto);
+    this.tareaAmbitoGlobalLocalizacionPersonaRepositoryCustom.mergePersonaLocalizacion(runTareaDto);
   }
 
 }

@@ -31,43 +31,34 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarSlrhorcomsServiceImpl implements RunTareaAmbitoRecolectarSlrhorcomsService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoRecolectarSlrhorcomsServiceImpl.class);
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
-  @Autowired
-  private SlrHorarioComercialService slrHorarioComercialService;
+  private final SlrHorarioComercialService slrHorarioComercialService;
 
-  @Autowired
-  private SlrHorarioComercialAsyncService slrHorarioComercialAsyncService;
+  private final SlrHorarioComercialAsyncService slrHorarioComercialAsyncService;
 
-  @Autowired
-  private TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;
+  private final TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  private TareaPersonaEstructuraService tareaPersonaEstructuraService;
+  private final TareaPersonaEstructuraService tareaPersonaEstructuraService;
 
-  @Autowired
-  @Qualifier("slrhorcomsProperties")
-  private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
+  private final Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
 
   @Override
   public void horarioComercialFestivoByRunTareaAndTareaAmbito(

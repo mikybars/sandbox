@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomedes
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.icmclcwb.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -40,7 +44,7 @@ amiga:
     jdbc:
       datasource:
         primary:
-          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
           maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axdesdb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;

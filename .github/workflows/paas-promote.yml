@@ -83,7 +83,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.12.0
+  WORKFLOW_VERSION: 3.16.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -96,7 +96,7 @@ permissions:
 jobs:
   promote:
     name: Promote & Deployment PRs
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["self-hosted", "paasfeature"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:

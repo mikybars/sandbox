@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaTotalizadoResponse(ventaTotalizado, tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -83,7 +82,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaOnlineIpodResponse(ventaOnline, tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -97,7 +96,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaOnlinePickingResponse(ventaOnline, tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -111,7 +110,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaOnlineEntregaTiendaResponse(ventaOnline, tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -125,7 +124,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaOnlineEntregaDomicilioResponse(ventaOnline, tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -141,7 +140,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     this.tareaLocalizacionVentaServiceImpl.updateActivoVentaOnlineIpod(tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).updateActivo(any(TareaDto.class),
-        any(TipoVentaConceptoEnum.class), ArgumentMatchers.<List<Integer>>any());
+        any(TipoVentaConceptoEnum.class), ArgumentMatchers.any());
   }
 
   @Test
@@ -149,10 +148,10 @@ public class TareaLocalizacionVentaServiceImplTest {
     final TareaDto tarea = mock(TareaDto.class);
     tarea.setIdTrabajo(1L);
     final VentaManualWlocResultItemDto ventaTotalizado = new VentaManualWlocResultItemDto();
-    this.tareaLocalizacionVentaServiceImpl.save(Arrays.asList(ventaTotalizado), tarea);
+    this.tareaLocalizacionVentaServiceImpl.save(List.of(ventaTotalizado), tarea);
 
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
   }
 
   @Test
@@ -164,7 +163,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     final TareaDto tarea = new TareaDto();
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaTotalizadoResponseRepartoOnline(response, tarea);
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(0)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
 
   }
 
@@ -174,7 +173,7 @@ public class TareaLocalizacionVentaServiceImplTest {
     final TareaDto tarea = new TareaDto();
     this.tareaLocalizacionVentaServiceImpl.savePtrVentaTotalizadoResponseRepartoOnline(response, tarea);
     verify(this.tareaLocalizacionVentaRepositoryCustom, times(0)).save(ArgumentMatchers
-        .<List<TareaLocalizacionVenta>>any());
+        .any());
 
   }
 
@@ -192,11 +191,11 @@ public class TareaLocalizacionVentaServiceImplTest {
     final List<TareaLocalizacionVenta> tareaLocalizacionVentaFromMapper = Collections
         .singletonList(new TareaLocalizacionVenta());
     when(this.tareaLocalizacionVentaMapper.ventaTotalizadoResponseItemDtoToTareaLocalizacionVenta(ArgumentMatchers
-        .<List<PtrVentaTotalizadoResultItemDto>>any(), any(TareaDto.class), any(Integer.class)))
+        .any(), any(TareaDto.class), any(Integer.class)))
             .thenReturn(tareaLocalizacionVentaFromMapper);
     final List<TareaLocalizacionVenta> tareaLocalizacionVentaFromSave = Collections
         .singletonList(new TareaLocalizacionVenta());
-    when(this.tareaLocalizacionVentaRepositoryCustom.save(ArgumentMatchers.<List<TareaLocalizacionVenta>>any()))
+    when(this.tareaLocalizacionVentaRepositoryCustom.save(ArgumentMatchers.any()))
         .thenReturn(tareaLocalizacionVentaFromSave);
     final List<TareaLocalizacionVentaDto> tareaLocalizacionVentaDtoFromMapper = Collections
         .singletonList(new TareaLocalizacionVentaDto());

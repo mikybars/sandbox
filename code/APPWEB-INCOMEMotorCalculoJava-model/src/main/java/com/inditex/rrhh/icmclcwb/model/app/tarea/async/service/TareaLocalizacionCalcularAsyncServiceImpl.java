@@ -21,7 +21,7 @@ public class TareaLocalizacionCalcularAsyncServiceImpl implements TareaLocalizac
 
   @Override
   public CompletableFuture<Void> save(@NotNull List<GenericTiendaResultItemDto> src, @NotNull TareaDto tareaDto) {
-    tareaLocalizacionCalcularService.save(src, tareaDto);
+    this.tareaLocalizacionCalcularService.save(src, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

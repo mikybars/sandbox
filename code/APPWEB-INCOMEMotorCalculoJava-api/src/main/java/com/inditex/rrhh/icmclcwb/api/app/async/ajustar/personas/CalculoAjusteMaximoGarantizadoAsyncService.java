@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.async.ajustar.personas;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

@@ -18,6 +18,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.ReglaEmpleadoExternoMeta4Service;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta4Mapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
@@ -68,7 +69,9 @@ class RunTareaAmbitoValidarExternosMeta4ServiceImplTest {
     tareaDto.setStdIdLegEnt("101");
     tareaDto.setFechaInicioPeriodo(LocalDate.of(2024, 11, 1));
     tareaDto.setFechaFinPeriodo(LocalDate.of(2024, 11, 30));
-    final RunTareaDto runTareaDto = RunTareaDto.builder().tarea(tareaDto).build();
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(19L);
+    final RunTareaDto runTareaDto = RunTareaDto.builder().tarea(tareaDto).trabajo(trabajoDTO).build();
     final TareaAmbitoDto tareaAmbitoDto = TareaAmbitoDto.builder().cclIdOrigen("11").build();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final ExternosRequestDTO externosRequestDTO = new ExternosRequestDTO();
@@ -99,7 +102,9 @@ class RunTareaAmbitoValidarExternosMeta4ServiceImplTest {
   void executeWithNoReglas() {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setStdIdLegEnt("101");
-    final RunTareaDto runTareaDto = RunTareaDto.builder().tarea(tareaDto).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(19L);
+    final RunTareaDto runTareaDto = RunTareaDto.builder().tarea(tareaDto).trabajo(trabajo).build();
     final TareaAmbitoDto tareaAmbitoDto = TareaAmbitoDto.builder().cclIdOrigen("11").build();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final ValidacionDto validacionDto = new ValidacionDto();

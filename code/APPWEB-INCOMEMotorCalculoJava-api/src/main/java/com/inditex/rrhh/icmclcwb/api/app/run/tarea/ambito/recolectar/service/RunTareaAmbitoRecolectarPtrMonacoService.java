@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 

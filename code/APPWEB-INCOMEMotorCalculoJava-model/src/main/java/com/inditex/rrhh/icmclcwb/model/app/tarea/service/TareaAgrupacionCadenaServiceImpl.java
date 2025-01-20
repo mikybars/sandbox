@@ -35,16 +35,16 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
   @Override
   public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaMapper
+    final List<TareaAgrupacionCadena> agrupaciones = this.tareaAgrupacionCadenaMapper
         .getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
-    return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
-        tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
+    return this.tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
+        this.tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
   }
 
   @Override
   public List<TareaAgrupacionCadenasDto> findAgrupacionesByTarea(@Valid @NotNull final TareaDto tarea) {
-    List<TareaAgrupacionCadena> agrupaciones = tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
-    return tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
+    final List<TareaAgrupacionCadena> agrupaciones = this.tareaAgrupacionCadenaRepository.findByTareaId(tarea.getId());
+    return this.tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(agrupaciones);
   }
 
 }

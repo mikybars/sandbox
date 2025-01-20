@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class IdLocalizacionLocalPresupuestoDto implements Serializable {
 
   private static final long serialVersionUID = 9216418821010267785L;

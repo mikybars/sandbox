@@ -19,7 +19,7 @@ public class TareaAmbitoGlobalLocalizacionServiceImpl implements TareaAmbitoGlob
 
   @Override
   public void mergeLocalizacion(@Valid @NotNull final RunTareaDto runTareaDto) {
-    tareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion(runTareaDto);
+    this.tareaAmbitoGlobalLocalizacionRepositoryCustom.mergeLocalizacion(runTareaDto);
   }
 
 }

@@ -4,6 +4,10 @@ amiga:
       clients:
         client-income:
           client-id: oauthincomepre
+    cache:
+      redis:
+        cluster:
+          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa-pre.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -36,13 +40,13 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
-          driver-class-name: com.ibm.db2.jcc.DB2XADataSource
+          driver-class-name: com.ibm.db2.jcc.DB2Driver
           maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;

@@ -29,8 +29,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaDesplazamientoServiceImpl
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
       @Valid @NotNull final TareaDto tareaDto) {
-    tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save(
-        tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper
+    this.tareaAmbitoGlobalLocalizacionPersonaDesplazamientoRepositoryCustom.save(
+        this.tareaAmbitoGlobalLocalizacionPersonaDesplazamientoMapper
             .genericEmpleadoResultItemDtoToTareaAmbitoGlobalLocalizacionPersonaDesplazamiento(src, tareaDto));
   }
 

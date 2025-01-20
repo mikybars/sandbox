@@ -28,7 +28,7 @@ public class TareaLocalizacionCalcularServiceImpl implements TareaLocalizacionCa
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> src,
       @Valid @NotNull final TareaDto tareaDto) {
-    tareaLocalizacionCalcularRepositoryCustom.save(tareaLocalizacionCalcularMapper
+    this.tareaLocalizacionCalcularRepositoryCustom.save(this.tareaLocalizacionCalcularMapper
         .genericTiendaResultItemDtoToTareaLocalizacionCalcular(src, tareaDto));
   }
 

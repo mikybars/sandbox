@@ -18,7 +18,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacio
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraPoliticaRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,34 +26,26 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaProcesarVentaServiceImpl implements RunTareaProcesarVentaService {
 
-  @Autowired
-  private TareaLocalizacionVentaRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
+  private final TareaLocalizacionVentaRespositoryProcesarCustom tareaTiendaVentaSeccionRepository;
 
-  @Autowired
-  private TareaLocalizacionVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
+  private final TareaLocalizacionVentaRepositoryProcesarCustom tareaTiendaVentaRepository;
 
-  @Autowired
-  private TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
+  private final TareaLocalizacionAbiertaRepositoryCustom tareaLocalizacionAbiertaRepositoryCustom;
 
-  @Autowired
-  private TareaLocalizacionVentaRepositoryCustom tareaLocalizacionVentaRepositoryCustom;
+  private final TareaLocalizacionVentaRepositoryCustom tareaLocalizacionVentaRepositoryCustom;
 
-  @Autowired
-  private TareaPersonaEstructuraPoliticaRepositoryCustom tareaPersonaEstructuraPoliticaRepositoryCustom;
+  private final TareaPersonaEstructuraPoliticaRepositoryCustom tareaPersonaEstructuraPoliticaRepositoryCustom;
 
-  @Autowired
-  private TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
+  private final TareaLocalizacionPersonaVentaRepositoryCustom tareaLocalizacionPersonaVentaRepositoryCustom;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoVentaRepositoryCustom tareaLocalizacionPresupuestoVentaRepositoryCustom;
+  private final TareaLocalizacionPresupuestoVentaRepositoryCustom tareaLocalizacionPresupuestoVentaRepositoryCustom;
 
-  @Autowired
-  private TipoDatoService tipoDatoService;
+  private final TipoDatoService tipoDatoService;
 
-  @Autowired
-  private PrimaryTemporaryTablePorVentaRepositoryCustom primaryTemporaryTablePorVentaRepositoryCustom;
+  private final PrimaryTemporaryTablePorVentaRepositoryCustom primaryTemporaryTablePorVentaRepositoryCustom;
 
   @Override
   public void saveAbierto(@Valid final RunTareaDto runTarea) {

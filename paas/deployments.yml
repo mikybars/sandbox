@@ -8,7 +8,7 @@ supraenvironments:
               - name: global
                 slots:
                   - name: develop
-                  - name: urls
+                  - name: sonar
   - name: pre
     environments:
       - name: pre
@@ -17,7 +17,7 @@ supraenvironments:
             tenants:
               - name: global
                 slots:
-                  - name: pipe
+                  - name: default
   - name: pro
     environments:
       - name: pro

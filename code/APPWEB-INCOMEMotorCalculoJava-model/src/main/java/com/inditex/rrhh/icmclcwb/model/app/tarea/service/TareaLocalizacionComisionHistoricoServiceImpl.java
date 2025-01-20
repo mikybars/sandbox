@@ -29,10 +29,10 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
   @Override
   public List<TareaLocalizacionComisionHistoricoDto> save(
       @Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionHistorico) {
-    return mapper
+    return this.mapper
         .tareaLocalizacionComisionHistoricoToTareaLocalizacionComisionHistoricoDto(
-            tareaLocalizacionComisionHistoricoRepositoryCustom
-                .save(mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
+            this.tareaLocalizacionComisionHistoricoRepositoryCustom
+                .save(this.mapper.tareaLocalizacionComisionHistoricoDtoToTareaLocalizacionComisionHistorico(
                     tareaLocalizacionHistorico)));
   }
 
@@ -40,7 +40,7 @@ public class TareaLocalizacionComisionHistoricoServiceImpl implements TareaLocal
   public List<TareaLocalizacionComisionHistoricoDto> merge(
       @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
       @Valid @NotNull final TareaDto tarea) {
-    return mapper
+    return this.mapper
         .genericLocalizacionResultItemDtoToTareaLocalizacionComisionHistoricoDto(genericTiendaResultItemDto, tarea);
   }
 

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 
 public interface AlgoritmoRepositoryCustom {
 
-  public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea);
+  List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long idTarea);
 
   Boolean checkDuplicatedActives();
 

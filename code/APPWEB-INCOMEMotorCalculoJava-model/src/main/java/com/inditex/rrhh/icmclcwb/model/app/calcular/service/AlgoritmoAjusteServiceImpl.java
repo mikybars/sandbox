@@ -12,22 +12,20 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjus
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class AlgoritmoAjusteServiceImpl implements AlgoritmoAjusteService {
 
-  @Autowired
-  private AlgoritmoAjusteRepositoryCustom algoritmoAjusteRepositoryCustom;
+  private final AlgoritmoAjusteRepositoryCustom algoritmoAjusteRepositoryCustom;
 
-  @Autowired
-  private AlgoritmoAjusteRepository algoritmoAjusteRepository;
+  private final AlgoritmoAjusteRepository algoritmoAjusteRepository;
 
-  @Autowired
-  private AlgoritmoAjusteMapper algoritmoAjusteMapper;
+  private final AlgoritmoAjusteMapper algoritmoAjusteMapper;
 
   @Override
   public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long id) {

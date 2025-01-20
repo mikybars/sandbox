@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.List;
 import java.util.stream.Collectors;
 

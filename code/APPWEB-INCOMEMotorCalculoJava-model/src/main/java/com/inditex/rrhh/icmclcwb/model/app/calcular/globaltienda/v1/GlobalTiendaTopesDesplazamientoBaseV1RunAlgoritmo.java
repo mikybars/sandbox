@@ -9,20 +9,18 @@ import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("globalTiendaTopesDesplazamientoBaseV1")
+@RequiredArgsConstructor
 public class GlobalTiendaTopesDesplazamientoBaseV1RunAlgoritmo implements RunAlgoritmo {
 
   private static final Logger LOG = LoggerFactory.getLogger(GlobalTiendaTopesDesplazamientoBaseV1RunAlgoritmo.class);
 
-  @Autowired
-  @Qualifier("runAlgoritmoProperties")
-  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  private final RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {

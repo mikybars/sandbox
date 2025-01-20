@@ -15,22 +15,20 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaConsolidarServiceImpl implements RunTareaConsolidarService {
 
-  @Autowired
-  private RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
+  private final RunTareaConsolidarByAmbitoService runTareaConsolidarByAmbitoService;
 
-  @Autowired
-  private RunTareaConsolidarByAmbitoLocalizacionService runTareaConsolidarByAmbitoLocalizacionService;
+  private final RunTareaConsolidarByAmbitoLocalizacionService runTareaConsolidarByAmbitoLocalizacionService;
 
-  @Autowired
-  private RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
+  private final RunTareaConsolidarByAmbitoPersonaService runTareaConsolidarByAmbitoPersonaService;
 
   @Auditoria
   @Validation(fase = 9)

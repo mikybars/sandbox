@@ -1,10 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
+import java.util.List;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-import java.util.List;
-
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteAntiguedadService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -13,18 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteAntiguedadRepositoryCustom;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CalculoAjusteAntiguedadServiceImpl extends AbstractCalculoAjusteBaseService implements
     CalculoAjusteAntiguedadService {
 
-  @Autowired
-  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  private final PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
-  @Autowired
-  private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
+  private final TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
 
   @Override
   protected void precondiciones(final TareaDto tarea, final List<IdPersonaLocalDto> personas) {

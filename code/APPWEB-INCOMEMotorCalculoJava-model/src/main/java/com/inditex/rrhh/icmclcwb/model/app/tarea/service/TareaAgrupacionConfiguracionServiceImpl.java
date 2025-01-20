@@ -31,10 +31,10 @@ public class TareaAgrupacionConfiguracionServiceImpl implements TareaAgrupacionC
   public List<TareaAgrupacionConfiguracionDto> saveConfiguracionVentaOnline(
       @Valid @NotNull @NotEmpty final List<ConfiguracionVentaOnlineResultItemDto> data,
       @Valid @NotNull final RunTareaDto tarea) {
-    List<TareaAgrupacionConfiguracion> configuraciones = tareaAgrupacionConfiguracionMapper
+    final List<TareaAgrupacionConfiguracion> configuraciones = this.tareaAgrupacionConfiguracionMapper
         .getConfiguracionVentaOnlineResponseItemDtoToTareaAgrupacionConfiguracion(data, tarea.getTarea());
-    return tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
-        tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
+    return this.tareaAgrupacionConfiguracionMapper.getTareaAgrupacionConfiguracionToTareaAgrupacionConfiguracionDto(
+        this.tareaAgrupacionConfiguracionRepositoryCustom.save(configuraciones));
   }
 
 }

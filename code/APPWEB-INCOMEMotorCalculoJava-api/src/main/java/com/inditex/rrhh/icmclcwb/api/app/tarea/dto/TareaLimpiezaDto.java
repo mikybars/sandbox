@@ -6,9 +6,13 @@ import java.time.LocalDateTime;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.TipoLimpiezaDto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaLimpiezaDto implements Serializable {
 
   private static final long serialVersionUID = -170294147407207684L;

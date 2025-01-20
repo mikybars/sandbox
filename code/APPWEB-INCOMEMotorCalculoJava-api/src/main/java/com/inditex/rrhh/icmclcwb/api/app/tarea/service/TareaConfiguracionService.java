@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 
 public interface TareaConfiguracionService {
 
-  public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
+  void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
       @Valid @NotNull final TareaDto tarea);
 
 }

@@ -10,22 +10,20 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepo
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class AlgoritmoServiceImpl implements AlgoritmoService {
 
-  @Autowired
-  private AlgoritmoRepository algoritmoRepository;
+  private final AlgoritmoRepository algoritmoRepository;
 
-  @Autowired
-  private AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
+  private final AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
 
-  @Autowired
-  private AlgoritmoMapper algoritmoMapper;
+  private final AlgoritmoMapper algoritmoMapper;
 
   @Override
   public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {

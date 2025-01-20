@@ -29,9 +29,9 @@ public class TareaConfiguracionServiceImpl implements TareaConfiguracionService 
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    List<TareaConfiguracion> configuraciones = tareaConfiguracionMapper
+    final List<TareaConfiguracion> configuraciones = this.tareaConfiguracionMapper
         .getConfiguracionItemDtoToTareaConfiguracion(src, tarea);
-    tareaConfiguracionRepositoryCustom.save(configuraciones);
+    this.tareaConfiguracionRepositoryCustom.save(configuraciones);
   }
 
 }

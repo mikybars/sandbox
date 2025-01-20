@@ -30,10 +30,10 @@ public class TareaLocalizacionOnlineHistoricoServiceImpl implements TareaLocaliz
   @Override
   public List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    List<TareaLocalizacionOnlineHistorico> tiendas = tareaLocalizacionOnlineHistoricoMapper
+    final List<TareaLocalizacionOnlineHistorico> tiendas = this.tareaLocalizacionOnlineHistoricoMapper
         .getTiendaOnlineResultItemDtoToTareaTiendaOnlineHistorico(src, tarea);
-    return tareaLocalizacionOnlineHistoricoMapper.getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
-        tareaLocalizacionOnlineHistoricoRepositoryCustom.save(tiendas));
+    return this.tareaLocalizacionOnlineHistoricoMapper.getTareaTiendaOnlineHistoricoToLocalizacionOnlineDto(
+        this.tareaLocalizacionOnlineHistoricoRepositoryCustom.save(tiendas));
   }
 
 }

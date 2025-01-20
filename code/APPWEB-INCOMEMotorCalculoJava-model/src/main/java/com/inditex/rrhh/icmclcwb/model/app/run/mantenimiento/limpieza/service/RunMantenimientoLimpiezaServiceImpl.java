@@ -12,7 +12,7 @@ import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
@@ -20,16 +20,14 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimpiezaService {
 
-  @Autowired
-  private TareaService tareaService;
+  private final TareaService tareaService;
 
-  @Autowired
-  private TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
+  private final TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
 
-  @Autowired
-  private SenderLimpieza senderLimpieza;
+  private final SenderLimpieza senderLimpieza;
 
   @Override
   public RunMantenimientoLimpiezaDTO run() {

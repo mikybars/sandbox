@@ -30,8 +30,8 @@ public class TareaLocalizacionPersonaVentaServiceImpl implements TareaLocalizaci
   public void savePtrVentaIndividualDetalleResultItem(
       @Valid @NotNull @NotEmpty final List<PtrVentaIndividualDetalleResultItemDto> operaciones,
       @Valid @NotNull final TareaDto tarea) {
-    tareaLocalizacionPersonaVentaRepositoryCustom.save(
-        tareaLocalizacionPersonaVentaMapper
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.save(
+        this.tareaLocalizacionPersonaVentaMapper
             .ptrVentaIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones, tarea));
   }
 
@@ -39,8 +39,8 @@ public class TareaLocalizacionPersonaVentaServiceImpl implements TareaLocalizaci
   public void savePtrVentaOnlineIpodIndividualDetalleResultItem(
       @Valid @NotNull @NotEmpty final List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones,
       @Valid @NotNull final TareaDto tarea) {
-    tareaLocalizacionPersonaVentaRepositoryCustom.save(
-        tareaLocalizacionPersonaVentaMapper
+    this.tareaLocalizacionPersonaVentaRepositoryCustom.save(
+        this.tareaLocalizacionPersonaVentaMapper
             .ptrVentaOnlineIpodIndividualDetalleResultItemDtoToTareaLocalizacionPersonaVenta(operaciones,
                 tarea));
   }

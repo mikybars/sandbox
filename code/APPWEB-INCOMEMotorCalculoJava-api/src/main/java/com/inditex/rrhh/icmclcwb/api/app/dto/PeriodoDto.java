@@ -7,11 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class PeriodoDto implements Serializable {
 

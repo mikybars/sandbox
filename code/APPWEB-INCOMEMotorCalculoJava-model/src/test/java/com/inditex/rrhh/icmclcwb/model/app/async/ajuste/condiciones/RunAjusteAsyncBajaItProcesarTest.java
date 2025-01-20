@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones.RunAjusteBajaItProcesar;
 
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,12 @@ class RunAjusteAsyncBajaItProcesarTest {
   void executeTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(890L);
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(19L);
     final RunTareaDto runTarea = RunTareaDto
         .builder()
         .tarea(tarea)
+        .trabajo(trabajo)
         .build();
     final AlgoritmoAjusteDto algoritmo = new AlgoritmoAjusteDto();
     algoritmo.setId(19);

@@ -1,7 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoUnidadTiempo;
@@ -12,8 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -21,19 +18,10 @@ import lombok.Data;
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA_POLITICA")
 @Data
-public class TareaPersonaEstructuraPolitica {
+public class TareaPersonaEstructuraPolitica extends CommonFieldsTaskOrigin {
 
   @EmbeddedId
   private TareaPersonaEstructuraPoliticaPk pk;
-
-  @NotNull
-  @OneToOne
-  @JoinColumn(name = "ID_TAREA", nullable = false)
-  private Tarea tarea;
-
-  @NotBlank
-  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-  private String cclIdOrigen;
 
   @NotBlank
   @Column(name = "STD_ID_HR", nullable = false, length = 18)
@@ -55,16 +43,6 @@ public class TareaPersonaEstructuraPolitica {
   @OneToOne
   @JoinColumn(name = "ID_TIPO_POLITICA")
   private TipoPolitica tipoPolitica;
-
-  @NotNull
-  @Column(name = "FECHA_INICIO", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaInicio;
-
-  @NotNull
-  @Column(name = "FECHA_FIN", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaFin;
 
   @Column(name = "ES_EXCLUIDO_DENOMINADOR", nullable = false)
   private Boolean excluidoDenominador;

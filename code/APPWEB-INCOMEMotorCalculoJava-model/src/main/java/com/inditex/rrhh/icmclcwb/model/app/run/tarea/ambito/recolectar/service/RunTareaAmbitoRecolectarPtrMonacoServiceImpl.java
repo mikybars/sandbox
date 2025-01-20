@@ -3,8 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -61,7 +62,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -98,19 +98,15 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
   private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
   @Autowired
-  @Qualifier("ventaGeneralProperties")
   private Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
   @Autowired
-  @Qualifier("presenciasProperties")
   private Map<String, PtrPropertiesDto> presenciasProperties;
 
   @Autowired
-  @Qualifier("recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
   @Autowired
-  @Qualifier("ventaEcommerceProperties")
   private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Override
@@ -125,7 +121,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
       for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
           this.tareaLocalizacionHistoricoService
               .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
-                  tareaAmbito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO)),
+                  tareaAmbito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO)),
           this.ventaGeneralProperties.get(PtrPropertiesConstants.VENTA_TOTALIZADO)
               .getFilter()
               .getMaxPageSize())) {
@@ -133,7 +129,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
             .mergeTareaDtoAndTareaAmbitoDtoPeriodoDtoToPtrVentaTotalizadoRequestDto(tarea,
                 tareaAmbito, periodo, this.recolectarProperties);
         request.setPais(AppConstants.ID_ORIGEN_MONACO_PTR);
-        request.setEmpresa(Arrays.asList(Integer.valueOf(AppConstants.STD_ID_LEG_ENT_MONACO)));
+        request.setEmpresa(List.of(Integer.valueOf(AppConstants.STD_ID_LEG_ENT_MONACO)));
         request.setTienda(iter.stream()
             .map(IdLocalizacionLocalDto::getId)
             .map(Integer::valueOf)
@@ -187,7 +183,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
         localizaciones.setLocalizaciones(
             this.tareaLocalizacionHistoricoService
                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO)));
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO)));
       }
       if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
         final List<PeriodoDto> periodos = this.tareaLocalizacionPresupuestoService
@@ -251,7 +247,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
         localizaciones.setLocalizaciones(
             this.tareaLocalizacionHistoricoService
                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO)));
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO)));
       }
 
       if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -321,7 +317,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
         localizaciones.setLocalizaciones(
             this.tareaLocalizacionHistoricoService
                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO)));
+                    runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO)));
       }
 
       if (CollectionUtils.isNotEmpty(cadenas) && localizaciones.hasData()) {
@@ -440,7 +436,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
           .findLocalizacionFicticiaByIdOrigenAndIdEmpresa(tareaAmbito.getCclIdOrigen(), PtrConstants.EMPRESA_0);
       final List<IdLocalizacionLocalDto> localizaciones = this.tareaLocalizacionHistoricoService
           .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
-              runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), Arrays.asList(AppConstants.STD_ID_LEG_ENT_MONACO));
+              runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), List.of(AppConstants.STD_ID_LEG_ENT_MONACO));
       for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
           Stream.concat(localizaciones.stream(), ficticias.stream())
               .collect(Collectors.toList()),
@@ -495,7 +491,7 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
       final List<IdCadenaDto> cadenas = this.tareaLocalizacionHistoricoService
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(tarea.getId(),
               tareaAmbito.getCclIdOrigen(),
-              Arrays.asList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
+              Collections.singletonList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
       if (CollectionUtils.isNotEmpty(cadenas)) {
         for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
             this.tareaLocalizacionHistoricoService

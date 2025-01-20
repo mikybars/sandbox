@@ -6,9 +6,13 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaPersonaEstructuraDto implements Serializable {
 
   private static final long serialVersionUID = -543194407813312935L;

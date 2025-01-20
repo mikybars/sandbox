@@ -30,8 +30,8 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionChallengeDiasMinimosDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
-        tareaConfiguracionChallengeDiasMinimosMapper
+    this.tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
+        this.tareaConfiguracionChallengeDiasMinimosMapper
             .tareaConfiguracionChallengeDiasMinimosDtoToTareaConfiguracionChallengeDiasMinimos(src));
   }
 
@@ -39,8 +39,8 @@ public class TareaConfiguracionChallengeDiasMinimosServiceImpl
   public void saveConfChDiasMinimosResultItemDto(
       @Valid @NotNull @NotEmpty final List<ConfChDiasMinimosResultItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
-        tareaConfiguracionChallengeDiasMinimosMapper
+    this.tareaConfiguracionChallengeDiasMinimosRepositoryCustom.save(
+        this.tareaConfiguracionChallengeDiasMinimosMapper
             .confChDiasMinimosResultItemDtoToTareaConfiguracionChallengeDiasMinimos(src, tarea));
   }
 

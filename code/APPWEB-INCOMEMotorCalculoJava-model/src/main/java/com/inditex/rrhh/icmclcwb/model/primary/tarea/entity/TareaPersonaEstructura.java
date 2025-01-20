@@ -1,38 +1,28 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA")
 @Data
-public class TareaPersonaEstructura {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TareaPersonaEstructura extends CommonFieldsTaskOrigin {
 
   @EmbeddedId
   private TareaPersonaEstructuraPk pk;
-
-  @NotNull
-  @OneToOne
-  @JoinColumn(name = "ID_TAREA", nullable = false)
-  private Tarea tarea;
-
-  @NotBlank
-  @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
-  private String cclIdOrigen;
 
   @NotBlank
   @Column(name = "CCL_ID_SECCION_ESTRUCTURA", nullable = false, length = 4)
@@ -72,16 +62,6 @@ public class TareaPersonaEstructura {
   @NotNull
   @Column(name = "ICM_VALOR", nullable = false, precision = 23, scale = 8)
   private BigDecimal valor;
-
-  @NotNull
-  @Column(name = "FECHA_INICIO", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaInicio;
-
-  @NotNull
-  @Column(name = "FECHA_FIN", nullable = false)
-  @Temporal(TemporalType.DATE)
-  private Date fechaFin;
 
   @NotNull
   @Column(name = "ES_DESPLAZAMIENTO", nullable = false)

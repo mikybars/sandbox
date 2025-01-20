@@ -453,11 +453,9 @@ public class ComisServiceImpl implements ComisService {
   private void setContext(final RunTareaDto runTareaDto, final TareaAmbitoDto tareaAmbito) {
     if (AppConstants.ID_ORIGEN_SPAIN.equals(tareaAmbito.getCclIdOrigen())) {
       ClientDatabaseContextHolder
-          .set(ClientDatabase.getClient(new StringBuilder()
-              .append(tareaAmbito.getCclIdOrigen())
-              .append(AppConstants.UNDERSCORE)
-              .append(runTareaDto.getTarea().getStdIdLegEnt())
-              .toString()));
+          .set(ClientDatabase.getClient(tareaAmbito.getCclIdOrigen()
+              + AppConstants.UNDERSCORE
+              + runTareaDto.getTarea().getStdIdLegEnt()));
     } else {
       ClientDatabaseContextHolder
           .set(ClientDatabase

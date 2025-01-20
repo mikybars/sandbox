@@ -13,23 +13,23 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructu
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarValidarEstructurasServiceImpl implements RunTareaRecolectarValidarEstructurasService {
 
-  @Autowired
-  private TareaValidarAsyncService tareaValidarAsyncService;
+  private final TareaValidarAsyncService tareaValidarAsyncService;
 
   @Override
   public List<RunTareaValidarDto> run(@NotNull @Valid RunTareaDto runTarea) {
-    List<RunTareaValidarDto> result = new ArrayList<>();
-    List<CompletableFuture<?>> cf = new ArrayList<>();
+    final List<RunTareaValidarDto> result = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
-      CompletableFuture<Integer> cfCountEstructuras = tareaValidarAsyncService
+      final CompletableFuture<Integer> cfCountEstructuras = this.tareaValidarAsyncService
           .countEstructuras(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfCountEstructuras, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);

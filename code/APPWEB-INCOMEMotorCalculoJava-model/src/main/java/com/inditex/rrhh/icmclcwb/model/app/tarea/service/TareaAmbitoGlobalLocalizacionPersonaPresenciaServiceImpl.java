@@ -26,8 +26,8 @@ public class TareaAmbitoGlobalLocalizacionPersonaPresenciaServiceImpl
   @Override
   public void save(@Valid @NotNull final PtrPresenciaEmpleadosTiendaResponseDto src,
       @Valid @NotNull final TareaDto tareaDto) {
-    tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom
-        .save(tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper
+    this.tareaAmbitoGlobalLocalizacionPersonaPresenciaRepositoryCustom
+        .save(this.tareaAmbitoGlobalLocalizacionPersonaPresenciaMapper
             .presenciaEmpleadosTiendaResultItemDtoToTareaLocalizacionPersonaPresencia(
                 src.getPresenciasTiendasEmpleado(), tareaDto));
   }

@@ -21,7 +21,7 @@ public class TareaCalculoServiceImpl implements TareaCalculoService {
   @Override
   public void regularizarChallenge(@Valid @NotNull final RunTareaDto runTareaDto,
       @Valid @NotNull final IdPersonaLocalChallengeDto idPersonaLocalChallengeDto) {
-    tareaCalculoRepositoryCustom.regularizarChallenge(runTareaDto.getTarea(), idPersonaLocalChallengeDto);
+    this.tareaCalculoRepositoryCustom.regularizarChallenge(runTareaDto.getTarea(), idPersonaLocalChallengeDto);
   }
 
 }

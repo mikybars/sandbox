@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -253,7 +254,7 @@ public class TareaLocalizacionVentaRepositoryCustomImpl extends
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.VENTA_REAL_LOCALIZACION_SECCION.getId());
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_DATO,
-        Arrays.asList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()));
+        Collections.singletonList(TipoDatoEnum.VENTA_MANUAL_LOCALIZACION_SECCION.getId()));
 
     this.update(this.sqlUpdateActivoNegativoTotalizado, parameters);
   }

@@ -28,7 +28,7 @@ public class TareaPersonaCoeficienteServiceImpl implements TareaPersonaCoeficien
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> src,
       @Valid @NotNull final TareaDto tareaDto) {
-    tareaPersonaCoeficienteRepositoryCustom.save(tareaPersonaCoeficienteMapper
+    this.tareaPersonaCoeficienteRepositoryCustom.save(this.tareaPersonaCoeficienteMapper
         .genericEmpleadoResultItemDtoToTareaPersonaCoeficiente(src, tareaDto));
   }
 

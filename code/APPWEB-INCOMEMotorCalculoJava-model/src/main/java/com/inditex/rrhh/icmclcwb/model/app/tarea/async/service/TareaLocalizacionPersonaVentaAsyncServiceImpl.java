@@ -23,14 +23,14 @@ public class TareaLocalizacionPersonaVentaAsyncServiceImpl implements TareaLocal
   @Override
   public CompletableFuture<Void> savePtrVentaIndividualDetalleResultItem(
       @NotNull List<PtrVentaIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
-    tareaLocalizacionPersonaVentaService.savePtrVentaIndividualDetalleResultItem(operaciones, tarea);
+    this.tareaLocalizacionPersonaVentaService.savePtrVentaIndividualDetalleResultItem(operaciones, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> savePtrVentaOnlineIpodIndividualDetalleResultItem(
       @NotNull List<PtrVentaOnlineIpodIndividualDetalleResultItemDto> operaciones, TareaDto tarea) {
-    tareaLocalizacionPersonaVentaService.savePtrVentaOnlineIpodIndividualDetalleResultItem(operaciones, tarea);
+    this.tareaLocalizacionPersonaVentaService.savePtrVentaOnlineIpodIndividualDetalleResultItem(operaciones, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

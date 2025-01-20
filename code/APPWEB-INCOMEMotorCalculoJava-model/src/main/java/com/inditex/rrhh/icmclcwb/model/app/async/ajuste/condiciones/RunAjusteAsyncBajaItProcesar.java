@@ -1,24 +1,24 @@
 package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.condiciones;
 
+import java.util.concurrent.CompletableFuture;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-import java.util.concurrent.CompletableFuture;
-
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones.RunAjusteBajaItProcesar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteAsync;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component("bajaItV1")
+@RequiredArgsConstructor
 public class RunAjusteAsyncBajaItProcesar implements RunAjusteAsync {
 
-  @Autowired
-  private RunAjusteBajaItProcesar runAjusteBajaItProcesar;
+  private final RunAjusteBajaItProcesar runAjusteBajaItProcesar;
 
   @Override
   public CompletableFuture<Void> execute(

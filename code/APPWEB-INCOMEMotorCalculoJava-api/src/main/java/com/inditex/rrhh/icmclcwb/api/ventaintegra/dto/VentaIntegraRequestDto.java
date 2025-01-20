@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.ventaintegra.dto;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;

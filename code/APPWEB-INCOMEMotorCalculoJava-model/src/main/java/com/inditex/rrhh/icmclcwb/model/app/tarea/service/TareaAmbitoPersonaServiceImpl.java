@@ -29,15 +29,15 @@ public class TareaAmbitoPersonaServiceImpl implements TareaAmbitoPersonaService 
   public List<TareaAmbitoPersonaDto> create(
       @Valid @NotNull @NotEmpty final List<TareaAmbitoPersonaDto> tareaAmbitoPersona,
       @Valid @NotNull final TareaDto tarea) {
-    return tareaAmbitoPersonaMapper
-        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.saveAll(tareaAmbitoPersonaMapper
+    return this.tareaAmbitoPersonaMapper
+        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(this.tareaAmbitoPersonaRepository.saveAll(this.tareaAmbitoPersonaMapper
             .mergeTareaAmbitoPersonaDtoAndTareaDtoToTareaAmbitoPersona(tareaAmbitoPersona, tarea)));
   }
 
   @Override
   public List<TareaAmbitoPersonaDto> findByTarea(@Valid @NotNull final TareaDto tarea) {
-    return tareaAmbitoPersonaMapper
-        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
+    return this.tareaAmbitoPersonaMapper
+        .tareaAmbitoPersonaToTareaAmbitoPersonaDto(this.tareaAmbitoPersonaRepository.findByTareaId(tarea.getId()));
   }
 
 }

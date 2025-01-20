@@ -8,29 +8,27 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaSer
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaRecolectarPtrVentaEcommerceService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
+  private final RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
 
-  @Autowired
-  private TareaLocalizacionVentaService tareaLocalizacionVentaService;
+  private final TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
-  @Autowired
-  private TareaAgrupacionVentaService tareaAgrupacionVentaService;
+  private final TareaAgrupacionVentaService tareaAgrupacionVentaService;
 
   @Override
   public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -39,7 +37,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -48,7 +46,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -57,7 +55,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -66,7 +64,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineIpodLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -75,7 +73,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -84,7 +82,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -93,7 +91,7 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
@@ -102,28 +100,28 @@ public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaR
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
   public void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
   }
 
   @Override
   public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
-    tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
+    this.tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
   }
 
 }

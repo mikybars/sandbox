@@ -30,8 +30,8 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<TareaAgrupacionConfiguracionChallengeTipoVentaDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-        tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+    this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
+        this.tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .tareaAgrupacionConfiguracionChallengeTipoVentaDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(
                 src));
   }
@@ -39,8 +39,8 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl
   @Override
   public void saveConfChTpVentaResultItemDto(@Valid @NotNull @NotEmpty final List<ConfChTpVentaResultItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
-        tareaAgrupacionConfiguracionChallengeTipoVentaMapper
+    this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustom.save(
+        this.tareaAgrupacionConfiguracionChallengeTipoVentaMapper
             .confChTpVentaResultItemDtoToTareaAgrupacionConfiguracionChallengeTipoVenta(src, tarea));
   }
 

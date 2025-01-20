@@ -43,6 +43,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.instancio.junit.InstancioSource;
@@ -141,7 +142,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(199L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajoDTO).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManual(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
@@ -170,7 +173,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
   void updateActivoVacioTest() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.updateActivoVacio(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
@@ -183,7 +188,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
@@ -197,7 +204,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -214,8 +223,10 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     final Long idTarea = 1313L;
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -231,7 +242,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -248,7 +261,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -264,7 +279,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -280,7 +297,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -296,7 +315,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -312,7 +333,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -328,7 +351,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -345,7 +370,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -361,7 +388,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -377,7 +406,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.compensar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -394,7 +425,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
@@ -408,7 +441,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -426,7 +461,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final TareaDto tarea = new TareaDto();
     final Long idTarea = 1313L;
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -442,7 +479,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -459,7 +498,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -475,7 +516,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -491,7 +534,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -507,7 +552,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -524,7 +571,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -540,7 +589,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -556,7 +607,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -572,7 +625,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -589,7 +644,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizar(runTarea);
 
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -606,7 +663,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(),
@@ -621,7 +680,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -639,7 +700,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final Long idTarea = 8989L;
     final TareaDto tarea = new TareaDto();
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -655,7 +718,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -671,7 +736,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -688,7 +755,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -705,7 +774,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -722,7 +793,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -738,7 +811,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacion(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
@@ -754,7 +829,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -769,7 +846,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -788,7 +867,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final Long idTarea = 1432020L;
     final TareaDto tarea = new TareaDto();
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -805,7 +886,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -823,7 +906,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -840,7 +925,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -857,7 +944,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -875,7 +964,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -892,7 +983,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -909,7 +1002,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(1222L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarEcommerceSeccion(runTarea);
 
@@ -926,7 +1021,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(123L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -941,7 +1038,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(123L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -959,7 +1058,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final Long idTarea = 9090L;
     final TareaDto tarea = new TareaDto();
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -975,7 +1076,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -992,7 +1095,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final Long idTarea = 9090L;
     final TareaDto tarea = new TareaDto();
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1009,7 +1114,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1025,7 +1132,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(786L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1042,7 +1151,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(486L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarPresenciasSindicalesLocalizacion(runTarea);
 
@@ -1058,7 +1169,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1073,7 +1186,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1092,7 +1207,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     final Long idTarea = 231L;
     final TareaDto tarea = new TareaDto();
     tarea.setId(idTarea);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1110,7 +1227,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1128,7 +1247,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1147,7 +1268,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1166,7 +1289,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(8989L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.repartirPresenciasSindicalesLocalizacionSeccion(runTarea);
 
@@ -1210,7 +1335,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(199L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajo).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
@@ -1237,7 +1364,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
     final TareaDto tarea = new TareaDto();
     tarea.setId(199L);
-    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).build();
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajoDTO).build();
 
     this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
     verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());

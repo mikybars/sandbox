@@ -10,8 +10,10 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.TipoAmbitoDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class TrabajoDto implements Serializable {
 
   private static final long serialVersionUID = 6263836371385557891L;

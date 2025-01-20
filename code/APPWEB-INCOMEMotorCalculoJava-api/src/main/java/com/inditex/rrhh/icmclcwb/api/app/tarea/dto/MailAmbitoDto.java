@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

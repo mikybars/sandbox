@@ -85,7 +85,7 @@ public class TareaServiceImpl implements TareaService {
   @Override
   public TareaDto findByIdWithStates(@NotNull @Positive Long id) {
 
-    Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
+    final Tarea tareaData = this.tareaRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TAREA_OK);
     if (tareaData == null) {
       return null;
     }

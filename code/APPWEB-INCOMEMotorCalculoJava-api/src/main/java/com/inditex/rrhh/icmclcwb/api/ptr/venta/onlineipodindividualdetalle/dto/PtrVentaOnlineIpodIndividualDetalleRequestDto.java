@@ -7,9 +7,13 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrGroupSellerTypeEnum;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PtrVentaOnlineIpodIndividualDetalleRequestDto implements Serializable {
 
   private static final long serialVersionUID = -7476782901000109281L;

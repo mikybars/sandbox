@@ -9,25 +9,22 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaConsolidarPeriodoServiceImpl implements RunTareaConsolidarPeriodoService {
 
-  @Autowired
-  private PeriodoCalculoPersonaService periodoCalculoPersonaService;
+  private final PeriodoCalculoPersonaService periodoCalculoPersonaService;
 
-  @Autowired
-  private PeriodoPersonaService periodoPersonaService;
+  private final PeriodoPersonaService periodoPersonaService;
 
-  @Autowired
-  private PeriodoLocalizacionService periodoLocalizacionService;
+  private final PeriodoLocalizacionService periodoLocalizacionService;
 
-  @Autowired
-  private PeriodoLocalizacionPersonaService periodoLocalizacionPersonaService;
+  private final PeriodoLocalizacionPersonaService periodoLocalizacionPersonaService;
 
   @Override
   public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {

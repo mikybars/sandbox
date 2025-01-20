@@ -1,24 +1,15 @@
 ---
 name: monit-deploy
-run-name: Monit deploy to env ${{ inputs.env }}
+run-name: Monit deploy to AlertHub
 on:
   pull_request:
     types: [closed]
     branches: [main]
     paths: ['monit/**', '.github/workflows/monit-deploy.yml']
   workflow_dispatch:
-    inputs:
-      env:
-        description: 'Env to deploy subscription, inhibitions or mail-list '
-        type: choice
-        options:
-          - 'des'
-          - 'pre'
-          - 'pro'
-        required: true
 
 env:
-  WORKFLOW_VERSION: 1.46.0
+  WORKFLOW_VERSION: 1.49.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -31,7 +22,7 @@ jobs:
     name: Linter
     if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 30
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,8 +40,12 @@ jobs:
   monit:
     name: Monit
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
     steps:
+      - name: Set environment
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "env=\"pro\"" >> "$GITHUB_ENV"
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -69,7 +64,7 @@ jobs:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
 
       - name: Setup Java tool
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
@@ -78,4 +73,4 @@ jobs:
         uses: inditex/gha-alerthub/code@main
         with:
           project-key: ${{ steps.metadata.outputs.project-key }}
-          env: ${{ github.event.inputs.env }}
+          env: ${{ env.env }}

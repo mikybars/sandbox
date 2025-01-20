@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -18,11 +19,15 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TAREA_CALCULO_AJUSTE_COMISION")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TareaCalculoAjusteComision {
 
   @EmbeddedId

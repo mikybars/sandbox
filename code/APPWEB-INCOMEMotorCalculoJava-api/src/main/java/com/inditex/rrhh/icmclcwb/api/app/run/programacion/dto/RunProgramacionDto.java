@@ -10,12 +10,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RunProgramacionDto implements Serializable {
 
   private static final long serialVersionUID = 8443425889094187729L;

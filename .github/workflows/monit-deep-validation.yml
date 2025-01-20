@@ -14,7 +14,7 @@ on:
         required: true
 
 env:
-  WORKFLOW_VERSION: 1.46.0
+  WORKFLOW_VERSION: 1.49.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -26,7 +26,7 @@ jobs:
   linter:
     name: Linter
     timeout-minutes: 30
-    runs-on: ubuntu-20.04
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
 
   monit:
     name: Monit
-    runs-on: [self-hosted, testing-ivm]
+    runs-on: ${{ fromJSON( vars.RUNSON_ALERTHUB_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
 
       - name: Setup Java tool
-        uses: inditex/gha-ivmactions/setup-tool@v0
+        uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17

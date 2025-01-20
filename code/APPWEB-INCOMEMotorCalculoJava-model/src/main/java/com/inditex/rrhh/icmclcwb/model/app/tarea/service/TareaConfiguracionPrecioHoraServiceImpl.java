@@ -29,16 +29,15 @@ public class TareaConfiguracionPrecioHoraServiceImpl implements TareaConfiguraci
   @Override
   public void save(@Valid @NotNull @NotEmpty final List<TareaConfiguracionPrecioHoraDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaConfiguracionPrecioHoraRepositoryCustom.save(
-        tareaConfiguracionPrecioHoraMapper.tareaConfiguracionPrecioHoraDtoToTareaConfiguracionPrecioHora(src));
+    this.tareaConfiguracionPrecioHoraRepositoryCustom.save(
+        this.tareaConfiguracionPrecioHoraMapper.tareaConfiguracionPrecioHoraDtoToTareaConfiguracionPrecioHora(src));
   }
 
   @Override
   public void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
       @Valid @NotNull final TareaDto tarea) {
-    tareaConfiguracionPrecioHoraRepositoryCustom.save(
-        tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src,
+    this.tareaConfiguracionPrecioHoraRepositoryCustom.save(
+        this.tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src,
             tarea));
   }
-
 }

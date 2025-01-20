@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoDato;
 
 import jakarta.persistence.EmbeddedId;
