@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
@@ -114,6 +115,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
@@ -235,6 +237,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Autowired
   private TareaLocalizacionEstadoAsyncService tareaLocalizacionEstadoAsyncService;
+
+  @Autowired
+  private IncomeMetaService incomeMetaService;
 
   @Override
   protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -1264,25 +1269,16 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         request.getData()
             .setIdsCadena(cadenas.stream().map(IdCadenaDto::getId).collect(Collectors.toList()));
 
-        boolean hasNext = false;
-        do {
-          final CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-              .searchEmpleados(request);
-          AsyncUtils.exceptionally(cfData, cf);
-          final List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-          if (CollectionUtils.isNotEmpty(data)) {
-            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-            final CompletableFuture<Void> cfSave = this.tareaPersonaHistoricoAsyncService
-                .saveGenericEmpleadoResultItemDto(data, tarea);
-            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            hasNext = request.nextPage();
-          }
-        } while (hasNext);
+        final List<EmpleadoDTO> data = this.incomeMetaService.searchEmpleados(request);
+
+        if (CollectionUtils.isNotEmpty(data)) {
+          final CompletableFuture<Void> cfSave = this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(data, tarea);
+          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+        }
+
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
+
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);
       throw e;

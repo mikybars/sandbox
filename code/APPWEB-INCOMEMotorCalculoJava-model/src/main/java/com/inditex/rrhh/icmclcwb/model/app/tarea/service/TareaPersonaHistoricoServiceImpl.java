@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -59,6 +60,14 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
       @Valid @NonNull final TareaDto tarea) {
     return this.tareaPersonaHistoricoMapper
         .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(genericEmpleadoResultItemDto, tarea);
+  }
+
+  @Override
+  public List<TareaPersonaHistoricoDto> mergeEmpleadoDtos(
+      @Valid @NonNull @NotEmpty final List<EmpleadoDTO> empleadoDTOList,
+      @Valid @NonNull final TareaDto tarea) {
+    return this.tareaPersonaHistoricoMapper
+        .empleadoDtoToTareaPersonaHistoricoDto(empleadoDTOList, tarea);
   }
 
   @Override
