@@ -1,24 +1,24 @@
 package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.condiciones;
 
+import java.util.concurrent.CompletableFuture;
+
 /*
  * Copyright (c) 2021. Inditex
  */
-import java.util.concurrent.CompletableFuture;
-
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.model.app.ajuste.condiciones.RunAjusteAntiguedadProcesar;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAjusteAsync;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component("antiguedadV1")
+@RequiredArgsConstructor
 public class RunAjusteAsyncAntiguedadProcesar implements RunAjusteAsync {
 
-  @Autowired
-  private RunAjusteAntiguedadProcesar runAjusteAntiguedadProcesar;
+  private final RunAjusteAntiguedadProcesar runAjusteAntiguedadProcesar;
 
   @Override
   public CompletableFuture<Void> execute(

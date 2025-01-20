@@ -20,14 +20,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResul
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ComisAsyncServiceImpl implements ComisAsyncService {
 
-  @Autowired
-  private ComisService comisService;
+  private final ComisService comisService;
 
   @Override
   public CompletableFuture<List<IdMotivoDesplazamientoDto>> findMotivoDesplazamiento(

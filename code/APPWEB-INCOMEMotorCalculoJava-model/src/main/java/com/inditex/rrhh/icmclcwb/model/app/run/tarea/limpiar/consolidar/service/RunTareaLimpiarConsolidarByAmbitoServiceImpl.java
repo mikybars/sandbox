@@ -6,16 +6,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.Ru
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaLimpiarConsolidarByAmbitoServiceImpl implements RunTareaLimpiarConsolidarByAmbitoService {
 
-  @Autowired
-  private RunTareaAmbitoLimpiarConsolidarByAmbitoService runTareaAmbitoLimpiarConsolidarByAmbitoService;
+  private final RunTareaAmbitoLimpiarConsolidarByAmbitoService runTareaAmbitoLimpiarConsolidarByAmbitoService;
 
   @Override
   public void run(@NotNull @Valid final RunTareaDto runTarea) {

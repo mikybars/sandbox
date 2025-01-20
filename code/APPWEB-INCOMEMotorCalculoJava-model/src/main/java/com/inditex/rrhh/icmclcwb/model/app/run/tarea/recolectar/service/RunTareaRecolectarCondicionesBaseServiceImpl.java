@@ -17,19 +17,18 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRecolectarCondicionesBaseService {
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
-  @Autowired
-  private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
+  private final RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesBaseService.run.timer",

@@ -6,16 +6,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRe
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarSlrhorcomsServiceImpl implements RunTareaRecolectarSlrhorcomsService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarSlrhorcomsService runTareaAmbitoRecolectarSlrhorcomsService;
+  private final RunTareaAmbitoRecolectarSlrhorcomsService runTareaAmbitoRecolectarSlrhorcomsService;
 
   @Override
   public void horarioComercialFestivoByRunTarea(

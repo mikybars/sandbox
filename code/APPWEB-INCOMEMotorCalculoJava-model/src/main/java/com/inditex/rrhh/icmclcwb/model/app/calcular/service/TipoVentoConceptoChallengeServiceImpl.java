@@ -12,20 +12,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoVentaConcepto
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoVentaConceptoChallengeRespository;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoVentoConceptoChallengeServiceImpl implements TipoVentaConceptoChallengeService {
 
-  @Autowired
-  private TipoVentaConceptoChallengeRespository tipoVentaConceptoChallengeRespository;
+  private final TipoVentaConceptoChallengeRespository tipoVentaConceptoChallengeRespository;
 
-  @Autowired
-  private TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
+  private final TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
 
   @Override
   @Cacheable(value = TIPO_VENTA_CONCEPTO_CHALLENGE_BY_ICM_ID_CONCEPTO_VENTA,

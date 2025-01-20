@@ -13,24 +13,23 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class ValidationAspect {
 
-  @Autowired
-  private RunTareaPrevalidarAntesService runTareaPrevalidarAntesService;
+  private final RunTareaPrevalidarAntesService runTareaPrevalidarAntesService;
 
-  @Autowired
-  private RunTareaPrevalidarDespuesService runTareaPrevalidarDespuesService;
+  private final RunTareaPrevalidarDespuesService runTareaPrevalidarDespuesService;
 
   @Pointcut("@annotation(com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation)")
   public void validationPointcut() {

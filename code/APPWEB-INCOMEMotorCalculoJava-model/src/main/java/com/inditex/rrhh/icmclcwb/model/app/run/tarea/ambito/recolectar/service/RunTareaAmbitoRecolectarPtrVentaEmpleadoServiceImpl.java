@@ -35,41 +35,31 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrVentaEmpleadoServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaEmpleadoService {
 
-  @Autowired
-  @Qualifier("ventaEmpleadoProperties")
-  protected Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
+  protected final Map<String, PtrPropertiesDto> ventaEmpleadoProperties;
 
-  @Autowired
-  private PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
+  private final PtrVentaEmpleadoAsyncService ptrVentaEmpleadoAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
+  private final TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  @Qualifier(value = "recolectarProperties")
-  private RecolectarPropertiesDto recolectarProperties;
+  private final RecolectarPropertiesDto recolectarProperties;
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
   @Override
   public void ventaFisicaLocalizacionPersonaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,

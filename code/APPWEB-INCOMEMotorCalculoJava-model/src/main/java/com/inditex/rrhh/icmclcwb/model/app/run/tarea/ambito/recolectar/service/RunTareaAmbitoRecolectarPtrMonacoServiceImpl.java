@@ -62,7 +62,6 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -99,19 +98,15 @@ public class RunTareaAmbitoRecolectarPtrMonacoServiceImpl implements RunTareaAmb
   private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
   @Autowired
-  @Qualifier("ventaGeneralProperties")
   private Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
   @Autowired
-  @Qualifier("presenciasProperties")
   private Map<String, PtrPropertiesDto> presenciasProperties;
 
   @Autowired
-  @Qualifier("recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
   @Autowired
-  @Qualifier("ventaEcommerceProperties")
   private Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
   @Override

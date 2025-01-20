@@ -9,16 +9,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.service.RunLimpiezaService
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunLimpiezaServiceImpl implements RunLimpiezaService {
 
-  @Autowired
-  private LimpiezaService limpiezaService;
+  private final LimpiezaService limpiezaService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunLimpiezaService.run.timer", metricGroupName = "RunLimpiezaServiceGroup",

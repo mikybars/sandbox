@@ -33,41 +33,33 @@ import com.inditex.rrhh.icmclcwb.ms.app.programacion.SenderProgramacion;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunProgramacionServiceImpl implements RunProgramacionService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunProgramacionServiceImpl.class);
 
-  @Autowired
-  private ProgramacionService programacionService;
+  private final ProgramacionService programacionService;
 
-  @Autowired
-  private ProgramacionAsyncService programacionAsyncService;
+  private final ProgramacionAsyncService programacionAsyncService;
 
-  @Autowired
-  private PeriodoMapper periodoMapper;
+  private final PeriodoMapper periodoMapper;
 
-  @Autowired
-  private TrabajoService trabajoService;
+  private final TrabajoService trabajoService;
 
-  @Autowired
-  private SenderProgramacion senderProgramacion;
+  private final SenderProgramacion senderProgramacion;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-  @Autowired
-  @Qualifier("meta4Properties")
-  private Map<String, Meta4PropertiesDto> meta4Properties;
+  private final Map<String, Meta4PropertiesDto> meta4Properties;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunProgramacionService.run.timer",
