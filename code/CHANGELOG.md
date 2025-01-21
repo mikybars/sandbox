@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.71.1] - 2025-01-21
+
+### Fixed
+
+- [INCOME-1460](https://jira.inditex.com/jira/browse/INCOME-1460) Problema con las programaciones
+
 ## [4.71.0] - 2025-01-20
 
 ### Added
@@ -506,7 +512,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.1...main
+[4.71.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...4.71.1
 [4.71.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.70.0...4.71.0
 [4.70.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.69.0...4.70.0
 [4.69.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.68.0...4.69.0
