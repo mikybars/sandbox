@@ -225,8 +225,10 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
     final List<EmpleadoDTO> empleados = new ArrayList<>();
+    empleados.add(new EmpleadoDTO());
     final List<IdEmpresaDto> empresa = new ArrayList<>();
     empresa.add(new IdEmpresaDto("95"));
+    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(AsyncConstants.NIL);
 
     when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class))).thenReturn(empresa);
 
@@ -239,6 +241,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)).thenReturn(properties);
     when(this.incomeMetaService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
         .thenReturn(empleados);
+    when(this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(any(), any(TareaDto.class))).thenReturn(cfSave);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.personaByRunTareaAndTareaAmbito(runTarea,
         tareaAmbito);
