@@ -81,6 +81,6 @@ public abstract class TareaPersonaHistoricoMapper {
 
   public List<TareaPersonaHistoricoDto> empleadoDtoToTareaPersonaHistoricoDto(
       final List<EmpleadoDTO> src, final TareaDto tarea) {
-    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+    return src.stream().map((EmpleadoDTO empleado) -> this.empleadoDtoToTareaPersonaHistoricoDto(empleado, tarea)).toList();
   }
 }
