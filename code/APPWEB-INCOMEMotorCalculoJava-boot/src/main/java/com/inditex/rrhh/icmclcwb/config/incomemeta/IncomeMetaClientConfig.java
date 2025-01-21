@@ -30,7 +30,7 @@ public class IncomeMetaClientConfig {
   }
 
   @Bean(name = "empleadosIncomeMetaApiClient")
-  public EmpleadosApi empleadosIcomeMetaApiClient(@Qualifier("empleadosMetaApiClient") final ApiClient apiClient) {
+  public EmpleadosApi empleadosIcomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
     return new EmpleadosApi(apiClient);
   }
 
