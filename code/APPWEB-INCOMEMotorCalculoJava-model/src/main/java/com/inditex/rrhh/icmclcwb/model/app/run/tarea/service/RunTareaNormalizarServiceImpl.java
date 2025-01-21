@@ -21,20 +21,19 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaNormalizarServiceImpl implements RunTareaNormalizarService {
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
-  @Autowired
-  private RunTareaNormalizarAjusteComisionAsyncService runTareaNormalizarAjusteComisionAsyncService;
+  private final RunTareaNormalizarAjusteComisionAsyncService runTareaNormalizarAjusteComisionAsyncService;
 
   @Auditoria
   @Validation(fase = 8)
@@ -45,7 +44,7 @@ public class RunTareaNormalizarServiceImpl implements RunTareaNormalizarService 
       metricGroupName = "RunTareaNormalizarServiceGroup",
       metricDescription = "RunTareaNormalizarService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
 
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfWait = new ArrayList<>();

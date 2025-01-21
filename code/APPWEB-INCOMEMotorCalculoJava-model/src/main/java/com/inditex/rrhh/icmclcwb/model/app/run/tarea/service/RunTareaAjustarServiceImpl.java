@@ -23,34 +23,27 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
 
-  @Autowired
-  @Qualifier("runAjusteProperties")
-  private RunAjustePropertiesDto runAjusteProperties;
+  private final RunAjustePropertiesDto runAjusteProperties;
 
-  @Autowired
-  private AlgoritmoAjusteService algoritmoAjusteService;
+  private final AlgoritmoAjusteService algoritmoAjusteService;
 
-  @Autowired
-  private RunAjusteFactory runAjusteFactory;
+  private final RunAjusteFactory runAjusteFactory;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
-  @Autowired
-  private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
+  private final TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
 
-  @Autowired
-  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  private final PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
   @Auditoria
   @Validation(fase = 7)
@@ -59,7 +52,7 @@ public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
   @CounterFunctionalMetric(metricName = "RunTareaAjustarService.run.counter",
       metricGroupName = "RunTareaAjustarServiceGroup", metricDescription = "RunTareaAjustarService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     this.tareaFaseService.updateFechaInicio(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.AJUSTAR.getId()));

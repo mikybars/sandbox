@@ -8,68 +8,65 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.consolidar.service.RunTareaCo
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaConsolidarPeriodoServiceImpl implements RunTareaConsolidarPeriodoService {
 
-  @Autowired
-  private PeriodoCalculoPersonaService periodoCalculoPersonaService;
+  private final PeriodoCalculoPersonaService periodoCalculoPersonaService;
 
-  @Autowired
-  private PeriodoPersonaService periodoPersonaService;
+  private final PeriodoPersonaService periodoPersonaService;
 
-  @Autowired
-  private PeriodoLocalizacionService periodoLocalizacionService;
+  private final PeriodoLocalizacionService periodoLocalizacionService;
 
-  @Autowired
-  private PeriodoLocalizacionPersonaService periodoLocalizacionPersonaService;
+  private final PeriodoLocalizacionPersonaService periodoLocalizacionPersonaService;
 
   @Override
-  public void mergePeriodoCalculoPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto) {
     this.periodoCalculoPersonaService.mergePeriodoCalculoPersona(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoCalculoPersona(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoCalculoPersona(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoCalculoPersonaService.limpiezaPeriodoCalculoPersona(tareaDto, tareaAmbitoDto);
   }
 
   @Override
-  public void mergePeriodoPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoPersona(@NotNull final RunTareaDto tareaDto) {
     this.periodoPersonaService.mergePeriodoPersona(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoPersona(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoPersona(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoPersonaService.limpiezaPeriodoPersona(tareaDto, tareaAmbitoDto);
   }
 
   @Override
-  public void mergePeriodoLocalizacion(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoLocalizacion(@NotNull final RunTareaDto tareaDto) {
     this.periodoLocalizacionService.mergePeriodoLocalizacion(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoLocalizacion(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoLocalizacion(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoLocalizacionService.limpiezaPeriodoLocalizacion(tareaDto, tareaAmbitoDto);
   }
 
   @Override
-  public void mergePeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto) {
     this.periodoLocalizacionPersonaService.mergePeriodoLocalizacionPersona(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoLocalizacionPersonaService.limpiezaPeriodoLocalizacionPersona(tareaDto, tareaAmbitoDto);
   }
 

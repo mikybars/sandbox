@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.api.app.calcular.dto;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TipoDatoDto implements Serializable {
@@ -19,7 +19,7 @@ public class TipoDatoDto implements Serializable {
   @NotBlank
   private String descripcion;
 
-  @NonNull
+  @NotNull
   private Boolean procesado;
 
 }

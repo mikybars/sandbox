@@ -5,26 +5,26 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionPersonaRepositoryCustom;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class PeriodoLocalizacionPersonaServiceImpl implements PeriodoLocalizacionPersonaService {
 
-  @Autowired
-  private PeriodoLocalizacionPersonaRepositoryCustom periodoLocalizacionPersonaRepositoryCustom;
+  private final PeriodoLocalizacionPersonaRepositoryCustom periodoLocalizacionPersonaRepositoryCustom;
 
   @Override
-  public void mergePeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto) {
+  public void mergePeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto) {
     this.periodoLocalizacionPersonaRepositoryCustom.mergePeriodoLocalizacionPersona(tareaDto);
   }
 
   @Override
-  public void limpiezaPeriodoLocalizacionPersona(@NonNull final RunTareaDto tareaDto,
-      @NonNull final TareaAmbitoDto tareaAmbitoDto) {
+  public void limpiezaPeriodoLocalizacionPersona(@NotNull final RunTareaDto tareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
     this.periodoLocalizacionPersonaRepositoryCustom.limpiezaPeriodoLocalizacionPersona(tareaDto, tareaAmbitoDto);
   }
 

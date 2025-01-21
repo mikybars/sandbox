@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 public class TareaLocalizacionComisionHistoricoDto implements Serializable {
@@ -14,7 +14,7 @@ public class TareaLocalizacionComisionHistoricoDto implements Serializable {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private Long idTarea;
 
   @NotBlank
@@ -23,13 +23,13 @@ public class TareaLocalizacionComisionHistoricoDto implements Serializable {
   @NotBlank
   private String stdIdWorkLocat;
 
-  @NonNull
+  @NotNull
   private LocalDateTime fechaInicio;
 
-  @NonNull
+  @NotNull
   private LocalDateTime fechaFin;
 
-  @NonNull
+  @NotNull
   private Boolean comisionable;
 
 }

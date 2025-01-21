@@ -5,20 +5,20 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.ambito.ser
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaLimpiarConsolidarByAmbitoServiceImpl implements RunTareaLimpiarConsolidarByAmbitoService {
 
-  @Autowired
-  private RunTareaAmbitoLimpiarConsolidarByAmbitoService runTareaAmbitoLimpiarConsolidarByAmbitoService;
+  private final RunTareaAmbitoLimpiarConsolidarByAmbitoService runTareaAmbitoLimpiarConsolidarByAmbitoService;
 
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()

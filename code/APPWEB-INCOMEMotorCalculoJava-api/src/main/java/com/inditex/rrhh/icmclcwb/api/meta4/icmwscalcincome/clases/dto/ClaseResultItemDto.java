@@ -3,11 +3,11 @@ package com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -17,10 +17,10 @@ public class ClaseResultItemDto implements Serializable {
 
   private static final long serialVersionUID = -5748711829300381625L;
 
-  @NonNull
+  @NotNull
   private String idOrigen;
 
-  @NonNull
+  @NotNull
   private String idClase;
 
   private List<String> idsEstadoSil;

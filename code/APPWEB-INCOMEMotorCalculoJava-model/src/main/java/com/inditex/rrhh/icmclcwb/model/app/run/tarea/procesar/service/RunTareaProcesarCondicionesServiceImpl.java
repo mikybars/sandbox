@@ -10,8 +10,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstr
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaEstructuraRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,22 +19,18 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarCondicionesService {
 
-  @Autowired
-  private TareaLocalizacionPresupuestoRepositoryCustom tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoRepositoryCustom tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
+  private final TareaPersonaEstructuraRepositoryCustom tareaPersonaEstructuraRepositoryCustom;
 
-  @Autowired
-  private TareaPersonaEstructuraDesplazamientoRepositoryCustom tareaPersonaEstructuraDesplazamientoRepositoryCustom;
+  private final TareaPersonaEstructuraDesplazamientoRepositoryCustom tareaPersonaEstructuraDesplazamientoRepositoryCustom;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
+  private final TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom tareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustom;
 
-  @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private final PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
   public void updateActivoPresupuestosBandaExcepcion(final RunTareaDto runTarea) {
@@ -84,7 +80,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)
-  public void establecerBandaOpcionOrigen(@Valid @NonNull final TareaDto tarea) {
+  public void establecerBandaOpcionOrigen(@Valid @NotNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempEstructurasBaseChallenge();
       this.primaryTemporaryTableRepositoryCustom.indexTempEstructurasBaseChallenge();
@@ -102,7 +98,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
   public void igualarBandasOrigenDestino(
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempBandasOrigenSinBandaDesplazamiento();
       this.primaryTemporaryTableRepositoryCustom.insertBandasOrigenSinBandaDesplazamiento(tarea);
@@ -116,7 +112,7 @@ public class RunTareaProcesarCondicionesServiceImpl implements RunTareaProcesarC
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   @Override
   public void relacionarPresupuestosEstructurasDesplazamiento(
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull final TareaDto tarea) {
     try {
       this.primaryTemporaryTableRepositoryCustom.createTempEstructura();
       this.primaryTemporaryTableRepositoryCustom.indexTempEstructura();

@@ -21,28 +21,23 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoFactory;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
 
-  @Autowired
-  @Qualifier("runAlgoritmoProperties")
-  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  private final RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
-  @Autowired
-  private AlgoritmoService algoritmoService;
+  private final AlgoritmoService algoritmoService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
-  @Autowired
-  private RunAlgoritmoFactory runAlgoritmoFactory;
+  private final RunAlgoritmoFactory runAlgoritmoFactory;
 
   @Auditoria
   @Validation(fase = 4)
@@ -51,7 +46,7 @@ public class RunTareaCalcularServiceImpl implements RunTareaCalcularService {
   @CounterFunctionalMetric(metricName = "RunTareaCalcularService.run.counter",
       metricGroupName = "RunTareaCalcularServiceGroup", metricDescription = "RunTareaCalcularService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     this.tareaFaseService.updateFechaInicio(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.CALCULAR.getId()));

@@ -13,17 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaCalculoPersona
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRecolectarByAmbitoPersonaService {
 
-  @Autowired
-  private TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
+  private final TareaCalculoPersonaAsyncService tareaCalculoPersonaAsyncService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarByAmbitoPersonaService.run.timer",
@@ -33,7 +33,7 @@ public class RunTareaRecolectarByAmbitoPersonaServiceImpl implements RunTareaRec
       metricGroupName = "RunTareaRecolectarByAmbitoPersonaServiceGroup",
       metricDescription = "RunTareaRecolectarByAmbitoPersonaService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<Void> cfMergePersonaCalculo = this.tareaCalculoPersonaAsyncService

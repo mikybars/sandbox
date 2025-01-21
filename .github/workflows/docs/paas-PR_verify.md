@@ -10,7 +10,7 @@ Any pull request when there are changes into `paas` path.
 
 ## Where does it run?
 
-[ubuntu-20.04](https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md) GitHub runner.
+[ubuntu-24.04](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md) GitHub runner.
 
 ## Jobs
 

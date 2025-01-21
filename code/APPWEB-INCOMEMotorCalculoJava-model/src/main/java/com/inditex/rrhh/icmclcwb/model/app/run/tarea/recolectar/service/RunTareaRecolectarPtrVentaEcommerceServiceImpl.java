@@ -7,123 +7,121 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionVentaServi
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaRecolectarPtrVentaEcommerceService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
+  private final RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
 
-  @Autowired
-  private TareaLocalizacionVentaService tareaLocalizacionVentaService;
+  private final TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
-  @Autowired
-  private TareaAgrupacionVentaService tareaAgrupacionVentaService;
+  private final TareaAgrupacionVentaService tareaAgrupacionVentaService;
 
   @Override
-  public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlinePickingLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlinePickingLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NonNull @Valid final RunTareaDto runTarea) {
+  public void ventaOnlineEntregaDomicilioCadenaByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void ventaOnlineIpodLocalizacionPersonaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaOnlineIpodLocalizacionPersonaByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineIpodLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaRangoOnlineSintLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineSintLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineSintLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineEntregaTiendaLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrVentaEcommerceService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrVentaEcommerceService
             .ventaRangoOnlineEntregaDomicilioLocalizacionSeccionByRunTareaAndTareaAmbito(runTarea, item));
   }
 
   @Override
-  public void updateActivoVentaOnlineIpodByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
+  public void updateActivoVentaOnlineIpodByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineIpod(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlinePickingByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
+  public void updateActivoVentaOnlinePickingByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlinePicking(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-    tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
+  public void updateActivoVentaOnlineEntregaTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    this.tareaLocalizacionVentaService.updateActivoVentaOnlineEntregaTienda(runTarea.getTarea());
   }
 
   @Override
-  public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
-    tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
+  public void updateActivoVentaOnlineEntregaDomicilioByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
+    this.tareaAgrupacionVentaService.updateActivoVentaOnlineEntregaDomicilio(runTarea.getTarea());
   }
 
 }

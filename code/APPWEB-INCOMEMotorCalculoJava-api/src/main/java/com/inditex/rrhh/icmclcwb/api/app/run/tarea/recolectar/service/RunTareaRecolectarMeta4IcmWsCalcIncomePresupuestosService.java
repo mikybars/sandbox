@@ -3,16 +3,16 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface RunTareaRecolectarMeta4IcmWsCalcIncomePresupuestosService {
 
-  void personaByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
+  void personaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-  void localizacionByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
+  void localizacionByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-  void empleadosPresenciaByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
+  void empleadosPresenciaByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
-  void empleadosDesplazamientoByRunTarea(@NonNull @Valid final RunTareaDto runTarea);
+  void empleadosDesplazamientoByRunTarea(@NotNull @Valid final RunTareaDto runTarea);
 
 }

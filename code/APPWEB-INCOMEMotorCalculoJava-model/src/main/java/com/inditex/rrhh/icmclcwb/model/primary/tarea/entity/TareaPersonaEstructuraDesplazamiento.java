@@ -9,8 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO")
@@ -20,12 +20,12 @@ public class TareaPersonaEstructuraDesplazamiento extends CommonFieldsTaskOrigin
   @EmbeddedId
   private TareaPersonaEstructuraDesplazamientoPk pk;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_EFECTIVA", nullable = false)
   private TipoOpcionCalculo tipoOpcionCalculoEfectiva;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TIPO_OPCION_CALCULO_ESTRUCTURA", nullable = false)
   private TipoOpcionCalculo tipoOpcionCalculoEstructura;
@@ -54,19 +54,19 @@ public class TareaPersonaEstructuraDesplazamiento extends CommonFieldsTaskOrigin
   @Column(name = "STD_ID_WORK_LOCAT_DESTINO", nullable = false, length = 48)
   private String stdIdWorkLocatDestino;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_HORAS_ORIGEN", nullable = false)
   private Boolean horasOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_HORAS_DESTINO", nullable = false)
   private Boolean horasDestino;
 
-  @NonNull
+  @NotNull
   @Column(name = "ORDINAL_ESTRUCTURA", nullable = false)
   private Integer ordinalEstructura;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

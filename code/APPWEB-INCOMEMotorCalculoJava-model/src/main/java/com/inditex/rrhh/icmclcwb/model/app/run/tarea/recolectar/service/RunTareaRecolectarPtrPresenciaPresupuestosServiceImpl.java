@@ -5,25 +5,25 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarPtrPresenciaPresupuestosService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrPresenciaPresupuestosServiceImpl
     implements RunTareaRecolectarPtrPresenciaPresupuestosService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarPtrPresenciaPresupuestosService runTareaAmbitoRecolectarPtrPresenciaPresupuestosService;
+  private final RunTareaAmbitoRecolectarPtrPresenciaPresupuestosService runTareaAmbitoRecolectarPtrPresenciaPresupuestosService;
 
   @Override
-  public void presenciaEmpleadoTiendaByRunTarea(@NonNull @Valid RunTareaDto runTarea) {
+  public void presenciaEmpleadoTiendaByRunTarea(@NotNull @Valid RunTareaDto runTarea) {
     runTarea.getTarea()
         .getAmbito()
         .stream()
-        .forEach(item -> runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
+        .forEach(item -> this.runTareaAmbitoRecolectarPtrPresenciaPresupuestosService
             .presenciaEmpleadoTiendaByRunTareaAndTareaAmbito(runTarea, item));
   }
 

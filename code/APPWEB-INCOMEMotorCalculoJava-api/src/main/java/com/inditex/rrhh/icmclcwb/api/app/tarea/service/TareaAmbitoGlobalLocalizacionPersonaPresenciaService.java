@@ -4,10 +4,10 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaResponseDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaAmbitoGlobalLocalizacionPersonaPresenciaService {
 
-  void save(@Valid @NonNull final PtrPresenciaEmpleadosTiendaResponseDto src, @Valid @NonNull TareaDto tareaDto);
+  void save(@Valid @NotNull final PtrPresenciaEmpleadosTiendaResponseDto src, @Valid @NotNull TareaDto tareaDto);
 
 }

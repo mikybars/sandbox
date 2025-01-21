@@ -44,9 +44,9 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoReposit
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.apache.commons.lang3.StringUtils;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -94,7 +94,7 @@ public class TrabajoServiceImpl implements TrabajoService {
   private Map<String, Meta4PropertiesDto> meta4Properties;
 
   @Override
-  public TrabajoDTO findByIdWithStates(@NonNull @Positive final Long id) {
+  public TrabajoDTO findByIdWithStates(@NotNull @Positive final Long id) {
 
     final Trabajo trabajoData = this.trabajoRepository.findByIdAndEstadoIdIn(id, AppConstants.ESTADOS_RUN_TRABAJO_OK);
     if (trabajoData == null) {
@@ -112,7 +112,7 @@ public class TrabajoServiceImpl implements TrabajoService {
   }
 
   @Override
-  public TrabajoDTO find(@NonNull @Positive final Long id) {
+  public TrabajoDTO find(@NotNull @Positive final Long id) {
     final TrabajoDTO trabajo = this.trabajoMapper.trabajoToTrabajoDto(this.trabajoRepository.findById(id).get());
     trabajo.setOrigen(this.trabajoAmbitoOrigenService.findByTrabajo(trabajo));
     trabajo.setEmpresa(this.trabajoAmbitoEmpresaService.findByTrabajo(trabajo));
@@ -239,28 +239,28 @@ public class TrabajoServiceImpl implements TrabajoService {
   }
 
   @Override
-  public TrabajoDTO merge(@Valid @NonNull final ProgramacionDTO programacion,
-      @Valid @NonNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NonNull final PeriodoDTO periodo) {
+  public TrabajoDTO merge(@Valid @NotNull final ProgramacionDTO programacion,
+      @Valid @NotNull final ProgramacionAmbitoDTO programacionAmbito, @Valid @NotNull final PeriodoDTO periodo) {
     return this.trabajoMapper.mergeProgramacionAmbitoDtoAndProgramacionDtoAndPeriodoDtoToTrabajoDto(
         programacionAmbito,
         programacion, periodo);
   }
 
   @Override
-  public void updateFechaFin(@NonNull final TrabajoDTO trabajo) {
+  public void updateFechaFin(@NotNull final TrabajoDTO trabajo) {
     this.trabajoRepositoryCustom.updateFechaFin(trabajo);
   }
 
   @Override
-  public void updateEstado(@NonNull final TrabajoDTO trabajo, @NonNull final EstadoTrabajoDTO estado) {
+  public void updateEstado(@NotNull final TrabajoDTO trabajo, @NotNull final EstadoTrabajoDTO estado) {
     trabajo.setEstadoTrabajo(estado);
     this.trabajoRepositoryCustom.updateEstado(trabajo, estado);
   }
 
   @Override
-  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NonNull final TrabajoDTO trabajo,
-      @NonNull final List<String> stdIdLegEnt,
-      @NonNull final List<String> cclIdOrigen) {
+  public List<IdOrigenEmpresaDto> findEmpresasCalcularProgramados(@NotNull final TrabajoDTO trabajo,
+      @NotNull final List<String> stdIdLegEnt,
+      @NotNull final List<String> cclIdOrigen) {
     return this.trabajoRepositoryCustom.findEmpresasCalcularProgramados(trabajo, stdIdLegEnt,
         cclIdOrigen);
   }

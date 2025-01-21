@@ -4,7 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.primary.service.PrimaryService;
 import com.inditex.rrhh.icmclcwb.service.PrimaryApi;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +23,12 @@ public class PrimaryController implements PrimaryApi {
   }
 
   @Override
-  public @NonNull ResponseEntity<Object> changelogDML() {
+  public @NotNull ResponseEntity<Object> changelogDML() {
     return new ResponseEntity<>(this.primaryService.changelogDML(), HttpStatus.OK);
   }
 
   @Override
-  public @NonNull ResponseEntity<Object> changelogDDL() {
+  public @NotNull ResponseEntity<Object> changelogDDL() {
     return new ResponseEntity<>(this.primaryService.changelogDDL(), HttpStatus.OK);
   }
 

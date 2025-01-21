@@ -8,15 +8,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionComisionHistoricoService {
 
   List<TareaLocalizacionComisionHistoricoDto> merge(
-      @Valid @NonNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<GenericTiendaResultItemDto> genericTiendaResultItemDto,
+      @Valid @NotNull final TareaDto tarea);
 
   List<TareaLocalizacionComisionHistoricoDto> save(
-      @Valid @NonNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistorico);
+      @Valid @NotNull @NotEmpty final List<TareaLocalizacionComisionHistoricoDto> tareaLocalizacionComisionHistorico);
 
 }

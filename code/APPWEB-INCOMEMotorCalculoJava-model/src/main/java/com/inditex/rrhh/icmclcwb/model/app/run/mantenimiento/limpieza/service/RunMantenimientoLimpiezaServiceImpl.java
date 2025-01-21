@@ -11,8 +11,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
@@ -20,16 +20,14 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimpiezaService {
 
-  @Autowired
-  private TareaService tareaService;
+  private final TareaService tareaService;
 
-  @Autowired
-  private TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
+  private final TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
 
-  @Autowired
-  private SenderLimpieza senderLimpieza;
+  private final SenderLimpieza senderLimpieza;
 
   @Override
   public RunMantenimientoLimpiezaDTO run() {
@@ -45,7 +43,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
   }
 
   @Override
-  public RunMantenimientoLimpiezaDTO runIdTarea(@NonNull final Long id) {
+  public RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id) {
     final RunMantenimientoLimpiezaDTO result = this.tareaService.findLimpiezaByIdTarea(id);
     final CompletableFuture<List<TareaLimpiezaDto>> future = this.tareaLimpiezaAsyncService
         .save(result.getIdTarea());

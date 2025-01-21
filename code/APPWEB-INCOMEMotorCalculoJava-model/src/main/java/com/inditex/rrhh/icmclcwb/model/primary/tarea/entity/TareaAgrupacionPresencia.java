@@ -16,8 +16,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_PRESENCIA")
@@ -29,17 +29,17 @@ public class TareaAgrupacionPresencia {
   @Column(name = "ID_TAREA_AGRUPACION_PRESENCIA")
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
 
-  @NonNull
+  @NotNull
   @Column(name = "FECHA", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date fecha;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
   private Long icmIdAgrupacionOnline;
 
@@ -51,11 +51,11 @@ public class TareaAgrupacionPresencia {
   @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
   private String cclIdOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "MINUTOS", nullable = false)
   private Integer minutos;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

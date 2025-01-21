@@ -14,18 +14,18 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoLimpiarConsolidarByAmbitoServiceImpl
     implements RunTareaAmbitoLimpiarConsolidarByAmbitoService {
 
-  @Autowired
-  private RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
+  private final RunTareaConsolidarPeriodoAsyncService runTareaConsolidarPeriodoAsyncService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.timer",
@@ -35,7 +35,7 @@ public class RunTareaAmbitoLimpiarConsolidarByAmbitoServiceImpl
       metricGroupName = "RunTareaAmbitoLimpiarConsolidarByAmbitoServiceGroup",
       metricDescription = "RunTareaAmbitoLimpiarConsolidarByAmbitoService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea, @NonNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea, @NotNull @Valid final TareaAmbitoDto tareaAmbitoDto) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<Void> cfPeriodo = this.runTareaConsolidarPeriodoAsyncService

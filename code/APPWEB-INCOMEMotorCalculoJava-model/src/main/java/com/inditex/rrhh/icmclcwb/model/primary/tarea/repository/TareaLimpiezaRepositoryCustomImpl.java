@@ -6,8 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
 
   @Override
   public void updateFechaFinalizacion(
-      @NonNull @Positive final Long idTareaLimpieza) {
+      @NotNull @Positive final Long idTareaLimpieza) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_FIN, TimeUtils.nowDate());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
@@ -42,7 +42,7 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
 
   @Override
   public void inicioLimpieza(
-      @NonNull @Positive final Long idTareaLimpieza) {
+      @NotNull @Positive final Long idTareaLimpieza) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_FECHA_HORA_INICIO, TimeUtils.nowDate());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);
@@ -52,8 +52,8 @@ public class TareaLimpiezaRepositoryCustomImpl implements TareaLimpiezaRepositor
 
   @Override
   public void updateEstado(
-      @NonNull @Positive final Long idTareaLimpieza,
-      @NonNull @Valid final EstadoLimpiezaDto estado) {
+      @NotNull @Positive final Long idTareaLimpieza,
+      @NotNull @Valid final EstadoLimpiezaDto estado) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_ESTADO_LIMPIEZA, estado.getId());
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA_LIMPIEZA, idTareaLimpieza);

@@ -5,11 +5,11 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.dto;
  */
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
@@ -26,7 +26,7 @@ public class MailAmbitoDto {
   @NotBlank
   private String mail;
 
-  @NonNull
+  @NotNull
   private Boolean esActivo;
 
 }

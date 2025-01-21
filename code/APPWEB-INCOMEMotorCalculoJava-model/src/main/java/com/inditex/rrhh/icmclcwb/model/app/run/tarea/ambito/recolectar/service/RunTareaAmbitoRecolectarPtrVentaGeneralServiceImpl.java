@@ -1,7 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -44,58 +44,44 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaGeneralService {
 
-  @Autowired
-  @Qualifier("ventaGeneralProperties")
-  protected Map<String, PtrPropertiesDto> ventaGeneralProperties;
+  protected final Map<String, PtrPropertiesDto> ventaGeneralProperties;
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
-  @Autowired
-  @Qualifier("recolectarProperties")
-  private RecolectarPropertiesDto recolectarProperties;
+  private final RecolectarPropertiesDto recolectarProperties;
 
-  @Autowired
-  private PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
+  private final PtrVentaGeneralAsyncService ptrVentaGeneralAsyncService;
 
-  @Autowired
-  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
+  private final TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
+  private final TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
 
-  @Autowired
-  private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
+  private final TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoVentaAsyncService tareaLocalizacionPresupuestoVentaAsyncService;
+  private final TareaLocalizacionPresupuestoVentaAsyncService tareaLocalizacionPresupuestoVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
   @Override
   public void ventaFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -151,7 +137,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void ventaFisicaCadenaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -205,7 +191,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void ventaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -218,7 +204,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
           .collect(Collectors.toList());
       for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
           .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId(),
-              Arrays.asList(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()))) {
+              Collections.singletonList(TipoVentaConceptoChallengeEnum.VENTA_CAJA.getId()))) {
         final PtrVentaTotalizadoRequestDto request = this.tareaMapper
             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
                 trabajo, tarea,
@@ -264,7 +250,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
 
   @Override
   public void devolucionRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -277,7 +263,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
           .collect(Collectors.toList());
       for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
           .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId(),
-              Arrays.asList(
+              Collections.singletonList(
                   TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()))) {
         final PtrVentaTotalizadoRequestDto request = this.tareaMapper
             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
@@ -325,7 +311,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
   @Override
   public void devolucionVentaOriginalOtraTiendaRangoFisicaLocalizacionSeccionByRunTareaAndTareaAmbito(
       @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
@@ -338,7 +324,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
           .collect(Collectors.toList());
       for (final IdLocalizacionLocalPresupuestoDto iter : this.tareaLocalizacionHistoricoService
           .findTiendasPresupuestosByStdIdLegEntAndIdTarea(empresasAmbito, tarea.getId(),
-              Arrays.asList(
+              Collections.singletonList(
                   TipoVentaConceptoChallengeEnum.DEVOLUCIONES_OTRAS_TIENDAS.getId()))) {
         final PtrVentaTotalizadoRequestDto request = this.tareaMapper
             .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoAndIdLocalizacionLocalPresupuestoDtoToPtrVentaTotalizadoRequestDto(
@@ -386,7 +372,7 @@ public class RunTareaAmbitoRecolectarPtrVentaGeneralServiceImpl
   @Override
   public void ventaFisicaLocalizacionSeccionRepartoOnlineByRunTareaAndTareaAmbito(
       @Valid final RunTareaDto runTarea,
-      @NonNull @Valid final TareaAmbitoDto tareaAmbito) {
+      @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {

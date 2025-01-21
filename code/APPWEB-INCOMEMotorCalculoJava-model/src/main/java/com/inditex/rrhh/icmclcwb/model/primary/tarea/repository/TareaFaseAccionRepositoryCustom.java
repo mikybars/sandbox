@@ -7,8 +7,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
 
 public interface TareaFaseAccionRepositoryCustom {
 
@@ -29,7 +29,7 @@ public interface TareaFaseAccionRepositoryCustom {
    * @return Some javadoc.
    */
   List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
-      @NonNull @Positive Long idTarea, @NonNull Integer idFase, @NonNull Integer idPuntoEjecucion);
+      @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
   /**
    * Some javadoc.
@@ -39,15 +39,15 @@ public interface TareaFaseAccionRepositoryCustom {
    * @param idPuntoEjecucion Some javadoc.
    * @return Some javadoc.
    */
-  List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NonNull @Positive Long idTarea,
-      @NonNull Integer idFase, @NonNull Integer idPuntoEjecucion);
+  List<Long> findValidacionPesoByIdTareaAndIdFaseAndIdPuntoEjecucion(@NotNull @Positive Long idTarea,
+      @NotNull Integer idFase, @NotNull Integer idPuntoEjecucion);
 
   /**
    * Some javadoc.
    *
    * @param tareaFaseAccionDto Some javadoc.
    */
-  void updateFechaInicio(@NonNull TareaFaseAccionDto tareaFaseAccionDto);
+  void updateFechaInicio(@NotNull TareaFaseAccionDto tareaFaseAccionDto);
 
   /**
    * Some javadoc.
@@ -55,8 +55,8 @@ public interface TareaFaseAccionRepositoryCustom {
    * @param tareaFaseAccionDto Some javadoc.
    * @param estadoTareaFaseAccionDto Some javadoc.
    */
-  void updateFechaFinAndEstado(@NonNull TareaFaseAccionDto tareaFaseAccionDto,
-      @NonNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
+  void updateFechaFinAndEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+      @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
   /**
    * Some javadoc.
@@ -65,9 +65,9 @@ public interface TareaFaseAccionRepositoryCustom {
    * @param estadoTareaFaseAccionActualDto Some javadoc.
    * @param estadoTareaFaseAccionDto Some javadoc.
    */
-  void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NonNull TareaFaseDto tareaFaseDto,
-      @NonNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
-      @NonNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
+  void updateFechaInicioFechaFinAndEstadoAndActivoByIdTareaAndEstadoActual(@NotNull TareaFaseDto tareaFaseDto,
+      @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionActualDto,
+      @NotNull EstadoTareaFaseAccionDto estadoTareaFaseAccionDto);
 
   /**
    * Some javadoc.
@@ -79,8 +79,8 @@ public interface TareaFaseAccionRepositoryCustom {
    * @return Some javadoc.
    */
   List<TareaFaseAccionDto> findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdAccionAndIdPuntoEjecucion(
-      @NonNull @Positive Long idTarea, @NonNull Integer idFase, @NonNull Integer idAccion,
-      @NonNull Integer idPuntoEjecucion);
+      @NotNull @Positive Long idTarea, @NotNull Integer idFase, @NotNull Integer idAccion,
+      @NotNull Integer idPuntoEjecucion);
 
   /**
    * Some javadoc.
@@ -89,8 +89,8 @@ public interface TareaFaseAccionRepositoryCustom {
    * @param tareaFaseDto Some javadoc.
    * @return Some javadoc.
    */
-  Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NonNull TareaFaseAccionDto tareaFaseAccionDto,
-      @NonNull TareaFaseDto tareaFaseDto);
+  Integer countReintentosByIdTareaAndIdAccionAndIdEstado(@NotNull TareaFaseAccionDto tareaFaseAccionDto,
+      @NotNull TareaFaseDto tareaFaseDto);
 
   /**
    * Some javadoc.
@@ -98,6 +98,6 @@ public interface TareaFaseAccionRepositoryCustom {
    * @param idTareaFaseAccion Some javadoc.
    * @return Some javadoc.
    */
-  TareaFaseAccionDto findById(@NonNull @Positive Long idTareaFaseAccion);
+  TareaFaseAccionDto findById(@NotNull @Positive Long idTareaFaseAccion);
 
 }

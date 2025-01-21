@@ -10,44 +10,42 @@ import com.inditex.rrhh.icmclcwb.model.app.util.OptionalUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoAjusteRepositoryCustom;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class AlgoritmoAjusteServiceImpl implements AlgoritmoAjusteService {
 
-  @Autowired
-  private AlgoritmoAjusteRepositoryCustom algoritmoAjusteRepositoryCustom;
+  private final AlgoritmoAjusteRepositoryCustom algoritmoAjusteRepositoryCustom;
 
-  @Autowired
-  private AlgoritmoAjusteRepository algoritmoAjusteRepository;
+  private final AlgoritmoAjusteRepository algoritmoAjusteRepository;
 
-  @Autowired
-  private AlgoritmoAjusteMapper algoritmoAjusteMapper;
+  private final AlgoritmoAjusteMapper algoritmoAjusteMapper;
 
   @Override
-  public List<Long> customFindAjustePesosByTarea(@NonNull @Positive final Long id) {
+  public List<Long> customFindAjustePesosByTarea(@NotNull @Positive final Long id) {
     return this.algoritmoAjusteRepositoryCustom.customFindAjustePesosByTarea(id);
   }
 
   @Override
-  public List<Integer> customFindAjusteIdsByTareaAndPeso(@NonNull @Positive final Long idTarea,
-      @NonNull @Positive final Long peso) {
+  public List<Integer> customFindAjusteIdsByTareaAndPeso(@NotNull @Positive final Long idTarea,
+      @NotNull @Positive final Long peso) {
     return this.algoritmoAjusteRepositoryCustom.customFindAjusteIdsByTareaAndPeso(idTarea, peso);
   }
 
   @Override
-  public AlgoritmoAjusteDto findById(@NonNull @Positive final Integer id) {
+  public AlgoritmoAjusteDto findById(@NotNull @Positive final Integer id) {
     return this.algoritmoAjusteMapper
         .algoritmoAjusteToAlgoritmoAjusteDto(OptionalUtils.get(this.algoritmoAjusteRepository.findById(id)));
   }
 
   @Override
-  public List<AlgoritmoAjusteDto> findByPeso(@NonNull @Positive final Long id) {
+  public List<AlgoritmoAjusteDto> findByPeso(@NotNull @Positive final Long id) {
     return this.algoritmoAjusteMapper
         .algoritmoAjusteToAlgoritmoAjusteDto(
             OptionalUtils.get(this.algoritmoAjusteRepository.findByPeso(id), new ArrayList<>()));

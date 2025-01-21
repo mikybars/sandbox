@@ -13,40 +13,35 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunServiceImpl implements RunService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunServiceImpl.class);
 
-  @Autowired
-  private RunTrabajoService runTrabajoService;
+  private final RunTrabajoService runTrabajoService;
 
-  @Autowired
-  private TrabajoService trabajoService;
+  private final TrabajoService trabajoService;
 
-  @Autowired
-  private RunTareaService runTareaService;
+  private final RunTareaService runTareaService;
 
-  @Autowired
-  private TareaService tareaService;
+  private final TareaService tareaService;
 
-  @Autowired
-  private RunLimpiezaService runLimpiezaService;
+  private final RunLimpiezaService runLimpiezaService;
 
-  @Autowired
-  private RunProgramacionService runProgramacionService;
+  private final RunProgramacionService runProgramacionService;
 
   @Override
-  public void runTrabajo(@NonNull @Positive final Long id) {
+  public void runTrabajo(@NotNull @Positive final Long id) {
     final TrabajoDTO trabajo = this.trabajoService.findByIdWithStates(id);
 
     if (trabajo != null) {
@@ -57,7 +52,7 @@ public class RunServiceImpl implements RunService {
   }
 
   @Override
-  public void runTarea(@NonNull @Positive final Long id) {
+  public void runTarea(@NotNull @Positive final Long id) {
     final TareaDto tarea = this.tareaService.findByIdWithStates(id);
 
     if (tarea != null) {
@@ -70,13 +65,13 @@ public class RunServiceImpl implements RunService {
   }
 
   @Override
-  public void runLimpieza(@NonNull @Positive final Long id) {
+  public void runLimpieza(@NotNull @Positive final Long id) {
     this.runLimpiezaService
         .run(RunLimpiezaDto.builder().id(id).tarea(this.tareaService.findByIdLimpieza(id)).build());
   }
 
   @Override
-  public void runProgramacion(@NonNull @Positive final Long id) {
+  public void runProgramacion(@NotNull @Positive final Long id) {
     this.runProgramacionService.run(id);
   }
 

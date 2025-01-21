@@ -16,10 +16,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_LOCALIZACION_PRESUPUESTO")
@@ -47,27 +47,27 @@ public class TareaLocalizacionPresupuesto extends CommonFieldsTaskEntity {
   @Column(name = "CCL_ID_SECCION", nullable = false, length = 48)
   private String cclIdSeccion;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_SIN_IMPUESTOS", nullable = false)
   private Double importeSinImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "IMPORTE_CON_IMPUESTOS", nullable = false)
   private Double importeConImpuestos;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_BANDA", nullable = false)
   private Integer banda;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ORDINAL", nullable = false)
   private Integer ordinal;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_CK_EXCEPCION")
   private Boolean excepcion;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ACTIVO", nullable = false)
   private Boolean activo;
 

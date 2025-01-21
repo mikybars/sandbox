@@ -13,17 +13,17 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarPre
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPreAmbitoServiceImpl implements RunTareaRecolectarPreAmbitoService {
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarPreAmbitoService.run.timer",
@@ -33,7 +33,7 @@ public class RunTareaRecolectarPreAmbitoServiceImpl implements RunTareaRecolecta
       metricGroupName = "RunTareaRecolectarPreAmbitoServiceGroup",
       metricDescription = "RunTareaRecolectarPreAmbitoService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
 

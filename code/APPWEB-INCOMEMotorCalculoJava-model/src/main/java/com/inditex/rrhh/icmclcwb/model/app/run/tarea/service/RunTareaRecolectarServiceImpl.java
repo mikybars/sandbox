@@ -15,29 +15,25 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService {
 
-  @Autowired
-  private RunTareaRecolectarPreAmbitoService runTareaRecolectarPreAmbitoService;
+  private final RunTareaRecolectarPreAmbitoService runTareaRecolectarPreAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
+  private final RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
+  private final RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
 
-  @Autowired
-  private RunTareaRecolectarCondicionesBaseService runTareaRecolectarCondicionesBaseService;
+  private final RunTareaRecolectarCondicionesBaseService runTareaRecolectarCondicionesBaseService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
   @Auditoria
   @Validation(fase = 1)
@@ -48,7 +44,7 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
       metricGroupName = "RunTareaRecolectarServiceGroup",
       metricDescription = "RunTareaRecolectarService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     this.tareaFaseService.updateFechaInicio(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.RECOLECTAR.getId()));

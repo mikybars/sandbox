@@ -5,8 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TIPO_VENTA")
@@ -25,11 +25,11 @@ public class TipoVenta {
   @Column(name = "DESCRIPCION", length = /* TAMANO_DESC */ 255, nullable = false)
   private String descripcion;
 
-  @NonNull
+  @NotNull
   @Column(name = "PESO", nullable = false)
   private Integer peso;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_ONLINE", nullable = false)
   private Boolean online;
 

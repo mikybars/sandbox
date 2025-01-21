@@ -11,8 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Table(name = "TAREA_AGRUPACION_CADENA")
@@ -24,7 +24,7 @@ public class TareaAgrupacionCadena {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NonNull
+  @NotNull
   @OneToOne
   @JoinColumn(name = "ID_TAREA", nullable = false)
   private Tarea tarea;
@@ -33,7 +33,7 @@ public class TareaAgrupacionCadena {
   @Column(name = "CCL_ID_ORIGEN", nullable = false, length = 48)
   private String cclIdOrigen;
 
-  @NonNull
+  @NotNull
   @Column(name = "ICM_ID_AGRUPACION_ONLINE", nullable = false)
   private Long icmIdAgrupacionOnline;
 
@@ -41,7 +41,7 @@ public class TareaAgrupacionCadena {
   @Column(name = "CCL_ID_CADENA", nullable = false, length = 48)
   private String cclIdCadena;
 
-  @NonNull
+  @NotNull
   @Column(name = "ES_MULTIPLE", nullable = false)
   private Boolean multiple;
 

@@ -3,20 +3,20 @@ package com.inditex.rrhh.icmclcwb.api.app.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.jspecify.annotations.NonNull;
 
 @Data
 @Builder
 @AllArgsConstructor
 public class FechaAmbitoDto implements Serializable {
 
-  @NonNull
+  @NotNull
   private LocalDate fechaInicio;
 
-  @NonNull
+  @NotNull
   private LocalDate fechaFin;
 
 }

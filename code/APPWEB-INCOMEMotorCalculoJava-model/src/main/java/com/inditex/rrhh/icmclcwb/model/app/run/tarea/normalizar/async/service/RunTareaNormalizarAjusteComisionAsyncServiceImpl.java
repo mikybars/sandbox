@@ -10,15 +10,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.normalizar.service.RunTareaNo
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaNormalizarAjusteComisionAsyncServiceImpl implements
     RunTareaNormalizarAjusteComisionAsyncService {
 
-  @Autowired
-  private RunTareaNormalizarAjusteComisionService runTareaNormalizarAjusteComisionService;
+  private final RunTareaNormalizarAjusteComisionService runTareaNormalizarAjusteComisionService;
 
   @Override
   public CompletableFuture<Void> normalizarAjusteComision(

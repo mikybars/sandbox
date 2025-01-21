@@ -8,32 +8,30 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.AlgoritmoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.AlgoritmoRepositoryCustom;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class AlgoritmoServiceImpl implements AlgoritmoService {
 
-  @Autowired
-  private AlgoritmoRepository algoritmoRepository;
+  private final AlgoritmoRepository algoritmoRepository;
 
-  @Autowired
-  private AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
+  private final AlgoritmoRepositoryCustom algoritmoRepositoryCustom;
 
-  @Autowired
-  private AlgoritmoMapper algoritmoMapper;
+  private final AlgoritmoMapper algoritmoMapper;
 
   @Override
-  public List<Integer> customFindAlgoritmosIdsByTarea(@NonNull @Positive final Long id) {
+  public List<Integer> customFindAlgoritmosIdsByTarea(@NotNull @Positive final Long id) {
     return this.algoritmoRepositoryCustom.customFindAlgoritmosIdsByTarea(id);
   }
 
   @Override
-  public AlgoritmoDTO findById(@NonNull @Positive final Integer id) {
+  public AlgoritmoDTO findById(@NotNull @Positive final Integer id) {
     return this.algoritmoMapper.algoritmoToAlgoritmoDTO(this.algoritmoRepository.findById(id).get());
   }
 

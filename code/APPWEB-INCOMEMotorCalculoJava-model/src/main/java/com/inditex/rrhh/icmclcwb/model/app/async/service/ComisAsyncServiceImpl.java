@@ -19,15 +19,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ComisAsyncServiceImpl implements ComisAsyncService {
 
-  @Autowired
-  private ComisService comisService;
+  private final ComisService comisService;
 
   @Override
   public CompletableFuture<List<IdMotivoDesplazamientoDto>> findMotivoDesplazamiento(
@@ -196,13 +196,13 @@ public class ComisAsyncServiceImpl implements ComisAsyncService {
 
   @Override
   public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonas(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NonNull final Long maxIdPersona) {
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona) {
     return CompletableFuture.completedFuture(this.comisService.findPersonas(runTareaDto, tareaAmbito, maxIdPersona));
   }
 
   @Override
   public CompletableFuture<List<IdPersonaLocalLocalizacionDto>> findPersonasSil(
-      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NonNull final Long maxIdPersona,
+      @Valid final RunTareaDto runTareaDto, @Valid final TareaAmbitoDto tareaAmbito, @NotNull final Long maxIdPersona,
       @Valid final ClaseResultItemDto clase) {
     return CompletableFuture.completedFuture(this.comisService.findPersonasSil(runTareaDto, tareaAmbito, maxIdPersona, clase));
   }

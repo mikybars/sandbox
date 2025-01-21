@@ -8,11 +8,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaLocalizacionOnlineHistoricoService {
 
-  List<LocalizacionOnlineDto> save(@Valid @NonNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  List<LocalizacionOnlineDto> save(@Valid @NotNull @NotEmpty final List<TiendaOnlineResultItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
 }

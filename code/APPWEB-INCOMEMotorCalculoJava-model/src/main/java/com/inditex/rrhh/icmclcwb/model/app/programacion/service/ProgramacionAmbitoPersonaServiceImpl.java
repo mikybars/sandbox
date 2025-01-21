@@ -10,25 +10,24 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoPersonaService {
 
-  @Autowired
-  private ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
+  private final ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
 
-  @Autowired
-  private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
+  private final ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
 
   @Override
   public List<ProgramacionAmbitoPersonaDTO> create(
-      @Valid @NonNull @NotEmpty final List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersona,
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoPersonaDTO> programacionAmbitoPersona,
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
         this.programacionAmbitoPersonaRepository.saveAll(this.programacionAmbitoPersonaMapper
             .mergeProgramacionAmbitoPersonaDtoAndProgramacionDtoToProgramacionAmbitoPersona(
@@ -37,7 +36,7 @@ public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoP
 
   @Override
   public List<ProgramacionAmbitoPersonaDTO> findByProgramacionAmbito(
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoPersonaMapper.programacionAmbitoPersonaToProgramacionAmbitoPersonaDto(
         this.programacionAmbitoPersonaRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
   }

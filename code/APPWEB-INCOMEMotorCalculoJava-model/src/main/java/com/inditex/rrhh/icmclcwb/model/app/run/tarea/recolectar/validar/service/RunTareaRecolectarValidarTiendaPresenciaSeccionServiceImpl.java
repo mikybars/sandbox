@@ -12,25 +12,25 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPresencia;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarValidarTiendaPresenciaSeccionServiceImpl
     implements RunTareaRecolectarValidarTiendaPresenciaSeccionService {
 
-  @Autowired
-  private TareaValidarAsyncService tareaValidarAsyncService;
+  private final TareaValidarAsyncService tareaValidarAsyncService;
 
   @Override
-  public List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea) {
-    List<RunTareaValidarDto> result = new ArrayList<>();
-    List<CompletableFuture<?>> cf = new ArrayList<>();
+  public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
+    final List<RunTareaValidarDto> result = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
-      CompletableFuture<Integer> cfCountPresenciaSeccion = tareaValidarAsyncService
+      final CompletableFuture<Integer> cfCountPresenciaSeccion = this.tareaValidarAsyncService
           .countTiendaPresenciaSeccion(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfCountPresenciaSeccion, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);

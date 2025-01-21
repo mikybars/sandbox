@@ -17,36 +17,31 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.ProgramacionAmbitoRepository;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService {
 
-  @Autowired
-  private ProgramacionAmbitoRepository programacionAmbitoRepository;
+  private final ProgramacionAmbitoRepository programacionAmbitoRepository;
 
-  @Autowired
-  private ProgramacionAmbitoMapper programacionAmbitoMapper;
+  private final ProgramacionAmbitoMapper programacionAmbitoMapper;
 
-  @Autowired
-  private ProgramacionAmbitoOrigenService programacionAmbitoOrigenService;
+  private final ProgramacionAmbitoOrigenService programacionAmbitoOrigenService;
 
-  @Autowired
-  private ProgramacionAmbitoEmpresaService programacionAmbitoEmpresaService;
+  private final ProgramacionAmbitoEmpresaService programacionAmbitoEmpresaService;
 
-  @Autowired
-  private ProgramacionAmbitoLocalizacionService programacionAmbitoLocalizacionService;
+  private final ProgramacionAmbitoLocalizacionService programacionAmbitoLocalizacionService;
 
-  @Autowired
-  private ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
+  private final ProgramacionAmbitoPersonaService programacionAmbitoPersonaService;
 
   @Override
-  public List<ProgramacionAmbitoDTO> create(@Valid @NonNull final List<ProgramacionAmbitoDTO> programacionAmbito,
-      @NonNull final ProgramacionDTO programacion) {
+  public List<ProgramacionAmbitoDTO> create(@Valid @NotNull final List<ProgramacionAmbitoDTO> programacionAmbito,
+      @NotNull final ProgramacionDTO programacion) {
     final List<ProgramacionAmbitoDTO> result = new ArrayList<>();
     programacionAmbito.forEach(item -> {
       final ProgramacionAmbitoDTO programacionAmbitoResult = this.programacionAmbitoMapper
@@ -84,7 +79,7 @@ public class ProgramacionAmbitoServiceImpl implements ProgramacionAmbitoService 
   }
 
   @Override
-  public List<ProgramacionAmbitoDTO> findByProgramacion(@NonNull final ProgramacionDTO programacion) {
+  public List<ProgramacionAmbitoDTO> findByProgramacion(@NotNull final ProgramacionDTO programacion) {
     final List<ProgramacionAmbitoDTO> result = this.programacionAmbitoMapper
         .programacionAmbitoToProgramacionAmbitoDto(
             this.programacionAmbitoRepository.findByProgramacionId(programacion.getId()));

@@ -27,59 +27,45 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaServiceImpl implements RunTareaService {
 
-  @Autowired
-  private TareaService tareaService;
+  private final TareaService tareaService;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+  private final TareaCalculoPersonaService tareaCalculoPersonaService;
 
-  @Autowired
-  private RunTareaRecolectarService runTareaRecolectarService;
+  private final RunTareaRecolectarService runTareaRecolectarService;
 
-  @Autowired
-  private RunTareaProcesarService runTareaProcesarService;
+  private final RunTareaProcesarService runTareaProcesarService;
 
-  @Autowired
-  private RunTareaCalcularService runTareaCalcularService;
+  private final RunTareaCalcularService runTareaCalcularService;
 
-  @Autowired
-  private RunTareaConsolidarService runTareaConsolidarService;
+  private final RunTareaConsolidarService runTareaConsolidarService;
 
-  @Autowired
-  private RunTareaRecolectarValidarService runTareaRecolectarValidarService;
+  private final RunTareaRecolectarValidarService runTareaRecolectarValidarService;
 
-  @Autowired
-  private RunTareaRegularizarService runTareaRegularizarService;
+  private final RunTareaRegularizarService runTareaRegularizarService;
 
-  @Autowired
-  private RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
+  private final RunTareaRegularizarChallengeService runTareaRegularizarChallengeService;
 
-  @Autowired
-  private RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
+  private final RunTareaLimpiarConsolidarByAmbitoService runTareaLimpiarConsolidarByAmbitoService;
 
-  @Autowired
-  private RunTareaAjustarService runTareaAjustarService;
+  private final RunTareaAjustarService runTareaAjustarService;
 
-  @Autowired
-  private RunTareaNormalizarService runTareaNormalizarService;
+  private final RunTareaNormalizarService runTareaNormalizarService;
 
-  @Autowired
-  private RunTareaMigrarService runTareaMigrarService;
+  private final TareaFaseService tareaFaseService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final RunTareaMigrarService runTareaMigrarService;
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
@@ -87,7 +73,7 @@ public class RunTareaServiceImpl implements RunTareaService {
   @CounterFunctionalMetric(metricName = "RunTareaService.run.counter", metricGroupName = "RunTareaServiceGroup",
       metricDescription = "RunTareaService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     try {
       if (runTarea.getTarea().getFechaHoraInicioTarea() != null) {
         this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.EN_CURSO.getDto());

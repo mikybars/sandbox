@@ -12,20 +12,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoAusencia;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoAusenciaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoAusenciaServiceImpl implements TipoAusenciaService {
 
-  @Autowired
-  private TipoAusenciaMapper tipoAusenciaMapper;
+  private final TipoAusenciaMapper tipoAusenciaMapper;
 
-  @Autowired
-  private TipoAusenciaRepository tipoAusenciaRepository;
+  private final TipoAusenciaRepository tipoAusenciaRepository;
 
   @Override
   @Cacheable(value = TIPO_AUSENCIA_BY_ICM_TP_ABSENCE, key = "#icmTpAbsence")

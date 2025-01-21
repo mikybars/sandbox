@@ -13,28 +13,28 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionHistorico;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarValidarLocalizacionHistoricoServiceImpl
     implements RunTareaRecolectarValidarLocalizacionHistoricoService {
 
-  @Autowired
-  private TareaValidarAsyncService tareaValidarAsyncService;
+  private final TareaValidarAsyncService tareaValidarAsyncService;
 
   @Override
-  public List<RunTareaValidarDto> run(@NonNull @Valid final RunTareaDto runTarea) {
-    List<RunTareaValidarDto> result = new ArrayList<>();
-    List<CompletableFuture<?>> cf = new ArrayList<>();
+  public List<RunTareaValidarDto> run(@NotNull @Valid final RunTareaDto runTarea) {
+    final List<RunTareaValidarDto> result = new ArrayList<>();
+    final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
-      CompletableFuture<Integer> cfCountLocalizacionHistorico = tareaValidarAsyncService
+      final CompletableFuture<Integer> cfCountLocalizacionHistorico = this.tareaValidarAsyncService
           .countTiendasHistorico(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfCountLocalizacionHistorico, cf);
-      CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = tareaValidarAsyncService
+      final CompletableFuture<List<String>> cfDuplicatedLocalizacionHistorico = this.tareaValidarAsyncService
           .checkDuplicatedTiendasHistorico(runTarea.getTarea().getId());
       AsyncUtils.exceptionally(cfDuplicatedLocalizacionHistorico, cf);
       AsyncUtils.waitAllOfIsOk(cf, cf);

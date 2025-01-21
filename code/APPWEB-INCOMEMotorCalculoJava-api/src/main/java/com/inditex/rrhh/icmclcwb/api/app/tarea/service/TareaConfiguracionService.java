@@ -7,11 +7,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public interface TareaConfiguracionService {
 
-  void save(@Valid @NonNull @NotEmpty final List<ConfiguracionItemDto> src,
-      @Valid @NonNull final TareaDto tarea);
+  void save(@Valid @NotNull @NotEmpty final List<ConfiguracionItemDto> src,
+      @Valid @NotNull final TareaDto tarea);
 
 }

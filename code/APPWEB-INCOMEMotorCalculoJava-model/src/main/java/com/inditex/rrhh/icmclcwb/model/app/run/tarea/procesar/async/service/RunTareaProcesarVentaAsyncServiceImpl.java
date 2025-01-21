@@ -7,14 +7,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTar
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarVentaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaProcesarVentaAsyncServiceImpl implements RunTareaProcesarVentaAsyncService {
 
-  @Autowired
-  private RunTareaProcesarVentaService tareaProcesarVentaService;
+  private final RunTareaProcesarVentaService tareaProcesarVentaService;
 
   @Override
   public CompletableFuture<Void> saveAbierto(final RunTareaDto runTarea) {

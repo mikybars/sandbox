@@ -23,38 +23,31 @@ import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAmbitoService {
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
+  private final RunTareaRecolectarByAmbitoService runTareaRecolectarByAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
+  private final RunTareaRecolectarByAmbitoLocalizacionService runTareaRecolectarByAmbitoLocalizacionService;
 
-  @Autowired
-  private RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
+  private final RunTareaRecolectarByAmbitoPersonaService runTareaRecolectarByAmbitoPersonaService;
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+  private final RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
-  @Autowired
-  private TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
+  private final TareaAmbitoGlobalPersonaAsyncService tareaAmbitoGlobalPersonaAsyncService;
 
-  @Autowired
-  private TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
+  private final TareaAmbitoGlobalLocalizacionAsyncService tareaAmbitoGlobalLocalizacionAsyncService;
 
-  @Autowired
-  private TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
+  private final TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.timer",
@@ -64,7 +57,7 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
       metricGroupName = "RunTareaRecolectarAmbitoServiceGroup",
       metricDescription = "RunTareaRecolectarAmbitoService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final TrabajoDTO trabajo = runTarea.getTrabajo();

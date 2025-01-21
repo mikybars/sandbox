@@ -10,25 +10,24 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class ProgramacionAmbitoOrigenServiceImpl implements ProgramacionAmbitoOrigenService {
 
-  @Autowired
-  private ProgramacionAmbitoOrigenRepository programacionAmbitoOrigenRepository;
+  private final ProgramacionAmbitoOrigenRepository programacionAmbitoOrigenRepository;
 
-  @Autowired
-  private ProgramacionAmbitoOrigenMapper programacionAmbitoOrigenMapper;
+  private final ProgramacionAmbitoOrigenMapper programacionAmbitoOrigenMapper;
 
   @Override
   public List<ProgramacionAmbitoOrigenDTO> create(
-      @Valid @NonNull @NotEmpty final List<ProgramacionAmbitoOrigenDTO> programacionAmbitoOrigen,
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @Valid @NotNull @NotEmpty final List<ProgramacionAmbitoOrigenDTO> programacionAmbitoOrigen,
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoOrigenMapper.programacionAmbitoOrigenToProgramacionAmbitoOrigenDto(
         this.programacionAmbitoOrigenRepository.saveAll(this.programacionAmbitoOrigenMapper
             .mergeProgramacionAmbitoOrigenDtoAndProgramacionDtoToProgramacionAmbitoOrigen(
@@ -37,7 +36,7 @@ public class ProgramacionAmbitoOrigenServiceImpl implements ProgramacionAmbitoOr
 
   @Override
   public List<ProgramacionAmbitoOrigenDTO> findByProgramacionAmbito(
-      @NonNull final ProgramacionAmbitoDTO programacionAmbito) {
+      @NotNull final ProgramacionAmbitoDTO programacionAmbito) {
     return this.programacionAmbitoOrigenMapper.programacionAmbitoOrigenToProgramacionAmbitoOrigenDto(
         this.programacionAmbitoOrigenRepository.findByProgramacionAmbitoId(programacionAmbito.getId()));
   }

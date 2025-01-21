@@ -21,35 +21,29 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
-import org.jspecify.annotations.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolectarCondicionesService {
 
-  @Autowired
-  private RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
+  private final RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaGeneralAsyncService;
+  private final RunTareaRecolectarPtrVentaGeneralAsyncService runTareaRecolectarPtrVentaGeneralAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrVentaEcommerceAsyncService runTareaRecolectarPtrVentaEcommerceAsyncService;
+  private final RunTareaRecolectarPtrVentaEcommerceAsyncService runTareaRecolectarPtrVentaEcommerceAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
+  private final RunTareaRecolectarPtrPresenciaAsyncService runTareaRecolectarPtrPresenciaAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
+  private final RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
-  @Autowired
-  private RunTareaRecolectarSlrhorcomsAsyncService runTareaRecolectarSlrhorcomsAsyncService;
+  private final RunTareaRecolectarSlrhorcomsAsyncService runTareaRecolectarSlrhorcomsAsyncService;
 
-  @Autowired
-  private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
+  private final RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarCondicionesService.run.timer",
@@ -59,7 +53,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
       metricGroupName = "RunTareaRecolectarCondicionesServiceGroup",
       metricDescription = "RunTareaRecolectarCondicionesService.run.counter")
   @Override
-  public void run(@NonNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfWait = new ArrayList<>();
     try {
