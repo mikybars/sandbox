@@ -13,6 +13,6 @@ public interface IncomeMetaService {
 
   List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(@NotNull ExternosRequestDTO request);
 
-  List<EmpleadoDTO> searchEmpleados(@NonNull SearchEmpleadosRequestDto reqeust);
+  List<EmpleadoDTO> searchEmpleados(@NotNull SearchEmpleadosRequestDto reqeust);
 
 }

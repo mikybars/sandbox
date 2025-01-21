@@ -23,8 +23,8 @@ public interface TareaPersonaHistoricoService {
       @Valid @NotNull final TareaDto tarea);
 
   List<TareaPersonaHistoricoDto> mergeEmpleadoDtos(
-      @Valid @NonNull @NotEmpty final List<EmpleadoDTO> genericEmpleadoResultItemDto,
-      @Valid @NonNull final TareaDto tarea);
+      @Valid @NotNull @NotEmpty final List<EmpleadoDTO> genericEmpleadoResultItemDto,
+      @Valid @NotNull final TareaDto tarea);
 
   List<TareaPersonaHistoricoDto> save(
       @Valid @NotNull @NotEmpty final List<TareaPersonaHistoricoDto> tareaEmpleadoHistorico);
