@@ -64,8 +64,8 @@ public class TareaPersonaHistoricoServiceImpl implements TareaPersonaHistoricoSe
 
   @Override
   public List<TareaPersonaHistoricoDto> mergeEmpleadoDtos(
-      @Valid @NonNull @NotEmpty final List<EmpleadoDTO> empleadoDTOList,
-      @Valid @NonNull final TareaDto tarea) {
+      @Valid @NotNull @NotEmpty final List<EmpleadoDTO> empleadoDTOList,
+      @Valid @NotNull final TareaDto tarea) {
     return this.tareaPersonaHistoricoMapper
         .empleadoDtoToTareaPersonaHistoricoDto(empleadoDTOList, tarea);
   }
