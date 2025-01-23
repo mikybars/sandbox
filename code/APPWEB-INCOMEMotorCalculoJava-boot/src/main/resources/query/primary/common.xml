@@ -9248,7 +9248,6 @@ INSERT INTO SESSION.PRESUPUESTO (
                 TPEDR.FECHA_INICIO,
                 TPEDR.FECHA_FIN,
                 TPED.ID_TIPO_OPCION_CALCULO_EFECTIVA,
-                TPE.ICM_ID_TP_CALCULO,
                 SUM(TC.IMPORTE) IMPORTE,
                 ROW_NUMBER() OVER (PARTITION BY
                         TC.ID_TAREA,
