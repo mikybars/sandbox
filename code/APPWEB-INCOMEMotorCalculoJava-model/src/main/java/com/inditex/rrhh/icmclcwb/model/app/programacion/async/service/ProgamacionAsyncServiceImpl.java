@@ -14,14 +14,14 @@ import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProgamacionAsyncServiceImpl implements ProgramacionAsyncService {
 
-  @Autowired
-  private ProgramacionService programacionService;
+  private final ProgramacionService programacionService;
 
   @Override
   public CompletableFuture<Void> updateFechaSiguienteEjecucion(

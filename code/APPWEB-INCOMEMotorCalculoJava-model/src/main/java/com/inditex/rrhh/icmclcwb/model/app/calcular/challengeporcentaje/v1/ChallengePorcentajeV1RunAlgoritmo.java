@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.calcular.challengeporcentaje.v1;
 
-/*
- * Copyright (c) 2022. Inditex
- */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/*
+ * Copyright (c) 2022. Inditex
+ */
 import com.inditex.rrhh.icmclcwb.api.app.calcular.properties.dto.RunAlgoritmoPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -19,26 +19,22 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("challengePorcentajeV1")
+@RequiredArgsConstructor
 public class ChallengePorcentajeV1RunAlgoritmo implements RunAlgoritmo {
 
   private static final Logger LOG = LoggerFactory.getLogger(ChallengePorcentajeV1RunAlgoritmo.class);
 
-  @Autowired
-  @Qualifier("runAlgoritmoProperties")
-  private RunAlgoritmoPropertiesDto runAlgoritmoProperties;
+  private final RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 
-  @Autowired
-  private TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom;
+  private final TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustom;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+  private final TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Override
   public CompletableFuture<Void> execute(final RunTareaDto runTarea, final AlgoritmoDTO algoritmo) {

@@ -16,16 +16,16 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class CalculoAjusteBajaItAsyncServiceImpl implements CalculoAjusteBajaItAsyncService {
 
-  @Autowired
-  private CalculoAjusteBajaItService calculoAjusteBajaItService;
+  private final CalculoAjusteBajaItService calculoAjusteBajaItService;
 
   @Override
   public CompletableFuture<Void> ajustar(@NotNull final AlgoritmoAjusteDto algoritmoAjuste,

@@ -7,22 +7,20 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaP
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresenciaService;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPresenciaService {
 
-  @Autowired
-  private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
+  private final TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
 
-  @Autowired
-  private TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
+  private final TareaLocalizacionPresenciaService tareaLocalizacionPresenciaService;
 
-  @Autowired
-  private TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
+  private final TareaAgrupacionPresenciaService tareaAgrupacionPresenciaService;
 
   @Override
   public void compensarLocalizacion(@Valid final RunTareaDto runTarea) {

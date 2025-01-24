@@ -12,20 +12,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPolitica;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoPoliticaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoPoliticaServiceImpl implements TipoPoliticaService {
 
-  @Autowired
-  private TipoPoliticaRepository tipoPoliticaRepository;
+  private final TipoPoliticaRepository tipoPoliticaRepository;
 
-  @Autowired
-  private TipoPoliticaMapper tipoPoliticaMapper;
+  private final TipoPoliticaMapper tipoPoliticaMapper;
 
   @Override
   @Cacheable(value = TIPO_POLITICA_BY_ID_META4, key = "#idMeta4")

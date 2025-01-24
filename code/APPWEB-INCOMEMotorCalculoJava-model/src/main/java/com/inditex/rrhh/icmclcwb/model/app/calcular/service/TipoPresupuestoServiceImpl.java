@@ -12,20 +12,19 @@ import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TipoPresupuesto;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.repository.TipoPresupuestoRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TipoPresupuestoServiceImpl implements TipoPresupuestoService {
 
-  @Autowired
-  private TipoPresupuestoRepository tipoPresupuestoRepository;
+  private final TipoPresupuestoRepository tipoPresupuestoRepository;
 
-  @Autowired
-  private TipoPresupuestoMapper tipoPresupuestoMapper;
+  private final TipoPresupuestoMapper tipoPresupuestoMapper;
 
   @Override
   @Cacheable(value = TIPO_PRESUPUESTO_BY_ICM_ID_TP_PRESUPUESTO, key = "#icmIdTpPresupuesto")

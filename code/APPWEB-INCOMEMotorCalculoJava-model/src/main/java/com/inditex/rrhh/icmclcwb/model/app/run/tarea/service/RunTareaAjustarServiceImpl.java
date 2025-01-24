@@ -24,33 +24,26 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableP
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAjustarServiceImpl implements RunTareaAjustarService {
 
-  @Autowired
-  @Qualifier("runAjusteProperties")
-  private RunAjustePropertiesDto runAjusteProperties;
+  private final RunAjustePropertiesDto runAjusteProperties;
 
-  @Autowired
-  private AlgoritmoAjusteService algoritmoAjusteService;
+  private final AlgoritmoAjusteService algoritmoAjusteService;
 
-  @Autowired
-  private RunAjusteFactory runAjusteFactory;
+  private final RunAjusteFactory runAjusteFactory;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
-  @Autowired
-  private TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
+  private final TareaPersonaEstructuraPoliticaService tareaPersonaEstructuraPoliticaService;
 
-  @Autowired
-  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  private final PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
   @Auditoria
   @Validation(fase = 7)

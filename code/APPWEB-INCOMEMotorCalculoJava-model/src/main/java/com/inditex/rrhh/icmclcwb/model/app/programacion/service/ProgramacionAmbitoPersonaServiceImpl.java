@@ -11,19 +11,18 @@ import com.inditex.rrhh.icmclcwb.model.primary.programacion.repository.Programac
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class ProgramacionAmbitoPersonaServiceImpl implements ProgramacionAmbitoPersonaService {
 
-  @Autowired
-  private ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
+  private final ProgramacionAmbitoPersonaRepository programacionAmbitoPersonaRepository;
 
-  @Autowired
-  private ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
+  private final ProgramacionAmbitoPersonaMapper programacionAmbitoPersonaMapper;
 
   @Override
   public List<ProgramacionAmbitoPersonaDTO> create(

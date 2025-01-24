@@ -8,22 +8,20 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionVentaSer
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarPtrVentaEcommerceServiceImpl implements RunTareaRecolectarPtrVentaEcommerceService {
 
-  @Autowired
-  private RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
+  private final RunTareaAmbitoRecolectarPtrVentaEcommerceService runTareaAmbitoRecolectarPtrVentaEcommerceService;
 
-  @Autowired
-  private TareaLocalizacionVentaService tareaLocalizacionVentaService;
+  private final TareaLocalizacionVentaService tareaLocalizacionVentaService;
 
-  @Autowired
-  private TareaAgrupacionVentaService tareaAgrupacionVentaService;
+  private final TareaAgrupacionVentaService tareaAgrupacionVentaService;
 
   @Override
   public void ventaOnlineIpodLocalizacionSeccionByRunTarea(@NotNull @Valid final RunTareaDto runTarea) {

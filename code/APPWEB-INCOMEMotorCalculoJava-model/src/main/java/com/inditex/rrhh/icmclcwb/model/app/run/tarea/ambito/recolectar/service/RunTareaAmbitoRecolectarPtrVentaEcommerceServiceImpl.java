@@ -61,56 +61,41 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
     implements RunTareaAmbitoRecolectarPtrVentaEcommerceService {
 
-  @Autowired
-  @Qualifier("ventaEcommerceProperties")
-  protected Map<String, PtrPropertiesDto> ventaEcommerceProperties;
+  protected final Map<String, PtrPropertiesDto> ventaEcommerceProperties;
 
-  @Autowired
-  private PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
+  private final PtrVentaEcommerceAsyncService ptrVentaEcommerceAsyncService;
 
-  @Autowired
-  private TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
+  private final TareaLocalizacionVentaAsyncService tareaLocalizacionVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
+  private final TareaLocalizacionPersonaVentaAsyncService tareaLocalizacionPersonaVentaAsyncService;
 
-  @Autowired
-  private TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
+  private final TareaAgrupacionVentaAsyncService tareaAgrupacionVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
+  private final TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoVentaAsyncService tareaLocalizacionPresupuestoVentaAsyncService;
+  private final TareaLocalizacionPresupuestoVentaAsyncService tareaLocalizacionPresupuestoVentaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
+  private final Meta4IcmWsCalcIncomeSessionService meta4IcmWsCalcIncomeSessionService;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
-  @Autowired
-  @Qualifier(value = "recolectarProperties")
-  private RecolectarPropertiesDto recolectarProperties;
+  private final RecolectarPropertiesDto recolectarProperties;
 
   @Override
   public void ventaOnlineEntregaDomicilioCadenaByRunTareaAndTareaAmbito(@Valid final RunTareaDto runTarea,

@@ -10,14 +10,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service.RunTareaRecolectarSlrhorcomsService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRecolectarSlrhorcomsAsyncServiceImpl implements RunTareaRecolectarSlrhorcomsAsyncService {
 
-  @Autowired
-  private RunTareaRecolectarSlrhorcomsService runTareaRecolectarSlrhorcomsService;
+  private final RunTareaRecolectarSlrhorcomsService runTareaRecolectarSlrhorcomsService;
 
   @Override
   public CompletableFuture<Void> horarioComercialFestivoByRunTarea(

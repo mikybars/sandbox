@@ -16,31 +16,26 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteAntiguedadRepositoryCustom;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class RunAjusteAntiguedadProcesar implements RunAjuste {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunAjusteAntiguedadProcesar.class);
 
-  @Autowired
-  @Qualifier("runAjusteProperties")
-  private RunAjustePropertiesDto runAjusteProperties;
+  private final RunAjustePropertiesDto runAjusteProperties;
 
-  @Autowired
-  private TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
+  private final TareaCalculoAjusteAntiguedadRepositoryCustom tareaCalculoAjusteAntiguedadRepositoryCustom;
 
-  @Autowired
-  private CalculoAjusteAntiguedadAsyncService calculoAjusteAntiguedadAsyncService;
+  private final CalculoAjusteAntiguedadAsyncService calculoAjusteAntiguedadAsyncService;
 
-  @Autowired
-  private TareaCalculoPersonaService tareaCalculoPersonaService;
+  private final TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)

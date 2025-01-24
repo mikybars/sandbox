@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableR
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,13 +14,12 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRegularizarCalculoServiceImpl implements RunTareaRegularizarCalculoService {
 
-  @Autowired
-  private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
+  private final TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
-  @Autowired
-  private PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
+  private final PrimaryTemporaryTableRepositoryCustom primaryTemporaryTableRepositoryCustom;
 
   @Override
   @Transactional(propagation = Propagation.REQUIRES_NEW)

@@ -8,14 +8,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaConsolidarPeriodoAsyncServiceImpl implements RunTareaConsolidarPeriodoAsyncService {
 
-  @Autowired
-  private RunTareaConsolidarPeriodoService runTareaConsolidarPeriodoService;
+  private final RunTareaConsolidarPeriodoService runTareaConsolidarPeriodoService;
 
   @Override
   public CompletableFuture<Void> mergePeriodoPersona(final RunTareaDto runTarea) {

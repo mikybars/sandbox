@@ -21,28 +21,24 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
 
-  @Autowired
-  private RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
+  private final RunTareaProcesarVentaAsyncService runTareaProcesarVentaAsyncService;
 
-  @Autowired
-  private RunTareaProcesarPresenciaAsyncService runTareaProcesarPresenciaAsyncService;
+  private final RunTareaProcesarPresenciaAsyncService runTareaProcesarPresenciaAsyncService;
 
-  @Autowired
-  private RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
+  private final RunTareaProcesarCondicionesAsyncService runTareaProcesarCondicionesAsyncService;
 
-  @Autowired
-  private RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
+  private final RunTareaProcesarJornadaAsyncService runTareaProcesarJornadaAsyncService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
   @Auditoria
   @Validation(fase = 3)

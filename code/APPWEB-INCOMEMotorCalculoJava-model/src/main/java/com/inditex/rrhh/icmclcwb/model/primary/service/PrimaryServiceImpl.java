@@ -29,14 +29,15 @@ public class PrimaryServiceImpl implements PrimaryService {
 
   @Override
   public Boolean loadDML(@Valid @NotBlank final String path) {
-    LOG.info("Inicio carga path {}", path);
-    final Resource resource = FileUtils.getResource(this.resourceLoader, path);
-    LOG.info("Fin carga path {}", path);
-    LOG.info("Inicio load path {}", path);
+    final String sanitizedPath = path.replaceAll("[\n\r]", "_");
+    LOG.info("Inicio carga path {}", sanitizedPath);
+    final Resource resource = FileUtils.getResource(this.resourceLoader, sanitizedPath);
+    LOG.info("Fin carga path {}", sanitizedPath);
+    LOG.info("Inicio load path {}", sanitizedPath);
 
     Boolean result = Boolean.FALSE;
     result = this.primaryRepositoryCustom.load(resource);
-    LOG.info("Fin load path {} con resultado {}", path, result);
+    LOG.info("Fin load path {} con resultado {}", sanitizedPath, result);
     return result;
   }
 

@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import java.util.Collections;
 import java.util.List;
 
+/*
+ * Copyright (c) 2021. Inditex
+ */
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteVacacionesService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
@@ -14,18 +14,17 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTablePoliticasRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAjusteVacacionesRepositoryCustom;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CalculoAjusteVacacionesServiceImpl extends AbstractCalculoAjusteBaseService implements
     CalculoAjusteVacacionesService {
 
-  @Autowired
-  private PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
+  private final PrimaryTemporaryTablePoliticasRepositoryCustom primaryTemporaryTablePoliticasRepositoryCustom;
 
-  @Autowired
-  private TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoAjusteVacacionesRepositoryCustom;
+  private final TareaCalculoAjusteVacacionesRepositoryCustom tareaCalculoAjusteVacacionesRepositoryCustom;
 
   @Override
   protected void precondiciones(final TareaDto tarea,

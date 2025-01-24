@@ -9,17 +9,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProc
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaProcesarCondicionesAsyncServiceImpl implements RunTareaProcesarCondicionesAsyncService {
 
-  @Autowired
-  private RunTareaProcesarVentaService tareaProcesarVentaService;
+  private final RunTareaProcesarVentaService tareaProcesarVentaService;
 
-  @Autowired
-  private RunTareaProcesarCondicionesService tareaProcesarCondicionesService;
+  private final RunTareaProcesarCondicionesService tareaProcesarCondicionesService;
 
   @Override
   public CompletableFuture<Void> updateImporteEstructuraPoliticas(final RunTareaDto runTarea) {

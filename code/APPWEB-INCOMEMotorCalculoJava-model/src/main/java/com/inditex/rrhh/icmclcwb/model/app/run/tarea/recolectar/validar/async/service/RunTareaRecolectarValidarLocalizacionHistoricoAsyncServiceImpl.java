@@ -8,15 +8,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaValidarDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.async.service.RunTareaRecolectarValidarLocalizacionHistoricoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.validar.service.RunTareaRecolectarValidarLocalizacionHistoricoService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaRecolectarValidarLocalizacionHistoricoAsyncServiceImpl
     implements RunTareaRecolectarValidarLocalizacionHistoricoAsyncService {
 
-  @Autowired
-  private RunTareaRecolectarValidarLocalizacionHistoricoService runTareaRecolectarValidarLocalizacionHistoricoService;
+  private final RunTareaRecolectarValidarLocalizacionHistoricoService runTareaRecolectarValidarLocalizacionHistoricoService;
 
   @Override
   public CompletableFuture<List<RunTareaValidarDto>> run(RunTareaDto runTarea) {

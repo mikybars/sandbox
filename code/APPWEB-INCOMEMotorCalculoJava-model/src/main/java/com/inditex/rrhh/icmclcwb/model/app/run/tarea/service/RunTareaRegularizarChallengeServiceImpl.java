@@ -21,23 +21,21 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRegularizarChallengeServiceImpl implements RunTareaRegularizarChallengeService {
 
-  @Autowired
-  private TareaPersonaHistoricoService tareaPersonaHistoricoService;
+  private final TareaPersonaHistoricoService tareaPersonaHistoricoService;
 
-  @Autowired
-  private TareaCalculoAsyncService tareaCalculoAsyncService;
+  private final TareaCalculoAsyncService tareaCalculoAsyncService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
   @Value("${app.envars.tarea.regularizar.thread-size}")
   private Integer threadSize;

@@ -8,16 +8,16 @@ import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.service.RunMantenimie
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoDTO;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunMantenimientoServiceImpl implements RunMantenimientoService {
 
-  @Autowired
-  private RunMantenimientoLimpiezaService runMantenimientoLimpiezaService;
+  private final RunMantenimientoLimpiezaService runMantenimientoLimpiezaService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunMantenimientoService.run.timer",

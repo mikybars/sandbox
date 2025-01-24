@@ -7,14 +7,14 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.async.service.RunTar
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.procesar.service.RunTareaProcesarPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProcesarPresenciaAsyncService {
 
-  @Autowired
-  private RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
+  private final RunTareaProcesarPresenciaService runTareaProcesarPresenciaService;
 
   @Override
   public CompletableFuture<Void> compensarLocalizacion(final RunTareaDto runTarea) {

@@ -6,16 +6,16 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoLocalizacionRepositoryCustom;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class PeriodoLocalizacionServiceImpl implements PeriodoLocalizacionService {
 
-  @Autowired
-  private PeriodoLocalizacionRepositoryCustom periodoLocalizacionRepositoryCustom;
+  private final PeriodoLocalizacionRepositoryCustom periodoLocalizacionRepositoryCustom;
 
   @Override
   public void mergePeriodoLocalizacion(@NotNull final RunTareaDto tareaDto) {

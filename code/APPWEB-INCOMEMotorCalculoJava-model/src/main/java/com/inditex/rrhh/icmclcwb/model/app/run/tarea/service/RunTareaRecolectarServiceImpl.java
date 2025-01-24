@@ -16,28 +16,24 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService {
 
-  @Autowired
-  private RunTareaRecolectarPreAmbitoService runTareaRecolectarPreAmbitoService;
+  private final RunTareaRecolectarPreAmbitoService runTareaRecolectarPreAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
+  private final RunTareaRecolectarAmbitoService runTareaRecolectarAmbitoService;
 
-  @Autowired
-  private RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
+  private final RunTareaRecolectarCondicionesService runTareaRecolectarCondicionesService;
 
-  @Autowired
-  private RunTareaRecolectarCondicionesBaseService runTareaRecolectarCondicionesBaseService;
+  private final RunTareaRecolectarCondicionesBaseService runTareaRecolectarCondicionesBaseService;
 
-  @Autowired
-  private TareaFaseService tareaFaseService;
+  private final TareaFaseService tareaFaseService;
 
   @Auditoria
   @Validation(fase = 1)
