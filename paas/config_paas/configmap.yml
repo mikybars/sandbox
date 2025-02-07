@@ -295,7 +295,7 @@ app:
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
-                maxPageSize: 1000
+                maxPageSize: 50
                 maxPersistenceSize: 3
                 periodSize: 1
                 periodType: MONTHS
