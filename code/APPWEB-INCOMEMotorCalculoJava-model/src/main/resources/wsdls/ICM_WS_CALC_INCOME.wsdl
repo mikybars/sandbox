@@ -4436,7 +4436,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
         <wsdl:port binding="impl:ICM_WS_CALC_INCOMESoapBinding" name="ICM_WS_CALC_INCOME">
 
-            <wsdlsoap:address location="http://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME"/>
+            <wsdlsoap:address location="http://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME"/>
 
         </wsdl:port>
 

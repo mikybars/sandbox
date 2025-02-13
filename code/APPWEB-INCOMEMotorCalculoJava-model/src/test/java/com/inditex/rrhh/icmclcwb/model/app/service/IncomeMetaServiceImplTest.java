@@ -1,12 +1,21 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Assertions;
@@ -25,6 +34,10 @@ class IncomeMetaServiceImplTest {
   private Logger log;
 
   @Mock
+  @Qualifier("tiposventachallengeIncomeMetaApiClient")
+  private TiposventachallengeApi tiposventachallengeApi;
+
+  @Mock
   @Qualifier("externosIncomeMetaApiClient")
   private ExternosApi externosApi;
 
@@ -39,6 +52,20 @@ class IncomeMetaServiceImplTest {
 
     final List<EmpleadoExternoDTO> result = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);
     Assertions.assertEquals(response, result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getTiposVentaChallengeTest() {
+    final List<TiposVentaChallengeResponseDTO> mockResponse = Collections.singletonList(new TiposVentaChallengeResponseDTO());
+    when(
+        this.tiposventachallengeApi.findTiposVentaChallenge(anyString(), anyInt(), any(LocalDate.class), any(LocalDate.class), anyString()))
+            .thenReturn(mockResponse);
+
+    final List<TiposVentaChallengeResponseDTO> result =
+        this.incomeMetaService.getTiposVentaChallenge("01", 1, LocalDate.now(), LocalDate.now(), "PL");
+
+    assertNotNull(result);
   }
 
 }

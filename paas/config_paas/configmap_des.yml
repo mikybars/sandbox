@@ -579,11 +579,11 @@ app:
         credentials:
           user: SRVCICMCLCWSDESAX
       ping-query-custom:
-        path: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/validationCheck
+        path: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/validationCheck
       login:
-        server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/Login
+        server: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/services/Login
       icmwscalcincome:
-        server: http://icmclcws-develop.icmclcws.svc.cluster.local.:8080/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        server: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
         message-max-size: 5000
