@@ -1,0 +1,19 @@
+---
+name: Themis - Database restore
+description: MariaDB DB restore Template
+title: '[Database restore]'
+labels: ['database/db-restore']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Welcome to db restore!
+        Opening this issue by an **authorized role** will trigger the database restore from PRO to PRE based on dbsources configuration
+
+  - type: checkboxes
+    attributes:
+      label: Are you sure to launch db restore?
+      description: By submitting this issue, you'll be restoring your PRE database configured in dbsources policies
+      options:
+        - label: I'm sure to proceed
+          required: true
