@@ -22,13 +22,13 @@ on:
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 3.3.2
+  WORKFLOW_VERSION: 3.4.0
   WORKING_DIR: code
   GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs:
   snyk-analysis-execution:
-    runs-on: ${{ fromJSON( vars.RUNSON_SNYK_MAVEN_JAVA_ONPREM || '["self-hosted", "testing-ivm"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_SNYK_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
     name: Snyk / Analysis execution
     steps:
       - name: Checkout
