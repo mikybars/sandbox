@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.16.0
+  WORKFLOW_VERSION: 3.16.1
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
         if: ${{ github.event_name == 'release' }}
         id: release-branch
         run: |
-          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep main | cut -d '/' -f 2)
+          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep -E "^\s+origin/main" | cut -d '/' -f 2)
           echo "release-branch=$branch_name" >> "$GITHUB_OUTPUT"
 
   identify-changes:
