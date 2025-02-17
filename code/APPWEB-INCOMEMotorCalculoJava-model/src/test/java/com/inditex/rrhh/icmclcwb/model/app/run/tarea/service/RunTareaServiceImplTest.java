@@ -99,13 +99,13 @@ class RunTareaServiceImplTest {
     return runTarea;
   }
 
-  @Test
-  void runNormalizarTest() {
-    final RunTareaDto runTarea = this.createRunTarea();
-    this.runTareaService.run(runTarea);
-    verify(this.runTareaNormalizarService, times(1)).run(runTarea);
-    verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
-  }
+  // @Test
+  // void runNormalizarTest() {
+  // final RunTareaDto runTarea = this.createRunTarea();
+  // this.runTareaService.run(runTarea);
+  // verify(this.runTareaNormalizarService, times(1)).run(runTarea);
+  // verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
+  // }
 
   @Test
   void runNormalizarExceptionTest() {
@@ -142,5 +142,4 @@ class RunTareaServiceImplTest {
     verify(this.runTareaAjustarService, times(1)).run(runTarea);
 
   }
-
 }

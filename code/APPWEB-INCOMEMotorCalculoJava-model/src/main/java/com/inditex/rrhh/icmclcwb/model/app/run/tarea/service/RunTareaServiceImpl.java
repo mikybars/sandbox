@@ -29,6 +29,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -36,6 +38,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @RequiredArgsConstructor
 public class RunTareaServiceImpl implements RunTareaService {
+
+  private static final Logger logger = LoggerFactory.getLogger(RunTareaServiceImpl.class);
 
   private final TareaService tareaService;
 
@@ -101,6 +105,7 @@ public class RunTareaServiceImpl implements RunTareaService {
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstadoFinal(runTarea.getTarea());
       this.tareaService.updateFechaFin(runTarea.getTarea());
+      throw new RuntimeException("Forced exception for testing alert system");
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
       if (e instanceof ValidationNoReintentoException) {
         this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
@@ -110,6 +115,7 @@ public class RunTareaServiceImpl implements RunTareaService {
         this.tareaService.updateFechaFin(runTarea.getTarea());
       }
     } catch (final Exception e) {
+      logger.error("Tarea calculo failed for tarea ID: {}", runTarea.getTarea().getId(), e);
       this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
           EstadoTareaCalculoPersonaEnum.KO.getDto());
       this.runTareaConsolidarService.run(runTarea);
