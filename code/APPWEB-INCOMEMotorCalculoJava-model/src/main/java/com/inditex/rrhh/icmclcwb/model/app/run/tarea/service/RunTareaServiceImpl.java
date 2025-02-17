@@ -121,12 +121,12 @@ public class RunTareaServiceImpl implements RunTareaService {
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
       this.tareaService.updateFechaFin(runTarea.getTarea());
-      this.logError(runTarea.getTarea().getId().toString());
+      this.logError(runTarea.getTarea().getId(), e);
       throw e;
     }
   }
 
-  private void logError(String tareaId) {
-    logger.error("Tarea processing failed for ID: {}", tareaId);
+  private void logError(Long tareaId, Exception e) {
+    logger.error("Tarea processing failed for ID: {}", tareaId, e);
   }
 }
