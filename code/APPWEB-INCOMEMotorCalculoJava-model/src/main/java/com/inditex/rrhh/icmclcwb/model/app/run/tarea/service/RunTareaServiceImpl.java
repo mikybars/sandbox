@@ -121,12 +121,12 @@ public class RunTareaServiceImpl implements RunTareaService {
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
       this.tareaService.updateFechaFin(runTarea.getTarea());
-      final String errorMessage = String.format("Tarea calculo failed for tarea ID: %s due to %s",
-          runTarea.getTarea().getId(), e.getMessage());
-
-      logger.error(errorMessage, e);
-      throw new IcmclcwbException(errorMessage, e);
+      this.logError(runTarea.getTarea().getId().toString());
+      throw e;
     }
   }
 
+  private void logError(String tareaId) {
+    logger.error("Tarea processing failed for ID: {}", tareaId);
+  }
 }
