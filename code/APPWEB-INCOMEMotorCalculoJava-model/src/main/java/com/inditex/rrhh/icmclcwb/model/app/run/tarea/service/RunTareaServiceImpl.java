@@ -4,6 +4,7 @@ import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -105,7 +106,7 @@ public class RunTareaServiceImpl implements RunTareaService {
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstadoFinal(runTarea.getTarea());
       this.tareaService.updateFechaFin(runTarea.getTarea());
-      throw new RuntimeException("Forced exception for testing alert system");
+      throw new IcmclcwbException("Forced exception for testing alert system");
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
       if (e instanceof ValidationNoReintentoException) {
         this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
