@@ -116,13 +116,16 @@ public class RunTareaServiceImpl implements RunTareaService {
         this.tareaService.updateFechaFin(runTarea.getTarea());
       }
     } catch (final Exception e) {
-      logger.error("Tarea calculo failed for tarea ID: {}", runTarea.getTarea().getId(), e);
       this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
           EstadoTareaCalculoPersonaEnum.KO.getDto());
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstado(runTarea.getTarea(), EstadoTareaEnum.ERROR.getDto());
       this.tareaService.updateFechaFin(runTarea.getTarea());
-      throw e;
+      final String errorMessage = String.format("Tarea calculo failed for tarea ID: %s due to %s",
+          runTarea.getTarea().getId(), e.getMessage());
+
+      logger.error(errorMessage, e);
+      throw new IcmclcwbException(errorMessage, e);
     }
   }
 
