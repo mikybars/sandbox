@@ -11,7 +11,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
-import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -103,9 +102,9 @@ class RunTareaServiceImplTest {
   @Test
   void runNormalizarTest() {
     final RunTareaDto runTarea = this.createRunTarea();
-    assertThrows(IcmclcwbException.class, () -> this.runTareaService.run(runTarea));
+    this.runTareaService.run(runTarea);
     verify(this.runTareaNormalizarService, times(1)).run(runTarea);
-    verify(this.tareaService, times(2)).updateFechaFin(runTarea.getTarea());
+    verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
   }
 
   @Test

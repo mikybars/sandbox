@@ -18,7 +18,6 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
-                  - name: alerts
   - name: pro
     environments:
       - name: pro
