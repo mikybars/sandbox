@@ -40,12 +40,12 @@
         "format":[
           {
             "name":"alert.tag.environment",
-            "header":"\"Environment\"",
+            "header":"Environment",
             "markup":""
           },
           {
             "name":"alert.tag.stream_filter",
-            "header":"\"Stream_filter\""
+            "header":"Stream_filter"
           }
         ]
       }
