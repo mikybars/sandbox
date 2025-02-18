@@ -9,7 +9,6 @@
       "id":"icmclcwb_log_alert_tarea_calculo_failed",
       "name":"icmclcwb_log_alert_tarea_calculo_failed",
       "parameters":{
-        "manual_url":"No Set",
         "level":"CRITICAL",
         "alert_total":"1.0"
       },
