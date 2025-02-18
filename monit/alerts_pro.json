@@ -15,7 +15,7 @@
       },
       "project":"ICMCLCWB",
       "tags":{
-        "environment":"pre",
+        "environment":"pro",
         "stream_filter":"ICMCLCWB"
       },
       "toOperations":false,
