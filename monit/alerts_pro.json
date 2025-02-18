@@ -1,0 +1,54 @@
+{
+  "alerts":[
+    {
+      "addresses":[
+        "income@inditex.com"
+      ],
+      "alertCount":1,
+      "enabled":true,
+      "id":"icmclcwb_log_alert_tarea_calculo_failed",
+      "name":"icmclcwb_log_alert_tarea_calculo_failed",
+      "parameters":{
+        "level":"CRITICAL",
+        "alert_total":"1.0"
+      },
+      "project":"ICMCLCWB",
+      "tags":{
+        "environment":"pro",
+        "stream_filter":"ICMCLCWB"
+      },
+      "toOperations":false,
+      "mail":{
+        "subject":"${alert.taskName} : ${alert.tag.environment} - ${alert.tag.stream_filter}",
+        "detail":"New alert from ${alert.taskName}",
+        "dashboard":{
+          "urlBase":"https://inditex.grafana.net/d/meccano-service-extended/service-extended?refresh=5m&orgId=1",
+          "from":"-30m",
+          "to":"+5m",
+          "params":{
+            "var-environment":"${alert.tag.environment}",
+            "var-jirakey":"${alert.tag.stream_filter}",
+            "var-project_id":"${alert.tag.stream_filter}",
+            "var-searchlabel":"jirakey",
+            "var-searchvalue":"${alert.tag.stream_filter}",
+            "var-slot":"all",
+            "var-tenant":"global",
+            "var-namespace":"sscc-global-rhcompensa",
+            "var-jiraname":"mic-incomemotorcalculojava"
+          }
+        },
+        "format":[
+          {
+            "name":"alert.tag.environment",
+            "header":"Environment",
+            "markup":""
+          },
+          {
+            "name":"alert.tag.stream_filter",
+            "header":"Stream_filter"
+          }
+        ]
+      }
+    }
+  ]
+}
