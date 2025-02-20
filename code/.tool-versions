@@ -1,2 +1,2 @@
 ivm-maven 3.9.4
-ivm-java openjdk-17.0.12
+ivm-java openjdk-17.0.12+tzdata2025a
