@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.16.1
+  WORKFLOW_VERSION: 3.19.0
 
 jobs:
   get-details:
@@ -83,16 +83,16 @@ jobs:
             gh_out.write(f'project_name={project_name}\n')
 
       - name: PaaS / Shepherd check
-        uses: inditex/gha-paasdeployment/shepherd-check@v0
+        uses: inditex/gha-paasdeployment/shepherd-deployment-check@v0
         id: shepherd
         with:
-          app-name: ${{ steps.info.outputs.project_key }}
+          project-key: ${{ steps.info.outputs.project_key }}
           repo-name: ${{ steps.info.outputs.project_name }}
           deployment-folder: ${{ matrix.permutation }}
           pr-number: ${{ matrix.pr_number }}
           branch-name: ${{ matrix.branch_name }}
-          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
-          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           url: 'https://cdmngmt.apps.axecocpci1.ecommerce.inditex.grp/cdmngmt/api/v1/shepherd/check'
 
       - name: Add comment when the workflow is failed

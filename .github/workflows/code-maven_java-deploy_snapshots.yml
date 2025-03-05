@@ -48,7 +48,7 @@ on:
     paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
 
 env:
-  WORKFLOW_VERSION: 3.16.1
+  WORKFLOW_VERSION: 3.19.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -109,7 +109,7 @@ jobs:
           paths: "paas"
 
       - name: Check if last image exists in the DP via sentcli
-        uses: inditex/gha-paasdeployment/check-latest-image@main
+        uses: inditex/gha-paasdeployment/check-latest-image@v0
         id: check-image
         with:
           token: ${{ secrets.GH_TOKEN_READER }}

@@ -23,7 +23,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.16.1
+  WORKFLOW_VERSION: 3.19.0
 
 jobs:
   rollout-strategy:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
     steps:
       - name: PaaS / Deploy rollout strategy
-        uses: inditex/gha-paasdeployment/deployment/rollout-strategy-cdm@v0
+        uses: inditex/gha-paasdeployment/deployment/rollout-strategy@v0
         id: rollout
         with:
           action: ${{ github.event.inputs.ACTION }}
@@ -39,8 +39,8 @@ jobs:
           pr-number: ${{ github.event.inputs.ISSUE_NUMBER }}
           step: ${{ github.event.inputs.STEP }}
           skip: ${{ github.event.inputs.SKIP }}
-          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
-          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Add comment when the workflow is failed
         if: ${{ failure() && !cancelled() && steps.rollout.outputs.error-message == '' }}

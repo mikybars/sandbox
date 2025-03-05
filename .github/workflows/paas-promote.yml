@@ -83,7 +83,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.16.1
+  WORKFLOW_VERSION: 3.19.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -92,6 +92,7 @@ permissions:
   contents: write  # This is required for merging pull request
   issues: write
   pull-requests: write
+  packages: read
 
 jobs:
   promote:
@@ -167,6 +168,15 @@ jobs:
           echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}" | tr -s '\n' ' '
           exit 1
 
+      - name: Configure ghcr registry credentials
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest'
+        run: |
+          {
+            echo "CONTAINER_REGISTRY_SNAPSHOT_USER=USERNAME"
+            echo "CONTAINER_REGISTRY_SNAPSHOT_PASSWORD=${{ secrets.GITHUB_TOKEN }}"
+            echo "CONTAINER_REGISTRY_SNAPSHOT_BASE_URL=ghcr.io/inditex"
+          } >> "$GITHUB_ENV"
+
       - name: Sentinel - Generate manifests
         uses: inditex/gha-paasdeployment/sentinel@v0
         id: sentinel
@@ -189,8 +199,17 @@ jobs:
         env:
           MERGED: ${{ github.event.pull_request.merged }}
 
-      - name: Promote images to internal registries
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+      - name: Promote images to internal registries from ghcr
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest' }}
+        uses: inditex/gha-paasdeployment/deployment/promote@v0
+        with:
+          working-directory: paas
+          ghcr-username: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_USER }}
+          ghcr-token: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_PASSWORD }}
+          ghcr-url: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_BASE_URL }}
+
+      - name: Promote images to internal registries from JFrog
+        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && ( vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.compute-vars.outputs.deployment-version != 'latest' ) }}
         uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
@@ -221,7 +240,7 @@ jobs:
 
       - name: Traffic Parrot / Promote mappings to s3 bucket
         if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        uses: inditex/gha-paastol/paasmarket/trafficparrot/promote-mappings@promote-mappings-v1
+        uses: inditex/gha-paastol/paasmarket/trafficparrot/promote-mappings@promote-mappings-v2
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}

@@ -24,7 +24,7 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 - ### `identify-changes`
 
   - **Steps**
-    - [identify-changes](https://github.com/inditex/actions/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
+    - [identify-changes](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
     - Check if last image exists in the DP via sentcli.
     - Set deployment configuration for the next jobs.
 
@@ -34,7 +34,7 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
   
   - **Steps**
     - Ensure slot is present
-    - [validate-slots](https://github.com/inditex/actions/tree/main/deployment/validate-slots) action validates that the slots provided are correct to be deployed in PaaS.
+    - [validate-slots](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/validate-slots) action validates that the slots provided are correct to be deployed in PaaS.
 
 - ### `build-deployable`
   It'll run when `validate-slots` have finished and if `identify-changes` detects code changes or a latest image does not exist.
@@ -49,4 +49,4 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
   - **Steps**
     - Clean up last build tag on closed PR.
     - Detect if it is BatchAsCode.
-    - [Clean Up / Delete Folder Into Deployment Branch](https://github.com/inditex/actions/tree/main/deployment/delete-deployment-folder)
+    - [Clean Up / Delete Folder Into Deployment Branch](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/delete-deployment-folder)
