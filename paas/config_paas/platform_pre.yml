@@ -10,5 +10,3 @@ app:
         replicas: 1
 redis:
   replicas: 3
-datagrid:
-  replicas: 2
