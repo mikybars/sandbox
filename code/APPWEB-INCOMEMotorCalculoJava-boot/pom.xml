@@ -61,14 +61,6 @@
       <artifactId>common-starter-executor</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.inditex.amigafwk.common</groupId>
-      <artifactId>common-starter-cache-datagrid-embedded</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.common</groupId>
-      <artifactId>common-starter-cache-datagrid-remote</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
