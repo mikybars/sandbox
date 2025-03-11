@@ -43,7 +43,7 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.27.0
+  WORKFLOW_VERSION: 2.29.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
