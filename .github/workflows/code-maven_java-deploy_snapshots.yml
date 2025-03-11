@@ -45,10 +45,10 @@ on:
   pull_request:
     types: [synchronize, labeled, closed]
     branches-ignore: [deployment]
-    paths: ['code/**', 'paas/**', '.github/workflows/code-*-deploy_snapshots.yml']
+    paths: ['code/**', 'paas/**']
 
 env:
-  WORKFLOW_VERSION: 3.19.0
+  WORKFLOW_VERSION: 3.20.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -69,7 +69,7 @@ jobs:
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
-      exists-latest-image: ${{ steps.check-image.outputs.exists_latest_image }}
+      exists-latest-image: ${{ steps.check-image-ghcr.outputs.exists_latest_image || steps.check-image-jfrog.outputs.exists_latest_image }}
       supraenv: ${{ steps.deploy-vars.outputs.SUPRAENVS }}
       labels: ${{ steps.deploy-vars.outputs.LABELS }}
       additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
@@ -108,9 +108,21 @@ jobs:
           tag-suffix: "last-build"
           paths: "paas"
 
-      - name: Check if last image exists in the DP via sentcli
+      - name: Check if latest image exists in the ghcr registry via sentcli
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io'
         uses: inditex/gha-paasdeployment/check-latest-image@v0
-        id: check-image
+        id: check-image-ghcr
+        with:
+          token: ${{ secrets.GH_TOKEN_READER }}
+          dp_username: USERNAME
+          dp_token: ${{ secrets.GITHUB_TOKEN }}
+          dp_registry: ${{ vars.PAAS_DOCKER_SNAPSHOT_REGISTRY }}
+          dp_image_path: ${{ github.repository_owner}}/itxapps
+
+      - name: Check if latest image exists in the JFrog DP via sentcli
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io'
+        uses: inditex/gha-paasdeployment/check-latest-image@v0
+        id: check-image-jfrog
         with:
           token: ${{ secrets.GH_TOKEN_READER }}
           dp_username: ${{ env.DP_USERNAME }}
