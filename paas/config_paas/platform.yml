@@ -50,3 +50,6 @@ redis:
 
 pipe:
   enabled: true
+
+janus:
+  enabled: false
