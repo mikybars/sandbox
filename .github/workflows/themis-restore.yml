@@ -6,11 +6,11 @@ on:
     types: [labeled]
 
 env:
-  WORKFLOW_VERSION: 2.10.1
+  WORKFLOW_VERSION: 2.12.0
 
 jobs:
   dbrestore:
-    runs-on: [self-hosted, database]
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '["self-hosted", "database"]' ) }}
     if: github.event.label.name == 'database/db-restore' || github.event_name == 'schedule'
     name: Launch restore job
     steps:

@@ -20,7 +20,7 @@
 
   - **Steps**
 
-    - Generate `K8s` templates with [Sentinel action](https://github.com/inditex/actions/tree/main/sentinel)
+    - Generate `K8s` templates with [Sentinel action](https://github.com/inditex/gha-paasdeployment/tree/main/sentinel)
     - Promote images to `K8s` internal registries.
     - Check if repository is a **Batch** artifact based on repository name.
     - For **Batch** artifacts copy `jobs` folder in each of the folders that are generated in the PR.

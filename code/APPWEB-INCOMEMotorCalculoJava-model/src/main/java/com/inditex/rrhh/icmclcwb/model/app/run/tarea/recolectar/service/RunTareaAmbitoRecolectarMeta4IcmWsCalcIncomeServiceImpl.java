@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCadenaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionConfiguracionAsyncService;
@@ -62,7 +63,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
@@ -109,11 +109,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -235,6 +237,12 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Autowired
   private TareaLocalizacionEstadoAsyncService tareaLocalizacionEstadoAsyncService;
+
+  @Autowired
+  private IncomeMetaService incomeMetaService;
+
+  @Autowired
+  private TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
 
   @Override
   protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -915,17 +923,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     final List<CompletableFuture<?>> cfPersist = new ArrayList<>();
     try {
-      final TareaDto tarea = runTarea.getTarea();
-      final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
-      request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA).getPage());
-      request.setData(this.tareaMapper
-          .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToConfChTpVentaFilterDto(tarea, tareaAmbito,
-              this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                  tarea.getId(),
-                  TipoDatoEnum.PERIODO_AMPLIADO.getId())));
 
-      final CompletableFuture<List<ConfChTpVentaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-          .getConfChallengeTpVenta(request);
+      final TareaDto tarea = runTarea.getTarea();
+
+      final List<TiposVentaChallengeResponseDTO> listTiposVentaChallenge = this.incomeMetaService.getTiposVentaChallenge(
+          tareaAmbito.getCclIdOrigen(), Integer.parseInt(tarea.getStdIdLegEnt()), tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(),
+          tarea.getIdOrganization());
+      final CompletableFuture<List<ConfChTpVentaResultItemDto>> cfData = new CompletableFuture<>();
+      cfData.complete(
+          this.tipoVentaConceptoChallengeMapper.confChTpVentaResultItemDtoListToConfChTpVentaResultItemDtoList(listTiposVentaChallenge));
       final List<ConfChTpVentaResultItemDto> data = AsyncUtils.get(cfData);
       if (CollectionUtils.isNotEmpty(data)) {
         AsyncUtils.checkAsyncAvaliable(cfPersist,

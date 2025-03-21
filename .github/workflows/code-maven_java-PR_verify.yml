@@ -10,9 +10,10 @@ on:
     paths:
       - 'code/**'
       - '.github/workflows/code*'
+    types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 2.25.0
+  WORKFLOW_VERSION: 2.29.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -20,6 +21,7 @@ jobs:
   unit-tests:
     name: Code / Verify
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     permissions:
       contents: write
       checks: write

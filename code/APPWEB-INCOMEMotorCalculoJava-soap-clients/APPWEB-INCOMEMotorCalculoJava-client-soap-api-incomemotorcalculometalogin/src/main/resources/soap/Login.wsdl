@@ -342,7 +342,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:port binding="impl:LoginSoapBinding" name="Login">
 
-         <wsdlsoap:address location="http://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login"/>
+         <wsdlsoap:address location="http://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login"/>
 
       </wsdl:port>
 

@@ -29,9 +29,9 @@ amiga:
     soap:
       client:
         login:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
         meta4:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     rest:
       client:
         health:

@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.16.0
+  WORKFLOW_VERSION: 3.20.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
         if: ${{ github.event_name == 'release' }}
         id: release-branch
         run: |
-          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep main | cut -d '/' -f 2)
+          branch_name=$(git branch -r --contains tags/${{ github.event.release.tag_name }} | grep -E "^\s+origin/main" | cut -d '/' -f 2)
           echo "release-branch=$branch_name" >> "$GITHUB_OUTPUT"
 
   identify-changes:
@@ -252,10 +252,24 @@ jobs:
           IMAGE_BUILD_TYPE: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
           MERGED: ${{ github.event.pull_request.merged }}
 
-      - name: Build and Push Docker image
+      - name: Artifact / Build and Push Docker Image to ghcr
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && github.event_name != 'release'
+        uses: inditex/gha-paasdeployment/docker/build-and-push@v0
+        with:
+          registry: ${{ vars.PAAS_DOCKER_SNAPSHOT_REGISTRY }}
+          username: USERNAME
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: inditex/${{ steps.sentinel.outputs.image-name }}
+          tags: ${{ steps.sentinel.outputs.image-tags }}
+          path: code
+          dockerfile: code/Dockerfile
+
+      - name: Artifact / Build and Push Docker Image to JFrog
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || github.event_name == 'release'
         uses: inditex/gha-paasdeployment/docker/build-and-push@v0
         with:
           registry: ${{ steps.sentinel.outputs.image-registry }}
+          username: ${DP_USERNAME}
           token: ${DP_TOKEN}
           image-name: projects/${{ steps.sentinel.outputs.image-name }}
           tags: ${{ steps.sentinel.outputs.image-tags }}

@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.26.0
+  WORKFLOW_VERSION: 2.27.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:
@@ -85,6 +85,9 @@ jobs:
         with:
           path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
           keys: pitest
+        env:
+          DP_ARTIFACTS_STORAGE_USER: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          DP_ARTIFACTS_STORAGE_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
 
       - name: Publish mutation results to DEVINS
         if: ${{ always() && !cancelled() }}

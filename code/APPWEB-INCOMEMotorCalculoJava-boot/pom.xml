@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.72.0-SNAPSHOT</version>
+    <version>4.73.0-SNAPSHOT</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-boot</artifactId>
   <packaging>jar</packaging>
@@ -59,14 +59,6 @@
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>
       <artifactId>common-starter-executor</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.common</groupId>
-      <artifactId>common-starter-cache-datagrid-embedded</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.inditex.amigafwk.common</groupId>
-      <artifactId>common-starter-cache-datagrid-remote</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

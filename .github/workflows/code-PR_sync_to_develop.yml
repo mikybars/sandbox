@@ -8,7 +8,7 @@ on:
     paths-ignore: ['code/**', 'docs/**']
 
 env:
-  WORKFLOW_VERSION: 2.25.0
+  WORKFLOW_VERSION: 2.29.0
 
 jobs:
   add-friendly-reminder:
@@ -118,7 +118,7 @@ jobs:
 
             if [[ -n $(git ls-remote --heads origin $sync_branch) ]]; then
               git checkout "$sync_branch"
-              git rebase $main_branch
+              git rebase $main_branch --no-verify
               git push --no-verify -u origin HEAD
               echo "EXIST_BRANCH=True" >> "$GITHUB_OUTPUT"
             else
