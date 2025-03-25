@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.20.0
+  WORKFLOW_VERSION: 3.20.1
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -303,7 +303,7 @@ jobs:
       SUPRAENVS: ${{ needs.identify-changes.outputs.supraenv }}
       SLOTS: default
       LABELS: ${{ needs.identify-changes.outputs.labels }}
-      VERSION: "${GITHUB_REF#refs/tags/}"
+      VERSION: ${{ needs.identify-changes.outputs.release-version }}
       ISSUE_NUMBER: ${{ needs.identify-changes.outputs.pr-number }}
       ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
     secrets: inherit
