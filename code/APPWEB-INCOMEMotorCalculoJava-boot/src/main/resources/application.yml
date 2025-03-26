@@ -58,6 +58,7 @@ amiga:
           itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days,
           itx.icmlcwb.periodo_presupuestos_by_id_tarea,
           itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository,
+          itx.icmlcwb.periodo_presupuestos_by_id_tarea,
           itx.icmlcwb.tipo_ausencia_by_icm_tp_absence,
           itx.icmlcwb.tipo_ausencia_by_id,
           itx.icmlcwb.tipo_opcion_calculo_by_id_meta4,
