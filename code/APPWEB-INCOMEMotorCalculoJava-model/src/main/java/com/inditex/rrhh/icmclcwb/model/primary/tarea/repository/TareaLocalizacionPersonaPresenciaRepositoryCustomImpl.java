@@ -65,6 +65,10 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
       + "indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion']}")
   private String sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion;
 
+  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom."
+      + "indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje']}")
+  private String sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje;
+
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.procesarPresenciasHorasFijas']}")
   private String sqlProcesarPresenciasHorasFijas;
 
@@ -209,6 +213,20 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
     this.update(this.sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion, parameters);
+  }
+
+  @Override
+  public void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(
+      @NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA,
+        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION_CH_PCT
+            .getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
+        TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId());
+    this.update(this.sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje, parameters);
   }
 
   @Override

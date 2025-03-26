@@ -29,9 +29,9 @@ amiga:
     soap:
       client:
         login:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
         meta4:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     rest:
       client:
         health:
@@ -56,7 +56,9 @@ amiga:
           itx.icmlcwb.presupuestos_by_tarea,
           itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page,
           itx.icmlcwb.list_periodo_presupuestos_by_id_tarea_and_page_and_days,
+          itx.icmlcwb.periodo_presupuestos_by_id_tarea,
           itx.icmlcwb.periodo_presupuestos_by_id_tarea_repository,
+          itx.icmlcwb.periodo_presupuestos_by_id_tarea,
           itx.icmlcwb.tipo_ausencia_by_icm_tp_absence,
           itx.icmlcwb.tipo_ausencia_by_id,
           itx.icmlcwb.tipo_opcion_calculo_by_id_meta4,

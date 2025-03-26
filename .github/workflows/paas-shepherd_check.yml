@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.16.0
+  WORKFLOW_VERSION: 3.20.1
 
 jobs:
   get-details:
@@ -58,41 +58,51 @@ jobs:
 
     steps:
       - name: Checkout
+        id: matrix-branch-checkout
         uses: actions/checkout@v4
+        continue-on-error: true
         with:
           ref: ${{ matrix.branch_name }}
 
+      - name: Set branch name
+        id: set-branch-name
+        run: |
+          if ${{ steps.matrix-branch-checkout.outcome == 'failure' }}; then
+            echo "branch_name=deployment" >> "$GITHUB_OUTPUT"
+          else
+            echo "branch_name=${{ matrix.branch_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout fallback
+        if: steps.matrix-branch-checkout.outcome == 'failure'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set-branch-name.outputs.branch_name }}
+
       - name: Parse info.yaml
         id: info
-        shell: python
+        shell: bash
         run: |
-          import yaml
-          import os
+          permutation="${{ matrix.permutation }}"
+          info_path="${permutation}/info.yml"
 
-          permutation = "${{ matrix.permutation }}"
-          info_path = f"{permutation}/info.yml"
+          project_key=$(yq e '.platform.values.metadata.project_key' "$info_path" | tr '[:upper:]' '[:lower:]')
+          project_name=$(yq e '.platform.values.metadata.project_name' "$info_path" | tr '[:upper:]' '[:lower:]')
 
-          with open(info_path) as fp:
-            info = yaml.safe_load(fp)
-          project_key = info["platform"]["values"]["metadata"]["project_key"].lower()
-          project_name = info["platform"]["values"]["metadata"]["project_name"].lower()
-
-          github_output = os.getenv('GITHUB_OUTPUT')
-          with open(github_output, "a") as gh_out:
-            gh_out.write(f'project_key={project_key}\n')
-            gh_out.write(f'project_name={project_name}\n')
+          echo "project_key=$project_key" >> "$GITHUB_OUTPUT"
+          echo "project_name=$project_name" >> "$GITHUB_OUTPUT"
 
       - name: PaaS / Shepherd check
-        uses: inditex/gha-paasdeployment/shepherd-check@v0
+        uses: inditex/gha-paasdeployment/shepherd-deployment-check@v0
         id: shepherd
         with:
-          app-name: ${{ steps.info.outputs.project_key }}
+          project-key: ${{ steps.info.outputs.project_key }}
           repo-name: ${{ steps.info.outputs.project_name }}
           deployment-folder: ${{ matrix.permutation }}
           pr-number: ${{ matrix.pr_number }}
-          branch-name: ${{ matrix.branch_name }}
-          cdmngmt-usr: ${{ secrets.CDMNGMT_USER }}
-          cdmngmt-pwd: ${{ secrets.CDMNGMT_PWD }}
+          branch-name: ${{ steps.set-branch-name.outputs.branch_name }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           url: 'https://cdmngmt.apps.axecocpci1.ecommerce.inditex.grp/cdmngmt/api/v1/shepherd/check'
 
       - name: Add comment when the workflow is failed

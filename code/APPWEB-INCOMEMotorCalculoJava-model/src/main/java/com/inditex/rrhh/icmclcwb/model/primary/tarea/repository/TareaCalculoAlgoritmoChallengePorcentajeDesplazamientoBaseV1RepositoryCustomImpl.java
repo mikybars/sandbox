@@ -87,7 +87,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoBaseV1Reposit
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_SECCION, AppConstants.SECCION_4);
     map.put(SqlPrimaryConstants.SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION,
-        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION
+        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION_CH_PCT
             .getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
         algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));

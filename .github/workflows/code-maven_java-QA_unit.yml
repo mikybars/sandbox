@@ -21,7 +21,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.26.0
+  WORKFLOW_VERSION: 2.27.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
@@ -175,6 +175,9 @@ jobs:
         with:
           path: ${{ steps.check-where-config-test-is.outputs.config-test-directory }}
           keys: junit.unit
+        env:
+          DP_ARTIFACTS_STORAGE_USER: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          DP_ARTIFACTS_STORAGE_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
 
       - name: Publish unit test results to DEVINS
         if: github.event_name != 'release'

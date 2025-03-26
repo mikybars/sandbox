@@ -24,7 +24,7 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
 - ### `identify-changes`
 
-  [identify-changes](https://github.com/inditex/actions/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
+  [identify-changes](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/identify-changes) action allows to detect in a workflow if a developer has changed code, configuration or both.
 
 - ### `build-deployable`
 
@@ -32,5 +32,5 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
   - **Steps**
     - Builds the artifact if the deployable version is a snapshot one
-    - Generates the Dockerfile with the [sentinel](https://github.com/inditex/actions/tree/main/sentinel) action
+    - Generates the Dockerfile with the [sentinel](https://github.com/inditex/gha-paasdeployment/tree/main/sentinel) action
     - Build Docker Image and push it to [Distribution Platform](https://inditex.jfrog.io)

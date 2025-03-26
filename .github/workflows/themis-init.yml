@@ -6,7 +6,7 @@ concurrency:
   group: themis-init-${{ inputs.SUPRAENVIRONMENT }}
 
 env:
-  WORKFLOW_VERSION: 2.10.1
+  WORKFLOW_VERSION: 2.12.0
 
 on:
   workflow_dispatch:
@@ -39,7 +39,7 @@ jobs:
   init:
     name: Themis init
     timeout-minutes: 180
-    runs-on: [self-hosted, database]
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '["self-hosted", "database"]' ) }}
     steps:
       - name: Themis init
         uses: inditex/gha-themis/features/ci-cd/init/@main

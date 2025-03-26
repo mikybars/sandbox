@@ -37,6 +37,8 @@ public interface RunTareaProcesarPresenciaAsyncService {
 
   CompletableFuture<Void> indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(RunTareaDto runTarea);
 
+  CompletableFuture<Void> indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(RunTareaDto runTarea);
+
   CompletableFuture<Void> totalizarEcommerceLocalizacion(RunTareaDto runTarea);
 
   CompletableFuture<Void> totalizarEmpleadosPorVenta(RunTareaDto runTarea);

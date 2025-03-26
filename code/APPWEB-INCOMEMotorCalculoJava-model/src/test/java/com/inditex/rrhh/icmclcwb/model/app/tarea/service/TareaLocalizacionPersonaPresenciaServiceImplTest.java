@@ -14,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionPersonaPresenciaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionPersonaPresenciaRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ class TareaLocalizacionPersonaPresenciaServiceImplTest {
         .genericEmpleadoResultItemDtoToTareaLocalizacionPersonaPresencia(
             ArgumentMatchers.<List<GenericEmpleadoResultItemDto>>any(), any(TareaDto.class));
     verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
-        .save(ArgumentMatchers.<List<TareaLocalizacionPersonaPresencia>>any());
+        .save(ArgumentMatchers.any());
   }
 
   @Test
@@ -67,7 +66,7 @@ class TareaLocalizacionPersonaPresenciaServiceImplTest {
             ArgumentMatchers.<List<PtrPresenciaDetalleResultItemDto>>any(), any(TareaDto.class),
             any(Integer.class));
     verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
-        .save(ArgumentMatchers.<List<TareaLocalizacionPersonaPresencia>>any());
+        .save(ArgumentMatchers.any());
   }
 
   @Test
@@ -203,6 +202,16 @@ class TareaLocalizacionPersonaPresenciaServiceImplTest {
         .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
     verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
         .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(any(RunTareaDto.class));
+  }
+
+  @Test
+  void indicadorDesplazamientoBaseChallengePorcentajeTest() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPersonaPresenciaServiceImpl
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(runTarea);
+    verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1))
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(any(RunTareaDto.class));
   }
 
   @Test

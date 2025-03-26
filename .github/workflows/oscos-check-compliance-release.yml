@@ -1,0 +1,282 @@
+---
+name: "oscos-check-compliance-release"
+on:
+  release:
+    types: [published]
+
+env:
+  WORKFLOW_VERSION: 1.10.0
+
+jobs:
+  check-compliance:
+    name: Check compliance using sbom and wsc-oscodeps
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
+    steps:
+      - name: Checkout
+        id: action-checkout
+        uses: actions/checkout@v4
+
+      - name: Setup / JFrog CLI
+        id: setup-jfrog-cli
+        uses: jfrog/setup-jfrog-cli@v4
+        with:
+          version: 1.54.1
+
+      - name: Setup / Node version
+        id: setup-node-version
+        uses: inditex/gha-ivmactions/setup-tool@v1
+        with:
+          tool-name: ivm-node
+          tool-version: 20
+
+      - name: Setup / NPM
+        id: setup-npm
+        run: |
+          echo "${NODE_HOME}/bin" >> "$GITHUB_PATH"
+
+      - name: Setup / CDXGEN
+        id: setup-cdxgen
+        working-directory: ${{ github.workspace }}
+        run: npm install @cyclonedx/cdxgen@11.0.10
+
+      - name: Determine the language of the repository
+        id: determine-language
+        run: |
+          LANGUAGE=$(jq -r '.repository.language' < "$GITHUB_EVENT_PATH")
+          echo "language=$LANGUAGE" >> "$GITHUB_OUTPUT"
+          echo "The primary language of the repository is: $LANGUAGE"
+
+      - name: Generate SBOM using CDXGEN
+        id: generate-sbom
+        run: |
+          cd code
+          export FETCH_LICENSE=true
+          export PREFER_MAVEN_DEPS_TREE=false
+          export CDX_MAVEN_PLUGIN="org.cyclonedx:cyclonedx-maven-plugin:2.9.0"
+          export CDX_MAVEN_GOAL="makeAggregateBom"
+          export CDX_MAVEN_INCLUDE_TEST_SCOPE=true
+          "${{ github.workspace }}/node_modules/.bin/cdxgen" --profile license-compliance -o sbom.json
+          echo "::notice::SBOM generated successfully. Path: ${PWD}/sbom.json"
+          echo "sbom_json_path=${PWD}/sbom.json" >> "$GITHUB_OUTPUT"
+
+      - name: Credentials resolver
+        id: credentials-resolver
+        uses: inditex/gha-oscodependencies/creds-resolver@main
+        with:
+          cyberark_oauth_clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark_oauth_secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          secret_file_name: "secret_s3_storage.yml"
+
+      - name: Get project key from repository metadata
+        id: get-project-key
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+              application = yaml.safe_load(f)
+          project_key = application["metadata"]["project_key"]
+          github_env = os.getenv('GITHUB_OUTPUT')
+          with open(github_env, "a") as env_file:
+              env_file.write(f"project_key={project_key}\n")
+              print(f"::notice::Project key = [{project_key}] written to GitHub environment output.")
+
+      - name: Determinate version
+        id: determinate-version
+        env:
+          INPUT_RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          cd code
+          if [ -f "Makefile" ]; then
+            echo "Makefile found, extracting version..."
+            VERSION=$(make version)
+            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+            echo "Project version: ${VERSION}"
+          else
+            echo "Extracting version from release event"
+            echo "version=${INPUT_RELEASE_TAG}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set unique S3 object name
+        id: set-unique-s3-object-name
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+          OBJECT_NAME="${{ steps.get-project-key.outputs.project_key }}_${TIMESTAMP}_sbom"
+          echo "object_name=${OBJECT_NAME}" >> "$GITHUB_OUTPUT"
+          echo "::notice::The generated S3 object name is: ${OBJECT_NAME}"
+
+      - name: Upload file to an s3 bucket
+        id: upload-s3-file
+        uses: inditex/gha-oscodependencies/upload-s3@main
+        with:
+          s3_access_key: ${{ steps.credentials-resolver.outputs.s3_access_key }}
+          s3_secret_key: ${{ steps.credentials-resolver.outputs.s3_secret_key }}
+          file_path: ${{ steps.generate-sbom.outputs.sbom_json_path }}
+          object_name: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
+
+      - name: Check if curation.yml exists
+        id: check-curation-file
+        run: |
+          curation_file="${GITHUB_WORKSPACE}/code/curation.yml"
+          oscos_curation_file="${GITHUB_WORKSPACE}/code/oscos-curation.yml"
+
+          if [ -f "${oscos_curation_file}" ]; then
+            if [ ! -s "${oscos_curation_file}" ]; then
+              rm "${oscos_curation_file}"
+              echo "curation_exists=false" >> "$GITHUB_OUTPUT"
+              echo "::notice::oscos-curation.yml file exists but is empty. File removed."
+            else
+              echo "curation_exists=true" >> "$GITHUB_OUTPUT"
+              echo "curation_path=${oscos_curation_file}" >> "$GITHUB_OUTPUT"
+              echo "::notice::oscos-curation.yml file exists."
+            fi
+          elif [ -f "${curation_file}" ]; then
+            echo "curation_exists=true" >> "$GITHUB_OUTPUT"
+            echo "curation_path=${curation_file}" >> "$GITHUB_OUTPUT"
+            echo "::notice::curation.yml file exists."
+          else
+            echo "curation_exists=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::No curation file exists."
+          fi
+
+      - name: Validation project curation file
+        id: validation-project-curation-file
+        if: ${{ steps.check-curation-file.outputs.curation_exists == 'true' }}
+        uses: inditex/gha-oscodependencies/file-validation@main
+        with:
+          schema-name: curation_schema.json
+          file-path: ${{ steps.check-curation-file.outputs.curation_path }}
+
+      - name: Check compliance with OSCODEP API
+        id: check-compliance
+        uses: inditex/gha-oscodependencies/sbom-api-client@main
+        with:
+          use-case: SBOM_COMPLIANCE
+          sbom-id: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
+          curation-path: ${{ steps.check-curation-file.outputs.curation_path }}
+          vcs-url: https://github.com/${{ github.repository }}
+          project-key: ${{ steps.get-project-key.outputs.project_key }}
+          version: ${{ steps.determinate-version.outputs.version }}
+
+      - name: Check result with OSCODEP API
+        id: check-result
+        uses: inditex/gha-oscodependencies/sbom-api-client@main
+        with:
+          use-case: SBOM_STATUS_CHECK
+          task-id: ${{ steps.check-compliance.outputs.task_id }}
+
+      - name: Generate Compliance Summary
+        id: generate-summary
+        uses: inditex/gha-oscodependencies/compliance-result-renderer@main
+        with:
+          result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
+          compliance-result: ${{ steps.check-result.outputs.compliance_result }}
+          project-key: ${{ steps.get-project-key.outputs.project_key }}
+          version: ${{ steps.determinate-version.outputs.version }}
+
+      - name: Read CODEOWNERS file
+        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
+        id: read-codeowners
+        run: |
+          if [ -f ".github/CODEOWNERS" ]; then
+            echo "CODEOWNERS found"
+            owners=$(awk '!/^#/ {print $NF}' .github/CODEOWNERS | sort | uniq | paste -sd "," -)
+            echo "codeowners=$owners" >> "$GITHUB_OUTPUT"
+          else
+            echo "No CODEOWNERS file found."
+            echo "codeowners=No Owners Found" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open Issue with report
+        id: open-issue-report
+        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
+        uses: actions/github-script@v7
+        env:
+          COMPLIANCE_RESULT_PATH: ${{ steps.generate-summary.outputs.md-issue-path }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const fs = require('fs');
+
+            const path = process.env.COMPLIANCE_RESULT_PATH;
+            const issueTitle = "Compliance Summary Report";
+            let issueBody = "## Compliance Check Summary Report\n\n";
+
+            try {
+              const markdownContent = fs.readFileSync(path, 'utf8');
+              issueBody += markdownContent;
+            } catch (error) {
+              core.setFailed(`Error reading compliance summary file: ${error.message}`);
+              return;
+            }
+
+            const response = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: ["kind/oso-compliance"]
+            });
+
+            core.setOutput("issue_number", response.data.number);
+            core.notice(`Issue created: ${response.data.html_url}`);
+
+      - name: Comment on the issue with Code Owners
+        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
+        uses: actions/github-script@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const issueNumber = parseInt('${{ steps.open-issue-report.outputs.issue_number }}');
+            const codeOwners = '${{ steps.read-codeowners.outputs.codeowners }}'
+              .split(',')
+              .map(owner => `${owner.trim()}`)
+              .join(' ');
+            const commentBody = `🔔 **Attention Code Owners:**\n${codeOwners}\n\nPlease review the compliance issue.`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: commentBody
+            });
+            core.notice("Code Owners mentioned successfully.");
+
+      - name: Upload SBOM to GitHub Release
+        id: upload-sbom-asset
+        uses: actions/github-script@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SBOM_PATH: ${{ steps.generate-sbom.outputs.sbom_json_path }}
+          SBOM_NAME: bom.json
+        with:
+          script: |
+            const fs = require('fs');
+            const path = process.env.SBOM_PATH;
+            const name = process.env.SBOM_NAME;
+
+            const release_id = context.payload.release.id;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const fileData = fs.readFileSync(path);
+
+            const uploadAssetResponse = await github.rest.repos.uploadReleaseAsset({
+              owner,
+              repo,
+              release_id,
+              name,
+              data: fileData,
+              headers: {
+                'content-type': 'application/json',
+                'content-length': fileData.length
+              }
+            });
+
+            core.notice(`SBOM uploaded as release asset:: ${uploadAssetResponse.data.browser_download_url}`);
+
+      - name: Action status exist
+        id: action-status-exist
+        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' || steps.check-result.outputs.invocation_status == 'error' }}
+        run: |
+          exit 1

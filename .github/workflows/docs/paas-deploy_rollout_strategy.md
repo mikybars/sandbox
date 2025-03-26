@@ -12,7 +12,7 @@
 
 ## Jobs
 
-- ### `rollout-strategy-cdm`
+- ### `rollout-strategy`
 
   - **Steps**
-    - [`rollout-strategy-cdm`](https://github.com/inditex/actions/tree/main/deployment/rollout-strategy-cdm) action will send requests to cdmngmt to deploy the service step by step.
+    - [`rollout`](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/rollout-strategy) action will send requests to cdmngmt to deploy the service step by step.

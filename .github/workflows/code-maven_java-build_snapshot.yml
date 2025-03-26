@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 2.25.0
+  WORKFLOW_VERSION: 2.30.0
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
