@@ -33,6 +33,7 @@ public class IncomeMetaClientConfig {
   @Bean(name = "empleadosIncomeMetaApiClient")
   public EmpleadosApi empleadosIcomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
     return new EmpleadosApi(apiClient);
+  }
 
   @Bean(name = "tiposventachallengeIncomeMetaApiClient")
   public TiposventachallengeApi tiposventachallengeIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
