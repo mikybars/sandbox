@@ -1,6 +1,5 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
-import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,7 +53,7 @@ class RunTareaMigrarServiceImplTest {
     final RunTareaDto runTarea = this.createRunTarea();
     when(this.runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
 
-    final Exception exception = assertThrows(Exception.class, () -> {
+    final Exception exception = Assertions.assertThrows(Exception.class, () -> {
       this.runTareaMigrarService.run(runTarea);
     });
 

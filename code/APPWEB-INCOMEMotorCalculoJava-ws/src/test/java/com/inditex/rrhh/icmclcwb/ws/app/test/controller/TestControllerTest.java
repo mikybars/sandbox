@@ -49,38 +49,38 @@ class TestControllerTest {
   @Test
   void reloj() throws Exception {
     when(this.testServiceMock.reloj()).thenReturn(new RelojDTO());
-    this.mockMvc.perform(get("/test/reloj/")).andReturn();
+    this.mockMvc.perform(get("/test/reloj")).andReturn();
     verify(this.testServiceMock, times(1)).reloj();
   }
 
   @Test
   void sso() throws Exception {
     when(this.testServiceMock.sso()).thenReturn(new SsoDTO());
-    this.mockMvc.perform(get("/test/sso/")).andReturn();
+    this.mockMvc.perform(get("/test/sso")).andReturn();
     verify(this.testServiceMock, times(1)).sso();
   }
 
   @Test
   void errorSync() throws Exception {
-    this.mockMvc.perform(get("/test/error/sync/")).andReturn();
+    this.mockMvc.perform(get("/test/error/sync")).andReturn();
     verify(this.testServiceMock, times(1)).errorSync();
   }
 
   @Test
   void errorAsync() throws Exception {
-    this.mockMvc.perform(get("/test/error/async/")).andReturn();
+    this.mockMvc.perform(get("/test/error/async")).andReturn();
     verify(this.testServiceMock, times(1)).errorAsync();
   }
 
   @Test
   void sesion() throws Exception {
-    this.mockMvc.perform(get("/test/sesion/")).andReturn();
+    this.mockMvc.perform(get("/test/sesion")).andReturn();
     verify(this.testServiceMock, times(1)).sesion();
   }
 
   @Test
   void programacionBatch() throws Exception {
-    this.mockMvc.perform(get("/test/programacion/batch/")).andReturn();
+    this.mockMvc.perform(get("/test/programacion/batch")).andReturn();
     verify(this.testServiceMock, times(1)).programacionBatch();
   }
 
