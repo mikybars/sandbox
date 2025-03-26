@@ -16,8 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
@@ -79,7 +79,7 @@ class IncomeMetaServiceImplTest {
     final List<EmpleadoDTO> result = this.incomeMetaService.searchEmpleados(request);
     Assertions.assertEquals(response, result);
   }
-  
+
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void getTiposVentaChallengeTest() {
