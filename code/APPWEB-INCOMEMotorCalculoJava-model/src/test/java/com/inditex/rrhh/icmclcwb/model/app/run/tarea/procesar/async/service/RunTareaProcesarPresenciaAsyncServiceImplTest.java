@@ -125,6 +125,14 @@ class RunTareaProcesarPresenciaAsyncServiceImplTest {
   }
 
   @Test
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentajeTest() {
+    this.runTareaProcesarPresenciaAsyncService
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(new RunTareaDto());
+    verify(this.runTareaProcesarPresenciaService, times(1))
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(any(RunTareaDto.class));
+  }
+
+  @Test
   void presenciasHorasFijasTest() {
     this.runTareaProcesarPresenciaAsyncService.presenciasHorasFijas(new RunTareaDto());
     verify(this.runTareaProcesarPresenciaService, times(1)).presenciasHorasFijas(any(RunTareaDto.class));
