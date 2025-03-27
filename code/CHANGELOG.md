@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.72.0] - 2025-03-27
+
+### Added
+
+- [INCOME-1862](https://jira.inditex.com/jira/browse/INCOME-1862) Actualizacion fwk
+- [INCOME-1357](https://jira.inditex.com/jira/browse/INCOME-1357) Integración getEmpleados en el proceso de calculo
+- [INCOME-1358](https://jira.inditex.com/jira/browse/INCOME-1358) Cálculo empleado política de horas fijas
+- [#629](https://github.com/inditex/mic-incomemotorcalculojava/issues/629) Oscos provision [update, 1.0.0 --> 1.10.0, develop]
+- [INCOME-1767](https://jira.inditex.com/jira/browse/INCOME-1767) Limpieza dependencias datagrid en artefacto calculo
+- [INCOME-1593](https://jira.inditex.com/jira/browse/INCOME-1593) Avisos PUMBA cálculos erróneos
+- [INCOME-1501](https://jira.inditex.com/jira/browse/INCOME-1501) Integración getConfChTpVenta en el proceso de calculo
+- [INCOME-1247](https://jira.inditex.com/jira/browse/INCOME-1247) Aplicar la mejor opción a todo el desplazamiento
+
+### Dependencies
+
+- [#589](https://github.com/inditex/mic-incomemotorcalculojava/issues/589) Update `java` to reference version `17.0.12+tzdata2025a-r1`
+- [#539](https://github.com/inditex/mic-incomemotorcalculojava/issues/539) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.12.0 to 5.12.1 in /code
+
+### Fixed
+
+- [INCOME-1127](https://jira.inditex.com/jira/browse/INCOME-1127) Incidencia challenge porcentaje con desplazamiento base
+
 ## [4.71.2] - 2025-02-07
 
 ### Fixed
@@ -518,7 +540,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.2...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...main
+[4.72.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.2...4.72.0
 [4.71.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.1...4.71.2
 [4.71.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...4.71.1
 [4.71.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.70.0...4.71.0
