@@ -48,12 +48,12 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImplTest {
     final List<TareaAgrupacionConfiguracionChallengeTipoVenta> list = new ArrayList<TareaAgrupacionConfiguracionChallengeTipoVenta>();
     dtoList.add(tareaAgrupacionConfiguracionChallengeTipoVentaDto);
     when(this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
-        .save(ArgumentMatchers.<List<TareaAgrupacionConfiguracionChallengeTipoVenta>>any())).thenReturn(list);
+        .save(ArgumentMatchers.any())).thenReturn(list);
 
     this.tareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl.save(dtoList, tarea);
 
     verify(this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, times(1))
-        .save(ArgumentMatchers.<List<TareaAgrupacionConfiguracionChallengeTipoVenta>>any());
+        .save(ArgumentMatchers.any());
   }
 
   @Test
@@ -65,13 +65,13 @@ public class TareaAgrupacionConfiguracionChallengeTipoVentaServiceImplTest {
 
     dtoList.add(confChTpVentaResultItemDto);
     when(this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl
-        .save(ArgumentMatchers.<List<TareaAgrupacionConfiguracionChallengeTipoVenta>>any()))
+        .save(ArgumentMatchers.any()))
             .thenReturn(list);
 
     this.tareaAgrupacionConfiguracionChallengeTipoVentaServiceImpl.saveConfChTpVentaResultItemDto(dtoList, tarea);
 
     verify(this.tareaAgrupacionConfiguracionChallengeTipoVentaRepositoryCustomImpl, times(1))
-        .save(ArgumentMatchers.<List<TareaAgrupacionConfiguracionChallengeTipoVenta>>any());
+        .save(ArgumentMatchers.any());
   }
 
 }

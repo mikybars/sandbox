@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoVentaConceptoEnum;
@@ -19,9 +18,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaHistoricoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaHistorico;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaHistoricoRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +58,7 @@ public class TareaPersonaHistoricoServiceImplTest {
 
     this.tareaPersonaHistoricoServiceImpl.save(personas);
     verify(this.tareaPersonaHistoricoRepositoryCustom, times(1)).save(ArgumentMatchers
-        .<List<TareaPersonaHistorico>>any());
+        .any());
   }
 
   @Test
@@ -72,6 +71,18 @@ public class TareaPersonaHistoricoServiceImplTest {
     verify(this.tareaPersonaHistoricoMapper, times(1))
         .genericEmpleadoResultItemDtoToTareaPersonaHistoricoDto(
             ArgumentMatchers.<List<GenericEmpleadoResultItemDto>>any(), any(TareaDto.class));
+  }
+
+  @Test
+  public void mergeEmpleadoDtosTest() {
+    final TareaDto tarea = mock(TareaDto.class);
+    tarea.setIdTrabajo(1L);
+    final List<EmpleadoDTO> personas = new ArrayList<>();
+
+    this.tareaPersonaHistoricoServiceImpl.mergeEmpleadoDtos(personas, tarea);
+    verify(this.tareaPersonaHistoricoMapper, times(1))
+        .empleadoDtoToTareaPersonaHistoricoDto(
+            ArgumentMatchers.<List<EmpleadoDTO>>any(), any(TareaDto.class));
   }
 
   @Test
@@ -91,7 +102,7 @@ public class TareaPersonaHistoricoServiceImplTest {
     final Long idTarea = 1L;
     final List<Integer> idsTipoDato = new ArrayList<>();
 
-    final List<GenericAlgoritmoPropertiesDto> algoritmos = Arrays.asList(
+    final List<GenericAlgoritmoPropertiesDto> algoritmos = List.of(
         new GenericAlgoritmoPropertiesDto());
     when(this.tareaPersonaHistoricoRepositoryCustom.findIdTipoCalculoAndIdTipoComisionByIdsTiposDato(anyList()))
         .thenReturn(algoritmos);
@@ -103,7 +114,7 @@ public class TareaPersonaHistoricoServiceImplTest {
     verify(this.primaryTemporaryTableRepositoryCustom, times(1)).insertTempAlgoritmo(algoritmos);
     verify(this.tareaPersonaHistoricoRepositoryCustom, times(1))
         .findIdPersonaHistoricoDtoByIdTareaAndIdOrigenAndTipoDatoInAmbito(any(Long.class), any(String.class),
-            ArgumentMatchers.<List<Integer>>any());
+            ArgumentMatchers.any());
   }
 
   @Test

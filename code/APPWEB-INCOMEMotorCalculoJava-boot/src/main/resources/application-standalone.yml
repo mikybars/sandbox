@@ -38,11 +38,11 @@ amiga:
     soap:
       client:
         login:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
           username: SRVCICMCLCWSDESAX
           password: '${SRVCICMCLCWSDESAX}'
         meta4:
-          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+          url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
           username: SRVCICMCLCWSDESAX
           password: '${SRVCICMCLCWSDESAX}'
     core:
@@ -1112,15 +1112,15 @@ app:
           connectTimeout: 300000
           receiveTimeout: 300000
       ping-query-custom:
-        path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/validationCheck
+        path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/validationCheck
       login:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/Login
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws-develop/services/ICM_WS_CALC_INCOME
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         service:

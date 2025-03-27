@@ -24,23 +24,22 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 3.2.0
+  WORKFLOW_VERSION: 3.3.0
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
   TMP_PATH: /tmp/gossip/sre
   CEPH_ACCESS_KEY_ID: cyberark.IE-N-DIG-INFRA-CEPH.Application-ITX-APP-500-SC-Generic-ieec1cs1rdgwlb1.central.inditex.grp-ieec-gossip_accesskey
   CEPH_SECRET_ACCESS_KEY: cyberark.IE-N-DIG-INFRA-CEPH.Application-ITX-APP-500-SC-Generic-ieec1cs1rdgwlb1.central.inditex.grp-ieec-gossip_secretkey
-  SSCC_URL: https://sscc.central.inditex.grp
+  SSCC_URL: https://apigw.apps.axsvocp1.service.inditex.grp/
   OAUTH_GOSSIP_USERNAME: oauthtoolgossippro
   OAUTH_GOSSIP_PASSWORD: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro
-  ASDF_DATA_DIR: /tmp/asdf/data
 
 jobs:
   gossip-analysis:
     name: Gossip / Analysis
     timeout-minutes: 30
-    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '["self-hosted", "sre"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '"sreteam-icr__sre-ivm"') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,7 +47,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: "Check workflow appliance"
-        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v11
+        uses: inditex/gha-sreactions/gossip/gossip-environment@gossip-v12
         with:
           workflow-type: "paas"
 
@@ -92,7 +91,7 @@ jobs:
 
       - name: "Launch Gossip Config Generator"
         if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v11
+        uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v12
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -134,7 +133,7 @@ jobs:
 
       - name: "Send Report Event"
         if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
-        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v11
+        uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v12
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}

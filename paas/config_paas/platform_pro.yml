@@ -7,7 +7,5 @@ app:
     replicas: 1
   scaler:
     optin: false
-datagrid:
-  replicas: 2
 redis:
   replicas: 3

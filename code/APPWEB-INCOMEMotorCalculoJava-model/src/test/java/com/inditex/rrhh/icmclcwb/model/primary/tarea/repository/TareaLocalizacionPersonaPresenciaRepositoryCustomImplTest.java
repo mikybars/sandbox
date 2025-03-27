@@ -99,6 +99,9 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
   private final static String SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_MISMA_LOCALIZACION =
       "INDICADOR PRESENCIA DESPLAZAMIENTO BASE MISMA LOCALIZACION";
 
+  private final static String SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_MISMA_LOCALIZACION_CHALLENGE_PORCENTAJE =
+      "INDICADOR PRESENCIA DESPLAZAMIENTO BASE MISMA LOCALIZACION CHALLENGE PORCENTAJE";
+
   private final static String SQL_PRESENCIAS_HORAS_FIJAS = "PRESENCIAS HORAS FIJAS";
 
   private final static String SQL_PRESENCIAS_HORAS_FIJAS_DESPLAZAMIENTO = "PRESENCIAS HORAS FIJAS DESPLAZAMIENTO";
@@ -170,6 +173,9 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
         "sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion",
         SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_MISMA_LOCALIZACION, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+        "sqlIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje",
+        SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_MISMA_LOCALIZACION_CHALLENGE_PORCENTAJE, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "sqlProcesarPresenciasHorasFijas",
         SQL_PRESENCIAS_HORAS_FIJAS, true);
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
@@ -434,6 +440,37 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     // excluidoCalculo
     assertTrue(params.hasValue(SQL_PARAM_EXCLUIDO_CALCULO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, params.getValue(SQL_PARAM_EXCLUIDO_CALCULO));
+  }
+
+  @Test
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionTestChallengePorcentaje() {
+
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(199L);
+    when(runTarea.getTarea()).thenReturn(tarea);
+
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_INDICADOR_PRESENCIA_DESPLAZAMIENTO_BASE_MISMA_LOCALIZACION_CHALLENGE_PORCENTAJE, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: idTarea, activo, idTipoDatoIndicadorPresencia,
+    // excluidoCalculo
+    assertEquals(4, params.getValues().size());
+    // idTarea
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+    // activo
+    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
+    // idTipoDatoIndicadorPresencia
+    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
+    assertEquals(
+        TipoDatoEnum.INDICADOR_PRESENCIA_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE_DESPLAZAMIENTO_MISMA_LOCALIZACION_CH_PCT
+            .getId(),
+        params.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA));
   }
 
   @Test

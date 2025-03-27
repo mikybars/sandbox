@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,20 @@ public class TareaPersonaHistoricoAsyncServiceImpl implements TareaPersonaHistor
   @Override
   public CompletableFuture<Void> save(final List<TareaPersonaHistoricoDto> tareaPersonaHistorico,
       final TareaDto tarea) {
-    tareaPersonaHistoricoService.save(tareaPersonaHistorico);
+    this.tareaPersonaHistoricoService.save(tareaPersonaHistorico);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> saveGenericEmpleadoResultItemDto(
       final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto, final TareaDto tarea) {
-    tareaPersonaHistoricoService.save(tareaPersonaHistoricoService.merge(genericEmpleadoResultItemDto, tarea));
+    this.tareaPersonaHistoricoService.save(this.tareaPersonaHistoricoService.merge(genericEmpleadoResultItemDto, tarea));
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
+  @Override
+  public CompletableFuture<Void> saveEmpleadoDto(final List<EmpleadoDTO> empleadoDtpList, final TareaDto tareaDto) {
+    this.tareaPersonaHistoricoService.save(this.tareaPersonaHistoricoService.mergeEmpleadoDtos(empleadoDtpList, tareaDto));
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
