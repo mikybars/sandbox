@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +46,18 @@ class TareaPersonaHistoricoAsyncServiceImplTest {
 
     verify(this.tareaPersonaHistoricoService).save(anyList());
     verify(this.tareaPersonaHistoricoService).merge(anyList(), any(TareaDto.class));
+  }
+
+  @Test
+  void saveEmpleadoDtoTest() {
+    final List<EmpleadoDTO> lista = new ArrayList<>();
+    final TareaDto tarea = new TareaDto();
+
+    this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(lista, tarea);
+
+    verify(this.tareaPersonaHistoricoService).mergeEmpleadoDtos(lista, tarea);
+
+    verify(this.tareaPersonaHistoricoService).save(anyList());
   }
 
 }

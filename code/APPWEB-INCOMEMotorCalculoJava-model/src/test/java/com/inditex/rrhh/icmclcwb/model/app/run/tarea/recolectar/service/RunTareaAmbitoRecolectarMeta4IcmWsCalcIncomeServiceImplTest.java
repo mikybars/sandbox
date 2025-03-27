@@ -96,6 +96,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.junit.jupiter.api.Assertions;
@@ -238,12 +239,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     filter.setMaxPersistenceSize(1);
     properties.setFilter(filter);
     properties.setPage(page);
-    final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-      return new ArrayList<>();
-    });
-
+    final List<EmpleadoDTO> empleados = new ArrayList<>();
+    empleados.add(new EmpleadoDTO());
     final List<IdEmpresaDto> empresa = new ArrayList<>();
     empresa.add(new IdEmpresaDto("95"));
+    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(AsyncConstants.NIL);
 
     when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class))).thenReturn(empresa);
 
@@ -254,13 +254,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new SearchEmpleadosFilterDto());
 
     when(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)).thenReturn(properties);
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
-        .thenReturn(cf);
+    when(this.incomeMetaService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
+        .thenReturn(empleados);
+    when(this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(any(), any(TareaDto.class))).thenReturn(cfSave);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.personaByRunTareaAndTareaAmbito(runTarea,
         tareaAmbito);
 
-    verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+    verify(this.incomeMetaService, timeout(1000).times(1))
         .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
   }
 
@@ -1297,12 +1298,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
 
-    final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-      final List<GenericEmpleadoResultItemDto> empleado = new ArrayList<>();
-      empleado.add(new GenericEmpleadoResultItemDto());
-      return empleado;
-    });
-
+    final List<EmpleadoDTO> empleados = new ArrayList<>();
     final CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> null);
 
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
@@ -1314,18 +1310,19 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         any(String.class),
         ArgumentMatchers.eq(Collections.singletonList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()))))
             .thenReturn(new ArrayList<>(List.of(new IdCadenaDto("1"))));
+
     when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(any(TareaDto.class),
         any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new SearchEmpleadosFilterDto());
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
-        .thenReturn(cf);
-    when(this.tareaPersonaHistoricoAsyncService.saveGenericEmpleadoResultItemDto(ArgumentMatchers
+
+    when(this.incomeMetaService.searchEmpleados(any(SearchEmpleadosRequestDto.class))).thenReturn(empleados);
+    when(this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(ArgumentMatchers
         .any(), any(TareaDto.class)))
             .thenReturn(cfNull);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
         runTarea,
         tareaAmbito);
-    verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+    verify(this.incomeMetaService, timeout(1000).times(1))
         .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
 
   }
@@ -1339,7 +1336,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
       this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
           runTarea,
           tareaAmbito);
-      verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+      verify(this.incomeMetaService, timeout(1000).times(1))
           .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
     });
   }
@@ -1361,8 +1358,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
 
-    final CompletableFuture<List<GenericEmpleadoResultItemDto>> cf = CompletableFuture
-        .supplyAsync(() -> new ArrayList<>());
+    final List<EmpleadoDTO> empleados = new ArrayList<>();
 
     when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
         any(Integer.class)))
@@ -1375,13 +1371,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
             .thenReturn(new ArrayList<>(List.of(new IdCadenaDto("1"))));
     when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtotoSearchEmpleadosFilterDto(any(TareaDto.class),
         any(TareaAmbitoDto.class), any(PeriodoDto.class))).thenReturn(new SearchEmpleadosFilterDto());
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
-        .thenReturn(cf);
+    when(this.incomeMetaService.searchEmpleados(any(SearchEmpleadosRequestDto.class)))
+        .thenReturn(empleados);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.empleadosCadenaByRunTareaAndTareaAmbito(
         runTarea,
         tareaAmbito);
-    verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
+    verify(this.incomeMetaService, timeout(1000).times(1))
         .searchEmpleados(ArgumentMatchers.any(SearchEmpleadosRequestDto.class));
 
   }
