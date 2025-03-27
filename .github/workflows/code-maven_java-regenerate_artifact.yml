@@ -1,0 +1,123 @@
+---
+name: code-maven-regenerate-artifact
+run-name: "Regenerate artifact ${{ inputs.ARTIFACT_VERSION }} version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      ARTIFACT_VERSION:
+        description: 'Artifact version'
+        required: true
+
+env:
+  WORKFLOW_VERSION: 2.30.0
+  GITHUB_REGISTRY: ghcr.io
+  DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+  DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  JFROG_REGISTRY: inditex-docker.jfrog.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
+
+jobs:
+  regenerate-artifact:
+    name: Regenerate artifact
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
+    outputs:
+      is-service: ${{ steps.project.outputs.is-service }}
+    steps:
+      - name: Checkout / Specified Tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ARTIFACT_VERSION }}
+          fetch-depth: 0
+
+      - name: Project / Extract Information
+        id: project
+        run: |
+          echo "is-service=$(if test -d paas || test -d faas; then echo 1; else echo 0; fi)" >> "$GITHUB_OUTPUT"
+
+      - name: Infer ci-agents asdf image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
+        env:
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+        with:
+          tool-versions-directory: code
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Setup asdf Cache
+        uses: actions/cache@v4
+        continue-on-error: true
+        with:
+          path: ~/.asdf/data
+          key: ${{ env.ASDF_IMAGE_TAG }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          restore-keys: |
+            ${{ env.ASDF_IMAGE_TAG }}-asdf-
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Log in to JFrog Registry
+        run: echo "${DP_TOKEN}" | docker login "${JFROG_REGISTRY}" -u "${DP_USERNAME}" --password-stdin
+
+      - name: Load custom secrets as environment variables
+        id: creds-resolver
+        uses: inditex/gha-citool/creds-resolver-cloud@v0
+        with:
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          path-to-secrets: .github/secrets/secrets.yml
+          output-format: kvequal
+          install-paascli: true
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Maven / Set Maven Build Cache options
+        id: maven-opts
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' }}
+        uses: inditex/gha-citool/set-maven-build-cache@v0
+        with:
+          save-remote-enabled: false
+          skip-cache: true
+
+      - name: Get runner resources
+        continue-on-error: true
+        uses: inditex/gha-citool/get-runner-resources@v0
+        with:
+          memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
+
+      - name: Regenerate Artifact
+        env:
+          MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
+        run: |
+          mkdir -p "$HOME"/.m2/repository
+          mkdir -p "$HOME"/.asdf/data
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u "$(id -u)" \
+            ${{ steps.creds-resolver.outputs.creds-docker }} \
+            -e TOTAL_CPUS \
+            -e TOTAL_MEMORY \
+            -e SCM_USERNAME -e SCM_TOKEN \
+            -e DP_USERNAME -e DP_TOKEN \
+            -e NPM_EMAIL -e NPM_AUTH \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
+            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            mvn -DskipEnforceSnapshots -DskipITs -Dbuild.type=release -DskipTests $MVN_BUILD_CACHE_OPTS deploy
+
+      - name: PaaS / Dispatch Build Deployable
+        if: steps.project.outputs.is-service == true
+        uses: inditex/gha-workflowdispatch@v1
+        with:
+          workflow: paas-build-deployable
+          ref: 'main'
+          token: ${{ secrets.GH_TOKEN_PUSH }}
+          wait-for-completion: true
+          inputs: |
+            {
+              "VERSION": "${{ inputs.ARTIFACT_VERSION }}"
+            }

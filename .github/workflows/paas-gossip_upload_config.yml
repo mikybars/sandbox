@@ -6,8 +6,8 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 3.2.0
-  GOSSIP_SERVER_URL: https://sscc.central.inditex.grp/
+  WORKFLOW_VERSION: 3.3.0
+  GOSSIP_SERVER_URL: https://apigw.apps.axsvocp1.service.inditex.grp/
   GOSSIP_SERVER_USER: oauthtoolgossippro
   GOSSIP_SERVER_PASS: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro
 
@@ -15,13 +15,13 @@ jobs:
   upload-config:
     name: Upload Gossip configuration
     timeout-minutes: 30
-    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '["self-hosted", "sre"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '"sreteam-icr__sre-ivm"') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Launch Gossip Server request
-        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v11
+        uses: inditex/gha-sreactions/gossip/gossip-upload@gossip-v12
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}

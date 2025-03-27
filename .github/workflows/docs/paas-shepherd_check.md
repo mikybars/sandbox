@@ -21,5 +21,5 @@ This workflow is triggered as part of the `paas-promote` workflow. A new job `sh
 - ### `shepherd-check`
   - **Steps** (_for each PR in the get-detail output matrix_)
     - Read the `info.yml` file from the repository to extract additional info.
-    - Call the action [`shepherd-check`](https://github.com/inditex/actions/tree/main/deployment/shepherd-check) to start the Sphepherd Check processing.
+    - Call the action [`shepherd-deployment-check`](https://github.com/inditex/gha-paasdeployment/tree/main/shepherd-deployment-check) to start the Sphepherd Check processing.
     - Add comments in case of failure.

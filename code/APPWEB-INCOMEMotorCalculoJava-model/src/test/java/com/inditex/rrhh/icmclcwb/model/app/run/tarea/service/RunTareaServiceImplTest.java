@@ -142,5 +142,4 @@ class RunTareaServiceImplTest {
     verify(this.runTareaAjustarService, times(1)).run(runTarea);
 
   }
-
 }

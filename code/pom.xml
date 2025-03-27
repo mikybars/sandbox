@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.inditex.amigafwk</groupId>
     <artifactId>amiga-framework</artifactId>
-    <version>5.12.0</version>
+    <version>5.13.3</version>
   </parent>
   <groupId>com.inditex.rrhh.icmclcwb</groupId>
   <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-  <version>4.72.0-SNAPSHOT</version>
+  <version>4.73.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
 

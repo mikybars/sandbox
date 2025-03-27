@@ -34,6 +34,8 @@ public interface RunTareaProcesarPresenciaService {
 
   void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(@Valid RunTareaDto runTarea);
 
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(@Valid RunTareaDto runTarea);
+
   void totalizarEcommerceLocalizacion(@Valid RunTareaDto runTarea);
 
   void totalizarEmpleadosPorVenta(@Valid RunTareaDto runTarea);
