@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaHistoricoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -19,6 +20,10 @@ public interface TareaPersonaHistoricoService {
 
   List<TareaPersonaHistoricoDto> merge(
       @Valid @NotNull @NotEmpty final List<GenericEmpleadoResultItemDto> genericEmpleadoResultItemDto,
+      @Valid @NotNull final TareaDto tarea);
+
+  List<TareaPersonaHistoricoDto> mergeEmpleadoDtos(
+      @Valid @NotNull @NotEmpty final List<EmpleadoDTO> genericEmpleadoResultItemDto,
       @Valid @NotNull final TareaDto tarea);
 
   List<TareaPersonaHistoricoDto> save(

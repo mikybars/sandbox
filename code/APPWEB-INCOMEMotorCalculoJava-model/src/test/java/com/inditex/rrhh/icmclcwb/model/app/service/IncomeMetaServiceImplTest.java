@@ -11,8 +11,13 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
@@ -41,6 +46,10 @@ class IncomeMetaServiceImplTest {
   @Qualifier("externosIncomeMetaApiClient")
   private ExternosApi externosApi;
 
+  @Mock
+  @Qualifier("empleadosIncomeMetaApiClient")
+  private EmpleadosApi empleadosApi;
+
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
 
@@ -51,6 +60,23 @@ class IncomeMetaServiceImplTest {
     doReturn(response).when(this.externosApi).findExternos(request);
 
     final List<EmpleadoExternoDTO> result = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);
+    Assertions.assertEquals(response, result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void searchEmpleadosTest(final SearchEmpleadosRequestDto request, final List<EmpleadoDTO> response) {
+    final SearchEmpleadosFilterDto dto = request.getData();
+
+    final List<String> idsEmpresa = dto.getIdsEmpresa();
+    final List<String> idsCadena = dto.getIdsCadena();
+    final Boolean esEmpresa = CollectionUtils.isNotEmpty((idsEmpresa));
+
+    doReturn(response).when(this.empleadosApi).listEmpleados(dto.getIdOrigen(), esEmpresa ? idsEmpresa : idsCadena,
+        dto.getFechaInicio().toLocalDate(),
+        dto.getFechaFin().toLocalDate(), esEmpresa);
+
+    final List<EmpleadoDTO> result = this.incomeMetaService.searchEmpleados(request);
     Assertions.assertEquals(response, result);
   }
 

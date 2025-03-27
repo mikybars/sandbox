@@ -115,6 +115,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import jakarta.validation.Valid;
@@ -1270,25 +1271,16 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
         request.getData()
             .setIdsCadena(cadenas.stream().map(IdCadenaDto::getId).collect(Collectors.toList()));
 
-        boolean hasNext = false;
-        do {
-          final CompletableFuture<List<GenericEmpleadoResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-              .searchEmpleados(request);
-          AsyncUtils.exceptionally(cfData, cf);
-          final List<GenericEmpleadoResultItemDto> data = AsyncUtils.get(cfData);
-          if (CollectionUtils.isNotEmpty(data)) {
-            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_EMPLEADOS)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-            final CompletableFuture<Void> cfSave = this.tareaPersonaHistoricoAsyncService
-                .saveGenericEmpleadoResultItemDto(data, tarea);
-            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            hasNext = request.nextPage();
-          }
-        } while (hasNext);
+        final List<EmpleadoDTO> data = this.incomeMetaService.searchEmpleados(request);
+
+        if (CollectionUtils.isNotEmpty(data)) {
+          final CompletableFuture<Void> cfSave = this.tareaPersonaHistoricoAsyncService.saveEmpleadoDto(data, tarea);
+          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+        }
+
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
+
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);
       throw e;
