@@ -9,9 +9,9 @@ import lombok.Data;
 @Data
 public class TareaPersonaImporteExcedidoDto implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    @NotNull
-    private Long cclIdPerson;
+  @NotNull
+  private Long cclIdPerson;
 }

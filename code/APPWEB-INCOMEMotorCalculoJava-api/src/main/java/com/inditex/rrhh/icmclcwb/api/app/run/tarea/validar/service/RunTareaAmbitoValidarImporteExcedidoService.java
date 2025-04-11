@@ -9,16 +9,14 @@ import jakarta.validation.Valid;
 
 public interface RunTareaAmbitoValidarImporteExcedidoService {
 
-    /**
-     * Some javadoc. Some javadoc.
-     *
-     * @param runTareaDto
-     *            Some javadoc.
-     * @param tareaAmbito
-     *            Some javadoc.
-     *
-     * @return Some javadoc.
-     */
-    ValidacionDto execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito,
-            @Valid final TareaFaseAccionDto tareaFaseAccion);
+  /**
+   * Some javadoc. Some javadoc.
+   *
+   * @param runTareaDto Some javadoc.
+   * @param tareaAmbito Some javadoc.
+   *
+   * @return Some javadoc.
+   */
+  ValidacionDto execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbito,
+      @Valid final TareaFaseAccionDto tareaFaseAccion);
 }

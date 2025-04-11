@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.programacion.async.service;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

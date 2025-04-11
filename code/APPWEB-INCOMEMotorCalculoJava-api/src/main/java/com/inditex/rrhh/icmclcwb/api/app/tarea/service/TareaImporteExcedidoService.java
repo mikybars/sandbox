@@ -8,5 +8,5 @@ import jakarta.validation.constraints.NotNull;
 
 public interface TareaImporteExcedidoService {
 
-    List<TareaPersonaImporteExcedidoDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea);
+  List<TareaPersonaImporteExcedidoDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea);
 }
