@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -47,7 +46,7 @@ public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar 
                 a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
         .map(item -> this.runTareaAmbitoValidarImporteExcedidoService
             .execute(runTarea, item, tareaFaseAccion))
-        .collect(Collectors.toList());
+        .toList();
     if (validaciones.isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
           EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
@@ -55,7 +54,7 @@ public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar 
     }
     if (validaciones.stream()
         .filter(e -> e.getResult().equals(Boolean.FALSE))
-        .collect(Collectors.toList())
+        .toList()
         .isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
     }

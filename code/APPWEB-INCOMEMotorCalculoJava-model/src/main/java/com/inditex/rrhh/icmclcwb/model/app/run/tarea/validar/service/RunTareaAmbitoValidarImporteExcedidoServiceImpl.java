@@ -41,7 +41,7 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
       this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea());
     } catch (final Exception e) {
       RunTareaAmbitoValidarImporteExcedidoServiceImpl.LOG.error(
-          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido: {}",
+          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
