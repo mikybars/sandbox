@@ -9,6 +9,7 @@ supraenvironments:
                 slots:
                   - name: develop
                   - name: sonar
+                  - name: excedidos
   - name: pre
     environments:
       - name: pre
