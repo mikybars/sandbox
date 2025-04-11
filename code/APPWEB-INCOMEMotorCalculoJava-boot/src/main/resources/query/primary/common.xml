@@ -7536,6 +7536,24 @@ FROM (
   ]]>
   </entry>
 
+  <entry key="TareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea">
+    <![CDATA[
+      SELECT
+          T.CCL_ID_PERSON
+      FROM
+          TAREA_CALCULO T
+      WHERE
+          T.ID_TAREA = :idTarea
+          AND T.ID_TIPO_CALCULO IN ('001', '002')
+      GROUP BY
+          T.CCL_ID_PERSON,
+          T.FECHA,
+          T.ID_TIPO_CALCULO
+      HAVING
+          SUM(T.IMPORTE) > 100
+      ]]>
+  </entry>
+
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
@@ -10655,5 +10673,22 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
     ]]>
   </entry>
 
+  <entry key="TareaCalculoPersonaRepositoryCustom.findEmployeesWithExceededAmount">
+    <![CDATA[
+    SELECT
+    T.CCL_ID_PERSON
+      FROM
+      TAREA_CALCULO T
+      WHERE T.ID_TAREA = :idTarea
+      AND TLPJ.ID_TIPO_DATO = :idTipoDatoJornadaLocalizacionPersona
+      AND TLPJ.ES_ACTIVO = :activo
+      GROUP BY
+      TLPJ.FECHA,
+      TLPJ.ID_TAREA,
+      TLPJ.CCL_ID_COD_ORIGEN,
+      TLPJ.CCL_ID_SECCION,
+      TLPJ.CCL_ID_CADENA
+    ]]>
+  </entry>
 
 </properties>
