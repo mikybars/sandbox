@@ -78,4 +78,6 @@ public interface RunTareaProcesarPresenciaAsyncService {
   CompletableFuture<Void> totalizarLocalizacionIncluidoChallengePorcentaje(RunTareaDto runTarea);
 
   CompletableFuture<Void> compensarLocalizacionIncluidoChallengePorcentaje(RunTareaDto runTarea);
+
+  CompletableFuture<Void> updateSindicalCerrada(RunTareaDto runTarea);
 }

@@ -34,4 +34,7 @@ public interface TareaLocalizacionPresenciaRepositoryCustom {
   void totalizarIncluidoChallengePorcentaje(@NotNull RunTareaDto runTareaDto);
 
   void compensarLocalizacionManualIncluidoChallengePorcentaje(@NotNull RunTareaDto runTareaDto);
+
+  void updateSindicalCerrada(@NotNull RunTareaDto runTareaDto);
+
 }

@@ -112,4 +112,13 @@ public class TareaLocalizacionPresenciaServiceImplTest {
         .compensarLocalizacionManualIncluidoChallengePorcentaje(any(RunTareaDto.class));
   }
 
+  @Test
+  public void updateSindicalCerrada() {
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPresenciaServiceImpl.updateSindicalCerrada(runTarea);
+    verify(this.tareaLocalizacionPresenciaRepositoryCustom, times(1))
+        .updateSindicalCerrada(any(RunTareaDto.class));
+  }
+
 }

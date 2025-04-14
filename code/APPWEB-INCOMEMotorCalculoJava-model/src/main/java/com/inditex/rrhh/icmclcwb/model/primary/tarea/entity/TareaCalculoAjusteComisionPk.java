@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.entity;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import java.io.Serializable;
 import java.util.Date;
 
