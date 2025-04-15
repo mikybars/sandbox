@@ -6,8 +6,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDt
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ public class TareaImporteExcedidoServiceImpl implements TareaImporteExcedidoServ
 
   @Override
   public List<TareaPersonaImporteExcedidoDto> findPersonaImporteExcedidoByIdTarea(
-      @Valid @NotNull @NotEmpty Long idTarea) {
+      @NotNull Long idTarea) {
     return this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
   }
 }
