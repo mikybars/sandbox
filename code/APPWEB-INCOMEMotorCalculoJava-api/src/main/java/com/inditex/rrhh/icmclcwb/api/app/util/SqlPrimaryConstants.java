@@ -402,7 +402,7 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_RESULT_ID_ORIGEN = "CCL_ID_ORIGEN";
 
-  public static final String SQL_RESULT_CCL_ID_PERSON = "cclIdPerson";
+  public static final String SQL_RESULT_CCL_ID_PERSON = "CCL_ID_PERSON";
 
   public static final String SQL_RESULT_ID_TIPO_PRESUPUESTO = "ID_TIPO_PRESUPUESTO";
 
