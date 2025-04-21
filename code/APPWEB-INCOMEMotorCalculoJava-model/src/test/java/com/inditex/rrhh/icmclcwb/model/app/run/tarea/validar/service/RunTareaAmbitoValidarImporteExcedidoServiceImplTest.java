@@ -6,12 +6,14 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.SincronizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -44,8 +46,8 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final TareaDto tareaDto = new TareaDto();
-    final TareaPersonaImporteExcedidoDto tareaPersonaImporteExcedidoDto = new TareaPersonaImporteExcedidoDto();
-    final List<TareaPersonaImporteExcedidoDto> tareaPersonaImporteExcedidoDtoList = List.of(tareaPersonaImporteExcedidoDto);
+    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+    final List<IdPersonaLocalDto> tareaPersonaImporteExcedidoDtoList = List.of(idPersonaLocalDto);
     tareaAmbitoDto.setIdTarea(1L);
     runTareaDto.setTarea(tareaDto);
     tareaDto.setId(1L);
@@ -59,7 +61,8 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
         .findPersonaImporteExcedidoByIdTarea(1L);
     verify(this.validacionMapper, timeout(1000).times(1))
-        .booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
+        .idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, tareaPersonaImporteExcedidoDtoList,
+            PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto);
   }
 
   @Test
@@ -78,14 +81,17 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
 
     when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L))
         .thenThrow(new RuntimeException("Test exception"));
-    when(this.validacionMapper.booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true))
-        .thenReturn(new ValidacionDto());
+    when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, List.of(),
+        PrevalidarPropertiesDto.builder().build(), tareaDto))
+            .thenReturn(new ValidacionDto());
 
     this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
         .findPersonaImporteExcedidoByIdTarea(1L);
     verify(this.validacionMapper, timeout(1000).times(1))
-        .booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
+        .idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, List.of(), PrevalidarPropertiesDto.builder().sincronizacion(
+            SincronizacionDto.builder().activo(false).build()).build(),
+            tareaDto);
   }
 }

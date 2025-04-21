@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
@@ -19,7 +19,7 @@ public class TareaImporteExcedidoServiceImpl implements TareaImporteExcedidoServ
   private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
   @Override
-  public List<TareaPersonaImporteExcedidoDto> findPersonaImporteExcedidoByIdTarea(
+  public List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(
       @NotNull Long idTarea) {
     return this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
   }

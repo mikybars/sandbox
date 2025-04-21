@@ -3,8 +3,8 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDto;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -19,5 +19,5 @@ public interface TareaCalculoRepositoryCustom {
 
   void regularizarMejorOpcionSinFechasTodoPeriodo(@NotNull final TareaDto tareaDto);
 
-  List<TareaPersonaImporteExcedidoDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea);
+  List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea);
 }

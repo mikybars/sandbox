@@ -1,9 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.SincronizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
@@ -37,13 +44,17 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
       @Valid final TareaAmbitoDto tareaAmbito,
       @Valid final TareaFaseAccionDto tareaFaseAccion) {
 
+    final TareaDto tareaDto = runTareaDto.getTarea();
+    List<IdPersonaLocalDto> importeExcedidoValidationResult = new ArrayList<>();
+
     try {
-      this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea());
+      importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea());
     } catch (final Exception e) {
       RunTareaAmbitoValidarImporteExcedidoServiceImpl.LOG.error(
           "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
+    return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, importeExcedidoValidationResult,
+        PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto);
   }
 }

@@ -7539,18 +7539,23 @@ FROM (
   <entry key="TareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea">
     <![CDATA[
       SELECT
-          T.CCL_ID_PERSON
-      FROM
-          TAREA_CALCULO T
-      WHERE
-          T.ID_TAREA = :idTarea
-          AND T.ID_TIPO_CALCULO IN ('001', '002')
-      GROUP BY
-          T.CCL_ID_PERSON,
-          T.FECHA,
-          T.ID_TIPO_CALCULO
-      HAVING
-          SUM(T.IMPORTE) > 100
+          CCL_ID_PERSON
+      FROM (
+          SELECT
+              T.CCL_ID_PERSON
+          FROM
+              TAREA_CALCULO T
+          WHERE
+              T.ID_TAREA = :idTarea
+              AND T.ID_TIPO_CALCULO IN ('001', '002')
+          GROUP BY
+              T.CCL_ID_PERSON,
+              T.FECHA,
+              T.ID_TIPO_CALCULO
+          HAVING
+              SUM(IMPORTE) > 10
+      ) AS SUBQUERY
+      GROUP BY CCL_ID_PERSON;
       ]]>
   </entry>
 
@@ -10661,24 +10666,6 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
       TAREA T
       INNER JOIN TAREA_LOCALIZACION_PERSONA_JORNADA TLPJ
       ON T.ID_TAREA = TLPJ.ID_TAREA
-      WHERE T.ID_TAREA = :idTarea
-      AND TLPJ.ID_TIPO_DATO = :idTipoDatoJornadaLocalizacionPersona
-      AND TLPJ.ES_ACTIVO = :activo
-      GROUP BY
-      TLPJ.FECHA,
-      TLPJ.ID_TAREA,
-      TLPJ.CCL_ID_COD_ORIGEN,
-      TLPJ.CCL_ID_SECCION,
-      TLPJ.CCL_ID_CADENA
-    ]]>
-  </entry>
-
-  <entry key="TareaCalculoPersonaRepositoryCustom.findEmployeesWithExceededAmount">
-    <![CDATA[
-    SELECT
-    T.CCL_ID_PERSON
-      FROM
-      TAREA_CALCULO T
       WHERE T.ID_TAREA = :idTarea
       AND TLPJ.ID_TIPO_DATO = :idTipoDatoJornadaLocalizacionPersona
       AND TLPJ.ES_ACTIVO = :activo

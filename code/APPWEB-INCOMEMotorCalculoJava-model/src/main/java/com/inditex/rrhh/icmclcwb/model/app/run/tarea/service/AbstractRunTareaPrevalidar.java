@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -223,12 +224,15 @@ public abstract class AbstractRunTareaPrevalidar {
           this.mailService.sendMailMotivos(runTareaDto, fallidas);
         }
       }
-      this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
 
-      throw new ValidationNoReintentoException(
-          "Error validando - idTareaFaseAccion: "
-              + String.join(",",
-                  fallidas.stream().map(ValidacionDto::getIdTareaFaseAccion).map(x -> x.toString()).collect(Collectors.toList())));
+      if (!tareaFaseAccion.getIdAccion().equals(32)) {
+        this.limpiezaService.limpiezaAmbito(runTareaDto.getTarea());
+
+        throw new ValidationNoReintentoException(
+            "Error validando - idTareaFaseAccion: "
+                + String.join(",",
+                    fallidas.stream().map(ValidacionDto::getIdTareaFaseAccion).map(x -> x.toString()).collect(Collectors.toList())));
+      }
     }
   }
 
@@ -240,7 +244,7 @@ public abstract class AbstractRunTareaPrevalidar {
       final AccionDto accion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion());
 
       // ID_ACCION = 1 -> Motivos
-      // ID_ACCION IN (2,5,6,7,8) -> Personas
+      // ID_ACCION IN (2,5,6,7,8, 32) -> Personas
       // ID_ACCION = 3 -> Fechas => No insertamos
       // ID_ACCION = 4 -> Presencias => TODO: Pensar que informacion insertar
       if (accion.getId() == 1) {
@@ -250,7 +254,7 @@ public abstract class AbstractRunTareaPrevalidar {
               .idTipoDato(TipoDatoEnum.MOTIVOS_DESPLAZAMIENTO.getId()).dato(motivo.toString()).build());
         });
         this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
-      } else if (Stream.of(2, 5, 6, 7, 8, 32).collect(Collectors.toList()).contains(accion.getId())) {
+      } else if (Stream.of(2, 5, 6, 7, 8, 32).toList().contains(accion.getId())) {
         final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
         fallida.getIdPersonaLocal().forEach((persona) -> {
           tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())

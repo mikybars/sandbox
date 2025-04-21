@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.Collections;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -31,10 +31,10 @@ class TareaImporteExcedidoServiceImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaTest() {
     final Long idTarea = 1L;
-    final List<TareaPersonaImporteExcedidoDto> expectedResults = List.of(new TareaPersonaImporteExcedidoDto());
+    final List<IdPersonaLocalDto> expectedResults = List.of(new IdPersonaLocalDto());
     when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea)).thenReturn(expectedResults);
 
-    final List<TareaPersonaImporteExcedidoDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final List<IdPersonaLocalDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
 
     assertEquals(expectedResults, results);
   }
@@ -44,7 +44,7 @@ class TareaImporteExcedidoServiceImplTest {
     final Long idTarea = 1L;
     when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea)).thenReturn(Collections.emptyList());
 
-    final List<TareaPersonaImporteExcedidoDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final List<IdPersonaLocalDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
 
     assertEquals(Collections.emptyList(), results);
   }
