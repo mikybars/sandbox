@@ -11,7 +11,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.AccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
@@ -99,7 +98,7 @@ public class MailServiceImpl implements MailService {
   private MailAmbitoService mailAmbitoService;
 
   @Override
-  public void sendMail(final TareaFaseDto tareaFase, final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
+  public void sendMail(final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
     final TareaDto tarea = runTarea.getTarea();
     final TrabajoDTO trabajo = runTarea.getTrabajo();
 
@@ -145,7 +144,7 @@ public class MailServiceImpl implements MailService {
               .idUsuario(trabajo.getNombreUsuario())
               .build());
       if (usuario != null && !usuario.getItems().isEmpty() && !usuario.getItems().get(0).getMail().isEmpty()) {
-        message.setCc(new StringBuilder(usuario.getItems().get(0).getMail()).toString());
+        message.setCc(usuario.getItems().get(0).getMail());
       }
 
     }
@@ -157,16 +156,15 @@ public class MailServiceImpl implements MailService {
 
     message.setCc(mails.stream().toArray(String[]::new));
 
-    message.setSubject(new StringBuilder(APP)
-        .append(SEPARATOR)
-        .append(CALCULATION_RESULTS)
-        .append(tarea.getIdOrganization())
-        .append(this.environment.equalsIgnoreCase("PRO") ? " " : SEPARATOR + this.environment.toUpperCase() + SEPARATOR)
-        .append(SUBJECT)
-        .append(OPEN_PARENTHESIS)
-        .append(tareaFase.getIdTarea())
-        .append(CLOSE_PARENTHESIS)
-        .toString());
+    message.setSubject(APP
+        + SEPARATOR
+        + CALCULATION_RESULTS
+        + tarea.getIdOrganization()
+        + (this.environment.equalsIgnoreCase("PRO") ? " " : SEPARATOR + this.environment.toUpperCase() + SEPARATOR)
+        + SUBJECT
+        + OPEN_PARENTHESIS
+        + tarea.getId()
+        + CLOSE_PARENTHESIS);
     message.setText(result.toString());
 
     this.mailSender.send(message);
@@ -175,11 +173,10 @@ public class MailServiceImpl implements MailService {
   @Override
   public void sendMailMotivos(final RunTareaDto runTarea, final List<ValidacionDto> fallidas) {
     final TareaDto tarea = runTarea.getTarea();
-    final StringBuilder result = new StringBuilder();
-    result.append(TITLE_MOTIVOS);
-    result.append(LINE_BREAK);
-    result.append(fallidas.stream().filter(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)
-        .map(e -> e.getIdMotivosDesplazamiento()).collect(Collectors.toList()));
+    final String result = TITLE_MOTIVOS
+        + LINE_BREAK
+        + fallidas.stream().filter(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)
+            .map(e -> e.getIdMotivosDesplazamiento()).collect(Collectors.toList());
 
     final SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(this.sender);
@@ -197,15 +194,14 @@ public class MailServiceImpl implements MailService {
 
     message.setCc(mails.stream().toArray(String[]::new));
 
-    message.setSubject(new StringBuilder(APP)
-        .append(SEPARATOR)
-        .append(this.environment.toUpperCase())
-        .append(SEPARATOR)
-        .append(SUBJECT_MOTIVOS)
-        .append(SEPARATOR)
-        .append(tarea.getIdOrganization())
-        .toString());
-    message.setText(result.toString());
+    message.setSubject(APP
+        + SEPARATOR
+        + this.environment.toUpperCase()
+        + SEPARATOR
+        + SUBJECT_MOTIVOS
+        + SEPARATOR
+        + tarea.getIdOrganization());
+    message.setText(result);
 
     this.mailSender.send(message);
   }

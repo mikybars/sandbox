@@ -7536,6 +7536,29 @@ FROM (
   ]]>
   </entry>
 
+  <entry key="TareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea">
+    <![CDATA[
+      SELECT
+          CCL_ID_PERSON
+      FROM (
+          SELECT
+              T.CCL_ID_PERSON
+          FROM
+              TAREA_CALCULO T
+          WHERE
+              T.ID_TAREA = :idTarea
+              AND T.ID_TIPO_CALCULO IN ('001', '002')
+          GROUP BY
+              T.CCL_ID_PERSON,
+              T.FECHA,
+              T.ID_TIPO_CALCULO
+          HAVING
+              SUM(IMPORTE) > 10
+      ) AS SUBQUERY
+      GROUP BY CCL_ID_PERSON;
+      ]]>
+  </entry>
+
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
@@ -10654,6 +10677,5 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
       TLPJ.CCL_ID_CADENA
     ]]>
   </entry>
-
 
 </properties>

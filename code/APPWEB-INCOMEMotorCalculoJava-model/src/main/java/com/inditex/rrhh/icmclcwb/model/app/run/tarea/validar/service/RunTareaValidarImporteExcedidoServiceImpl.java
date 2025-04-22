@@ -1,15 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarPresenciasExternosService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarImporteExcedidoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -23,18 +19,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Component("presenciasExternosV1")
+@Component("validarImporteExcedidoV1")
 @Validated
-public class RunTareaValidarPresenciasExternosServiceImpl implements RunPrevalidar {
+public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar {
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Autowired
-  private RunTareaAmbitoValidarPresenciasExternosService runTareaAmbitoValidarPresenciasExternosService;
+  private AccionService accionService;
 
   @Autowired
-  private AccionService accionService;
+  private RunTareaAmbitoValidarImporteExcedidoService runTareaAmbitoValidarImporteExcedidoService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(
@@ -45,12 +41,12 @@ public class RunTareaValidarPresenciasExternosServiceImpl implements RunPrevalid
     final List<ValidacionDto> validaciones = runTarea.getTarea()
         .getAmbito()
         .stream()
-        .filter(a -> Boolean.TRUE.equals(
-            this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
-                a.getCclIdOrigen(),
-                tareaDto.getStdIdLegEnt())))
-        .map(item -> this.runTareaAmbitoValidarPresenciasExternosService.execute(runTarea, item, tareaFaseAccion))
-        .collect(Collectors.toList());
+        .filter(a -> Boolean.TRUE
+            .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
+                a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
+        .map(item -> this.runTareaAmbitoValidarImporteExcedidoService
+            .execute(runTarea, item, tareaFaseAccion))
+        .toList();
     if (validaciones.isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
           EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
@@ -58,11 +54,10 @@ public class RunTareaValidarPresenciasExternosServiceImpl implements RunPrevalid
     }
     if (validaciones.stream()
         .filter(e -> e.getResult().equals(Boolean.FALSE))
-        .collect(Collectors.toList())
+        .toList()
         .isEmpty()) {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
     }
     return CompletableFuture.completedFuture(validaciones);
   }
-
 }
