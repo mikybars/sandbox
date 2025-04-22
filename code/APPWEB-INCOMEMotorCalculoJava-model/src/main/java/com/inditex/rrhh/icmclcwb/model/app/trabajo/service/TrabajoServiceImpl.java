@@ -10,6 +10,7 @@ import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
 import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -85,6 +86,9 @@ public class TrabajoServiceImpl implements TrabajoService {
 
   @Autowired
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+
+  @Autowired
+  private IncomeMetaService incomeMetaService;
 
   @Autowired
   private SenderTrabajo senderTrabajo;

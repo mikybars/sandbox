@@ -9,10 +9,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.slf4j.Logger;
@@ -41,6 +43,10 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Autowired
   @Qualifier("tiposventachallengeIncomeMetaApiClient")
   private TiposventachallengeApi tiposventachallengeApi;
+
+  @Autowired
+  @Qualifier("periodoIncomeMetaApiClient")
+  private PeriodoApi periodoApi;
 
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
@@ -71,6 +77,13 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
     IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método TiposVentaChallenge");
     IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + origen + " " + empresa + " " + fechaInicio + " " + fechaFin + " " + organizacion);
     return this.tiposventachallengeApi.findTiposVentaChallenge(origen, empresa, fechaInicio, fechaFin, organizacion);
+  }
+
+  @Override
+  public PeriodoResponseDTO getPeriodos(String idOrganization, Integer idPeriodo, Boolean abierto, Boolean vigente) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getPeriodos");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {} {} {} {}", idOrganization, idPeriodo, abierto, vigente);
+    return this.periodoApi.periodos(idOrganization, idPeriodo, abierto, vigente);
   }
 
 }
