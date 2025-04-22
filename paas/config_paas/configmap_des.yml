@@ -566,7 +566,7 @@ app:
   envars:
     mail:
       sender: 'noreply@inditex.com'
-      receiver: 'alejandrogmori@ext.inditex.com'
+      receiver: 'income-java@vectoritcgroup.com'
     ptr:
       venta:
         service:

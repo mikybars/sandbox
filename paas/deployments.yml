@@ -8,8 +8,6 @@ supraenvironments:
               - name: global
                 slots:
                   - name: develop
-                  - name: sonar
-                  - name: excedidos
   - name: pre
     environments:
       - name: pre
@@ -19,7 +17,6 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
-                  - name: excedidos
   - name: pro
     environments:
       - name: pro
