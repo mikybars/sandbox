@@ -46,13 +46,19 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final TareaDto tareaDto = new TareaDto();
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
     final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
     final List<IdPersonaLocalDto> tareaPersonaImporteExcedidoDtoList = List.of(idPersonaLocalDto);
     tareaAmbitoDto.setIdTarea(1L);
     runTareaDto.setTarea(tareaDto);
+    runTareaDto.setTrabajo(trabajoDTO);
     tareaDto.setId(1L);
 
     when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L)).thenReturn(tareaPersonaImporteExcedidoDtoList);
+    when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, tareaPersonaImporteExcedidoDtoList,
+        PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto))
+            .thenReturn(new ValidacionDto());
     when(this.validacionMapper.booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true))
         .thenReturn(new ValidacionDto());
 
@@ -60,9 +66,7 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
 
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
         .findPersonaImporteExcedidoByIdTarea(1L);
-    verify(this.validacionMapper, timeout(1000).times(1))
-        .idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, tareaPersonaImporteExcedidoDtoList,
-            PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto);
+    verify(this.validacionMapper, timeout(1000).times(1)).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
   @Test
@@ -90,8 +94,6 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
         .findPersonaImporteExcedidoByIdTarea(1L);
     verify(this.validacionMapper, timeout(1000).times(1))
-        .idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, List.of(), PrevalidarPropertiesDto.builder().sincronizacion(
-            SincronizacionDto.builder().activo(false).build()).build(),
-            tareaDto);
+        .booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 }
