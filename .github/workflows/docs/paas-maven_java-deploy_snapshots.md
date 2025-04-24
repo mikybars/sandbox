@@ -1,6 +1,6 @@
-# `code-maven-deploy_snapshots`
+# `paas-maven-deploy_snapshots`
 
-[`code-maven_java-deploy_snapshots.yml`](../code-maven_java-deploy_snapshots.yml) workflow allows to deploy any snapshot version in DEV environment.
+[`paas-maven_java-deploy_snapshots.yml`](../paas-maven_java-deploy_snapshots.yml) workflow allows to deploy any snapshot version in DEV environment.
 
 ## Trigger
 
