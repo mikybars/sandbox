@@ -234,4 +234,10 @@ public class RunTareaProcesarPresenciaAsyncServiceImpl implements RunTareaProces
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
+  @Override
+  public CompletableFuture<Void> updateSindicalCerrada(final RunTareaDto runTarea) {
+    this.runTareaProcesarPresenciaService.updateSindicalCerrada(runTarea);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
+  }
+
 }

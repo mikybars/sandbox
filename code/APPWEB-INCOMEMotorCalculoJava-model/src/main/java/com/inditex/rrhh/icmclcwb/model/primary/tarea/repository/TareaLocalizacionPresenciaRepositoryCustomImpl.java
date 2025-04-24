@@ -79,6 +79,9 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.totalizarIncluidoChallengePorcentaje']}")
   private String sqlTotalizarIncluidoChallengePorcentaje;
 
+  @Value("#{primaryQuery['TareaLocalizacionPresenciaRepositoryCustom.updateSindicalCerrada']}")
+  private String sqlUpdateSindicalCerrada;
+
   @Autowired
   private TipoDatoService tipoDatoService;
 
@@ -299,6 +302,17 @@ public class TareaLocalizacionPresenciaRepositoryCustomImpl
             TipoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_INCLUIDOCHALLENGEPORCENTAJE.getId()));
 
     this.update(this.sqlCompensarLocalizacionManual, parameters);
+  }
+
+  @Override
+  public void updateSindicalCerrada(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES,
+        TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId());
+    this.update(this.sqlUpdateSindicalCerrada, parameters);
   }
 
 }

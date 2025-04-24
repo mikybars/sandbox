@@ -97,4 +97,9 @@ public class TareaLocalizacionPresenciaServiceImpl implements TareaLocalizacionP
     this.tareaLocalizacionPresenciaRepositoryCustom.compensarLocalizacionManualIncluidoChallengePorcentaje(runTareaDto);
   }
 
+  @Override
+  public void updateSindicalCerrada(@Valid @NotNull final RunTareaDto runTareaDto) {
+    this.tareaLocalizacionPresenciaRepositoryCustom.updateSindicalCerrada(runTareaDto);
+  }
+
 }
