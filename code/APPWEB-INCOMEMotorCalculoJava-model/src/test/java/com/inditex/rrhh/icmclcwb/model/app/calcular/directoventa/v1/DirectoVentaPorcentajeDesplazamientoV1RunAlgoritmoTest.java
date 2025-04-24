@@ -103,13 +103,14 @@ public class DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmoTest implements R
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.directoVentaPorcentajeDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-     verify(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom,
+    verify(this.tareaCalculoAlgoritmoDirectoVentaPorcentajeDesplazamientoV1RepositoryCustom,
         times(1))
             .calcular(algoritmo, runTarea.getTarea(), personas);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPorcentajeDesplazamientoV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 

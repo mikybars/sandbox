@@ -104,9 +104,10 @@ public class GlobalTiendaPorcentajeDiariaV1RunAlgoritmoTest implements RunAlgori
     verify(this.tareaCalculoAlgoritmoGlobalTiendaPorcentajeDiariaV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 

@@ -105,14 +105,14 @@ public class PorVentaSinDevolucionPorcentajeV1RunAlgoritmoTest implements RunAlg
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.porVentaSinDevolucionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-     verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom,
+    verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeV1RepositoryCustom,
         times(1))
             .calcular(algoritmo, runTarea.getTarea(), personas);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
-
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 

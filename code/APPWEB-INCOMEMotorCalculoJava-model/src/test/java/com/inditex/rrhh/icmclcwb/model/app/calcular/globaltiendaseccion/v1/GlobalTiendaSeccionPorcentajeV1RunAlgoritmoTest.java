@@ -86,7 +86,6 @@ public class GlobalTiendaSeccionPorcentajeV1RunAlgoritmoTest implements RunAlgor
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.globalTiendaSeccionPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-
     verify(this.tareaCalculoAlgoritmoGlobalTiendaSeccionPorcentajeV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);
 

@@ -106,9 +106,10 @@ public class GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmoTest implements Ru
         times(1))
             .calcular(algoritmo, runTarea.getTarea(), personas);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: GlobalTiendaSeccionPorcentajeDiariaV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 

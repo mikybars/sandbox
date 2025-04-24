@@ -105,13 +105,13 @@ public class PorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1RunAlgoritmoTe
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.porVentaSinDevolucionPorcentajeDiariaDesplazamientoV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-
     verify(this.tareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1RepositoryCustom,
         times(1))
             .calcular(algoritmo, runTarea.getTarea(), personas);
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: PorVentaSinDevolucionPorcentajeDiariaDesplazamientoV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 
