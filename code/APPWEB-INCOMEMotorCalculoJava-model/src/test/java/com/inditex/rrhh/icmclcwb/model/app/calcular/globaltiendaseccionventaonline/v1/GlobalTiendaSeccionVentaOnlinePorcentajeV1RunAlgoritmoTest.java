@@ -52,7 +52,8 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
   private GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo;
 
   @ParameterizedTest
-  @InstancioSource(samples = 1)  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
+  @InstancioSource(samples = 1)
+  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
         .thenReturn(SQL_CALCULAR);
 
@@ -63,11 +64,11 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
     assertEquals(SQL_CALCULAR, result);
   }
 
-  @Disabled //TODO: Ver que hacer
+  @Disabled // TODO: Ver que hacer
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
-       final List<IdPersonaLocalDto> personas) {
+      final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -91,11 +92,11 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
         idTrabajo, idTarea, "GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo", 3);
   }
 
-  @Disabled //TODO: Ver que hacer
+  @Disabled // TODO: Ver que hacer
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
-  final List<IdPersonaLocalDto> personas) {
+      final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaSeccionVentaOnlinePorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -107,7 +108,6 @@ class GlobalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunA
         any(TareaDto.class), anyList());
 
     this.globalTiendaSeccionVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
-
 
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();

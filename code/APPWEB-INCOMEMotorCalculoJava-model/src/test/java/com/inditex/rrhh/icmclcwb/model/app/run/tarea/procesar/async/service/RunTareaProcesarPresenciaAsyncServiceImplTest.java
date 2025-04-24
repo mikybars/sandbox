@@ -235,4 +235,10 @@ class RunTareaProcesarPresenciaAsyncServiceImplTest {
     verify(this.runTareaProcesarPresenciaService, times(1)).compensarLocalizacionManualIncluidoChallengePorcentaje(any(RunTareaDto.class));
   }
 
+  @Test
+  void updateSindicalCerradaTest() {
+    this.runTareaProcesarPresenciaAsyncService.updateSindicalCerrada(new RunTareaDto());
+    verify(this.runTareaProcesarPresenciaService, times(1)).updateSindicalCerrada(any(RunTareaDto.class));
+  }
+
 }

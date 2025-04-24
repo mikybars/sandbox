@@ -70,8 +70,8 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
+  @InstancioSource(samples = 1)
+  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
         .thenReturn(SQL_CALCULAR);
 
@@ -83,7 +83,8 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularTest( final AlgoritmoDTO algoritmo,  final RunTareaDto runTarea,
+  @InstancioSource(samples = 1)
+  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -95,14 +96,15 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
 
     this.globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularExceptionTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+  @InstancioSource(samples = 1)
+  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -114,10 +116,10 @@ class GlobalTiendaVentaOnlinePorcentajeV1RunAlgoritmoTest implements RunAlgoritm
 
     this.globalTiendaVentaOnlinePorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(5, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-          this.listAppender.list.get(4).getMessage());
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+        this.listAppender.list.get(4).getMessage());
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }

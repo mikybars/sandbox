@@ -86,8 +86,8 @@ class RunTareaAmbitoValidarComisionManualServiceImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
+  @InstancioSource(samples = 1)
+  void executeExceptionTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
 
     when(this.comisAsyncService.findComisionManual(any(RunTareaDto.class), any(TareaAmbitoDto.class))).thenThrow(RuntimeException.class);

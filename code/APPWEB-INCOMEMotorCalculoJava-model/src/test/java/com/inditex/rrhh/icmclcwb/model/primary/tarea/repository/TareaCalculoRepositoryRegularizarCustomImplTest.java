@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaImporteExcedidoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -18,9 +19,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -36,6 +39,8 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
       "REGULARIZAR MEJOR OPCION SIN FECHAS TODO PERIODO TEST";
 
   private static final String SQL_REGULARIZAR_CHALLENGE = "REGULARIZAR CHALLENGE TEST";
+
+  private static final String SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO = "RECUPERAR PERSONAS IMPORTE EXCEDIDO TEST";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -63,6 +68,10 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         true);
 
     FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRegularizarChallenge", SQL_REGULARIZAR_CHALLENGE,
+        true);
+
+    FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRecuperarPersonasImporteExcedido",
+        SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO,
         true);
   }
 
@@ -132,4 +141,19 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
     assertEquals(tarea.getId(), this.params.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
   }
 
+  @Test
+  void findPersonaImporteExcedidoByIdTareaExecutesQueryWithCorrectParameters() {
+    final Long idTarea = 1L;
+
+    this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
+
+    assertEquals(SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO, this.sql.getValue());
+    final MapSqlParameterSource parameters = this.params.getValue();
+    assertEquals(1, parameters.getValues().size());
+    assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, parameters.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+  }
 }

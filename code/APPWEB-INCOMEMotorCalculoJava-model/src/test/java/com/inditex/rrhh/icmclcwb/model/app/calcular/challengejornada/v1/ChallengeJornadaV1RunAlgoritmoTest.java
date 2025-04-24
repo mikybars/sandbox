@@ -71,48 +71,49 @@ public class ChallengeJornadaV1RunAlgoritmoTest implements RunAlgoritmoTest {
   }
 
   @Test
-    public void getSqlCalcularTest() {
-        when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom
-            .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
+  public void getSqlCalcularTest() {
+    when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom
+        .getSqlCalcular(any(AlgoritmoDTO.class))).thenReturn(SQL_CALCULAR);
 
-        final String result = this.challengeJornadaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO());
+    final String result = this.challengeJornadaV1RunAlgoritmo.getSqlCalcular(new AlgoritmoDTO());
 
-        assertEquals(SQL_CALCULAR, result);
-    }
+    assertEquals(SQL_CALCULAR, result);
+  }
 
   @Test
-    public void calcularTest() {
+  public void calcularTest() {
 
-        when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
+    when(this.runAlgoritmoPropertiesDto.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
 
-        final List<IdPersonaLocalDto> personas = new ArrayList<>();
-        final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
-        personas.add(p1);
-        final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
-        personas.add(p2);
-        final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
-        personas.add(p3);
-        when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom
-            .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
-        when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom.calcular(
-            any(AlgoritmoDTO.class),
-            any(TareaDto.class), anyList())).thenReturn(
+    final List<IdPersonaLocalDto> personas = new ArrayList<>();
+    final IdPersonaLocalDto p1 = new IdPersonaLocalDto();
+    personas.add(p1);
+    final IdPersonaLocalDto p2 = new IdPersonaLocalDto();
+    personas.add(p2);
+    final IdPersonaLocalDto p3 = new IdPersonaLocalDto();
+    personas.add(p3);
+    when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom
+        .ids(any(AlgoritmoDTO.class), any(TareaDto.class))).thenReturn(personas);
+    when(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom.calcular(
+        any(AlgoritmoDTO.class),
+        any(TareaDto.class), anyList())).thenReturn(
             CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-        final long idTarea = 123L;
-        final long idTrabajo = 5675L;
-        final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
-        final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
-        this.challengeJornadaV1RunAlgoritmo.execute(runTarea, algoritmo);
+    final long idTarea = 123L;
+    final long idTrabajo = 5675L;
+    final RunTareaDto runTarea = this.createRunTareaDto(idTarea, idTrabajo);
+    final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
+    this.challengeJornadaV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-        verify(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom, times(1))
-            .calcular(algoritmo, runTarea.getTarea(), personas);
+    verify(this.tareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustom, times(1))
+        .calcular(algoritmo, runTarea.getTarea(), personas);
 
-        assertEquals(4, this.listAppender.list.size());
-        assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-        assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: ChallengeJornadaV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: ChallengeJornadaV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
-    }
+  }
 
   @Test
   public void calcularExceptionTest() {

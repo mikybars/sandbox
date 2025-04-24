@@ -70,7 +70,7 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmoTest imple
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom
         .getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -85,7 +85,8 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmoTest imple
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+  @InstancioSource(samples = 1)
+  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -98,15 +99,16 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmoTest imple
 
     this.globalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
-       final List<IdPersonaLocalDto> personas) {
+  @InstancioSource(samples = 1)
+  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+      final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -119,11 +121,10 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmoTest imple
 
     this.globalTiendaPersonasPorVentaNoVendedoresPorcentajeV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-
-      assertEquals(5, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-          this.listAppender.list.get(4).getMessage());
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+        this.listAppender.list.get(4).getMessage());
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }

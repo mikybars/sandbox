@@ -59,10 +59,10 @@ class TipoPresupuestoServiceImplTest {
   }
 
   @Test
-    void findByIdShouldThrowEntityNotFoundException() {
-        when(this.tipoPresupuestoRepository.findById(anyInt())).thenReturn(Optional.empty());
+  void findByIdShouldThrowEntityNotFoundException() {
+    when(this.tipoPresupuestoRepository.findById(anyInt())).thenReturn(Optional.empty());
 
-        assertThrows(EntityNotFoundException.class, () -> this.tipoPresupuestoServiceImpl.findById(1));
-    }
+    assertThrows(EntityNotFoundException.class, () -> this.tipoPresupuestoServiceImpl.findById(1));
+  }
 
 }

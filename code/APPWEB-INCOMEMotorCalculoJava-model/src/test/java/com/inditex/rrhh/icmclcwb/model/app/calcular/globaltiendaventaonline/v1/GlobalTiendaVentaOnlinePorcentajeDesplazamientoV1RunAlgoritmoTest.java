@@ -70,7 +70,7 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(
         this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.getSqlCalcular(any(AlgoritmoDTO.class)))
@@ -84,8 +84,9 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
-       final List<IdPersonaLocalDto> personas) {
+  @InstancioSource(samples = 1)
+  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+      final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -100,16 +101,16 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-    void calcularExceptionTest( final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
-       final List<IdPersonaLocalDto> personas) {
+  @InstancioSource(samples = 1)
+  void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+      final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
     when(this.tareaCalculoAlgoritmoGlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RepositoryCustom.ids(any(AlgoritmoDTO.class),
@@ -124,10 +125,10 @@ class GlobalTiendaVentaOnlinePorcentajeDesplazamientoV1RunAlgoritmoTest implemen
 
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
-      assertEquals(5, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-          this.listAppender.list.get(4).getMessage());
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+        this.listAppender.list.get(4).getMessage());
     verify(this.tareaCalculoPersonaService, times(1)).updateWithEstadoAndidPersona(personas, runTarea,
         EstadoTareaCalculoPersonaEnum.KO.getDto());
   }
