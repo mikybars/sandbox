@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -35,6 +36,11 @@ public abstract class PeriodoMapper {
   @Mapping(target = "idOrigen", ignore = true)
   @Mapping(target = "nombrePeriodo", ignore = true)
   public abstract PeriodosResultItemDto periodoDtoToPeriodoResultItemDto(PeriodoDTO src);
+
+  @Mapping(target = "id", source = "src.idPeriodo")
+  @Mapping(target = "fechaInicioPeriodo", source = "src.fechaInicio")
+  @Mapping(target = "fechaFinPeriodo", source = "src.fechaFin")
+  public abstract PeriodoDTO periodoResponseDtoToPeriodoDto(PeriodoResponseDTO src);
 
   public abstract List<PeriodosResultItemDto> periodoDtoToPeriodoResultItemDto(List<PeriodoDTO> src);
 
