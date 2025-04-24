@@ -12,6 +12,7 @@ on:
       - 'paas/**'
       - '.github/workflows/paas*'
       - 'code/**'
+    types: [opened, synchronize, ready_for_review, reopened]
   workflow_dispatch:
     inputs:
       RUNNER:
@@ -24,7 +25,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 3.3.0
+  WORKFLOW_VERSION: 3.4.0
   APP_NAME: gossip-analyzer
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases
@@ -39,6 +40,7 @@ jobs:
   gossip-analysis:
     name: Gossip / Analysis
     timeout-minutes: 30
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     runs-on: ${{ fromJSON(vars.RUNSON_GOSSIP_ONPREM || '"sreteam-icr__sre-ivm"') }}
     steps:
       - name: Checkout
