@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import jakarta.validation.constraints.NotNull;
@@ -20,4 +21,8 @@ public interface IncomeMetaService {
   List<TiposVentaChallengeResponseDTO> getTiposVentaChallenge(@NotNull String origen, @NotNull Integer empresa,
       @NotNull LocalDate fechaInicio,
       @NotNull LocalDate fechaFin, @NotNull String organizacion);
+
+  List<TiendaResponseDTO> getTiendas(@NotNull String idOrigen, @NotNull List<String> idsEmpresaOrCadena,
+      @NotNull Boolean esEmpresa, @NotNull LocalDate fechaInicio, @NotNull LocalDate fechaFin,
+      @NotNull String idOrganizacion);
 }

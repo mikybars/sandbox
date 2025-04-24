@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.invoker.ApiClient;
 
@@ -60,5 +61,12 @@ class IncomeMetaClientConfigTest {
     final ApiClient apiClient = mock(ApiClient.class);
     final TiposventachallengeApi tiposventachallengeApi = this.incomeMetaClientConfig.tiposventachallengeIncomeMetaApiClient(apiClient);
     assertNotNull(tiposventachallengeApi);
+  }
+
+  @Test
+  void tiendaApiTest() {
+    final ApiClient apiClient = mock(ApiClient.class);
+    final TiendaApi tiendaApi = this.incomeMetaClientConfig.tiendaIncomeMetaApiClient(apiClient);
+    assertNotNull(tiendaApi);
   }
 }

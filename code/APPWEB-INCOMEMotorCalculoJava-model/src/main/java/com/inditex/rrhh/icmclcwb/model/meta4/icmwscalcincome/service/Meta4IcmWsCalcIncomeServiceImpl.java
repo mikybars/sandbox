@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.GET_CLASES;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.GET_SISTEMA_DESTINO;
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.GET_TIPOS_HORA;
 
@@ -1092,7 +1093,7 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
   }
 
   @Override
-  @Cacheable(value = GET_TIPOS_HORA, key = "{#request.cclIdOrigen}")
+  @Cacheable(value = GET_CLASES, key = "{#request.cclIdOrigen}")
   public ClaseResponseDto getClases(
       final ClaseRequestDto request) {
     final IcmParamcalorigenBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request);
