@@ -69,8 +69,8 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunA
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void getSqlCalcularTest( final AlgoritmoDTO algoritmo) {
+  @InstancioSource(samples = 1)
+  void getSqlCalcularTest(final AlgoritmoDTO algoritmo) {
     when(this.tareaCalculoAlgoritmoGlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RepositoryCustom
         .getSqlCalcular(any(AlgoritmoDTO.class)))
             .thenReturn(SQL_CALCULAR);
@@ -84,7 +84,8 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunA
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
+  @InstancioSource(samples = 1)
+  void calcularTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(10));
@@ -98,14 +99,14 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunA
 
     this.globalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void calcularExceptionTest(final AlgoritmoDTO algoritmo, final RunTareaDto runTarea,
       final List<IdPersonaLocalDto> personas) {
 
@@ -122,10 +123,10 @@ class GlobalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunA
 
     this.globalTiendaPersonasPorVentaNoVendedoresPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(5, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
-          this.listAppender.list.get(4).getMessage());
+    assertEquals(5, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: {} :: Personas: {}",
+        this.listAppender.list.get(4).getMessage());
   }
 
 }

@@ -115,9 +115,9 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void getMapValuesTest( final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
-       final List<IdTipoDatoDto> tiposDato,  final IdPersonaLocalDto persona) {
+  @InstancioSource(samples = 1)
+  void getMapValuesTest(final AlgoritmoDTO algoritmo, final AlgoritmoDTO algoritmo2, final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato, final IdPersonaLocalDto persona) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 
@@ -169,8 +169,8 @@ class TareaCalculoAlgoritmoPorVentaDevolucionPorcentajeDiariaDesplazamientoBaseV
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  void calcularTest( final AlgoritmoDTO algoritmo,  final TareaDto tarea,
-       final List<IdTipoDatoDto> tiposDato,
+  void calcularTest(final AlgoritmoDTO algoritmo, final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato,
       final List<IdPersonaLocalDto> personas) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);

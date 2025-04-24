@@ -42,28 +42,28 @@ public class JmsConfigTest {
   }
 
   @Test
-    void connectionFactoryLecturaShouldReturnNonXAConnectionFactory() throws JMSException {
-        when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
-        when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
+  void connectionFactoryLecturaShouldReturnNonXAConnectionFactory() throws JMSException {
+    when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
+    when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
 
-        final ConnectionFactory cf = this.jmsConfig.connectionFactoryLectura(this.builderCF);
+    final ConnectionFactory cf = this.jmsConfig.connectionFactoryLectura(this.builderCF);
 
-        assertNotNull(cf);
-        verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
-        verify(this.builderCF).build();
-    }
+    assertNotNull(cf);
+    verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
+    verify(this.builderCF).build();
+  }
 
   @Test
-    void connectionFactoryEscrituraShouldReturnNonXAConnectionFactory() throws JMSException {
-        when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
-        when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
+  void connectionFactoryEscrituraShouldReturnNonXAConnectionFactory() throws JMSException {
+    when(this.builderCF.type(JmsConnectionFactoryType.NONXA)).thenReturn(this.builderCF);
+    when(this.builderCF.build()).thenReturn(mock(ConnectionFactory.class));
 
-        final ConnectionFactory cf = this.jmsConfig.connectionFactoryEscritura(this.builderCF);
+    final ConnectionFactory cf = this.jmsConfig.connectionFactoryEscritura(this.builderCF);
 
-        assertNotNull(cf);
-        verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
-        verify(this.builderCF).build();
-    }
+    assertNotNull(cf);
+    verify(this.builderCF).type(JmsConnectionFactoryType.NONXA);
+    verify(this.builderCF).build();
+  }
 
   @Test
   void trabajoJmsClientShouldReturnConfiguredClient() throws JMSException {
