@@ -14,15 +14,12 @@ concurrency:
 
 on:
   workflow_dispatch:
-  push:
-    branches: ['develop', 'develop-*', 'main', 'main-*']
-    paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, closed]
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 3.5.0
+  WORKFLOW_VERSION: 3.8.0
   WORKING_DIR: code
   GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -30,6 +27,7 @@ jobs:
   snyk-analysis-execution:
     runs-on: ${{ fromJSON( vars.RUNSON_SNYK_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
     name: Snyk / Analysis execution
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,7 +97,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Import Snyk data to DefectDojo
-        if: ${{ (github.event_name == 'workflow_dispatch') || (github.event_name == 'push' && ( (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) ) ) }}
+        if: ${{ (github.event_name == 'workflow_dispatch') || (github.event.pull_request.merged == true && ( (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) ) ) }}
         uses: inditex/gha-defectdojoactions/import@main
         with:
           project-key: ${{ steps.artifact-metadata.outputs.project-key }}

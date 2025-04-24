@@ -1,6 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.List;
+
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalChallengeDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
@@ -27,6 +30,9 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
 
   @Value("#{primaryQuery['TareaCalculoRepositoryCustom.regularizarChallenge']}")
   private String sqlRegularizarChallenge;
+
+  @Value("#{primaryQuery['TareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea']}")
+  private String sqlRecuperarPersonasImporteExcedido;
 
   @Override
   public void regularizarMejorOpcion(@NotNull final TareaDto tareaDto) {
@@ -76,4 +82,17 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
     this.update(this.sqlRegularizarChallenge, params);
   }
 
+  @Override
+  public List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(
+      @NotNull Long idTarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    return this.query(
+        this.sqlRecuperarPersonasImporteExcedido,
+        params, (rs, rowNum) -> {
+          final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+          dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_CCL_ID_PERSON));
+          return dto;
+        });
+  }
 }

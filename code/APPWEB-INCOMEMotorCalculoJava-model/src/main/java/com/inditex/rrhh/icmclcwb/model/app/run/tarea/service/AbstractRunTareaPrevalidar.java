@@ -218,7 +218,7 @@ public abstract class AbstractRunTareaPrevalidar {
       }
       this.insertarDato(fallidas);
       if (this.mailEntornoService.findEsActivoByEntorno(this.environment)) {
-        this.mailService.sendMail(tareaFase, fallidas, runTareaDto);
+        this.mailService.sendMail(fallidas, runTareaDto);
         if (fallidas.stream().anyMatch(e -> e.getIdMotivosDesplazamiento() != null && e.getIdMotivosDesplazamiento().size() > 0)) {
           this.mailService.sendMailMotivos(runTareaDto, fallidas);
         }
@@ -250,7 +250,7 @@ public abstract class AbstractRunTareaPrevalidar {
               .idTipoDato(TipoDatoEnum.MOTIVOS_DESPLAZAMIENTO.getId()).dato(motivo.toString()).build());
         });
         this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
-      } else if (Stream.of(2, 5, 6, 7, 8).collect(Collectors.toList()).contains(accion.getId())) {
+      } else if (Stream.of(2, 5, 6, 7, 8).toList().contains(accion.getId())) {
         final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
         fallida.getIdPersonaLocal().forEach((persona) -> {
           tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
