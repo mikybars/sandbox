@@ -100,9 +100,9 @@ public class ResaltaManualV1RunAlgoritmoTest implements RunAlgoritmoTest {
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.resaltaManualV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: ResaltaManualV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
 
     verify(this.tareaCalculoAlgoritmoResaltaManualV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);

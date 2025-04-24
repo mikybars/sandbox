@@ -35,21 +35,21 @@ public class Meta4ClientPoolBaseTest {
   }
 
   @Test
-    public void claimShouldThrowExceptionWhenPoolClaimReturnsNull() throws InterruptedException, PoolException {
-        when(this.pool.claim(any(Timeout.class))).thenReturn(null);
-        assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
-    }
+  public void claimShouldThrowExceptionWhenPoolClaimReturnsNull() throws InterruptedException, PoolException {
+    when(this.pool.claim(any(Timeout.class))).thenReturn(null);
+    assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
+  }
 
   @Test
-    public void claimShouldThrowExceptionWhenPoolClaimThrowsPoolException() throws InterruptedException, PoolException {
-        when(this.pool.claim(any(Timeout.class))).thenThrow(PoolException.class);
-        assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
-    }
+  public void claimShouldThrowExceptionWhenPoolClaimThrowsPoolException() throws InterruptedException, PoolException {
+    when(this.pool.claim(any(Timeout.class))).thenThrow(PoolException.class);
+    assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
+  }
 
   @Test
-    public void claimShouldThrowExceptionWhenPoolClaimThrowsInterruptedException() throws InterruptedException, PoolException {
-        when(this.pool.claim(any(Timeout.class))).thenThrow(InterruptedException.class);
-        assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
-    }
+  public void claimShouldThrowExceptionWhenPoolClaimThrowsInterruptedException() throws InterruptedException, PoolException {
+    when(this.pool.claim(any(Timeout.class))).thenThrow(InterruptedException.class);
+    assertThrows(Meta4IcmclcwbException.class, () -> this.meta4ClientPoolBase.claim(this.pool));
+  }
 
 }

@@ -114,7 +114,7 @@ class TareaCalculoAlgoritmoPorVentaSinDevolucionPorcentajeDesplazamientoV1Reposi
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  public void getMapValuesTest( final AlgoritmoDTO algoritmo2) {
+  public void getMapValuesTest(final AlgoritmoDTO algoritmo2) {
 
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))

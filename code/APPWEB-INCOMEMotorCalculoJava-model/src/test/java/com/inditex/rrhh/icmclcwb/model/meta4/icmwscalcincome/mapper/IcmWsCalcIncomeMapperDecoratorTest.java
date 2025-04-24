@@ -1532,7 +1532,8 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)  void asClaseResponseDtoTest(final GetclasesOutput getclasesOutput) {
+  @InstancioSource(samples = 1)
+  void asClaseResponseDtoTest(final GetclasesOutput getclasesOutput) {
     when(this.delegate.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(new ClaseResponseDto());
     final ClaseResponseDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResponseDto(getclasesOutput);
     verify(this.delegate, times(1)).asClaseResponseDto(getclasesOutput);
@@ -1556,8 +1557,8 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void asClaseResultItemDtoTest( final IcmListaclasesRecord record,  final ClaseResultItemDto item) {
+  @InstancioSource(samples = 1)
+  void asClaseResultItemDtoTest(final IcmListaclasesRecord record, final ClaseResultItemDto item) {
     when(this.delegate.asClaseResultItemDto(any(IcmListaclasesRecord.class))).thenReturn(item);
     record.setEstadosil("2,3,15");
     final ClaseResultItemDto result = this.icmWsCalcIncomeMapperDecorator.asClaseResultItemDto(record);
@@ -1570,8 +1571,8 @@ class IcmWsCalcIncomeMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-  void asIcmParamcalorigenBlockTest( final ClaseRequestDto request,  final IcmParamcalorigenRecord record) {
+  @InstancioSource(samples = 1)
+  void asIcmParamcalorigenBlockTest(final ClaseRequestDto request, final IcmParamcalorigenRecord record) {
     when(this.delegate.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(new IcmParamcalorigenBlock());
     when(this.delegate.asIcmParamcalorigenRecord(any(ClaseRequestDto.class))).thenReturn(record);
     final IcmParamcalorigenBlock result = this.icmWsCalcIncomeMapperDecorator.asIcmParamcalorigenBlock(request);
