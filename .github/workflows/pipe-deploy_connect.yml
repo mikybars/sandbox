@@ -20,7 +20,9 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 2.1.0
+  WORKFLOW_VERSION: 3.0.0
+  DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
 jobs:
   deploy-connect:
@@ -59,24 +61,25 @@ jobs:
             gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
             gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
 
-      - name: Force lowercase Jirakey variable
+      - name: Force lowercase project_key variable
         run: |
-          echo "JIRAKEY=$(echo ${{ steps.metadata.outputs.project-key }} | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
+          echo "PROJECT_KEY=$(echo ${{ steps.metadata.outputs.project-key }} | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 
       - name: Get Github gitUrl
         run: |
           echo "GITURL=https://github.com/${{github.repository}}/tree/${GITHUB_REF##*/}/pipe" >> "$GITHUB_ENV"
 
       - name: PIPE Verify Connector
-        uses: inditex/gha-pipeactions/verify@main
+        uses: inditex/gha-pipeactions/verify@v3
         with:
           supraenv: ${{ steps.supraenvironment.outputs.env }}
           components: "connects"
           project-dir: ${GITHUB_WORKSPACE}
           extra-features: "--extra-features ${{ github.event.inputs.ISSUE_NUMBER }} ${{ steps.metadata.outputs.project-name }}"
+          github-token: ${{ secrets.GH_TOKEN_READER }}
         env:
-          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
-          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+          PROJECT_KEY: ${{ steps.metadata.outputs.project-key }}
+          PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
 
       - name: Check PR Verify Result
         if: ${{ failure() && !cancelled() }}
@@ -90,6 +93,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
 
+      - name: Generate PIPE Summary and Coordinates
+        if: ${{ !startsWith(env.PIPE_CODE_VERSION, '2') }}
+        id: set-outputs-summary
+        uses: inditex/gha-pipeactions/analyze-differences@v1
+        with:
+          differences-file-path: "pipe/target"
+          supraenv: ${{ github.event.inputs.SUPRAENV }}
+
+      - name: Shepherd validation
+        if: ${{ steps.set-outputs-summary.outputs.shepherd_regions && !startsWith(env.PIPE_CODE_VERSION, '2') }}
+        uses: inditex/gha-pipeactions/shepherd-region-check@v1
+        with:
+          supraenvs: ${{ github.event.inputs.SUPRAENV }}
+          regions: ${{ steps.set-outputs-summary.outputs.shepherd_regions }}
+          pr-number: ${{ github.event.inputs.ISSUE_NUMBER }}
+          project-key: ${{ steps.metadata.outputs.project-key }}
+          project-name: ${{ steps.metadata.outputs.project-name }}
+
       - name: Setup paas-cli
         id: setup-cli
         uses: inditex/gha-paasdeployment/setup-cli@v0
@@ -97,7 +118,7 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Deploy PIPE Connect
-        uses: inditex/gha-pipeactions/deploy-connect@v2
+        uses: inditex/gha-pipeactions/deploy-connect@v3
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -106,9 +127,10 @@ jobs:
           email: ${{ github.event.inputs.NOTIFY_TO }}
           git-url: ${GITURL}
           project-dir: ${GITHUB_WORKSPACE}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
         env:
-          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
-          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+          PROJECT_KEY: ${{ steps.metadata.outputs.project-key }}
+          PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
 
       - name: Create a Workflow Status Check to link this run to its corresponding PR
         if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
