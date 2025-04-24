@@ -8,14 +8,16 @@ concurrency:
 on:
   pull_request:
     paths: ['monit/**', '.github/workflows/monit**']
+    types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 1.49.0
+  WORKFLOW_VERSION: 1.50.0
 
 jobs:
   linter:
     name: Linter
     timeout-minutes: 30
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
     steps:
       - name: Checkout
@@ -34,6 +36,7 @@ jobs:
 
   alert_checker:
     name: Alerthub / Verify
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
     steps:
 
