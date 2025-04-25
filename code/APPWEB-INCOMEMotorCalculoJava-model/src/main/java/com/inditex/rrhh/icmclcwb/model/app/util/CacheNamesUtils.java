@@ -120,4 +120,6 @@ public class CacheNamesUtils {
 
   public static final String ID_LOCALIZACION_BY_TAREA = "itx.icmlcwb.id_localizacion_by_tarea";
 
+  public static final String GET_CLASES = "itx.icmlcwb.get_clases";
+
 }

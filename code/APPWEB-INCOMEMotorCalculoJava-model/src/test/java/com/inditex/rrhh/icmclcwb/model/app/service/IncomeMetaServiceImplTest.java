@@ -16,10 +16,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.instancio.junit.InstancioSource;
@@ -49,6 +51,10 @@ class IncomeMetaServiceImplTest {
   @Mock
   @Qualifier("empleadosIncomeMetaApiClient")
   private EmpleadosApi empleadosApi;
+
+  @Mock
+  @Qualifier("tiendaIncomeMetaApiClient")
+  private TiendaApi tiendaApi;
 
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
@@ -94,4 +100,17 @@ class IncomeMetaServiceImplTest {
     assertNotNull(result);
   }
 
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getTiendasTest() {
+    final List<TiendaResponseDTO> mockResponse = Collections.singletonList(new TiendaResponseDTO());
+    when(
+        this.tiendaApi.listTiendas("01", List.of("1"), true, LocalDate.now(), LocalDate.now(), "PL"))
+            .thenReturn(mockResponse);
+
+    final List<TiendaResponseDTO> result =
+        this.incomeMetaService.getTiendas("01", List.of("1"), true, LocalDate.now(), LocalDate.now(), "PL");
+
+    assertNotNull(result);
+  }
 }

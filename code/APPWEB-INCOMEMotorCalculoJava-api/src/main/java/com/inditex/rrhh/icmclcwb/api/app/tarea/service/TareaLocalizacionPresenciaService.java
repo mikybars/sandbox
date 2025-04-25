@@ -38,4 +38,7 @@ public interface TareaLocalizacionPresenciaService {
   void totalizarIncluidoChallengePorcentaje(@Valid @NotNull RunTareaDto runTareaDto);
 
   void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid @NotNull RunTareaDto runTareaDto);
+
+  void updateSindicalCerrada(@Valid @NotNull RunTareaDto runTareaDto);
+
 }

@@ -1947,7 +1947,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void clases(final ClaseRequestDto request, final IcmParamcalorigenBlock param, final GetclasesOutput output,
       final ClaseResponseDto response) {
     when(this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(any(ClaseRequestDto.class))).thenReturn(param);

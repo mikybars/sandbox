@@ -126,7 +126,6 @@ public class TrabajoServiceImpl implements TrabajoService {
   @Override
   // TODO: Revisar si es login o username
   public TrabajoDTO create(@Valid @TrabajoValidator final TrabajoDTO trabajo) {
-    List<IdOrigenEmpresaDto> empresasNoCalcular = new ArrayList<>();
 
     trabajo.setFechaHoraCreacion(TimeUtils.nowLocalDateTime().atOffset(ZoneOffset.UTC));
     trabajo.setEstadoTrabajo(EstadoTrabajoEnum.PENDIENTE.getDto());
@@ -159,6 +158,7 @@ public class TrabajoServiceImpl implements TrabajoService {
     if (CollectionUtils.isNotEmpty(trabajo.getPersona())) {
       result.setPersona(this.trabajoAmbitoPersonaService.create(trabajo.getPersona(), result));
     }
+    List<IdOrigenEmpresaDto> empresasNoCalcular = new ArrayList<>();
 
     if (trabajo.getIdProgramacion() != null) {
       if (trabajo.getTipoAmbito().getId().equals(TipoAmbitoEnum.SOCIEDAD.getId())

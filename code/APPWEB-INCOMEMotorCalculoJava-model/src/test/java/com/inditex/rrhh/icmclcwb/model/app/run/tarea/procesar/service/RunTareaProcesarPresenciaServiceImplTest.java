@@ -254,4 +254,11 @@ class RunTareaProcesarPresenciaServiceImplTest {
         any(RunTareaDto.class));
   }
 
+  @Test
+  void updateSindicalCerradaTest() {
+    this.runTareaProcesarPresenciaService.updateSindicalCerrada(new RunTareaDto());
+    verify(this.tareaLocalizacionPresenciaService, times(1)).updateSindicalCerrada(
+        any(RunTareaDto.class));
+  }
+
 }

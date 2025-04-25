@@ -109,6 +109,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
@@ -244,6 +245,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Autowired
   private TipoVentaConceptoChallengeMapper tipoVentaConceptoChallengeMapper;
+
+  @Autowired
+  private TiendaMapper tiendaMapper;
 
   @Override
   protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -1213,34 +1217,28 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
               tareaAmbito.getCclIdOrigen(),
               Collections.singletonList(TipoVentaConceptoEnum.ENTREGA_DOMICILIO_POR_PRESENCIAS.getId()));
       if (CollectionUtils.isNotEmpty(cadenas)) {
-        request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS).getPage());
-        request.setData(this.tareaMapper
-            .mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToSearchTiendasFilterDto(tarea, tareaAmbito,
-                this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
-                    tarea.getId(),
-                    TipoDatoEnum.PERIODO_AMPLIADO.getId())));
-        request.getData()
-            .setIdsCadena(cadenas.stream().map(IdCadenaDto::getId).collect(Collectors.toList()));
 
-        boolean hasNext = false;
-        do {
-          final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-              .searchTiendas(request);
-          AsyncUtils.exceptionally(cfData, cf);
-          final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-          if (CollectionUtils.isNotEmpty(data)) {
-            AsyncUtils.checkAsyncAvaliable(cfPersist,
-                this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
-                    .getFilter()
-                    .getMaxPersistenceSize());
-            final CompletableFuture<Void> cfSave = this.tareaLocalizacionHistoricoAsyncService
-                .saveGenericTiendaResultItemDto(data, tarea);
-            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-            hasNext = request.nextPage();
-          }
-        } while (hasNext);
+        final List<String> listaCadenas = cadenas.stream().map(IdCadenaDto::getId).collect(Collectors.toList());
+
+        final List<GenericTiendaResultItemDto> listaTiendas =
+            this.tiendaMapper.toGenericTiendaResultItemDtoList(this.incomeMetaService.getTiendas(
+                tareaAmbito.getCclIdOrigen(), listaCadenas, false, tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(),
+                tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen());
+        final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = CompletableFuture.completedFuture(listaTiendas);
+        AsyncUtils.exceptionally(cfData, cf);
+        final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
+        if (CollectionUtils.isNotEmpty(data)) {
+          AsyncUtils.checkAsyncAvaliable(cfPersist,
+              this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
+                  .getFilter()
+                  .getMaxPersistenceSize());
+          final CompletableFuture<Void> cfSave = this.tareaLocalizacionHistoricoAsyncService
+              .saveGenericTiendaResultItemDto(data, tarea);
+          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+
+        }
+        AsyncUtils.waitAllOfIsOk(cf, cf);
       }
-      AsyncUtils.waitAllOfIsOk(cf, cf);
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);
       throw e;

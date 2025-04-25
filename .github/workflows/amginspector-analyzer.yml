@@ -13,9 +13,20 @@ on:
   pull_request:
     types: [opened, labeled, edited, synchronize]
   workflow_dispatch:
+    inputs:
+      DRY_RUN:
+        required: false
+        type: boolean
+        default: false
+        description: 'Run the workflow in dry-run mode'
+      INCLUDE_MATCHES:
+        required: false
+        type: boolean
+        default: false
+        description: 'Include matches (only for dry-run mode)'
 
 env:
-  WORKFLOW_VERSION: 1.45.0
+  WORKFLOW_VERSION: 1.46.0
   TOOL_VERSIONS: |
     ivm-node 18.12.1
 
@@ -116,6 +127,26 @@ jobs:
         shell: bash
         run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> "$GITHUB_ENV"
 
+      - name: Get dryRun parameter (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: echo "DRY_RUN=${{ inputs.DRY_RUN }}" >> "$GITHUB_ENV"
+
+      - name: Get dryRun parameter (merge or pull request)
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        shell: bash
+        run: echo "DRY_RUN=false" >> "$GITHUB_ENV"
+
+      - name: Get includeMatches parameter (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: echo "INCLUDE_MATCHES=${{ inputs.INCLUDE_MATCHES }}" >> "$GITHUB_ENV"
+
+      - name: Get includeMatches parameter (merge or pull request)
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        shell: bash
+        run: echo "INCLUDE_MATCHES=false" >> "$GITHUB_ENV"
+
       - name: Run AMIGA Inspector
         uses: inditex/gha-amigainspectoractions/run@main
         with:
@@ -129,7 +160,32 @@ jobs:
           ignore-default-rules: ${{ steps.config.outputs.ignore-default-rules }}
           match-limit: ${{ steps.config.outputs.match-limit }}
           react-scanner-enabled: ${{ steps.config.outputs.react-scanner-enabled }}
+          dry-run: ${{ env.DRY_RUN }}
+          include-matches: ${{ env.INCLUDE_MATCHES }}
 
         env:
           AMGINSPECT_USERNAME: ${{ secrets.AMGINSPECT_USER }}
           AMGINSPECT_PASSWORD: ${{ secrets.AMGINSPECT_PASS }}
+
+      - name: Sanitize branch name
+        if: ${{ inputs.DRY_RUN }}
+        shell: bash
+        run: echo "SANITIZED_BRANCH_NAME=${BRANCH_NAME//\//_}" >> "$GITHUB_ENV"
+
+      - name: Upload application inspector results
+        if: ${{ inputs.DRY_RUN }}
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 1
+          name: application-inspector-result-${{ env.SANITIZED_BRANCH_NAME }}.json
+          path: analysis-appinspector-result.json
+          overwrite: true
+
+      - name: Upload react scanner results
+        if: ${{ inputs.DRY_RUN }}
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 1
+          name: react-scanner-result-${{ env.SANITIZED_BRANCH_NAME }}.json
+          path: analysis-reactscaner-result.json
+          overwrite: true

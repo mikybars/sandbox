@@ -204,6 +204,9 @@ class RunTareaProcesarServiceImplTest {
         .indicadorPersonaPorVenta(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
+        .updateSindicalCerrada(this.runTarea);
+
+    doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)
         .indicadorDesplazamientoDirectoVenta(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaProcesarPresenciaAsyncService)

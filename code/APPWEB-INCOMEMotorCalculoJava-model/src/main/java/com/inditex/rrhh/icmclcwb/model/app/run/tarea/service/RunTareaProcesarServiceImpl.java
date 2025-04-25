@@ -253,6 +253,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
 
+      // Desactivamos las sindicales donde la tienda esté cerrada
+      final CompletableFuture<Void> cfUpdateSindicalCerrada = this.runTareaProcesarPresenciaAsyncService
+          .updateSindicalCerrada(runTarea);
+      AsyncUtils.exceptionally(cfUpdateSindicalCerrada, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
       // Totalizamos las presencias de la tienda por seccion
       final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
           .totalizarLocalizacion(runTarea);

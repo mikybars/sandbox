@@ -8,10 +8,12 @@ Any pull request `opened` with changes about `monit` files.
 
 ## Where does it run?
 
-The `linter` job runs in `ubuntu-20.04` GitHub infrastructure.  
+The `linter` job runs in `ubuntu-20.04` GitHub infrastructure.
 The `alert_checker` job runs in [github-runners](https://github.com/inditex/github-runners) self hosted.
 
 ## Jobs
+
+Both jobs can be skipped in draft PRs by setting the repository variable `PR_VERIFY_RUNS_ON_DRAFT` to `false`. If you want to run it in a draft PR when this variable is set to `false`, you can use the `pr-verify/force-on-draft` label.
 
 ### `linter`
 

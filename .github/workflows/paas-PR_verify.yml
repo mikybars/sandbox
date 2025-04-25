@@ -7,20 +7,21 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened, ready_for_review, closed]
     paths:
       - "paas/**"
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.20.1
+  WORKFLOW_VERSION: 3.21.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
   check-changes-in-paths:
     name: Check for changes in corresponding paths
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
-    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
+    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
+        && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     outputs:
       yaml: ${{ steps.changes.outputs.yaml }}
       yaml-files: ${{ steps.changes.outputs.yaml_files }}
@@ -54,7 +55,8 @@ jobs:
   check-changes-in-secrets:
     name: Check for changes secret*.yml
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
-    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch' }}
+    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
+        && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     outputs:
       secrets: ${{ steps.secrets-check-changes.outputs.secrets }}
       secrets-files-array: ${{ steps.secrets-check-changes.outputs.secrets-files-array }}

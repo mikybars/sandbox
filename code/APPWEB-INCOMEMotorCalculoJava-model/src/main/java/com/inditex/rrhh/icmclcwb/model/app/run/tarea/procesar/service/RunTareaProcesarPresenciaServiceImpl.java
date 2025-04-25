@@ -203,4 +203,9 @@ public class RunTareaProcesarPresenciaServiceImpl implements RunTareaProcesarPre
     this.tareaLocalizacionPresenciaService.compensarLocalizacionManualIncluidoChallengePorcentaje(runTarea);
   }
 
+  @Override
+  public void updateSindicalCerrada(@Valid final RunTareaDto runTarea) {
+    this.tareaLocalizacionPresenciaService.updateSindicalCerrada(runTarea);
+  }
+
 }

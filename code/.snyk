@@ -2,25 +2,12 @@
 version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-JAVA-COMH2DATABASE-31685:
-    - '* > com.inditex.amigafwk.batch:batch-starter@5.11.2 > com.inditex.amigafwk.batch:batch-core@5.11.2 > com.h2database:h2@2.2.224':
-      reason: >-
-        No remediation available.
   SNYK-JAVA-ORGJETBRAINSKOTLIN-2393744:
     - '* > org.jetbrains.kotlin:kotlin-stdlib@1.9.25':
       reason: >-
-        No remediation available
-  SNYK-JAVA-ORGXMLUNIT-6751676:
-    - '* > org.springframework.boot:spring-boot-starter-test@3.3.5 > org.xmlunit:xmlunit-core@2.9.1':
-      reason: >-
-        Ignored until Spring Boot brings upgraded version
-  SNYK-JAVA-ORGSPRINGFRAMEWORKCLOUD-7278077:
-    - '* > org.springframework.cloud:spring-cloud-function-context@4.1.0':
-      reason: >-
-        Ignored until Spring Cloud brings upgraded version
+        Ignored until Spring Boot brings kotlin.version 2.1.0 or above
   SNYK-JAVA-ORGECLIPSEJETTY-8186141:
-    - '* > com.inditex.amigafwk.data:data-solr-client@5.11.2 > org.apache.solr:solr-solrj@9.7.0 > org.eclipse.jetty:jetty-http@11.0.24':
+    - '* > com.inditex.amigafwk.data:data-solr-client@5.14.1 > org.apache.solr:solr-solrj@9.8.0 > org.eclipse.jetty:jetty-http@11.0.24':
       reason: >-
         Ignored until we can update to Jetty 12
 patch: {}
-org-id: income

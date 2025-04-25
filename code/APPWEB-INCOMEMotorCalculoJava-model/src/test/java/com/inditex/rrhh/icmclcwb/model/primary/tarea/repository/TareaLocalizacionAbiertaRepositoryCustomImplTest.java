@@ -318,7 +318,7 @@ class TareaLocalizacionAbiertaRepositoryCustomImplTest {
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  void compensarOnlineSeccionCerradaTest( final TareaDto tarea, final TrabajoDTO trabajo,
+  void compensarOnlineSeccionCerradaTest(final TareaDto tarea, final TrabajoDTO trabajo,
       final List<IdTipoDatoDto> tiposDatoIpod,
       final List<IdTipoDatoDto> tiposDatoSint,
       final List<IdTipoDatoDto> tiposDatoEntregaTienda,

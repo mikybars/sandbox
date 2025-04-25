@@ -5,39 +5,53 @@ on:
     types: [published]
 
 env:
-  WORKFLOW_VERSION: 1.10.0
+  WORKFLOW_VERSION: 1.15.0
+  GITHUB_REGISTRY: ghcr.io
 
 jobs:
-  check-compliance:
-    name: Check compliance using sbom and wsc-oscodeps
-    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
+  generate-sbom:
+    name: Generate SBOM
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_DOCKER || '["citool-icr-aks__code-ubuntu24.04-medium"]') }}
     steps:
       - name: Checkout
         id: action-checkout
         uses: actions/checkout@v4
 
-      - name: Setup / JFrog CLI
-        id: setup-jfrog-cli
-        uses: jfrog/setup-jfrog-cli@v4
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Generate SBOM
+        id: generate-sbom
+        uses: inditex/gha-oscodependencies/cdxgen-generator@v0
         with:
-          version: 1.54.1
+          code-src: ${{ github.workspace }}
+          dp_user: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          dp_token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN_READER }}
 
-      - name: Setup / Node version
-        id: setup-node-version
-        uses: inditex/gha-ivmactions/setup-tool@v1
+      - name: Upload SBOM Artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
-          tool-name: ivm-node
-          tool-version: 20
+          name: sbom
+          path: code/sbom.json
 
-      - name: Setup / NPM
-        id: setup-npm
-        run: |
-          echo "${NODE_HOME}/bin" >> "$GITHUB_PATH"
+  check-compliance:
+    name: Check compliance using sbom and wsc-oscodeps
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
+    needs: generate-sbom
+    steps:
+      - name: Checkout
+        id: action-checkout
+        uses: actions/checkout@v4
 
-      - name: Setup / CDXGEN
-        id: setup-cdxgen
-        working-directory: ${{ github.workspace }}
-        run: npm install @cyclonedx/cdxgen@11.0.10
+      - name: Download SBOM Artifact
+        id: download-sbom-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sbom
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./sbom-artifact
 
       - name: Determine the language of the repository
         id: determine-language
@@ -46,22 +60,9 @@ jobs:
           echo "language=$LANGUAGE" >> "$GITHUB_OUTPUT"
           echo "The primary language of the repository is: $LANGUAGE"
 
-      - name: Generate SBOM using CDXGEN
-        id: generate-sbom
-        run: |
-          cd code
-          export FETCH_LICENSE=true
-          export PREFER_MAVEN_DEPS_TREE=false
-          export CDX_MAVEN_PLUGIN="org.cyclonedx:cyclonedx-maven-plugin:2.9.0"
-          export CDX_MAVEN_GOAL="makeAggregateBom"
-          export CDX_MAVEN_INCLUDE_TEST_SCOPE=true
-          "${{ github.workspace }}/node_modules/.bin/cdxgen" --profile license-compliance -o sbom.json
-          echo "::notice::SBOM generated successfully. Path: ${PWD}/sbom.json"
-          echo "sbom_json_path=${PWD}/sbom.json" >> "$GITHUB_OUTPUT"
-
       - name: Credentials resolver
         id: credentials-resolver
-        uses: inditex/gha-oscodependencies/creds-resolver@main
+        uses: inditex/gha-oscodependencies/creds-resolver@v0
         with:
           cyberark_oauth_clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark_oauth_secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -85,10 +86,11 @@ jobs:
         id: determinate-version
         env:
           INPUT_RELEASE_TAG: ${{ github.event.release.tag_name }}
+          REPO_LANGUAGE: ${{ steps.determine-language.outputs.language }}
         run: |
           cd code
-          if [ -f "Makefile" ]; then
-            echo "Makefile found, extracting version..."
+          if [ -f "Makefile" ] && { [ "$REPO_LANGUAGE" = "Go" ] || [ "$REPO_LANGUAGE" = "Makefile" ]; }; then
+            echo "Makefile found and repository language is $REPO_LANGUAGE, extracting version..."
             VERSION=$(make version)
             echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
             echo "Project version: ${VERSION}"
@@ -107,11 +109,11 @@ jobs:
 
       - name: Upload file to an s3 bucket
         id: upload-s3-file
-        uses: inditex/gha-oscodependencies/upload-s3@main
+        uses: inditex/gha-oscodependencies/upload-s3@v0
         with:
           s3_access_key: ${{ steps.credentials-resolver.outputs.s3_access_key }}
           s3_secret_key: ${{ steps.credentials-resolver.outputs.s3_secret_key }}
-          file_path: ${{ steps.generate-sbom.outputs.sbom_json_path }}
+          file_path: ${{ github.workspace }}/sbom-artifact/sbom.json
           object_name: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
 
       - name: Check if curation.yml exists
@@ -120,11 +122,19 @@ jobs:
           curation_file="${GITHUB_WORKSPACE}/code/curation.yml"
           oscos_curation_file="${GITHUB_WORKSPACE}/code/oscos-curation.yml"
 
+          is_effectively_empty() {
+            if grep -qE '^[[:space:]]*[^#[:space:]]' "$1"; then
+              return 1
+            else
+              return 0
+            fi
+          }
+
           if [ -f "${oscos_curation_file}" ]; then
-            if [ ! -s "${oscos_curation_file}" ]; then
+            if [ ! -s "${oscos_curation_file}" ] || is_effectively_empty "${oscos_curation_file}"; then
               rm "${oscos_curation_file}"
               echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml file exists but is empty. File removed."
+              echo "::notice::oscos-curation.yml file exists but is empty or only contains comments. File removed."
             else
               echo "curation_exists=true" >> "$GITHUB_OUTPUT"
               echo "curation_path=${oscos_curation_file}" >> "$GITHUB_OUTPUT"
@@ -142,14 +152,14 @@ jobs:
       - name: Validation project curation file
         id: validation-project-curation-file
         if: ${{ steps.check-curation-file.outputs.curation_exists == 'true' }}
-        uses: inditex/gha-oscodependencies/file-validation@main
+        uses: inditex/gha-oscodependencies/file-validation@v0
         with:
           schema-name: curation_schema.json
           file-path: ${{ steps.check-curation-file.outputs.curation_path }}
 
       - name: Check compliance with OSCODEP API
         id: check-compliance
-        uses: inditex/gha-oscodependencies/sbom-api-client@main
+        uses: inditex/gha-oscodependencies/sbom-api-client@v0
         with:
           use-case: SBOM_COMPLIANCE
           sbom-id: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
@@ -160,14 +170,14 @@ jobs:
 
       - name: Check result with OSCODEP API
         id: check-result
-        uses: inditex/gha-oscodependencies/sbom-api-client@main
+        uses: inditex/gha-oscodependencies/sbom-api-client@v0
         with:
           use-case: SBOM_STATUS_CHECK
           task-id: ${{ steps.check-compliance.outputs.task_id }}
 
       - name: Generate Compliance Summary
         id: generate-summary
-        uses: inditex/gha-oscodependencies/compliance-result-renderer@main
+        uses: inditex/gha-oscodependencies/compliance-result-renderer@v0
         with:
           result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
           compliance-result: ${{ steps.check-result.outputs.compliance_result }}
@@ -247,7 +257,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SBOM_PATH: ${{ steps.generate-sbom.outputs.sbom_json_path }}
+          SBOM_PATH: ${{ github.workspace }}/sbom-artifact/sbom.json
           SBOM_NAME: bom.json
         with:
           script: |

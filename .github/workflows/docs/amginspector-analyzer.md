@@ -19,9 +19,10 @@
 
   - **Steps**
     - Checkout repo.
-    - Checkout [Inditex actions](https://github.com/inditex/actions) repo.  
+    - Checkout [Inspector actions](https://github.com/inditex/gha-amigainspectoractions) repo.  
     - Checkout [AMIGA inspector configuration](https://github.com/inditex/cac-amigainspectorrules) repo.  
     - Extract project name and key from `application.yml` file.
     - Extract config data from the configuration repo.
     - Extract branch name.
-    - Run [`amiga/inspector/run`](https://github.com/inditex/actions/amiga/inspector/run) in order to run MS Application Inspector analyze over de project code.
+    - Run [`amiga/inspector/run`](https://github.com/inditex/gha-amigainspectoractions/tree/main/run) in order to run MS Application Inspector analyze over the project code.
+    - If dryRun mode (only in manual dispatch), upload results to workflow output.
