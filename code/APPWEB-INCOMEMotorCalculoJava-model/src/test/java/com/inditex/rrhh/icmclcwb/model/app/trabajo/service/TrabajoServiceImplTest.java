@@ -3,6 +3,9 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
@@ -12,11 +15,10 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenService;
@@ -25,12 +27,9 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
@@ -42,6 +41,7 @@ import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.repository.TrabajoRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,7 +86,7 @@ class TrabajoServiceImplTest {
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Mock
-  private Map<String, Meta4PropertiesDto> meta4Properties;
+  private IncomeMetaService incomeMetaService;
 
   @InjectMocks
   private TrabajoServiceImpl trabajoServiceImpl;
@@ -142,14 +142,14 @@ class TrabajoServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
 
+    final PeriodoResponseDTO mockPeriodoResponse = mock(PeriodoResponseDTO.class);
+
     when(this.trabajoMapper.trabajoDtoToTrabajo(any(TrabajoDTO.class))).thenReturn(new Trabajo());
     when(this.trabajoRepository.save(any(Trabajo.class))).thenReturn(new Trabajo());
     when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
     when(this.trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDTO.class))).thenReturn(new SaveProcesoDto());
-    when(this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS)).thenReturn(properties);
-    when(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(any(PeriodosRequestDto.class)))
-        .thenReturn(Arrays.asList(new PeriodosResultItemDto()));
-
+    when(this.incomeMetaService.getPeriodos(anyString(), anyInt(), anyBoolean(), anyBoolean()))
+        .thenReturn(mockPeriodoResponse);
     this.trabajoServiceImpl.create(trabajo);
     verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1)).saveProceso(any(SaveProcesoDto.class));
   }
