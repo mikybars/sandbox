@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -21,6 +22,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
@@ -54,6 +56,9 @@ import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -137,10 +142,11 @@ class TrabajoServiceImplTest {
     verify(this.trabajoAmbitoPersonaService, timeout(1000).times(1)).findByTrabajo(any(TrabajoDTO.class));
   }
 
-  @Test
-  void create() {
+  @ParameterizedTest
+  @MethodSource("provideTipoAmbitoIds")
+  void create(Long tipoAmbitoId) {
     final TipoAmbitoDTO tipoAmbitoDTO = new TipoAmbitoDTO();
-    tipoAmbitoDTO.setId(TipoAmbitoEnum.SOCIEDAD.getId());
+    tipoAmbitoDTO.setId(tipoAmbitoId);
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setNombreUsuario("test");
     trabajo.setIcmIdPeriodo(1L);
@@ -164,14 +170,16 @@ class TrabajoServiceImplTest {
     when(this.trabajoMapper.trabajoDtoToTrabajo(any(TrabajoDTO.class))).thenReturn(new Trabajo());
     when(this.trabajoRepository.save(any(Trabajo.class))).thenReturn(new Trabajo());
     when(this.trabajoMapper.trabajoToTrabajoDto(any(Trabajo.class))).thenReturn(new TrabajoDTO());
-    when(this.trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDTO.class))).thenReturn(new SaveProcesoDto());
+    if (tipoAmbitoId != 3) {
+      final Meta4PropertiesDto mockMeta4PropertiesDto = new Meta4PropertiesDto();
+      when(this.trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDTO.class))).thenReturn(new SaveProcesoDto());
+      when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(mockMeta4PropertiesDto);
+      when(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class)))
+          .thenReturn(List.of(empresaResultItem));
+    }
     when(this.incomeMetaService.getPeriodos(anyString(), anyInt(), anyBoolean(), anyBoolean()))
         .thenReturn(mockPeriodoResponse);
     when(this.periodoMapper.periodoResponseDtoToPeriodoDto(mockPeriodoResponse)).thenReturn(mockPeriodo);
-    final Meta4PropertiesDto mockMeta4PropertiesDto = new Meta4PropertiesDto();
-    when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(mockMeta4PropertiesDto);
-    when(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class)))
-        .thenReturn(List.of(empresaResultItem));
     when(this.trabajoRepositoryCustom.findEmpresasCalcularProgramados(any(TrabajoDTO.class), anyList(), anyList()))
         .thenReturn(List.of(empresaNoCalcular));
 
@@ -183,12 +191,19 @@ class TrabajoServiceImplTest {
     verify(this.trabajoMapper, times(1)).trabajoToTrabajoDto(any(Trabajo.class));
     verify(this.incomeMetaService, times(1)).getPeriodos(anyString(), anyInt(), anyBoolean(), anyBoolean());
     verify(this.periodoMapper, times(1)).periodoResponseDtoToPeriodoDto(mockPeriodoResponse);
-    verify(this.meta4IcmWsCalcIncomeSessionService, times(1)).getEmpresa(any(EmpresaRequestDto.class));
+    if (tipoAmbitoId != 3) {
+      verify(this.meta4IcmWsCalcIncomeSessionService, times(1)).getEmpresa(any(EmpresaRequestDto.class));
+      verify(this.meta4IcmWsCalcIncomeService, times(1)).saveProceso(any(SaveProcesoDto.class));
+      verify(this.senderTrabajo, times(1)).send(any(TrabajoDTO.class));
+    }
     verify(this.trabajoRepositoryCustom, times(1)).findEmpresasCalcularProgramados(any(TrabajoDTO.class), anyList(), anyList());
 
-    assertNull(result.getEmpresa());
-    verify(this.meta4IcmWsCalcIncomeService, times(1)).saveProceso(any(SaveProcesoDto.class));
-    verify(this.senderTrabajo, times(1)).send(any(TrabajoDTO.class));
+  }
+
+  private static Stream<Arguments> provideTipoAmbitoIds() {
+    return Stream.of(
+        arguments(TipoAmbitoEnum.SOCIEDAD.getId()),
+        arguments(TipoAmbitoEnum.EMPRESA.getId()));
   }
 
   @Test
