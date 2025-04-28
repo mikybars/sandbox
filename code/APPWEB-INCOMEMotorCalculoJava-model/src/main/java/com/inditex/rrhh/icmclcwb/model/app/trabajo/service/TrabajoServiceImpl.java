@@ -4,6 +4,7 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
@@ -139,9 +140,11 @@ public class TrabajoServiceImpl implements TrabajoService {
     // TODO: Revisar estas fechas
     final PeriodoDTO periodo = this.periodoMapper.periodoResponseDtoToPeriodoDto(
         this.incomeMetaService.getPeriodos(trabajo.getIdOrganization(), trabajo.getIcmIdPeriodo().intValue(), true, true));
-    trabajo
-        .setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
-    trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+
+    if (Objects.nonNull(periodo)) {
+      trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+      trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
+    }
 
     final TrabajoDTO result = this.trabajoMapper
         .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));
