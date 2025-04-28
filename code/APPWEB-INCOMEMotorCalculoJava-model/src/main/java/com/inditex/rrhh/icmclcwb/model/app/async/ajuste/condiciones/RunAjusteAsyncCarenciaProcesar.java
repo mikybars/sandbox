@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.async.ajuste.condiciones;
 
 import java.util.concurrent.CompletableFuture;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
