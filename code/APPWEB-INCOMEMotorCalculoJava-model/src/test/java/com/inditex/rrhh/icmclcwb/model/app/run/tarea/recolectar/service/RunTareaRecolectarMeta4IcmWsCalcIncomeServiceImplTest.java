@@ -1,8 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +28,9 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
   @InjectMocks
   private RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImpl runTareaRecolectarMeta4IcmWsCalcIncomeService;
+
+  @Mock
+  private TiendaMapper tiendaMapper;
 
   @Test
   void fechaAmbitoAndEmpresaByRunTareaTest() {
@@ -409,6 +415,7 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     final List<TareaAmbitoDto> ambito = new ArrayList<>();
     tarea.setAmbito(ambito);
     ambito.add(TareaAmbitoDto.builder().build());
+    when(this.tiendaMapper.toGenericTiendaResultItemDtoList(any(), anyString())).thenReturn(new ArrayList<>());
 
     this.runTareaRecolectarMeta4IcmWsCalcIncomeService.localizacionCadenaByRunTarea(runTarea);
 

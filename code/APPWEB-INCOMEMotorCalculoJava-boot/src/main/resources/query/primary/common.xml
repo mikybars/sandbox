@@ -7553,7 +7553,7 @@ FROM (
               T.FECHA,
               T.ID_TIPO_CALCULO
           HAVING
-              SUM(IMPORTE) > 10
+              SUM(IMPORTE) > 100
       ) AS SUBQUERY
       GROUP BY CCL_ID_PERSON;
       ]]>

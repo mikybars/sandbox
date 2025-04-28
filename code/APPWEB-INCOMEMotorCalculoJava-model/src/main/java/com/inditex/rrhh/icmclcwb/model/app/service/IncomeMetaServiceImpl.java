@@ -9,10 +9,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.slf4j.Logger;
@@ -41,6 +43,10 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Autowired
   @Qualifier("tiposventachallengeIncomeMetaApiClient")
   private TiposventachallengeApi tiposventachallengeApi;
+
+  @Autowired
+  @Qualifier("tiendaIncomeMetaApiClient")
+  private TiendaApi tiendaApi;
 
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
@@ -71,6 +77,17 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
     IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método TiposVentaChallenge");
     IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + origen + " " + empresa + " " + fechaInicio + " " + fechaFin + " " + organizacion);
     return this.tiposventachallengeApi.findTiposVentaChallenge(origen, empresa, fechaInicio, fechaFin, organizacion);
+  }
+
+  @Override
+  public List<TiendaResponseDTO> getTiendas(String idOrigen, List<String> idsEmpresaOrCadena, Boolean esEmpresa, LocalDate fechaInicio,
+      LocalDate fechaFin, String idOrganizacion) {
+
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método Tiendas");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: "
+        + idOrigen + " " + idsEmpresaOrCadena + " " + esEmpresa + " " + fechaInicio + " " + fechaFin + " " + idOrganizacion);
+
+    return this.tiendaApi.listTiendas(idOrigen, idsEmpresaOrCadena, esEmpresa, fechaInicio, fechaFin, idOrganizacion);
   }
 
 }
