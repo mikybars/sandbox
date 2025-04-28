@@ -1,11 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.trabajo.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
@@ -16,24 +19,30 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoOrigenService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
+import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
+import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.ProgramacionDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoOrigenDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.periodo.mapper.PeriodoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
@@ -86,6 +95,9 @@ class TrabajoServiceImplTest {
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Mock
+  private Map<String, Meta4PropertiesDto> meta4Properties;
+
+  @Mock
   private IncomeMetaService incomeMetaService;
 
   @InjectMocks
@@ -127,22 +139,27 @@ class TrabajoServiceImplTest {
 
   @Test
   void create() {
+    final TipoAmbitoDTO tipoAmbitoDTO = new TipoAmbitoDTO();
+    tipoAmbitoDTO.setId(TipoAmbitoEnum.SOCIEDAD.getId());
     final TrabajoDTO trabajo = new TrabajoDTO();
     trabajo.setNombreUsuario("test");
     trabajo.setIcmIdPeriodo(1L);
-    trabajo.setFechaInicioPeriodo(LocalDate.of(2017, 01, 01).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
-    trabajo.setFechaFinPeriodo(LocalDate.of(2017, 01, 01).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+    trabajo.setFechaInicioPeriodo(LocalDate.of(2017, 1, 1).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+    trabajo.setFechaFinPeriodo(LocalDate.of(2017, 1, 1).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
     trabajo.setIdOrganization("test");
-    trabajo.setTipoAmbito(new TipoAmbitoDTO());
-    final PageDto page = new PageDto(1, 100);
-    final Meta4PropertiesDto properties = new Meta4PropertiesDto();
-    final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-    filter.setMaxPageSize(1);
-    filter.setMaxPersistenceSize(1);
-    properties.setFilter(filter);
-    properties.setPage(page);
+    trabajo.setTipoAmbito(tipoAmbitoDTO);
+    trabajo.setOrigen(List.of(new TrabajoAmbitoOrigenDTO("ORIGEN1")));
+    trabajo.setIdProgramacion(1L);
 
     final PeriodoResponseDTO mockPeriodoResponse = mock(PeriodoResponseDTO.class);
+    final PeriodoDTO mockPeriodo = new PeriodoDTO();
+    mockPeriodo.setFechaInicioPeriodo(LocalDate.of(2020, 1, 1).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+    mockPeriodo.setFechaFinPeriodo(LocalDate.of(2020, 12, 31).atTime(LocalTime.MIDNIGHT).atOffset(ZoneOffset.UTC));
+
+    final EmpresaResultItemDto empresaResultItem = new EmpresaResultItemDto();
+    empresaResultItem.setIdEmpresa("EMPRESA1");
+
+    final IdOrigenEmpresaDto empresaNoCalcular = new IdOrigenEmpresaDto("EMPRESA1", "ORIGEN1");
 
     when(this.trabajoMapper.trabajoDtoToTrabajo(any(TrabajoDTO.class))).thenReturn(new Trabajo());
     when(this.trabajoRepository.save(any(Trabajo.class))).thenReturn(new Trabajo());
@@ -150,8 +167,28 @@ class TrabajoServiceImplTest {
     when(this.trabajoMapper.trabajoDtoToSaveProcesoDto(any(TrabajoDTO.class))).thenReturn(new SaveProcesoDto());
     when(this.incomeMetaService.getPeriodos(anyString(), anyInt(), anyBoolean(), anyBoolean()))
         .thenReturn(mockPeriodoResponse);
-    this.trabajoServiceImpl.create(trabajo);
-    verify(this.meta4IcmWsCalcIncomeService, timeout(1000).times(1)).saveProceso(any(SaveProcesoDto.class));
+    when(this.periodoMapper.periodoResponseDtoToPeriodoDto(mockPeriodoResponse)).thenReturn(mockPeriodo);
+    final Meta4PropertiesDto mockMeta4PropertiesDto = new Meta4PropertiesDto();
+    when(this.meta4Properties.get(Meta4PropertiesConstants.EMPRESA)).thenReturn(mockMeta4PropertiesDto);
+    when(this.meta4IcmWsCalcIncomeSessionService.getEmpresa(any(EmpresaRequestDto.class)))
+        .thenReturn(List.of(empresaResultItem));
+    when(this.trabajoRepositoryCustom.findEmpresasCalcularProgramados(any(TrabajoDTO.class), anyList(), anyList()))
+        .thenReturn(List.of(empresaNoCalcular));
+
+    final TrabajoDTO result = this.trabajoServiceImpl.create(trabajo);
+
+    assertNotNull(result);
+    verify(this.trabajoMapper, times(1)).trabajoDtoToTrabajo(any(TrabajoDTO.class));
+    verify(this.trabajoRepository, times(1)).save(any(Trabajo.class));
+    verify(this.trabajoMapper, times(1)).trabajoToTrabajoDto(any(Trabajo.class));
+    verify(this.incomeMetaService, times(1)).getPeriodos(anyString(), anyInt(), anyBoolean(), anyBoolean());
+    verify(this.periodoMapper, times(1)).periodoResponseDtoToPeriodoDto(mockPeriodoResponse);
+    verify(this.meta4IcmWsCalcIncomeSessionService, times(1)).getEmpresa(any(EmpresaRequestDto.class));
+    verify(this.trabajoRepositoryCustom, times(1)).findEmpresasCalcularProgramados(any(TrabajoDTO.class), anyList(), anyList());
+
+    assertNull(result.getEmpresa());
+    verify(this.meta4IcmWsCalcIncomeService, times(1)).saveProceso(any(SaveProcesoDto.class));
+    verify(this.senderTrabajo, times(1)).send(any(TrabajoDTO.class));
   }
 
   @Test
@@ -167,7 +204,33 @@ class TrabajoServiceImplTest {
   }
 
   @Test
-  public void findEmpresasCalcularProgramadosTest() {
+  void updateEstadoTest() {
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    final EstadoTrabajoDTO estado = new EstadoTrabajoDTO();
+    estado.setId(1);
+
+    doNothing().when(this.trabajoRepositoryCustom).updateEstado(any(TrabajoDTO.class), any(EstadoTrabajoDTO.class));
+
+    this.trabajoServiceImpl.updateEstado(trabajo, estado);
+
+    assertEquals(estado, trabajo.getEstadoTrabajo());
+    verify(this.trabajoRepositoryCustom, times(1)).updateEstado(trabajo, estado);
+  }
+
+  @Test
+  void updateFechaFinTest() {
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(1L);
+
+    doNothing().when(this.trabajoRepositoryCustom).updateFechaFin(any(TrabajoDTO.class));
+
+    this.trabajoServiceImpl.updateFechaFin(trabajo);
+
+    verify(this.trabajoRepositoryCustom, times(1)).updateFechaFin(trabajo);
+  }
+
+  @Test
+  void findEmpresasCalcularProgramadosTest() {
     final TrabajoDTO trabajoDTO = mock(TrabajoDTO.class);
     trabajoDTO.setIdProgramacion(1L);
     final List<String> origen = mock(List.class);
