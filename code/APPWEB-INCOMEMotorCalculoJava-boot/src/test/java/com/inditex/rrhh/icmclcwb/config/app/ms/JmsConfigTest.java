@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.app.ms;
+package com.inditex.rrhh.icmclcwb.config.app.ms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,7 +12,6 @@ import com.inditex.amigafwk.data.jms.JmsClient;
 import com.inditex.amigafwk.data.jms.JmsClientBuilder;
 import com.inditex.amigafwk.data.jms.JmsConnectionFactoryType;
 import com.inditex.amigafwk.service.jms.JmsListenerContainerFactoryBuilder;
-import com.inditex.rrhh.icmclcwb.config.app.ms.JmsConfig;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.JMSException;

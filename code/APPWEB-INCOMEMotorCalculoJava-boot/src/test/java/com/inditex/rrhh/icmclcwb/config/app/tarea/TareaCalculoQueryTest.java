@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.app.tarea;
+package com.inditex.rrhh.icmclcwb.config.app.tarea;
 
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 
