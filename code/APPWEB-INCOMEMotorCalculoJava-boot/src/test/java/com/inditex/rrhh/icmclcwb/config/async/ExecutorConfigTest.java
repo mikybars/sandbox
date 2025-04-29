@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.async;
+package com.inditex.rrhh.icmclcwb.config.async;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import com.inditex.amigafwk.common.executor.ItxExecutorFactory;
 import com.inditex.amigafwk.common.executor.ItxExecutorFactoryBean;
-import com.inditex.rrhh.icmclcwb.config.async.ExecutorConfig;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

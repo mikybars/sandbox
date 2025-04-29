@@ -4,12 +4,14 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUser;
 import com.inditex.amigafwk.service.aaa.userdetails.heimdal.HeimdalUtils;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdOrigenEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.EstadoTrabajoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.annotation.TrabajoValidator;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoAmbitoEmpresaService;
@@ -23,10 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeSessionService;
-import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.EstadoTrabajoDTO;
 import com.inditex.rrhh.icmclcwb.dto.PeriodoDTO;
@@ -87,6 +87,9 @@ public class TrabajoServiceImpl implements TrabajoService {
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Autowired
+  private IncomeMetaService incomeMetaService;
+
+  @Autowired
   private SenderTrabajo senderTrabajo;
 
   @Autowired
@@ -134,27 +137,15 @@ public class TrabajoServiceImpl implements TrabajoService {
       }
     }
 
-    final PeriodosRequestDto request = new PeriodosRequestDto();
-    request.setData(new GenericFilterDto());
-    request.getData().setItem(new ArrayList<GenericFilterParametersDto>());
-    request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PERIODOS).getPage());
-    request.getData()
-        .getItem()
-        .add(GenericFilterParametersDto.builder()
-            .idSociedadReg(trabajo.getIdOrganization())
-            .abierto(Meta4Constants.TRUE)
-            .vigente(Meta4Constants.TRUE)
-            .idPeriodo(trabajo.getIcmIdPeriodo().toString())
-            .build());
-
     // TODO: Revisar estas fechas
-    final List<PeriodoDTO> periodos = this.periodoMapper
-        .periodoResultItemDtoToPeriodoDto(this.meta4IcmWsCalcIncomeSessionService.getPeriodos(request));
-    if (CollectionUtils.isNotEmpty(periodos)) {
-      trabajo
-          .setFechaInicioPeriodo(periodos.get(0).getFechaInicioPeriodo());
-      trabajo.setFechaFinPeriodo(periodos.get(0).getFechaFinPeriodo());
+    final PeriodoDTO periodo = this.periodoMapper.periodoResponseDtoToPeriodoDto(
+        this.incomeMetaService.getPeriodos(trabajo.getIdOrganization(), trabajo.getIcmIdPeriodo().intValue(), true, true));
+
+    if (Objects.nonNull(periodo)) {
+      trabajo.setFechaInicioPeriodo(periodo.getFechaInicioPeriodo());
+      trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
     }
+
     final TrabajoDTO result = this.trabajoMapper
         .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));
     if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {

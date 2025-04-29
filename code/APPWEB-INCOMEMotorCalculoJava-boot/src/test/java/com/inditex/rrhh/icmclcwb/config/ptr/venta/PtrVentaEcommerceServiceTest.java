@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ptr.venta;
+package com.inditex.rrhh.icmclcwb.config.ptr.venta;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.timeout;

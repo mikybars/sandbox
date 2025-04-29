@@ -1,8 +1,9 @@
-package com.inditex.rrhh.icmclcwb.app.aop;
+package com.inditex.rrhh.icmclcwb.config.app.aop;
 
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -23,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.trabajo.dto.RunTrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
-import com.inditex.rrhh.icmclcwb.config.app.aop.LoggingAspect;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import org.aspectj.lang.JoinPoint;

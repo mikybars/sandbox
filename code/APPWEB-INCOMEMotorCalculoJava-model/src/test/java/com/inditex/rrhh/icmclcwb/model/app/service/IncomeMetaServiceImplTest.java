@@ -16,11 +16,13 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
@@ -55,6 +57,10 @@ class IncomeMetaServiceImplTest {
   @Mock
   @Qualifier("tiendaIncomeMetaApiClient")
   private TiendaApi tiendaApi;
+
+  @Mock
+  @Qualifier("periodoIncomeMetaApiClient")
+  private PeriodoApi periodoApi;
 
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
@@ -110,6 +116,20 @@ class IncomeMetaServiceImplTest {
 
     final List<TiendaResponseDTO> result =
         this.incomeMetaService.getTiendas("01", List.of("1"), true, LocalDate.now(), LocalDate.now(), "PL");
+
+    assertNotNull(result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getPeriodosTest() {
+    final PeriodoResponseDTO mockResponse = new PeriodoResponseDTO();
+    when(
+        this.periodoApi.periodos("01", 1, true, true))
+            .thenReturn(mockResponse);
+
+    final PeriodoResponseDTO result =
+        this.incomeMetaService.getPeriodos("01", 1, true, true);
 
     assertNotNull(result);
   }
