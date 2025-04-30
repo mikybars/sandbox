@@ -92,7 +92,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.d
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -109,6 +108,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.V
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.PresupuestosWlocMapper;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -248,6 +248,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
 
   @Autowired
   private TiendaMapper tiendaMapper;
+
+  @Autowired
+  private PresupuestosWlocMapper presupuestosWlocMapper;
 
   @Override
   protected LocalDateTime getFechaInicioPeriodo(final TareaDto tarea) {
@@ -857,29 +860,25 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
       final List<IdEmpresaDto> empresasAmbito = this.tareaAmbitoGlobalEmpresaService
           .findIdEmpresaByIdTarea(tarea.getId());
       if (CollectionUtils.isNotEmpty(personasChallenge)) {
-        final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-        request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC).getPage());
-        request.setData(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(
-            trabajo, tarea, tareaAmbito));
-        request.getData()
-            .setItem(this.tareaMapper.idEmpresaDtoToPresupuestosWlocFilterParametersDto(empresasAmbito));
-        boolean hasNext;
-        do {
-          final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-              .getPresupuestosWloc(request);
-          AsyncUtils.exceptionally(cfData, cf);
-          final List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
-          if (CollectionUtils.isNotEmpty(data)) {
-            AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
-                .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC)
-                .getFilter()
-                .getMaxPersistenceSize());
-            final CompletableFuture<Void> cfSave = this.tareaLocalizacionPresupuestoAsyncService.save(data,
-                tarea);
-            AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-          }
-          hasNext = request.nextPage();
-        } while (hasNext);
+        final List<Integer> listEmpresas = empresasAmbito.stream()
+            .map(IdEmpresaDto::getStdIdLegEnt)
+            .map(Integer::valueOf)
+            .collect(Collectors.toList());
+        final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = CompletableFuture
+            .completedFuture(
+                this.presupuestosWlocMapper.toPresupuestosWlocResultItemDtoList(this.incomeMetaService.getPresupuestos(listEmpresas,
+                    tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(), tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen()));
+        AsyncUtils.exceptionally(cfData, cf);
+        final List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
+        if (CollectionUtils.isNotEmpty(data)) {
+          AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
+              .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC)
+              .getFilter()
+              .getMaxPersistenceSize());
+          final CompletableFuture<Void> cfSave = this.tareaLocalizacionPresupuestoAsyncService.save(data,
+              tarea);
+          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+        }
       }
       AsyncUtils.waitAllOfIsOk(cf, cf);
     } catch (final Exception e) {
