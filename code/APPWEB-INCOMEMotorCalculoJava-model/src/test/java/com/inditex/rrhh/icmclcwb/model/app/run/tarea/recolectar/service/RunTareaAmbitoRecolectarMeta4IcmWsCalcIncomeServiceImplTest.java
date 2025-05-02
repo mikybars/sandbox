@@ -67,7 +67,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4FilterPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -114,6 +113,7 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.PresupuestosWlocMappe
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TipoVentaConceptoChallengeMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
@@ -1030,11 +1030,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
 
-    final CompletableFuture<List<AgrupOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-      final List<AgrupOnlineResultItemDto> agrup = new ArrayList<>();
-      agrup.add(new AgrupOnlineResultItemDto());
-      return agrup;
-    });
+    final GenericFilterDto genericFilterDto = new GenericFilterDto();
+    genericFilterDto.setIdOrigen("1");
+
+    final List<AgrupacionesOnlineResponseDTO> agrupacionesOnlineResponseDTOS = new ArrayList<>();
+    agrupacionesOnlineResponseDTOS.add(new AgrupacionesOnlineResponseDTO());
 
     final CompletableFuture<Void> cfNull = CompletableFuture.supplyAsync(() -> {
       return null;
@@ -1049,17 +1049,17 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
     when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
         any(TareaAmbitoDto.class),
-        any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.getAgrupacionesOnline(any(AgrupOnlineRequestDto.class)))
-        .thenReturn(cf);
+        any(PeriodoDto.class))).thenReturn(genericFilterDto);
+    when(this.incomeMetaService.getAgrupOnline(any(String.class)))
+        .thenReturn(agrupacionesOnlineResponseDTOS);
     when(this.tareaAgrupacionCadenaAsyncService.save(ArgumentMatchers.any(),
         any(TareaDto.class))).thenReturn(cfNull);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.agrupacionesCadenaByRunTareaAndTareaAmbito(
         runTarea,
         tareaAmbito);
-    verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-        .getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
+    verify(this.incomeMetaService, timeout(1000).times(1))
+        .getAgrupOnline(ArgumentMatchers.any(String.class));
 
   }
 
@@ -1079,9 +1079,11 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     properties.setFilter(filter);
     properties.setPage(page);
 
-    final CompletableFuture<List<AgrupOnlineResultItemDto>> cf = CompletableFuture.supplyAsync(() -> {
-      return new ArrayList<>();
-    });
+    final GenericFilterDto genericFilterDto = new GenericFilterDto();
+    genericFilterDto.setIdOrigen("1");
+
+    final List<AgrupacionesOnlineResponseDTO> agrupacionesOnlineResponseDTOS = new ArrayList<>();
+    agrupacionesOnlineResponseDTOS.add(new AgrupacionesOnlineResponseDTO());
 
     final List<IdEmpresaDto> empresa = new ArrayList<>();
     empresa.add(new IdEmpresaDto());
@@ -1092,15 +1094,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     when(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)).thenReturn(properties);
     when(this.tareaMapper.mergeTareaDtoAndTareaAmbitoDtoAndPeriodoDtoToGenericFilterDto(any(TareaDto.class),
         any(TareaAmbitoDto.class),
-        any(PeriodoDto.class))).thenReturn(new GenericFilterDto());
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.getAgrupacionesOnline(any(AgrupOnlineRequestDto.class)))
-        .thenReturn(cf);
+        any(PeriodoDto.class))).thenReturn(genericFilterDto);
+    when(this.incomeMetaService.getAgrupOnline(any(String.class)))
+        .thenReturn(null);
 
     this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.agrupacionesCadenaByRunTareaAndTareaAmbito(
         runTarea,
         tareaAmbito);
-    verify(this.meta4IcmWsCalcIncomeSessionAsyncService, timeout(1000).times(1))
-        .getAgrupacionesOnline(ArgumentMatchers.any(AgrupOnlineRequestDto.class));
+    verify(this.incomeMetaService, timeout(1000).times(1))
+        .getAgrupOnline(ArgumentMatchers.any(String.class));
 
   }
 
