@@ -55,7 +55,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraSer
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaHistoricoService;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -116,6 +115,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
@@ -669,21 +669,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
           .getItem()
           .add(GenericFilterParametersDto.builder().idOrigenReg(tareaAmbito.getCclIdOrigen()).build());
       request.setPage(this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE).getPage());
-      boolean hasNext = false;
-      do {
-        final CompletableFuture<List<AgrupOnlineResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-            .getAgrupacionesOnline(request);
-        final List<AgrupOnlineResultItemDto> data = AsyncUtils.get(cfData);
-        if (CollectionUtils.isNotEmpty(data)) {
-          AsyncUtils.checkAsyncAvaliable(cfPersist,
-              this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)
-                  .getFilter()
-                  .getMaxPersistenceSize());
-          final CompletableFuture<Void> cfSave = this.tareaAgrupacionCadenaAsyncService.save(data, tarea);
-          AsyncUtils.exceptionally(cfSave, cf, cfPersist);
-          hasNext = request.nextPage();
-        }
-      } while (hasNext);
+      final List<AgrupacionesOnlineResponseDTO> agrupacionesOnline = this.incomeMetaService.getAgrupOnline(request.getData().getIdOrigen());
+      if (CollectionUtils.isNotEmpty(agrupacionesOnline)) {
+        AsyncUtils.checkAsyncAvaliable(cfPersist,
+            this.meta4Properties.get(Meta4PropertiesConstants.AGRUPACION_ONLINE)
+                .getFilter()
+                .getMaxPersistenceSize());
+        final CompletableFuture<Void> cfSave = this.tareaAgrupacionCadenaAsyncService.save(agrupacionesOnline, tarea);
+        AsyncUtils.exceptionally(cfSave, cf, cfPersist);
+      }
       AsyncUtils.waitAllOfIsOk(cf, cf);
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);
