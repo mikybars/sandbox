@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
@@ -18,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PresupuestoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
@@ -55,6 +57,10 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Autowired
   @Qualifier("periodoIncomeMetaApiClient")
   private PeriodoApi periodoApi;
+
+  @Autowired
+  @Qualifier("presupuestosIncomeMetaApiClient")
+  private PresupuestosApi presupuestosApi;
 
   @Autowired
   @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
@@ -107,6 +113,15 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
     IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getPeriodos");
     IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {} {} {} {}", idOrganization, idPeriodo, abierto, vigente);
     return this.periodoApi.periodos(idOrganization, idPeriodo, abierto, vigente);
+  }
+
+  @Override
+  public List<PresupuestoResponseDTO> getPresupuestos(List<Integer> idEmpresa, LocalDate fechaInicio, LocalDate fechaFin,
+      String idOrganizacion) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método Presupuestos");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + idEmpresa + " " + fechaInicio + " " + fechaFin + " " + idOrganizacion + " ");
+
+    return this.presupuestosApi.getPresupuesto(idEmpresa, fechaInicio, fechaFin, idOrganizacion);
   }
 
   @Override

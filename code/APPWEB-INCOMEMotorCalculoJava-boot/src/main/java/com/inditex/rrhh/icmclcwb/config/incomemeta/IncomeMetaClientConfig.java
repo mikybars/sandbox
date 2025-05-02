@@ -7,6 +7,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.invoker.ApiClient;
@@ -46,6 +47,11 @@ public class IncomeMetaClientConfig {
   @Bean(name = "tiendaIncomeMetaApiClient")
   public TiendaApi tiendaIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
     return new TiendaApi(apiClient);
+  }
+
+  @Bean(name = "presupuestosIncomeMetaApiClient")
+  public PresupuestosApi presupuestosIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new PresupuestosApi(apiClient);
   }
 
   @Bean(name = "periodoIncomeMetaApiClient")
