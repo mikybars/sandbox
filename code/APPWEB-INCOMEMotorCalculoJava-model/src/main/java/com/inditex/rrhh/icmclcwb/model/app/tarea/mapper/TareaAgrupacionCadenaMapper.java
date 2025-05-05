@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAgrupacionCadenaMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
@@ -46,4 +47,17 @@ public abstract class TareaAgrupacionCadenaMapper {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 
+  @Mapping(source = "tarea.id", target = "tarea.id")
+  @Mapping(source = "src.idAgrupacionOnline", target = "icmIdAgrupacionOnline")
+  @Mapping(source = "src.idCadena", target = "cclIdCadena")
+  @Mapping(source = "src.idOrigen", target = "cclIdOrigen")
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "multiple", ignore = true)
+  public abstract TareaAgrupacionCadena getAgrupacionesOnlineResponseDtoToTareaAgrupacionCadena(
+      AgrupacionesOnlineResponseDTO src, TareaDto tarea);
+
+  public List<TareaAgrupacionCadena> getAgrupacionesOnlineResponseDtoToTareaAgrupacionCadena(
+      List<AgrupacionesOnlineResponseDTO> src, TareaDto tarea) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
 }

@@ -7,7 +7,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAgrupacionCade
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class TareaAgrupacionCadenaAsyncServiceImpl implements TareaAgrupacionCad
   private TareaAgrupacionCadenaService tareaAgrupacionCadenaService;
 
   @Override
-  public CompletableFuture<Void> save(List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
-    tareaAgrupacionCadenaService.save(src, tarea);
+  public CompletableFuture<Void> save(List<AgrupacionesOnlineResponseDTO> src, TareaDto tarea) {
+    this.tareaAgrupacionCadenaService.save(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
