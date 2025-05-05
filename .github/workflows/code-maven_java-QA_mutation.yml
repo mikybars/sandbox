@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.27.0
+  WORKFLOW_VERSION: 2.29.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
 
 jobs:

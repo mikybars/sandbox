@@ -63,12 +63,12 @@ class TareaAmbitoGlobalFechaServiceImplTest {
   }
 
   @Test
-    void saveTest() {
-        when(this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(any(), any()))
-            .thenReturn(Collections.singletonList(this.tareaAmbitoGlobalFecha));
+  void saveTest() {
+    when(this.tareaAmbitoGlobalFechaMapper.tareaAmbitoGlobalFechaDtoToTareaAmbitoGlobalFecha(any(), any()))
+        .thenReturn(Collections.singletonList(this.tareaAmbitoGlobalFecha));
 
-      this.tareaAmbitoGlobalFechaService.save(this.tareaAmbitoGlobalFechaDto, this.tareaDto);
+    this.tareaAmbitoGlobalFechaService.save(this.tareaAmbitoGlobalFechaDto, this.tareaDto);
 
-        verify(this.tareaAmbitoGlobalFechaRepositoryCustom).save(any());
-    }
+    verify(this.tareaAmbitoGlobalFechaRepositoryCustom).save(any());
+  }
 }

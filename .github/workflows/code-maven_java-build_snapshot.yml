@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 2.29.0
+  WORKFLOW_VERSION: 2.33.0
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -133,35 +133,25 @@ jobs:
             mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS
 
       - name: Generate SBOM
+        id: generate-sbom
         if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        uses: inditex/gha-oscodependencies/cdxgen-generator@v0
         continue-on-error: true
         env:
           MVN_BUILD_CACHE_OPTS: ${{ steps.maven-opts.outputs.maven-build-cache-opts }}
-        run: |
-          mkdir -p "$HOME"/.m2/repository
-          mkdir -p "$HOME"/.asdf/data
-          # shellcheck disable=SC2086
-          docker run --workdir /app/code \
-            -u "$(id -u)" \
-            ${{ steps.creds-resolver.outputs.creds-docker }} \
-            -e TOTAL_CPUS \
-            -e TOTAL_MEMORY \
-            -e DP_USERNAME=${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }} \
-            -e DP_TOKEN=${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }} \
-            -e DT_ENDPOINT -e DT_SECRET \
-            -e NPM_EMAIL -e NPM_AUTH \
-            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN_READER }} \
-            -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
-            --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
-            --mount type=bind,src="$(pwd)",dst=/app \
-            --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
-            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
-            mvn -B org.cyclonedx:cyclonedx-maven-plugin:2.9.0:makeAggregateBom \
+        with:
+          cache-src: "$HOME/.m2/repository"
+          cache-dst: "/home/runner/.m2/repository"
+          code-src: ${{ github.workspace }}
+          dp_user: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          dp_token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+          command: "mvn -B org.cyclonedx:cyclonedx-maven-plugin:2.9.0:makeAggregateBom \
               -DprojectType=application \
               -DoutputFormat=json \
               -DoutputName=sbom \
               -DincludeTestScope=true \
-              -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS
+              -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS"
 
       - name: Upload SBOM Artifact
         uses: actions/upload-artifact@v4

@@ -253,6 +253,15 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       AsyncUtils.waitAllOfIsOk(cf, cfWait);
       /*-------------------------------------------------------------*/
 
+      // Desactivamos las sindicales donde la tienda esté cerrada
+      final CompletableFuture<Void> cfUpdateSindicalCerrada = this.runTareaProcesarPresenciaAsyncService
+          .updateSindicalCerrada(runTarea);
+      AsyncUtils.exceptionally(cfUpdateSindicalCerrada, cf, cfWait);
+
+      /*-------------------------------------------------------------*/
+      AsyncUtils.waitAllOfIsOk(cf, cfWait);
+      /*-------------------------------------------------------------*/
+
       // Totalizamos las presencias de la tienda por seccion
       final CompletableFuture<Void> cfTotalizarPresenciaLocalizacion = this.runTareaProcesarPresenciaAsyncService
           .totalizarLocalizacion(runTarea);
@@ -326,6 +335,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
           this.runTareaProcesarPresenciaAsyncService
               .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion(runTarea);
       AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacion, cf, cfWait);
+
+      final CompletableFuture<Void> cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje =
+          this.runTareaProcesarPresenciaAsyncService
+              .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(runTarea);
+      AsyncUtils.exceptionally(cfIndicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje, cf, cfWait);
 
       // Indicadores directo venta e importe tienda
       final CompletableFuture<Void> cfIndicadorDesplazamientoDirectoVenta = this.runTareaProcesarPresenciaAsyncService

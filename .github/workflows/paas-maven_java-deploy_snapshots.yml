@@ -1,0 +1,280 @@
+---
+name: paas-maven-deploy-snapshots
+run-name: "Args: supraenvs=${{ inputs.SUPRAENVS || 'des' }}, envs=${{ inputs.ENVS || 'all' }}, platforms=${{ inputs.PLATFORMS || 'all' }}, tenants=${{ inputs.TENANTS || 'all' }}, slots=${{ inputs.SLOTS || 'all' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVS:
+        description: 'Supra environments to generate manifest files'
+        required: true
+        default: ''
+      ENVS:
+        description: 'Environments to generate manifest files'
+        required: false
+        default: ''
+      PLATFORMS:
+        description: 'Platforms to generate manifest files'
+        required: false
+        default: ''
+      TENANTS:
+        description: 'Tenants to generate manifest files'
+        required: false
+        default: ''
+      SLOTS:
+        description: 'Slots to generate manifest files'
+        required: false
+        default: ''
+      LABELS:
+        description: 'Labels to set in PR to deployment branch'
+        required: true
+        default: ''
+      STRATEGY:
+        description: 'The rollout strategy'
+        required: false
+        default: ''
+      PERCENTAGE:
+        description: 'Percentage of the rollout strategy'
+        required: false
+        default: ''
+      ISSUE_NUMBER:
+        description: 'ID number (issue or pull request)'
+        required: false
+        default: ''
+
+  pull_request:
+    types: [synchronize, labeled, closed]
+    branches-ignore: [deployment]
+    paths: ['code/**', 'paas/**']
+
+env:
+  WORKFLOW_VERSION: 3.21.0
+  GITHUB_REGISTRY: ghcr.io
+  JFROG_REGISTRY: inditex-docker.jfrog.io
+  ASDF_IMAGE_NAME: inditex/ci-agents/asdf
+  DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+  NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+  NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
+
+jobs:
+  identify-changes:
+    name: Identify Changes
+    if: (github.event_name == 'workflow_dispatch') ||
+        ((github.event.action == 'synchronize' || github.event.action == 'labeled') &&
+        contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') ||
+        (github.event.action == 'closed' && github.event.pull_request.merged == true && !startsWith(github.event.pull_request.base.ref, 'main'))
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+
+    outputs:
+      code-changes: ${{ steps.check-code-changes.outputs.changed }}
+      config-changes: ${{ steps.check-config-changes.outputs.changed }}
+      exists-latest-image: ${{ steps.check-image-ghcr.outputs.exists_latest_image || steps.check-image-jfrog.outputs.exists_latest_image }}
+      supraenv: ${{ steps.deploy-vars.outputs.SUPRAENVS }}
+      labels: ${{ steps.deploy-vars.outputs.LABELS }}
+      additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
+      app-version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Checkout merge commit
+        if: github.event.pull_request.merged == true
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout head branch
+        if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Annotate the origin trigger
+        if: ${{ inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' }}
+        run: |
+          echo "::notice title=Deployment triggered from: ::https://github.com/${GITHUB_REPOSITORY}/pull/${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}"
+
+      - name: Check code changes
+        uses: inditex/gha-paasdeployment/deployment/identify-changes@v0
+        id: "check-code-changes"
+        with:
+          tag-suffix: "last-build"
+          paths: "code"
+
+      - name: Check config changes
+        uses: inditex/gha-paasdeployment/deployment/identify-changes@v0
+        id: "check-config-changes"
+        with:
+          tag-suffix: "last-build"
+          paths: "paas"
+
+      - name: Check if latest image exists in the ghcr registry via sentcli
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io'
+        uses: inditex/gha-paasdeployment/check-latest-image@v0
+        id: check-image-ghcr
+        with:
+          token: ${{ secrets.GH_TOKEN_READER }}
+          dp_username: USERNAME
+          dp_token: ${{ secrets.GITHUB_TOKEN }}
+          dp_registry: ${{ vars.PAAS_DOCKER_SNAPSHOT_REGISTRY }}
+          dp_image_path: ${{ github.repository_owner}}/itxapps
+
+      - name: Check if latest image exists in the JFrog DP via sentcli
+        if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io'
+        uses: inditex/gha-paasdeployment/check-latest-image@v0
+        id: check-image-jfrog
+        with:
+          token: ${{ secrets.GH_TOKEN_READER }}
+          dp_username: ${{ env.DP_USERNAME }}
+          dp_token: ${{ env.DP_TOKEN }}
+
+      - name: Set deployment configuration
+        id: deploy-vars
+        run: |
+          echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
+          echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event.pull_request.state }}" != "closed" ] && [ "${{ contains(github.event.pull_request.labels.*.name, 'autodeploy') }}" == "true" ]; then
+            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy"}' >> "$GITHUB_OUTPUT"
+          elif
+            [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'"}'
+            echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
+          else
+            ADDITIONAL_ARGS="{'STRATEGY': '${{ inputs.STRATEGY }}','PERCENTAGE': '${{ inputs.PERCENTAGE }}','CONFIG_REF': ''}"
+            echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Store project version
+        shell: python
+        id: version
+        run: |
+          import xml.etree.ElementTree as ET
+          import os
+
+          root = ET.parse('./code/pom.xml').getroot()
+          namespace = root.tag.rpartition('}')[0] + '}'
+          version = root.find(f'{namespace}version').text
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'version={version}\n')
+
+  validate-slots:
+    name: Validate Slots
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    needs: [identify-changes]
+    outputs:
+      slots: ${{ steps.slot.outputs.slots }}
+
+    steps:
+      - name: Ensure slot is present
+        id: slot
+        env:
+          REF: ${{ github.head_ref || github.ref_name }}
+        run: |
+          slots="${{ github.event.inputs.SLOTS }}"
+          if [ -z "${slots}" ]; then
+            if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+              slots="default"
+            else
+              slots=$(basename "${REF}")
+            fi
+          fi
+          echo "slots=${slots}" >> "$GITHUB_OUTPUT"
+      - name: Validate slots
+        id: validate-slots
+        uses: inditex/gha-paasdeployment/deployment/validate-slots@v0
+        with:
+          slots: ${{ steps.slot.outputs.slots }}
+          strategy: ${{ github.event.inputs.STRATEGY }}
+
+      - name: Add comment when the slot is not valid
+        if: ${{ ( github.event.inputs.ISSUE_NUMBER != '' || github.event.pull_request.number != '' ) && steps.validate-slots.outputs.error-message != '' }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: '${{ github.event.inputs.ISSUE_NUMBER || github.event.pull_request.number }}'
+          body: |
+            #### :x: An error has ocurred validating the slots.
+
+            ${{ steps.validate-slots.outputs.error-message }}
+
+            See the [workflow log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
+
+      - name: Stop if slots are not valid
+        if: ${{ steps.validate-slots.outputs.is-valid != 'true' }}
+        run: |
+          echo "::error ::Error validating the slots. ${{ steps.validate-slots.outputs.error-message }}"
+          exit 1
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "code-deploy-snapshots-${{ github.event.inputs.SUPRAENVS }}"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+            You can find more details in the link below :arrow_down:
+
+
+  build-deployable:
+    name: CI
+    needs: [identify-changes, validate-slots]
+    if: ${{ needs.identify-changes.outputs.code-changes == 'true' || needs.identify-changes.outputs.exists-latest-image == 'false' }}
+    uses: ./.github/workflows/paas-maven_java-build_deployable.yml
+    with:
+      VERSION: ${{ needs.identify-changes.outputs.app-version }}
+    secrets: inherit
+
+  create-deployment-prs:
+    needs: [identify-changes, validate-slots, build-deployable]
+    if: ${{ !failure() && !cancelled() && (needs.identify-changes.result == 'success' && needs.validate-slots.result == 'success' && (needs.build-deployable.result == 'success' || needs.build-deployable.result == 'skipped')) }}
+    name: CD
+    uses: ./.github/workflows/paas-promote.yml
+    with:
+      SUPRAENVS: ${{ inputs.SUPRAENVS || needs.identify-changes.outputs.supraenv }}
+      ENVS: ${{ inputs.ENVS }}
+      PLATFORMS: ${{ inputs.PLATFORMS }}
+      TENANTS: ${{ inputs.TENANTS }}
+      SLOTS: ${{ needs.validate-slots.outputs.slots }}
+      LABELS: ${{ inputs.LABELS || needs.identify-changes.outputs.labels }}
+      VERSION: "latest"
+      ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}
+      ADDITIONAL_ARGS: "${{ needs.identify-changes.outputs.additional-args }}"
+    secrets: inherit
+
+  clean-resources:
+    name: Clean Resources
+    if: always() && github.event.pull_request.state == 'closed'
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    needs: [create-deployment-prs]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Clean up last build tag on closed PR
+        uses: inditex/gha-paasdeployment/deployment/clean-up-build-tag@v0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: BatchAsCode / Detect
+        id: detect
+        shell: python
+        run: |
+          import os
+          is_bat = ("${{ github.repository }}".split('/')[1].split('-')[0] == "bat")
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write('force-token-usage=%s\n' % (is_bat))
+
+      - name: Clean Up / Delete Folder Into Deployment Branch
+        uses: inditex/gha-paasdeployment/deployment/delete-deployment-folder@v0
+        with:
+          token: ${{ secrets.GH_TOKEN_PUSH }}
+          force-token-usage: ${{ steps.detect.outputs.force-token-usage }}
+        env:
+          SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}

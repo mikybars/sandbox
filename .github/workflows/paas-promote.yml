@@ -3,7 +3,7 @@ name: paas-promote
 run-name: "Args: version=${{ inputs.VERSION || 'latest' }}, supraenvs=${{ inputs.SUPRAENVS }}, envs=${{ inputs.ENVS || 'all' }}, platforms=${{ inputs.PLATFORMS || 'all' }}, tenants=${{ inputs.TENANTS || 'all' }}, slots=${{ inputs.SLOTS || 'all' }}, issue_number=${{ inputs.ISSUE_NUMBER || 'none' }}"
 
 concurrency:
-  group: "promote-${{ github.ref_name }}-${{ github.event.inputs.VERSION }}"
+  group: "promote-${{ github.ref_name }}-${{ inputs.VERSION }}"
 
 on:
   workflow_call:
@@ -83,7 +83,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.20.0
+  WORKFLOW_VERSION: 3.21.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -117,6 +117,7 @@ jobs:
         with:
           issue-number: ${{ inputs.ISSUE_NUMBER }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ inputs.VERSION }}
 
       - name: Reset error label if the origin is an issue
         if: ${{ steps.compute-vars.outputs.is-issue == 'true' }}
@@ -186,7 +187,7 @@ jobs:
           platforms: ${{ inputs.PLATFORMS }}
           tenants: ${{ inputs.TENANTS }}
           slots: ${{ inputs.SLOTS }}
-          deployment-version: ${{ inputs.VERSION || steps.compute-vars.outputs.deployment-version }}
+          deployment-version: ${{ steps.compute-vars.outputs.deployment-version }}
           strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
           percentage: ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
           working-directory: paas
@@ -265,7 +266,7 @@ jobs:
         with:
           working-directory: paas
           token: ${{ secrets.CHATBOT_PR_PAT }}
-          version: ${{ inputs.VERSION }}
+          version: ${{ steps.compute-vars.outputs.deployment-version }}
           strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
           label: ${{ inputs.LABELS }}
           force-token-usage: ${{ steps.compute-vars.outputs.force-token-usage }}

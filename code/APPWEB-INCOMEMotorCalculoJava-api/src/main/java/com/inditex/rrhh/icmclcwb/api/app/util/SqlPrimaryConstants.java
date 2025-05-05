@@ -141,8 +141,7 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE = "idTipoDatoIndicadorDesplazamientoBase";
 
-  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION =
-      "idTipoDatoVentaEntregaDomicilioLocalizacion";
+  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION = "idTipoDatoVentaEntregaDomicilioLocalizacion";
 
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_LOCALIZACION_SECCION =
       "idTipoDatoVentaEntregaDomicilioLocalizacionSeccion";
@@ -169,8 +168,7 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_FISICA_AGRUPACION = "idTipoImporteVentaFisicaAgrupacion";
 
-  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION =
-      "idTipoImporteVentaEntregaDomicilioAgrupacion";
+  public static final String SQL_PARAM_ID_TIPO_IMPORTE_VENTA_ENTREGA_DOMICILIO_AGRUPACION = "idTipoImporteVentaEntregaDomicilioAgrupacion";
 
   public static final String SQL_PARAM_ID_TIPO_MINUTOS = "idTipoPresencia";
 
@@ -194,11 +192,9 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TIPO_DATO_IMPORTE_COMISION_VENDEDORES = "idTipoDatoImporteComisionVendedores";
 
-  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION_PERSONA =
-      "idTipoDatoJornadaLocalizacionPersona";
+  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION_PERSONA = "idTipoDatoJornadaLocalizacionPersona";
 
-  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION =
-      "idTipoDatoJornadaLocalizacion";
+  public static final String SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION = "idTipoDatoJornadaLocalizacion";
 
   public static final String SQL_PARAM_FECHA_INICIO = "fechaInicio";
 
@@ -405,6 +401,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_RESULT_SECCION = "CCL_ID_SECCION";
 
   public static final String SQL_RESULT_ID_ORIGEN = "CCL_ID_ORIGEN";
+
+  public static final String SQL_RESULT_CCL_ID_PERSON = "CCL_ID_PERSON";
 
   public static final String SQL_RESULT_ID_TIPO_PRESUPUESTO = "ID_TIPO_PRESUPUESTO";
 

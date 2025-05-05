@@ -132,17 +132,17 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
   }
 
   @Test
-    public void executeWhenExceptionThrown() {
-        // Arrange
-        when(this.comisService.validateTempComisRecuperarFrancia(any(), any()))
-            .thenThrow(new RuntimeException("Test exception"));
+  public void executeWhenExceptionThrown() {
+    // Arrange
+    when(this.comisService.validateTempComisRecuperarFrancia(any(), any()))
+        .thenThrow(new RuntimeException("Test exception"));
 
-        // Act & Assert
-        assertThrows(RuntimeException.class, () -> {
-            this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(), new TareaFaseAccionDto());
-        });
+    // Act & Assert
+    assertThrows(RuntimeException.class, () -> {
+      this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(), new TareaFaseAccionDto());
+    });
 
-        // Verify
-        verify(this.tareaFaseAccionService, times(1)).updateFechaFinAndEstado(any(), any());
-    }
+    // Verify
+    verify(this.tareaFaseAccionService, times(1)).updateFechaFinAndEstado(any(), any());
+  }
 }

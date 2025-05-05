@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 
 import jakarta.validation.Valid;

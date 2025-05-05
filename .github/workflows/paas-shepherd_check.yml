@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.20.0
+  WORKFLOW_VERSION: 3.21.0
 
 jobs:
   get-details:

@@ -138,6 +138,15 @@ class RunTareaProcesarPresenciaServiceImplTest {
   }
 
   @Test
+  void indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentajeTest() {
+    this.runTareaProcesarPresenciaService
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(new RunTareaDto());
+    verify(this.tareaLocalizacionPersonaPresenciaService, times(1))
+        .indicadorPresenciaDesplazamientoBaseDesplazamientoMismaLocalizacionChallengePorcentaje(
+            any(RunTareaDto.class));
+  }
+
+  @Test
   void presenciasHorasFijasTest() {
     this.runTareaProcesarPresenciaService.presenciasHorasFijas(new RunTareaDto());
     verify(this.tareaLocalizacionPersonaPresenciaService, times(1)).presenciasHorasFijas(any(RunTareaDto.class));
@@ -242,6 +251,13 @@ class RunTareaProcesarPresenciaServiceImplTest {
   void compensarLocalizacionManualIncluidoChallengePorcentajeTest() {
     this.runTareaProcesarPresenciaService.compensarLocalizacionManualIncluidoChallengePorcentaje(new RunTareaDto());
     verify(this.tareaLocalizacionPresenciaService, times(1)).compensarLocalizacionManualIncluidoChallengePorcentaje(
+        any(RunTareaDto.class));
+  }
+
+  @Test
+  void updateSindicalCerradaTest() {
+    this.runTareaProcesarPresenciaService.updateSindicalCerrada(new RunTareaDto());
+    verify(this.tareaLocalizacionPresenciaService, times(1)).updateSindicalCerrada(
         any(RunTareaDto.class));
   }
 

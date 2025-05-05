@@ -6,6 +6,8 @@
 
 Any pull request `merged` to `main` branch when there are changes into `code` or `paas` path.
 
+This workflow can be skipped in draft PRs by setting the repository variable `PR_VERIFY_RUNS_ON_DRAFT` to `false`. If you want to run it in a draft PR when this variable is set to `false`, you can use the `pr-verify/force-on-draft` label.
+
 ## Where does it run?
 
 [github-runners](https://github.com/inditex/github-runners) self hosted.

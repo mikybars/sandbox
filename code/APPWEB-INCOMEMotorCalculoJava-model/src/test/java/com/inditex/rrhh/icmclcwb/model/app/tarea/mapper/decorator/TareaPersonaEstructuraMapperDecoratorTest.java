@@ -79,9 +79,9 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSinTipoCalculoTest(
-       final EstructurasComResultItemDto itemPadre,
-       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
-       final TareaPersonaEstructuraDto estructura) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
+      final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate.estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndTareaToTareaPersonaEstructuraDto(
         any(EstructurasComResultItemDto.class),
@@ -104,10 +104,10 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4NoChallengeTest(
-       final EstructurasComResultItemDto itemPadre,
-       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
-       final ListaValoresBaseResultItemDto valorBase,
-       final TareaPersonaEstructuraDto estructura) {
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
+      final ListaValoresBaseResultItemDto valorBase,
+      final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(
@@ -132,9 +132,9 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengePrecioHoraTiendaTest(
-       final EstructurasComResultItemDto itemPadre,
+      final EstructurasComResultItemDto itemPadre,
       final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
       final ListaValoresBaseResultItemDto valorBase,
       final TareaPersonaEstructuraDto estructura) {
@@ -161,12 +161,12 @@ class TareaPersonaEstructuraMapperDecoratorTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
-    void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengeImporteTiendaTest(
-       final EstructurasComResultItemDto itemPadre,
-       final ListaCondicionesBaseResultItemDto itemBase,  final TareaDto tarea,
-       final ListaValoresBaseResultItemDto valorBase,
-       final TareaPersonaEstructuraDto estructura) {
+  @InstancioSource(samples = 1)
+  void estructurasComResultItemDtoAndTareaDtoToTareaPersonaEstructuraDtoSeccion4ChallengeImporteTiendaTest(
+      final EstructurasComResultItemDto itemPadre,
+      final ListaCondicionesBaseResultItemDto itemBase, final TareaDto tarea,
+      final ListaValoresBaseResultItemDto valorBase,
+      final TareaPersonaEstructuraDto estructura) {
 
     when(this.delegate
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaValoresBaseResultItemDtoAndIdSerccionAndTareaToTareaPersonaEstructuraDto(

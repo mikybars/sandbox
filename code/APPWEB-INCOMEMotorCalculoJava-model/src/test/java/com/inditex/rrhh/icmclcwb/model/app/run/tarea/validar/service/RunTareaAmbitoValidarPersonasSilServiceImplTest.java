@@ -103,8 +103,8 @@ class RunTareaAmbitoValidarPersonasSilServiceImplTest {
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  void executeExceptionTest( final RunTareaDto runTarea,  final TareaAmbitoDto tareaAmbito,
-       final TareaFaseAccionDto tareaFaseAccion) {
+  void executeExceptionTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
+      final TareaFaseAccionDto tareaFaseAccion) {
 
     when(this.clasePersonaSilAmbitoService.getClaseAndEstadoByCclIdOrigenAndStdIdLegEnt(tareaAmbito.getCclIdOrigen(),
         runTarea.getTarea().getStdIdLegEnt()))

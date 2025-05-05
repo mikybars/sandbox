@@ -11,10 +11,23 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
+import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PresupuestoResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.instancio.junit.InstancioSource;
@@ -41,6 +54,26 @@ class IncomeMetaServiceImplTest {
   @Qualifier("externosIncomeMetaApiClient")
   private ExternosApi externosApi;
 
+  @Mock
+  @Qualifier("empleadosIncomeMetaApiClient")
+  private EmpleadosApi empleadosApi;
+
+  @Mock
+  @Qualifier("tiendaIncomeMetaApiClient")
+  private TiendaApi tiendaApi;
+
+  @Mock
+  @Qualifier("presupuestosIncomeMetaApiClient")
+  private PresupuestosApi presupuestosApi;
+
+  @Mock
+  @Qualifier("periodoIncomeMetaApiClient")
+  private PeriodoApi periodoApi;
+
+  @Mock
+  @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
+  private AgrupacionesOnlineApi agrupacionesOnlineApi;
+
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
 
@@ -51,6 +84,23 @@ class IncomeMetaServiceImplTest {
     doReturn(response).when(this.externosApi).findExternos(request);
 
     final List<EmpleadoExternoDTO> result = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);
+    Assertions.assertEquals(response, result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void searchEmpleadosTest(final SearchEmpleadosRequestDto request, final List<EmpleadoDTO> response) {
+    final SearchEmpleadosFilterDto dto = request.getData();
+
+    final List<String> idsEmpresa = dto.getIdsEmpresa();
+    final List<String> idsCadena = dto.getIdsCadena();
+    final Boolean esEmpresa = CollectionUtils.isNotEmpty((idsEmpresa));
+
+    doReturn(response).when(this.empleadosApi).listEmpleados(dto.getIdOrigen(), esEmpresa ? idsEmpresa : idsCadena,
+        dto.getFechaInicio().toLocalDate(),
+        dto.getFechaFin().toLocalDate(), esEmpresa);
+
+    final List<EmpleadoDTO> result = this.incomeMetaService.searchEmpleados(request);
     Assertions.assertEquals(response, result);
   }
 
@@ -68,4 +118,59 @@ class IncomeMetaServiceImplTest {
     assertNotNull(result);
   }
 
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getTiendasTest() {
+    final List<TiendaResponseDTO> mockResponse = Collections.singletonList(new TiendaResponseDTO());
+    when(
+        this.tiendaApi.listTiendas("01", List.of("1"), true, LocalDate.now(), LocalDate.now(), "PL"))
+            .thenReturn(mockResponse);
+
+    final List<TiendaResponseDTO> result =
+        this.incomeMetaService.getTiendas("01", List.of("1"), true, LocalDate.now(), LocalDate.now(), "PL");
+
+    assertNotNull(result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getPeriodosTest() {
+    final PeriodoResponseDTO mockResponse = new PeriodoResponseDTO();
+    when(
+        this.periodoApi.periodos("01", 1, true, true))
+            .thenReturn(mockResponse);
+
+    final PeriodoResponseDTO result =
+        this.incomeMetaService.getPeriodos("01", 1, true, true);
+
+    assertNotNull(result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getPresupuestosTest() {
+    final List<PresupuestoResponseDTO> mockResponse = Collections.singletonList(new PresupuestoResponseDTO());
+    when(
+        this.presupuestosApi.getPresupuesto(List.of(1), LocalDate.now(), LocalDate.now(), "PL"))
+            .thenReturn(mockResponse);
+
+    final List<PresupuestoResponseDTO> result =
+        this.incomeMetaService.getPresupuestos(List.of(1), LocalDate.now(), LocalDate.now(), "PL");
+
+    assertNotNull(result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getAgrupOnline() {
+    final List<AgrupacionesOnlineResponseDTO> mockResponse = Collections.singletonList(new AgrupacionesOnlineResponseDTO());
+    when(
+        this.agrupacionesOnlineApi.findAgrupacionesOnline("PL"))
+            .thenReturn(mockResponse);
+
+    final List<AgrupacionesOnlineResponseDTO> result =
+        this.incomeMetaService.getAgrupOnline("PL");
+
+    assertNotNull(result);
+  }
 }

@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionCadenaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaAgrupacionCadenaMapperDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustomImpl;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,17 +45,17 @@ public class TareaAgrupacionCadenaServiceImplTest {
   @Test
   public void saveTest() {
     final TareaDto tarea = mock(TareaDto.class);
-    final AgrupOnlineResultItemDto agrupOnlineResultItemDto = mock(AgrupOnlineResultItemDto.class);
-    final List<AgrupOnlineResultItemDto> dtoList = new ArrayList<AgrupOnlineResultItemDto>();
-    dtoList.add(agrupOnlineResultItemDto);
+    final AgrupacionesOnlineResponseDTO agrupacionesOnlineResponseDTO = mock(AgrupacionesOnlineResponseDTO.class);
+    final List<AgrupacionesOnlineResponseDTO> dtoList = new ArrayList<AgrupacionesOnlineResponseDTO>();
+    dtoList.add(agrupacionesOnlineResponseDTO);
     final List<TareaAgrupacionCadena> list = new ArrayList<TareaAgrupacionCadena>();
-    when(this.tareaAgrupacionCadenaRepositoryCustomImpl.save(ArgumentMatchers.<List<TareaAgrupacionCadena>>any()))
+    when(this.tareaAgrupacionCadenaRepositoryCustomImpl.save(ArgumentMatchers.any()))
         .thenReturn(list);
 
     this.tareaAgrupacionCadenaServiceImpl.save(dtoList, tarea);
 
     verify(this.tareaAgrupacionCadenaRepositoryCustomImpl, times(1))
-        .save(ArgumentMatchers.<List<TareaAgrupacionCadena>>any());
+        .save(ArgumentMatchers.any());
   }
 
   @Test

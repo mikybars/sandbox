@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.trabajo.service;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

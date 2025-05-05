@@ -19,20 +19,23 @@ Self-hosted runner: [iac-githubrunners/testing-ivm](https://githubrunners.docs.i
 
 This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdftooling) and the [`setup-environment` action](https://github.com/inditex/gha-ivmactions/tree/develop/setup-environment) to automatically **load a given tool version and any needed extra environment variable** (i.e. `$NODE_HOME`) defined on the project's `code/.tool-versions` file.
 
+This workflow can be skipped in draft PRs by setting the repository variable `PR_VERIFY_RUNS_ON_DRAFT` to `false`. If you want to run it in a draft PR when this variable is set to `false`, you can use the `pr-verify/force-on-draft` label.
+
 ## Jobs
 
 - ### `snyk-analysis-execution`
 
   - **Steps**
 
-    - Determine `artifact version` to upload results to DefectDojo. (Only in `release` or `workflow_dispatch` trigger events)
-    - Determine `ref` to checkout.
-    - Checkout of `source code` and actions
+    - Checkout of `source code`
+    - Setup `ivm`
+    - Resolve secrets through `creds-resolver-cloud`
     - Build project (`maven install`)
     - Retrieve `metadata` (key, name, version, etc...) from the project
+    - Setup `ivm-node`
     - Execute `snyk test` action
-    - Import `Snyk data to DefectDojo`. (Only in `release` or `workflow_dispatch`)
-    - Execute `snyk monitor` action (results are sent to Snyk **only** if `org-id` is defined. [More info](https://snyk.docs.inditex.dev/snykdoc/stable/home.html#enable-monitor-to-team-organizations))
+    - Execute `snyk monitor` action
+    - Import `Snyk data to DefectDojo`. (Only in `workflow_dispatch` or merged `pull_request`)
     - Check [Quality Gate](https://snyk.docs.inditex.dev/snykdoc/stable/home.html#snyk-quality-gate)
     - Add Snyk feedback
     - Attach `Snyk report` with the analysis results

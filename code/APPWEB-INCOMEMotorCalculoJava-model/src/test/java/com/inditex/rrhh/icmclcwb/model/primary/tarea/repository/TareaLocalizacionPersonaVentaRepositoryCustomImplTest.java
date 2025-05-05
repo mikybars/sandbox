@@ -105,8 +105,8 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  void totalizarDevolucionPersonaSeccionTest( final TareaDto tarea,
-       final List<IdTipoDatoDto> tiposDato) {
+  void totalizarDevolucionPersonaSeccionTest(final TareaDto tarea,
+      final List<IdTipoDatoDto> tiposDato) {
 
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class))).thenReturn(tiposDato);
 
@@ -130,7 +130,7 @@ class TareaLocalizacionPersonaVentaRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource(samples = 1)
+  @InstancioSource(samples = 1)
   void totalizarVentaSinDevolucionPersonaSeccionTest(final TareaDto tarea,
       final List<IdTipoDatoDto> tiposDato) {
 
