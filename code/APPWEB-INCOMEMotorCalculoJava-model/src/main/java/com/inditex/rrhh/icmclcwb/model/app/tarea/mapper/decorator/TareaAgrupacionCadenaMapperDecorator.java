@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionCadenaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,12 +23,12 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
   @Override
   public List<TareaAgrupacionCadena> getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(
       List<AgrupOnlineResultItemDto> src, TareaDto tarea) {
-    List<TareaAgrupacionCadena> result = new ArrayList<>();
+    final List<TareaAgrupacionCadena> result = new ArrayList<>();
     if (src != null) {
       src.forEach(x -> {
-        TareaAgrupacionCadena agrupacion = delegate.getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(x,
+        final TareaAgrupacionCadena agrupacion = this.delegate.getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(x,
             tarea);
-        boolean multiple = src.stream()
+        final boolean multiple = src.stream()
             .filter(y -> y.getIdOrigen().equals(x.getIdOrigen())
                 && y.getIdAgrupacion().equals(x.getIdAgrupacion()))
             .count() > 1;
@@ -41,9 +42,9 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
   @Override
   public List<TareaAgrupacionCadenaDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
       List<TareaAgrupacionCadena> src) {
-    List<TareaAgrupacionCadenaDto> result = new ArrayList<>();
+    final List<TareaAgrupacionCadenaDto> result = new ArrayList<>();
     if (src != null) {
-      src.forEach(x -> result.add(delegate.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(x)));
+      src.forEach(x -> result.add(this.delegate.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(x)));
     }
     return result;
   }
@@ -51,7 +52,7 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
   @Override
   public List<TareaAgrupacionCadenasDto> getTareaAgrupacionCadenaToTareaAgrupacionCadenasDto(
       List<TareaAgrupacionCadena> src) {
-    Map<Long, List<String>> cadenas = new HashMap<>();
+    final Map<Long, List<String>> cadenas = new HashMap<>();
     if (src != null) {
       src.forEach(x -> {
         if (!cadenas.containsKey(x.getIcmIdAgrupacionOnline())) {
@@ -61,10 +62,29 @@ public abstract class TareaAgrupacionCadenaMapperDecorator extends TareaAgrupaci
       });
     }
 
-    List<TareaAgrupacionCadenasDto> result = new ArrayList<>();
+    final List<TareaAgrupacionCadenasDto> result = new ArrayList<>();
     cadenas
         .forEach((idAgrupacion, idCadenas) -> result.add(new TareaAgrupacionCadenasDto(idAgrupacion, idCadenas)));
 
+    return result;
+  }
+
+  @Override
+  public List<TareaAgrupacionCadena> getAgrupacionesOnlineResponseDtoToTareaAgrupacionCadena(
+      List<AgrupacionesOnlineResponseDTO> src, TareaDto tarea) {
+    final List<TareaAgrupacionCadena> result = new ArrayList<>();
+    if (src != null) {
+      src.forEach(x -> {
+        final TareaAgrupacionCadena agrupacion = this.delegate.getAgrupacionesOnlineResponseDtoToTareaAgrupacionCadena(x,
+            tarea);
+        final boolean multiple = src.stream()
+            .filter(y -> y.getIdOrigen().equals(x.getIdOrigen())
+                && y.getIdAgrupacionOnline().equals(x.getIdAgrupacionOnline()))
+            .count() > 1;
+        agrupacion.setMultiple(multiple);
+        result.add(agrupacion);
+      });
+    }
     return result;
   }
 

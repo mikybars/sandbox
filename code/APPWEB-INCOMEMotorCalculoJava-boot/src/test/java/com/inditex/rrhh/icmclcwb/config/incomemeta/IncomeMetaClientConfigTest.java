@@ -6,7 +6,10 @@ import static org.mockito.Mockito.when;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
+import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.invoker.ApiClient;
@@ -68,5 +71,26 @@ class IncomeMetaClientConfigTest {
     final ApiClient apiClient = mock(ApiClient.class);
     final TiendaApi tiendaApi = this.incomeMetaClientConfig.tiendaIncomeMetaApiClient(apiClient);
     assertNotNull(tiendaApi);
+  }
+
+  @Test
+  void periodoApiTest() {
+    final ApiClient apiClient = mock(ApiClient.class);
+    final PeriodoApi periodoApi = this.incomeMetaClientConfig.periodoIncomeMetaApiClient(apiClient);
+    assertNotNull(periodoApi);
+  }
+
+  @Test
+  void presupuestosApiTest() {
+    final ApiClient apiClient = mock(ApiClient.class);
+    final PresupuestosApi presupuestosApi = this.incomeMetaClientConfig.presupuestosIncomeMetaApiClient(apiClient);
+    assertNotNull(presupuestosApi);
+  }
+
+  @Test
+  void agrupacionesOnlineApiTest() {
+    final ApiClient apiClient = mock(ApiClient.class);
+    final AgrupacionesOnlineApi agrupacionesOnlineApi = this.incomeMetaClientConfig.agrupacionesOnlineIncomeMetaApiClient(apiClient);
+    assertNotNull(agrupacionesOnlineApi);
   }
 }
