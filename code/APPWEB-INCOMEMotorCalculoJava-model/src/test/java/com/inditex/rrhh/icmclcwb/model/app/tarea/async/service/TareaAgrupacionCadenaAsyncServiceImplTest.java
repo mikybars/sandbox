@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ class TareaAgrupacionCadenaAsyncServiceImplTest {
 
   @Test
   void saveTest() {
-    final List<AgrupOnlineResultItemDto> src = new ArrayList<>();
+    final List<AgrupacionesOnlineResponseDTO> src = new ArrayList<>();
     final TareaDto tarea = new TareaDto();
 
     this.tareaAgrupacionCadenaAsyncService.save(src, tarea);

@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.app.calcular;
+package com.inditex.rrhh.icmclcwb.config.app.calcular;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

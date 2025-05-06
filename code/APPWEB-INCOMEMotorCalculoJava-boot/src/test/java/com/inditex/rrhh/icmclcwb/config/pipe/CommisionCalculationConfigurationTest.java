@@ -1,11 +1,10 @@
-package com.inditex.rrhh.icmclcwb.pipe;
+package com.inditex.rrhh.icmclcwb.config.pipe;
 
 import static org.mockito.Mockito.when;
 
 import com.inditex.aqsw.pipe.TracingResolverSessionId;
 import com.inditex.aqsw.pipe.v1.MetadataBuilder;
 import com.inditex.aqsw.pipe.v1.MetadataBuilderImpl;
-import com.inditex.rrhh.icmclcwb.config.pipe.CommisionCalculationConfiguration;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

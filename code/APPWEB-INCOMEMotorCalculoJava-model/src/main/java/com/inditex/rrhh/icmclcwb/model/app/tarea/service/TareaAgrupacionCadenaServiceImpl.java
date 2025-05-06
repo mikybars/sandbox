@@ -6,11 +6,11 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAgrupacionCadenasDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAgrupacionCadenaService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaAgrupacionCadenaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calcular.entity.TareaAgrupacionCadena;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepository;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaAgrupacionCadenaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,10 +33,10 @@ public class TareaAgrupacionCadenaServiceImpl implements TareaAgrupacionCadenaSe
   private TareaAgrupacionCadenaRepository tareaAgrupacionCadenaRepository;
 
   @Override
-  public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupOnlineResultItemDto> src,
+  public List<TareaAgrupacionCadenaDto> save(@Valid @NotNull @NotEmpty final List<AgrupacionesOnlineResponseDTO> src,
       @Valid @NotNull final TareaDto tarea) {
-    final List<TareaAgrupacionCadena> agrupaciones = this.tareaAgrupacionCadenaMapper
-        .getAgrupOnlineResultItemDtoToTareaAgrupacionCadena(src, tarea);
+    final List<TareaAgrupacionCadena> agrupaciones =
+        this.tareaAgrupacionCadenaMapper.getAgrupacionesOnlineResponseDtoToTareaAgrupacionCadena(src, tarea);
     return this.tareaAgrupacionCadenaMapper.getTareaAgrupacionCadenaToTareaAgrupacionCadenaDto(
         this.tareaAgrupacionCadenaRepositoryCustom.save(agrupaciones));
   }

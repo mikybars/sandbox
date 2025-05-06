@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.ptr.presencia;
+package com.inditex.rrhh.icmclcwb.config.ptr.presencia;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

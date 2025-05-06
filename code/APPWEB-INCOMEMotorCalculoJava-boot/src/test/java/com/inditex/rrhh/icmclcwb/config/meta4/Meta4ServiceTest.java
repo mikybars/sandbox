@@ -1,4 +1,4 @@
-package com.inditex.rrhh.icmclcwb.meta4;
+package com.inditex.rrhh.icmclcwb.config.meta4;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
