@@ -58,7 +58,8 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
     final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
-      importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea());
+      importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea(),
+          tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
 
       importeExcedidoValidationResult
           .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())

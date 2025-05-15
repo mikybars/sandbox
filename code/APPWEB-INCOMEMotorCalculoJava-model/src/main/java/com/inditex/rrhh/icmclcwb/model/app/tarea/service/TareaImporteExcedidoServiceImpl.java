@@ -20,7 +20,7 @@ public class TareaImporteExcedidoServiceImpl implements TareaImporteExcedidoServ
 
   @Override
   public List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(
-      @NotNull Long idTarea) {
-    return this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
+      @NotNull Long idTarea, @NotNull String cclIdOrigen, @NotNull String stdIdLegEnt) {
+    return this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt);
   }
 }
