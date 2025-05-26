@@ -8,7 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionPrecioHoraD
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaConfiguracionPrecioHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class TareaConfiguracionPrecioHoraAsyncServiceImpl
 
   @Override
   public CompletableFuture<Void> save(List<TareaConfiguracionPrecioHoraDto> src, TareaDto tarea) {
-    tareaConfiguracionPrecioHoraService.save(src, tarea);
+    this.tareaConfiguracionPrecioHoraService.save(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
-  public CompletableFuture<Void> saveConfPrecioHoraResultItemDto(List<ConfPrecioHoraResultItemDto> src,
+  public CompletableFuture<Void> saveConfiguracionPrecioHoraResponseDTO(List<ConfiguracionPrecioHoraResponseDTO> src,
       TareaDto tarea) {
-    tareaConfiguracionPrecioHoraService.saveConfPrecioHoraResultItemDto(src, tarea);
+    this.tareaConfiguracionPrecioHoraService.saveConfiguracionPrecioHoraResponseDTO(src, tarea);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

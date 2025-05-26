@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
@@ -15,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
@@ -65,6 +67,10 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Autowired
   @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
   private AgrupacionesOnlineApi agrupacionesOnlineApi;
+
+  @Autowired
+  @Qualifier("configuracionPrecioHoraApiIncomeMetaApiClient")
+  private ConfiguracionPrecioHoraApi configuracionPrecioHoraApi;
 
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
@@ -129,6 +135,13 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
     IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getAgrupOnline");
     IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {}", idOrigen);
     return this.agrupacionesOnlineApi.findAgrupacionesOnline(idOrigen);
+  }
+
+  @Override
+  public List<ConfiguracionPrecioHoraResponseDTO> getConfPrecioHora(String idOrganization, LocalDate fechaInicio, LocalDate fechaFin) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getConfPrecioHora");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {} {} {}", idOrganization, fechaInicio, fechaFin);
+    return this.configuracionPrecioHoraApi.getConfPrecioHora(idOrganization, fechaInicio, fechaFin);
   }
 
 }

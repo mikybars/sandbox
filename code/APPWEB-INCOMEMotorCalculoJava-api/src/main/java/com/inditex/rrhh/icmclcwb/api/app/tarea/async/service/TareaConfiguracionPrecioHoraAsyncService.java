@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionPrecioHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 
 import org.springframework.scheduling.annotation.Async;
 
@@ -14,6 +14,6 @@ public interface TareaConfiguracionPrecioHoraAsyncService {
 
   CompletableFuture<Void> save(List<TareaConfiguracionPrecioHoraDto> src, TareaDto tarea);
 
-  CompletableFuture<Void> saveConfPrecioHoraResultItemDto(List<ConfPrecioHoraResultItemDto> src, TareaDto tarea);
+  CompletableFuture<Void> saveConfiguracionPrecioHoraResponseDTO(List<ConfiguracionPrecioHoraResponseDTO> src, TareaDto tarea);
 
 }
