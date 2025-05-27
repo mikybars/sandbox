@@ -68,7 +68,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
@@ -116,6 +115,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
@@ -895,16 +895,15 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
               tarea.getId(),
               TipoDatoEnum.PERIODO_AMPLIADO.getId())));
 
-      final CompletableFuture<List<ConfPrecioHoraResultItemDto>> cfData = this.meta4IcmWsCalcIncomeSessionAsyncService
-          .getConfPrecioHora(request);
-      final List<ConfPrecioHoraResultItemDto> data = AsyncUtils.get(cfData);
+      final List<ConfiguracionPrecioHoraResponseDTO> data = this.incomeMetaService.getConfPrecioHora(request.getData().getIdOrigen(),
+          request.getData().getFechaInicio().toLocalDate(), request.getData().getFechaFin().toLocalDate());
       if (CollectionUtils.isNotEmpty(data)) {
         AsyncUtils.checkAsyncAvaliable(cfPersist,
             this.meta4Properties.get(Meta4PropertiesConstants.CONFPRECIOHORA)
                 .getFilter()
                 .getMaxPersistenceSize());
         final CompletableFuture<Void> cfSave = this.tareaConfiguracionPrecioHoraAsyncService
-            .saveConfPrecioHoraResultItemDto(data, tarea);
+            .saveConfiguracionPrecioHoraResponseDTO(data, tarea);
         AsyncUtils.exceptionally(cfSave, cf, cfPersist);
       }
 

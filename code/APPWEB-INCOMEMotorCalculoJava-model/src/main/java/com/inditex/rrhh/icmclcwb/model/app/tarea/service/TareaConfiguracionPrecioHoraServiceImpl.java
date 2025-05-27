@@ -5,9 +5,9 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionPrecioHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaConfiguracionPrecioHoraService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaConfiguracionPrecioHoraMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaConfiguracionPrecioHoraRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -34,10 +34,10 @@ public class TareaConfiguracionPrecioHoraServiceImpl implements TareaConfiguraci
   }
 
   @Override
-  public void saveConfPrecioHoraResultItemDto(@Valid @NotNull @NotEmpty final List<ConfPrecioHoraResultItemDto> src,
+  public void saveConfiguracionPrecioHoraResponseDTO(@Valid @NotNull @NotEmpty final List<ConfiguracionPrecioHoraResponseDTO> src,
       @Valid @NotNull final TareaDto tarea) {
     this.tareaConfiguracionPrecioHoraRepositoryCustom.save(
-        this.tareaConfiguracionPrecioHoraMapper.confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(src,
+        this.tareaConfiguracionPrecioHoraMapper.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src,
             tarea));
   }
 }

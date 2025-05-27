@@ -4,6 +4,7 @@ import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.annotation.AmigaRestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
 import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
@@ -62,6 +63,12 @@ public class IncomeMetaClientConfig {
   @Bean(name = "agrupacionesOnlineIncomeMetaApiClient")
   public AgrupacionesOnlineApi agrupacionesOnlineIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
     return new AgrupacionesOnlineApi(apiClient);
+  }
+
+  @Bean(name = "configuracionPrecioHoraApiIncomeMetaApiClient")
+  public ConfiguracionPrecioHoraApi configuracionPrecioHoraApiIncomeMetaApiClient(
+      @Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new ConfiguracionPrecioHoraApi(apiClient);
   }
 
 }

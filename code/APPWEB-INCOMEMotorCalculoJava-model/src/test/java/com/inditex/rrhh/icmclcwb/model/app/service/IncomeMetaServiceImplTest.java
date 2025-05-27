@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
@@ -22,6 +23,7 @@ import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
@@ -73,6 +75,10 @@ class IncomeMetaServiceImplTest {
   @Mock
   @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
   private AgrupacionesOnlineApi agrupacionesOnlineApi;
+
+  @Mock
+  @Qualifier("configuracionPrecioHoraApiIncomeMetaApiClient")
+  private ConfiguracionPrecioHoraApi configuracionPrecioHoraApi;
 
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
@@ -170,6 +176,20 @@ class IncomeMetaServiceImplTest {
 
     final List<AgrupacionesOnlineResponseDTO> result =
         this.incomeMetaService.getAgrupOnline("PL");
+
+    assertNotNull(result);
+  }
+
+  @ParameterizedTest
+  @InstancioSource(samples = 1)
+  void getConfPrecioHoraTest() {
+    final List<ConfiguracionPrecioHoraResponseDTO> mockResponse = Collections.singletonList(new ConfiguracionPrecioHoraResponseDTO());
+    when(
+        this.configuracionPrecioHoraApi.getConfPrecioHora("PL", LocalDate.now(), LocalDate.now().plusDays(30)))
+            .thenReturn(mockResponse);
+
+    final List<ConfiguracionPrecioHoraResponseDTO> result =
+        this.incomeMetaService.getConfPrecioHora("PL", LocalDate.now(), LocalDate.now().plusDays(30));
 
     assertNotNull(result);
   }
