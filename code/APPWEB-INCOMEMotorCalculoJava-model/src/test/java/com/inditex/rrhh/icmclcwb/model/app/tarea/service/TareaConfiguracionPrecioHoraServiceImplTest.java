@@ -59,6 +59,7 @@ public class TareaConfiguracionPrecioHoraServiceImplTest {
   @Test
   public void saveConfiguracionPrecioHoraResponseDTOTest() {
     final TareaDto tarea = mock(TareaDto.class);
+    final String cclIdOrigen = "1";
     final ConfiguracionPrecioHoraResponseDTO tareaConfiguracionPrecioHora = mock(ConfiguracionPrecioHoraResponseDTO.class);
     final List<ConfiguracionPrecioHoraResponseDTO> dtoList = new ArrayList<ConfiguracionPrecioHoraResponseDTO>();
     final List<TareaConfiguracionPrecioHora> list = new ArrayList<TareaConfiguracionPrecioHora>();
@@ -66,7 +67,7 @@ public class TareaConfiguracionPrecioHoraServiceImplTest {
     when(this.tareaConfiguracionPrecioHoraRepositoryCustomImpl
         .save(ArgumentMatchers.any())).thenReturn(list);
 
-    this.tareaLocalizacionPresupuestoService.saveConfiguracionPrecioHoraResponseDTO(dtoList, tarea);
+    this.tareaLocalizacionPresupuestoService.saveConfiguracionPrecioHoraResponseDTO(dtoList, tarea, cclIdOrigen);
 
     verify(this.tareaConfiguracionPrecioHoraRepositoryCustomImpl, times(1))
         .save(ArgumentMatchers.any());

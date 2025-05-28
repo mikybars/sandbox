@@ -18,11 +18,11 @@ public abstract class TareaConfiguracionPrecioHoraDecorator extends TareaConfigu
 
   @Override
   public List<TareaConfiguracionPrecioHora> configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(
-      final List<ConfiguracionPrecioHoraResponseDTO> src, final TareaDto tarea) {
+      final List<ConfiguracionPrecioHoraResponseDTO> src, final TareaDto tarea, final String cclIdOrigen) {
     final ArrayList<TareaConfiguracionPrecioHora> result = new ArrayList<>();
     if (CollectionUtils.isNotEmpty(src)) {
       src.forEach(item -> result
-          .add(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(item, tarea)));
+          .add(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(item, tarea, cclIdOrigen)));
     }
     return result;
   }

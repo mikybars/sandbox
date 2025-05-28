@@ -16,6 +16,6 @@ public interface TareaConfiguracionPrecioHoraService {
       @Valid @NotNull final TareaDto tarea);
 
   void saveConfiguracionPrecioHoraResponseDTO(@Valid @NotNull @NotEmpty final List<ConfiguracionPrecioHoraResponseDTO> src,
-      @Valid @NotNull final TareaDto tarea);
+      @Valid @NotNull final TareaDto tarea, @Valid @NotNull final String cclIdOrigen);
 
 }

@@ -14,6 +14,7 @@ public interface TareaConfiguracionPrecioHoraAsyncService {
 
   CompletableFuture<Void> save(List<TareaConfiguracionPrecioHoraDto> src, TareaDto tarea);
 
-  CompletableFuture<Void> saveConfiguracionPrecioHoraResponseDTO(List<ConfiguracionPrecioHoraResponseDTO> src, TareaDto tarea);
+  CompletableFuture<Void> saveConfiguracionPrecioHoraResponseDTO(List<ConfiguracionPrecioHoraResponseDTO> src, TareaDto tarea,
+      String cclIdOrigen);
 
 }

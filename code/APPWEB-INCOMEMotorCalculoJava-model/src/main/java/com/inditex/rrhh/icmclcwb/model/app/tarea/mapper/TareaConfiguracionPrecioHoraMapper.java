@@ -37,11 +37,12 @@ public abstract class TareaConfiguracionPrecioHoraMapper {
   @Mapping(target = "icmCkTpHoraIncPtpo", expression = "java(src.getTipoHoraInc() != null && src.getTipoHoraInc() != 0)")
   @Mapping(target = "fechaInicio", source = "src.fechaInicio")
   @Mapping(target = "fechaFin", source = "src.fechaFin")
+  @Mapping(target = "cclIdOrigen", source = "cclIdOrigen")
   public abstract TareaConfiguracionPrecioHora configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(
-      ConfiguracionPrecioHoraResponseDTO src, TareaDto tarea);
+      ConfiguracionPrecioHoraResponseDTO src, TareaDto tarea, String cclIdOrigen);
 
   public List<TareaConfiguracionPrecioHora> configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(
-      final List<ConfiguracionPrecioHoraResponseDTO> src, final TareaDto tarea) {
+      final List<ConfiguracionPrecioHoraResponseDTO> src, final TareaDto tarea, String cclIdOrigen) {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 
