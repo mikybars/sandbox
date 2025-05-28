@@ -28,8 +28,8 @@ public class TareaConfiguracionPrecioHoraAsyncServiceImpl
 
   @Override
   public CompletableFuture<Void> saveConfiguracionPrecioHoraResponseDTO(List<ConfiguracionPrecioHoraResponseDTO> src,
-      TareaDto tarea) {
-    this.tareaConfiguracionPrecioHoraService.saveConfiguracionPrecioHoraResponseDTO(src, tarea);
+      TareaDto tarea, String cclIdOrigen) {
+    this.tareaConfiguracionPrecioHoraService.saveConfiguracionPrecioHoraResponseDTO(src, tarea, cclIdOrigen);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 

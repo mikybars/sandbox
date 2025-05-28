@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
@@ -40,9 +41,10 @@ class TareaConfiguracionPrecioHoraAsyncServiceImplTest {
   void saveConfiguracionPrecioHoraResponseDTOTest() {
     final List<ConfiguracionPrecioHoraResponseDTO> src = new ArrayList<>();
     final TareaDto tarea = new TareaDto();
+    final String cclIdOrigen = "1";
 
-    this.tareaConfiguracionPrecioHoraAsyncService.saveConfiguracionPrecioHoraResponseDTO(src, tarea);
+    this.tareaConfiguracionPrecioHoraAsyncService.saveConfiguracionPrecioHoraResponseDTO(src, tarea, cclIdOrigen);
 
-    verify(this.tareaConfiguracionPrecioHoraService).saveConfiguracionPrecioHoraResponseDTO(anyList(), any(TareaDto.class));
+    verify(this.tareaConfiguracionPrecioHoraService).saveConfiguracionPrecioHoraResponseDTO(anyList(), any(TareaDto.class), anyString());
   }
 }
