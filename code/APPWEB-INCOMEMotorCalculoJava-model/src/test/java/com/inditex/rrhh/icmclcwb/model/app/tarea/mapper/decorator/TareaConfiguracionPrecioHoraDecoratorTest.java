@@ -38,12 +38,15 @@ class TareaConfiguracionPrecioHoraDecoratorTest {
     final TareaDto tarea = new TareaDto();
     final TareaConfiguracionPrecioHora mappedItem1 = new TareaConfiguracionPrecioHora();
     final TareaConfiguracionPrecioHora mappedItem2 = new TareaConfiguracionPrecioHora();
+    final String cclIdOrigen = "1";
 
-    when(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src.get(0), tarea)).thenReturn(mappedItem1);
-    when(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src.get(1), tarea)).thenReturn(mappedItem2);
+    when(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src.get(0), tarea, cclIdOrigen))
+        .thenReturn(mappedItem1);
+    when(this.delegate.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src.get(1), tarea, cclIdOrigen))
+        .thenReturn(mappedItem2);
 
     final List<TareaConfiguracionPrecioHora> result =
-        this.decorator.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src, tarea);
+        this.decorator.configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(src, tarea, cclIdOrigen);
 
     assertNotNull(result);
     assertEquals(2, result.size());

@@ -81,7 +81,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganiza
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterDto;
@@ -2024,13 +2023,13 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     final RunTareaDto runTarea = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(1L);
+    tarea.setIdOrganization("PL");
     runTarea.setTarea(tarea);
 
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
 
     final Meta4PropertiesDto properties = new Meta4PropertiesDto();
     final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
-    final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
     filter.setMaxPersistenceSize(10);
     final ConfPrecioHoraFilterDto filterDto = new ConfPrecioHoraFilterDto();
     filterDto.setIdOrigen("1");
@@ -2045,8 +2044,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(filterDto);
     when(this.incomeMetaService.getConfPrecioHora(anyString(), any(), any())).thenReturn(data);
 
-    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(null);
-    when(this.tareaConfiguracionPrecioHoraAsyncService.saveConfiguracionPrecioHoraResponseDTO(anyList(), any()))
+    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(AsyncConstants.NIL);
+    when(this.tareaConfiguracionPrecioHoraAsyncService.saveConfiguracionPrecioHoraResponseDTO(anyList(), any(), anyString()))
         .thenReturn(cfSave);
 
     assertDoesNotThrow(() -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
@@ -2054,7 +2053,7 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
     verify(this.meta4Properties, times(2)).get(Meta4PropertiesConstants.CONFPRECIOHORA);
     verify(this.incomeMetaService, times(1)).getConfPrecioHora(anyString(), any(), any());
-    verify(this.tareaConfiguracionPrecioHoraAsyncService, times(1)).saveConfiguracionPrecioHoraResponseDTO(anyList(), any());
+    verify(this.tareaConfiguracionPrecioHoraAsyncService, times(1)).saveConfiguracionPrecioHoraResponseDTO(anyList(), any(), anyString());
   }
 
 }
