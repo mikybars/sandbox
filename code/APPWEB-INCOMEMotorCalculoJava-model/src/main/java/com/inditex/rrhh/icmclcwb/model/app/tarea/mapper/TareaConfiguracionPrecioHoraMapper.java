@@ -5,9 +5,9 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionPrecioHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaConfiguracionPrecioHoraDecorator;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaConfiguracionPrecioHora;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
@@ -33,16 +33,16 @@ public abstract class TareaConfiguracionPrecioHoraMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "tarea.id", source = "tarea.id")
-  @Mapping(target = "icmCkTpHoraComis", source = "src.idTipoHoraComis")
-  @Mapping(target = "icmCkTpHoraIncPtpo", source = "src.idTipoHoraIncptpo")
+  @Mapping(target = "icmCkTpHoraComis", expression = "java(src.getTipoHoraComision() != null && src.getTipoHoraComision() != 0)")
+  @Mapping(target = "icmCkTpHoraIncPtpo", expression = "java(src.getTipoHoraInc() != null && src.getTipoHoraInc() != 0)")
   @Mapping(target = "fechaInicio", source = "src.fechaInicio")
   @Mapping(target = "fechaFin", source = "src.fechaFin")
-  @Mapping(target = "cclIdOrigen", source = "src.idOrigen")
-  public abstract TareaConfiguracionPrecioHora confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(
-      ConfPrecioHoraResultItemDto src, TareaDto tarea);
+  @Mapping(target = "cclIdOrigen", source = "cclIdOrigen")
+  public abstract TareaConfiguracionPrecioHora configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(
+      ConfiguracionPrecioHoraResponseDTO src, TareaDto tarea, String cclIdOrigen);
 
-  public List<TareaConfiguracionPrecioHora> confPrecioHoraResultItemDtoToTareaConfiguracionPrecioHora(
-      final List<ConfPrecioHoraResultItemDto> src, final TareaDto tarea) {
+  public List<TareaConfiguracionPrecioHora> configuracionPrecioHoraResponseDTOToTareaConfiguracionPrecioHora(
+      final List<ConfiguracionPrecioHoraResponseDTO> src, final TareaDto tarea, String cclIdOrigen) {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 
