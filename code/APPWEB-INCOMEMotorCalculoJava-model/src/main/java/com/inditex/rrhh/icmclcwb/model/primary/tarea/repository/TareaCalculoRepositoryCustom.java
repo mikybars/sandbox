@@ -19,5 +19,6 @@ public interface TareaCalculoRepositoryCustom {
 
   void regularizarMejorOpcionSinFechasTodoPeriodo(@NotNull final TareaDto tareaDto);
 
-  List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea);
+  List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea, @NotNull String cclIdOrigen,
+      @NotNull String stdIdLegEnt);
 }
