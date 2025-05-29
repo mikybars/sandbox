@@ -833,124 +833,125 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
-    void findComisionManual(final TareaDto tarea, final IdPersonaLocalComisionManualDto result) {
+  @InstancioSource
+  void findComisionManual(final TareaDto tarea, final IdPersonaLocalComisionManualDto result) {
 
-        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any())).thenAnswer(invocation -> {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any())).thenAnswer(invocation -> {
 
-            final RowMapper<IdPersonaLocalComisionManualDto> rowMapper = invocation.getArgument(2);
-            final ResultSet rs = mock(ResultSet.class);
-            when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(result.getImporte());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_ID_GRUPO_MANUAL)).thenReturn(result.getGrupoManual());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_COMISION)).thenReturn(result.getTipoComision());
+          final RowMapper<IdPersonaLocalComisionManualDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_IMPORTE)).thenReturn(result.getImporte());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_GRUPO_MANUAL)).thenReturn(result.getGrupoManual());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_ID_TIPO_COMISION)).thenReturn(result.getTipoComision());
 
-            return Collections.singletonList(rowMapper.mapRow(rs, 0));
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-        final List<IdPersonaLocalComisionManualDto> comisiones = this.comisRepositoryCustom.findComisionManual(tarea);
+    final List<IdPersonaLocalComisionManualDto> comisiones = this.comisRepositoryCustom.findComisionManual(tarea);
 
-        final Map<String, Object> params = new HashMap<>();
-        params.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    final Map<String, Object> params = new HashMap<>();
+    params.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
 
-        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_COMISION_MANUAL), this.paramsCaptor.capture(),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any());
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_COMISION_MANUAL), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalComisionManualDto>>any());
 
-        assertEquals(params, this.paramsCaptor.getValue().getValues());
-        assertEquals(1, comisiones.size());
-        assertEquals(result, comisiones.get(0));
-    }
+    assertEquals(params, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, comisiones.size());
+    assertEquals(result, comisiones.get(0));
+  }
 
   @ParameterizedTest
-    @InstancioSource
-    void findPersonasTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result, final Long maxIdEmpleado) {
+  @InstancioSource
+  void findPersonasTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result, final Long maxIdEmpleado) {
 
-        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
-            final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
-            final ResultSet rs = mock(ResultSet.class);
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
 
-            return Collections.singletonList(rowMapper.mapRow(rs, 0));
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-        final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea, maxIdEmpleado);
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonas(tarea, maxIdEmpleado);
 
-        final Map<String, Object> expectedParams = new HashMap<>();
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
 
-        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS), this.paramsCaptor.capture(),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
 
-        assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
-        assertEquals(1, personas.size());
-        assertEquals(result, personas.get(0));
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
 
-    }
+  }
 
   @ParameterizedTest
-    @InstancioSource
-    void findPersonasSilSinEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
-                                      final Long maxIdEmpleado, final ClaseResultItemDto clase) {
-        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
-            final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
-            final ResultSet rs = mock(ResultSet.class);
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+  @InstancioSource
+  void findPersonasSilSinEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result,
+      final Long maxIdEmpleado, final ClaseResultItemDto clase) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
 
-            return Collections.singletonList(rowMapper.mapRow(rs, 0));
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-        final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilSinEstado(tarea, maxIdEmpleado, clase);
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilSinEstado(tarea, maxIdEmpleado, clase);
 
-        final Map<String, Object> expectedParams = new HashMap<>();
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
-        expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
+    expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
 
-        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_SIN_ESTADO), this.paramsCaptor.capture(),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_SIN_ESTADO), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
 
-        assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
-        assertEquals(1, personas.size());
-        assertEquals(result, personas.get(0));
-    }
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
+  }
 
   @ParameterizedTest
-    @InstancioSource
-    void findPersonasSilConEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result, final Long maxIdEmpleado, final ClaseResultItemDto clase) {
-        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
-            final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
-            final ResultSet rs = mock(ResultSet.class);
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
+  @InstancioSource
+  void findPersonasSilConEstadoTest(final TareaDto tarea, final IdPersonaLocalLocalizacionDto result, final Long maxIdEmpleado,
+      final ClaseResultItemDto clase) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
+          final RowMapper<IdPersonaLocalLocalizacionDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_COD_ORIGEN)).thenReturn(result.getCclIdCodOrigen());
 
-            return Collections.singletonList(rowMapper.mapRow(rs, 0));
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-        final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilConEstado(tarea, maxIdEmpleado, clase);
+    final List<IdPersonaLocalLocalizacionDto> personas = this.comisRepositoryCustom.findPersonasSilConEstado(tarea, maxIdEmpleado, clase);
 
-        final Map<String, Object> expectedParams = new HashMap<>();
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
-        expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
-        expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
-        expectedParams.put(SqlComisConstants.SQL_PARAM_ESTADO_SIL, clase.getIdsEstadoSil());
+    final Map<String, Object> expectedParams = new HashMap<>();
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_HASTA, TimeUtils.toDate(tarea.getFechaFinPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_FECHA_DESDE, TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
+    expectedParams.put(SqlComisConstants.SQL_PARAM_MAX_ID_PERSONA, maxIdEmpleado);
+    expectedParams.put(SqlComisConstants.SQL_PARAM_CLASE, clase.getIdClase());
+    expectedParams.put(SqlComisConstants.SQL_PARAM_ESTADO_SIL, clase.getIdsEstadoSil());
 
-        verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_CON_ESTADO), this.paramsCaptor.capture(),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
+    verify(this.namedParameterJdbcTemplate, times(1)).query(eq(SQL_FIND_PERSONAS_SIL_CON_ESTADO), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any());
 
-        assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
-        assertEquals(1, personas.size());
-        assertEquals(result, personas.get(0));
-    }
+    assertEquals(expectedParams, this.paramsCaptor.getValue().getValues());
+    assertEquals(1, personas.size());
+    assertEquals(result, personas.get(0));
+  }
 
   @Test
   void findCondicionesHistoricoChallengeIncluidoPorcentaje() {
@@ -1001,32 +1002,32 @@ class ComisRepositoryCustomImplTest {
   }
 
   @ParameterizedTest
-    @InstancioSource
-    void validateTempComisRecuperarFrancia(final IdPersonaLocalDto result) {
-        when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
-            final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
-            final ResultSet rs = mock(ResultSet.class);
-            when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
+  @InstancioSource
+  void validateTempComisRecuperarFrancia(final IdPersonaLocalDto result) {
+    when(this.namedParameterJdbcTemplate.query(any(String.class), any(MapSqlParameterSource.class),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalLocalizacionDto>>any())).then(invocation -> {
+          final RowMapper<IdPersonaLocalDto> rowMapper = invocation.getArgument(2);
+          final ResultSet rs = mock(ResultSet.class);
+          when(rs.getString(SqlComisConstants.SQL_RESULT_CCL_ID_PERSON)).thenReturn(result.getIdPersonaLocal());
 
-            return Collections.singletonList(rowMapper.mapRow(rs, 0));
+          return Collections.singletonList(rowMapper.mapRow(rs, 0));
         });
 
-        final TareaDto tarea = new TareaDto();
-        tarea.setIdOrganization("1");
-        tarea.setFechaInicioPeriodo(LocalDate.now());
-        tarea.setFechaFinPeriodo(LocalDate.now());
+    final TareaDto tarea = new TareaDto();
+    tarea.setIdOrganization("1");
+    tarea.setFechaInicioPeriodo(LocalDate.now());
+    tarea.setFechaFinPeriodo(LocalDate.now());
 
-        this.comisRepositoryCustom.validateTempComisRecuperarFrancia(tarea);
-        verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
-            ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
-        assertEquals(SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA,
-            this.sqlCaptor.getValue());
-        final MapSqlParameterSource params = this.paramsCaptor.getValue();
-        // Parámetros de la consulta: fecha desde, fecha hasta
-        assertEquals(1, params.getValues().size());
-        // fecha desde
-        assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_FIN_PERIODO));
+    this.comisRepositoryCustom.validateTempComisRecuperarFrancia(tarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sqlCaptor.capture(), this.paramsCaptor.capture(),
+        ArgumentMatchers.<RowMapper<IdPersonaLocalCondicionesDto>>any());
+    assertEquals(SQL_VALIDATE_TEMP_COMIS_RECUPERAR_FRANCIA,
+        this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    // Parámetros de la consulta: fecha desde, fecha hasta
+    assertEquals(1, params.getValues().size());
+    // fecha desde
+    assertTrue(params.hasValue(SqlComisConstants.SQL_PARAM_FECHA_FIN_PERIODO));
 
-    }
+  }
 }

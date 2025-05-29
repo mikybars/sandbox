@@ -15,6 +15,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_MINUTOS;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_POLITICA;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INACTIVO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_ECOMMERCE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_INCLUIDO_VENTA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_NUEVO_ID_SECCION;
@@ -89,6 +90,8 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
 
   private final static String SQL_UPDATE_ACTIVO_VACIO = "UPDATE ACTIVO VACIO";
 
+  private final static String SQL_UPDATE_SINDICAL_CERRADA = "UPDATE SINDICAL CERRADA";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -135,6 +138,9 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
         "sqlUpdateActivoVacio",
         SQL_UPDATE_ACTIVO_VACIO, true);
+    FieldUtils.writeField(this.tareaLocalizacionPresenciaRepositoryCustom,
+        "sqlUpdateSindicalCerrada",
+        SQL_UPDATE_SINDICAL_CERRADA, true);
   }
 
   @Test
@@ -1389,6 +1395,34 @@ class TareaLocalizacionPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_IDS_TIPOS_DATO));
     assertEquals(Arrays.asList(5018, 5025), params.getValue(SQL_PARAM_IDS_TIPOS_DATO));
 
+  }
+
+  @Test
+  public void updateSindicalCerradaTest() {
+
+    final TareaDto tarea = new TareaDto();
+    tarea.setId(199L);
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
+    final RunTareaDto runTarea = RunTareaDto.builder().tarea(tarea).trabajo(trabajoDTO).build();
+
+    this.tareaLocalizacionPresenciaRepositoryCustom.updateSindicalCerrada(runTarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sqlCaptor.capture(), this.paramsCaptor.capture());
+    assertEquals(SQL_UPDATE_SINDICAL_CERRADA, this.sqlCaptor.getValue());
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+
+    assertEquals(4, params.getValues().size());
+
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
+
+    assertTrue(params.hasValue(SQL_PARAM_ACTIVO));
+
+    assertTrue(params.hasValue(SQL_PARAM_INACTIVO));
+
+    assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
+    assertEquals(TipoDatoEnum.REPARTO_HORAS_SINDICALES_LOCALIZACION_SECCION.getId(),
+        params.getValue(SQL_PARAM_ID_TIPO_DATO_PRESENCIAS_SINDICALES));
   }
 
 }

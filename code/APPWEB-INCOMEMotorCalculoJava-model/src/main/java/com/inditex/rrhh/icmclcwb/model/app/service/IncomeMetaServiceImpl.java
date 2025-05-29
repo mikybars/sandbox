@@ -7,12 +7,22 @@ import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.PresupuestoResponseDTO;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiposVentaChallengeResponseDTO;
 
 import org.slf4j.Logger;
@@ -41,6 +51,26 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
   @Autowired
   @Qualifier("tiposventachallengeIncomeMetaApiClient")
   private TiposventachallengeApi tiposventachallengeApi;
+
+  @Autowired
+  @Qualifier("tiendaIncomeMetaApiClient")
+  private TiendaApi tiendaApi;
+
+  @Autowired
+  @Qualifier("periodoIncomeMetaApiClient")
+  private PeriodoApi periodoApi;
+
+  @Autowired
+  @Qualifier("presupuestosIncomeMetaApiClient")
+  private PresupuestosApi presupuestosApi;
+
+  @Autowired
+  @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
+  private AgrupacionesOnlineApi agrupacionesOnlineApi;
+
+  @Autowired
+  @Qualifier("configuracionPrecioHoraApiIncomeMetaApiClient")
+  private ConfiguracionPrecioHoraApi configuracionPrecioHoraApi;
 
   @Override
   public List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(final ExternosRequestDTO request) {
@@ -71,6 +101,47 @@ public class IncomeMetaServiceImpl implements IncomeMetaService {
     IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método TiposVentaChallenge");
     IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + origen + " " + empresa + " " + fechaInicio + " " + fechaFin + " " + organizacion);
     return this.tiposventachallengeApi.findTiposVentaChallenge(origen, empresa, fechaInicio, fechaFin, organizacion);
+  }
+
+  @Override
+  public List<TiendaResponseDTO> getTiendas(String idOrigen, List<String> idsEmpresaOrCadena, Boolean esEmpresa, LocalDate fechaInicio,
+      LocalDate fechaFin, String idOrganizacion) {
+
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método Tiendas");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: "
+        + idOrigen + " " + idsEmpresaOrCadena + " " + esEmpresa + " " + fechaInicio + " " + fechaFin + " " + idOrganizacion);
+
+    return this.tiendaApi.listTiendas(idOrigen, idsEmpresaOrCadena, esEmpresa, fechaInicio, fechaFin, idOrganizacion);
+  }
+
+  @Override
+  public PeriodoResponseDTO getPeriodos(String idOrganization, Integer idPeriodo, Boolean abierto, Boolean vigente) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getPeriodos");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {} {} {} {}", idOrganization, idPeriodo, abierto, vigente);
+    return this.periodoApi.periodos(idOrganization, idPeriodo, abierto, vigente);
+  }
+
+  @Override
+  public List<PresupuestoResponseDTO> getPresupuestos(List<Integer> idEmpresa, LocalDate fechaInicio, LocalDate fechaFin,
+      String idOrganizacion) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método Presupuestos");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: " + idEmpresa + " " + fechaInicio + " " + fechaFin + " " + idOrganizacion + " ");
+
+    return this.presupuestosApi.getPresupuesto(idEmpresa, fechaInicio, fechaFin, idOrganizacion);
+  }
+
+  @Override
+  public List<AgrupacionesOnlineResponseDTO> getAgrupOnline(String idOrigen) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getAgrupOnline");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {}", idOrigen);
+    return this.agrupacionesOnlineApi.findAgrupacionesOnline(idOrigen);
+  }
+
+  @Override
+  public List<ConfiguracionPrecioHoraResponseDTO> getConfPrecioHora(String idOrganization, LocalDate fechaInicio, LocalDate fechaFin) {
+    IncomeMetaServiceImpl.LOG.info(LOG_MESSAGE, "llamada al método getConfPrecioHora");
+    IncomeMetaServiceImpl.LOG.info("INFO REQUEST: {} {} {}", idOrganization, fechaInicio, fechaFin);
+    return this.configuracionPrecioHoraApi.getConfPrecioHora(idOrganization, fechaInicio, fechaFin);
   }
 
 }

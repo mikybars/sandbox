@@ -2,9 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.ajuste.personas;
 
 import java.util.List;
 
-/*
- * Copyright (c) 2021. Inditex
- */
 import com.inditex.rrhh.icmclcwb.api.app.ajuste.personas.CalculoAjusteAntiguedadService;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoPoliticaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.calcular.dto.AlgoritmoAjusteDto;

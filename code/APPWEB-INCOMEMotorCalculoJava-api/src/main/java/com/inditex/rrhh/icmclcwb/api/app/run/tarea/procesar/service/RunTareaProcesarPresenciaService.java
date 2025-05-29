@@ -75,4 +75,7 @@ public interface RunTareaProcesarPresenciaService {
   void totalizarLocalizacionIncluidoChallengePorcentaje(@Valid RunTareaDto runTarea);
 
   void compensarLocalizacionManualIncluidoChallengePorcentaje(@Valid RunTareaDto runTarea);
+
+  void updateSindicalCerrada(@Valid RunTareaDto runTarea);
+
 }

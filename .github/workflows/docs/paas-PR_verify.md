@@ -8,6 +8,8 @@
 
 Any pull request when there are changes into `paas` path.
 
+This workflow can be skipped in draft PRs by setting the repository variable `PR_VERIFY_RUNS_ON_DRAFT` to `false`. If you want to run it in a draft PR when this variable is set to `false`, you can use the `pr-verify/force-on-draft` label.
+
 ## Where does it run?
 
 [ubuntu-24.04](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md) GitHub runner.

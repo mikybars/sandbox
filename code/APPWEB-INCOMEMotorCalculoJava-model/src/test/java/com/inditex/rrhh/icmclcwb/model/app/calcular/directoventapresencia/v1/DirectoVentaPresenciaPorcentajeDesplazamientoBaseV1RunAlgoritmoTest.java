@@ -106,12 +106,13 @@ public class DirectoVentaPresenciaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest
     final AlgoritmoDTO algoritmo = new AlgoritmoDTO();
     this.directoVentaPresenciaPorcentajeDesplazamientoBaseV1RunAlgoritmo.execute(runTarea, algoritmo);
 
-      verify(this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
+    verify(this.tareaCalculoAlgoritmoDirectoVentaPresenciaPorcentajeDesplazamientoBaseV1RepositoryCustom, times(1))
         .calcular(algoritmo, runTarea.getTarea(), personas);
 
-      assertEquals(4, this.listAppender.list.size());
-      assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
-      assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}", this.listAppender.list.get(3).getMessage());
+    assertEquals(4, this.listAppender.list.size());
+    assertEquals(Level.INFO, this.listAppender.list.get(0).getLevel());
+    assertEquals("Trabajo[{}]Tarea[{}] :: Fin :: DirectoVentaPresenciaPorcentajeDesplazamientoBaseV1RunAlgoritmo :: Personas: {}",
+        this.listAppender.list.get(3).getMessage());
 
   }
 

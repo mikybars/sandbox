@@ -3,9 +3,10 @@ name: pipe-PR-verify
 on:
   pull_request:
     paths: ['pipe/**', '.github/workflows/pipe**']
+    types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 2.1.0
+  WORKFLOW_VERSION: 3.0.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -13,6 +14,7 @@ jobs:
   pipe-verify:
     name: Verify Pipe
     timeout-minutes: 30
+    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     runs-on: ${{ fromJSON( vars.RUNSON_PIPE_ONPREM || '["self-hosted", "pipe"]' ) }}
     steps:
       - name: Checkout
@@ -36,11 +38,12 @@ jobs:
             gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
 
       - name: Verify Pipe
-        uses: inditex/gha-pipeactions/verify@main
+        uses: inditex/gha-pipeactions/verify@v3
         with:
           supraenv: "all"
           components: "both"
           project-dir: ${GITHUB_WORKSPACE}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
         env:
-          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
-          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+          PROJECT_KEY: ${{ steps.metadata.outputs.project-key }}
+          PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}

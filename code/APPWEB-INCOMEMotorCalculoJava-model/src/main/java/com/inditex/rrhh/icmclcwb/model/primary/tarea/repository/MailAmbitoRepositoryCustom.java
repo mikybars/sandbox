@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.MailAmbitoDto;

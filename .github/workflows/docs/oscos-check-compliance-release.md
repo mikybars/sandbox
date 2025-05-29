@@ -6,36 +6,109 @@
 
 This workflow is triggered when a new release is published.
 
-## Where does it run?
+## Execution Environment
 
-Runs on `citool-icr__code-ubuntu24.04-large`.
+The workflow is divided into two jobs that run on different runners:
+
+- **generate-sbom:**  
+  Runs on the runner defined by the variable `vars.RUNSON_OSCOS_DOCKER`, which defaults to `["citool-icr-aks__code-ubuntu24.04-medium"]`.
+
+- **check-compliance:**  
+  Runs on the runner defined by the variable `vars.RUNSON_OSCOS_ONPREM`, which defaults to `["citool-icr__code-ubuntu24.04-large"]`.
 
 ## Jobs
 
-### `check-compliance`: Check compliance using SBOM and wsc-oscodeps
+### 1. generate-sbom: Generate SBOM
+
+This job is responsible for generating the Software Bill of Materials (SBOM) for the source code.
 
 #### Steps
 
-- **action-checkout**: Checks out the repository code.
-- **setup-jfrog-cli**: Sets up the JFrog CLI tool.
-- **setup-node-version**: Configures the specified Node.js version (`ivm-node` version `20`).
-- **setup-npm**: Configures the NPM environment by adding Node.js binaries to the `PATH`.
-- **setup-cdxgen**: Installs the `@cyclonedx/cdxgen` tool for generating SBOMs.
-- **determine-language**: Determines the primary programming language of the repository based on metadata.
-- **package-json-loader**: Extracts the `name` and `license` attributes from the `package.json` file (for JavaScript projects).
-- **generate-sbom**: Generates the SBOM using `cdxgen` for non-JavaScript projects and outputs the SBOM path.
-- **generate-sbom-javascript**: Generates the SBOM using `cdxgen` specifically for JavaScript projects and outputs the SBOM path.
-- **customize-sbom**: Customizes the generated SBOM using attributes from the `package.json` file (for JavaScript projects).
-- **credentials-resolver**: Resolves credentials using CyberArk and retrieves the S3 storage secrets.
-- **get-project-key**: Extracts the project key from the `application.yml` file.
-- **determinate-version**: Determines the project version either from the Makefile or the release tag (for Go and Makefile-based projects).
-- **set-unique-s3-object-name**: Generates a unique S3 object name using the project key and a timestamp.
-- **upload-s3-file**: Uploads the generated SBOM file to the specified S3 bucket.
-- **check-curation-file**: Checks if a `curation.yml` or `oscos-curation.yml` file exists in the repository.
-- **validation-project-curation-file**: Validates the `curation.yml` or `oscos-curation.yml` file against the specified schema, if it exists.
-- **check-compliance**: Checks compliance using the OSCODEP API with the uploaded SBOM, curation file, and project version.
-- **check-result**: Retrieves the compliance check result from the OSCODEP API.
-- **generate-summary**: Generates a compliance summary based on the API results.
-- **open-issue-report**: Opens a GitHub issue with the compliance summary report if the compliance result is `FAILURE`.
-- **upload-sbom-asset**: Uploads the SBOM file as a release asset in GitHub Releases.
-- **action-status-exist**: Fails the workflow if the compliance result is `FAILURE` or if there was an invocation error.
+- **Checkout:**  
+  The repository is cloned using `actions/checkout@v4`.
+
+- **Log in to GitHub Registry:**  
+  Authentication is performed on GitHub's container registry (ghcr.io) using the token `${{ secrets.GH_TOKEN_READER }}`.
+
+- **Generate SBOM:**  
+  The action `inditex/gha-oscodependencies/cdxgen-generator@main` is used to generate the SBOM.  
+  Environment variables are configured, such as:  
+  - `GITHUB_REGISTRY`
+  - `PREFER_MAVEN_DEPS_TREE`
+  - `CDX_MAVEN_PLUGIN`
+  - `CDX_MAVEN_GOAL`
+  - `CDX_MAVEN_INCLUDE_TEST_SCOPE`  
+  The source code to be analyzed is specified with `code-src: ${{ github.workspace }}`.
+
+- **Upload SBOM Artifact:**  
+  The generated SBOM file (`code/sbom.json`) is uploaded as an artifact using `actions/upload-artifact@v4`.  
+  This step is configured to continue on error (`continue-on-error: true`).
+
+---
+
+### 2. check-compliance: Check Compliance using SBOM and OSCODEP
+
+This job depends on the successful execution of the `generate-sbom` job and verifies compliance through the OSCODEP API.
+
+#### Steps
+
+- **Checkout:**  
+  The repository is cloned using `actions/checkout@v4`.
+
+- **Download SBOM Artifact:**  
+  The SBOM artifact generated in the previous job is downloaded using `actions/download-artifact@v4`.
+
+- **Determine the language of the repository:**  
+  A script is executed to extract the primary language of the repository from the release event metadata (using `jq`).
+
+- **Credentials Resolver:**  
+  The necessary credentials to access the S3 bucket are resolved using the action `inditex/gha-oscodependencies/creds-resolver@main`, retrieving access keys via CyberArk.
+
+- **Get Project Key from Repository Metadata:**  
+  The project key (`project_key`) is extracted from the `application.yml` file using a Python script.
+
+- **Determinate Version:**  
+  The project version is determined:
+  - If a **Makefile** exists, `make version` is executed to extract the version.
+  - Otherwise, the version is extracted from the release tag (`${{ github.event.release.tag_name }}`).
+
+- **Set Unique S3 Object Name:**  
+  A unique S3 object name is generated by combining the project key with a timestamp (formatted as `YYYYMMDDHHMMSS`).
+
+- **Upload File to an S3 Bucket:**  
+  The SBOM file (downloaded earlier) is uploaded to an S3 bucket using the credentials obtained and the unique name generated.
+
+- **Check if curation.yml Exists:**  
+  The workflow checks for the existence of a curation file by looking for either `oscos-curation.yml` or `curation.yml` in the repository.  
+  - If the file exists but is empty, it is removed and marked as non-existent.
+  - If the file exists and contains content, it is marked as existent and its path is stored.
+
+- **Validation of the Project Curation File:**  
+  If a curation file is detected, it is validated against the defined schema (`curation_schema.json`) using the action `inditex/gha-oscodependencies/file-validation@main`.
+
+- **Check Compliance with OSCODEP API:**  
+  The action `inditex/gha-oscodependencies/sbom-api-client@main` is invoked to check compliance.  
+  Parameters include the SBOM ID (the unique S3 object name), the curation file path (if available), the repository URL, the project key, and the project version.
+
+- **Check Result with OSCODEP API:**  
+  The compliance check result is retrieved with another invocation of the action `inditex/gha-oscodependencies/sbom-api-client@main` using the parameter `use-case: SBOM_STATUS_CHECK`.
+
+- **Generate Compliance Summary:**  
+  A compliance summary is generated using the action `inditex/gha-oscodependencies/compliance-result-renderer@main`, which produces a Markdown report.
+
+- **Read CODEOWNERS File:**  
+  If the compliance check fails, the `CODEOWNERS` file (if it exists) is read to identify the responsible parties, extracting and listing the owners.
+
+- **Open Issue with Report:**  
+  If the compliance result is `FAILURE`, a GitHub issue is created with the compliance summary report using `actions/github-script@v7`.  
+  The issue is labeled with `kind/oso-compliance`.
+
+- **Comment on the Issue with Code Owners:**  
+  A comment is added to the created issue, mentioning the Code Owners to alert them about the compliance issue.
+
+- **Upload SBOM to GitHub Release:**  
+  The SBOM file is uploaded as a release asset to GitHub using `actions/github-script@v7`.
+
+- **Action Status Exist:**  
+  If the compliance result is `FAILURE` or an error occurs during the invocation, this final step terminates the workflow with an error (exit 1), indicating failure.
+

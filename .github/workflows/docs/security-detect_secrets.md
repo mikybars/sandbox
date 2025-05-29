@@ -5,8 +5,9 @@ and checks if there is any secrets in the changes uploaded.
 
 ## Trigger
 
-* All `push` events that are not present in a protected branch (`main` if using Trunk-Based Development, and `develop` if using Gitflow).
-* Any `opened` pull request.
+* Any `opened` pull request. (partial scan)
+* All `merged` `pull_request` events to a protected branch (`main` if using Trunk-Based Development, and `develop` if using Gitflow).
+
 
 ## Where does it run?
 
@@ -34,5 +35,5 @@ A `security` runner of the self-hosted
     - Checkout of `source code` and actions
     - Retrieve `metadata` (key, name, version, etc...) from the project
     - Analyze source code secrets using `Detect Secrets scan`.
-    - Import `Snyk data to DefectDojo`.
+    - Import `Detect-Secrets data to DefectDojo`.
 

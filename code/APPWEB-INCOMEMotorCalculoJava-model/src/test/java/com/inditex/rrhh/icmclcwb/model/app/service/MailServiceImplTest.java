@@ -17,7 +17,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
@@ -110,7 +109,6 @@ public class MailServiceImplTest {
     final TrabajoDTO trabajo = new TrabajoDTO();
     final TareaDto tarea = new TareaDto();
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-    final TareaFaseDto tareaFase = new TareaFaseDto();
     final List<ValidacionDto> validaciones = new ArrayList<>();
     final List<String> personaLocal = new ArrayList<>();
 
@@ -138,7 +136,7 @@ public class MailServiceImplTest {
         .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
     when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
         .thenReturn(List.of("1"));
-    this.mailServiceImpl.sendMail(tareaFase, validaciones, runTareaDto);
+    this.mailServiceImpl.sendMail(validaciones, runTareaDto);
 
     verify(this.mailSender, times(1))
         .send(any(SimpleMailMessage.class));

@@ -3,8 +3,13 @@ package com.inditex.rrhh.icmclcwb.config.incomemeta;
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.annotation.AmigaRestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
+import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.invoker.ApiClient;
 
@@ -38,6 +43,32 @@ public class IncomeMetaClientConfig {
   @Bean(name = "tiposventachallengeIncomeMetaApiClient")
   public TiposventachallengeApi tiposventachallengeIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
     return new TiposventachallengeApi(apiClient);
+  }
+
+  @Bean(name = "tiendaIncomeMetaApiClient")
+  public TiendaApi tiendaIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new TiendaApi(apiClient);
+  }
+
+  @Bean(name = "presupuestosIncomeMetaApiClient")
+  public PresupuestosApi presupuestosIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new PresupuestosApi(apiClient);
+  }
+
+  @Bean(name = "periodoIncomeMetaApiClient")
+  public PeriodoApi periodoIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new PeriodoApi(apiClient);
+  }
+
+  @Bean(name = "agrupacionesOnlineIncomeMetaApiClient")
+  public AgrupacionesOnlineApi agrupacionesOnlineIncomeMetaApiClient(@Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new AgrupacionesOnlineApi(apiClient);
+  }
+
+  @Bean(name = "configuracionPrecioHoraApiIncomeMetaApiClient")
+  public ConfiguracionPrecioHoraApi configuracionPrecioHoraApiIncomeMetaApiClient(
+      @Qualifier("incomeMetaApiClient") final ApiClient apiClient) {
+    return new ConfiguracionPrecioHoraApi(apiClient);
   }
 
 }

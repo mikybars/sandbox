@@ -10,7 +10,7 @@ on:
         required: true
 
 env:
-  WORKFLOW_VERSION: 2.30.0
+  WORKFLOW_VERSION: 2.33.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
