@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.73.0] - 2025-05-29
+
+### Added
+
+- [INCOME-2238](https://jira.inditex.com/jira/browse/INCOME-2238) Prueba getConfigPrecioHora calculo
+- [INCOME-1893](https://jira.inditex.com/jira/browse/INCOME-1893) Integración getConfPrecioHora en el proceso de calculo
+- [INCOME-1889](https://jira.inditex.com/jira/browse/INCOME-1889) Integración getAgrupOnline en el proceso de calculo
+- [INCOME-1890](https://jira.inditex.com/jira/browse/INCOME-1890) Integración getPresupuestos en el proceso de calculo
+- [INCOME-2036](https://jira.inditex.com/jira/browse/INCOME-2036) Integración getPeriodos calculo
+- [INCOME-1884](https://jira.inditex.com/jira/browse/INCOME-1884) Integración getTiendas en el proceso de calculo
+- [INCOME-1936](https://jira.inditex.com/jira/browse/INCOME-1936) No repartir las horas sindicales en tiendas/secciones cerradas
+- [INCOME-1990](https://jira.inditex.com/jira/browse/INCOME-1990) Correccion en los estados de tienda en challenge importe
+- [INCOME-1961](https://jira.inditex.com/jira/browse/INCOME-1961) Implementación lógica Validacion empleados con GT/GS e importe > 100
+
+### Dependencies
+
+- [#648](https://github.com/inditex/mic-incomemotorcalculojava/issues/648) build(deps): bump com.inditex.api:income-mic-incomemeta-api-v3-rest-stable from 4.0.0 to 6.3.0 in /code
+- [#642](https://github.com/inditex/mic-incomemotorcalculojava/issues/642) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.13.3 to 5.14.0 in /code
+
 ## [4.72.0] - 2025-03-27
 
 ### Added
@@ -540,7 +559,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.0...main
+[4.73.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...4.73.0
 [4.72.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.2...4.72.0
 [4.71.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.1...4.71.2
 [4.71.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...4.71.1
