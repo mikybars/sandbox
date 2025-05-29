@@ -50,12 +50,15 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     trabajoDTO.setId(1L);
     final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
     final List<IdPersonaLocalDto> tareaPersonaImporteExcedidoDtoList = List.of(idPersonaLocalDto);
+    tareaDto.setStdIdLegEnt("8");
     tareaAmbitoDto.setIdTarea(1L);
+    tareaAmbitoDto.setCclIdOrigen("11");
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajoDTO);
     tareaDto.setId(1L);
 
-    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L)).thenReturn(tareaPersonaImporteExcedidoDtoList);
+    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L, tareaAmbitoDto.getCclIdOrigen(),
+        tareaDto.getStdIdLegEnt())).thenReturn(tareaPersonaImporteExcedidoDtoList);
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, tareaPersonaImporteExcedidoDtoList,
         PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto))
             .thenReturn(new ValidacionDto());
@@ -65,7 +68,7 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
-        .findPersonaImporteExcedidoByIdTarea(1L);
+        .findPersonaImporteExcedidoByIdTarea(1L, tareaAmbitoDto.getCclIdOrigen(), tareaDto.getStdIdLegEnt());
     verify(this.validacionMapper, timeout(1000).times(1)).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
@@ -80,11 +83,14 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     tareaAmbitoDto.setIdTarea(1L);
     runTareaDto.setTarea(tareaDto);
     runTareaDto.setTrabajo(trabajoDTO);
-    tareaDto.setId(1L);
+    tareaDto.setStdIdLegEnt("8");
+    tareaAmbitoDto.setIdTarea(1L);
+    tareaAmbitoDto.setCclIdOrigen("11");
     trabajoDTO.setId(1L);
 
-    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L))
-        .thenThrow(new RuntimeException("Test exception"));
+    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L, tareaAmbitoDto.getCclIdOrigen(),
+        tareaDto.getStdIdLegEnt()))
+            .thenThrow(new RuntimeException("Test exception"));
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, List.of(),
         PrevalidarPropertiesDto.builder().build(), tareaDto))
             .thenReturn(new ValidacionDto());
@@ -92,7 +98,7 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaImporteExcedidoService, timeout(1000).times(1))
-        .findPersonaImporteExcedidoByIdTarea(1L);
+        .findPersonaImporteExcedidoByIdTarea(1L, tareaAmbitoDto.getCclIdOrigen(), tareaDto.getStdIdLegEnt());
     verify(this.validacionMapper, timeout(1000).times(1))
         .booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }

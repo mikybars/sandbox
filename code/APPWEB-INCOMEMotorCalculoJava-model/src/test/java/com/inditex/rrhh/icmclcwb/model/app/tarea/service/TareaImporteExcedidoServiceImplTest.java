@@ -31,10 +31,14 @@ class TareaImporteExcedidoServiceImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaTest() {
     final Long idTarea = 1L;
+    final String cclIdOrigen = "11";
+    final String stdIdLegEnt = "8";
     final List<IdPersonaLocalDto> expectedResults = List.of(new IdPersonaLocalDto());
-    when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea)).thenReturn(expectedResults);
+    when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt))
+        .thenReturn(expectedResults);
 
-    final List<IdPersonaLocalDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final List<IdPersonaLocalDto> results =
+        this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt);
 
     assertEquals(expectedResults, results);
   }
@@ -42,9 +46,13 @@ class TareaImporteExcedidoServiceImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaNoDataTest() {
     final Long idTarea = 1L;
-    when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea)).thenReturn(Collections.emptyList());
+    final String cclIdOrigen = "11";
+    final String stdIdLegEnt = "8";
+    when(this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt))
+        .thenReturn(Collections.emptyList());
 
-    final List<IdPersonaLocalDto> results = this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final List<IdPersonaLocalDto> results =
+        this.tareaImporteExcedidoServiceImpl.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt);
 
     assertEquals(Collections.emptyList(), results);
   }
