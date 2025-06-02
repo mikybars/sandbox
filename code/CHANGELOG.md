@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.73.2] - 2025-06-02
+
+### Fixed
+
+- [INCOME-2290](https://jira.inditex.com/jira/browse/INCOME-2290) Revision presencias manuales/secciones/totales
+
 ## [4.73.1] - 2025-05-29
 
 ### Fixed
@@ -565,7 +571,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...main
+[4.73.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.1...4.73.2
 [4.73.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.0...4.73.1
 [4.73.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...4.73.0
 [4.72.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.2...4.72.0
