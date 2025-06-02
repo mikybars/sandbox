@@ -144,15 +144,16 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaExecutesQueryWithCorrectParameters() {
     final Long idTarea = 1L;
-
-    this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final String cclIdOrigen = "11";
+    final String stdIdLegEnt = "8";
+    this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt);
 
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
         ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
 
     assertEquals(SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO, this.sql.getValue());
     final MapSqlParameterSource parameters = this.params.getValue();
-    assertEquals(1, parameters.getValues().size());
+    assertEquals(3, parameters.getValues().size());
     assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     assertEquals(idTarea, parameters.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
   }
