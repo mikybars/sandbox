@@ -858,12 +858,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             .map(IdEmpresaDto::getStdIdLegEnt)
             .map(Integer::valueOf)
             .collect(Collectors.toList());
-        final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = CompletableFuture
-            .completedFuture(
-                this.presupuestosWlocMapper.toPresupuestosWlocResultItemDtoList(this.incomeMetaService.getPresupuestos(listEmpresas,
-                    tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(), tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen()));
-        AsyncUtils.exceptionally(cfData, cf);
-        final List<PresupuestosWlocResultItemDto> data = AsyncUtils.get(cfData);
+        final List<PresupuestosWlocResultItemDto> data =
+            this.presupuestosWlocMapper.toPresupuestosWlocResultItemDtoList(this.incomeMetaService.getPresupuestos(listEmpresas,
+                tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(), tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen());
         if (CollectionUtils.isNotEmpty(data)) {
           AsyncUtils.checkAsyncAvaliable(cfPersist, this.meta4Properties
               .get(Meta4PropertiesConstants.PRESUPUESTOSWLOC)
@@ -928,10 +925,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
       final List<TiposVentaChallengeResponseDTO> listTiposVentaChallenge = this.incomeMetaService.getTiposVentaChallenge(
           tareaAmbito.getCclIdOrigen(), Integer.parseInt(tarea.getStdIdLegEnt()), tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(),
           tarea.getIdOrganization());
-      final CompletableFuture<List<ConfChTpVentaResultItemDto>> cfData = new CompletableFuture<>();
-      cfData.complete(
-          this.tipoVentaConceptoChallengeMapper.confChTpVentaResultItemDtoListToConfChTpVentaResultItemDtoList(listTiposVentaChallenge));
-      final List<ConfChTpVentaResultItemDto> data = AsyncUtils.get(cfData);
+
+      final List<ConfChTpVentaResultItemDto> data =
+          this.tipoVentaConceptoChallengeMapper.confChTpVentaResultItemDtoListToConfChTpVentaResultItemDtoList(listTiposVentaChallenge);
       if (CollectionUtils.isNotEmpty(data)) {
         AsyncUtils.checkAsyncAvaliable(cfPersist,
             this.meta4Properties.get(Meta4PropertiesConstants.CONFCHALLENGETPVENTA)
@@ -1218,16 +1214,14 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl
             this.tiendaMapper.toGenericTiendaResultItemDtoList(this.incomeMetaService.getTiendas(
                 tareaAmbito.getCclIdOrigen(), listaCadenas, false, tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(),
                 tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen());
-        final CompletableFuture<List<GenericTiendaResultItemDto>> cfData = CompletableFuture.completedFuture(listaTiendas);
-        AsyncUtils.exceptionally(cfData, cf);
-        final List<GenericTiendaResultItemDto> data = AsyncUtils.get(cfData);
-        if (CollectionUtils.isNotEmpty(data)) {
+
+        if (CollectionUtils.isNotEmpty(listaTiendas)) {
           AsyncUtils.checkAsyncAvaliable(cfPersist,
               this.meta4Properties.get(Meta4PropertiesConstants.SEARCH_TIENDAS)
                   .getFilter()
                   .getMaxPersistenceSize());
           final CompletableFuture<Void> cfSave = this.tareaLocalizacionHistoricoAsyncService
-              .saveGenericTiendaResultItemDto(data, tarea);
+              .saveGenericTiendaResultItemDto(listaTiendas, tarea);
           AsyncUtils.exceptionally(cfSave, cf, cfPersist);
 
         }
