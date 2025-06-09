@@ -40,7 +40,7 @@ class TiendaMapperTest {
     assertEquals("123", result.getIdLugarTrabajo());
     assertEquals("01", result.getIdOrigen());
     assertEquals("ES", result.getIdPais());
-    assertEquals("PROV1", result.getIdProvincia());
+    assertEquals("LOC1", result.getIdProvincia());
     assertEquals("EMP1", result.getIdEmpresa());
     assertEquals("CAD1", result.getIdCadena());
   }
