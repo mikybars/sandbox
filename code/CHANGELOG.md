@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.74.0] - 2025-06-09
+
+### Added
+
+- [INCOME-2330](https://jira.inditex.com/jira/browse/INCOME-2330) Modificacion mapeo provincia
+- [INCOME-2154](https://jira.inditex.com/jira/browse/INCOME-2154) Integración y modificación consulta validación cálculos sobre nueva tabla
+
+### Dependencies
+
+- [#694](https://github.com/inditex/mic-incomemotorcalculojava/issues/694) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.14.1 to 5.14.3 in /code
+
 ## [4.73.2] - 2025-06-02
 
 ### Fixed
@@ -571,7 +582,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.0...main
+[4.74.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...4.74.0
 [4.73.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.1...4.73.2
 [4.73.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.0...4.73.1
 [4.73.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...4.73.0
