@@ -7538,25 +7538,28 @@ FROM (
 
   <entry key="TareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea">
     <![CDATA[
-      SELECT
-          CCL_ID_PERSON
-      FROM (
-          SELECT
-              T.CCL_ID_PERSON
-          FROM
-              TAREA_CALCULO T
-          WHERE
-              T.ID_TAREA = :idTarea
-              AND T.ID_TIPO_CALCULO IN ('001', '002')
-          GROUP BY
-              T.CCL_ID_PERSON,
-              T.FECHA,
-              T.ID_TIPO_CALCULO
-          HAVING
-              SUM(IMPORTE) > 100
-      ) AS SUBQUERY
-      GROUP BY CCL_ID_PERSON;
-      ]]>
+    SELECT
+        CCL_ID_PERSON
+    FROM (
+        SELECT
+            T.CCL_ID_PERSON
+        FROM
+            TAREA_CALCULO T
+        INNER JOIN GESTION_COMISION.REGLA_VALIDACION_EXCEDIDOS RVE
+            ON T.ID_TIPO_CALCULO = RVE.ID_TIPO_CALCULO
+        WHERE
+            T.ID_TAREA = :idTarea
+            AND RVE.CCL_ID_ORIGEN = :cclIdOrigen
+            AND RVE.STD_ID_LEG_ENT = :stdIdLegEnt
+        GROUP BY
+            T.CCL_ID_PERSON,
+            T.FECHA,
+            T.ID_TIPO_CALCULO
+        HAVING
+            SUM(T.IMPORTE) > MAX(RVE.IMPORTE)
+    ) AS SUBQUERY
+    GROUP BY CCL_ID_PERSON;
+  ]]>
   </entry>
 
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">

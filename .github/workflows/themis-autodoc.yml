@@ -1,0 +1,56 @@
+---
+name: themis-autodoc
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRA_ENV:
+        description: 'Supraenv'
+        required: false
+      ENVIRONMENT:
+        description: 'Environment'
+        required: false
+      DS_NAME:
+        description: 'Datasource name'
+        required: false
+      MODEL_NAME:
+        description: 'Model name'
+        required: false
+      PATH:
+        description: 'Model path to deploy'
+        required: false
+        default: 'themis'
+      SCHEMA:
+        description: 'Schema'
+        required: false
+        default: None
+      BBDD:
+        description: 'BBDD'
+        required: false
+        default: None
+      SENSITIVITY:
+        description: 'Sensitivity'
+        required: false
+        default: None
+
+jobs:
+  autodoc:
+    name: Autodoc ID
+    runs-on: [self-hosted, database, axecocpci1]
+    steps:
+      - name: Launch Autodoc workflow
+        uses: inditex/gha-themis/features/ci-cd/autodoc@main
+        if: github.ref == 'refs/heads/main'
+        with:
+          SUPRA_ENV: ${{ github.event.inputs.SUPRA_ENV }}
+          ENVIRONMENT: ${{ github.event.inputs.ENVIRONMENT }}
+          DS_NAME: ${{ github.event.inputs.DS_NAME }}
+          MODEL_NAME: ${{ github.event.inputs.MODEL_NAME }}
+          MODEL_PATH: ${{ github.event.inputs.PATH }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}
+          DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
+          SCHEMA: ${{ github.event.inputs.SCHEMA }}
+          BBDD: ${{ github.event.inputs.BBDD }}
+          SENSITIVITY: ${{ github.event.inputs.SENSITIVITY }}

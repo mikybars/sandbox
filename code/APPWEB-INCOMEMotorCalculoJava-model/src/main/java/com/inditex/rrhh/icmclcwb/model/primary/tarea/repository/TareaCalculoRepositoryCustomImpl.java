@@ -84,9 +84,11 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
 
   @Override
   public List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(
-      @NotNull Long idTarea) {
+      @NotNull Long idTarea, @NotNull String cclIdOrigen, @NotNull String stdIdLegEnt) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
     return this.query(
         this.sqlRecuperarPersonasImporteExcedido,
         params, (rs, rowNum) -> {

@@ -6,7 +6,7 @@ concurrency:
   group: themis-deploy-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.ENVIRONMENT }}-${{ inputs.DATASOURCE }}
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 2.13.0
 
 on:
   workflow_dispatch:

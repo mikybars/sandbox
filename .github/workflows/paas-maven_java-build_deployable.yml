@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.21.0
+  WORKFLOW_VERSION: 3.22.1
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -30,6 +30,7 @@ env:
   NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
   GITHUB_REGISTRY: ghcr.io
+  USE_SENTINELFORGE: ${{ vars.USE_SENTINELFORGE || 'false' }}
 
 jobs:
   set-destination-branch:
@@ -152,7 +153,7 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r1
           ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
           ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
@@ -241,8 +242,21 @@ jobs:
               fi; \
               mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv"
 
+      - name: SentinelForge / Generate Dockerfile
+        id: sentinel-forge-dockerfile
+        if: ${{ env.USE_SENTINELFORGE == 'true' }}
+        uses: inditex/gha-paasdeployment/generate-dockerfile@v0
+        with:
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          dp-username: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          dp-token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          build-type: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
+          is-merged: ${{ github.event.pull_request.merged }}
+          artifact-version: ${{ needs.identify-changes.outputs.release-version }}
+
       - name: Sentinel - Generate Dockerfile
         id: sentinel
+        if: ${{ env.USE_SENTINELFORGE != 'true' }}
         uses: inditex/gha-paasdeployment/sentinel@v0
         with:
           app-version: ${{ needs.identify-changes.outputs.release-version }}
@@ -252,6 +266,23 @@ jobs:
           IMAGE_BUILD_TYPE: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
           MERGED: ${{ github.event.pull_request.merged }}
 
+      - name: Determine Dockerfile Outputs
+        id: determine-dockerfile-outputs
+        run: |
+          if [[ "${{ env.USE_SENTINELFORGE }}" == "true" ]]; then
+            {
+              echo "image-name=${{ steps.sentinel-forge-dockerfile.outputs.image-name }}"
+              echo "image-tag=${{ steps.sentinel-forge-dockerfile.outputs.image-tag }}"
+              echo "image-registry=${{ steps.sentinel-forge-dockerfile.outputs.image-registry }}"
+            } >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "image-name=${{ steps.sentinel.outputs.image-name }}"
+              echo "image-tag=${{ steps.sentinel.outputs.image-tags }}"
+              echo "image-registry=${{ steps.sentinel.outputs.image-registry }}"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Artifact / Build and Push Docker Image to ghcr
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot'
         uses: inditex/gha-paasdeployment/docker/build-and-push@v0
@@ -259,8 +290,8 @@ jobs:
           registry: ${{ vars.PAAS_DOCKER_SNAPSHOT_REGISTRY }}
           username: USERNAME
           token: ${{ secrets.GITHUB_TOKEN }}
-          image-name: inditex/${{ steps.sentinel.outputs.image-name }}
-          tags: ${{ steps.sentinel.outputs.image-tags }}
+          image-name: inditex/${{ steps.determine-dockerfile-outputs.outputs.image-name }}
+          tags: ${{ steps.determine-dockerfile-outputs.outputs.image-tag }}
           path: code
           dockerfile: code/Dockerfile
 
@@ -268,11 +299,11 @@ jobs:
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.set-deploy-vars.outputs.APP_VERSION == 'release'
         uses: inditex/gha-paasdeployment/docker/build-and-push@v0
         with:
-          registry: ${{ steps.sentinel.outputs.image-registry }}
+          registry: ${{ steps.determine-dockerfile-outputs.outputs.image-registry }}
           username: ${DP_USERNAME}
           token: ${DP_TOKEN}
-          image-name: projects/${{ steps.sentinel.outputs.image-name }}
-          tags: ${{ steps.sentinel.outputs.image-tags }}
+          image-name: projects/${{ steps.determine-dockerfile-outputs.outputs.image-name }}
+          tags: ${{ steps.determine-dockerfile-outputs.outputs.image-tag }}
           path: code
           dockerfile: code/Dockerfile
 

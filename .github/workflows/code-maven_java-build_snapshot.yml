@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 2.33.0
+  WORKFLOW_VERSION: 2.35.0
   GITHUB_REGISTRY: ghcr.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
@@ -25,6 +25,9 @@ jobs:
     name: Build Snapshot
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
     if: ${{ (github.event_name == 'workflow_dispatch') || (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) }}
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Get release commits
         id: release-commits
@@ -51,7 +54,7 @@ jobs:
         if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r1
           ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
           ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
         with:
@@ -131,6 +134,18 @@ jobs:
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
             "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
             mvn -B clean deploy -DskipTests -DskipUTs -DskipITs -Dbuild.type=snapshot $MVN_BUILD_CACHE_OPTS
+
+      - name: Metrics / Report Size
+        if: ${{ steps.release-commits.outputs.SKIP == 'false' }}
+        uses: inditex/gha-pmsactions/size-reporter@v0
+        continue-on-error: true
+        with:
+          REPOSITORY_PATH: code
+          COMMIT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          BUILD_TYPE: SNAPSHOT
+          TECHNOLOGY: maven_java
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Generate SBOM
         id: generate-sbom

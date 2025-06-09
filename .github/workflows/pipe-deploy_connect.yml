@@ -20,7 +20,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.0.0
+  WORKFLOW_VERSION: 3.1.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -95,21 +95,23 @@ jobs:
 
       - name: Generate PIPE Summary and Coordinates
         if: ${{ !startsWith(env.PIPE_CODE_VERSION, '2') }}
-        id: set-outputs-summary
-        uses: inditex/gha-pipeactions/analyze-differences@v1
+        id: summary-generator
+        uses: inditex/gha-pipeactions/analyze-differences@v2
         with:
           differences-file-path: "pipe/target"
           supraenv: ${{ github.event.inputs.SUPRAENV }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Shepherd validation
-        if: ${{ steps.set-outputs-summary.outputs.shepherd_regions && !startsWith(env.PIPE_CODE_VERSION, '2') }}
-        uses: inditex/gha-pipeactions/shepherd-region-check@v1
+        if: ${{ steps.summary-generator.outputs.shepherd_regions && !startsWith(env.PIPE_CODE_VERSION, '2') }}
+        uses: inditex/gha-pipeactions/shepherd-region-check@v2
         with:
           supraenvs: ${{ github.event.inputs.SUPRAENV }}
-          regions: ${{ steps.set-outputs-summary.outputs.shepherd_regions }}
+          regions: ${{ steps.summary-generator.outputs.shepherd_regions }}
           pr-number: ${{ github.event.inputs.ISSUE_NUMBER }}
           project-key: ${{ steps.metadata.outputs.project-key }}
           project-name: ${{ steps.metadata.outputs.project-name }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Setup paas-cli
         id: setup-cli
