@@ -13,7 +13,7 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 2.33.0
+  WORKFLOW_VERSION: 2.35.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
