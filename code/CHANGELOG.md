@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.75.0] - 2025-06-10
+
+### Added
+
+- [INCOME-337](https://jira.inditex.com/jira/browse/INCOME-337) Merge con rama actualizada
+
 ## [4.74.1] - 2025-06-10
 
 ### Fixed
@@ -588,7 +594,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...main
+[4.75.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...4.75.0
 [4.74.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.0...4.74.1
 [4.74.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...4.74.0
 [4.73.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.1...4.73.2
