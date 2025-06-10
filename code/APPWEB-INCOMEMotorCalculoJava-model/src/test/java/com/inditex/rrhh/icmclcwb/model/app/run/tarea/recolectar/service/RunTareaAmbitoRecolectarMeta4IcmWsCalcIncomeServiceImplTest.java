@@ -340,6 +340,9 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
     final List<TiendaResponseDTO> tiendasLista = Instancio.createList(TiendaResponseDTO.class);
     final List<IdEmpresaDto> empresa = new ArrayList<>();
+    final PeriodoDto periodo = new PeriodoDto();
+    periodo.setFechaFinPeriodo(LocalDate.of(2023, 1, 31));
+    periodo.setFechaInicioPeriodo(LocalDate.of(2023, 1, 1));
     empresa.add(new IdEmpresaDto("95"));
 
     when(this.incomeMetaService.getTiendas(
@@ -352,7 +355,8 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
     when(this.tiendaMapper.toGenericTiendaResultItemDtoList(any(List.class), anyString())).thenReturn(tiendasLista);
     when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(any(Long.class))).thenReturn(empresa);
-
+    when(this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(any(Long.class),
+        any(Integer.class))).thenReturn(periodo);
     final CompletableFuture<Void> validFuture = CompletableFuture.completedFuture(null);
     when(this.tareaLocalizacionHistoricoAsyncService.saveGenericTiendaResultItemDto(any(), any())).thenReturn(validFuture);
 
