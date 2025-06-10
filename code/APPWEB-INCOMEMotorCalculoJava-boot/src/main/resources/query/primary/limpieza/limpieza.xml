@@ -60,6 +60,9 @@
     <![CDATA[SELECT DISTINCT TFAVI.ID_TAREA_FASE_ACCION FROM TAREA_FASE_ACCION_VENTA_INTEGRA TFAVI JOIN TAREA_FASE_ACCION TFA ON TFAVI.ID_TAREA_FASE_ACCION=TFA.ID_TAREA_FASE_ACCION JOIN TAREA_FASE TF ON TFA.ID_TAREA_FASE=TF.ID_TAREA_FASE WHERE TF.ID_TAREA=:idTarea]]>
   </entry>
 
+  <entry key="LimpiezaRepositoryCustom.trabajo">
+    <![CDATA[UPDATE TRABAJO SET ID_SIMULACION = NULL WHERE ID_TRABAJO = :idTrabajo]]>
+  </entry>
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculo">
     <![CDATA[DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
   </entry>
@@ -194,7 +197,27 @@
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaFaseAccionDato">
     <![CDATA[DELETE FROM TAREA_FASE_ACCION_DATO WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion]]> <!--TODO MIRAR -->
   </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacion">
+    <![CDATA[
+      DELETE FROM SIMULACION S WHERE S.ID_SIMULACION = :idSimulacion AND S.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacionCondiciones">
+    <![CDATA[
+      DELETE FROM SIMULACION_CONDICION SC WHERE SC.ID_SIMULACION = :idSimulacion AND SC.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacionLocalizacionBandaExcepcion">
+    <![CDATA[
+      DELETE FROM SIMULACION_LOCALIZACION_BANDA_EXCEPCION SC WHERE SC.ID_SIMULACION = :idSimulacion AND SC.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
   <entry key="LimpiezaRepositoryCustom.limpieza.tareaFaseAccionVentaIntegra">
     <![CDATA[DELETE FROM TAREA_FASE_ACCION_VENTA_INTEGRA WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion]]>
   </entry>
+
 </properties>

@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
@@ -42,6 +43,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Autowired
   private TareaLocalizacionHistoricoRepositoryCustom tareaLocalizacionHistoricoRepositoryCustom;
+
+  @Value("${app.envars.limpieza.days-number:-7}")
+  private int daysNumber;
 
   // Consultas de obtencion de personas
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.personas.tareaCalculo']}")
@@ -97,6 +101,9 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
 
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccionDato']}")
   private String sqlTareaFaseAccionDato;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.trabajo']}")
+  private String sqlLimpiezaTrabajo;
 
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.tareaFaseAccionVentaIntegra']}")
   private String sqlTareaFaseAccionVentaIntegra;
@@ -225,6 +232,15 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccionDato']}")
   private String sqlLimpiezaTareaFaseAccionDato;
 
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.simulacion']}")
+  private String sqlLimpiezaSimulacion;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.simulacionCondiciones']}")
+  private String sqlLimpiezaSimulacionCondiciones;
+
+  @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.simulacionLocalizacionBandaExcepcion']}")
+  private String sqlLimpiezaSimulacionLocalizacionBandaExcepcion;
+
   @Value("#{limpiezaPrimaryQuery['LimpiezaRepositoryCustom.limpieza.tareaFaseAccionVentaIntegra']}")
   private String sqlLimpiezaTareaFaseAccionVentaIntegra;
 
@@ -232,7 +248,8 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   private int batchSize;
 
   @Override
-  public void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito) {
+  public void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito,
+      @NotNull @Valid final TrabajoDTO trabajo) {
 
     final List<MapSqlParameterSource> cclIdCodOrigenBatchArgs = this.getParametersLocal(tarea, ambito);
     final List<MapSqlParameterSource> stdIdWorkLocatBatchArgs = this.getParametersMeta4(tarea, ambito);
@@ -248,6 +265,13 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
     }
 
     this.limpiezaTareaCalculoAjusteComision(tarea);
+
+    if (trabajo.getIdSimulacion() != null) {
+      this.updateTrabajo(tarea);
+      this.deleteSimulacionCondiciones(trabajo.getIdSimulacion());
+      this.deleteSimulacionLocalizacionBandaExcepcion(trabajo.getIdSimulacion());
+      this.deleteSimulacion(trabajo.getIdSimulacion());
+    }
 
     final List<MapSqlParameterSource> parametersPersonaTareaCalculoAjuste = this
         .getParametersPersonaLocalStdOrPeriod(tarea,
@@ -405,9 +429,10 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
   @Override
   public void limpiezaTareaProfunda(
       @NotNull @Valid final TareaDto tarea,
-      @NotNull @Valid final TareaAmbitoDto ambito) {
+      @NotNull @Valid final TareaAmbitoDto ambito,
+      @NotNull @Valid final TrabajoDTO trabajo) {
 
-    this.limpieza(tarea, ambito);
+    this.limpieza(tarea, ambito, trabajo);
 
     final List<MapSqlParameterSource> idTareaBatchArgs = this.getParametersTarea(tarea);
 
@@ -464,6 +489,30 @@ public class LimpiezaRepositoryCustomImpl implements LimpiezaRepositoryCustom {
       this.namedParameterJdbcTemplate.batchUpdate(this.sqlLimpiezaTareaFaseAccion,
           iter.toArray(new MapSqlParameterSource[0]));
     }
+  }
+
+  protected void updateTrabajo(@NotNull final TareaDto tarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TRABAJO, tarea.getIdTrabajo());
+    this.namedParameterJdbcTemplate.update(this.sqlLimpiezaTrabajo, params);
+  }
+
+  protected void deleteSimulacion(@NotNull final Long idSimulacion) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SIMULACION, idSimulacion);
+    this.namedParameterJdbcTemplate.update(this.sqlLimpiezaSimulacion, params);
+  }
+
+  protected void deleteSimulacionCondiciones(@NotNull final Long idSimulacion) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SIMULACION, idSimulacion);
+    this.namedParameterJdbcTemplate.update(this.sqlLimpiezaSimulacionCondiciones, params);
+  }
+
+  protected void deleteSimulacionLocalizacionBandaExcepcion(@NotNull final Long idSimulacion) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_SIMULACION, idSimulacion);
+    this.namedParameterJdbcTemplate.update(this.sqlLimpiezaSimulacionLocalizacionBandaExcepcion, params);
   }
 
   @Override

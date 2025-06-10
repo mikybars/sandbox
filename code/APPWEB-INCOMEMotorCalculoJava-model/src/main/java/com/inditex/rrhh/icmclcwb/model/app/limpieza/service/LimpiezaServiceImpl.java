@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.limpieza.dto.RunLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoLimpiezaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository.LimpiezaRepositoryCustom;
 
 import jakarta.validation.Valid;
@@ -25,9 +26,10 @@ public class LimpiezaServiceImpl implements LimpiezaService {
   @Override
   public void runTarea(@NotNull @Valid final RunLimpiezaDto limpieza) {
     final TareaDto tarea = limpieza.getTarea();
+    final TrabajoDTO trabajo = this.trabajoService.find(tarea.getIdTrabajo());
     try {
       this.limpiezaRepositoryCustom.inicioLimpieza(limpieza.getId());
-      tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, item));
+      tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, item, trabajo));
       this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.OK.getDto());
     } catch (final Exception e) {
       this.limpiezaRepositoryCustom.updateEstado(limpieza.getId(), EstadoLimpiezaEnum.KO.getDto());
@@ -39,7 +41,8 @@ public class LimpiezaServiceImpl implements LimpiezaService {
 
   @Override
   public void limpiezaAmbito(@NotNull @Valid final TareaDto tarea) {
-    tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item));
+    final TrabajoDTO trabajo = this.trabajoService.find(tarea.getIdTrabajo());
+    tarea.getAmbito().forEach(item -> this.limpiezaRepositoryCustom.limpieza(tarea, item, trabajo));
   }
 
   @Override

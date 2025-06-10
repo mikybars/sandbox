@@ -27,6 +27,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.Liqui
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.periodo.repository.PeriodoCalculoPersonaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.PrimaryTemporaryTableRepositoryCustom;
@@ -63,11 +64,14 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
   private RunTareaAmbitoValidarRecuperarFranciaServiceImpl runTareaAmbitoValidarRecuperarFranciaServiceImpl;
 
   @Test
-  public void execute() {
+  public void executeTest() {
     final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajoDto = new TrabajoDTO();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
+    runTareaDto.setTrabajo(trabajoDto);
+    runTareaDto.getTrabajo().setIdSimulacion(null);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
@@ -103,11 +107,14 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
   }
 
   @Test
-  public void executeEmptyPersonas() {
+  public void executeEmptyPersonasTest() {
     final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajoDto = new TrabajoDTO();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     runTareaDto.setTarea(tareaDto);
+    runTareaDto.setTrabajo(trabajoDto);
+    runTareaDto.getTrabajo().setIdSimulacion(null);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
     final FaseDto faseDto = new FaseDto();
@@ -132,14 +139,22 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceTest {
   }
 
   @Test
-  public void executeWhenExceptionThrown() {
+  public void executeWhenExceptionThrownTest() {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajoDto = new TrabajoDTO();
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+    runTareaDto.setTarea(tareaDto);
+    runTareaDto.setTrabajo(trabajoDto);
+    runTareaDto.getTrabajo().setIdSimulacion(null);
+
     // Arrange
     when(this.comisService.validateTempComisRecuperarFrancia(any(), any()))
         .thenThrow(new RuntimeException("Test exception"));
 
     // Act & Assert
     assertThrows(RuntimeException.class, () -> {
-      this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(new RunTareaDto(), new TareaAmbitoDto(), new TareaFaseAccionDto());
+      this.runTareaAmbitoValidarRecuperarFranciaServiceImpl.execute(runTareaDto, new TareaAmbitoDto(), new TareaFaseAccionDto());
     });
 
     // Verify

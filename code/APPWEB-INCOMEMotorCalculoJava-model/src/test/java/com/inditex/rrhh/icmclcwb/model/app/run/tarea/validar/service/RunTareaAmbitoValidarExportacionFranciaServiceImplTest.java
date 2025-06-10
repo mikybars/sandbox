@@ -54,6 +54,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   public void executeTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito, final TareaFaseAccionDto tareaFaseAccion,
       final Proceso proceso, final ProcesoAmbitoEmpresa procesoAmbitoEmpresa, final ValidacionDto validacionDto) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.EMPRESA.getDto());
+    runTarea.getTrabajo().setIdSimulacion(null);
 
     doReturn(proceso).when(this.procesoRepository).save(any(Proceso.class));
     doReturn(procesoAmbitoEmpresa).when(this.procesoAmbitoEmpresaRepository).save(any(ProcesoAmbitoEmpresa.class));
@@ -71,6 +72,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   public void executeMalAmbitoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+    runTarea.getTrabajo().setIdSimulacion(null);
 
     assertThrows(IcmclcwbException.class, () -> {
       this.runTareaAmbitoValidarExportacionFranciaService.execute(runTarea, tareaAmbito, tareaFaseAccion);
@@ -82,6 +84,7 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImplTest {
   public void executeErrorTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito,
       final TareaFaseAccionDto tareaFaseAccion) {
     runTarea.getTrabajo().setTipoAmbito(TipoAmbitoEnum.PERSONA.getDto());
+    runTarea.getTrabajo().setIdSimulacion(null);
 
     doThrow(RuntimeException.class).when(this.procesoRepository).save(any(Proceso.class));
 

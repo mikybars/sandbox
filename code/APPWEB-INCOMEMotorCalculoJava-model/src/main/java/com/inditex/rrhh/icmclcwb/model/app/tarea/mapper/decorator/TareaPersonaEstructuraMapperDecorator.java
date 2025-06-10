@@ -218,4 +218,32 @@ public abstract class TareaPersonaEstructuraMapperDecorator extends TareaPersona
     return result;
   }
 
+  @Override
+  public List<TareaPersonaEstructura> simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(
+      final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDto) {
+    final List<TareaPersonaEstructura> result = new ArrayList<>();
+
+    if (CollectionUtils.isNotEmpty(tareaPersonaEstructuraDto)) {
+      tareaPersonaEstructuraDto.forEach(itemBaseValor -> {
+        final Integer itemBaseValorSeccion = Integer.valueOf(itemBaseValor.getCclIdSeccionEfectiva());
+        if (AppConstants.SECCION_4.equals(itemBaseValorSeccion)
+            && !itemBaseValor.getIcmIdTpCalculo()
+                .equals(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId())
+            && !itemBaseValor.getIcmIdTpCalculo()
+                .equals(TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId())) {
+          for (final Integer itemBaseValorSeccionFicticia : AppConstants.getSECCIONES()) {
+            final TareaPersonaEstructura estructura = this.tareaPersonaEstructuraDtoToTareaPersonaEstructura(itemBaseValor);
+            estructura.setCclIdSeccionEfectiva(String.valueOf(itemBaseValorSeccionFicticia));
+            result.add(estructura);
+          }
+        } else {
+          result.add(this.tareaPersonaEstructuraDtoToTareaPersonaEstructura(itemBaseValor));
+        }
+
+      });
+    }
+
+    return result;
+
+  }
 }

@@ -7,6 +7,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -15,15 +16,19 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Collections;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdTareaFaseDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLimpiezaRepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaLocalizacionHistoricoRepositoryCustom;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,8 +67,22 @@ class LimpiezaRepositoryCustomImplTest {
 
   private final static String SQL_LIMPIEZA_TAREA_FASE_ACCION_VENTA_INTEGRA = "SQL LIMPIEZA TAREA FASE ACCION VENTA INTEGRA";
 
+  private static final String SQL_LIMPIEZA_SIMULACION = "SQL LIMPIEZA SIMULACION";
+
+  private static final String SQL_LIMPIEZA_SIMULACION_CONDICION = "SQL LIMPIEZA SIMULACION CONDICION";
+
+  private static final String SQL_LIMPIEZA_SIMULACION_LOCALIZACION_BANDA_EXCEPCION = "SQL LIMPIEZA SIMULACION CONDICION";
+
+  private static final String SQL_LIMPIEZA_UPDATE_TRABAJO = "SQL LIMPIEZA UPDATE TRABAJO";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+  @Mock
+  private TareaLimpiezaRepositoryCustom tareaLimpiezaRepositoryCustom;
+
+  @Mock
+  private TareaLocalizacionHistoricoRepositoryCustom tareaLocalizacionHistoricoRepositoryCustom;
 
   @Spy
   @InjectMocks
@@ -104,6 +123,18 @@ class LimpiezaRepositoryCustomImplTest {
     FieldUtils.writeField(this.limpiezaRepositoryCustom,
         "sqlLimpiezaTareaFaseAccionVentaIntegra",
         SQL_LIMPIEZA_TAREA_FASE_ACCION_VENTA_INTEGRA, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlLimpiezaSimulacion",
+        SQL_LIMPIEZA_SIMULACION, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlLimpiezaTrabajo",
+        SQL_LIMPIEZA_UPDATE_TRABAJO, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlLimpiezaSimulacionCondiciones",
+        SQL_LIMPIEZA_SIMULACION_CONDICION, true);
+    FieldUtils.writeField(this.limpiezaRepositoryCustom,
+        "sqlLimpiezaSimulacionLocalizacionBandaExcepcion",
+        SQL_LIMPIEZA_SIMULACION_LOCALIZACION_BANDA_EXCEPCION, true);
 
     FieldUtils.writeField(this.limpiezaRepositoryCustom, "batchSize", 1, true);
   }
@@ -116,7 +147,7 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_PERSONAS_TAREA_CALCULO_AJUSTE_COMISION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdPersonaLocalDto.builder()
+                .thenReturn(Collections.singletonList(IdPersonaLocalDto.builder()
                     .idPersonaLocal(idPersonaLocal)
                     .stdOrHrPeriod(orPersonaLocal)
                     .build()));
@@ -157,7 +188,7 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_VENTA_INTEGRA),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+                .thenReturn(Collections.singletonList(IdTareaFaseAccionDto.builder()
                     .idTareaFaseAccion(idTareaFaseAccion)
                     .build()));
 
@@ -186,7 +217,7 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION_DATO),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdTareaFaseAccionDto.builder()
+                .thenReturn(Collections.singletonList(IdTareaFaseAccionDto.builder()
                     .idTareaFaseAccion(idTareaFaseAccion)
                     .build()));
 
@@ -215,7 +246,7 @@ class LimpiezaRepositoryCustomImplTest {
     when(this.namedParameterJdbcTemplate.query(eq(SQL_TAREA_FASE_ACCION),
         any(MapSqlParameterSource.class), any(
             RowMapper.class)))
-                .thenReturn(Arrays.asList(IdTareaFaseDto.builder()
+                .thenReturn(Collections.singletonList(IdTareaFaseDto.builder()
                     .idTareaFase(idTareaFase)
                     .build()));
 
@@ -238,7 +269,10 @@ class LimpiezaRepositoryCustomImplTest {
   void limpiezaTareaProfundaTest() {
     final long idTarea = 191919L;
     final long idAmbito = 181818L;
+    final long idTrabajo = 1L;
     final TareaDto tarea = new TareaDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    trabajo.setId(idTrabajo);
     tarea.setId(idTarea);
     tarea.setFechaInicioPeriodo(LocalDate.now());
     final TareaAmbitoDto ambito = new TareaAmbitoDto();
@@ -246,9 +280,9 @@ class LimpiezaRepositoryCustomImplTest {
     ambito.setIdTarea(idTarea);
     ambito.setCclIdOrigen("60");
 
-    doNothing().when(this.limpiezaRepositoryCustom).limpieza(tarea, ambito);
+    doNothing().when(this.limpiezaRepositoryCustom).limpieza(tarea, ambito, trabajo);
 
-    this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, ambito);
+    this.limpiezaRepositoryCustom.limpiezaTareaProfunda(tarea, ambito, trabajo);
 
     verify(this.namedParameterJdbcTemplate, times(1)).batchUpdate(eq(SQL_LIMPIEZA_TAREA_FASE),
         this.paramsCaptor.capture());
@@ -265,11 +299,76 @@ class LimpiezaRepositoryCustomImplTest {
     assertEquals(Date.from(TimeUtils.toInstant(tarea.getFechaInicioPeriodo())),
         params.getValue(SqlPrimaryConstants.SQL_PARAM_FECHA_INICIO_PERIODO));
 
-    verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito);
+    verify(this.limpiezaRepositoryCustom, times(1)).limpieza(tarea, ambito, trabajo);
     verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccionDato(tarea);
     verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccion(tarea);
     verify(this.limpiezaRepositoryCustom, times(1)).limpiezaTareaFaseAccionVentaIntegra(tarea);
 
+  }
+
+  @Test
+  public void updateTrabajoShouldInvokeCorrectSql() {
+    final TareaDto tareaDto = new TareaDto();
+    tareaDto.setId(1L);
+
+    this.limpiezaRepositoryCustom.updateTrabajo(tareaDto);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(anyString(), any(MapSqlParameterSource.class));
+  }
+
+  @Test
+  public void deleteSimulacionShouldInvokeCorrectSql() {
+    final Long idSimulacion = 1L;
+
+    this.limpiezaRepositoryCustom.deleteSimulacion(idSimulacion);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(anyString(), any(MapSqlParameterSource.class));
+  }
+
+  @Test
+  public void deleteSimulacionCondicionesTest() {
+    final Long idSimulacion = 1L;
+
+    this.limpiezaRepositoryCustom.deleteSimulacionCondiciones(idSimulacion);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(anyString(), any(MapSqlParameterSource.class));
+  }
+
+  @Test
+  public void deleteSimulacionLocalizacionBandaExcepcionTest() {
+    final Long idSimulacion = 1L;
+
+    this.limpiezaRepositoryCustom.deleteSimulacionLocalizacionBandaExcepcion(idSimulacion);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(anyString(), any(MapSqlParameterSource.class));
+  }
+
+  @Test
+  void updateEstadoShouldInvokeRepositoryMethod() {
+    final Long idTareaLimpieza = 1L;
+    final EstadoLimpiezaDto estado = new EstadoLimpiezaDto();
+
+    this.limpiezaRepositoryCustom.updateEstado(idTareaLimpieza, estado);
+
+    verify(this.tareaLimpiezaRepositoryCustom, times(1)).updateEstado(idTareaLimpieza, estado);
+  }
+
+  @Test
+  void updateFechaFinalizacionShouldInvokeRepositoryMethod() {
+    final Long idTareaLimpieza = 1L;
+
+    this.limpiezaRepositoryCustom.updateFechaFinalizacion(idTareaLimpieza);
+
+    verify(this.tareaLimpiezaRepositoryCustom, times(1)).updateFechaFinalizacion(idTareaLimpieza);
+  }
+
+  @Test
+  void inicioLimpiezaShouldInvokeRepositoryMethod() {
+    final Long idTareaLimpieza = 1L;
+
+    this.limpiezaRepositoryCustom.inicioLimpieza(idTareaLimpieza);
+
+    verify(this.tareaLimpiezaRepositoryCustom, times(1)).inicioLimpieza(idTareaLimpieza);
   }
 
 }

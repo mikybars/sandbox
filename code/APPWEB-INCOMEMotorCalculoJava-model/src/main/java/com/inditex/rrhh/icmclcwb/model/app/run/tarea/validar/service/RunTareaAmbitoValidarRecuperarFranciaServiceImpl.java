@@ -71,54 +71,57 @@ public class RunTareaAmbitoValidarRecuperarFranciaServiceImpl implements RunTare
     List<IdPersonaLocalDto> persona = new ArrayList<>();
     LiquidacionResponseDto liquidacion = new LiquidacionResponseDto();
 
-    try {
-      idPersonaLocalComis = this.comisService
-          .validateTempComisRecuperarFrancia(runTareaDto, tareaAmbito);
+    if (runTareaDto.getTrabajo().getIdSimulacion() == null) {
+      try {
+        idPersonaLocalComis = this.comisService
+            .validateTempComisRecuperarFrancia(runTareaDto, tareaAmbito);
 
-      if (!idPersonaLocalComis.isEmpty()) {
-        persona =
-            this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTareaDto, tareaAmbito,
-                idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
-                    Collectors.toList()));
+        if (!idPersonaLocalComis.isEmpty()) {
+          persona =
+              this.periodoCalculoPersonaRepositoryCustom.findEmpleadosValidarRecuperar(runTareaDto, tareaAmbito,
+                  idPersonaLocalComis.stream().map(e -> e.getIdPersonaLocal()).collect(
+                      Collectors.toList()));
+        }
+
+        if (!persona.isEmpty()) {
+          final LiquidacionRequestDto request = new LiquidacionRequestDto();
+
+          final List<LiquidacionFilterParametersDto> filterParameters = persona
+              .stream()
+              .map(
+                  f -> LiquidacionFilterParametersDto.builder()
+                      .idOrigen(tareaAmbito.getCclIdOrigen())
+                      .idEmpresa(tarea.getStdIdLegEnt())
+                      .idEmpleado(f.getIdPersonaLocal())
+                      .orEmpleado(f.getStdOrHrPeriod())
+                      .fechaFin(tarea.getFechaFinPeriodo())
+                      .build())
+              .collect(Collectors.toList());
+          final LiquidacionFilterDto filter = LiquidacionFilterDto.builder()
+              .items(filterParameters)
+              .build();
+          request.setData(filter);
+          liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
+
+          liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+              .forEach(e -> e.getAvisos().getAvisos().stream().forEach(f -> {
+                RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
+              }));
+
+          liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
+              .forEach(e -> e.getErrores().getErrores().stream().forEach(f -> {
+                RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Error: Registro afectado:" + f.getRegistroAfectado());
+              }));
+        }
+
+      } catch (final Exception e) {
+        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+            EstadoTareaFaseAccionEnum.ERROR.getDto());
+        AsyncUtils.cancel(cf);
+        throw e;
       }
-
-      if (!persona.isEmpty()) {
-        final LiquidacionRequestDto request = new LiquidacionRequestDto();
-
-        final List<LiquidacionFilterParametersDto> filterParameters = persona
-            .stream()
-            .map(
-                f -> LiquidacionFilterParametersDto.builder()
-                    .idOrigen(tareaAmbito.getCclIdOrigen())
-                    .idEmpresa(tarea.getStdIdLegEnt())
-                    .idEmpleado(f.getIdPersonaLocal())
-                    .orEmpleado(f.getStdOrHrPeriod())
-                    .fechaFin(tarea.getFechaFinPeriodo())
-                    .build())
-            .collect(Collectors.toList());
-        final LiquidacionFilterDto filter = LiquidacionFilterDto.builder()
-            .items(filterParameters)
-            .build();
-        request.setData(filter);
-        liquidacion = this.meta4IcmWsCalcIncomeService.liquidacion(request);
-
-        liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
-            .forEach(e -> e.getAvisos().getAvisos().stream().forEach(f -> {
-              RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Aviso: Registro afectado:" + f.getRegistroAfectado());
-            }));
-
-        liquidacion.getData().stream().filter(e -> e.getResultado().equals("KO"))
-            .forEach(e -> e.getErrores().getErrores().stream().forEach(f -> {
-              RunTareaAmbitoValidarRecuperarFranciaServiceImpl.LOG.warn("Error: Registro afectado:" + f.getRegistroAfectado());
-            }));
-      }
-
-    } catch (final Exception e) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-          EstadoTareaFaseAccionEnum.ERROR.getDto());
-      AsyncUtils.cancel(cf);
-      throw e;
     }
+
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }

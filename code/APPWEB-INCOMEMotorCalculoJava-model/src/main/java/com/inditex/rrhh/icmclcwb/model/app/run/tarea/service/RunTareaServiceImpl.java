@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarVal
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaSimularService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
@@ -67,6 +68,8 @@ public class RunTareaServiceImpl implements RunTareaService {
 
   private final TareaFaseService tareaFaseService;
 
+  private final RunTareaSimularService runTareaSimularService;
+
   private final RunTareaMigrarService runTareaMigrarService;
 
   private final TareaFaseAccionService tareaFaseAccionService;
@@ -86,6 +89,7 @@ public class RunTareaServiceImpl implements RunTareaService {
       }
       this.tareaFaseService.create(runTarea);
       this.tareaFaseAccionService.create(runTarea);
+      this.runTareaSimularService.run(runTarea);
       this.runTareaRecolectarService.run(runTarea);
       this.runTareaRecolectarValidarService.run(runTarea);
       this.runTareaProcesarService.run(runTarea);

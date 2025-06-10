@@ -47,14 +47,16 @@ public class RunTareaRecolectarCondicionesBaseServiceImpl implements RunTareaRec
        */
       /*-----------------------------------------------------------------*/
 
-      // Estructuras (Tramado estructuras (ApV) Detalle comision (Meta4))
-      final CompletableFuture<Void> cfEstructurasCom = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-          .estructurasComByRunTarea(runTarea);
-      AsyncUtils.exceptionally(cfEstructurasCom, cf);
+      if (runTarea.getTrabajo().getIdSimulacion() == null) {
+        // Estructuras (Tramado estructuras (ApV) Detalle comision (Meta4))
+        final CompletableFuture<Void> cfEstructurasCom = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            .estructurasComByRunTarea(runTarea);
+        AsyncUtils.exceptionally(cfEstructurasCom, cf);
 
-      final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
-          .estructurasPolByRunTarea(runTarea);
-      AsyncUtils.exceptionally(cfEstructurasPol, cf);
+        final CompletableFuture<Void> cfEstructurasPol = this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService
+            .estructurasPolByRunTarea(runTarea);
+        AsyncUtils.exceptionally(cfEstructurasPol, cf);
+      }
 
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cf);

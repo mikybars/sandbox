@@ -56,11 +56,15 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ID_TRABAJO = "idTrabajo";
 
+  public static final String SQL_PARAM_ID_SIMULACION = "idSimulacion";
+
   public static final String SQL_PARAM_ID_PROGRAMACION = "idProgramacion";
 
   public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
 
   public static final String SQL_PARAM_CCL_ID_COD_ORIGEN = "cclIdCodOrigen";
+
+  public static final String SQL_PARAM_CCL_ID_SECCION = "cclIdSeccion";
 
   public static final String SQL_PARAM_STD_ID_WORK_LOCAT = "stdIdWorkLocat";
 
@@ -270,6 +274,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ICM_CK_EXCEPCION = "icmCkExcepcion";
 
+  public static final String SQL_PARAM_ICM_BANDA = "icmBanda";
+
   public static final String SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE = "tipoVentaConceptoChallenge";
 
   public static final String SQL_PARAM_ID_TAREA_FASE = "idTareaFase";
@@ -299,6 +305,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_PARAM_ID_TIPO_CONCEPTO_VENTA = "idTipoVentaConcepto";
 
   public static final String SQL_PARAM_ENTORNO = "entorno";
+
+  public static final String SQL_PARAM_ICM_VALOR = "icmValor";
 
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
@@ -466,6 +474,28 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_RESULT_ENTORNO = "ENTORNO";
 
+  public static final String SQL_RESULT_ICM_VALOR = "ICM_VALOR";
+
+  public static final String SQL_RESULT_ICM_ORD_TOPE = "ICM_ORD_TOPE";
+
+  public static final String SQL_RESULT_ICM_ID_TP_ESTRUCTURA = "ICM_ID_TP_ESTRUCTURA";
+
+  public static final String SQL_RESULT_ES_DIA_LUNES = "ES_DIA_LUNES";
+
+  public static final String SQL_RESULT_ES_DIA_MARTES = "ES_DIA_MARTES";
+
+  public static final String SQL_RESULT_ES_DIA_MIERCOLES = "ES_DIA_MIERCOLES";
+
+  public static final String SQL_RESULT_ES_DIA_JUEVES = "ES_DIA_JUEVES";
+
+  public static final String SQL_RESULT_ES_DIA_VIERNES = "ES_DIA_VIERNES";
+
+  public static final String SQL_RESULT_ES_DIA_SABADO = "ES_DIA_SABADO";
+
+  public static final String SQL_RESULT_ES_DIA_DOMINGO = "ES_DIA_DOMINGO";
+
+  public static final String SQL_RESULT_ES_FESTIVO = "ES_FESTIVO";
+
   public static final String SQL_RESULT_CLASE = "CLASE";
 
   public static final String SQL_RESULT_ESTADO = "ESTADO";
@@ -475,6 +505,10 @@ public class SqlPrimaryConstants {
   public static final String SQL_RESULT_PUESTO = "PUESTO";
 
   public static final String SQL_RESULT_STD_ID_HR_TYPE = "STD_ID_HR_TYPE";
+
+  public static final String SQL_RESULT_CCL_ID_SECCION_EFECTIVA = "CCL_ID_SECCION_EFECTIVA";
+
+  public static final String SQL_RESULT_CCL_ID_SECCION_ESTRUCTURA = "CCL_ID_SECCION_ESTRUCTURA";
 
   private SqlPrimaryConstants() {
   }

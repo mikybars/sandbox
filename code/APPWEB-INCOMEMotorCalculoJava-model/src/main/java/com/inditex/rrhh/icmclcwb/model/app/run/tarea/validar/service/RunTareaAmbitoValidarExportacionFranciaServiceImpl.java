@@ -71,43 +71,46 @@ public class RunTareaAmbitoValidarExportacionFranciaServiceImpl implements RunTa
     final TipoProceso tipoProceso = new TipoProceso();
     final TipoSistemaDestino tipoSistemaDestino = new TipoSistemaDestino();
 
-    try {
-      if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
-          || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
-          || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+    if (runTareaDto.getTrabajo().getIdSimulacion() == null) {
+      try {
+        if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())
+            || TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())
+            || TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
 
-        estadoProceso.setId(EstadoProcesoEnum.PENDIENTE.getId());
-        tipoAmbito.setId(TipoAmbitoEnum.EMPRESA.getId().intValue());
-        tipoProceso.setId(TipoProcesoEnum.EXPORTACION.getId());
-        tipoSistemaDestino.setId(TipoSistemaDestinoEnum.SIL.getId());
+          estadoProceso.setId(EstadoProcesoEnum.PENDIENTE.getId());
+          tipoAmbito.setId(TipoAmbitoEnum.EMPRESA.getId().intValue());
+          tipoProceso.setId(TipoProcesoEnum.EXPORTACION.getId());
+          tipoSistemaDestino.setId(TipoSistemaDestinoEnum.SIL.getId());
 
-        proceso.setEstadoProceso(estadoProceso);
-        proceso.setIdOrganization(tarea.getIdOrganization());
-        proceso.setIcmIdPeriodo(trabajo.getIcmIdPeriodo());
-        proceso.setTipoAmbito(tipoAmbito);
-        proceso.setTipoProceso(tipoProceso);
-        proceso.setTipoSistemaDestino(tipoSistemaDestino);
-        proceso.setFechaHoraCreacion(trabajo.getFechaHoraCreacion().toLocalDateTime().withNano(0));
-        proceso.setFechaInicioPeriodo(trabajo.getFechaInicioPeriodo().toLocalDate());
-        proceso.setFechaFinPeriodo(trabajo.getFechaFinPeriodo().toLocalDate());
-        proceso.setNombreUsuario(trabajo.getNombreUsuario());
+          proceso.setEstadoProceso(estadoProceso);
+          proceso.setIdOrganization(tarea.getIdOrganization());
+          proceso.setIcmIdPeriodo(trabajo.getIcmIdPeriodo());
+          proceso.setTipoAmbito(tipoAmbito);
+          proceso.setTipoProceso(tipoProceso);
+          proceso.setTipoSistemaDestino(tipoSistemaDestino);
+          proceso.setFechaHoraCreacion(trabajo.getFechaHoraCreacion().toLocalDateTime().withNano(0));
+          proceso.setFechaInicioPeriodo(trabajo.getFechaInicioPeriodo().toLocalDate());
+          proceso.setFechaFinPeriodo(trabajo.getFechaFinPeriodo().toLocalDate());
+          proceso.setNombreUsuario(trabajo.getNombreUsuario());
 
-        final Proceso precesoCreated = this.procesoRepository.save(proceso);
+          final Proceso precesoCreated = this.procesoRepository.save(proceso);
 
-        procesoAmbitoEmpresa.setProceso(precesoCreated);
-        procesoAmbitoEmpresa.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
-        procesoAmbitoEmpresa.setStdIdLegEnt(tarea.getStdIdLegEnt());
+          procesoAmbitoEmpresa.setProceso(precesoCreated);
+          procesoAmbitoEmpresa.setCclIdOrigen(tareaAmbito.getCclIdOrigen());
+          procesoAmbitoEmpresa.setStdIdLegEnt(tarea.getStdIdLegEnt());
 
-        this.procesoAmbitoEmpresaRepository.save(procesoAmbitoEmpresa);
-      } else {
-        throw new IcmclcwbException("El tipo ambito no esta soportado");
+          this.procesoAmbitoEmpresaRepository.save(procesoAmbitoEmpresa);
+        } else {
+          throw new IcmclcwbException("El tipo ambito no esta soportado");
+        }
+      } catch (final Exception e) {
+        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+            EstadoTareaFaseAccionEnum.ERROR.getDto());
+        AsyncUtils.cancel(cf);
+        throw e;
       }
-    } catch (final Exception e) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-          EstadoTareaFaseAccionEnum.ERROR.getDto());
-      AsyncUtils.cancel(cf);
-      throw e;
     }
+
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
 
   }
