@@ -10,6 +10,8 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCon
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarPreAmbitoService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.FaseEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
@@ -35,6 +37,8 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
 
   private final TareaFaseService tareaFaseService;
 
+  private final SimulacionService simulacionService;
+
   @Auditoria
   @Validation(fase = 1)
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarService.run.timer",
@@ -52,6 +56,10 @@ public class RunTareaRecolectarServiceImpl implements RunTareaRecolectarService 
     this.runTareaRecolectarAmbitoService.run(runTarea);
     this.runTareaRecolectarCondicionesBaseService.run(runTarea);
     this.runTareaRecolectarCondicionesService.run(runTarea);
+    if (runTarea.getTrabajo().getIdSimulacion() != null) {
+      final SimulacionDto simulacion = this.simulacionService.findbyId(runTarea.getTrabajo().getIdSimulacion());
+      this.simulacionService.updateBandaExcepcionada(runTarea.getTarea(), simulacion);
+    }
     this.tareaFaseService.updateFechaFinAndEstado(
         this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             FaseEnum.RECOLECTAR.getId()),

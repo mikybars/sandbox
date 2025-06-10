@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TipoEjecucionCalculoEnum {
 
-  MANUAL("1"), PROGRAMADO("2");
+  MANUAL("1"), PROGRAMADO("2"), SIMULACION("8");
 
   private final String id;
 

@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarAmb
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
@@ -49,6 +50,8 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
 
   private final TareaAmbitoGlobalLocalizacionPersonaAsyncService tareaAmbitoGlobalLocalizacionPersonaAsyncService;
 
+  private final SimulacionService simulacionService;
+
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaRecolectarAmbitoService.run.timer",
       metricGroupName = "RunTareaRecolectarAmbitoServiceGroup",
@@ -74,6 +77,8 @@ public class RunTareaRecolectarAmbitoServiceImpl implements RunTareaRecolectarAm
       /*-------------------------------------------------------------*/
       AsyncUtils.waitAllOfIsOk(cf, cf);
       /*-------------------------------------------------------------*/
+
+      this.simulacionService.mergeEmpleadoSimulacion(runTarea.getTarea());
 
       // Relacion de personas con localizaciones en presencias ptr
       // asociadas al origen y empresa

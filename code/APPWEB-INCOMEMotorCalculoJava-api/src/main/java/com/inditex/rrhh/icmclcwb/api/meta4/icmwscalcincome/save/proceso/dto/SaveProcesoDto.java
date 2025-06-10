@@ -24,6 +24,8 @@ public class SaveProcesoDto implements Serializable {
 
   private String idTipoEjecucionCalculo;
 
+  private String idTipoEjecucion;
+
   private List<SaveProcesoParametersDto> item;
 
 }

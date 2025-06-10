@@ -1,13 +1,16 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.limpieza.async.service.LimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -17,6 +20,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoLocalizacionService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarByAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalLocalizacionPersonaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaAmbitoGlobalPersonaAsyncService;
@@ -26,6 +30,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPresupue
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -69,32 +74,50 @@ class RunTareaRecolectarAmbitoPresupuestoServiceImplTest {
   @Mock
   private LimpiezaAsyncService limpiezaAsyncService;
 
+  @Mock
+  private SimulacionService simulacionService;
+
   @InjectMocks
   private RunTareaRecolectarAmbitoPresupuestoServiceImpl runTareaRecolectarAmbitoPresupuestoService;
 
+  private RunTareaDto runTarea;
+
+  private TareaDto tarea;
+
+  private TrabajoDTO trabajo;
+
+  private TipoAmbitoDTO ambito;
+
+  private TareaLocalizacionPresupuestoListDto presupuestos;
+
+  @BeforeEach
+  void setUp() {
+    this.runTarea = new RunTareaDto();
+    this.tarea = new TareaDto();
+    this.trabajo = new TrabajoDTO();
+    this.ambito = new TipoAmbitoDTO();
+    this.presupuestos = spy(new TareaLocalizacionPresupuestoListDto());
+
+    this.runTarea.setTarea(this.tarea);
+    this.runTarea.setTrabajo(this.trabajo);
+    this.trabajo.setTipoAmbito(this.ambito);
+
+    when(this.tareaLocalizacionPresupuestoService.findPresupuestos(any(TareaDto.class))).thenReturn(this.presupuestos);
+    when(this.presupuestos.esAmbitoAmpliado(any(TareaDto.class))).thenReturn(true);
+  }
+
   @ParameterizedTest
-  @ValueSource(longs = {1L, 2L, 3L, 4L, 5L})
+  @ValueSource(longs = {1L, 2L, 3L, 4L, 5L, -1L})
   void runTest(final long arg) {
-    final CompletableFuture<Void> cf = new CompletableFuture<>();
-    cf.complete(null);
-
-    final RunTareaDto runTarea = new RunTareaDto();
-    final TareaDto tarea = new TareaDto();
-    final TrabajoDTO trabajo = new TrabajoDTO();
-    final TipoAmbitoDTO ambito = new TipoAmbitoDTO();
-    ambito.setId(arg);
-    trabajo.setTipoAmbito(ambito);
-    runTarea.setTarea(tarea);
-    runTarea.setTrabajo(trabajo);
-
-    final TareaLocalizacionPresupuestoListDto presupuestos = new TareaLocalizacionPresupuestoListDto();
-    presupuestos.esAmbitoAmpliado(tarea);
+    this.ambito.setId(arg);
+    final CompletableFuture<Void> cf = CompletableFuture.completedFuture(null);
 
     when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.estructurasComByRunTarea(any(RunTareaDto.class))).thenReturn(cf);
     when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.estructurasPolByRunTarea(any(RunTareaDto.class))).thenReturn(cf);
     when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.presupuestosWlocByRunTarea(any(RunTareaDto.class))).thenReturn(cf);
     when(this.tareaLocalizacionPresupuestoService.findPresupuestos(any(TareaDto.class)))
-        .thenReturn(presupuestos);
+        .thenReturn(this.presupuestos);
+
     when(this.limpiezaAsyncService.limpiezaTareaAmbitoGlobalPersona(any(TareaDto.class))).thenReturn(cf);
     when(this.limpiezaAsyncService.limpiezaTareaAmbitoLocalizacion(any(TareaDto.class))).thenReturn(cf);
     when(this.limpiezaAsyncService.limpiezaTareaPersonaHistorico(any(TareaDto.class))).thenReturn(cf);
@@ -114,19 +137,30 @@ class RunTareaRecolectarAmbitoPresupuestoServiceImplTest {
     when(this.tareaAmbitoGlobalLocalizacionPersonaAsyncService.mergePersonaLocalizacion(any(RunTareaDto.class))).thenReturn(cf);
     when(this.tareaAmbitoGlobalPersonaAsyncService.mergePersona(any(RunTareaDto.class))).thenReturn(cf);
     when(this.tareaAmbitoGlobalLocalizacionAsyncService.mergeLocalizacion(any(RunTareaDto.class))).thenReturn(cf);
+    doNothing().when(this.simulacionService).mergeEmpleadoSimulacion(any(TareaDto.class));
 
-    this.runTareaRecolectarAmbitoPresupuestoService.run(runTarea);
+    if (arg != -1L) {
+      this.runTareaRecolectarAmbitoPresupuestoService.run(this.runTarea);
+    } else {
+      assertThrows(IcmclcwbException.class, () -> this.runTareaRecolectarAmbitoPresupuestoService.run(this.runTarea));
+    }
 
-    assertEquals(cf, this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService.estructurasComByRunTarea(runTarea));
+    if (TipoAmbitoEnum.SOCIEDAD.getId().equals(this.trabajo.getTipoAmbito().getId())
+        || TipoAmbitoEnum.ORIGEN.getId().equals(this.trabajo.getTipoAmbito().getId())
+        || TipoAmbitoEnum.EMPRESA.getId().equals(this.trabajo.getTipoAmbito().getId())) {
+      verify(this.runTareaRecolectarByAmbitoService).run(this.runTarea);
+    } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(this.trabajo.getTipoAmbito().getId())) {
+      verify(this.runTareaRecolectarByAmbitoLocalizacionService).run(this.runTarea);
+    } else if (TipoAmbitoEnum.PERSONA.getId().equals(this.trabajo.getTipoAmbito().getId())) {
+      verify(this.runTareaRecolectarByAmbitoPersonaService).run(this.runTarea);
+    }
   }
 
   @Test
   void runTestException() {
-    final RunTareaDto runTarea = new RunTareaDto();
-
     doThrow(new IcmclcwbException("")).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .estructurasComByRunTarea(any(RunTareaDto.class));
 
-    assertThrows(IcmclcwbException.class, () -> this.runTareaRecolectarAmbitoPresupuestoService.run(runTarea));
+    assertThrows(IcmclcwbException.class, () -> this.runTareaRecolectarAmbitoPresupuestoService.run(this.runTarea));
   }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.inditex.rrhh.icmclcwb.model.primary.entity.TipoAmbito;
 import com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion;
+import com.inditex.rrhh.icmclcwb.model.primary.simulacion.entity.Simulacion;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
 
 import jakarta.persistence.Column;
@@ -72,6 +73,10 @@ public class Trabajo {
   @ManyToOne
   @JoinColumn(name = "ID_PROGRAMACION")
   private Programacion programacion;
+
+  @ManyToOne
+  @JoinColumn(name = "ID_SIMULACION")
+  private Simulacion simulacion;
 
   @NotNull
   @ManyToOne

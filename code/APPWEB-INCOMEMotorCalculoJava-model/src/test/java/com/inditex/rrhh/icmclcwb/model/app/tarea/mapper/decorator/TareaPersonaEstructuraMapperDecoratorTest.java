@@ -1,9 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,8 +29,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.Li
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.ListaValoresDestinoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4Constants;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaEstructuraMapper;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaPersonaEstructura;
 
 import org.instancio.junit.InstancioSource;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
@@ -824,6 +828,88 @@ class TareaPersonaEstructuraMapperDecoratorTest {
         .estructurasComResultItemDtoAndListaCondicionesBaseResultItemDtoAndListaCondicionesDestinoResultItemDtoAndListaValoresDestinoResultItemDtoAndTareaAndOrdinalEstructuraAndIdTipoOpcionCalculoEfectivaAndIdTipoOpcionCalculoEstructuraAndIdSeccionToTareaPersonaEstructuraDto(
             itemPadre, itemBase, itemDestino, valorDestino, tarea, 2, TipoOpcionCalculoEnum.DESTINO.getId(),
             TipoOpcionCalculoEnum.MEJOR_OPCION.getId(), idSeccion, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+  }
+
+  @Test
+  void simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDtoShouldReturnCorrectResul() {
+    final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDtoList = new ArrayList<>();
+    final TareaPersonaEstructuraDto estructuraDto = new TareaPersonaEstructuraDto();
+    estructuraDto.setCclIdSeccionEfectiva("2");
+    tareaPersonaEstructuraDtoList.add(estructuraDto);
+    when(this.delegate.simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(anyList()))
+        .thenReturn(new ArrayList<>());
+    when(this.delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructura(any(TareaPersonaEstructuraDto.class)))
+        .thenReturn(new TareaPersonaEstructura());
+
+    final List<TareaPersonaEstructura> result = this.tareaPersonaEstructuraMapperDecorator
+        .simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(tareaPersonaEstructuraDtoList);
+
+    verify(this.delegate, times(1)).tareaPersonaEstructuraDtoToTareaPersonaEstructura(any(TareaPersonaEstructuraDto.class));
+    assertNotNull(result);
+    assertFalse(result.isEmpty());
+  }
+
+  @Test
+  public void simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDtoShouldReturnCorrectResultWhenListIsNotEmpty() {
+    final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDtoList = new ArrayList<>();
+    final TareaPersonaEstructuraDto tareaPersonaEstructuraDto = new TareaPersonaEstructuraDto();
+    tareaPersonaEstructuraDto.setCclIdSeccionEfectiva("4");
+    tareaPersonaEstructuraDto.setIcmIdTpCalculo(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId());
+    tareaPersonaEstructuraDtoList.add(tareaPersonaEstructuraDto);
+
+    when(this.delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructura(any(TareaPersonaEstructuraDto.class)))
+        .thenReturn(new TareaPersonaEstructura());
+
+    final List<TareaPersonaEstructura> result =
+        this.tareaPersonaEstructuraMapperDecorator
+            .simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(tareaPersonaEstructuraDtoList);
+
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDtoShouldReturnEmptyListWhenInputListIsEmpty() {
+    final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDtoList = new ArrayList<>();
+
+    final List<TareaPersonaEstructura> result =
+        this.tareaPersonaEstructuraMapperDecorator
+            .simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(tareaPersonaEstructuraDtoList);
+
+    assertTrue(result.isEmpty());
+  }
+
+  @Test
+  public void simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDtoShouldReturnCorrectResultWhenSeccionIs4AndCalculoIsNotChallenge() {
+    final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDtoList = new ArrayList<>();
+    final TareaPersonaEstructuraDto tareaPersonaEstructuraDto = new TareaPersonaEstructuraDto();
+    tareaPersonaEstructuraDto.setCclIdSeccionEfectiva("4");
+    tareaPersonaEstructuraDto.setIcmIdTpCalculo(TipoCalculoEnum.NINGUNO.getId());
+    tareaPersonaEstructuraDtoList.add(tareaPersonaEstructuraDto);
+    when(this.delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructura(any(TareaPersonaEstructuraDto.class)))
+        .thenReturn(new TareaPersonaEstructura());
+    final List<TareaPersonaEstructura> result =
+        this.tareaPersonaEstructuraMapperDecorator
+            .simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(tareaPersonaEstructuraDtoList);
+
+    assertEquals(AppConstants.getSECCIONES().length, result.size());
+  }
+
+  @Test
+  public void tareaPersonaEstructuraDtoToTareaPersonaEstructuraShouldReturnCorrectResultWhenDtoIsNotNull() {
+    final TareaPersonaEstructuraDto tareaPersonaEstructuraDto = new TareaPersonaEstructuraDto();
+    tareaPersonaEstructuraDto.setCclIdSeccionEfectiva("4");
+    tareaPersonaEstructuraDto.setIcmIdTpCalculo(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId());
+    final TareaPersonaEstructura tareaPersonaEstructura = new TareaPersonaEstructura();
+    tareaPersonaEstructura.setCclIdSeccionEfectiva("4");
+    tareaPersonaEstructura.setIcmIdTpCalculo(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId());
+    when(this.delegate.tareaPersonaEstructuraDtoToTareaPersonaEstructura(any(TareaPersonaEstructuraDto.class)))
+        .thenReturn(tareaPersonaEstructura);
+    final TareaPersonaEstructura result =
+        this.tareaPersonaEstructuraMapperDecorator.tareaPersonaEstructuraDtoToTareaPersonaEstructura(tareaPersonaEstructuraDto);
+
+    assertNotNull(result);
+    assertEquals(tareaPersonaEstructuraDto.getCclIdSeccionEfectiva(), result.getCclIdSeccionEfectiva());
+    assertEquals(tareaPersonaEstructuraDto.getIcmIdTpCalculo(), result.getIcmIdTpCalculo());
   }
 
 }

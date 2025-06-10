@@ -87,4 +87,16 @@ public class TareaPersonaEstructuraServiceImpl implements TareaPersonaEstructura
     return this.tareaPersonaEstructuraRepositoryCustom.calcularFestivos(tarea);
   }
 
+  @Override
+  public List<TareaPersonaEstructuraDto> saveSimulacion(
+      @Valid @NotNull @NotEmpty final List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+      @Valid @NotNull final TareaDto tarea) {
+    final List<TareaPersonaEstructuraDto> result = this.tareaPersonaEstructuraMapper
+        .tareaPersonaEstructuraToTareaPersonaEstructuraDto(
+            this.tareaPersonaEstructuraRepositoryCustom.save(this.tareaPersonaEstructuraMapper
+                .simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(tareaPersonaEstructura)));
+
+    return result;
+  }
+
 }

@@ -4,6 +4,8 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
  * Copyright (c) 2021. Inditex
  */
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -19,11 +21,15 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunT
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -53,16 +59,33 @@ class RunTareaRecolectarCondicionesServiceImplTest {
   @Mock
   private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
+  @Mock
+  private SimulacionService simulacionService;
+
   @Spy
   @InjectMocks
   private RunTareaRecolectarCondicionesServiceImpl RunTareaRecolectarCondicionesServiceImpl;
 
   RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
 
-  @Test
-  void runTest() {
+  static Object[][] parameterProvider() {
+    return new Object[][]{
+        {true, false, false}, // Caso donde sólo esSimulacion es true
+        {true, true, false}, // Caso donde sólo esPresenciaEmpleadoUltimoCalculo es false
+        {true, false, true}, // Caso donde sólo esVentaUltimoCalculo es false
+        {false, false, false} // Todos los parámetros en false
+    };
+  }
+
+  @ParameterizedTest
+  @MethodSource("parameterProvider")
+  void runTest(boolean esSimulacion, boolean esVentaUltimoCalculo, boolean esPresenciaEmpleadoUltimoCalculo) {
 
     final CompletableFuture<Void> completableFuture = CompletableFuture.completedFuture(AsyncConstants.NIL);
+
+    if (!esSimulacion) {
+      this.runTarea.getTrabajo().setIdSimulacion(null);
+    }
 
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .ausenciasByRunTarea(this.runTarea);
@@ -201,6 +224,23 @@ class RunTareaRecolectarCondicionesServiceImplTest {
 
     doReturn(completableFuture).when(this.runTareaRecolectarPtrVentaEcommerceAsyncService)
         .updateActivoVentaOnlineEntregaDomicilioByRunTarea(this.runTarea);
+
+    if (esSimulacion) {
+      final SimulacionDto simulacion = new SimulacionDto();
+      simulacion.setEsVentaUltimoCalculo(esVentaUltimoCalculo);
+      simulacion.setEsPresenciaEmpleadoUltimoCalculo(esPresenciaEmpleadoUltimoCalculo);
+
+      doReturn(simulacion).when(this.simulacionService)
+          .findbyId(any(Long.class));
+    }
+
+    if (esVentaUltimoCalculo) {
+      doNothing().when(this.simulacionService).mergeVentaUltimoCalculo(this.runTarea.getTarea());
+    }
+
+    if (esPresenciaEmpleadoUltimoCalculo) {
+      doNothing().when(this.simulacionService).mergePresenciaEmpleadoUltimoCalculo(this.runTarea.getTarea());
+    }
 
     this.RunTareaRecolectarCondicionesServiceImpl.run(this.runTarea);
 

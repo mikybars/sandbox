@@ -30,6 +30,8 @@ public class QueryPrimaryConfig {
 
   private static final String RESOURCE_META4 = "classpath*:/query/meta4/*.xml";
 
+  private static final String RESOURCE_SIMULACION = "classpath*:/query/primary/simulacion/*.xml";
+
   private static final String CAST_REPLACE_INICIO = "/*(*/";
 
   private static final String CAST_REPLACE_FIN = "/*)*/";
@@ -108,6 +110,12 @@ public class QueryPrimaryConfig {
   @Bean(name = "meta4PrimaryQuery")
   public PropertiesFactoryBean meta4PrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
     return this.loadBean(resourceLoader, RESOURCE_META4, this.precisionCalculo, this.decimalCalculo, this.castCalculo, this.roundCalculo);
+  }
+
+  @Bean(name = "simulacionPrimaryQuery")
+  public PropertiesFactoryBean simulacionPrimaryQuery(final ResourceLoader resourceLoader) throws IOException {
+    return this.loadBean(resourceLoader, RESOURCE_SIMULACION, this.precisionCalculo, this.decimalCalculo, this.castCalculo,
+        this.roundCalculo);
   }
 
   private PropertiesFactoryBean loadBean(final ResourceLoader resourceLoader, final String resource,

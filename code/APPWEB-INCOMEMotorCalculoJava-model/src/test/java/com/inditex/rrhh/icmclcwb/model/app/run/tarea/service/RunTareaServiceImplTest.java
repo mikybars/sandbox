@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarSer
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaSimularService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -75,6 +76,9 @@ class RunTareaServiceImplTest {
 
   @Mock
   private RunTareaNormalizarService runTareaNormalizarService;
+
+  @Mock
+  private RunTareaSimularService runTareaSimularService;
 
   @Mock
   private TareaService tareaService;
