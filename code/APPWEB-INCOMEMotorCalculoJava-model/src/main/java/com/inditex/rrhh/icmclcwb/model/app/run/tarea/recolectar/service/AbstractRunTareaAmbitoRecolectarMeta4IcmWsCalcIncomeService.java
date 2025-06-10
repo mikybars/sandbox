@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.IncomeMetaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
@@ -195,10 +196,13 @@ public abstract class AbstractRunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServic
           .findIdEmpresaByIdTarea(tarea.getId());
 
       final List<String> listaEmpresas = empresasAmbito.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+      final PeriodoDto periodo = this.tareaAmbitoGlobalFechaService.findFechaAmbitoDtoByIdTareaAndIdTipoDato(
+          tarea.getId(),
+          TipoDatoEnum.PERIODO_AMPLIADO.getId());
 
       final CompletableFuture<List<GenericTiendaResultItemDto>> cfData =
           CompletableFuture.completedFuture(this.tiendaMapper.toGenericTiendaResultItemDtoList(this.incomeMetaService.getTiendas(
-              tareaAmbito.getCclIdOrigen(), listaEmpresas, true, tarea.getFechaInicioPeriodo(), tarea.getFechaFinPeriodo(),
+              tareaAmbito.getCclIdOrigen(), listaEmpresas, true, periodo.getFechaInicioPeriodo(), periodo.getFechaFinPeriodo(),
               tarea.getIdOrganization()), tareaAmbito.getCclIdOrigen()));
 
       AsyncUtils.exceptionally(cfData, cf);
