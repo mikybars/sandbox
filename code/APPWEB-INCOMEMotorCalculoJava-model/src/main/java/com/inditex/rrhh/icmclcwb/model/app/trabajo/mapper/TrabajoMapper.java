@@ -104,11 +104,9 @@ public abstract class TrabajoMapper {
           + "TipoEjecucionCalculoEnum.PROGRAMADO.getId() : "
           + "TipoEjecucionCalculoEnum.MANUAL.getId())")
   @Mapping(target = "idTipoEjecucion",
-      expression = "java( trabajo.getIdSimulacion() != null ? "
+      expression = "java(trabajo.getIdSimulacion() != null ? "
           + "TipoEjecucionCalculoEnum.SIMULACION.getId() : "
-          + "(trabajo.getIdProgramacion() != null ? "
-          + "TipoEjecucionCalculoEnum.PROGRAMADO.getId() : "
-          + "TipoEjecucionCalculoEnum.MANUAL.getId()))")
+          + "TipoEjecucionCalculoEnum.MANUAL.getId())")
   @Mapping(target = "idTrabajo", source = "id")
   @Mapping(target = "nombreUsuario", source = "nombreUsuario")
   @Mapping(target = "idOrganization", ignore = true)
