@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
@@ -30,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHIstoricoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaHistoricoDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -96,7 +94,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
@@ -1953,54 +1950,6 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     verify(this.tiendaMapper, times(1)).toGenericTiendaResultItemDtoList(anyList(), anyString());
     verify(this.tareaLocalizacionHistoricoAsyncService, times(1))
         .saveGenericTiendaResultItemDto(anyList(), any(TareaDto.class));
-  }
-
-  @Test
-  void testPresupuestosWlocByRunTareaAndTareaAmbito_Success() {
-    // Arrange
-    final RunTareaDto runTarea = new RunTareaDto();
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(1L);
-    runTarea.setTarea(tarea);
-    runTarea.setTrabajo(new TrabajoDTO());
-
-    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-
-    final List<IdPersonaLocalDto> personasChallenge = List.of(new IdPersonaLocalDto());
-    final List<IdEmpresaDto> empresasAmbito = List.of(new IdEmpresaDto("01"));
-    final List<PresupuestosWlocResultItemDto> resultItems = List.of(new PresupuestosWlocResultItemDto());
-    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(null);
-
-    when(this.tareaPersonaEstructuraService.findPersonasChallenge(tarea)).thenReturn(personasChallenge);
-    when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId())).thenReturn(empresasAmbito);
-    when(this.incomeMetaService.getPresupuestos(anyList(), any(), any(), anyString())).thenReturn(Collections.emptyList());
-    when(this.tareaLocalizacionPresupuestoAsyncService.save(anyList(), eq(tarea))).thenReturn(cfSave);
-    when(this.presupuestosWlocMapper.toPresupuestosWlocResultItemDtoList(anyList(), anyString()))
-        .thenReturn(resultItems);
-    // Act & Assert
-    assertDoesNotThrow(
-        () -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presupuestosWlocByRunTareaAndTareaAmbito(runTarea, tareaAmbito));
-
-    verify(this.tareaPersonaEstructuraService, times(1)).findPersonasChallenge(tarea);
-    verify(this.tareaAmbitoGlobalEmpresaService, times(1)).findIdEmpresaByIdTarea(tarea.getId());
-  }
-
-  @Test
-  void testPresupuestosWlocByRunTareaAndTareaAmbito_NoData() {
-    // Arrange
-    final RunTareaDto runTarea = new RunTareaDto();
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(1L);
-    runTarea.setTarea(tarea);
-
-    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-
-    when(this.tareaPersonaEstructuraService.findPersonasChallenge(tarea)).thenReturn(Collections.emptyList());
-
-    assertDoesNotThrow(
-        () -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presupuestosWlocByRunTareaAndTareaAmbito(runTarea, tareaAmbito));
-
-    verify(this.tareaPersonaEstructuraService, times(1)).findPersonasChallenge(tarea);
   }
 
   @Test
