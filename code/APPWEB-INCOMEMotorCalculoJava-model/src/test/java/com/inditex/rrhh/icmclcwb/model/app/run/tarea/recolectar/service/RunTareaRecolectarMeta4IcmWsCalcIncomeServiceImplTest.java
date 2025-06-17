@@ -1,20 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -22,12 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
-import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 
-import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -492,26 +482,16 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
   @Test
   void testPresupuestosWlocByRunTareaAndTareaAmbito() {
-    // Arrange
-    final RunTareaDto runTarea = mock(RunTareaDto.class);
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    final TrabajoDTO trabajo = Instancio.create(TrabajoDTO.class);
+    final RunTareaDto runTarea = new RunTareaDto();
+    final TareaDto tarea = new TareaDto();
+    runTarea.setTarea(tarea);
+    final List<TareaAmbitoDto> ambito = new ArrayList<>();
+    tarea.setAmbito(ambito);
+    ambito.add(TareaAmbitoDto.builder().build());
 
-    when(runTarea.getTarea()).thenReturn(tarea);
-    when(runTarea.getTrabajo()).thenReturn(trabajo);
+    this.runTareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosWlocByRunTarea(runTarea);
 
-    final List<IdPersonaLocalDto> personasChallenge = Instancio.createList(IdPersonaLocalDto.class);
-    when(this.tareaPersonaEstructuraService.findPersonasChallenge(tarea)).thenReturn(personasChallenge);
-
-    final List<IdEmpresaDto> empresasAmbito = Instancio.createList(IdEmpresaDto.class);
-    when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId())).thenReturn(empresasAmbito);
-
-    final PresupuestosWlocRequestDto request = mock(PresupuestosWlocRequestDto.class);
-    final List<PresupuestosWlocResultItemDto> resultData = Collections.singletonList(mock(PresupuestosWlocResultItemDto.class));
-    when(this.meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(request))
-        .thenReturn(CompletableFuture.completedFuture(resultData));
-
-    assertDoesNotThrow(() -> this.runTareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosWlocByRunTarea(runTarea));
-
+    verify(this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService, times(1))
+        .presupuestosWlocByRunTareaAndTareaAmbito(any(RunTareaDto.class), any(TareaAmbitoDto.class));
   }
 }
