@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
@@ -96,6 +95,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEm
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
@@ -1956,51 +1958,49 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  void testPresupuestosWlocByRunTareaAndTareaAmbito_Success() {
-    // Arrange
+  void testPresupuestosWlocByRunTareaAndTareaAmbito() {
     final RunTareaDto runTarea = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(1L);
     runTarea.setTarea(tarea);
-    runTarea.setTrabajo(new TrabajoDTO());
-
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+    tareaAmbito.setCclIdOrigen("origen");
+    final List<IdEmpresaDto> empresasAmbito = Collections.singletonList(mock(IdEmpresaDto.class));
+    final List<IdPersonaLocalDto> personasChallenge = Collections.singletonList(mock(IdPersonaLocalDto.class));
 
-    final List<IdPersonaLocalDto> personasChallenge = List.of(new IdPersonaLocalDto());
-    final List<IdEmpresaDto> empresasAmbito = List.of(new IdEmpresaDto("01"));
-    final List<PresupuestosWlocResultItemDto> resultItems = List.of(new PresupuestosWlocResultItemDto());
-    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(null);
+    final Meta4PropertiesDto properties = new Meta4PropertiesDto();
+    final Meta4FilterPropertiesDto filter = new Meta4FilterPropertiesDto();
+    filter.setMaxPersistenceSize(10);
+    properties.setFilter(filter);
+    properties.setPage(new PageDto(1, 100));
+    when(this.meta4Properties.get(Meta4PropertiesConstants.PRESUPUESTOSWLOC)).thenReturn(properties);
 
     when(this.tareaPersonaEstructuraService.findPersonasChallenge(tarea)).thenReturn(personasChallenge);
+    when(this.tareaMapper.idEmpresaDtoToPresupuestosWlocFilterParametersDto(any(IdEmpresaDto.class))).thenReturn(
+        Instancio.create(PresupuestosWlocFilterParametersDto.class));
+    when(this.tareaMapper.mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoToPresupuestosWlocFilterDto(any(), any(), any()))
+        .thenReturn(Instancio.create(PresupuestosWlocFilterDto.class));
+
+    final CompletableFuture<Void> cfSave = CompletableFuture.completedFuture(null);
+    when(this.tareaLocalizacionPresupuestoAsyncService.save(anyList(), any(TareaDto.class)))
+        .thenReturn(cfSave);
+
+    final List<PresupuestosWlocResultItemDto> response = Instancio.createList(PresupuestosWlocResultItemDto.class);
+    final CompletableFuture<List<PresupuestosWlocResultItemDto>> cfData = CompletableFuture.completedFuture(response);
     when(this.tareaAmbitoGlobalEmpresaService.findIdEmpresaByIdTarea(tarea.getId())).thenReturn(empresasAmbito);
-    when(this.incomeMetaService.getPresupuestos(anyList(), any(), any(), anyString())).thenReturn(Collections.emptyList());
-    when(this.tareaLocalizacionPresupuestoAsyncService.save(anyList(), eq(tarea))).thenReturn(cfSave);
-    when(this.presupuestosWlocMapper.toPresupuestosWlocResultItemDtoList(anyList(), anyString()))
-        .thenReturn(resultItems);
-    // Act & Assert
+
+    final List<PresupuestosWlocResultItemDto> resultData = Instancio.createList(PresupuestosWlocResultItemDto.class);
+    when(this.meta4IcmWsCalcIncomeSessionAsyncService.getPresupuestosWloc(any()))
+        .thenReturn(CompletableFuture.completedFuture(resultData));
+
+    // Act
     assertDoesNotThrow(
         () -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presupuestosWlocByRunTareaAndTareaAmbito(runTarea, tareaAmbito));
 
-    verify(this.tareaPersonaEstructuraService, times(1)).findPersonasChallenge(tarea);
-    verify(this.tareaAmbitoGlobalEmpresaService, times(1)).findIdEmpresaByIdTarea(tarea.getId());
-  }
-
-  @Test
-  void testPresupuestosWlocByRunTareaAndTareaAmbito_NoData() {
-    // Arrange
-    final RunTareaDto runTarea = new RunTareaDto();
-    final TareaDto tarea = new TareaDto();
-    tarea.setId(1L);
-    runTarea.setTarea(tarea);
-
-    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
-
-    when(this.tareaPersonaEstructuraService.findPersonasChallenge(tarea)).thenReturn(Collections.emptyList());
-
-    assertDoesNotThrow(
-        () -> this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImpl.presupuestosWlocByRunTareaAndTareaAmbito(runTarea, tareaAmbito));
-
-    verify(this.tareaPersonaEstructuraService, times(1)).findPersonasChallenge(tarea);
+    // Assert
+    verify(this.tareaPersonaEstructuraService).findPersonasChallenge(tarea);
+    verify(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(tarea.getId());
+    verify(this.meta4IcmWsCalcIncomeSessionAsyncService).getPresupuestosWloc(any(PresupuestosWlocRequestDto.class));
   }
 
   @Test
@@ -2059,5 +2059,4 @@ public class RunTareaAmbitoRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     verify(this.incomeMetaService, times(1)).getConfPrecioHora(anyString(), any(), any());
     verify(this.tareaConfiguracionPrecioHoraAsyncService, times(1)).saveConfiguracionPrecioHoraResponseDTO(anyList(), any(), anyString());
   }
-
 }

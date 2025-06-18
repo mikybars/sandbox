@@ -42,6 +42,8 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
   private static final String SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO = "RECUPERAR PERSONAS IMPORTE EXCEDIDO TEST";
 
+  private static final String SQL_RECUPERAR_PERSONAS_CALCULO_PENDIENTE = "RECUPERAR PERSONAS CALCULO PENDIENTE TEST";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -152,6 +154,22 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
         ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
 
     assertEquals(SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO, this.sql.getValue());
+    final MapSqlParameterSource parameters = this.params.getValue();
+    assertEquals(3, parameters.getValues().size());
+    assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, parameters.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+  }
+
+  @Test
+  void findPersonaCalculoPendienteByIdTareaExecutesQueryWithCorrectParameters() {
+    final Long idTarea = 1L;
+    final String cclIdOrigen = "11";
+    final String stdIdLegEnt = "8";
+    this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
+
     final MapSqlParameterSource parameters = this.params.getValue();
     assertEquals(3, parameters.getValues().size());
     assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));

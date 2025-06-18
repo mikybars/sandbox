@@ -80,8 +80,8 @@ amiga:
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
         slrhorcoms:
-          #base-url: https://sscc-pre.central.inditex.grp
-          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
+          base-url: https://sscc-pre.central.inditex.grp
+          #base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
           auth-method: BASIC
           #username: srvcicmclcwbpreAX
           #password: '${srvcicmclcwbpreAX}'
