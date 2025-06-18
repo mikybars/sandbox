@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.76.0] - 2025-06-18
+
+### Added
+
+- [#767](https://github.com/inditex/mic-incomemotorcalculojava/issues/767) fix-add-coverage-sonar
+- [INCOME-2356](https://jira.inditex.com/jira/browse/INCOME-2356) Metodo SaveProceso corregir parámetros
+- [INCOME-2184](https://jira.inditex.com/jira/browse/INCOME-2184) [BX]Validación empleados con tipo de cálculo Pendiente
+
+### Fixed
+
+- [INCOME-2357](https://jira.inditex.com/jira/browse/INCOME-2357) Corrección  endpoint presupuesto (motor de calculo)
+
 ## [4.75.0] - 2025-06-10
 
 ### Added
@@ -594,7 +606,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...main
+[4.76.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...4.76.0
 [4.75.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...4.75.0
 [4.74.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.0...4.74.1
 [4.74.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...4.74.0
