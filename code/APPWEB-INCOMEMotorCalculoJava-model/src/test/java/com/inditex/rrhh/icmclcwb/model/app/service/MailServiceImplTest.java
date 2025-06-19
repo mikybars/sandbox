@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
@@ -76,35 +77,38 @@ public class MailServiceImplTest {
   @Mock
   private MailAmbitoService mailAmbitoService;
 
+  @Mock
+  private MailEntornoService mailEntornoService;
+
   @InjectMocks
   private MailServiceImpl mailServiceImpl;
 
   @Test
   void sendMailBase() {
-    this.sendMail(1, ORGANIZATION, USUARIO);
+    this.sendMail(1, ORGANIZATION, USUARIO, Boolean.TRUE);
   }
 
   @Test
   void sendMailBaseEs() {
-    this.sendMail(1, ES, USUARIO);
+    this.sendMail(1, ES, USUARIO, Boolean.TRUE);
   }
 
   @Test
   void sendMailBaseEsUsuarioPRO() {
-    this.sendMail(1, ES, SRVCICMCLCWBAX);
+    this.sendMail(1, ES, SRVCICMCLCWBAX, Boolean.FALSE);
   }
 
   @Test
   void sendMailPresencia() {
-    this.sendMail(4, ORGANIZATION, USUARIO);
+    this.sendMail(4, ORGANIZATION, USUARIO, Boolean.TRUE);
   }
 
   @Test
   void sendMailFecha() {
-    this.sendMail(3, ORGANIZATION, USUARIO);
+    this.sendMail(3, ORGANIZATION, USUARIO, Boolean.TRUE);
   }
 
-  void sendMail(final Integer idAccion, final String idOrganization, final String nombreUsuario) {
+  void sendMail(final Integer idAccion, final String idOrganization, final String nombreUsuario, final Boolean envioEntorno) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TrabajoDTO trabajo = new TrabajoDTO();
     final TareaDto tarea = new TareaDto();
@@ -134,8 +138,10 @@ public class MailServiceImplTest {
         .thenReturn(AccionDto.builder().descripcion(TEXTO).id(idAccion).build());
     when(this.meta4IcmWsCalcIncomeService.getMail(ArgumentMatchers.any(UsuarioRequestDto.class)))
         .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
+    when(this.mailEntornoService.findEsActivoByEntorno(any())).thenReturn(envioEntorno);
     when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
         .thenReturn(List.of("1"));
+
     this.mailServiceImpl.sendMail(validaciones, runTareaDto);
 
     verify(this.mailSender, times(1))
@@ -145,25 +151,28 @@ public class MailServiceImplTest {
 
   @Test
   void sendMailMotivosPRO() {
-    this.sendMailMotivos(PRO, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
+    this.sendMailMotivos(PRO, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()),
+        Boolean.TRUE);
   }
 
   @Test
   void sendMailMotivosDES() {
-    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(Arrays.asList(1, 2)).build()),
+        Boolean.FALSE);
   }
 
   @Test
   void sendMailMotivosNullDES() {
-    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(null).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(null).build()), Boolean.TRUE);
   }
 
   @Test
   void sendMailMotivosEmptyDES() {
-    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(new ArrayList<>()).build()));
+    this.sendMailMotivos(DES, Collections.singletonList(ValidacionDto.builder().idMotivosDesplazamiento(new ArrayList<>()).build()),
+        Boolean.TRUE);
   }
 
-  void sendMailMotivos(final String environment, final List<ValidacionDto> validaciones) {
+  void sendMailMotivos(final String environment, final List<ValidacionDto> validaciones, final Boolean envioEntorno) {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
@@ -175,6 +184,7 @@ public class MailServiceImplTest {
     tarea.setAmbito(List.of(tareaAmbito));
     tarea.setStdIdLegEnt("1");
 
+    when(this.mailEntornoService.findEsActivoByEntorno(any())).thenReturn(envioEntorno);
     when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
         .thenReturn(List.of("1"));
 

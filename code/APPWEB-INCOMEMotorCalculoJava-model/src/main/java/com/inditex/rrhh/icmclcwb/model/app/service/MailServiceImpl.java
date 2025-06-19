@@ -13,13 +13,14 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailAmbitoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioResponseDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,6 +29,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
   private static final String MAIL_1 = "iagoml@inditex.com";
@@ -82,20 +84,17 @@ public class MailServiceImpl implements MailService {
   @Value("${metadata.environment}")
   private String environment;
 
-  @Autowired
-  private MailSender mailSender;
+  private final MailSender mailSender;
 
-  @Autowired
-  private AccionService accionService;
+  private final AccionService accionService;
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  private final Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
-  @Autowired
-  private MailAmbitoService mailAmbitoService;
+  private final MailAmbitoService mailAmbitoService;
+
+  private final MailEntornoService mailEntornoService;
 
   @Override
   public void sendMail(final List<ValidacionDto> fallidas, final RunTareaDto runTarea) {
@@ -149,13 +148,14 @@ public class MailServiceImpl implements MailService {
 
     }
 
-    final List<String> mails = new ArrayList<>();
-    runTarea.getTarea().getAmbito().stream()
-        .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
-        .forEachOrdered(mails::addAll);
+    if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
+      final List<String> mails = new ArrayList<>();
+      runTarea.getTarea().getAmbito().stream()
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .forEachOrdered(mails::addAll);
 
-    message.setCc(mails.stream().toArray(String[]::new));
-
+      message.setCc(mails.stream().toArray(String[]::new));
+    }
     message.setSubject(APP
         + SEPARATOR
         + CALCULATION_RESULTS
@@ -187,13 +187,14 @@ public class MailServiceImpl implements MailService {
       message.setTo(this.receiver);
     }
 
-    final List<String> mails = new ArrayList<>();
-    runTarea.getTarea().getAmbito().stream()
-        .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
-        .forEachOrdered(mails::addAll);
+    if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
+      final List<String> mails = new ArrayList<>();
+      runTarea.getTarea().getAmbito().stream()
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .forEachOrdered(mails::addAll);
 
-    message.setCc(mails.stream().toArray(String[]::new));
-
+      message.setCc(mails.stream().toArray(String[]::new));
+    }
     message.setSubject(APP
         + SEPARATOR
         + this.environment.toUpperCase()
