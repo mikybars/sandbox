@@ -7,12 +7,12 @@ on:
       - completed
 
 env:
-  WORKFLOW_VERSION: 1.15.0
+  WORKFLOW_VERSION: 1.15.1
 
 jobs:
   check-compliance:
     name: Check compliance using sbom and wsc-oscodeps
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
     runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
     steps:
       - name: Checkout
@@ -132,6 +132,7 @@ jobs:
           result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
           compliance-result: ${{ steps.check-result.outputs.compliance_result }}
           project-key: ${{ steps.get-project-key.outputs.project_key }}
+          curation-file-exists: ${{ steps.check-curation-file.outputs.curation_exists }}
 
       - name: Action status exist
         id: action-status-exist

@@ -5,7 +5,7 @@ on:
     types: [published]
 
 env:
-  WORKFLOW_VERSION: 1.15.0
+  WORKFLOW_VERSION: 1.15.1
   GITHUB_REGISTRY: ghcr.io
 
 jobs:
@@ -53,13 +53,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./sbom-artifact
 
-      - name: Determine the language of the repository
-        id: determine-language
-        run: |
-          LANGUAGE=$(jq -r '.repository.language' < "$GITHUB_EVENT_PATH")
-          echo "language=$LANGUAGE" >> "$GITHUB_OUTPUT"
-          echo "The primary language of the repository is: $LANGUAGE"
-
       - name: Credentials resolver
         id: credentials-resolver
         uses: inditex/gha-oscodependencies/creds-resolver@v0
@@ -82,22 +75,13 @@ jobs:
               env_file.write(f"project_key={project_key}\n")
               print(f"::notice::Project key = [{project_key}] written to GitHub environment output.")
 
-      - name: Determinate version
-        id: determinate-version
+      - name: Determine version
+        id: determine-version
         env:
           INPUT_RELEASE_TAG: ${{ github.event.release.tag_name }}
-          REPO_LANGUAGE: ${{ steps.determine-language.outputs.language }}
         run: |
-          cd code
-          if [ -f "Makefile" ] && { [ "$REPO_LANGUAGE" = "Go" ] || [ "$REPO_LANGUAGE" = "Makefile" ]; }; then
-            echo "Makefile found and repository language is $REPO_LANGUAGE, extracting version..."
-            VERSION=$(make version)
-            echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-            echo "Project version: ${VERSION}"
-          else
-            echo "Extracting version from release event"
-            echo "version=${INPUT_RELEASE_TAG}" >> "$GITHUB_OUTPUT"
-          fi
+          echo "Extracting version from release event"
+          echo "version=${INPUT_RELEASE_TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Set unique S3 object name
         id: set-unique-s3-object-name
@@ -166,7 +150,7 @@ jobs:
           curation-path: ${{ steps.check-curation-file.outputs.curation_path }}
           vcs-url: https://github.com/${{ github.repository }}
           project-key: ${{ steps.get-project-key.outputs.project_key }}
-          version: ${{ steps.determinate-version.outputs.version }}
+          version: ${{ steps.determine-version.outputs.version }}
 
       - name: Check result with OSCODEP API
         id: check-result
@@ -182,7 +166,8 @@ jobs:
           result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
           compliance-result: ${{ steps.check-result.outputs.compliance_result }}
           project-key: ${{ steps.get-project-key.outputs.project_key }}
-          version: ${{ steps.determinate-version.outputs.version }}
+          version: ${{ steps.determine-version.outputs.version }}
+          curation-file-exists: ${{ steps.check-curation-file.outputs.curation_exists }}
 
       - name: Read CODEOWNERS file
         if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
@@ -209,8 +194,8 @@ jobs:
             const fs = require('fs');
 
             const path = process.env.COMPLIANCE_RESULT_PATH;
-            const issueTitle = "Compliance Summary Report";
-            let issueBody = "## Compliance Check Summary Report\n\n";
+            const issueTitle = "OSCOS Licenses Compliance Report - :red_circle: FAILURE ${{ steps.determine-version.outputs.version }}";
+            let issueBody = "";
 
             try {
               const markdownContent = fs.readFileSync(path, 'utf8');
