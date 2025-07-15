@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.77.0] - 2025-07-15
+
+### Added
+
+- [INCOME-2380](https://jira.inditex.com/jira/browse/INCOME-2380) Filtrado en envío de correos por entorno
+
+### Fixed
+
+- [INCOME-2243](https://jira.inditex.com/jira/browse/INCOME-2243) Challenge jornada. Cálculo posición en tienda. Bajas IT
+
 ## [4.76.0] - 2025-06-18
 
 ### Added
@@ -606,7 +616,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.77.0...main
+[4.77.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...4.77.0
 [4.76.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...4.76.0
 [4.75.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...4.75.0
 [4.74.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.0...4.74.1
