@@ -7,7 +7,7 @@ on:
       - completed
 
 env:
-  WORKFLOW_VERSION: 1.15.1
+  WORKFLOW_VERSION: 1.16.0
 
 jobs:
   check-compliance:
