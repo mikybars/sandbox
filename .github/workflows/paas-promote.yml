@@ -83,9 +83,10 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
 
 env:
-  WORKFLOW_VERSION: 3.22.1
+  WORKFLOW_VERSION: 3.23.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+  USE_SENTINELFORGE: ${{ vars.USE_SENTINELFORGE || 'false' }}
 
 permissions:
   id-token: write  # This is required for requesting the JWT
@@ -178,9 +179,33 @@ jobs:
             echo "CONTAINER_REGISTRY_SNAPSHOT_BASE_URL=ghcr.io/inditex"
           } >> "$GITHUB_ENV"
 
+      - name: SentinelForge / Generate manifests
+        id: sentinel-forge-manifests
+        if: ${{ env.USE_SENTINELFORGE == 'true' }}
+        uses: inditex/gha-paasdeployment/generate-manifests@v0
+        with:
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          dp-username: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          dp-token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          is-merged: ${{ github.event.pull_request.merged }}
+          supraenvironments: ${{ inputs.SUPRAENVS }}
+          environments: ${{ inputs.ENVS }}
+          platforms: ${{ inputs.PLATFORMS }}
+          tenants: ${{ inputs.TENANTS }}
+          slots: ${{ inputs.SLOTS }}
+          deployment-version: ${{ steps.compute-vars.outputs.deployment-version }}
+          bluegreen-strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+          bluegreen-percentage: ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
+          trigger: ${{ fromJson(inputs.ADDITIONAL_ARGS).TRIGGER }}
+          config-ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+          target-branch: ${{ fromJson(inputs.ADDITIONAL_ARGS).TARGET_BRANCH }}
+          issue-number: ${{ inputs.ISSUE_NUMBER }}
+          is-issue: ${{ steps.compute-vars.outputs.is-issue }}
+
       - name: Sentinel - Generate manifests
         uses: inditex/gha-paasdeployment/sentinel@v0
         id: sentinel
+        if: ${{ env.USE_SENTINELFORGE != 'true' }}
         with:
           supraenvs: ${{ inputs.SUPRAENVS }}
           envs: ${{ inputs.ENVS }}
@@ -200,8 +225,21 @@ jobs:
         env:
           MERGED: ${{ github.event.pull_request.merged }}
 
+      - name: Determine Manifests Outputs
+        id: determine-manifests-outputs
+        run: |
+          if [[ "${{ env.USE_SENTINELFORGE }}" == "true" ]]; then
+            {
+              echo "no-deployments-needed=${{ steps.sentinel-forge-manifests.outputs.no-deployments-needed }}"
+            } >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "no-deployments-needed=${{ steps.sentinel.outputs.no-deployments-needed }}"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Promote images to internal registries from ghcr
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest' }}
         uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
@@ -210,13 +248,13 @@ jobs:
           ghcr-url: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_BASE_URL }}
 
       - name: Promote images to internal registries from JFrog
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && ( vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.compute-vars.outputs.deployment-version != 'latest' ) }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && ( vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.compute-vars.outputs.deployment-version != 'latest' ) }}
         uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
 
       - name: Promote ML Models
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-mlops == 'true' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-mlops == 'true' }}
         uses: inditex/gha-mlopsactions/actions/paas-promote-models@v0
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
@@ -227,7 +265,7 @@ jobs:
           remove-all-versions-before-copying: "true"
 
       - name: BatchAsCode / Copy job definitions
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-batch == 'true' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-batch == 'true' }}
         run: |
           if [ -d '../../jobs' ]; then
             find . -maxdepth 1 -mindepth 1 -type d | while read -r dir; do
@@ -240,7 +278,7 @@ jobs:
         working-directory: paas/target_tpl
 
       - name: Traffic Parrot / Promote mappings to s3 bucket
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
         uses: inditex/gha-paastol/paasmarket/trafficparrot/promote-mappings@promote-mappings-v2
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
@@ -250,8 +288,8 @@ jobs:
           delete: true
 
       - name: Create PIPE users for affected environments
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        uses: inditex/gha-pipeactions/deploy-client-paas@v1
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/gha-pipeactions/deploy-client-paas@v2
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -261,7 +299,7 @@ jobs:
 
       - name: Create PR to deploy manifests into deployment branch
         id: create-pr-manifest
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
         uses: inditex/gha-paasdeployment/deployment/create-pr-manifests@v0
         with:
           working-directory: paas
