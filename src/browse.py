@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# encoding: utf-8
+# encoding: latin-1
 
 import os, sys
 from base64 import b64encode
