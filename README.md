@@ -14,7 +14,7 @@ Download the latest version from [Releases](https://github.com/almibarss/alfred-
 
 > **Note**: Clipboard history must be enabled in order for us to scrape. Enable this via Alfred Preferences > Features > Clipboard History.
 
-1. Copy the repo URL to the clipboard (ending in `.git`).
+1. Copy the repo URL to the clipboard (ending in `.gitttttt`).
 2. Open Alfred and start typing the keyword *clone* to trigger the workflow.
 3. Confirm the repo you're about to clone by pressing <kbd>enter</kbd> or press <kbd>⌥</kbd>+<kbd>enter</kbd> to choose a different name.
 4. Browse your *workspace* and pick a destination folder. Start typing for filtering and then hit <kbd>tab</kbd> to drill into the selected folder or <kbd>enter</kbd> to clone into it.
