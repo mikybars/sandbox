@@ -292,4 +292,36 @@ public class SimulacionServiceImplTest {
 
     verify(this.simulacionRepositoryCustom, times(0)).updateBandaExcepcionada(any(), anyInt(), any(), any());
   }
+
+  @Test
+  public void updateTiendaPersonaPresenciaTest() {
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final SimulacionDto simulacion = mock(SimulacionDto.class);
+    final String cclIdPerson = "12345";
+    final String cclIdCodOrigen = "67890";
+
+    when(simulacion.getCclIdPerson()).thenReturn(cclIdPerson);
+    when(simulacion.getCclIdCodOrigen()).thenReturn(cclIdCodOrigen);
+
+    this.simulacionServiceImpl.updateTiendaPersonaPresencia(tarea, simulacion);
+
+    verify(this.simulacionRepositoryCustom, times(1))
+        .updateTiendaPersonaPresencia(tarea, cclIdPerson, cclIdCodOrigen);
+  }
+
+  @Test
+  public void mergePresenciaTiendaSimulada() {
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final SimulacionDto simulacion = mock(SimulacionDto.class);
+    final String cclIdPerson = "12345";
+    final String cclIdCodOrigen = "67890";
+
+    when(simulacion.getCclIdPerson()).thenReturn(cclIdPerson);
+    when(simulacion.getCclIdCodOrigen()).thenReturn(cclIdCodOrigen);
+
+    this.simulacionServiceImpl.mergePresenciaTiendaSimulada(tarea, simulacion);
+
+    verify(this.simulacionRepositoryCustom, times(1))
+        .mergePresenciaTiendaSimulada(tarea, cclIdPerson, cclIdCodOrigen);
+  }
 }

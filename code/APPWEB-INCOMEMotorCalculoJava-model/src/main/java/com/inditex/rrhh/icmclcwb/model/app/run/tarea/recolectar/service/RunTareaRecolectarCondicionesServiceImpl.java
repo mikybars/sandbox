@@ -63,10 +63,12 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
     final List<CompletableFuture<?>> cfWait = new ArrayList<>();
     try {
       final TrabajoDTO trabajo = runTarea.getTrabajo();
+      final SimulacionDto simulacion =
+          trabajo.getIdSimulacion() != null ? this.simulacionService.findbyId(trabajo.getIdSimulacion()) : null;
       Boolean esVentaUltimoCalculo = Boolean.FALSE;
       Boolean esPresenciaEmpleadoUltimoCalculo = Boolean.FALSE;
-      if (trabajo.getIdSimulacion() != null) {
-        final SimulacionDto simulacion = this.simulacionService.findbyId(trabajo.getIdSimulacion());
+
+      if (simulacion != null) {
         esVentaUltimoCalculo = simulacion.getEsVentaUltimoCalculo();
         esPresenciaEmpleadoUltimoCalculo = simulacion.getEsPresenciaEmpleadoUltimoCalculo();
       }
@@ -251,6 +253,11 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
       } else {
         this.simulacionService.mergePresenciaEmpleadoUltimoCalculo(runTarea.getTarea());
+      }
+
+      if (simulacion != null) {
+        // Modificar la tienda de las presencias a la tienda seleccionada en la simulacion
+        this.simulacionService.updateTiendaPersonaPresencia(runTarea.getTarea(), simulacion);
       }
 
       // Coeficiente de reduccion de jornada

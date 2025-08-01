@@ -52,6 +52,10 @@ public class SimulacionRepositoryCustomImplTest {
 
   private final static String SQL_MERGE_VENTA_ULTIMO_CALCULO = "SQL MERGE VENTA ULTIMO CALCULO";
 
+  private final static String SQL_UPDATE_TIENDA_PERSONA_PRESENCIA = "SQL UPDATE TIENDA PERSONA PRESENCIA";
+
+  private final static String SQL_MERGE_PRESENCIA_TIENDA_SIMULADA = "SQL MERGE PRESENCIA TIENDA SIMULADA";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -84,6 +88,12 @@ public class SimulacionRepositoryCustomImplTest {
     FieldUtils.writeField(this.simulacionRepositoryCustom,
         "sqlMergeVentaUltimoCalculo",
         SQL_MERGE_VENTA_ULTIMO_CALCULO, true);
+    FieldUtils.writeField(this.simulacionRepositoryCustom,
+        "sqlUpdateTiendaPersonaPresencia",
+        SQL_UPDATE_TIENDA_PERSONA_PRESENCIA, true);
+    FieldUtils.writeField(this.simulacionRepositoryCustom,
+        "sqlMergePresenciaTiendaSimulada",
+        SQL_MERGE_PRESENCIA_TIENDA_SIMULADA, true);
 
   }
 
@@ -264,6 +274,54 @@ public class SimulacionRepositoryCustomImplTest {
     final TareaDto tareaDto = mock(TareaDto.class);
     this.simulacionRepositoryCustom.updateBandaExcepcionada(tareaDto, 1, "test", "1");
     verify(tareaDto, times(1)).getId();
+  }
+
+  @Test
+  public void updateTiendaPersonaPresenciaTest() {
+    final Long idTarea = 555L;
+    final String cclIdCodOrigen = "test";
+    final String cclIdPerson = "1";
+    final TareaDto tareaDto = mock(TareaDto.class);
+    when(tareaDto.getId()).thenReturn(idTarea);
+
+    this.simulacionRepositoryCustom.updateTiendaPersonaPresencia(tareaDto, cclIdPerson, cclIdCodOrigen);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+    assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN));
+    assertEquals(cclIdCodOrigen, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN));
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+    assertEquals(cclIdPerson, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+  }
+
+  @Test
+  public void mergePresenciaTiendaSimulada() {
+    final Long idTarea = 555L;
+    final String cclIdCodOrigen = "test";
+    final String cclIdPerson = "1";
+    final TareaDto tareaDto = mock(TareaDto.class);
+    when(tareaDto.getId()).thenReturn(idTarea);
+
+    this.simulacionRepositoryCustom.mergePresenciaTiendaSimulada(tareaDto, cclIdPerson, cclIdCodOrigen);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).update(any(String.class), this.paramsCaptor.capture());
+
+    assertEquals(3, this.paramsCaptor.getValue().getValues().size());
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN));
+    assertEquals(cclIdCodOrigen, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN));
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+    assertEquals(cclIdPerson, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON));
+
+    assertTrue(this.paramsCaptor.getValue().hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, this.paramsCaptor.getValue().getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
   }
 
 }

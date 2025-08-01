@@ -26,4 +26,8 @@ public interface SimulacionRepositoryCustom {
 
   void updateBandaExcepcionada(@NotNull TareaDto tarea, @NotNull Integer banda, @NotEmpty String cclIdCodOrigen,
       @NotEmpty String cclIdSeccion);
+
+  void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen);
+
+  void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen);
 }
