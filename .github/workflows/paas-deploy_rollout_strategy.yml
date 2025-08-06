@@ -23,7 +23,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.22.1
+  WORKFLOW_VERSION: 3.23.0
 
 jobs:
   rollout-strategy:

@@ -134,31 +134,31 @@ amiga:
             encrypt: false
         comis11-8:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
           username: uincome
           data-source-properties:
             encrypt: false
         comis11-20:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
           username: uincome
           data-source-properties:
             encrypt: false
         comis11-233:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
           username: uincome
           data-source-properties:
             encrypt: false
         comis11-28:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
           username: uincome
           data-source-properties:
             encrypt: false
         comis11-33:
           driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
           username: uincome
           data-source-properties:
             encrypt: false

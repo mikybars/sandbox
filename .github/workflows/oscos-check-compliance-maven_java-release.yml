@@ -5,7 +5,7 @@ on:
     types: [published]
 
 env:
-  WORKFLOW_VERSION: 1.15.1
+  WORKFLOW_VERSION: 1.16.0
   GITHUB_REGISTRY: ghcr.io
 
 jobs:
@@ -20,6 +20,11 @@ jobs:
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
 
+      - name: Export DP Maven Repositories
+        run: |
+          echo "DP_PUBLIC_MAVEN_REPOSITORY=$DP_PUBLIC_MAVEN_REPOSITORY" >> "$GITHUB_ENV"
+          echo "DP_INTERNAL_MAVEN_REPOSITORY=$DP_INTERNAL_MAVEN_REPOSITORY" >> "$GITHUB_ENV"
+
       - name: Generate SBOM
         id: generate-sbom
         uses: inditex/gha-oscodependencies/cdxgen-generator@v0
@@ -28,6 +33,8 @@ jobs:
           dp_user: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
           dp_token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
           github_token: ${{ secrets.GH_TOKEN_READER }}
+          dp_public_maven_repository: ${{ env.DP_PUBLIC_MAVEN_REPOSITORY }}
+          dp_internal_maven_repository: ${{ env.DP_INTERNAL_MAVEN_REPOSITORY }}
 
       - name: Upload SBOM Artifact
         uses: actions/upload-artifact@v4
