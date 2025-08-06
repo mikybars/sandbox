@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.78.0] - 2025-08-06
+
+### Added
+
+- [INCOME-1201](https://jira.inditex.com/jira/browse/INCOME-1201) Modificación cadenas de conexión - ICMCLCWB - PRO
+
 ## [4.77.0] - 2025-07-15
 
 ### Added
@@ -616,7 +622,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.77.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.0...main
+[4.78.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.77.0...4.78.0
 [4.77.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...4.77.0
 [4.76.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...4.76.0
 [4.75.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...4.75.0
