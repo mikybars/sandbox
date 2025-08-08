@@ -1,0 +1,47 @@
+---
+name: themis-datasets-deploy
+run-name: Themis datasets deploy for ${{ inputs.SUPRAENVIRONMENT }} - ${{ inputs.MODEL }}
+
+concurrency:
+  group: themis-datasets-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.model }}
+
+env:
+  WORKFLOW_VERSION: 3.1.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVIRONMENT:
+        description: 'Supra environment to deploy'
+        required: true
+        default: 'dev'
+      MODEL:
+        description: 'Model to deploy'
+        required: true
+        default: 'MY_MODEL'
+      PATH:
+        description: 'Model path to deploy'
+        required: false
+        default: 'themis'
+      ISSUE_NUMBER:
+        description: 'Issue number to deploy'
+        required: true
+
+
+jobs:
+  deploy:
+    name: Themis datasets deploy
+    timeout-minutes: 900
+    runs-on: themis-icr__database-arteixo
+    steps:
+      - name: Themis deploy
+        uses: inditex/gha-themis/features/ci-cd/dataset-deploy@v1
+        with:
+          SUPRAENVIRONMENT: ${{ inputs.SUPRAENVIRONMENT }}
+          MODEL: ${{ inputs.MODEL }}
+          PATH: ${{ inputs.PATH }}
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+          GITHUB_TOKEN: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}
