@@ -19,7 +19,7 @@ on:
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 3.10.0
+  WORKFLOW_VERSION: 3.11.0
   WORKING_DIR: code
   GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
