@@ -21,12 +21,13 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.29.0
+  WORKFLOW_VERSION: 2.33.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
   DT_SECRET: ${{ secrets.DT_SECRET }}
+  ADAM_EXTERNAL_EXECUTION: 1
 
 jobs:
   unit-tests:
@@ -37,6 +38,10 @@ jobs:
         github.event_name == 'release' }}
     timeout-minutes: 30
     runs-on: ${{ fromJSON( vars.RUNSON_SONARQUBE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
+    permissions:
+      contents: write
+      id-token: write
+      checks: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -178,6 +183,12 @@ jobs:
         env:
           DP_ARTIFACTS_STORAGE_USER: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
           DP_ARTIFACTS_STORAGE_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+
+      - name: Setup ADAM
+        if: ${{ always() && !cancelled() }}
+        uses: inditex/gha-testing/setup-adam@main
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Publish unit test results to DEVINS
         if: github.event_name != 'release'
