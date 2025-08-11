@@ -11,7 +11,7 @@ def get_top_ranked(wf, max_results):
     if history == None:
         return []
     rank_by_use = [dir for dir in sorted(history, key=history.get, reverse=True) 
-                   if history[dir] >= HISTORY_HITS_THRESHOLD]
+                   if history[dir] == HISTORY_HITS_THRESHOLD]
 
     log.debug("Rank by use:\n" + pformat({dir:history[dir] for dir in rank_by_use[:10]}))
 
