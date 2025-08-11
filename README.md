@@ -41,4 +41,3 @@ The following variables are meant to be set in the [workflow configuration sheet
 
 This workflow uses the awesome 😎 [Alfred-Workflow](http://www.deanishe.net/alfred-workflow/) Python library by [deanishe](https://www.alfredforum.com/profile/5235-deanishe/).
 
-Sheep icon provided by [Stockio.com](https://www.stockio.com/).
