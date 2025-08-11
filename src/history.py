@@ -1,4 +1,4 @@
-HISTORY_HITS_THRESHOLD = 2
+HISTORY_HITS_THRESHOLD = 5
 
 from collections import defaultdict
 from pprint import pformat
