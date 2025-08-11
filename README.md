@@ -34,7 +34,7 @@ After some usage you will start seeing your most frequently used directories whe
 
 The following variables are meant to be set in the [workflow configuration sheet](https://www.alfredapp.com/help/workflows/advanced/variables/#environment):
 
-* `workspace_dir`: the path of the root folder where all your projects live (default:`$HOME`)
+* `workspace_dir`: the path of the root folder where all your projects live (default:`~`)
 * `max_recent_items`: max number of history items to show (default: 2)
 
 ## Acknowledgements
