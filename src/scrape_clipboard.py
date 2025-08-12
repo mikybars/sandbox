@@ -24,6 +24,7 @@ def make_wf_item(repo_url):
     return {'title': repo,
             'subtitle': repo_url,
             'autocomplete': repo,
+            'url': repo_url,
             'icon': git.get_icon_from_url(repo_url),
             'valid': True}
 
