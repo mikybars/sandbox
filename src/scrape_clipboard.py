@@ -17,7 +17,7 @@ def clipboard_items():
             if clip(x) in os.environ]
 
 def clip(x):
-    return 'clip' + str(x)
+    return 'clipiii' + str(x)
 
 def make_wf_item(repo_url):
     repo = git.get_repo_name_from_url(repo_url)
