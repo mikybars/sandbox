@@ -21,7 +21,7 @@ def join_dirs(dir1, dir2):
     return os.path.join(joint_path, '')  #  append the trailing slash if necessary
 
 def hidden(dir):
-    return dir.startswith('.')
+    return dir.startswith('./')
 
 def make_wf_item(parent_dir, subdir):
     full_path = join_dirs(parent_dir, subdir)
