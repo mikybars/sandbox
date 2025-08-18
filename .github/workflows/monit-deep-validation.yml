@@ -14,7 +14,7 @@ on:
         required: true
 
 env:
-  WORKFLOW_VERSION: 1.50.0
+  WORKFLOW_VERSION: 1.50.1
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -67,6 +67,12 @@ jobs:
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
+
+      - name: Setup Poetry tool
+        uses: inditex/gha-ivmactions/setup-tool@v1
+        with:
+          tool-name: ivm-poetry
+          tool-version: 1.2.2
 
       - name: Monit step
         uses: inditex/gha-alerthub/code@main

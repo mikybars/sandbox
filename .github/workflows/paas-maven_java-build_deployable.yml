@@ -22,7 +22,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.22.1
+  WORKFLOW_VERSION: 3.24.1
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -153,9 +153,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r1
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r6
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r4
         with:
           tool-versions-directory: code
           filter-types: "paas"
