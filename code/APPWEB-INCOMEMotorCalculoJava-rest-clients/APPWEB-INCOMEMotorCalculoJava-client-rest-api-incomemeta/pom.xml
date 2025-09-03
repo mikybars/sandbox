@@ -16,7 +16,7 @@
   <properties>
     <amiga.common.rest.generator.jsonConfigurationFile>openapi-generator-config.json</amiga.common.rest.generator.jsonConfigurationFile>
     <amiga.common.rest.generator.generateClientAsBean>false</amiga.common.rest.generator.generateClientAsBean>
-    <income.incomemeta.openapi.version>6.3.0</income.incomemeta.openapi.version>
+    <income.incomemeta.openapi.version>10.0.0</income.incomemeta.openapi.version>
     <income.incomemeta.openapi.status>stable</income.incomemeta.openapi.status>
   </properties>
 

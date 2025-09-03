@@ -27,7 +27,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,11 +80,11 @@ public class RunTareaAmbitoValidarExternosMeta4ServiceImpl implements RunTareaAm
 
     // Peticion por cada valor diferente de STD_ID_HR_TYPE
     reglas.forEach(obj -> {
-      final ExternosRequestDTO req =
-          this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(obj);
-      req.setFechaDesde(runTarea.getTarea().getFechaInicioPeriodo());
-      req.setFechaHasta(runTarea.getTarea().getFechaFinPeriodo());
-      excluidosMeta4.addAll(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(req));
+      final List<Integer> puestos = obj.getPuestos();
+      final List<Long> mappedPuestos = puestos == null || puestos.isEmpty() ? List.of() : puestos.stream().map(Integer::longValue).toList();
+
+      excluidosMeta4.addAll(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(obj.getIdOrganization(),
+          runTarea.getTarea().getFechaInicioPeriodo(), runTarea.getTarea().getFechaFinPeriodo(), mappedPuestos, obj.getStdIdHrType()));
     });
 
     this.processExcluidosMeta4(excluidosMeta4, externos);

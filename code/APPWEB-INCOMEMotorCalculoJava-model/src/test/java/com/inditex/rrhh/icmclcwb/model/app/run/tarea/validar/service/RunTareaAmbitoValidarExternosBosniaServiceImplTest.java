@@ -29,7 +29,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -71,7 +70,6 @@ class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void executeTest(final List<Integer> puestos,
-      final ExternosRequestDTO externosRequestDTO,
       final List<EmpleadoExternoDTO> externos,
       final List<IdPersonaLocalExternaDto> idPersonaLocalExternaDtos) {
 
@@ -97,12 +95,9 @@ class RunTareaAmbitoValidarExternosBosniaServiceImplTest {
     when(this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(any(String.class), any(String.class)))
         .thenReturn(request);
 
-    when(this.reglaEmpleadoExternoMeta4Mapper
-        .reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(any(ReglaEmpleadoExternoMeta4RequestDto.class)))
-            .thenReturn(externosRequestDTO);
-
-    when(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(externosRequestDTO))
-        .thenReturn(externos);
+    when(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(any(String.class), any(), any(), any(List.class),
+        any(String.class)))
+            .thenReturn(externos);
 
     when(this.idPersonaLocalExternaMapper.empleadoExternoDTOtoIdPersonaLocalExternaDto(externos))
         .thenReturn(idPersonaLocalExternaDtos);
