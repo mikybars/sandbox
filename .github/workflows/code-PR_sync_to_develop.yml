@@ -8,7 +8,7 @@ on:
     paths-ignore: ['code/**', 'docs/**']
 
 env:
-  WORKFLOW_VERSION: 2.35.0
+  WORKFLOW_VERSION: 2.37.0
 
 jobs:
   add-friendly-reminder:

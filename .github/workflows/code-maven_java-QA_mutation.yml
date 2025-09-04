@@ -9,12 +9,17 @@ on:
         required: false
 
 env:
-  WORKFLOW_VERSION: 2.29.0
+  WORKFLOW_VERSION: 2.33.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
+  ADAM_EXTERNAL_EXECUTION: 1
 
 jobs:
   mutation-testing-execution:
     runs-on: ${{ fromJSON( vars.RUNSON_SONARQUBE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
+    permissions:
+      contents: write
+      id-token: write
+      checks: write
     name: Mutation Testing execution
     steps:
       - name: Checkout
@@ -88,6 +93,12 @@ jobs:
         env:
           DP_ARTIFACTS_STORAGE_USER: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
           DP_ARTIFACTS_STORAGE_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+
+      - name: Setup ADAM
+        if: ${{ always() && !cancelled() }}
+        uses: inditex/gha-testing/setup-adam@main
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Publish mutation results to DEVINS
         if: ${{ always() && !cancelled() }}
