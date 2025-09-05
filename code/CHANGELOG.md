@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.78.2] - 2025-09-05
+
+### Fixed
+
+- [INCOME-2611](https://jira.inditex.com/jira/browse/INCOME-2611) Correccion cruce precio hora
+
 ## [4.78.1] - 2025-09-04
 
 ### Fixed
@@ -628,7 +634,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.2...main
+[4.78.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.1...4.78.2
 [4.78.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.0...4.78.1
 [4.78.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.77.0...4.78.0
 [4.77.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...4.77.0
