@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  WORKFLOW_VERSION: 3.4.1
+  WORKFLOW_VERSION: 3.4.2
   GOSSIP_SERVER_URL: https://apigw.apps.axsvocp1.service.inditex.grp/
   GOSSIP_SERVER_USER: oauthtoolgossippro
   GOSSIP_SERVER_PASS: cyberark.AX-N-PUBLIC-SRE-TOOLS.Application-ITX-APP-500-SC-Generic-OAUTH2ClientsPRO-oauthtoolgossippro

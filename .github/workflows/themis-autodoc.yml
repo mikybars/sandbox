@@ -36,10 +36,10 @@ on:
 jobs:
   autodoc:
     name: Autodoc ID
-    runs-on: [self-hosted, database, axecocpci1]
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '"themis-icr__database-arteixo"' ) }}
     steps:
       - name: Launch Autodoc workflow
-        uses: inditex/gha-themis/features/ci-cd/autodoc@main
+        uses: inditex/gha-themis/features/ci-cd/autodoc@v1
         if: github.ref == 'refs/heads/main'
         with:
           SUPRA_ENV: ${{ github.event.inputs.SUPRA_ENV }}

@@ -24,7 +24,6 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.ReglaEmpleadoExternoMeta
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaPersonaExternaMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaPersonaExternaRepositoryCustom;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,7 +73,6 @@ class RunTareaAmbitoValidarExternosMeta4ServiceImplTest {
     final RunTareaDto runTareaDto = RunTareaDto.builder().tarea(tareaDto).trabajo(trabajoDTO).build();
     final TareaAmbitoDto tareaAmbitoDto = TareaAmbitoDto.builder().cclIdOrigen("11").build();
     final TareaFaseAccionDto tareaFaseAccionDto = new TareaFaseAccionDto();
-    final ExternosRequestDTO externosRequestDTO = new ExternosRequestDTO();
     final EmpleadoExternoDTO empleadoExternoDTO = new EmpleadoExternoDTO();
     empleadoExternoDTO.setIdPersonaLocal("1234");
     empleadoExternoDTO.setFechaDesde(LocalDate.of(2024, 11, 1));
@@ -87,9 +85,8 @@ class RunTareaAmbitoValidarExternosMeta4ServiceImplTest {
     final ValidacionDto validacionDto = new ValidacionDto();
 
     when(this.reglaEmpleadoExternoMeta4Service.getReglasEmpleadoExternoMeta4ActivasByCclIdOrigen(any(), any())).thenReturn(reglas);
-    when(this.reglaEmpleadoExternoMeta4Mapper.reglaEmpleadoExternoMeta4RequestDtotoExternosRequestDto(any()))
-        .thenReturn(externosRequestDTO);
-    when(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(any())).thenReturn(excluidosMeta4);
+    when(this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(any(String.class), any(), any(), any(List.class),
+        any(String.class))).thenReturn(excluidosMeta4);
     when(this.validacionMapper.booleanToValidacionDto(any(), any(), anyBoolean())).thenReturn(validacionDto);
 
     final ValidacionDto result =

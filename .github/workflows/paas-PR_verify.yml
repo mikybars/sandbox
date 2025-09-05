@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.23.0
+  WORKFLOW_VERSION: 3.24.1
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
@@ -188,3 +188,5 @@ jobs:
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           install-paascli: true
           github-token: ${{ secrets.GH_TOKEN_READER }}
+          idp-federate-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          idp-federate-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
