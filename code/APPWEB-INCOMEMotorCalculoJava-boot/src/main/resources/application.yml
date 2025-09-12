@@ -238,7 +238,7 @@ amiga:
         source-type: HEIMDAL
         heimdal:
           enabled: true
-          application-id: ICMCLCWB
+          application-id: INCOME
 
     rest-swagger:
       ui:
