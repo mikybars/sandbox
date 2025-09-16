@@ -20,7 +20,9 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeDesplazamientoBaseV1RepositoryCustom {
