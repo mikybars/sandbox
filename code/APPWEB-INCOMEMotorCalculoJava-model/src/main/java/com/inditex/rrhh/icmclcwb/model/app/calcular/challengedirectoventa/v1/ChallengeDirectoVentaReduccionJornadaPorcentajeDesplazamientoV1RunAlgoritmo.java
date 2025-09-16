@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Component("challengeDirectoVentaReduccionJornadaDesplazamientoPorcentajeV1")
+@Component("challengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1")
 @RequiredArgsConstructor
 public class ChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmo implements RunAlgoritmo {
 
