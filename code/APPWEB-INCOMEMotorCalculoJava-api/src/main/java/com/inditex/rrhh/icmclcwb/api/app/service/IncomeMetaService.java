@@ -8,7 +8,6 @@ import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.PresupuestoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
@@ -18,7 +17,8 @@ import jakarta.validation.constraints.NotNull;
 
 public interface IncomeMetaService {
 
-  List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(@NotNull ExternosRequestDTO request);
+  List<EmpleadoExternoDTO> getEmpleadosExternosExcluidosDenominador(@NotNull String idOrganization, @NotNull LocalDate fechaInicio,
+      @NotNull LocalDate fechaFin, @NotNull List<Long> puestos, @NotNull String stdIdHrType);
 
   List<EmpleadoDTO> searchEmpleados(@NotNull SearchEmpleadosRequestDto reqeust);
 

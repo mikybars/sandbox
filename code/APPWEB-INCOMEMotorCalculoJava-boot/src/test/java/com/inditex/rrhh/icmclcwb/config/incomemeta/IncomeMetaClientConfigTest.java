@@ -6,14 +6,9 @@ import static org.mockito.Mockito.when;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
-import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadoApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.invoker.ApiClient;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,24 +50,10 @@ class IncomeMetaClientConfigTest {
   }
 
   @Test
-  void externosIncomeMetaApiClientTest() {
-    final ApiClient apiClient = mock(ApiClient.class);
-    final ExternosApi externosApi = this.incomeMetaClientConfig.externosIncomeMetaApiClient(apiClient);
-    assertNotNull(externosApi);
-  }
-
-  @Test
   void empleadosIncomeMetaApiClientTest() {
     final ApiClient apiClient = mock(ApiClient.class);
-    final EmpleadosApi empleadosApi = this.incomeMetaClientConfig.empleadosIcomeMetaApiClient(apiClient);
+    final EmpleadoApi empleadosApi = this.incomeMetaClientConfig.empleadoIcomeMetaApiClient(apiClient);
     assertNotNull(empleadosApi);
-  }
-
-  @Test
-  void tiposventaChallengeApiTest() {
-    final ApiClient apiClient = mock(ApiClient.class);
-    final TiposventachallengeApi tiposventachallengeApi = this.incomeMetaClientConfig.tiposventachallengeIncomeMetaApiClient(apiClient);
-    assertNotNull(tiposventachallengeApi);
   }
 
   @Test
@@ -83,31 +64,10 @@ class IncomeMetaClientConfigTest {
   }
 
   @Test
-  void periodoApiTest() {
-    final ApiClient apiClient = mock(ApiClient.class);
-    final PeriodoApi periodoApi = this.incomeMetaClientConfig.periodoIncomeMetaApiClient(apiClient);
-    assertNotNull(periodoApi);
-  }
-
-  @Test
-  void presupuestosApiTest() {
-    final ApiClient apiClient = mock(ApiClient.class);
-    final PresupuestosApi presupuestosApi = this.incomeMetaClientConfig.presupuestosIncomeMetaApiClient(apiClient);
-    assertNotNull(presupuestosApi);
-  }
-
-  @Test
-  void agrupacionesOnlineApiTest() {
-    final ApiClient apiClient = mock(ApiClient.class);
-    final AgrupacionesOnlineApi agrupacionesOnlineApi = this.incomeMetaClientConfig.agrupacionesOnlineIncomeMetaApiClient(apiClient);
-    assertNotNull(agrupacionesOnlineApi);
-  }
-
-  @Test
   void configuracionPrecioHoraApiTest() {
     final ApiClient apiClient = mock(ApiClient.class);
-    final ConfiguracionPrecioHoraApi configuracionPrecioHoraApi =
-        this.incomeMetaClientConfig.configuracionPrecioHoraApiIncomeMetaApiClient(apiClient);
-    assertNotNull(configuracionPrecioHoraApi);
+    final ConfiguracionApi configuracionApi =
+        this.incomeMetaClientConfig.configuracionIncomeMetaApiClient(apiClient);
+    assertNotNull(configuracionApi);
   }
 }
