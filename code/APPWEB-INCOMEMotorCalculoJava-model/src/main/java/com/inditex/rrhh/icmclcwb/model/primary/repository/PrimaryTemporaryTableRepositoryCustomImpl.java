@@ -810,8 +810,8 @@ public class PrimaryTemporaryTableRepositoryCustomImpl
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(),
-            TipoCalculoEnum.CHALLENGE_JORNADA.getId()),
-        TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId());
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+            TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()));
 
     this.namedParameterJdbcTemplate.update(this.sqlInsertTareaLocalizacionPresupuestoTareaPersonaEstructura, map);
   }
