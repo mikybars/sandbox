@@ -7573,18 +7573,25 @@ FROM (
   </entry>
   <entry key="TareaCalculoRepositoryCustom.findPersonaCalculoPendiente">
     <![CDATA[
-      SELECT
-          T.CCL_ID_PERSON
-      FROM
-          TAREA_CALCULO T
-      WHERE
-          T.ID_TAREA = :idTarea
-          AND T.ID_TIPO_CALCULO = '999'
-      GROUP BY
-          T.CCL_ID_PERSON,
-          T.FECHA,
-          T.ID_TIPO_CALCULO
-      ]]>
+    SELECT
+        TPE.CCL_ID_PERSON
+    FROM
+        TAREA_PERSONA_ESTRUCTURA TPE
+    INNER JOIN TAREA T
+        ON T.ID_TAREA = TPE.ID_TAREA
+    INNER JOIN TRABAJO TR
+        ON TR.ID_TRABAJO = T.ID_TRABAJO
+    INNER JOIN PERIODO_CALCULO_PERSONA PCP
+        ON PCP.ID_TAREA_ACTUAL = T.ID_TAREA
+        AND PCP.CCL_ID_PERSON = TPE.CCL_ID_PERSON
+        AND PCP.ICM_ID_PERIODO = TR.ICM_ID_PERIODO
+        AND PCP.STD_ID_LEG_ENT = T.STD_ID_LEG_ENT
+    WHERE
+        TPE.ICM_ID_TP_CALCULO = '999'
+        AND TPE.ID_TAREA = :idTarea
+    GROUP BY
+        TPE.CCL_ID_PERSON
+  ]]>
   </entry>
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">
     <![CDATA[
