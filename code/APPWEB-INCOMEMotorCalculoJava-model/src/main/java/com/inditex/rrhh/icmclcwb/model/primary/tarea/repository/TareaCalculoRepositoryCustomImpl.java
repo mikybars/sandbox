@@ -105,8 +105,6 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   public List<IdPersonaLocalDto> findPersonaCalculoPendiente(Long idTarea, String cclIdOrigen, String stdIdLegEnt) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-    params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-    params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
     return this.query(
         this.sqlRecuperarPersonasCalculoPendiente,
         params, (rs, rowNum) -> {
