@@ -31,6 +31,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.RunUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -263,6 +264,8 @@ class PrimaryTemporaryTableRepositoryCustomTest {
   private final static String SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE =
       "SQL VALDIATE TEMP COMIS DESPLAZAMIENTO CHALLENGE PORCENTAJE";
 
+  private final static String SQL_VALIDATE_INSERT_TEMP_ESTRUCTURA = "SQL_VALIDATE_INSERT_TEMP_ESTRUCTURA";
+
   @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom, "batchSize", 3, true);
@@ -477,6 +480,9 @@ class PrimaryTemporaryTableRepositoryCustomTest {
         "sqlValidateTempComisDesplazamientoChallengePorcentaje", SQL_VALIDATE_TEMP_COMIS_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE,
         true);
 
+    FieldUtils.writeField(this.primaryTemporaryTableRepositoryCustom,
+        "sqlInsertTempEstructura", SQL_VALIDATE_INSERT_TEMP_ESTRUCTURA,
+        true);
   }
 
   // Inicio tests baja it
@@ -1463,6 +1469,15 @@ class PrimaryTemporaryTableRepositoryCustomTest {
     assertTrue(params.hasValue(ID_TAREA_PARAM));
     assertEquals(idTarea, params.getValue(ID_TAREA_PARAM));
 
+  }
+
+  @Test
+  void insertTempEstructuraTest() {
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+
+    this.primaryTemporaryTableRepositoryCustom.insertTempEstructura(tarea);
+
+    verify(this.namedParameterJdbcTemplate).update(eq(SQL_VALIDATE_INSERT_TEMP_ESTRUCTURA), any(MapSqlParameterSource.class));
   }
 
 }
