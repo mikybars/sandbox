@@ -41,7 +41,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith({SpringExtension.class})
 public class ChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RunAlgoritmoTest {
 
-  private static final String SQL_CALCULAR = "SELECT * FROM TABLE WHERE challenge_directo_venta_reduccion_jornada_porcentaje_desplazamiento = 1";
+  private static final String SQL_CALCULAR =
+      "SELECT * FROM TABLE WHERE challenge_directo_venta_reduccion_jornada_porcentaje_desplazamiento = 1";
 
   @Mock
   private Logger log;
