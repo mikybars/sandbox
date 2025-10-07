@@ -8,3 +8,4 @@ checks:
   sync_labels: true
   auto_assign: true
   branch_length: 63
+

@@ -7586,6 +7586,20 @@ FROM (
           T.ID_TIPO_CALCULO
       ]]>
   </entry>
+
+  <entry key="TareaCalculoRepositoryCustom.findPersonaPorcentaje0">
+  <![CDATA[
+      SELECT
+          T.CCL_ID_PERSON
+      FROM
+          TAREA_PERSONA_ESTRUCTURA T
+      WHERE
+          T.ID_TAREA = :idTarea
+          AND T.ICM_VALOR = 0
+      GROUP BY
+          T.CCL_ID_PERSON
+      ]]>
+  </entry>
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">
     <![CDATA[
   INSERT INTO TAREA_LOCALIZACION_VENTA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, IMPORTE_SIN_IMPUESTOS, IMPORTE_CON_IMPUESTOS, FECHA_INICIO_PERIODO)
