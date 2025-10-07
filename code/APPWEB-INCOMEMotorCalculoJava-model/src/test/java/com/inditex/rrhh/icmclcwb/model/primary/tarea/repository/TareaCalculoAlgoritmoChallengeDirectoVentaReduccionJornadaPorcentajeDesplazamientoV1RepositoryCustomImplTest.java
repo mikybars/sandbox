@@ -36,7 +36,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
-import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
@@ -143,46 +142,46 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     // Verificar parámetros básicos
     assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
     assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
     assertEquals(persona.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
     assertEquals(persona.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
-    
+
     // Verificar parámetros de tipos de dato
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
     assertEquals(Arrays.asList(101), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-    
+
     // Verificar parámetros boolean
     assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_CALCULA));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
-    
+
     // Verificar indicador de presencia desplazamiento
     assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
     assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
         result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
-    
+
     // Verificar tipos de comisión y cálculo
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
     assertEquals(Arrays.asList("001", "002", "003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
     assertEquals(Arrays.asList("011", "012"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
-    
+
     // Verificar desplazamiento
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
-    
+
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
   }
@@ -316,46 +315,46 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     final MapSqlParameterSource[] values = this.params.getValue();
     assertEquals(2, values.length);
-    
+
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value = values[i];
       assertEquals(13, value.getValues().size());
-      
+
       // Verificar parámetros comunes
       assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
       assertEquals(Arrays.asList(101), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
       assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
       assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_CALCULA));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
       assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId(),
           value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
       assertEquals(Arrays.asList("001", "002", "003"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
       assertEquals(Arrays.asList("011", "012"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
-      
+
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-      
+
       // Verificar parámetros específicos de persona
       assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
       assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
@@ -397,8 +396,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final List<IdPersonaLocalDto> personas = Arrays.asList(
         Instancio.create(IdPersonaLocalDto.class),
-        Instancio.create(IdPersonaLocalDto.class)
-    );
+        Instancio.create(IdPersonaLocalDto.class));
 
     // When
     this.repository.calcular(algoritmo, tarea, personas);
