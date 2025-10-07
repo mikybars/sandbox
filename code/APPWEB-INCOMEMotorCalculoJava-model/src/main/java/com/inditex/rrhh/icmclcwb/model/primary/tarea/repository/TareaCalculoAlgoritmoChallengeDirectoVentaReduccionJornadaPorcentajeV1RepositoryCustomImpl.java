@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom
-    implements TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom {
+    implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom {
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "

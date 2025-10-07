@@ -14,7 +14,7 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmo;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmo imple
 
   private static final Logger LOG = LoggerFactory.getLogger(ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmo.class);
 
-  private final TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
+  private final TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
 
   private final RunAlgoritmoPropertiesDto runAlgoritmoProperties;
 

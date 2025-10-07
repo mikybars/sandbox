@@ -24,7 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaServic
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunAlgoritmoTest;
-import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
+import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom;
 
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest implemen
   private static final int BATCH_SIZE = 10;
 
   @Mock
-  private TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
+  private TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom;
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
