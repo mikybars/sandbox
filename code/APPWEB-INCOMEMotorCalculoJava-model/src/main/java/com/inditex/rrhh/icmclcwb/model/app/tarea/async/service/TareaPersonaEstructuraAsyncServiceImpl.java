@@ -10,11 +10,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraSer
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComResultItemDto;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstructuraAsyncService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TareaPersonaEstructuraAsyncServiceImpl.class);
 
   @Autowired
   private TareaPersonaEstructuraService tareaPersonaEstructuraService;
@@ -22,15 +26,16 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
   @Override
   public CompletableFuture<Void> save(List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
       TareaDto tareaDto) {
-    tareaPersonaEstructuraService.save(tareaPersonaEstructura, tareaDto);
+    this.tareaPersonaEstructuraService.save(tareaPersonaEstructura, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> saveEstructurasComResultItemDto(
       List<EstructurasComResultItemDto> estructurasComResultItemDto, TareaDto tareaDto) {
-    tareaPersonaEstructuraService.save(
-        tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto),
+    LOG.info("Tarea[{}] :: Guardando en TAREA_PERSONA_ESTRUCTURA", tareaDto.getId());
+    this.tareaPersonaEstructuraService.save(
+        this.tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto),
         tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
