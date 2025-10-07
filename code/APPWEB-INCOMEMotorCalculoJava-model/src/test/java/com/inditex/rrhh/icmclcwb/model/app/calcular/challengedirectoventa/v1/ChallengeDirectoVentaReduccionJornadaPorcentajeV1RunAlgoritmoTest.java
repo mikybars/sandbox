@@ -35,7 +35,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
+class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest implements RunAlgoritmoTest {
 
   private static final String SQL_CALCULAR = "SELECT * FROM CHALLENGE_DIRECTO_VENTA_REDUCCION_JORNADA_PORCENTAJE WHERE 1=1";
 
@@ -58,7 +58,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   private ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmo challengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmo;
 
   @Test
-  public void getSqlCalcularTest() {
+  void getSqlCalcularTest() {
     // Given
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
     when(this.tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom
@@ -75,7 +75,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void getSqlCalcularWithNullAlgoritmoTest() {
+  void getSqlCalcularWithNullAlgoritmoTest() {
     // Given
     when(this.tareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeV1RepositoryCustom
         .getSqlCalcular(any())).thenReturn(SQL_CALCULAR);
@@ -91,7 +91,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularTest() {
+  void calcularTest() {
     // Given
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(BATCH_SIZE));
 
@@ -120,7 +120,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularWithEmptyPersonasListTest() {
+  void calcularWithEmptyPersonasListTest() {
     // Given
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(BATCH_SIZE));
 
@@ -145,7 +145,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularWithLargePersonasListTest() {
+  void calcularWithLargePersonasListTest() {
     // Given
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(5)); // Batch size smaller than
                                                                                                                // personas list
@@ -175,7 +175,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularExceptionTest() {
+  void calcularExceptionTest() {
     // Given
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(BATCH_SIZE));
 
@@ -202,7 +202,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularWithNullRunTareaTest() {
+  void calcularWithNullRunTareaTest() {
     // Given
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
 
@@ -216,7 +216,7 @@ public class ChallengeDirectoVentaReduccionJornadaPorcentajeV1RunAlgoritmoTest i
   }
 
   @Test
-  public void calcularWithNullAlgoritmoTest() {
+  void calcularWithNullAlgoritmoTest() {
     // Given
     when(this.runAlgoritmoProperties.getCalculo()).thenReturn(this.createRunAlgoritmoCalculoPropertiesDto(BATCH_SIZE));
 

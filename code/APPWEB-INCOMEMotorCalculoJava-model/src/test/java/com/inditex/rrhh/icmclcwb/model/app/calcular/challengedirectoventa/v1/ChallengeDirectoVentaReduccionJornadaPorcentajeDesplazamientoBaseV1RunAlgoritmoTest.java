@@ -39,7 +39,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class ChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
+class ChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RunAlgoritmoTest {
 
   private static final String SQL_CALCULAR = "SELECT * FROM TABLE WHERE 1";
 

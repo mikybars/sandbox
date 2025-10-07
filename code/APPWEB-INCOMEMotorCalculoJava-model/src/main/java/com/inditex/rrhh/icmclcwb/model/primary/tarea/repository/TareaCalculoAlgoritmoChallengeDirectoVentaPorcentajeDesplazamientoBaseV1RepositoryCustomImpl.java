@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
@@ -60,7 +59,7 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeDesplazamientoB
     final List<IdTipoDatoDto> ids = this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-        ids.stream().map(IdTipoDatoDto::getId).collect(Collectors.toList()));
+        ids.stream().map(IdTipoDatoDto::getId).toList());
     map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_CALCULA, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.put(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
@@ -68,13 +67,13 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaPorcentajeDesplazamientoB
         TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId());
 
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_COMISION,
-        algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).collect(Collectors.toList()));
+        algoritmo.getTipoComision().stream().map(TipoComisionDTO::getId).toList());
     map.put(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO,
-        algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).collect(Collectors.toList()));
-    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, algoritmo.getDesplazamiento()
+        algoritmo.getTipoCalculo().stream().map(TipoCalculoDTO::getId).toList());
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO, Boolean.TRUE.equals(algoritmo.getDesplazamiento())
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
+    map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, Boolean.TRUE.equals(algoritmo.getDesplazamientoBase())
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
     return map;
