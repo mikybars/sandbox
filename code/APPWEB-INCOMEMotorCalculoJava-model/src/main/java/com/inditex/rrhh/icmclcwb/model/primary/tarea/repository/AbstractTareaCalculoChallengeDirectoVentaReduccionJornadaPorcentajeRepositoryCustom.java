@@ -19,9 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Clase base abstracta que implementa el Template Method Pattern para reducir la duplicación de código entre los repositorios de algoritmos
- * Challenge Directo Venta con Reducción de Jornada por Porcentaje.
- *
- * Esta clase centraliza toda la lógica común y permite que las clases hijas solo implementen sus particularidades específicas.
+ * Challenge Directo Venta con Reducción de Jornada por Porcentaje. Esta clase centraliza toda la lógica común y permite que las clases
+ * hijas solo implementen sus particularidades específicas.
  */
 public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
