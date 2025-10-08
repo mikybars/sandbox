@@ -48,7 +48,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -73,11 +72,16 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
   @Captor
   private ArgumentCaptor<MapSqlParameterSource[]> params;
 
-  @InjectMocks
   private TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl repository;
 
   @BeforeEach
   void setup() throws IllegalAccessException {
+    // Crear la instancia manualmente pasando las dependencias por constructor
+    this.repository = new TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl(
+        this.tareaCalculoPersonaService, this.tipoDatoService);
+        
+    // Inyectar namedParameterJdbcTemplate manualmente (herencia)
+    FieldUtils.writeField(this.repository, "namedParameterJdbcTemplate", this.namedParameterJdbcTemplate, true);
     FieldUtils.writeField(this.repository, "sqlCalcular", SQL_CALCULAR, true);
     FieldUtils.writeField(this.repository, "sqlCalcularBase", SQL_BASE, true);
   }

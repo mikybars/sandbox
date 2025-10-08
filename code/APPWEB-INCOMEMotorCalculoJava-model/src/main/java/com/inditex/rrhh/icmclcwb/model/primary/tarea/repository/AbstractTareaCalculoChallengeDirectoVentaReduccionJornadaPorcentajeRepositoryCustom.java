@@ -15,8 +15,6 @@ import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 /**
  * Clase base abstracta que implementa el Template Method Pattern para reducir la duplicación de código entre los repositorios de algoritmos
  * Challenge Directo Venta con Reducción de Jornada por Porcentaje. Esta clase centraliza toda la lógica común y permite que las clases
@@ -25,11 +23,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
 
-  @Autowired
-  public TareaCalculoPersonaService tareaCalculoPersonaService;
+  protected final TareaCalculoPersonaService tareaCalculoPersonaService;
 
-  @Autowired
-  public TipoDatoService tipoDatoService;
+  protected final TipoDatoService tipoDatoService;
+
+  /**
+   * Constructor que recibe las dependencias necesarias. Las clases hijas deben inyectar estas dependencias.
+   *
+   * @param tareaCalculoPersonaService servicio para operaciones con personas
+   * @param tipoDatoService servicio para operaciones con tipos de dato
+   */
+  protected AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom(
+      TareaCalculoPersonaService tareaCalculoPersonaService,
+      TipoDatoService tipoDatoService) {
+    this.tareaCalculoPersonaService = tareaCalculoPersonaService;
+    this.tipoDatoService = tipoDatoService;
+  }
 
   /**
    * Implementación común del metodo ids() heredado en las 3 clases hijas.

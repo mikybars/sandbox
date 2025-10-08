@@ -2,9 +2,11 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Map;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
@@ -16,6 +18,18 @@ import org.springframework.stereotype.Repository;
 public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustomImpl
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom {
+
+  /**
+   * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
+   *
+   * @param tareaCalculoPersonaService servicio para operaciones con personas
+   * @param tipoDatoService servicio para operaciones con tipos de dato
+   */
+  public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustomImpl(
+      TareaCalculoPersonaService tareaCalculoPersonaService,
+      TipoDatoService tipoDatoService) {
+    super(tareaCalculoPersonaService, tipoDatoService);
+  }
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} "

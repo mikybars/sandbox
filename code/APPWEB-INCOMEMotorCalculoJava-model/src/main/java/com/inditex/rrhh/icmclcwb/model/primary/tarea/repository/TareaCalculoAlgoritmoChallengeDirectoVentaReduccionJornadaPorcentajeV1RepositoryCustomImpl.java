@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
+
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -8,6 +11,18 @@ import org.springframework.stereotype.Repository;
 public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom {
+
+  /**
+   * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
+   *
+   * @param tareaCalculoPersonaService servicio para operaciones con personas
+   * @param tipoDatoService servicio para operaciones con tipos de dato
+   */
+  public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl(
+      TareaCalculoPersonaService tareaCalculoPersonaService,
+      TipoDatoService tipoDatoService) {
+    super(tareaCalculoPersonaService, tipoDatoService);
+  }
 
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "
