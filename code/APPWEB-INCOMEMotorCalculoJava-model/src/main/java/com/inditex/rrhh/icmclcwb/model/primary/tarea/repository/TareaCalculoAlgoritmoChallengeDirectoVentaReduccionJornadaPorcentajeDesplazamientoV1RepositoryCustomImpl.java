@@ -19,6 +19,17 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcular;
+
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']}"
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   /**
    * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
    *
@@ -30,17 +41,6 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
       TipoDatoService tipoDatoService) {
     super(tareaCalculoPersonaService, tipoDatoService);
   }
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcular;
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']}"
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
 
   /**
    * Implementación específica para desplazamiento base: Agrega el parámetro específico de indicador de desplazamiento. El resto de lógica

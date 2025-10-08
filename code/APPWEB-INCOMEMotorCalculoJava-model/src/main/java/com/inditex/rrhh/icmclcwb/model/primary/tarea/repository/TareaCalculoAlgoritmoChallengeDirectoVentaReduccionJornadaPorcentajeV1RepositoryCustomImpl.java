@@ -12,6 +12,17 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustom {
 
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcular;
+
+  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "
+      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
+  @Getter
+  private String sqlCalcularBase;
+
   /**
    * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
    *
@@ -23,17 +34,6 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
       TipoDatoService tipoDatoService) {
     super(tareaCalculoPersonaService, tipoDatoService);
   }
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcular;
-
-  @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repository.calcular']} "
-      + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
-  @Getter
-  private String sqlCalcularBase;
 
   /**
    * Implementación para algoritmo base: No necesita agregar parámetros adicionales.

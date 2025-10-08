@@ -19,18 +19,6 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustom {
 
-  /**
-   * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
-   *
-   * @param tareaCalculoPersonaService servicio para operaciones con personas
-   * @param tipoDatoService servicio para operaciones con tipos de dato
-   */
-  public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl(
-      TareaCalculoPersonaService tareaCalculoPersonaService,
-      TipoDatoService tipoDatoService) {
-    super(tareaCalculoPersonaService, tipoDatoService);
-  }
-
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery["
       + "'TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1Repository.calcular']} "
@@ -43,6 +31,18 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
   @Getter
   private String sqlCalcularBase;
+
+  /**
+   * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
+   *
+   * @param tareaCalculoPersonaService servicio para operaciones con personas
+   * @param tipoDatoService servicio para operaciones con tipos de dato
+   */
+  public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl(
+      TareaCalculoPersonaService tareaCalculoPersonaService,
+      TipoDatoService tipoDatoService) {
+    super(tareaCalculoPersonaService, tipoDatoService);
+  }
 
   /**
    * Implementación específica para desplazamiento base: Agrega el parámetro específico de indicador de desplazamiento base. El resto de
