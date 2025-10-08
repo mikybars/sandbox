@@ -1,15 +1,10 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TipoCalculoDTO;
@@ -23,35 +18,6 @@ import com.inditex.rrhh.icmclcwb.dto.TipoComisionDTO;
 public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
 
-  protected final TareaCalculoPersonaService tareaCalculoPersonaService;
-
-  protected final TipoDatoService tipoDatoService;
-
-  /**
-   * Constructor que recibe las dependencias necesarias. Las clases hijas deben inyectar estas dependencias.
-   *
-   * @param tareaCalculoPersonaService servicio para operaciones con personas
-   * @param tipoDatoService servicio para operaciones con tipos de dato
-   */
-  protected AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom(
-      TareaCalculoPersonaService tareaCalculoPersonaService,
-      TipoDatoService tipoDatoService) {
-    this.tareaCalculoPersonaService = tareaCalculoPersonaService;
-    this.tipoDatoService = tipoDatoService;
-  }
-
-  /**
-   * Implementación común del metodo ids() heredado en las 3 clases hijas.
-   *
-   * @param algoritmo el algoritmo para el cual buscar personas
-   * @param tarea la tarea asociada
-   * @return lista de personas locales para el algoritmo
-   */
-  @Override
-  public final List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
-    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
-  }
-
   /**
    * Template Method: Define el algoritmo completo para construir el Map de parámetros SQL. Las subclases solo necesitan implementar la
    * parte específica.
@@ -63,10 +29,10 @@ public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaP
    */
   @Override
   protected final Map<String, Object> getMapValues(AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
-    // 1. Construir el mapa con valores comunes (Template Method - parte fija)
+    // Construir el mapa con valores comunes (Template Method - parte fija)
     final Map<String, Object> map = this.buildCommonMapValues(algoritmo, tarea, persona);
 
-    // 2. Permitir que cada subclase agregue sus valores específicos (Template Method - parte variable)
+    // Permitir que cada subclase agregue sus valores específicos (Template Method - parte variable)
     this.addSpecificMapValues(map, algoritmo, tarea, persona);
 
     return map;
@@ -94,12 +60,6 @@ public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaP
 
     // Parámetros del algoritmo
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO, algoritmo.getId());
-
-    // Parámetros de tipo de dato de venta por localización y sección
-    final List<IdTipoDatoDto> ids = this.tipoDatoService
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
-        ids.stream().map(IdTipoDatoDto::getId).toList());
 
     // Parámetros booleanos comunes
     map.put(SqlPrimaryConstants.SQL_PARAM_COMISIONABLE, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);

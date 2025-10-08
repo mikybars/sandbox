@@ -1,10 +1,13 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdTipoDatoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoGrupoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
@@ -20,6 +23,12 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
     extends AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaPorcentajeRepositoryCustom
     implements TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustom {
 
+  @Autowired
+  private TareaCalculoPersonaService tareaCalculoPersonaService;
+
+  @Autowired
+  private TipoDatoService tipoDatoService;
+
   @Value("#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.insert']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1Repository.calcular']} "
       + "#{calculoPrimaryQuery['TareaCalculoAlgoritmoBaseRepository.calcular.where']}")
@@ -32,16 +41,15 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
   private String sqlCalcularBase;
 
   /**
-   * Constructor que inyecta las dependencias necesarias para el funcionamiento del repositorio.
+   * Implementación común del metodo ids() heredado en las 3 clases hijas.
    *
-   * @param tareaCalculoPersonaService servicio para operaciones con personas
-   * @param tipoDatoService servicio para operaciones con tipos de dato
+   * @param algoritmo el algoritmo para el cual buscar personas
+   * @param tarea la tarea asociada
+   * @return lista de personas locales para el algoritmo
    */
-  @Autowired
-  public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoV1RepositoryCustomImpl(
-      TareaCalculoPersonaService tareaCalculoPersonaService,
-      TipoDatoService tipoDatoService) {
-    super(tareaCalculoPersonaService, tipoDatoService);
+  @Override
+  public final List<IdPersonaLocalDto> ids(AlgoritmoDTO algoritmo, TareaDto tarea) {
+    return this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo);
   }
 
   /**
@@ -50,6 +58,12 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
    */
   @Override
   protected void addSpecificMapValues(Map<String, Object> map, AlgoritmoDTO algoritmo, TareaDto tarea, IdPersonaLocalDto persona) {
+    // Parámetros de tipo de dato de venta por localización y sección
+    final List<IdTipoDatoDto> ids = this.tipoDatoService
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    map.put(SqlPrimaryConstants.SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION,
+        ids.stream().map(IdTipoDatoDto::getId).toList());
+
     map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_INDICADOR_PRESENCIA_DESPLAZAMIENTO,
         TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO.getId());
   }
