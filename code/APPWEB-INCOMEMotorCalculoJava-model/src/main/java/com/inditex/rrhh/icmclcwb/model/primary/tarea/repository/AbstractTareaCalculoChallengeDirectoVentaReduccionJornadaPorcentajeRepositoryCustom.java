@@ -26,10 +26,10 @@ public abstract class AbstractTareaCalculoChallengeDirectoVentaReduccionJornadaP
     extends AbstractTareaCalculoAlgoritmoBaseRepositoryCustom {
 
   @Autowired
-  protected TareaCalculoPersonaService tareaCalculoPersonaService;
+  public TareaCalculoPersonaService tareaCalculoPersonaService;
 
   @Autowired
-  protected TipoDatoService tipoDatoService;
+  public TipoDatoService tipoDatoService;
 
   /**
    * Implementación común del metodo ids() heredado en las 3 clases hijas.
