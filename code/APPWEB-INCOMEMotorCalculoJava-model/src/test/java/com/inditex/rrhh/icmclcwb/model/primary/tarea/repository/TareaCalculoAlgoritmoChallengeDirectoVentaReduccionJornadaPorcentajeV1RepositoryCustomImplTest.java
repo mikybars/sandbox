@@ -79,7 +79,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     // Crear la instancia manualmente pasando las dependencias por constructor
     this.repository = new TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl(
         this.tareaCalculoPersonaService, this.tipoDatoService);
-        
+
     // Inyectar namedParameterJdbcTemplate manualmente (herencia)
     FieldUtils.writeField(this.repository, "namedParameterJdbcTemplate", this.namedParameterJdbcTemplate, true);
     FieldUtils.writeField(this.repository, "sqlCalcular", SQL_CALCULAR, true);
