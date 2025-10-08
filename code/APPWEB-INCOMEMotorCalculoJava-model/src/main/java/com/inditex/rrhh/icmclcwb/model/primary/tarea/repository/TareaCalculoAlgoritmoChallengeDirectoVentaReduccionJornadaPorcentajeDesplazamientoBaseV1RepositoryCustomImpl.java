@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.dto.AlgoritmoDTO;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +39,7 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
    * @param tareaCalculoPersonaService servicio para operaciones con personas
    * @param tipoDatoService servicio para operaciones con tipos de dato
    */
+  @Autowired
   public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl(
       TareaCalculoPersonaService tareaCalculoPersonaService,
       TipoDatoService tipoDatoService) {

@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclcwb.api.app.calcular.service.TipoDatoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,7 @@ public class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentaj
    * @param tareaCalculoPersonaService servicio para operaciones con personas
    * @param tipoDatoService servicio para operaciones con tipos de dato
    */
+  @Autowired
   public TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImpl(
       TareaCalculoPersonaService tareaCalculoPersonaService,
       TipoDatoService tipoDatoService) {
