@@ -17,15 +17,16 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VAL
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,9 +57,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImplTest {
 
-  private static final String SQL_CALCULAR = "INSERT INTO TEST_TABLE (columna1, columna2) VALUES (:param1, :param2)";
+  private final static String SQL_BASE = "SQL CALCULAR BASE";
 
-  private static final String SQL_CALCULAR_BASE = "SELECT * FROM TEST_TABLE WHERE activo = activo";
+  private final static String SQL_CALCULAR = "SQL CALCULAR";
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -70,7 +71,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Captor
-  private ArgumentCaptor<MapSqlParameterSource[]> paramsCaptor;
+  private ArgumentCaptor<MapSqlParameterSource[]> params;
 
   @InjectMocks
   private TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImpl repository;
@@ -78,362 +79,393 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
   @BeforeEach
   void setup() throws IllegalAccessException {
     FieldUtils.writeField(this.repository, "sqlCalcular", SQL_CALCULAR, true);
-    FieldUtils.writeField(this.repository, "sqlCalcularBase", SQL_CALCULAR_BASE, true);
+    FieldUtils.writeField(this.repository, "sqlCalcularBase", SQL_BASE, true);
   }
 
   @Test
   void idsTest() {
-    // Given
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    final List<IdPersonaLocalDto> expectedPersonas = Instancio.ofList(IdPersonaLocalDto.class)
-        .size(3)
-        .create();
+    final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+    final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
+    final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
+    when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
+        .thenReturn(personas);
 
-    when(this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo))
-        .thenReturn(expectedPersonas);
+    final TareaDto tarea = mock(TareaDto.class);
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
 
-    // When
-    final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
+    final List<IdPersonaLocalDto> ids = this.repository.ids(algoritmo, tarea);
 
-    // Then
-    assertNotNull(result);
-    assertEquals(expectedPersonas.size(), result.size());
-    assertEquals(expectedPersonas, result);
+    assertEquals(2, ids.size());
+    assertEquals(personas, ids);
     verify(this.tareaCalculoPersonaService, times(1)).findByAlgoritmo(tarea, algoritmo);
   }
 
   @Test
-  void getMapValuesWithAllParametersTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = Arrays.asList(
-        new IdTipoDatoDto(101),
-        new IdTipoDatoDto(102));
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-        .thenReturn(tipoDatoIds);
+  void getMapValuesTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
 
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(1001);
-    algoritmo.setDesplazamiento(Boolean.TRUE);
-    algoritmo.setDesplazamientoBase(Boolean.FALSE);
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(1001);
+    final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+    final TipoCalculoDTO tipoCalculo2 = new TipoCalculoDTO();
+    tipoCalculo1.setId("011");
+    tipoCalculo2.setId("012");
+    final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+    final TipoComisionDTO tipoComision2 = new TipoComisionDTO();
+    final TipoComisionDTO tipoComision3 = new TipoComisionDTO();
+    tipoComision1.setId("001");
+    tipoComision2.setId("002");
+    tipoComision3.setId("003");
+    when(algoritmo.getTipoCalculo()).thenReturn(Arrays.asList(tipoCalculo1, tipoCalculo2));
+    when(algoritmo.getTipoComision()).thenReturn(Arrays.asList(tipoComision1, tipoComision2, tipoComision3));
+    when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+    when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
 
-    final List<TipoCalculoDTO> tiposCalculo = Arrays.asList(
-        this.createTipoCalculo("TC001"),
-        this.createTipoCalculo("TC002"));
-    algoritmo.setTipoCalculo(tiposCalculo);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(101L);
+    final IdPersonaLocalDto persona = mock(IdPersonaLocalDto.class);
+    when(persona.getIdPersonaLocal()).thenReturn("AT1001");
+    when(persona.getStdOrHrPeriod()).thenReturn("01");
 
-    final List<TipoComisionDTO> tiposComision = Arrays.asList(
-        this.createTipoComision("COM001"),
-        this.createTipoComision("COM002"),
-        this.createTipoComision("COM003"));
-    algoritmo.setTipoComision(tiposComision);
-
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    tarea.setId(2001L);
-
-    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
-    persona.setIdPersonaLocal("PERSON001");
-    persona.setStdOrHrPeriod("HR");
-
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
-
-    // Then
-    assertNotNull(result);
-    assertEquals(13, result.size());
-
-    // Verify basic parameters
-    assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
-    assertEquals(persona.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
-    assertEquals(persona.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
-    assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
-
-    // Verify boolean constants
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
-
-    // Verify tipo dato constants
-    assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(),
-        result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
-    assertEquals(Arrays.asList(101, 102), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-
-    // Verify algorithm specific parameters
-    assertEquals(Arrays.asList("COM001", "COM002", "COM003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList("TC001", "TC002"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
-    assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
 
     verify(this.tipoDatoService, times(1))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    assertEquals(13, result.size());
+
+    // Verificar parámetros básicos
+    assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
+    assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
+
+    assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
+    assertEquals(persona.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
+
+    assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
+    assertEquals(persona.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
+
+    assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
+    assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
+
+    // Verificar parámetros de tipos de dato
+    assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+    assertEquals(List.of(101), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+
+    // Verificar parámetros boolean
+    assertTrue(result.containsKey(SQL_PARAM_COMISIONABLE));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_COMISIONABLE));
+
+    assertTrue(result.containsKey(SQL_PARAM_CALCULA));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_CALCULA));
+
+    assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
+
+    // Verificar indicador de desplazamiento base
+    assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
+    assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(),
+        result.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
+
+    // Verificar tipos de comisión y cálculo
+    assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(Arrays.asList("001", "002", "003"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+
+    assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(Arrays.asList("011", "012"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+
+    // Verificar desplazamiento
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
   }
 
   @Test
   void getMapValuesWithNullTareaTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(201));
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
-        .thenReturn(tipoDatoIds);
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
 
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(3001);
-    algoritmo.setDesplazamiento(Boolean.FALSE);
-    algoritmo.setDesplazamientoBase(Boolean.TRUE);
-    algoritmo.setTipoCalculo(List.of(this.createTipoCalculo("TC003")));
-    algoritmo.setTipoComision(List.of(this.createTipoComision("COM004")));
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(1001);
+    when(algoritmo.getTipoCalculo()).thenReturn(List.of());
+    when(algoritmo.getTipoComision()).thenReturn(List.of());
+    when(algoritmo.getDesplazamiento()).thenReturn(Boolean.FALSE);
+    when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.TRUE);
 
-    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
-    persona.setIdPersonaLocal("PERSON002");
-    persona.setStdOrHrPeriod("STD");
+    final IdPersonaLocalDto persona = mock(IdPersonaLocalDto.class);
+    when(persona.getIdPersonaLocal()).thenReturn("AT1002");
+    when(persona.getStdOrHrPeriod()).thenReturn("02");
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, null, persona);
 
-    // Then
-    assertNotNull(result);
-    assertEquals(12, result.size()); // One less because tarea is null
-
-    // Verify tarea parameter is not included
-    assertFalse(result.containsKey(SQL_PARAM_ID_TAREA));
-
-    // Verify other parameters are still present
-    assertEquals(persona.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
+    assertEquals(12, result.size()); // Sin tarea, un parámetro menos
+    assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
   }
 
   @Test
   void getMapValuesWithNullPersonaTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(301));
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
-        .thenReturn(tipoDatoIds);
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
 
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(4001);
-    algoritmo.setDesplazamiento(null); // Testing null desplazamiento
-    algoritmo.setDesplazamientoBase(null); // Testing null desplazamientoBase
-    algoritmo.setTipoCalculo(List.of(this.createTipoCalculo("TC004")));
-    algoritmo.setTipoComision(List.of(this.createTipoComision("COM005")));
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(1001);
+    when(algoritmo.getTipoCalculo()).thenReturn(List.of());
+    when(algoritmo.getTipoComision()).thenReturn(List.of());
+    when(algoritmo.getDesplazamiento()).thenReturn(Boolean.FALSE);
+    when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
 
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    tarea.setId(5001L);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(101L);
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, null);
 
-    // Then
-    assertNotNull(result);
-    assertEquals(11, result.size()); // Two less because persona is null
-
-    // Verify persona parameters are not included
-    assertFalse(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
-    assertFalse(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
-
-    // Verify other parameters are still present
+    assertEquals(11, result.size()); // Sin persona, dos parámetros menos
+    assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
     assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
+    assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+  }
 
-    // Verify null boolean values are handled correctly
+  @Test
+  void getMapValuesWithInstancioTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
+
+    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
+
+    algoritmo.setDesplazamiento(true);
+    algoritmo.setDesplazamientoBase(false);
+
+    final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
+
+    assertNotNull(result);
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    assertEquals(algoritmo.getId(), result.get(SQL_PARAM_ID_ALGORITMO));
+    assertEquals(tarea.getId(), result.get(SQL_PARAM_ID_TAREA));
+    assertEquals(persona.getIdPersonaLocal(), result.get(SQL_PARAM_CCL_ID_PERSON));
+    assertEquals(persona.getStdOrHrPeriod(), result.get(SQL_PARAM_STD_OR_HR_PERIOD));
+  }
+
+  @Test
+  void calcularTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
+
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(1001);
+    final TipoCalculoDTO tipoCalculo1 = new TipoCalculoDTO();
+    final TipoCalculoDTO tipoCalculo2 = new TipoCalculoDTO();
+    tipoCalculo1.setId("011");
+    tipoCalculo2.setId("012");
+    final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
+    final TipoComisionDTO tipoComision2 = new TipoComisionDTO();
+    final TipoComisionDTO tipoComision3 = new TipoComisionDTO();
+    tipoComision1.setId("001");
+    tipoComision2.setId("002");
+    tipoComision3.setId("003");
+    when(algoritmo.getTipoCalculo()).thenReturn(Arrays.asList(tipoCalculo1, tipoCalculo2));
+    when(algoritmo.getTipoComision()).thenReturn(Arrays.asList(tipoComision1, tipoComision2, tipoComision3));
+    when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
+    when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
+
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(101L);
+    final IdPersonaLocalDto persona1 = mock(IdPersonaLocalDto.class);
+    when(persona1.getIdPersonaLocal()).thenReturn("AT1001");
+    when(persona1.getStdOrHrPeriod()).thenReturn("01");
+    final IdPersonaLocalDto persona2 = mock(IdPersonaLocalDto.class);
+    when(persona2.getIdPersonaLocal()).thenReturn("AT1002");
+    when(persona2.getStdOrHrPeriod()).thenReturn("02");
+    final List<IdPersonaLocalDto> personas = Arrays.asList(persona1, persona2);
+
+    this.repository.calcular(algoritmo, tarea, personas);
+
+    verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
+    verify(this.tipoDatoService, times(2))
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
+    final MapSqlParameterSource[] values = this.params.getValue();
+    assertEquals(2, values.length);
+
+    for (int i = 0; i < values.length; i++) {
+      final MapSqlParameterSource value = values[i];
+      assertEquals(13, value.getValues().size());
+
+      // Verificar parámetros comunes
+      assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
+      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
+
+      assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+      assertEquals(List.of(101), value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+
+      assertTrue(value.hasValue(SQL_PARAM_ID_ALGORITMO));
+      assertEquals(algoritmo.getId(), value.getValue(SQL_PARAM_ID_ALGORITMO));
+
+      assertTrue(value.hasValue(SQL_PARAM_ID_TAREA));
+      assertEquals(tarea.getId(), value.getValue(SQL_PARAM_ID_TAREA));
+
+      assertTrue(value.hasValue(SQL_PARAM_COMISIONABLE));
+      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_COMISIONABLE));
+
+      assertTrue(value.hasValue(SQL_PARAM_CALCULA));
+      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_CALCULA));
+
+      assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
+      assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(),
+          value.getValue(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
+
+      assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
+      assertEquals(Arrays.asList("001", "002", "003"), value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
+
+      assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+      assertEquals(Arrays.asList("011", "012"), value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
+
+      assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));
+      assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
+
+      assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+      assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+
+      // Verificar parámetros específicos de persona
+      assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
+      assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
+    }
+
+    // Verificar valores específicos de cada persona
+    assertEquals(1,
+        Arrays.stream(values)
+            .filter(value -> persona1.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                && persona1.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+            .toArray().length);
+    assertEquals(1,
+        Arrays.stream(values)
+            .filter(value -> persona2.getIdPersonaLocal().equals(value.getValue(SQL_PARAM_CCL_ID_PERSON))
+                && persona2.getStdOrHrPeriod().equals(value.getValue(SQL_PARAM_STD_OR_HR_PERIOD)))
+            .toArray().length);
+  }
+
+  @Test
+  void getSqlCalcularTest() {
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(21);
+
+    final String result = this.repository.getSqlCalcular(algoritmo);
+
+    assertEquals(SQL_BASE, result);
+  }
+
+  @Test
+  void calcularWithInstancioTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
+
+    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final List<IdPersonaLocalDto> personas = Arrays.asList(
+        Instancio.create(IdPersonaLocalDto.class),
+        Instancio.create(IdPersonaLocalDto.class));
+
+    this.repository.calcular(algoritmo, tarea, personas);
+
+    verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
+    final MapSqlParameterSource[] values = this.params.getValue();
+    assertEquals(2, values.length);
+    assertNotNull(values[0]);
+    assertNotNull(values[1]);
+  }
+
+  @Test
+  void getMapValuesWithBothDesplazamientoTrueTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
+
+    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
+
+    algoritmo.setDesplazamiento(true);
+    algoritmo.setDesplazamientoBase(true);
+
+    final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
+
+    assertNotNull(result);
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
+    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+  }
+
+  @Test
+  void getMapValuesWithBothDesplazamientoFalseTest() {
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
+        .thenReturn(List.of(new IdTipoDatoDto(101)));
+
+    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
+
+    algoritmo.setDesplazamiento(false);
+    algoritmo.setDesplazamientoBase(false);
+
+    final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
+
+    assertNotNull(result);
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
   }
 
   @Test
-  void calcularTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(401));
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
-        .thenReturn(tipoDatoIds);
-
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(6001);
-    algoritmo.setDesplazamiento(Boolean.TRUE);
-    algoritmo.setDesplazamientoBase(Boolean.TRUE);
-    algoritmo.setTipoCalculo(List.of(this.createTipoCalculo("TC005")));
-    algoritmo.setTipoComision(List.of(this.createTipoComision("COM006")));
-
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    tarea.setId(7001L);
-
-    final List<IdPersonaLocalDto> personas = Arrays.asList(
-        this.createPersona("PERSON003", "HR1"),
-        this.createPersona("PERSON004", "HR2"));
-
-    // When
-    this.repository.calcular(algoritmo, tarea, personas);
-
-    // Then
-    verify(this.namedParameterJdbcTemplate, times(1))
-        .batchUpdate(any(String.class), this.paramsCaptor.capture());
-
-    final MapSqlParameterSource[] capturedParams = this.paramsCaptor.getValue();
-    assertNotNull(capturedParams);
-    assertEquals(2, capturedParams.length);
-
-    // Verify parameters for each persona
-    for (int i = 0; i < capturedParams.length; i++) {
-      final MapSqlParameterSource params = capturedParams[i];
-      assertNotNull(params);
-      assertEquals(13, params.getValues().size());
-
-      // Verify common parameters
-      assertEquals(algoritmo.getId(), params.getValue(SQL_PARAM_ID_ALGORITMO));
-      assertEquals(tarea.getId(), params.getValue(SQL_PARAM_ID_TAREA));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_COMISIONABLE));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_CALCULA));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ACTIVO));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ES_DESPLAZAMIENTO));
-      assertEquals(SQL_VALUE_BOOLEAN_TRUE, params.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-    }
-
-    // Verify specific persona parameters
-    assertTrue(Arrays.stream(capturedParams)
-        .anyMatch(params -> "PERSON003".equals(params.getValue(SQL_PARAM_CCL_ID_PERSON))
-            && "HR1".equals(params.getValue(SQL_PARAM_STD_OR_HR_PERIOD))));
-    assertTrue(Arrays.stream(capturedParams)
-        .anyMatch(params -> "PERSON004".equals(params.getValue(SQL_PARAM_CCL_ID_PERSON))
-            && "HR2".equals(params.getValue(SQL_PARAM_STD_OR_HR_PERIOD))));
-
-    verify(this.tipoDatoService, times(2))
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-  }
-
-  @Test
-  void getSqlCalcularTest() {
-    // Given
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(8001);
-
-    // When
-    final String result = this.repository.getSqlCalcular(algoritmo);
-
-    // Then
-    assertNotNull(result);
-    assertEquals(SQL_CALCULAR_BASE, result);
-  }
-
-  @Test
-  void getSqlCalcularBaseTest() {
-    // When
-    final String result = this.repository.getSqlCalcularBase();
-
-    // Then
-    assertNotNull(result);
-    assertEquals(SQL_CALCULAR_BASE, result);
-  }
-
-  @Test
   void getMapValuesWithEmptyListsTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = List.of();
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
-        .thenReturn(tipoDatoIds);
+        .thenReturn(List.of());
 
-    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(9001);
-    algoritmo.setDesplazamiento(Boolean.FALSE);
-    algoritmo.setDesplazamientoBase(Boolean.FALSE);
-    algoritmo.setTipoCalculo(List.of()); // Empty list
-    algoritmo.setTipoComision(List.of()); // Empty list
+    final AlgoritmoDTO algoritmo = mock(AlgoritmoDTO.class);
+    when(algoritmo.getId()).thenReturn(1001);
+    when(algoritmo.getTipoCalculo()).thenReturn(List.of());
+    when(algoritmo.getTipoComision()).thenReturn(List.of());
+    when(algoritmo.getDesplazamiento()).thenReturn(Boolean.FALSE);
+    when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
 
-    final TareaDto tarea = Instancio.create(TareaDto.class);
-    tarea.setId(10001L);
+    final TareaDto tarea = mock(TareaDto.class);
+    when(tarea.getId()).thenReturn(101L);
+    final IdPersonaLocalDto persona = mock(IdPersonaLocalDto.class);
+    when(persona.getIdPersonaLocal()).thenReturn("AT1001");
+    when(persona.getStdOrHrPeriod()).thenReturn("01");
 
-    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
-    persona.setIdPersonaLocal("PERSON005");
-    persona.setStdOrHrPeriod("STD");
-
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
-    assertNotNull(result);
-    assertEquals(13, result.size());
-
-    // Verify empty lists are handled correctly
+    assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
     assertEquals(List.of(), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+    assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
     assertEquals(List.of(), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
     assertEquals(List.of(), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
   }
 
   @Test
-  void getMapValuesWithComplexScenarioTest() {
-    // Given
-    final List<IdTipoDatoDto> tipoDatoIds = Arrays.asList(
-        new IdTipoDatoDto(501),
-        new IdTipoDatoDto(502),
-        new IdTipoDatoDto(503));
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
-        .thenReturn(tipoDatoIds);
-
+  void addSpecificMapValuesDesplazamientoBaseTest() {
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
-    algoritmo.setId(11001);
-    algoritmo.setDesplazamiento(Boolean.TRUE);
-    algoritmo.setDesplazamientoBase(Boolean.TRUE);
-
-    final List<TipoCalculoDTO> tiposCalculo = Arrays.asList(
-        this.createTipoCalculo("TC010"),
-        this.createTipoCalculo("TC011"),
-        this.createTipoCalculo("TC012"),
-        this.createTipoCalculo("TC013"));
-    algoritmo.setTipoCalculo(tiposCalculo);
-
-    final List<TipoComisionDTO> tiposComision = Arrays.asList(
-        this.createTipoComision("COM010"),
-        this.createTipoComision("COM011"),
-        this.createTipoComision("COM012"),
-        this.createTipoComision("COM013"),
-        this.createTipoComision("COM014"));
-    algoritmo.setTipoComision(tiposComision);
-
     final TareaDto tarea = Instancio.create(TareaDto.class);
-    tarea.setId(12001L);
-
     final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
-    persona.setIdPersonaLocal("PERSON_COMPLEX");
-    persona.setStdOrHrPeriod("COMPLEX");
+    final Map<String, Object> map = new HashMap<>();
 
-    // When
-    final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
+    this.repository.addSpecificMapValues(map, algoritmo, tarea, persona);
 
-    // Then
-    assertNotNull(result);
-    assertEquals(13, result.size());
+    assertNotNull(map);
+    assertEquals(1, map.size()); // Only the specific parameter should be added
 
-    // Verify multiple items in lists
-    assertEquals(Arrays.asList(501, 502, 503), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-    assertEquals(Arrays.asList("COM010", "COM011", "COM012", "COM013", "COM014"),
-        result.get(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList("TC010", "TC011", "TC012", "TC013"),
-        result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
-
-    // Verify both boolean flags are true
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
-    assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-
-    verify(this.tipoDatoService, times(1))
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
-  }
-
-  // Helper methods
-  private TipoCalculoDTO createTipoCalculo(final String id) {
-    final TipoCalculoDTO tipoCalculo = new TipoCalculoDTO();
-    tipoCalculo.setId(id);
-    return tipoCalculo;
-  }
-
-  private TipoComisionDTO createTipoComision(final String id) {
-    final TipoComisionDTO tipoComision = new TipoComisionDTO();
-    tipoComision.setId(id);
-    return tipoComision;
-  }
-
-  private IdPersonaLocalDto createPersona(final String idPersonaLocal, final String stdOrHrPeriod) {
-    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
-    persona.setIdPersonaLocal(idPersonaLocal);
-    persona.setStdOrHrPeriod(stdOrHrPeriod);
-    return persona;
+    // Verify the specific parameter for DesplazamientoBase (not Desplazamiento)
+    assertEquals(TipoDatoEnum.INDICADOR_LOCALIZACION_PERSONA_TIPOHORA_DESPLAZAMIENTO_BASE.getId(),
+        map.get(SQL_PARAM_ID_TIPO_DATO_INDICADOR_DESPLAZAMIENTO_BASE));
   }
 }

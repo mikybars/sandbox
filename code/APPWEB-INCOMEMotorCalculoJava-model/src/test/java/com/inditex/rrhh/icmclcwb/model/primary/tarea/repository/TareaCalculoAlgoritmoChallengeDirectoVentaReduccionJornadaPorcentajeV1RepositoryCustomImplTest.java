@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +84,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void idsTest() {
-    // Given
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
         .create();
@@ -99,10 +99,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
         .thenReturn(expectedPersonas);
 
-    // When
     final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
 
-    // Then
     assertNotNull(result);
     assertEquals(2, result.size());
     assertEquals(expectedPersonas, result);
@@ -111,7 +109,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void idsTestWithNullValues() {
-    // Given
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
     final TareaDto tarea = null;
 
@@ -122,10 +119,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tareaCalculoPersonaService.findByAlgoritmo(any(), any(AlgoritmoDTO.class)))
         .thenReturn(expectedPersonas);
 
-    // When
     final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
 
-    // Then
     assertNotNull(result);
     assertEquals(1, result.size());
     assertEquals(expectedPersonas, result);
@@ -134,7 +129,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTest() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -147,14 +141,12 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(12, result.size());
 
-    // Verify all expected parameters
+    // Verificar todos los parámetros esperados
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
 
@@ -196,7 +188,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTestWithNullTarea() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = null;
     final IdPersonaLocalDto persona = Instancio.of(IdPersonaLocalDto.class)
@@ -207,22 +198,19 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
-    assertEquals(11, result.size()); // One less parameter since tarea is null
+    assertEquals(11, result.size()); // Un parámetro menos ya que tarea es null
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertTrue(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
     assertTrue(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
-    // Tarea parameters should not be present
+    // Los parámetros de tarea no deberían estar presentes
     assertFalse(result.containsKey(SQL_PARAM_ID_TAREA));
   }
 
   @Test
   void getMapValuesTestWithNullPersona() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -232,22 +220,19 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
-    assertEquals(10, result.size()); // Two less parameters since persona is null
+    assertEquals(10, result.size()); // Dos parámetros menos ya que persona es null
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
     assertTrue(result.containsKey(SQL_PARAM_ID_TAREA));
-    // Persona parameters should not be present
+    // Los parámetros de persona no deberían estar presentes
     assertFalse(result.containsKey(SQL_PARAM_CCL_ID_PERSON));
     assertFalse(result.containsKey(SQL_PARAM_STD_OR_HR_PERIOD));
   }
 
   @Test
   void getMapValuesTestWithDesplazamientoFalse() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmoWithDesplazamientoFalse();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -260,10 +245,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -274,7 +257,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void calcularTest() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -289,10 +271,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     this.repository.calcular(algoritmo, tarea, personas);
 
-    // Then
     verify(this.tipoDatoService, times(2))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(anyString(), this.params.capture());
@@ -304,7 +284,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
       final MapSqlParameterSource value = values[i];
       assertEquals(12, value.getValues().size());
 
-      // Verify common parameters
+      // Verificar parámetros comunes
       assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO));
 
@@ -335,12 +315,12 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
 
-      // Verify persona-specific parameters
+      // Verificar parámetros específicos de persona
       assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
       assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
     }
 
-    // Verify that each persona appears exactly once
+    // Verificar que cada persona aparece exactamente una vez
     final List<String> personIds = Arrays.stream(values)
         .map(value -> (String) value.getValue(SQL_PARAM_CCL_ID_PERSON))
         .toList();
@@ -352,17 +332,14 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void calcularTestWithEmptyPersonas() {
-    // Given
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
         .create();
     final List<IdPersonaLocalDto> personas = List.of();
 
-    // When
     this.repository.calcular(algoritmo, tarea, personas);
 
-    // Then
     verify(this.tipoDatoService, times(0))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(anyString(), this.params.capture());
@@ -373,29 +350,23 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getSqlCalcularTest() {
-    // Given
     final AlgoritmoDTO algoritmo = Instancio.of(AlgoritmoDTO.class)
         .set(Select.field(AlgoritmoDTO::getId), 21)
         .create();
 
-    // When
     final String result = this.repository.getSqlCalcular(algoritmo);
 
-    // Then
     assertEquals(SQL_BASE, result);
   }
 
   @Test
   void getSqlCalcularTestWithDifferentId() {
-    // Given
     final AlgoritmoDTO algoritmo = Instancio.of(AlgoritmoDTO.class)
         .set(Select.field(AlgoritmoDTO::getId), 100)
         .create();
 
-    // When
     final String result = this.repository.getSqlCalcular(algoritmo);
 
-    // Then
     assertEquals(SQL_BASE, result);
   }
 
@@ -436,6 +407,19 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     algoritmo.setDesplazamiento(Boolean.FALSE);
     algoritmo.setDesplazamientoBase(Boolean.TRUE);
     return algoritmo;
+  }
+
+  @Test
+  void addSpecificMapValuesDefaultImplementationTest() {
+    final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
+    final TareaDto tarea = Instancio.create(TareaDto.class);
+    final IdPersonaLocalDto persona = Instancio.create(IdPersonaLocalDto.class);
+    final Map<String, Object> map = new HashMap<>();
+
+    this.repository.addSpecificMapValues(map, algoritmo, tarea, persona);
+
+    assertNotNull(map);
+    assertEquals(0, map.size()); // No se deberían añadir parámetros específicos por la implementación por defecto
   }
 
 }
