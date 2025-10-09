@@ -58,8 +58,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTare
     final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
-      calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea(),
-          tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
+      calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea());
 
       calculoPendienteValidationResult
           .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())

@@ -105,7 +105,7 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   }
 
   @Override
-  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(Long idTarea, String cclIdOrigen, String stdIdLegEnt) {
+  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(Long idTarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     return this.query(

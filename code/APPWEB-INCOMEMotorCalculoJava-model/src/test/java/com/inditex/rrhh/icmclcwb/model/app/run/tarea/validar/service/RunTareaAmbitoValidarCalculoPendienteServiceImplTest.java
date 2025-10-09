@@ -57,8 +57,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
     runTareaDto.setTrabajo(trabajoDTO);
     tareaDto.setId(1L);
 
-    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L, tareaAmbitoDto.getCclIdOrigen(),
-        tareaDto.getStdIdLegEnt())).thenReturn(tareaPersonaImporteExcedidoDtoList);
+    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L)).thenReturn(tareaPersonaImporteExcedidoDtoList);
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, tareaPersonaImporteExcedidoDtoList,
         PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(), tareaDto))
             .thenReturn(new ValidacionDto());
@@ -68,7 +67,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
     this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaCalculoPendienteService, timeout(1000).times(1))
-        .findPersonaCalculoPendiente(1L, tareaAmbitoDto.getCclIdOrigen(), tareaDto.getStdIdLegEnt());
+        .findPersonaCalculoPendiente(1L);
     verify(this.validacionMapper, timeout(1000).times(1)).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
@@ -88,9 +87,8 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
     tareaAmbitoDto.setCclIdOrigen("11");
     trabajoDTO.setId(1L);
 
-    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L, tareaAmbitoDto.getCclIdOrigen(),
-        tareaDto.getStdIdLegEnt()))
-            .thenThrow(new RuntimeException("Test exception"));
+    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L))
+        .thenThrow(new RuntimeException("Test exception"));
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbitoDto, tareaFaseAccionDto, List.of(),
         PrevalidarPropertiesDto.builder().build(), tareaDto))
             .thenReturn(new ValidacionDto());
@@ -98,7 +96,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
     this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaCalculoPendienteService, timeout(1000).times(1))
-        .findPersonaCalculoPendiente(1L, tareaAmbitoDto.getCclIdOrigen(), tareaDto.getStdIdLegEnt());
+        .findPersonaCalculoPendiente(1L);
     verify(this.validacionMapper, timeout(1000).times(1))
         .booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
