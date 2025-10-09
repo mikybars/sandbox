@@ -56,9 +56,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDesplazamientoBaseV1RepositoryCustomImplTest {
 
-  private static final String SQL_CALCULAR = "INSERT INTO TEST_TABLE (columna1, columna2) VALUES (:param1, :param2)";
+  private final static String SQL_CALCULAR = "INSERT INTO TEST_TABLE (columna1, columna2) VALUES (:param1, :param2)";
 
-  private static final String SQL_CALCULAR_BASE = "SELECT * FROM TEST_TABLE WHERE activo = activo";
+  private final static String SQL_CALCULAR_BASE = "SELECT * FROM TEST_TABLE WHERE activo = 1";
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -83,7 +83,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void idsTest() {
-    // Given
+
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
     final List<IdPersonaLocalDto> expectedPersonas = Instancio.ofList(IdPersonaLocalDto.class)
@@ -93,10 +93,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     when(this.tareaCalculoPersonaService.findByAlgoritmo(tarea, algoritmo))
         .thenReturn(expectedPersonas);
 
-    // When
     final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
 
-    // Then
     assertNotNull(result);
     assertEquals(expectedPersonas.size(), result.size());
     assertEquals(expectedPersonas, result);
@@ -105,7 +103,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void getMapValuesWithAllParametersTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = Arrays.asList(
         new IdTipoDatoDto(101),
         new IdTipoDatoDto(102));
@@ -135,10 +133,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     persona.setIdPersonaLocal("PERSON001");
     persona.setStdOrHrPeriod("HR");
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(13, result.size());
 
@@ -170,7 +166,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void getMapValuesWithNullTareaTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(201));
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
         .thenReturn(tipoDatoIds);
@@ -186,10 +182,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     persona.setIdPersonaLocal("PERSON002");
     persona.setStdOrHrPeriod("STD");
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, null, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(12, result.size()); // One less because tarea is null
 
@@ -205,7 +199,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void getMapValuesWithNullPersonaTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(301));
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
         .thenReturn(tipoDatoIds);
@@ -220,10 +214,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     final TareaDto tarea = Instancio.create(TareaDto.class);
     tarea.setId(5001L);
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, null);
 
-    // Then
     assertNotNull(result);
     assertEquals(11, result.size()); // Two less because persona is null
 
@@ -242,7 +234,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void calcularTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = List.of(new IdTipoDatoDto(401));
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
         .thenReturn(tipoDatoIds);
@@ -261,10 +253,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
         this.createPersona("PERSON003", "HR1"),
         this.createPersona("PERSON004", "HR2"));
 
-    // When
     this.repository.calcular(algoritmo, tarea, personas);
 
-    // Then
     verify(this.namedParameterJdbcTemplate, times(1))
         .batchUpdate(any(String.class), this.paramsCaptor.capture());
 
@@ -302,31 +292,28 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void getSqlCalcularTest() {
-    // Given
+
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
     algoritmo.setId(8001);
 
-    // When
     final String result = this.repository.getSqlCalcular(algoritmo);
 
-    // Then
     assertNotNull(result);
     assertEquals(SQL_CALCULAR_BASE, result);
   }
 
   @Test
   void getSqlCalcularBaseTest() {
-    // When
+
     final String result = this.repository.getSqlCalcularBase();
 
-    // Then
     assertNotNull(result);
     assertEquals(SQL_CALCULAR_BASE, result);
   }
 
   @Test
   void getMapValuesWithEmptyListsTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = List.of();
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(any(Integer.class)))
         .thenReturn(tipoDatoIds);
@@ -345,10 +332,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     persona.setIdPersonaLocal("PERSON005");
     persona.setStdOrHrPeriod("STD");
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(13, result.size());
 
@@ -360,7 +345,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
 
   @Test
   void getMapValuesWithComplexScenarioTest() {
-    // Given
+
     final List<IdTipoDatoDto> tipoDatoIds = Arrays.asList(
         new IdTipoDatoDto(501),
         new IdTipoDatoDto(502),
@@ -395,10 +380,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeDespla
     persona.setIdPersonaLocal("PERSON_COMPLEX");
     persona.setStdOrHrPeriod("COMPLEX");
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(13, result.size());
 

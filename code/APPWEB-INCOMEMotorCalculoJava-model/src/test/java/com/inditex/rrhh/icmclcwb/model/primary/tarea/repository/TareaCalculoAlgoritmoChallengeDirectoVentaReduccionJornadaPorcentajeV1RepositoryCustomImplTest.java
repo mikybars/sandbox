@@ -56,9 +56,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1RepositoryCustomImplTest {
 
-  private static final String SQL_BASE = "SQL CALCULAR BASE";
+  private final static String SQL_BASE = "SQL CALCULAR BASE";
 
-  private static final String SQL_CALCULAR = "SQL CALCULAR";
+  private final static String SQL_CALCULAR = "SQL CALCULAR";
 
   @Mock
   private TareaCalculoPersonaService tareaCalculoPersonaService;
@@ -83,7 +83,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void idsTest() {
-    // Given
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
         .create();
@@ -99,10 +98,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tareaCalculoPersonaService.findByAlgoritmo(any(TareaDto.class), any(AlgoritmoDTO.class)))
         .thenReturn(expectedPersonas);
 
-    // When
     final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
 
-    // Then
     assertNotNull(result);
     assertEquals(2, result.size());
     assertEquals(expectedPersonas, result);
@@ -111,7 +108,6 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void idsTestWithNullValues() {
-    // Given
     final AlgoritmoDTO algoritmo = Instancio.create(AlgoritmoDTO.class);
     final TareaDto tarea = null;
 
@@ -122,10 +118,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tareaCalculoPersonaService.findByAlgoritmo(any(), any(AlgoritmoDTO.class)))
         .thenReturn(expectedPersonas);
 
-    // When
     final List<IdPersonaLocalDto> result = this.repository.ids(algoritmo, tarea);
 
-    // Then
     assertNotNull(result);
     assertEquals(1, result.size());
     assertEquals(expectedPersonas, result);
@@ -134,7 +128,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTest() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -147,10 +141,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(12, result.size());
 
@@ -196,7 +188,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTestWithNullTarea() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = null;
     final IdPersonaLocalDto persona = Instancio.of(IdPersonaLocalDto.class)
@@ -207,10 +199,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(11, result.size()); // One less parameter since tarea is null
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
@@ -222,7 +212,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTestWithNullPersona() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -232,10 +222,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertEquals(10, result.size()); // Two less parameters since persona is null
     assertTrue(result.containsKey(SQL_PARAM_ID_ALGORITMO));
@@ -247,7 +235,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getMapValuesTestWithDesplazamientoFalse() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmoWithDesplazamientoFalse();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -260,10 +248,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     final Map<String, Object> result = this.repository.getMapValues(algoritmo, tarea, persona);
 
-    // Then
     assertNotNull(result);
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -274,7 +260,7 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void calcularTest() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
@@ -289,10 +275,8 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
     when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
         .thenReturn(List.of(new IdTipoDatoDto(1011)));
 
-    // When
     this.repository.calcular(algoritmo, tarea, personas);
 
-    // Then
     verify(this.tipoDatoService, times(2))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(anyString(), this.params.capture());
@@ -352,17 +336,15 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void calcularTestWithEmptyPersonas() {
-    // Given
+
     final AlgoritmoDTO algoritmo = this.createTestAlgoritmo();
     final TareaDto tarea = Instancio.of(TareaDto.class)
         .set(Select.field(TareaDto::getId), 101L)
         .create();
     final List<IdPersonaLocalDto> personas = List.of();
 
-    // When
     this.repository.calcular(algoritmo, tarea, personas);
 
-    // Then
     verify(this.tipoDatoService, times(0))
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(anyString(), this.params.capture());
@@ -373,29 +355,25 @@ class TareaCalculoAlgoritmoChallengeDirectoVentaReduccionJornadaPorcentajeV1Repo
 
   @Test
   void getSqlCalcularTest() {
-    // Given
+
     final AlgoritmoDTO algoritmo = Instancio.of(AlgoritmoDTO.class)
         .set(Select.field(AlgoritmoDTO::getId), 21)
         .create();
 
-    // When
     final String result = this.repository.getSqlCalcular(algoritmo);
 
-    // Then
     assertEquals(SQL_BASE, result);
   }
 
   @Test
   void getSqlCalcularTestWithDifferentId() {
-    // Given
+
     final AlgoritmoDTO algoritmo = Instancio.of(AlgoritmoDTO.class)
         .set(Select.field(AlgoritmoDTO::getId), 100)
         .create();
 
-    // When
     final String result = this.repository.getSqlCalcular(algoritmo);
 
-    // Then
     assertEquals(SQL_BASE, result);
   }
 
