@@ -61,17 +61,6 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
       importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea(),
           tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
 
-      LOG.info("Trabajo[{}]Tarea[{}] :: Lista de personas con importe excedido: {} empleados encontrados",
-          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), importeExcedidoValidationResult.size());
-
-      if (importeExcedidoValidationResult.isEmpty()) {
-        LOG.info("Trabajo[{}]Tarea[{}] :: No se encontraron personas con importe excedido - No se enviará correo",
-            runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId());
-      } else {
-        LOG.info("Trabajo[{}]Tarea[{}] :: Se encontraron {} personas con importe excedido - Se enviará correo",
-            runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), importeExcedidoValidationResult.size());
-      }
-
       importeExcedidoValidationResult
           .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
               .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));

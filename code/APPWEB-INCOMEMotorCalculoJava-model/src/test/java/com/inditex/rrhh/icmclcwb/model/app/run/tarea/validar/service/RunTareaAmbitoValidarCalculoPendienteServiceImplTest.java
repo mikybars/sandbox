@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImplTest {
+public class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
   @Mock
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
@@ -38,7 +38,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImplTest {
   private ValidacionMapper validacionMapper;
 
   @InjectMocks
-  private RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl runTareaAmbitoValidarCalculoPendiente;
+  private RunTareaAmbitoValidarCalculoPendienteServiceImpl runTareaAmbitoValidarCalculoPendiente;
 
   @Test
   void executeTest() {

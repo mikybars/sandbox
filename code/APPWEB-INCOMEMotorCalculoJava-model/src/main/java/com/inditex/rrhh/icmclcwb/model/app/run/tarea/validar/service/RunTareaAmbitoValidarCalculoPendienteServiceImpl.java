@@ -28,9 +28,9 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements RunTareaAmbitoValidarCalculoPendienteService {
+public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTareaAmbitoValidarCalculoPendienteService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarCalculoPendienteServiceImpl.class);
 
   @Autowired
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
@@ -61,17 +61,6 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements 
       calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea(),
           tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
 
-      LOG.info("Trabajo[{}]Tarea[{}] :: Lista de personas con cálculo pendiente: {} empleados encontrados",
-          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), calculoPendienteValidationResult.size());
-
-      if (calculoPendienteValidationResult.isEmpty()) {
-        LOG.info("Trabajo[{}]Tarea[{}] :: No se encontraron personas con cálculo pendiente - No se enviará correo",
-            runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId());
-      } else {
-        LOG.info("Trabajo[{}]Tarea[{}] :: Se encontraron {} personas con cálculo pendiente - Se enviará correo",
-            runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), calculoPendienteValidationResult.size());
-      }
-
       calculoPendienteValidationResult
           .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
               .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
@@ -85,7 +74,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements 
         this.mailService.sendMail(validacionDtos, runTareaDto);
       }
     } catch (final Exception e) {
-      RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl.LOG.error(
+      RunTareaAmbitoValidarCalculoPendienteServiceImpl.LOG.error(
           "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }
