@@ -25,4 +25,5 @@ public interface TareaCalculoRepositoryCustom {
   List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea, @NotNull String cclIdOrigen,
       @NotNull String stdIdLegEnt);
 
+  List<IdPersonaLocalDto> findPersonaPorcentaje0(@NotNull Long idTarea);
 }

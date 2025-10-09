@@ -11,7 +11,7 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 1.50.0
+  WORKFLOW_VERSION: 1.50.1
 
 jobs:
   linter:
@@ -65,6 +65,12 @@ jobs:
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
+
+      - name: Setup Poetry tool
+        uses: inditex/gha-ivmactions/setup-tool@v1
+        with:
+          tool-name: ivm-poetry
+          tool-version: 1.2.2
 
       - name: Comment
         uses: inditex/gha-alerthub/code/alerthub/pr_comment@main

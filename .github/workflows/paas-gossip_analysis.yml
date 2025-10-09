@@ -25,7 +25,7 @@ on:
         default: 'SNAPSHOT'
 
 env:
-  WORKFLOW_VERSION: 3.4.1
+  WORKFLOW_VERSION: 3.4.2
   SUPRAENVIRONMENT: pro
   APP_PATH: /opt/inditex/runner-volume/tools/gossip/releases/
   TMP_PATH: /tmp/gossip/sre
@@ -82,7 +82,7 @@ jobs:
 
       - name: "Get metadata"
         id: metadata
-        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         shell: python
         run: |
           import yaml
@@ -94,7 +94,9 @@ jobs:
              githubfile.write("PROJECT_KEY=" + application["metadata"]["project_key"])
 
       - name: "Launch Gossip Config Generator"
-        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        id: gossip-config
+        if: ${{ env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
+        continue-on-error: true
         uses: inditex/gha-sreactions/gossip/gossip-config@gossip-v13
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
@@ -102,19 +104,28 @@ jobs:
           project-key: ${{ env.PROJECT_KEY }}
           ceph-access-key-id: ${{ env.CEPH_ACCESS_KEY_ID }}
           ceph-secret-access-key: ${{ env.CEPH_SECRET_ACCESS_KEY }}
-          gossipsrv-url: ${{ env.SSCC_URL }}
+          gossipsrv-url: "${{ env.SSCC_URL }}"
           gossipsrv-user: ${{ env.OAUTH_GOSSIP_USERNAME }}
           gossipsrv-pass: "${{ env.OAUTH_GOSSIP_PASSWORD }}"
           tmp-path: ${{ env.TMP_PATH }}
           paas-cli-path: ${{ steps.setup-cli.outputs.path }}
 
+      - name: "Set HAS_PRO to false on Gossip Config Generator failure"
+        if: ${{ steps.gossip-config.outcome == 'failure' }}
+        shell: python
+        run: |
+          import os
+          env_file = os.getenv('GITHUB_ENV')
+          with open(env_file, "a") as githubfile:
+            githubfile.write("HAS_PRO=false\n")
+
       - name: "Merge Config Files"
-        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         run: |
           "$APP_PATH" merge -p "${GITHUB_WORKSPACE}/paas" -d "$TMP_PATH"/target -s "$SUPRAENVIRONMENT" -c "${GITHUB_WORKSPACE}/code"
 
       - name: "Download CEPH Rules"
-        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         run: |
           "$APP_PATH" download -i releases/latest.zip -d "$TMP_PATH"/rules
 
@@ -124,12 +135,12 @@ jobs:
           echo "BLOCKED=--blocked" >> "$GITHUB_ENV"
 
       - name: "Gossip analyze"
-        if: ${{ env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         run: |
           "$APP_PATH" analyze -r "$TMP_PATH"/rules -t "$TMP_PATH"/target -n "$RULE_NAMESPACE" -d "$TMP_PATH"/data.json -x "$TMP_PATH"/result -l "$TMP_PATH"/appreport.html.tmpl "$BLOCKED"
 
       - name: "Upload Gossip analysis results"
-        if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ always() && !cancelled() && env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: Gossip Analysis
@@ -137,7 +148,7 @@ jobs:
           if-no-files-found: warn
 
       - name: "Send Report Event"
-        if: ${{ always() && !cancelled() && env.HAS_PRO && env.APPLYING_WORKFLOW }}
+        if: ${{ always() && !cancelled() && env.HAS_PRO == 'true' && env.APPLYING_WORKFLOW == 'true' }}
         uses: inditex/gha-sreactions/gossip/gossip-event@gossip-v13
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}

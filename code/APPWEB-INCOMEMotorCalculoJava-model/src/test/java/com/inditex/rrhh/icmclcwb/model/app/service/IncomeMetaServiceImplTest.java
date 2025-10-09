@@ -14,19 +14,13 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
-import com.inditex.rrhh.icmclcwb.rest.client.api.AgrupacionesOnlineApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionPrecioHoraApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadosApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.ExternosApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.PeriodoApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.ConfiguracionApi;
+import com.inditex.rrhh.icmclcwb.rest.client.api.EmpleadoApi;
 import com.inditex.rrhh.icmclcwb.rest.client.api.TiendaApi;
-import com.inditex.rrhh.icmclcwb.rest.client.api.TiposventachallengeApi;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.AgrupacionesOnlineResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.EmpleadoExternoDTO;
-import com.inditex.rrhh.icmclcwb.rest.client.dto.ExternosRequestDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.PeriodoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.PresupuestoResponseDTO;
 import com.inditex.rrhh.icmclcwb.rest.client.dto.TiendaResponseDTO;
@@ -49,47 +43,28 @@ class IncomeMetaServiceImplTest {
   private Logger log;
 
   @Mock
-  @Qualifier("tiposventachallengeIncomeMetaApiClient")
-  private TiposventachallengeApi tiposventachallengeApi;
-
-  @Mock
-  @Qualifier("externosIncomeMetaApiClient")
-  private ExternosApi externosApi;
-
-  @Mock
-  @Qualifier("empleadosIncomeMetaApiClient")
-  private EmpleadosApi empleadosApi;
+  @Qualifier("empleadoIncomeMetaApiClient")
+  private EmpleadoApi empleadoApi;
 
   @Mock
   @Qualifier("tiendaIncomeMetaApiClient")
   private TiendaApi tiendaApi;
 
   @Mock
-  @Qualifier("presupuestosIncomeMetaApiClient")
-  private PresupuestosApi presupuestosApi;
-
-  @Mock
-  @Qualifier("periodoIncomeMetaApiClient")
-  private PeriodoApi periodoApi;
-
-  @Mock
-  @Qualifier("agrupacionesOnlineIncomeMetaApiClient")
-  private AgrupacionesOnlineApi agrupacionesOnlineApi;
-
-  @Mock
-  @Qualifier("configuracionPrecioHoraApiIncomeMetaApiClient")
-  private ConfiguracionPrecioHoraApi configuracionPrecioHoraApi;
+  @Qualifier("configuracionIncomeMetaApiClient")
+  private ConfiguracionApi configuracionApi;
 
   @InjectMocks
   private IncomeMetaServiceImpl incomeMetaService;
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
-  void getEmpleadosExternosExcluidosDenominadorTest(final ExternosRequestDTO request,
-      final List<EmpleadoExternoDTO> response) {
-    doReturn(response).when(this.externosApi).findExternos(request);
+  void getEmpleadosExternosExcluidosDenominadorTest(final String idOrganization, final LocalDate fechaInicio, final LocalDate fechaFin,
+      final List<Long> puestos, final String stdIdHrType, final List<EmpleadoExternoDTO> response) {
+    doReturn(response).when(this.empleadoApi).findExternos(idOrganization, fechaInicio, fechaFin, puestos, stdIdHrType);
 
-    final List<EmpleadoExternoDTO> result = this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(request);
+    final List<EmpleadoExternoDTO> result =
+        this.incomeMetaService.getEmpleadosExternosExcluidosDenominador(idOrganization, fechaInicio, fechaFin, puestos, stdIdHrType);
     Assertions.assertEquals(response, result);
   }
 
@@ -102,7 +77,7 @@ class IncomeMetaServiceImplTest {
     final List<String> idsCadena = dto.getIdsCadena();
     final Boolean esEmpresa = CollectionUtils.isNotEmpty((idsEmpresa));
 
-    doReturn(response).when(this.empleadosApi).listEmpleados(dto.getIdOrigen(), esEmpresa ? idsEmpresa : idsCadena,
+    doReturn(response).when(this.empleadoApi).listEmpleados(dto.getIdOrigen(), esEmpresa ? idsEmpresa : idsCadena,
         dto.getFechaInicio().toLocalDate(),
         dto.getFechaFin().toLocalDate(), esEmpresa);
 
@@ -115,7 +90,7 @@ class IncomeMetaServiceImplTest {
   void getTiposVentaChallengeTest() {
     final List<TiposVentaChallengeResponseDTO> mockResponse = Collections.singletonList(new TiposVentaChallengeResponseDTO());
     when(
-        this.tiposventachallengeApi.findTiposVentaChallenge(anyString(), anyInt(), any(LocalDate.class), any(LocalDate.class), anyString()))
+        this.configuracionApi.findTiposVentaChallenge(anyString(), anyInt(), any(LocalDate.class), any(LocalDate.class), anyString()))
             .thenReturn(mockResponse);
 
     final List<TiposVentaChallengeResponseDTO> result =
@@ -143,7 +118,7 @@ class IncomeMetaServiceImplTest {
   void getPeriodosTest() {
     final PeriodoResponseDTO mockResponse = new PeriodoResponseDTO();
     when(
-        this.periodoApi.periodos("01", 1, true, true))
+        this.tiendaApi.periodos("01", 1, true, true))
             .thenReturn(mockResponse);
 
     final PeriodoResponseDTO result =
@@ -157,7 +132,7 @@ class IncomeMetaServiceImplTest {
   void getPresupuestosTest() {
     final List<PresupuestoResponseDTO> mockResponse = Collections.singletonList(new PresupuestoResponseDTO());
     when(
-        this.presupuestosApi.getPresupuesto(List.of(1), LocalDate.now(), LocalDate.now(), "PL"))
+        this.tiendaApi.getPresupuesto(List.of(1), LocalDate.now(), LocalDate.now(), "PL"))
             .thenReturn(mockResponse);
 
     final List<PresupuestoResponseDTO> result =
@@ -171,7 +146,7 @@ class IncomeMetaServiceImplTest {
   void getAgrupOnline() {
     final List<AgrupacionesOnlineResponseDTO> mockResponse = Collections.singletonList(new AgrupacionesOnlineResponseDTO());
     when(
-        this.agrupacionesOnlineApi.findAgrupacionesOnline("PL"))
+        this.configuracionApi.findAgrupacionesOnline("PL"))
             .thenReturn(mockResponse);
 
     final List<AgrupacionesOnlineResponseDTO> result =
@@ -185,7 +160,7 @@ class IncomeMetaServiceImplTest {
   void getConfPrecioHoraTest() {
     final List<ConfiguracionPrecioHoraResponseDTO> mockResponse = Collections.singletonList(new ConfiguracionPrecioHoraResponseDTO());
     when(
-        this.configuracionPrecioHoraApi.getConfPrecioHora("PL", LocalDate.now(), LocalDate.now().plusDays(30)))
+        this.configuracionApi.getConfPrecioHora("PL", LocalDate.now(), LocalDate.now().plusDays(30)))
             .thenReturn(mockResponse);
 
     final List<ConfiguracionPrecioHoraResponseDTO> result =

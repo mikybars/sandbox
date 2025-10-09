@@ -8,7 +8,7 @@ Only manual dispatch.
 
 ## Where does it run?
 
-The `linter` job runs in `ubuntu-20.04` GitHub infrastructure.
+The `linter` job runs in `ubuntu-24.04` GitHub infrastructure.
 The `monit` job runs in [github-runners](https://github.com/inditex/github-runners) self hosted.
 
 ## Steps
