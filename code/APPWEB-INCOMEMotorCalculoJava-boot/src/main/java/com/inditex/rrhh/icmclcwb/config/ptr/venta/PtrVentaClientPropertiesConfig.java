@@ -21,33 +21,26 @@ public class PtrVentaClientPropertiesConfig {
 
   private Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
 
-  private Map<String, PtrPropertiesDto> acumuladoVentaImporte = new HashMap<>();
-
   private String version;
 
   @Bean(name = "ventaGeneralProperties")
   public Map<String, PtrPropertiesDto> ptrVentaGeneralProperties() {
-    return ventaGeneral;
+    return this.ventaGeneral;
   }
 
   @Bean(name = "ventaEmpleadoProperties")
   public Map<String, PtrPropertiesDto> ptrVentaEmpleadoProperties() {
-    return ventaEmpleado;
+    return this.ventaEmpleado;
   }
 
   @Bean(name = "ventaEcommerceProperties")
   public Map<String, PtrPropertiesDto> ptrVentaEcommerceProperties() {
-    return ventaEcommerce;
-  }
-
-  @Bean(name = "acumuladoVentaImporteProperties")
-  public Map<String, PtrPropertiesDto> ptrAcumuladoVentaImporteProperties() {
-    return acumuladoVentaImporte;
+    return this.ventaEcommerce;
   }
 
   @Bean(name = "ventaVersion")
   public String ptrVentaVersion() {
-    return version;
+    return this.version;
   }
 
 }

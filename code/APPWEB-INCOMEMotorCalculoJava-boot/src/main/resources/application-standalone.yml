@@ -1023,13 +1023,6 @@ app:
                 maxPersistenceSize: 3
                 periodSize: 1
                 periodType: MONTHS
-            getOrdersByCountrySectionProductHour:
-              endpoint: /ventaEcommerce/getOrdersByCountrySectionProductHour
-              filter:
-                maxPageSize: 1000
-                maxPersistenceSize: 3
-                periodSize: 1
-                periodType: MONTHS
             getVentaOnlinePicking:
               endpoint: /ventaEcommerce/getVentaOnlinePicking
               filter:
