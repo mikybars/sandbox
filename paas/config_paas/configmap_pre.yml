@@ -556,7 +556,7 @@ app:
             getVentaIndividualDetalle:
               endpoint: /ventaEmpleado/getVentaIndividualDetalle
               filter:
-                maxPageSize: 10
+                maxPageSize: 5
                 maxPersistenceSize: 3
                 periodSize: 0
                 periodType: MONTHS
