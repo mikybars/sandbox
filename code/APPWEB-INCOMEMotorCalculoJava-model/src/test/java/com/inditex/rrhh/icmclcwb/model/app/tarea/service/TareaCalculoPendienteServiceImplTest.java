@@ -30,14 +30,12 @@ public class TareaCalculoPendienteServiceImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaTest() {
     final Long idTarea = 1L;
-    final String cclIdOrigen = "11";
-    final String stdIdLegEnt = "8";
     final List<IdPersonaLocalDto> expectedResults = List.of(new IdPersonaLocalDto());
-    when(this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt))
+    when(this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea))
         .thenReturn(expectedResults);
 
     final List<IdPersonaLocalDto> results =
-        this.tareaCalculoPendienteService.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt);
+        this.tareaCalculoPendienteService.findPersonaCalculoPendiente(idTarea);
 
     assertEquals(expectedResults, results);
   }
@@ -45,13 +43,11 @@ public class TareaCalculoPendienteServiceImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaNoDataTest() {
     final Long idTarea = 1L;
-    final String cclIdOrigen = "11";
-    final String stdIdLegEnt = "8";
-    when(this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt))
+    when(this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea))
         .thenReturn(Collections.emptyList());
 
     final List<IdPersonaLocalDto> results =
-        this.tareaCalculoPendienteService.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt);
+        this.tareaCalculoPendienteService.findPersonaCalculoPendiente(idTarea);
 
     assertEquals(Collections.emptyList(), results);
   }

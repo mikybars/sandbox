@@ -16,7 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaImporteExcedidoService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPendienteService;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
@@ -29,13 +29,13 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
+class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
   @Mock
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
 
   @Mock
-  private TareaImporteExcedidoService tareaImporteExcedidoService;
+  private TareaCalculoPendienteService tareaCalculoPendienteService;
 
   @Mock
   private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
@@ -47,7 +47,7 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
   private ValidacionMapper validacionMapper;
 
   @InjectMocks
-  private RunTareaAmbitoValidarImporteExcedidoServiceImpl runTareaAmbitoValidarImporteExcedidoServiceImpl;
+  private RunTareaAmbitoValidarCalculoPendienteServiceImpl runTareaAmbitoValidarCalculoPendiente;
 
   @Test
   void executeWithResultsTest() {
@@ -56,19 +56,19 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     final TareaFaseAccionDto tareaFaseAccionDto = this.createTareaFaseAccionDto();
     final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
     idPersonaLocalDto.setIdPersonaLocal("12345");
-    final List<IdPersonaLocalDto> tareaPersonaImporteExcedidoDtoList = List.of(idPersonaLocalDto);
+    final List<IdPersonaLocalDto> calculoPendienteList = List.of(idPersonaLocalDto);
     final ValidacionDto validacionDto = new ValidacionDto();
 
-    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L, "11", "8"))
-        .thenReturn(tareaPersonaImporteExcedidoDtoList);
+    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L))
+        .thenReturn(calculoPendienteList);
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any()))
         .thenReturn(validacionDto);
     when(this.validacionMapper.booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true))
         .thenReturn(new ValidacionDto());
 
-    this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
+    this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
-    verify(this.tareaImporteExcedidoService).findPersonaImporteExcedidoByIdTarea(1L, "11", "8");
+    verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.mailService).sendMail(anyList(), any(RunTareaDto.class));
     verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
@@ -82,16 +82,16 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     final List<IdPersonaLocalDto> emptyList = Collections.emptyList();
     final ValidacionDto validacionDto = new ValidacionDto();
 
-    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L, "11", "8"))
+    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L))
         .thenReturn(emptyList);
     when(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any()))
         .thenReturn(validacionDto);
     when(this.validacionMapper.booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true))
         .thenReturn(new ValidacionDto());
 
-    this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
+    this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
-    verify(this.tareaImporteExcedidoService).findPersonaImporteExcedidoByIdTarea(1L, "11", "8");
+    verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.mailService, never()).sendMail(anyList(), any(RunTareaDto.class));
     verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
@@ -103,14 +103,14 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = this.createTareaAmbitoDto();
     final TareaFaseAccionDto tareaFaseAccionDto = this.createTareaFaseAccionDto();
 
-    when(this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(1L, "11", "8"))
+    when(this.tareaCalculoPendienteService.findPersonaCalculoPendiente(1L))
         .thenThrow(new RuntimeException("Test exception"));
     when(this.validacionMapper.booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true))
         .thenReturn(new ValidacionDto());
 
-    this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
+    this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
-    verify(this.tareaImporteExcedidoService).findPersonaImporteExcedidoByIdTarea(1L, "11", "8");
+    verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
