@@ -30,7 +30,7 @@ public class RunTareaValidarCalculoPendienteServiceImplTest {
   private TareaFaseAccionService tareaFaseAccionService;
 
   @Mock
-  private RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl runTareaAmbitoValidarCalculoPendienteServiceService;
+  private RunTareaAmbitoValidarCalculoPendienteServiceImpl runTareaAmbitoValidarCalculoPendienteServiceService;
 
   @Mock
   private AccionService accionService;

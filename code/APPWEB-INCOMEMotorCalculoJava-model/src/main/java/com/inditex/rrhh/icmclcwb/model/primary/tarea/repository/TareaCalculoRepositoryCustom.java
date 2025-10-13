@@ -22,8 +22,7 @@ public interface TareaCalculoRepositoryCustom {
   List<IdPersonaLocalDto> findPersonaImporteExcedidoByIdTarea(@NotNull Long idTarea, @NotNull String cclIdOrigen,
       @NotNull String stdIdLegEnt);
 
-  List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea, @NotNull String cclIdOrigen,
-      @NotNull String stdIdLegEnt);
+  List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea);
 
   List<IdPersonaLocalDto> findPersonaPorcentaje0(@NotNull Long idTarea);
 }

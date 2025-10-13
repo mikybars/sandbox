@@ -19,8 +19,7 @@ public class TareaCalculoPendienteServiceImpl implements TareaCalculoPendienteSe
   private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
   @Override
-  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea, @NotNull String cclIdOrigen,
-      @NotNull String stdIdLegEnt) {
-    return this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea, cclIdOrigen, stdIdLegEnt);
+  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea) {
+    return this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea);
   }
 }
