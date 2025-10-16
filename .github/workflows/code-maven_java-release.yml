@@ -43,14 +43,14 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.35.0
+  WORKFLOW_VERSION: 2.37.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r1
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
   SCM_EMAIL: srvcibot@inditex.com
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   SCM_USERNAME: butler-ci-bot
@@ -145,9 +145,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r1
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu24.04-r2
+          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r6
+          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r4
         with:
           tool-versions-directory: code
           github-token: ${{ secrets.GH_TOKEN_READER }}

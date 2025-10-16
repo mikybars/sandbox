@@ -37,6 +37,9 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   @Value("#{primaryQuery['TareaCalculoRepositoryCustom.findPersonaCalculoPendiente']}")
   private String sqlRecuperarPersonasCalculoPendiente;
 
+  @Value("#{primaryQuery['TareaCalculoRepositoryCustom.findPersonaPorcentaje0']}")
+  private String sqlRecuperarPersonasPorcentaje0;
+
   @Override
   public void regularizarMejorOpcion(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
@@ -102,13 +105,24 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   }
 
   @Override
-  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(Long idTarea, String cclIdOrigen, String stdIdLegEnt) {
+  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(Long idTarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
     params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
-    params.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
-    params.addValue(SqlPrimaryConstants.SQL_PARAM_STD_ID_LEG_ENT, stdIdLegEnt);
     return this.query(
         this.sqlRecuperarPersonasCalculoPendiente,
+        params, (rs, rowNum) -> {
+          final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+          dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_CCL_ID_PERSON));
+          return dto;
+        });
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> findPersonaPorcentaje0(Long idTarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    return this.query(
+        this.sqlRecuperarPersonasPorcentaje0,
         params, (rs, rowNum) -> {
           final IdPersonaLocalDto dto = new IdPersonaLocalDto();
           dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_CCL_ID_PERSON));
