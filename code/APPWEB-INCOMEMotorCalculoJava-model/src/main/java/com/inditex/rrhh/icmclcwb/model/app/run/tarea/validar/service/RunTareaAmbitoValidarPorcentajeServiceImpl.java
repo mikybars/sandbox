@@ -70,9 +70,6 @@ public class RunTareaAmbitoValidarPorcentajeServiceImpl implements RunTareaAmbit
           .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, porcentaje0ValidationResult,
               PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
               runTareaDto.getTarea()));
-      if (!porcentaje0ValidationResult.isEmpty()) {
-        this.mailService.sendMail(validacionDtos, runTareaDto);
-      }
 
     } catch (final Exception e) {
       RunTareaAmbitoValidarPorcentajeServiceImpl.LOG.error(

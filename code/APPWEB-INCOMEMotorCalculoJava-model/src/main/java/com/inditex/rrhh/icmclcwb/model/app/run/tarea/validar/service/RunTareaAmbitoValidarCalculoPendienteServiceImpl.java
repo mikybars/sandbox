@@ -69,9 +69,6 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTare
           .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
               PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
               runTareaDto.getTarea()));
-      if (!calculoPendienteValidationResult.isEmpty()) {
-        this.mailService.sendMail(validacionDtos, runTareaDto);
-      }
     } catch (final Exception e) {
       RunTareaAmbitoValidarCalculoPendienteServiceImpl.LOG.error(
           "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",

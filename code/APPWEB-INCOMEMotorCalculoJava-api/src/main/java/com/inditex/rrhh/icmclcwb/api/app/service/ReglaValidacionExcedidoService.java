@@ -9,8 +9,8 @@ public interface ReglaValidacionExcedidoService {
   /**
    * Find rules by cclIdOrigen and stdIdLegEnt.
    *
-   * @param cclIdOrigen the CCL ID origen
-   * @param stdIdLegEnt the STD ID leg ent
+   * @param cclIdOrigen cclIdOrigen
+   * @param stdIdLegEnt stdIdLegEnt
    * @return the list of rules
    */
   List<ReglaValidacionExcedidoDto> findByCclIdOrigenAndStdIdLegEnt(String cclIdOrigen, String stdIdLegEnt);
