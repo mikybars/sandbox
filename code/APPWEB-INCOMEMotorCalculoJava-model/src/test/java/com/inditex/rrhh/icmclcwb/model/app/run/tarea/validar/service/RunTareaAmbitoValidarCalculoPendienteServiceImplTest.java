@@ -2,7 +2,6 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,7 +11,6 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -41,9 +39,6 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
   private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
   @Mock
-  private MailService mailService;
-
-  @Mock
   private ValidacionMapper validacionMapper;
 
   @InjectMocks
@@ -70,7 +65,6 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
     verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
-    verify(this.mailService).sendMail(anyList(), any(RunTareaDto.class));
     verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
@@ -93,7 +87,6 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
     verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
-    verify(this.mailService, never()).sendMail(anyList(), any(RunTareaDto.class));
     verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
   }
 
