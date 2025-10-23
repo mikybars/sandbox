@@ -242,6 +242,14 @@ public class MailServiceImpl implements MailService {
     final TareaDto tarea = runTarea.getTarea();
     final TrabajoDTO trabajo = runTarea.getTrabajo();
 
+    final String messageBody = this.buildValidacionesAgrupadasBody(validacionesParaNotificar, tarea, trabajo);
+    final SimpleMailMessage message = this.createValidacionesAgrupadasMessage(runTarea, messageBody);
+
+    this.mailSender.send(message);
+  }
+
+  private String buildValidacionesAgrupadasBody(final List<ValidacionDto> validacionesParaNotificar,
+      final TareaDto tarea, final TrabajoDTO trabajo) {
     final StringBuilder result = new StringBuilder();
     result.append(TITLE);
     result.append(DOUBLE_LINE_BREAK);
@@ -252,124 +260,96 @@ public class MailServiceImpl implements MailService {
     result.append(ALERTS_LIST);
     result.append(DOUBLE_LINE_BREAK);
 
-    // Agrupar validaciones por ID de acción
-    final List<ValidacionDto> validacion32 = validacionesParaNotificar.stream()
-        .filter(v -> {
-          final TareaFaseAccionDto tfa = this.tareaFaseAccionService.findById(v.getIdTareaFaseAccion());
-          return tfa.getIdAccion().equals(32); // ID de validarImporteExcedidoV1
-        })
-        .toList();
+    final Map<Integer, List<ValidacionDto>> validacionesPorAccion = this.agruparValidacionesPorAccion(validacionesParaNotificar);
 
-    final List<ValidacionDto> validacion33 = validacionesParaNotificar.stream()
-        .filter(v -> {
-          final TareaFaseAccionDto tfa = this.tareaFaseAccionService.findById(v.getIdTareaFaseAccion());
-          return tfa.getIdAccion().equals(33); // ID de validarCalculoPendienteV1
-        })
-        .toList();
-
-    final List<ValidacionDto> validacion34 = validacionesParaNotificar.stream()
-        .filter(v -> {
-          final TareaFaseAccionDto tfa = this.tareaFaseAccionService.findById(v.getIdTareaFaseAccion());
-          return tfa.getIdAccion().equals(34); // ID de validarPorcentaje0V1
-        })
-        .toList();
-
-    // Construir el cuerpo del correo para cada tipo de validación
-    if (!validacion32.isEmpty()) {
-      // Obtener los importes de GT y GS desde la base de datos
-      final List<ReglaValidacionExcedidoDto> reglas = this.reglaValidacionExcedidoService
-          .findByCclIdOrigenAndStdIdLegEnt(
-              tarea.getAmbito().get(0).getCclIdOrigen(),
-              tarea.getStdIdLegEnt());
-
-      // Obtener el máximo importe para cada tipo de cálculo
-      final Map<String, BigDecimal> maxImportesPorTipo = reglas.stream()
-          .collect(Collectors.groupingBy(
-              ReglaValidacionExcedidoDto::getIdTipoCalculo,
-              Collectors.mapping(
-                  ReglaValidacionExcedidoDto::getImporte,
-                  Collectors.maxBy(BigDecimal::compareTo))))
-          .entrySet().stream()
-          .filter(e -> e.getValue().isPresent())
-          .collect(Collectors.toMap(
-              Map.Entry::getKey,
-              e -> e.getValue().get()));
-
-      // Construir la parte de los límites (GT: €X, GS: €Y)
-      final StringBuilder limites = new StringBuilder();
-      if (maxImportesPorTipo.containsKey(TIPO_CALCULO_GT)) {
-        limites.append(LABEL_GT).append(maxImportesPorTipo.get(TIPO_CALCULO_GT).intValue());
-      }
-      if (maxImportesPorTipo.containsKey(TIPO_CALCULO_GS)) {
-        if (!limites.isEmpty()) {
-          limites.append(COMMA_SEPARATOR);
-        }
-        limites.append(LABEL_GS).append(maxImportesPorTipo.get(TIPO_CALCULO_GS).intValue());
-      }
-
-      result.append(BODY_ALERT_EXCEEDED_LIMIT);
-      if (!limites.isEmpty()) {
-        result.append(OPEN_PARENTHESIS).append(limites).append(CLOSE_PARENTHESIS);
-      }
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(TOTAL_AFFECTED_EMPLOYEES).append(validacion32.get(0).getIdPersonaLocal().size());
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(AFFECTED_EMPLOYEES_LIST);
-      result.append(validacion32.get(0).getIdPersonaLocal());
-      result.append(DOUBLE_LINE_BREAK);
-    }
-
-    if (!validacion33.isEmpty()) {
-      result.append(BODY_ALERT_PENDING);
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(TOTAL_AFFECTED_EMPLOYEES).append(validacion33.get(0).getIdPersonaLocal().size());
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(AFFECTED_EMPLOYEES_LIST);
-      result.append(validacion33.get(0).getIdPersonaLocal());
-      result.append(DOUBLE_LINE_BREAK);
-    }
-
-    if (!validacion34.isEmpty()) {
-      result.append(BODY_ALERT_PERCENTAGE_ZERO);
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(TOTAL_AFFECTED_EMPLOYEES).append(validacion34.get(0).getIdPersonaLocal().size());
-      result.append(LINE_BREAK);
-      result.append(SEPARATOR);
-      result.append(AFFECTED_EMPLOYEES_LIST);
-      result.append(validacion34.get(0).getIdPersonaLocal());
-      result.append(DOUBLE_LINE_BREAK);
-    }
+    this.appendValidacion32(result, validacionesPorAccion.getOrDefault(32, List.of()), tarea);
+    this.appendValidacion33(result, validacionesPorAccion.getOrDefault(33, List.of()));
+    this.appendValidacion34(result, validacionesPorAccion.getOrDefault(34, List.of()));
 
     result.append(KIND_REGARDS);
+    return result.toString();
+  }
+
+  private Map<Integer, List<ValidacionDto>> agruparValidacionesPorAccion(final List<ValidacionDto> validaciones) {
+    return validaciones.stream()
+        .collect(Collectors.groupingBy(v -> this.tareaFaseAccionService.findById(v.getIdTareaFaseAccion()).getIdAccion()));
+  }
+
+  private void appendValidacion32(final StringBuilder result, final List<ValidacionDto> validaciones, final TareaDto tarea) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+
+    final String limites = this.buildLimitesExcedidos(tarea);
+    result.append(BODY_ALERT_EXCEEDED_LIMIT);
+    if (!limites.isEmpty()) {
+      result.append(OPEN_PARENTHESIS).append(limites).append(CLOSE_PARENTHESIS);
+    }
+    this.appendValidacionDetails(result, validaciones.get(0));
+  }
+
+  private String buildLimitesExcedidos(final TareaDto tarea) {
+    final List<ReglaValidacionExcedidoDto> reglas = this.reglaValidacionExcedidoService
+        .findByCclIdOrigenAndStdIdLegEnt(tarea.getAmbito().get(0).getCclIdOrigen(), tarea.getStdIdLegEnt());
+
+    final Map<String, BigDecimal> maxImportesPorTipo = reglas.stream()
+        .collect(Collectors.groupingBy(
+            ReglaValidacionExcedidoDto::getIdTipoCalculo,
+            Collectors.mapping(ReglaValidacionExcedidoDto::getImporte,
+                Collectors.maxBy(BigDecimal::compareTo))))
+        .entrySet().stream()
+        .filter(e -> e.getValue().isPresent())
+        .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().get()));
+
+    final StringBuilder limites = new StringBuilder();
+    if (maxImportesPorTipo.containsKey(TIPO_CALCULO_GT)) {
+      limites.append(LABEL_GT).append(maxImportesPorTipo.get(TIPO_CALCULO_GT).intValue());
+    }
+    if (maxImportesPorTipo.containsKey(TIPO_CALCULO_GS)) {
+      if (!limites.isEmpty()) {
+        limites.append(COMMA_SEPARATOR);
+      }
+      limites.append(LABEL_GS).append(maxImportesPorTipo.get(TIPO_CALCULO_GS).intValue());
+    }
+    return limites.toString();
+  }
+
+  private void appendValidacion33(final StringBuilder result, final List<ValidacionDto> validaciones) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+    result.append(BODY_ALERT_PENDING);
+    this.appendValidacionDetails(result, validaciones.get(0));
+  }
+
+  private void appendValidacion34(final StringBuilder result, final List<ValidacionDto> validaciones) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+    result.append(BODY_ALERT_PERCENTAGE_ZERO);
+    this.appendValidacionDetails(result, validaciones.get(0));
+  }
+
+  private void appendValidacionDetails(final StringBuilder result, final ValidacionDto validacion) {
+    result.append(LINE_BREAK);
+    result.append(SEPARATOR);
+    result.append(TOTAL_AFFECTED_EMPLOYEES).append(validacion.getIdPersonaLocal().size());
+    result.append(LINE_BREAK);
+    result.append(SEPARATOR);
+    result.append(AFFECTED_EMPLOYEES_LIST);
+    result.append(validacion.getIdPersonaLocal());
+    result.append(DOUBLE_LINE_BREAK);
+  }
+
+  private SimpleMailMessage createValidacionesAgrupadasMessage(final RunTareaDto runTarea, final String messageBody) {
+    final TareaDto tarea = runTarea.getTarea();
+    final TrabajoDTO trabajo = runTarea.getTrabajo();
 
     final SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(this.sender);
     message.setTo(this.receiver);
 
-    if (!trabajo.getNombreUsuario().trim().equalsIgnoreCase("srvcicmclcwbax")) {
-      final UsuarioResponseDto usuario = this.meta4IcmWsCalcIncomeService
-          .getMail(UsuarioRequestDto
-              .builder()
-              .idUsuario(trabajo.getNombreUsuario())
-              .build());
-      if (usuario != null && !usuario.getItems().isEmpty() && !usuario.getItems().get(0).getMail().isEmpty()) {
-        message.setCc(usuario.getItems().get(0).getMail());
-      }
-    }
-
-    if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
-      final List<String> mails = new ArrayList<>();
-      runTarea.getTarea().getAmbito().stream()
-          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
-          .forEachOrdered(mails::addAll);
-
-      message.setCc(mails.stream().toArray(String[]::new));
-    }
+    this.addCcRecipients(message, trabajo, runTarea);
 
     message.setSubject(APP
         + SEPARATOR
@@ -380,9 +360,27 @@ public class MailServiceImpl implements MailService {
         + OPEN_PARENTHESIS
         + tarea.getId()
         + CLOSE_PARENTHESIS);
-    message.setText(result.toString());
+    message.setText(messageBody);
 
-    this.mailSender.send(message);
+    return message;
+  }
+
+  private void addCcRecipients(final SimpleMailMessage message, final TrabajoDTO trabajo, final RunTareaDto runTarea) {
+    if (!trabajo.getNombreUsuario().trim().equalsIgnoreCase("srvcicmclcwbax")) {
+      final UsuarioResponseDto usuario = this.meta4IcmWsCalcIncomeService
+          .getMail(UsuarioRequestDto.builder().idUsuario(trabajo.getNombreUsuario()).build());
+      if (usuario != null && !usuario.getItems().isEmpty() && !usuario.getItems().get(0).getMail().isEmpty()) {
+        message.setCc(usuario.getItems().get(0).getMail());
+      }
+    }
+
+    if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
+      final List<String> mails = new ArrayList<>();
+      runTarea.getTarea().getAmbito().stream()
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .forEachOrdered(mails::addAll);
+      message.setCc(mails.toArray(String[]::new));
+    }
   }
 
 }
