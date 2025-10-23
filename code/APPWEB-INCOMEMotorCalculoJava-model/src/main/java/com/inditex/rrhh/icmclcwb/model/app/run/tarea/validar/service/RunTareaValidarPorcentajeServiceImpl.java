@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Component("validarPorcentaje0V1")
 @Validated
-public class RunTareaValidarPorcentajeServiceImpl implements RunPrevalidar {
+public class RunTareaValidarPorcentajeServiceImpl implements RunValidacionNoBloqueante {
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;

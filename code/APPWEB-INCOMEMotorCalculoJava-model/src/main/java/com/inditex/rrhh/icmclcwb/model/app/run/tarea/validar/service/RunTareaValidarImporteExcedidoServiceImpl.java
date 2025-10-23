@@ -11,7 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Component("validarImporteExcedidoV1")
 @Validated
-public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar {
+public class RunTareaValidarImporteExcedidoServiceImpl implements RunValidacionNoBloqueante {
 
   @Autowired
   private TareaFaseAccionService tareaFaseAccionService;
