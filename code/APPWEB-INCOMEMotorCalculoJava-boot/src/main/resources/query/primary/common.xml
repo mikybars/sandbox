@@ -7571,6 +7571,20 @@ FROM (
     GROUP BY CCL_ID_PERSON
   ]]>
   </entry>
+  <entry key="ReglaValidacionExcedidoRepository.findByCclIdOrigenAndStdIdLegEnt">
+  <![CDATA[
+    SELECT
+        CCL_ID_ORIGEN,
+        STD_ID_LEG_ENT,
+        ID_TIPO_CALCULO,
+        IMPORTE
+    FROM
+        REGLA_VALIDACION_EXCEDIDOS
+    WHERE
+        CCL_ID_ORIGEN = :cclIdOrigen
+        AND STD_ID_LEG_ENT = :stdIdLegEnt
+  ]]>
+  </entry>
   <entry key="TareaCalculoRepositoryCustom.findPersonaCalculoPendiente">
   <![CDATA[
      SELECT
