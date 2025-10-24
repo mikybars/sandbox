@@ -20,9 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Wrapper component that integrates grouped non-blocking validations into the existing validation flow. This component can be configured as
- * an action in the database to execute all non-blocking validations (validarCalculoPendiente, validarImporteExcedido, validarPorcentaje0)
- * in a single consolidated execution.
+ * Wrapper component that integrates grouped non-blocking validations into the existing validation flow
  */
 @Component("validacionesAgrupadasV1")
 @Validated
