@@ -28,9 +28,9 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements RunTareaAmbitoValidarCalculoPendienteService {
+public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTareaAmbitoValidarCalculoPendienteService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarCalculoPendienteServiceImpl.class);
 
   @Autowired
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
@@ -58,8 +58,7 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements 
     final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
-      calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea(),
-          tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
+      calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea());
 
       calculoPendienteValidationResult
           .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
@@ -70,9 +69,11 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl implements 
           .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
               PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
               runTareaDto.getTarea()));
-      this.mailService.sendMail(validacionDtos, runTareaDto);
+      if (!calculoPendienteValidationResult.isEmpty()) {
+        this.mailService.sendMail(validacionDtos, runTareaDto);
+      }
     } catch (final Exception e) {
-      RunTareaAmbitoValidarCalculoPendienteServiceServiceImpl.LOG.error(
+      RunTareaAmbitoValidarCalculoPendienteServiceImpl.LOG.error(
           "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
     }

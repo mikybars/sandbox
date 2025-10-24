@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPendienteService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPorcentajeService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
 import jakarta.validation.constraints.NotNull;
@@ -13,13 +13,13 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class TareaCalculoPendienteServiceImpl implements TareaCalculoPendienteService {
+public class TareaCalculoPorcentajeServiceImpl implements TareaCalculoPorcentajeService {
 
   @Autowired
   private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
   @Override
-  public List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea) {
-    return this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea);
+  public List<IdPersonaLocalDto> findPersonaPorcetaje0(@NotNull Long idTarea) {
+    return this.tareaCalculoRepositoryCustom.findPersonaPorcentaje0(idTarea);
   }
 }

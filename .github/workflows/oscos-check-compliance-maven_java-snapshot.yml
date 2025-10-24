@@ -7,7 +7,7 @@ on:
       - completed
 
 env:
-  WORKFLOW_VERSION: 1.16.0
+  WORKFLOW_VERSION: 1.18.0
 
 jobs:
   check-compliance:
@@ -69,35 +69,24 @@ jobs:
 
       - name: Check if curation.yml exists
         id: check-curation-file
+        shell: bash
         run: |
-          curation_file="${GITHUB_WORKSPACE}/code/curation.yml"
+          set -euo pipefail
+
           oscos_curation_file="${GITHUB_WORKSPACE}/code/oscos-curation.yml"
 
-          is_effectively_empty() {
-            if grep -qE '^[[:space:]]*[^#[:space:]]' "$1"; then
-              return 1
-            else
-              return 0
-            fi
-          }
-
-          if [ -f "${oscos_curation_file}" ]; then
-            if [ ! -s "${oscos_curation_file}" ] || is_effectively_empty "${oscos_curation_file}"; then
-              rm "${oscos_curation_file}"
-              echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml file exists but is empty or only contains comments. File removed."
-            else
+          if [[ -f "$oscos_curation_file" ]]; then
+            if grep -qE '^[[:space:]]*[^#[:space:]]' "$oscos_curation_file"; then
               echo "curation_exists=true" >> "$GITHUB_OUTPUT"
-              echo "curation_path=${oscos_curation_file}" >> "$GITHUB_OUTPUT"
               echo "::notice::oscos-curation.yml file exists."
+            else
+              rm -f "$oscos_curation_file"
+              echo "curation_exists=false" >> "$GITHUB_OUTPUT"
+              echo "::notice::oscos-curation.yml exists but is empty or only comments. Removed."
             fi
-          elif [ -f "${curation_file}" ]; then
-            echo "curation_exists=true" >> "$GITHUB_OUTPUT"
-            echo "curation_path=${curation_file}" >> "$GITHUB_OUTPUT"
-            echo "::notice::curation.yml file exists."
           else
             echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::No curation file exists."
+            echo "::notice::oscos-curation.yml not found."
           fi
 
       - name: Validation project curation file
@@ -106,7 +95,28 @@ jobs:
         uses: inditex/gha-oscodependencies/file-validation@v0
         with:
           schema-name: curation_schema.json
-          file-path: ${{ steps.check-curation-file.outputs.curation_path }}
+          file-path: ${{ github.workspace }}/code/oscos-curation.yml
+
+      - name: Infer project curation file
+        id: infer-project-curation-file
+        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
+        uses: inditex/gha-oscodependencies/runtime-oscos-curation-file@v0
+        with:
+          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
+          project-key: ${{ steps.get-project-key.outputs.project_key }}
+          repository-name: ${{ github.event.repository.name }}
+
+      - name: Curation file effective
+        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
+        shell: bash
+        run: |
+          path=${{ github.workspace }}/code/oscos-curation.yml
+          echo "Curation path: $path"
+          if [ -f "$path" ]; then
+            echo "----- BEGIN $path -----"
+            cat "$path"
+            echo "------ END $path ------"
+          fi
 
       - name: Check compliance with OSCODEP API
         id: check-compliance
@@ -114,7 +124,7 @@ jobs:
         with:
           use-case: SBOM_COMPLIANCE
           sbom-id: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
-          curation-path: ${{ steps.check-curation-file.outputs.curation_path }}
+          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
           vcs-url: https://github.com/${{ github.repository }}
           project-key: ${{ steps.get-project-key.outputs.project_key }}
 

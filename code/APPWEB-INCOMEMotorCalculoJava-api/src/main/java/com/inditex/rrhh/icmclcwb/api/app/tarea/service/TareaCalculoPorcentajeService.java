@@ -6,7 +6,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 
 import jakarta.validation.constraints.NotNull;
 
-public interface TareaCalculoPendienteService {
+public interface TareaCalculoPorcentajeService {
 
-  List<IdPersonaLocalDto> findPersonaCalculoPendiente(@NotNull Long idTarea);
+  List<IdPersonaLocalDto> findPersonaPorcetaje0(@NotNull Long idTarea);
 }

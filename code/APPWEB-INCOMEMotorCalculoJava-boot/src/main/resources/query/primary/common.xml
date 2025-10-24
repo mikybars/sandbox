@@ -7568,22 +7568,37 @@ FROM (
         HAVING
             SUM(T.IMPORTE) > MAX(RVE.IMPORTE)
     ) AS SUBQUERY
-    GROUP BY CCL_ID_PERSON;
+    GROUP BY CCL_ID_PERSON
   ]]>
   </entry>
   <entry key="TareaCalculoRepositoryCustom.findPersonaCalculoPendiente">
-    <![CDATA[
+  <![CDATA[
+     SELECT
+          TPE.CCL_ID_PERSON
+     FROM
+          TAREA T
+     INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+          ON TPE.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+          AND TPE.ID_TAREA = T.ID_TAREA
+     WHERE
+          TPE.ICM_ID_TP_CALCULO = '999'
+          AND TPE.ID_TAREA = :idTarea
+     GROUP BY
+          TPE.CCL_ID_PERSON
+  ]]>
+  </entry>
+
+  <entry key="TareaCalculoRepositoryCustom.findPersonaPorcentaje0">
+  <![CDATA[
       SELECT
           T.CCL_ID_PERSON
       FROM
-          TAREA_CALCULO T
+          TAREA_PERSONA_ESTRUCTURA T
       WHERE
           T.ID_TAREA = :idTarea
-          AND T.ID_TIPO_CALCULO = '999'
+          AND T.ICM_VALOR = 0
       GROUP BY
-          T.CCL_ID_PERSON,
-          T.FECHA,
-          T.ID_TIPO_CALCULO
+          T.CCL_ID_PERSON
       ]]>
   </entry>
   <entry key="TareaLocalizacionVentaRepositoryCustom.totalizarDevolucionesVendedor0">
