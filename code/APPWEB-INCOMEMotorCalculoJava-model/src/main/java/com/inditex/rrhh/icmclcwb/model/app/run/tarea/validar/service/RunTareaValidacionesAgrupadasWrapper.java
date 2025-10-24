@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Wrapper component that integrates grouped non-blocking validations into the existing validation flow
+ * Wrapper component that integrates grouped non-blocking validations into the existing validation flow.
  */
 @Component("validacionesAgrupadasV1")
 @Validated
