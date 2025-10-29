@@ -15,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -25,6 +27,8 @@ import org.springframework.validation.annotation.Validated;
 @Component("validacionesAgrupadasV1")
 @Validated
 public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
+
+  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidacionesAgrupadasWrapper.class); // LOG TEMP
 
   @Autowired
   private RunValidacionesAgrupadasService runValidacionesAgrupadasService;
@@ -40,6 +44,8 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
     final TareaFaseDto tareaFaseDto = this.tareaFaseService
         .findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             ID_FASE);
+
+    LOG.info("[LOG TEMP] tareaFaseDto obtenido: {}", tareaFaseDto); // LOG TEMP
 
     final FaseDto faseDto = new FaseDto(tareaFaseDto.getIdFase());
 
