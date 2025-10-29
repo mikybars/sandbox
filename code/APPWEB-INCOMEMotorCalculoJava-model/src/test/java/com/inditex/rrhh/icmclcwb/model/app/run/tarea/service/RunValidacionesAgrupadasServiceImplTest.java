@@ -94,14 +94,14 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.runValidacionNoBloqueante.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class)))
         .thenReturn(CompletableFuture.completedFuture(validaciones));
     when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
-    doNothing().when(this.mailService).sendMail(any(), any(RunTareaDto.class));
+    doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
     verify(this.tareaFaseAccionService, times(1))
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
             anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId()));
-    verify(this.mailService, times(1)).sendMail(any(), eq(runTareaDto));
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
 
   @Test
@@ -136,7 +136,7 @@ class RunValidacionesAgrupadasServiceImplTest {
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
-    verify(this.mailService, never()).sendMail(any(), any(RunTareaDto.class));
+    verify(this.mailService, never()).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
   }
 
   @Test
@@ -151,7 +151,7 @@ class RunValidacionesAgrupadasServiceImplTest {
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
     verify(this.accionService, never()).findAccionDtoById(anyInt());
-    verify(this.mailService, never()).sendMail(any(), any(RunTareaDto.class));
+    verify(this.mailService, never()).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
   }
 
   @Test
@@ -201,13 +201,13 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.runValidacionNoBloqueante.execute(runTareaDto, accion2))
         .thenReturn(CompletableFuture.completedFuture(List.of(validacion2)));
     when(this.mailEntornoService.findEsActivoByEntorno("PRO")).thenReturn(Boolean.TRUE);
-    doNothing().when(this.mailService).sendMail(any(), any(RunTareaDto.class));
+    doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
     verify(this.accionService, times(1)).findAccionDtoById(32);
     verify(this.accionService, times(1)).findAccionDtoById(33);
-    verify(this.mailService, times(1)).sendMail(any(), eq(runTareaDto));
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
 
   @Test
@@ -241,7 +241,7 @@ class RunValidacionesAgrupadasServiceImplTest {
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
-    verify(this.mailService, never()).sendMail(any(), any(RunTareaDto.class));
+    verify(this.mailService, never()).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
   }
 
   @Test
@@ -263,7 +263,7 @@ class RunValidacionesAgrupadasServiceImplTest {
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
-    verify(this.mailService, never()).sendMail(any(), any(RunTareaDto.class));
+    verify(this.mailService, never()).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
   }
 
   @Test
@@ -296,11 +296,11 @@ class RunValidacionesAgrupadasServiceImplTest {
         .thenReturn(CompletableFuture.completedFuture(List.of(validacion)));
     when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
     doThrow(new RuntimeException("Error al enviar correo"))
-        .when(this.mailService).sendMail(any(), any(RunTareaDto.class));
+        .when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
-    verify(this.mailService, times(1)).sendMail(any(), eq(runTareaDto));
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
 
   @Test
@@ -338,13 +338,13 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.runValidacionNoBloqueante.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class)))
         .thenReturn(CompletableFuture.completedFuture(List.of(validacion)));
     when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
-    doNothing().when(this.mailService).sendMail(any(), any(RunTareaDto.class));
+    doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
     this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
 
     verify(this.accionService, times(1)).findAccionDtoById(32);
     verify(this.accionService, never()).findAccionDtoById(99);
-    verify(this.mailService, times(1)).sendMail(any(), eq(runTareaDto));
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
 
   private RunTareaDto createRunTareaDto() {
