@@ -32,12 +32,11 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
   @Autowired
   private TareaFaseService tareaFaseService;
 
-  private static final Integer ID_FASE = 4;
-
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
       @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
 
+    final Integer ID_FASE = 4;
     final TareaFaseDto tareaFaseDto = this.tareaFaseService
         .findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
             ID_FASE);
