@@ -36,6 +36,7 @@ public class RunTareaPrevalidarAntesServiceImpl extends AbstractRunTareaPrevalid
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
             PuntoEjecucionEnum.ANTES.getId())
         .stream()
+        .filter(tfa -> !ID_ACCIONES_NO_BLOQUEANTES.contains(tfa.getIdAccion())) // Excluir acciones no bloqueantes
         .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso)
             .reversed())
         .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));

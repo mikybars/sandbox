@@ -36,6 +36,7 @@ public class RunTareaPrevalidarDespuesServiceImpl extends AbstractRunTareaPreval
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
             PuntoEjecucionEnum.DESPUES.getId())
         .stream()
+        .filter(tfa -> !ID_ACCIONES_NO_BLOQUEANTES.contains(tfa.getIdAccion()))
         .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso)
             .reversed())
         .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));

@@ -77,6 +77,7 @@ class RunValidacionesAgrupadasServiceImplTest {
     final ValidacionDto validacion = ValidacionDto.builder()
         .result(Boolean.FALSE)
         .reaccionPeso(1)
+        .idPersonaLocal(List.of("123"))
         .build();
 
     final List<ValidacionDto> validaciones = List.of(validacion);
@@ -173,11 +174,13 @@ class RunValidacionesAgrupadasServiceImplTest {
     final ValidacionDto validacion1 = ValidacionDto.builder()
         .result(Boolean.FALSE)
         .reaccionPeso(2)
+        .idPersonaLocal(List.of("123"))
         .build();
 
     final ValidacionDto validacion2 = ValidacionDto.builder()
         .result(Boolean.FALSE)
         .reaccionPeso(1)
+        .idPersonaLocal(List.of("456"))
         .build();
 
     ReflectionTestUtils.setField(this.service, "environment", "PRO");
@@ -277,6 +280,7 @@ class RunValidacionesAgrupadasServiceImplTest {
     final ValidacionDto validacion = ValidacionDto.builder()
         .result(Boolean.FALSE)
         .reaccionPeso(1)
+        .idPersonaLocal(List.of("789"))
         .build();
 
     ReflectionTestUtils.setField(this.service, "environment", "PRE");
@@ -319,6 +323,7 @@ class RunValidacionesAgrupadasServiceImplTest {
     final ValidacionDto validacion = ValidacionDto.builder()
         .result(Boolean.FALSE)
         .reaccionPeso(1)
+        .idPersonaLocal(List.of("999"))
         .build();
 
     ReflectionTestUtils.setField(this.service, "environment", "PRE");

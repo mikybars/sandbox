@@ -50,6 +50,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractRunTareaPrevalidar {
 
+  // IDs de acciones no bloqueantes que se ejecutan en paralelo desde RunValidacionesAgrupadasService
+  // Estas acciones NO deben ejecutarse aquí para evitar duplicación
+  protected static final List<Integer> ID_ACCIONES_NO_BLOQUEANTES = List.of(32, 33, 34);
+
   private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaPrevalidar.class);
 
   @Value("${app.envars.tarea.prevalidacion.thread-size}")
