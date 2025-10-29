@@ -85,7 +85,6 @@ class RunTareaAmbitoValidarPorcentajeServiceImplTest {
     verify(this.tareaCalculoPorcentajeService).findPersonaPorcetaje0(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
-    verify(this.validacionMapper).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 
   @Test

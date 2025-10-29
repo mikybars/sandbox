@@ -55,7 +55,6 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTare
 
     final List<IdPersonaLocalDto> calculoPendienteValidationResult;
     final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
-    final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
       calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea());
@@ -65,15 +64,14 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTare
               .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
       this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
 
-      validacionDtos
-          .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
-              PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
-              runTareaDto.getTarea()));
+      return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
+          PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
+          runTareaDto.getTarea());
     } catch (final Exception e) {
       RunTareaAmbitoValidarCalculoPendienteServiceImpl.LOG.error(
-          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
+          "Trabajo[{}]Tarea[{}] :: Error :: RunTareaAmbitoValidarCalculoPendienteServiceImpl :: CalculoPendiente",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
+      return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }

@@ -65,7 +65,7 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
     verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
-    verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
+    verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
   }
 
   @Test
@@ -87,7 +87,7 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
 
     verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
-    verify(this.validacionMapper).booleanToValidacionDto(tareaAmbitoDto, tareaFaseAccionDto, true);
+    verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
   }
 
   @Test
