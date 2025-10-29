@@ -147,7 +147,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       try {
-        this.mailService.sendMail(validacionesParaNotificar, runTareaDto);
+        this.mailService.sendMailValidacionesAgrupadas(validacionesParaNotificar, runTareaDto);
         LOG.info("Trabajo[{}]Tarea[{}] :: Correo de validaciones enviado correctamente",
             tareaDto.getIdTrabajo(), tareaDto.getId());
       } catch (final Exception e) {
