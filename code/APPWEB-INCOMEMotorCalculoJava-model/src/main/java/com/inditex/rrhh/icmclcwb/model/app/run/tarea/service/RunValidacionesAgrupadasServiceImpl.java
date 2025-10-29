@@ -83,14 +83,17 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
       try {
         final String nombreAccion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre();
 
-        LOG.debug("Trabajo[{}]Tarea[{}] :: Ejecutando validación: {} [IdTareaFaseAccion: {}]",
-            tareaDto.getIdTrabajo(), tareaDto.getId(), nombreAccion, tareaFaseAccion.getId());
+        LOG.info("[LOG TEMP] Trabajo[{}]Tarea[{}] :: Ejecutando validación: {} [IdTareaFaseAccion: {}, IdAccion: {}]",
+            tareaDto.getIdTrabajo(), tareaDto.getId(), nombreAccion, tareaFaseAccion.getId(), tareaFaseAccion.getIdAccion());
 
         final CompletableFuture<List<ValidacionDto>> future = this.runValidacionNoBloqueanteFactory
             .getRunValidacionNoBloqueante(nombreAccion)
             .execute(runTareaDto, tareaFaseAccion);
 
         futures.add(future);
+
+        LOG.info("[LOG TEMP] Trabajo[{}]Tarea[{}] :: Future creado para validación: {}",
+            tareaDto.getIdTrabajo(), tareaDto.getId(), nombreAccion);
       } catch (final Exception e) {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error ejecutando validación idTareaFaseAccion[{}]: {}",
             tareaDto.getIdTrabajo(), tareaDto.getId(), tareaFaseAccion.getId(), e.getMessage(), e);
@@ -111,6 +114,15 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     LOG.info("[LOG TEMP] Trabajo[{}]Tarea[{}] :: Total validaciones ejecutadas: {}",
         tareaDto.getIdTrabajo(), tareaDto.getId(), todasLasValidaciones.size());
+
+    // Log detallado de cada validación
+    todasLasValidaciones.forEach(v -> LOG.info(
+        "[LOG TEMP] Trabajo[{}]Tarea[{}] :: Validación recibida - IdTareaFaseAccion: {}, IdPersonaLocal: {}, IdPersonaLocal.isEmpty: {}, ReaccionPeso: {}, CclIdOrigen: {}",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), v.getIdTareaFaseAccion(),
+        v.getIdPersonaLocal(),
+        (v.getIdPersonaLocal() != null ? v.getIdPersonaLocal().isEmpty() : "null"),
+        v.getReaccionPeso(),
+        v.getCclIdOrigen()));
 
     final List<ValidacionDto> validacionesParaNotificar = todasLasValidaciones.stream()
         .filter(v -> v.getIdPersonaLocal() != null && !v.getIdPersonaLocal().isEmpty())
@@ -150,9 +162,12 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
   private List<ValidacionDto> obtenerResultadoFuture(final CompletableFuture<List<ValidacionDto>> future) {
     try {
-      return future.join();
+      final List<ValidacionDto> resultado = future.join();
+      LOG.info("[LOG TEMP] :: Resultado de future obtenido - Cantidad de validaciones: {}",
+          resultado != null ? resultado.size() : "null");
+      return resultado;
     } catch (final Exception e) {
-      LOG.warn("Error obteniendo resultado de validación: {}", e.getMessage());
+      LOG.warn("[LOG TEMP] :: Error obteniendo resultado de validación: {}", e.getMessage(), e);
       return List.of();
     }
   }
