@@ -8,7 +8,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -19,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupa
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 
 import org.junit.jupiter.api.Test;
@@ -51,12 +49,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .idTareaFase(10L)
         .build();
 
-    final TareaFaseDto tareaFaseDto = TareaFaseDto.builder()
-        .idFase(4)
-        .build();
-
-    when(this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(1L, 4))
-        .thenReturn(tareaFaseDto);
     doNothing().when(this.runValidacionesAgrupadasService)
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
 
@@ -67,7 +59,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
     assertNotNull(result.join());
     assertEquals(0, result.join().size());
 
-    verify(this.tareaFaseService, times(1)).findTareaFaseDtoByIdTareaAndIdFase(1L, 4);
     verify(this.runValidacionesAgrupadasService, times(1))
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
   }
@@ -83,12 +74,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .idTareaFase(50L)
         .build();
 
-    final TareaFaseDto tareaFaseDto = TareaFaseDto.builder()
-        .idFase(4)
-        .build();
-
-    when(this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(100L, 4))
-        .thenReturn(tareaFaseDto);
     doNothing().when(this.runValidacionesAgrupadasService)
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
 
@@ -98,7 +83,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
     assertTrue(result.isDone());
     assertTrue(result.join().isEmpty());
 
-    verify(this.tareaFaseService, times(1)).findTareaFaseDtoByIdTareaAndIdFase(100L, 4);
     verify(this.runValidacionesAgrupadasService, times(1))
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
   }
@@ -114,12 +98,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .idTareaFase(4L)
         .build();
 
-    final TareaFaseDto tareaFaseDto = TareaFaseDto.builder()
-        .idFase(4)
-        .build();
-
-    when(this.tareaFaseService.findTareaFaseDtoByIdTareaAndIdFase(25L, 4))
-        .thenReturn(tareaFaseDto);
     doNothing().when(this.runValidacionesAgrupadasService)
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
 
@@ -128,7 +106,6 @@ class RunTareaValidacionesAgrupadasWrapperTest {
     assertNotNull(result);
     assertTrue(result.isDone());
 
-    verify(this.tareaFaseService, times(1)).findTareaFaseDtoByIdTareaAndIdFase(25L, 4);
     verify(this.runValidacionesAgrupadasService, times(1))
         .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
   }

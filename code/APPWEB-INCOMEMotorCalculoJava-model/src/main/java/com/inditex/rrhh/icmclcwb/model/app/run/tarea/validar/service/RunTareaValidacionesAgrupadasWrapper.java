@@ -9,14 +9,11 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupadasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +25,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
 
-  private static final Logger LOG = LoggerFactory.getLogger(RunTareaValidacionesAgrupadasWrapper.class); // LOG TEMP
+  private static final Integer ID_FASE = 4;
 
   @Autowired
   private RunValidacionesAgrupadasService runValidacionesAgrupadasService;
@@ -40,14 +37,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
   public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
       @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
 
-    final Integer ID_FASE = 4;
-    final TareaFaseDto tareaFaseDto = this.tareaFaseService
-        .findTareaFaseDtoByIdTareaAndIdFase(runTarea.getTarea().getId(),
-            ID_FASE);
-
-    LOG.info("[LOG TEMP] tareaFaseDto obtenido: {}", tareaFaseDto); // LOG TEMP
-
-    final FaseDto faseDto = new FaseDto(tareaFaseDto.getIdFase());
+    final FaseDto faseDto = new FaseDto(ID_FASE);
 
     this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
 
