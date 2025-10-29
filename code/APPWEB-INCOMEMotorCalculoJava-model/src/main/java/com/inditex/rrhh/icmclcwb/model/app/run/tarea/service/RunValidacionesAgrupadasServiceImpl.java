@@ -59,14 +59,8 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     final TareaDto tareaDto = runTareaDto.getTarea();
 
-    LOG.info("[LOG TEMP] INICIO ejecutarValidacionesNoBloqueantes - tareaDto.getId(): {}, faseDto.getId(): {}", tareaDto.getId(),
-        faseDto.getId()); // LOG TEMP
-
-    LOG.info("Trabajo[{}]Tarea[{}] :: Ejecutando validaciones no bloqueantes",
-        tareaDto.getIdTrabajo(), tareaDto.getId());
-
-    LOG.info("[LOG TEMP] Antes de findTareaFaseAccionDto - idTarea: {}, idFase: {}, idPuntoEjecucion: {}", tareaDto.getId(),
-        faseDto.getId(), PuntoEjecucionEnum.DESPUES.getId()); // LOG TEMP
+    LOG.info("Trabajo[{}]Tarea[{}] :: Ejecutando validaciones no bloqueantes - Fase[{}]",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), faseDto.getId());
 
     final List<TareaFaseAccionDto> accionesNoBloquantes = this.tareaFaseAccionService
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
@@ -76,92 +70,90 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
         .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso).reversed())
         .toList();
 
-    LOG.info("[LOG TEMP] accionesNoBloquantes obtenidas (cantidad: {}): {}", accionesNoBloquantes.size(), accionesNoBloquantes); // LOG TEMP
-
-    LOG.info("[LOG TEMP] accionesNoBloquantes obtenidas (cantidad: {}): {}", accionesNoBloquantes.size(), accionesNoBloquantes); // LOG TEMP
+    LOG.info("Trabajo[{}]Tarea[{}] :: Acciones no bloqueantes encontradas: {}",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), accionesNoBloquantes.size());
 
     if (accionesNoBloquantes.isEmpty()) {
-      LOG.info("[LOG TEMP] No hay acciones no bloqueantes, saliendo"); // LOG TEMP
       return;
     }
 
     final List<CompletableFuture<List<ValidacionDto>>> futures = new ArrayList<>();
 
-    LOG.info("[LOG TEMP] Iniciando procesamiento de {} acciones no bloqueantes", accionesNoBloquantes.size()); // LOG TEMP
-
     for (final TareaFaseAccionDto tareaFaseAccion : accionesNoBloquantes) {
       try {
         final String nombreAccion = this.accionService.findAccionDtoById(tareaFaseAccion.getIdAccion()).getNombre();
 
-        LOG.info("[LOG TEMP] Ejecutando acción: {} con idTareaFaseAccion: {}, idAccion: {}", nombreAccion, tareaFaseAccion.getId(),
-            tareaFaseAccion.getIdAccion()); // LOG TEMP
+        LOG.debug("Trabajo[{}]Tarea[{}] :: Ejecutando validación: {} [IdTareaFaseAccion: {}]",
+            tareaDto.getIdTrabajo(), tareaDto.getId(), nombreAccion, tareaFaseAccion.getId());
 
         final CompletableFuture<List<ValidacionDto>> future = this.runValidacionNoBloqueanteFactory
             .getRunValidacionNoBloqueante(nombreAccion)
             .execute(runTareaDto, tareaFaseAccion);
 
         futures.add(future);
-
-        LOG.info("[LOG TEMP] Acción {} agregada al procesamiento", nombreAccion); // LOG TEMP
       } catch (final Exception e) {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error ejecutando validación idTareaFaseAccion[{}]: {}",
             tareaDto.getIdTrabajo(), tareaDto.getId(), tareaFaseAccion.getId(), e.getMessage(), e);
-        LOG.error("[LOG TEMP] Error en acción idTareaFaseAccion[{}]: {}", tareaFaseAccion.getId(), e.getMessage(), e); // LOG TEMP
       }
     }
 
     try {
-      LOG.info("[LOG TEMP] Esperando la finalización de {} futures", futures.size()); // LOG TEMP
       CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-      LOG.info("[LOG TEMP] Todos los futures completados correctamente"); // LOG TEMP
     } catch (final Exception e) {
       LOG.error("Trabajo[{}]Tarea[{}] :: Error esperando validaciones: {}",
           tareaDto.getIdTrabajo(), tareaDto.getId(), e.getMessage(), e);
-      LOG.error("[LOG TEMP] Error esperando validaciones: {}", e.getMessage(), e); // LOG TEMP
     }
 
     final List<ValidacionDto> todasLasValidaciones = futures.stream()
-        .map(future -> {
-          try {
-            return future.join();
-          } catch (final Exception e) {
-            LOG.error("Trabajo[{}]Tarea[{}] :: Error obteniendo resultado: {}",
-                tareaDto.getIdTrabajo(), tareaDto.getId(), e.getMessage(), e);
-            LOG.error("[LOG TEMP] Error obteniendo resultado de future: {}", e.getMessage(), e); // LOG TEMP
-            return new ArrayList<ValidacionDto>();
-          }
-        })
+        .map(this::obtenerResultadoFuture)
         .flatMap(List::stream)
         .toList();
 
-    LOG.info("[LOG TEMP] Total de validaciones obtenidas: {}", todasLasValidaciones.size()); // LOG TEMP
+    LOG.info("[LOG TEMP] Trabajo[{}]Tarea[{}] :: Total validaciones ejecutadas: {}",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), todasLasValidaciones.size());
 
     final List<ValidacionDto> validacionesParaNotificar = todasLasValidaciones.stream()
-        .filter(v -> Boolean.FALSE.equals(v.getResult()))
+        .filter(v -> v.getIdPersonaLocal() != null && !v.getIdPersonaLocal().isEmpty())
         .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso).reversed())
         .toList();
 
-    LOG.info("[LOG TEMP] Validaciones para notificar (con result=false): {}", validacionesParaNotificar.size()); // LOG TEMP
+    LOG.info("[LOG TEMP] Trabajo[{}]Tarea[{}] :: Validaciones fallidas con personas para notificar: {}",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), validacionesParaNotificar.size());
 
-    LOG.info("[LOG TEMP] Validaciones para notificar (con result=false): {}", validacionesParaNotificar.size()); // LOG TEMP
+    if (!validacionesParaNotificar.isEmpty()) {
+      validacionesParaNotificar.forEach(v -> LOG.info(
+          "[LOG TEMP] Trabajo[{}]Tarea[{}] :: Validación a notificar - IdTareaFaseAccion: {}, ReaccionPeso: {}, Personas: {}, CclIdOrigen: {}",
+          tareaDto.getIdTrabajo(), tareaDto.getId(), v.getIdTareaFaseAccion(), v.getReaccionPeso(),
+          v.getIdPersonaLocal().size(), v.getCclIdOrigen()));
+    }
 
     if (validacionesParaNotificar.isEmpty()) {
-      LOG.info("[LOG TEMP] No hay validaciones para notificar, saliendo"); // LOG TEMP
+      LOG.info("Trabajo[{}]Tarea[{}] :: No hay validaciones para notificar",
+          tareaDto.getIdTrabajo(), tareaDto.getId());
       return;
     }
 
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       try {
-        LOG.info("[LOG TEMP] Enviando correo de validaciones..."); // LOG TEMP
         this.mailService.sendMail(validacionesParaNotificar, runTareaDto);
-        LOG.info("[LOG TEMP] Correo enviado correctamente"); // LOG TEMP
+        LOG.info("Trabajo[{}]Tarea[{}] :: Correo de validaciones enviado correctamente",
+            tareaDto.getIdTrabajo(), tareaDto.getId());
       } catch (final Exception e) {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error enviando correo: {}",
             tareaDto.getIdTrabajo(), tareaDto.getId(), e.getMessage(), e);
-        LOG.error("[LOG TEMP] Error enviando correo: {}", e.getMessage(), e); // LOG TEMP
       }
     } else {
-      LOG.info("[LOG TEMP] Mail no activo para entorno: {}", this.environment); // LOG TEMP
+      LOG.info("Trabajo[{}]Tarea[{}] :: Mail no activo para entorno: {}",
+          tareaDto.getIdTrabajo(), tareaDto.getId(), this.environment);
+    }
+  }
+
+  private List<ValidacionDto> obtenerResultadoFuture(final CompletableFuture<List<ValidacionDto>> future) {
+    try {
+      return future.join();
+    } catch (final Exception e) {
+      LOG.warn("Error obteniendo resultado de validación: {}", e.getMessage());
+      return List.of();
     }
   }
 
