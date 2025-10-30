@@ -86,7 +86,7 @@ public class MailServiceImpl implements MailService {
 
   private static final String BODY_ALERT_EXCEEDED_LIMIT = "Validation: Daily commission limit exceeded for GT/GS types ";
 
-  private static final String BODY_ALERT_PERCENTAGE_ZERO = "Employees with 0% percentage table in all sections.";
+  private static final String BODY_ALERT_PERCENTAGE_ZERO = "Validation: Employees with 0% percentage table in all sections.";
 
   private static final String TIPO_CALCULO_GT = "001";
 
