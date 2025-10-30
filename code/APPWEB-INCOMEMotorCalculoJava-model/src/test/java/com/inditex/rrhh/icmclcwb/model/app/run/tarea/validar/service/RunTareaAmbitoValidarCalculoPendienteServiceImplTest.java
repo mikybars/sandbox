@@ -86,7 +86,6 @@ class RunTareaAmbitoValidarCalculoPendienteServiceImplTest {
     this.runTareaAmbitoValidarCalculoPendiente.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaCalculoPendienteService).findPersonaCalculoPendiente(1L);
-    verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
   }
 

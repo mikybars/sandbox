@@ -60,10 +60,16 @@ public class RunTareaAmbitoValidarPorcentajeServiceImpl implements RunTareaAmbit
     try {
       porcentaje0ValidationResult = this.tareaCalculoPorcentajeService.findPersonaPorcetaje0(tareaAmbito.getIdTarea());
 
-      porcentaje0ValidationResult
-          .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
-      this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validación porcentaje - Personas encontradas: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(),
+          porcentaje0ValidationResult != null ? porcentaje0ValidationResult.size() : 0);
+
+      if (porcentaje0ValidationResult != null && !porcentaje0ValidationResult.isEmpty()) {
+        porcentaje0ValidationResult
+            .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
+        this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      }
 
       return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, porcentaje0ValidationResult,
           PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),

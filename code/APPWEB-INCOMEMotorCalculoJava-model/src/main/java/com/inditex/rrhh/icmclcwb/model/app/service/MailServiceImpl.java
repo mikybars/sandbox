@@ -50,6 +50,8 @@ public class MailServiceImpl implements MailService {
 
   private static final String CLOSE_PARENTHESIS = ")";
 
+  private static final String DOT = ".";
+
   private static final String APP = "INCOME";
 
   private static final String CALCULATION_RESULTS = "Calculation results ";
@@ -82,9 +84,9 @@ public class MailServiceImpl implements MailService {
 
   private static final String BODY_ALERT_PENDING = "Validation: Employees with a \"Pending\" calculation type.";
 
-  private static final String BODY_ALERT_EXCEEDED_LIMIT = "Validation: Daily commission limit exceeded for GT/GS types";
+  private static final String BODY_ALERT_EXCEEDED_LIMIT = "Validation: Daily commission limit exceeded for GT/GS types ";
 
-  private static final String BODY_ALERT_PERCENTAGE_ZERO = "Validation: Employees with 0% calculation percentage.";
+  private static final String BODY_ALERT_PERCENTAGE_ZERO = "Employees with 0% percentage table in all sections.";
 
   private static final String TIPO_CALCULO_GT = "001";
 
@@ -283,7 +285,7 @@ public class MailServiceImpl implements MailService {
     final String limites = this.buildLimitesExcedidos(tarea);
     result.append(BODY_ALERT_EXCEEDED_LIMIT);
     if (!limites.isEmpty()) {
-      result.append(OPEN_PARENTHESIS).append(limites).append(CLOSE_PARENTHESIS);
+      result.append(OPEN_PARENTHESIS).append(limites).append(CLOSE_PARENTHESIS).append(DOT);
     }
     this.appendValidacionDetails(result, validaciones.get(0));
   }

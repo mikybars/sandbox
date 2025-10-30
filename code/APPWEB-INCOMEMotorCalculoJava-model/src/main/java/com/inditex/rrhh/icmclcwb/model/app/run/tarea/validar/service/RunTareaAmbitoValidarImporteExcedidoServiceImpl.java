@@ -60,10 +60,16 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
       importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea(),
           tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
 
-      importeExcedidoValidationResult
-          .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
-      this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validación importe excedido - Personas encontradas: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(),
+          importeExcedidoValidationResult != null ? importeExcedidoValidationResult.size() : 0);
+
+      if (importeExcedidoValidationResult != null && !importeExcedidoValidationResult.isEmpty()) {
+        importeExcedidoValidationResult
+            .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
+        this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      }
 
       return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, importeExcedidoValidationResult,
           PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),

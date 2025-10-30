@@ -58,6 +58,9 @@ class RunTareaAmbitoValidarPorcentajeServiceImplTest {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     tareaDto.setStdIdLegEnt("LEG");
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
+    runTareaDto.setTrabajo(trabajoDTO);
     runTareaDto.setTarea(tareaDto);
 
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();

@@ -86,7 +86,6 @@ class RunTareaAmbitoValidarImporteExcedidoServiceImplTest {
     this.runTareaAmbitoValidarImporteExcedidoServiceImpl.execute(runTareaDto, tareaAmbitoDto, tareaFaseAccionDto);
 
     verify(this.tareaImporteExcedidoService).findPersonaImporteExcedidoByIdTarea(1L, "11", "8");
-    verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
   }
 
