@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupadasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -62,8 +63,14 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
       LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada - IdTareaFaseAccion: {}",
           idTrabajo, idTarea, tareaFaseAccion.getId());
 
+    } catch (final ValidationNoReintentoException e) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.KO.getDto());
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validaciones con errores encontradas - IdTareaFaseAccion: {}",
+          idTrabajo, idTarea, tareaFaseAccion.getId());
+      throw e;
+
     } catch (final Exception e) {
-      LOG.error("Trabajo[{}]Tarea[{}] :: Error en validación agrupada - IdTareaFaseAccion[{}]: {}",
+      LOG.error("Trabajo[{}]Tarea[{}] :: Error inesperado en validación agrupada - IdTareaFaseAccion[{}]: {}",
           idTrabajo, idTarea, tareaFaseAccion.getId(), e.getMessage(), e);
 
       try {
@@ -72,6 +79,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error actualizando estado a ERROR - IdTareaFaseAccion[{}]",
             idTrabajo, idTarea, tareaFaseAccion.getId(), e2);
       }
+      throw e;
     }
 
     return CompletableFuture.completedFuture(Collections.emptyList());
