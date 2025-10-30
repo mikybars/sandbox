@@ -516,7 +516,7 @@ app:
             getVentaOnlineEntregaTienda:
               endpoint: /ventaEcommerce/getVentaOnlineEntregaTienda
               filter:
-                maxPageSize: 1000
+                maxPageSize: 10
                 maxPersistenceSize: 3
                 periodSize: 1
                 periodType: MONTHS
