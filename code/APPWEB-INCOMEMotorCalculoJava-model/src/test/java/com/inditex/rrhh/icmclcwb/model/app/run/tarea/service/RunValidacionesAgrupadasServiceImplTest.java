@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.PuntoEjecucionEnum;
@@ -75,6 +77,7 @@ class RunValidacionesAgrupadasServiceImplTest {
     final List<TareaFaseAccionDto> accionesList = List.of(tareaFaseAccion);
 
     final ValidacionDto validacion = ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
         .result(Boolean.FALSE)
         .reaccionPeso(1)
         .idPersonaLocal(List.of("123"))
@@ -87,6 +90,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
         anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
             .thenReturn(accionesList);
+    when(this.tareaFaseAccionService.findById(1L)).thenReturn(tareaFaseAccion);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
     when(this.accionService.findAccionDtoById(32))
         .thenReturn(AccionDto.builder().nombre("ValidacionExcedido").build());
     when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante(anyString()))
@@ -96,7 +102,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
     doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
-    this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    assertThrows(ValidationNoReintentoException.class, () -> {
+      this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    });
 
     verify(this.tareaFaseAccionService, times(1))
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
@@ -172,12 +180,14 @@ class RunValidacionesAgrupadasServiceImplTest {
         .build();
 
     final ValidacionDto validacion1 = ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
         .result(Boolean.FALSE)
         .reaccionPeso(2)
         .idPersonaLocal(List.of("123"))
         .build();
 
     final ValidacionDto validacion2 = ValidacionDto.builder()
+        .idTareaFaseAccion(2L)
         .result(Boolean.FALSE)
         .reaccionPeso(1)
         .idPersonaLocal(List.of("456"))
@@ -188,6 +198,10 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
         anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
             .thenReturn(List.of(accion1, accion2));
+    when(this.tareaFaseAccionService.findById(1L)).thenReturn(accion1);
+    when(this.tareaFaseAccionService.findById(2L)).thenReturn(accion2);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
     when(this.accionService.findAccionDtoById(32))
         .thenReturn(AccionDto.builder().nombre("ValidacionExcedido").build());
     when(this.accionService.findAccionDtoById(33))
@@ -203,7 +217,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.mailEntornoService.findEsActivoByEntorno("PRO")).thenReturn(Boolean.TRUE);
     doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
-    this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    assertThrows(ValidationNoReintentoException.class, () -> {
+      this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    });
 
     verify(this.accionService, times(1)).findAccionDtoById(32);
     verify(this.accionService, times(1)).findAccionDtoById(33);
@@ -278,6 +294,7 @@ class RunValidacionesAgrupadasServiceImplTest {
         .build();
 
     final ValidacionDto validacion = ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
         .result(Boolean.FALSE)
         .reaccionPeso(1)
         .idPersonaLocal(List.of("789"))
@@ -288,6 +305,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
         anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
             .thenReturn(List.of(tareaFaseAccion));
+    when(this.tareaFaseAccionService.findById(1L)).thenReturn(tareaFaseAccion);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
     when(this.accionService.findAccionDtoById(32))
         .thenReturn(AccionDto.builder().nombre("ValidacionExcedido").build());
     when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante(anyString()))
@@ -298,7 +318,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     doThrow(new RuntimeException("Error al enviar correo"))
         .when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
-    this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    assertThrows(ValidationNoReintentoException.class, () -> {
+      this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    });
 
     verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
@@ -321,6 +343,7 @@ class RunValidacionesAgrupadasServiceImplTest {
         .build();
 
     final ValidacionDto validacion = ValidacionDto.builder()
+        .idTareaFaseAccion(2L)
         .result(Boolean.FALSE)
         .reaccionPeso(1)
         .idPersonaLocal(List.of("999"))
@@ -331,6 +354,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
         anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
             .thenReturn(List.of(accionBloqueante, accionNoBloqueante));
+    when(this.tareaFaseAccionService.findById(2L)).thenReturn(accionNoBloqueante);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
     when(this.accionService.findAccionDtoById(32))
         .thenReturn(AccionDto.builder().nombre("ValidacionExcedido").build());
     when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante(anyString()))
@@ -340,7 +366,9 @@ class RunValidacionesAgrupadasServiceImplTest {
     when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
     doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
 
-    this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    assertThrows(ValidationNoReintentoException.class, () -> {
+      this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+    });
 
     verify(this.accionService, times(1)).findAccionDtoById(32);
     verify(this.accionService, never()).findAccionDtoById(99);

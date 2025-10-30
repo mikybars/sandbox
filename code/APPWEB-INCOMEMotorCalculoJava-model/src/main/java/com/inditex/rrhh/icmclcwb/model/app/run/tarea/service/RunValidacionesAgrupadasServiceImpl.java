@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupadasService;
 import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
@@ -159,14 +161,22 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
   }
 
   private void actualizarEstadosFinales(final TareaDto tareaDto, final List<ValidacionDto> validaciones) {
+    LOG.info("Trabajo[{}]Tarea[{}] :: Procesando {} validaciones para actualizar estados",
+        tareaDto.getIdTrabajo(), tareaDto.getId(), validaciones.size());
+
     for (final ValidacionDto validacion : validaciones) {
       try {
         final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService.findById(validacion.getIdTareaFaseAccion());
 
         final boolean tienePersonas = validacion.getIdPersonaLocal() != null && !validacion.getIdPersonaLocal().isEmpty();
+        final int cantidadPersonas = validacion.getIdPersonaLocal() != null ? validacion.getIdPersonaLocal().size() : 0;
         final EstadoTareaFaseAccionEnum estado = tienePersonas
             ? EstadoTareaFaseAccionEnum.KO
             : EstadoTareaFaseAccionEnum.OK;
+
+        LOG.info("Trabajo[{}]Tarea[{}] :: IdTareaFaseAccion[{}] - Personas: {} - Estado: {} ({})",
+            tareaDto.getIdTrabajo(), tareaDto.getId(), tareaFaseAccion.getId(),
+            cantidadPersonas, estado.name(), estado.getId());
 
         this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, estado.getDto());
       } catch (final Exception e) {
@@ -193,6 +203,13 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
         tareaDto.getIdTrabajo(), tareaDto.getId(), validacionesParaNotificar.size());
 
     this.enviarCorreoValidaciones(runTareaDto, tareaDto, validacionesParaNotificar);
+
+    throw new ValidationNoReintentoException(
+        "Error en validaciones no bloqueantes - idTareaFaseAccion: "
+            + validacionesParaNotificar.stream()
+                .map(ValidacionDto::getIdTareaFaseAccion)
+                .map(Object::toString)
+                .collect(Collectors.joining(",")));
   }
 
   private void enviarCorreoValidaciones(final RunTareaDto runTareaDto, final TareaDto tareaDto,
