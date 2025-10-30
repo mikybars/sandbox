@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -50,6 +50,8 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
 
+    final List<ValidacionDto> validacionesFallidas = new ArrayList<>();
+
     try {
       this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
       LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada iniciada - IdTareaFaseAccion: {}",
@@ -67,7 +69,14 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.KO.getDto());
       LOG.info("Trabajo[{}]Tarea[{}] :: Validaciones con errores encontradas - IdTareaFaseAccion: {}",
           idTrabajo, idTarea, tareaFaseAccion.getId());
-      throw e;
+
+      final ValidacionDto validacionWrapper = ValidacionDto.builder()
+          .idTareaFaseAccion(tareaFaseAccion.getId())
+          .result(Boolean.FALSE)
+          .reaccionPeso(tareaFaseAccion.getReaccionPeso() != null ? tareaFaseAccion.getReaccionPeso() : 100)
+          .idPersonaLocal(List.of())
+          .build();
+      validacionesFallidas.add(validacionWrapper);
 
     } catch (final Exception e) {
       LOG.error("Trabajo[{}]Tarea[{}] :: Error inesperado en validación agrupada - IdTareaFaseAccion[{}]: {}",
@@ -79,10 +88,17 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error actualizando estado a ERROR - IdTareaFaseAccion[{}]",
             idTrabajo, idTarea, tareaFaseAccion.getId(), e2);
       }
-      throw e;
+
+      final ValidacionDto validacionError = ValidacionDto.builder()
+          .idTareaFaseAccion(tareaFaseAccion.getId())
+          .result(Boolean.FALSE)
+          .reaccionPeso(tareaFaseAccion.getReaccionPeso() != null ? tareaFaseAccion.getReaccionPeso() : 100)
+          .idPersonaLocal(List.of())
+          .build();
+      validacionesFallidas.add(validacionError);
     }
 
-    return CompletableFuture.completedFuture(Collections.emptyList());
+    return CompletableFuture.completedFuture(validacionesFallidas);
   }
 
 }
