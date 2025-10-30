@@ -34,12 +34,14 @@ public class TareaLocalizacionPresupuestoTareaPersonaEstructuraRepositoryCustomI
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
             TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(),
-            TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+            TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()));
     map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO_CHALLENGE_LOCALIZACION,
         Arrays.asList(TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(),
-            TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+            TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()));
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
     this.namedParameterJdbcTemplate.update(this.sqlRelacionarEstructuraSinDesplazamiento, map);
