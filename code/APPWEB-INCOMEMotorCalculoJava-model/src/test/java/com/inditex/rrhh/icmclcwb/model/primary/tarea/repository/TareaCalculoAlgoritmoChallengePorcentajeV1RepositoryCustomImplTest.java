@@ -110,8 +110,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
   @Test
   public void getMapValuesTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(List.of(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
@@ -122,10 +122,10 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
     tipoComision1.setId("011");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
-        Arrays.asList(tipoComision1));
+        List.of(tipoComision1));
     when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
@@ -140,13 +140,13 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia,idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
     // tipoDatoLocalizacionPersonaPresencia
-    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId());
+    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     assertEquals(16, result.size()); // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE,
         result.get(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-    assertEquals(Arrays.asList(1011),
+    assertEquals(List.of(1011),
         result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION)); // tipoDatoPersonaPresencia
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
     assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId()),
@@ -179,10 +179,10 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
     // tipocomision
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList("011"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(List.of("011"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
     // tipocalculo
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList("015"),
+    assertEquals(List.of("015"),
         result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
     // esDesplazamiento
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -196,8 +196,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
   @Test
   public void calcularTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(List.of(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
@@ -209,10 +209,10 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
     tipoComision1.setId("015");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
-        Arrays.asList(tipoComision1));
+        List.of(tipoComision1));
     when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
@@ -232,7 +232,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
     // tipoDatoLocalizacionPersonaPresencia
 
     verify(this.tipoDatoService, times(2))
-        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId());
+        .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
     final MapSqlParameterSource[] values =
         this.params.getValue();
@@ -243,7 +243,7 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
       assertEquals(16, value.getValues().size()); // activo assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
       assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-      assertEquals(Arrays.asList(1011),
+      assertEquals(List.of(1011),
           value.getValue(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION)); // tipoDatoPersonaPresencia
       assertTrue(value.hasValue(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
       assertEquals(Arrays.asList(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId()),
@@ -271,11 +271,11 @@ public class TareaCalculoAlgoritmoChallengePorcentajeV1RepositoryCustomImplTest 
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
       // tipocomision
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_COMISION));
-      assertEquals(Arrays.asList("015"),
+      assertEquals(List.of("015"),
           value.getValue(SQL_PARAM_IDS_TIPOS_COMISION));
       // tipocalculo
       assertTrue(value.hasValue(SQL_PARAM_IDS_TIPOS_CALCULO));
-      assertEquals(Arrays.asList("011"),
+      assertEquals(List.of("011"),
           value.getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
       // esDesplazamiento
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO));

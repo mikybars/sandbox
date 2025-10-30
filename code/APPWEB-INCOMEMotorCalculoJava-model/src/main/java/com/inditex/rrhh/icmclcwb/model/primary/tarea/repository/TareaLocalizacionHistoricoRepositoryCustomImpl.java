@@ -375,7 +375,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImpl
             TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
             TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
             TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-            TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
+            TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+            TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()));
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_TIPO_CONCEPTO_VENTA_CHALLENGE, idTipoConceptoVentaChallenge);
 
     return this.query(this.sqlFindIdLocalizacionPresupuestosByStdIdLegEntAndIdTarea, parameters,
