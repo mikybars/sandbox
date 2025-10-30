@@ -107,8 +107,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
   @Test
   public void getMapValuesTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(List.of(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
@@ -119,10 +119,10 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     final TipoComisionDTO tipoComision1 = new TipoComisionDTO();
     tipoComision1.setId("015");
     when(algoritmo.getTipoCalculo()).thenReturn(
-        Arrays.asList(
+        List.of(
             tipoCalculo1));
     when(algoritmo.getTipoComision()).thenReturn(
-        Arrays.asList(tipoComision1));
+        List.of(tipoComision1));
     when(algoritmo.getDesplazamiento()).thenReturn(Boolean.TRUE);
     when(algoritmo.getDesplazamientoBase()).thenReturn(Boolean.FALSE);
     final TareaDto tarea = mock(TareaDto.class);
@@ -138,14 +138,14 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
 
     // Parámetros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId());
+    verify(this.tipoDatoService).findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId());
     assertEquals(15, result.size());
     // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ACTIVO));
     // tipoDatoLocalizacionVentaSeccion
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
-    assertEquals(Arrays.asList(1011), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
+    assertEquals(List.of(1011), result.get(SQL_PARAM_TIPO_DATO_LOCALIZACION_VENTA_SECCION));
     // tipoDatoPersonaPresencia
     assertTrue(result.containsKey(SQL_PARAM_TIPO_DATO_PERSONA_PRESENCIA));
     assertEquals(TipoDatoEnum.PRESENCIA_LOCALIZACION_INCLUIDOCHALLENGEPORCENTAJE.getId(),
@@ -167,10 +167,10 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_INCLUIDO_CHALLENGE_PORCENTAJE));
     // tipocomision
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_COMISION));
-    assertEquals(Arrays.asList("015"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
+    assertEquals(List.of("015"), result.get(SQL_PARAM_IDS_TIPOS_COMISION));
     // tipocalculo
     assertTrue(result.containsKey(SQL_PARAM_IDS_TIPOS_CALCULO));
-    assertEquals(Arrays.asList("011"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
+    assertEquals(List.of("011"), result.get(SQL_PARAM_IDS_TIPOS_CALCULO));
     // esDesplazamiento
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE, result.get(SQL_PARAM_ES_DESPLAZAMIENTO));
@@ -182,8 +182,8 @@ public class TareaCalculoAlgoritmoChallengePorcentajeDesplazamientoV1RepositoryC
   @Test
   public void calcularTest() {
 
-    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION_CHALLENGE_PORCENTAJE.getId()))
-        .thenReturn(Arrays.asList(new IdTipoDatoDto(1011)));
+    when(this.tipoDatoService.findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.VENTA_LOCALIZACION_SECCION.getId()))
+        .thenReturn(List.of(new IdTipoDatoDto(1011)));
     when(this.tipoDatoService
         .findTipoDatoByTipoGrupoDato(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_TIPOHORA.getId()))
             .thenReturn(Arrays.asList(new IdTipoDatoDto(4002), new IdTipoDatoDto(4003)));
