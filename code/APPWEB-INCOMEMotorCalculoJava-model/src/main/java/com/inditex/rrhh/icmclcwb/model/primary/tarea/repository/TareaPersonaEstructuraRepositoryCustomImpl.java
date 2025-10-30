@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.calcular.TipoCalculoEnum;
@@ -86,7 +87,8 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
         TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
         TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(), TipoCalculoEnum.CHALLENGE_IMPORTE_SECCION.getId(),
-        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_JORNADA.getId()));
+        TipoCalculoEnum.CHALLENGE_PORCENTAJE.getId(), TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+        TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()));
 
     return this.query(this.sqlFindPersonasChallenge, map,
         (rs, rowNum) -> IdPersonaLocalDto
@@ -186,7 +188,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Collections.singletonList(
         TipoCalculoEnum.GLOBAL_SECCION.getId()));
 
     this.update(this.sqlDesactivarGlobalSeccionOpcionOrigen, map);
@@ -202,7 +204,7 @@ public class TareaPersonaEstructuraRepositoryCustomImpl extends
         TimeUtils.toDate(tarea.getFechaInicioPeriodo()));
     map.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
     map.addValue(SqlPrimaryConstants.SQL_PARAM_INACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
-    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Arrays.asList(
+    map.addValue(SqlPrimaryConstants.SQL_PARAM_IDS_TIPOS_CALCULO, Collections.singletonList(
         TipoCalculoEnum.GLOBAL_SECCION.getId()));
     this.update(this.sqlCrearGlobalSeccionOpcionOrigen, map);
 
