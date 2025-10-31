@@ -48,7 +48,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
 
-    List<ValidacionDto> validacionesConPersonas = List.of();
+    List<ValidacionDto> validacionesParaDevolver = List.of();
 
     try {
       this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
@@ -57,11 +57,9 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
 
       final FaseDto faseDto = new FaseDto(ID_FASE);
 
-      validacionesConPersonas =
+      final List<ValidacionDto> validacionesConPersonas =
           this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
 
-      // Siempre marcamos OK porque las validaciones hijas ya se han marcado individualmente como OK
-      // (aunque tengan personas afectadas, eso no es un error de ejecución)
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
 
       if (validacionesConPersonas.isEmpty()) {
@@ -71,6 +69,18 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
         LOG.info(
             "Trabajo[{}]Tarea[{}] :: Validación agrupada completada - {} validaciones con personas afectadas - IdTareaFaseAccion: {}",
             idTrabajo, idTarea, validacionesConPersonas.size(), tareaFaseAccion.getId());
+
+        validacionesParaDevolver = validacionesConPersonas.stream()
+            .map(v -> ValidacionDto.builder()
+                .idTareaFaseAccion(v.getIdTareaFaseAccion())
+                .result(Boolean.TRUE)
+                .reaccionPeso(v.getReaccionPeso())
+                .idPersonaLocal(v.getIdPersonaLocal())
+                .cclIdOrigen(v.getCclIdOrigen())
+                .stdIdLegEnt(v.getStdIdLegEnt())
+                .sincronizacion(Boolean.FALSE)
+                .build())
+            .toList();
       }
 
     } catch (final Exception e) {
@@ -85,10 +95,6 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
       }
     }
 
-    // Devolvemos la lista de validaciones con personas para tracking
-    // Las validaciones 32, 33, 34 se marcaron como OK (se ejecutaron correctamente)
-    // El correo consolidado ya se envió
-    return CompletableFuture.completedFuture(validacionesConPersonas);
+    return CompletableFuture.completedFuture(validacionesParaDevolver);
   }
-
 }

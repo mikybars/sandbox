@@ -51,12 +51,9 @@ public class RunTareaValidarCalculoPendienteServiceImpl implements RunValidacion
           EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
       return CompletableFuture.completedFuture(validaciones);
     }
-    if (validaciones.stream()
-        .filter(e -> e.getResult().equals(Boolean.FALSE))
-        .toList()
-        .isEmpty()) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-    }
+    // Siempre marcamos como OK si la validación se ejecutó correctamente
+    // Aunque haya personas afectadas (result=false), no es un error de ejecución
+    this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
     return CompletableFuture.completedFuture(validaciones);
   }
 }
