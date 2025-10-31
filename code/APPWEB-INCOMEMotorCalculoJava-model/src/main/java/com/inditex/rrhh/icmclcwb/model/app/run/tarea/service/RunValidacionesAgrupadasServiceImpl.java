@@ -78,8 +78,6 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     final List<ValidacionDto> todasLasValidaciones = this.obtenerResultadosValidaciones(futures);
 
-    this.actualizarEstadosFinales(tareaDto, todasLasValidaciones);
-
     return this.notificarValidacionesFallidas(runTareaDto, tareaDto, todasLasValidaciones);
   }
 
@@ -156,32 +154,6 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
         .map(this::obtenerResultadoFuture)
         .flatMap(List::stream)
         .toList();
-  }
-
-  private void actualizarEstadosFinales(final TareaDto tareaDto, final List<ValidacionDto> validaciones) {
-    LOG.info("Trabajo[{}]Tarea[{}] :: Procesando {} validaciones para actualizar estados",
-        tareaDto.getIdTrabajo(), tareaDto.getId(), validaciones.size());
-
-    for (final ValidacionDto validacion : validaciones) {
-      try {
-        final TareaFaseAccionDto tareaFaseAccion = this.tareaFaseAccionService.findById(validacion.getIdTareaFaseAccion());
-
-        final boolean tienePersonas = validacion.getIdPersonaLocal() != null && !validacion.getIdPersonaLocal().isEmpty();
-        final int cantidadPersonas = validacion.getIdPersonaLocal() != null ? validacion.getIdPersonaLocal().size() : 0;
-        final EstadoTareaFaseAccionEnum estado = tienePersonas
-            ? EstadoTareaFaseAccionEnum.KO
-            : EstadoTareaFaseAccionEnum.OK;
-
-        LOG.info("Trabajo[{}]Tarea[{}] :: IdTareaFaseAccion[{}] - Personas: {} - Estado: {} ({})",
-            tareaDto.getIdTrabajo(), tareaDto.getId(), tareaFaseAccion.getId(),
-            cantidadPersonas, estado.name(), estado.getId());
-
-        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, estado.getDto());
-      } catch (final Exception e) {
-        LOG.error("Trabajo[{}]Tarea[{}] :: Error actualizando estado final - IdTareaFaseAccion[{}]: {}",
-            tareaDto.getIdTrabajo(), tareaDto.getId(), validacion.getIdTareaFaseAccion(), e.getMessage(), e);
-      }
-    }
   }
 
   private List<ValidacionDto> notificarValidacionesFallidas(final RunTareaDto runTareaDto, final TareaDto tareaDto,

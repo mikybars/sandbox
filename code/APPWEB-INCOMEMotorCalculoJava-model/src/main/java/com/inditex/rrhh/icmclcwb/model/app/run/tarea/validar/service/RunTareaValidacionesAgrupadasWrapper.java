@@ -48,7 +48,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
 
-    List<ValidacionDto> validacionesFallidas = List.of();
+    List<ValidacionDto> validacionesConPersonas = List.of();
 
     try {
       this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
@@ -57,17 +57,20 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
 
       final FaseDto faseDto = new FaseDto(ID_FASE);
 
-      validacionesFallidas = this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
+      validacionesConPersonas =
+          this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
 
-      // Siempre marcamos OK porque las validaciones hijas ya se han marcado individualmente
+      // Siempre marcamos OK porque las validaciones hijas ya se han marcado individualmente como OK
+      // (aunque tengan personas afectadas, eso no es un error de ejecución)
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
 
-      if (validacionesFallidas.isEmpty()) {
-        LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada sin errores - IdTareaFaseAccion: {}",
+      if (validacionesConPersonas.isEmpty()) {
+        LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada sin personas afectadas - IdTareaFaseAccion: {}",
             idTrabajo, idTarea, tareaFaseAccion.getId());
       } else {
-        LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada con {} validaciones fallidas - IdTareaFaseAccion: {}",
-            idTrabajo, idTarea, validacionesFallidas.size(), tareaFaseAccion.getId());
+        LOG.info(
+            "Trabajo[{}]Tarea[{}] :: Validación agrupada completada - {} validaciones con personas afectadas - IdTareaFaseAccion: {}",
+            idTrabajo, idTarea, validacionesConPersonas.size(), tareaFaseAccion.getId());
       }
 
     } catch (final Exception e) {
@@ -80,17 +83,12 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
         LOG.error("Trabajo[{}]Tarea[{}] :: Error actualizando estado a ERROR - IdTareaFaseAccion[{}]",
             idTrabajo, idTarea, tareaFaseAccion.getId(), e2);
       }
-
-      final ValidacionDto validacionError = ValidacionDto.builder()
-          .idTareaFaseAccion(tareaFaseAccion.getId())
-          .result(Boolean.FALSE)
-          .reaccionPeso(tareaFaseAccion.getReaccionPeso() != null ? tareaFaseAccion.getReaccionPeso() : 100)
-          .idPersonaLocal(List.of())
-          .build();
-      validacionesFallidas = List.of(validacionError);
     }
 
-    return CompletableFuture.completedFuture(validacionesFallidas);
+    // Devolvemos la lista de validaciones con personas para tracking
+    // Las validaciones 32, 33, 34 se marcaron como OK (se ejecutaron correctamente)
+    // El correo consolidado ya se envió
+    return CompletableFuture.completedFuture(validacionesConPersonas);
   }
 
 }
