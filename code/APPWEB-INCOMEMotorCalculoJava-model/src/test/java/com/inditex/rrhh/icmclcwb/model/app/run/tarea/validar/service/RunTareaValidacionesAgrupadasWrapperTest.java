@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -61,8 +62,8 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .build();
 
     doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
-    doNothing().when(this.runValidacionesAgrupadasService)
-        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
+    when(this.runValidacionesAgrupadasService
+        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class))).thenReturn(List.of());
     doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class),
         any(EstadoTareaFaseAccionDto.class));
 
@@ -96,8 +97,8 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .build();
 
     doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
-    doNothing().when(this.runValidacionesAgrupadasService)
-        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
+    when(this.runValidacionesAgrupadasService
+        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class))).thenReturn(List.of());
     doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class),
         any(EstadoTareaFaseAccionDto.class));
 
@@ -130,8 +131,8 @@ class RunTareaValidacionesAgrupadasWrapperTest {
         .build();
 
     doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
-    doNothing().when(this.runValidacionesAgrupadasService)
-        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class));
+    when(this.runValidacionesAgrupadasService
+        .ejecutarValidacionesNoBloqueantes(eq(runTarea), any(FaseDto.class))).thenReturn(List.of());
     doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class),
         any(EstadoTareaFaseAccionDto.class));
 

@@ -1,11 +1,9 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupadasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
@@ -50,7 +48,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
     final Long idTrabajo = runTarea.getTrabajo().getId();
     final Long idTarea = runTarea.getTarea().getId();
 
-    final List<ValidacionDto> validacionesFallidas = new ArrayList<>();
+    List<ValidacionDto> validacionesFallidas = List.of();
 
     try {
       this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
@@ -59,24 +57,18 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
 
       final FaseDto faseDto = new FaseDto(ID_FASE);
 
-      this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
+      validacionesFallidas = this.runValidacionesAgrupadasService.ejecutarValidacionesNoBloqueantes(runTarea, faseDto);
 
+      // Siempre marcamos OK porque las validaciones hijas ya se han marcado individualmente
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-      LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada - IdTareaFaseAccion: {}",
-          idTrabajo, idTarea, tareaFaseAccion.getId());
 
-    } catch (final ValidationNoReintentoException e) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.KO.getDto());
-      LOG.info("Trabajo[{}]Tarea[{}] :: Validaciones con errores encontradas - IdTareaFaseAccion: {}",
-          idTrabajo, idTarea, tareaFaseAccion.getId());
-
-      final ValidacionDto validacionWrapper = ValidacionDto.builder()
-          .idTareaFaseAccion(tareaFaseAccion.getId())
-          .result(Boolean.FALSE)
-          .reaccionPeso(tareaFaseAccion.getReaccionPeso() != null ? tareaFaseAccion.getReaccionPeso() : 100)
-          .idPersonaLocal(List.of())
-          .build();
-      validacionesFallidas.add(validacionWrapper);
+      if (validacionesFallidas.isEmpty()) {
+        LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada sin errores - IdTareaFaseAccion: {}",
+            idTrabajo, idTarea, tareaFaseAccion.getId());
+      } else {
+        LOG.info("Trabajo[{}]Tarea[{}] :: Validación agrupada completada con {} validaciones fallidas - IdTareaFaseAccion: {}",
+            idTrabajo, idTarea, validacionesFallidas.size(), tareaFaseAccion.getId());
+      }
 
     } catch (final Exception e) {
       LOG.error("Trabajo[{}]Tarea[{}] :: Error inesperado en validación agrupada - IdTareaFaseAccion[{}]: {}",
@@ -95,7 +87,7 @@ public class RunTareaValidacionesAgrupadasWrapper implements RunPrevalidar {
           .reaccionPeso(tareaFaseAccion.getReaccionPeso() != null ? tareaFaseAccion.getReaccionPeso() : 100)
           .idPersonaLocal(List.of())
           .build();
-      validacionesFallidas.add(validacionError);
+      validacionesFallidas = List.of(validacionError);
     }
 
     return CompletableFuture.completedFuture(validacionesFallidas);

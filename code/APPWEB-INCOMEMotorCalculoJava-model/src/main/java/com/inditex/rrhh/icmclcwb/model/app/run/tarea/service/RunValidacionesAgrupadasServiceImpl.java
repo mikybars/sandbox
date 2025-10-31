@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
-import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunValidacionesAgrupadasService;
 import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
@@ -57,7 +55,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
   private MailEntornoService mailEntornoService;
 
   @Override
-  public void ejecutarValidacionesNoBloqueantes(@NotNull @Valid final RunTareaDto runTareaDto,
+  public List<ValidacionDto> ejecutarValidacionesNoBloqueantes(@NotNull @Valid final RunTareaDto runTareaDto,
       @NotNull @Valid final FaseDto faseDto) {
 
     final TareaDto tareaDto = runTareaDto.getTarea();
@@ -68,7 +66,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
     final List<TareaFaseAccionDto> accionesNoBloquantes = this.obtenerAccionesNoBloqueantes(tareaDto, faseDto);
 
     if (accionesNoBloquantes.isEmpty()) {
-      return;
+      return List.of();
     }
 
     this.inicializarEstadosAcciones(tareaDto, accionesNoBloquantes);
@@ -82,7 +80,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     this.actualizarEstadosFinales(tareaDto, todasLasValidaciones);
 
-    this.notificarValidacionesFallidas(runTareaDto, tareaDto, todasLasValidaciones);
+    return this.notificarValidacionesFallidas(runTareaDto, tareaDto, todasLasValidaciones);
   }
 
   private List<TareaFaseAccionDto> obtenerAccionesNoBloqueantes(final TareaDto tareaDto, final FaseDto faseDto) {
@@ -186,7 +184,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
     }
   }
 
-  private void notificarValidacionesFallidas(final RunTareaDto runTareaDto, final TareaDto tareaDto,
+  private List<ValidacionDto> notificarValidacionesFallidas(final RunTareaDto runTareaDto, final TareaDto tareaDto,
       final List<ValidacionDto> validaciones) {
     final List<ValidacionDto> validacionesParaNotificar = validaciones.stream()
         .filter(v -> v.getIdPersonaLocal() != null && !v.getIdPersonaLocal().isEmpty())
@@ -196,7 +194,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
     if (validacionesParaNotificar.isEmpty()) {
       LOG.info("Trabajo[{}]Tarea[{}] :: No hay validaciones para notificar",
           tareaDto.getIdTrabajo(), tareaDto.getId());
-      return;
+      return List.of();
     }
 
     LOG.info("Trabajo[{}]Tarea[{}] :: Notificando {} validaciones con errores",
@@ -204,12 +202,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
 
     this.enviarCorreoValidaciones(runTareaDto, tareaDto, validacionesParaNotificar);
 
-    throw new ValidationNoReintentoException(
-        "Error en validaciones no bloqueantes - idTareaFaseAccion: "
-            + validacionesParaNotificar.stream()
-                .map(ValidacionDto::getIdTareaFaseAccion)
-                .map(Object::toString)
-                .collect(Collectors.joining(",")));
+    return validacionesParaNotificar;
   }
 
   private void enviarCorreoValidaciones(final RunTareaDto runTareaDto, final TareaDto tareaDto,
