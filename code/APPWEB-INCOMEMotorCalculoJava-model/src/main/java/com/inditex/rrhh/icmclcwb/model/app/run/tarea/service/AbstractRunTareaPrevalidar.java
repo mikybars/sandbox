@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 /*
  * Copyright (c) 2022. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,10 +50,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractRunTareaPrevalidar {
-
-  // IDs de acciones no bloqueantes que se ejecutan en paralelo desde RunValidacionesAgrupadasService
-  // Estas acciones NO deben ejecutarse aquí para evitar duplicación
-  protected static final List<Integer> ID_ACCIONES_NO_BLOQUEANTES = List.of(32, 33, 34);
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractRunTareaPrevalidar.class);
 

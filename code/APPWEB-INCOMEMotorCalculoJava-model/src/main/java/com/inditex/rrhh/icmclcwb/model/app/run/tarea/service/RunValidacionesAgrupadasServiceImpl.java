@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.MailEntornoService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.util.ValidationConstants;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueanteFactory;
 
 import jakarta.validation.Valid;
@@ -33,8 +34,6 @@ import org.springframework.validation.annotation.Validated;
 public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrupadasService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunValidacionesAgrupadasServiceImpl.class);
-
-  private static final List<Integer> ID_ACCIONES_NO_BLOQUEANTES = List.of(32, 33, 34);
 
   @Value("${metadata.environment}")
   private String environment;
@@ -86,7 +85,7 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
         .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(tareaDto.getId(), faseDto.getId(),
             PuntoEjecucionEnum.DESPUES.getId())
         .stream()
-        .filter(tfa -> ID_ACCIONES_NO_BLOQUEANTES.contains(tfa.getIdAccion()))
+        .filter(tfa -> ValidationConstants.ID_ACCIONES_NO_BLOQUEANTES.contains(tfa.getIdAccion()))
         .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso).reversed())
         .toList();
 
