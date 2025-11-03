@@ -49,8 +49,7 @@ public class RunTareaValidarPorcentajeServiceImpl implements RunValidacionNoBloq
             EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
         return CompletableFuture.completedFuture(validaciones);
       }
-      // Siempre marcamos como OK si la validación se ejecutó correctamente
-      // Aunque haya personas afectadas (result=false), no es un error de ejecución
+
       this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
       return CompletableFuture.completedFuture(validaciones);
     }
