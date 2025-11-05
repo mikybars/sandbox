@@ -21,6 +21,8 @@ public class PtrVentaClientPropertiesConfig {
 
   private Map<String, PtrPropertiesDto> ventaEcommerce = new HashMap<>();
 
+  private Map<String, PtrPropertiesDto> acumuladoVentaImporte = new HashMap<>();
+
   private String version;
 
   @Bean(name = "ventaGeneralProperties")
@@ -36,6 +38,11 @@ public class PtrVentaClientPropertiesConfig {
   @Bean(name = "ventaEcommerceProperties")
   public Map<String, PtrPropertiesDto> ptrVentaEcommerceProperties() {
     return this.ventaEcommerce;
+  }
+
+  @Bean(name = "acumuladoVentaImporteProperties")
+  public Map<String, PtrPropertiesDto> ptrAcumuladoVentaImporteProperties() {
+    return this.acumuladoVentaImporte;
   }
 
   @Bean(name = "ventaVersion")
