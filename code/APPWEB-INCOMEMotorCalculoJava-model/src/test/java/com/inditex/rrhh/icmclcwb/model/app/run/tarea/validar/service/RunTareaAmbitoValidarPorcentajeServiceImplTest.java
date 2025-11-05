@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyList;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,7 +14,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.service.MailService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -23,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPorcentajeSer
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,16 +38,10 @@ class RunTareaAmbitoValidarPorcentajeServiceImplTest {
   private RunTareaAmbitoValidarPorcentajeServiceImpl service;
 
   @Mock
-  private TareaFaseAccionServiceImpl tareaFaseAccionService;
-
-  @Mock
   private TareaCalculoPorcentajeService tareaCalculoPorcentajeService;
 
   @Mock
   private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
-
-  @Mock
-  private MailService mailService;
 
   @Mock
   private ValidacionMapper validacionMapper;
@@ -67,6 +58,9 @@ class RunTareaAmbitoValidarPorcentajeServiceImplTest {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
     tareaDto.setStdIdLegEnt("LEG");
+    final TrabajoDTO trabajoDTO = new TrabajoDTO();
+    trabajoDTO.setId(1L);
+    runTareaDto.setTrabajo(trabajoDTO);
     runTareaDto.setTarea(tareaDto);
 
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
@@ -94,8 +88,6 @@ class RunTareaAmbitoValidarPorcentajeServiceImplTest {
     verify(this.tareaCalculoPorcentajeService).findPersonaPorcetaje0(1L);
     verify(this.tareaFaseAccionFallidasService).save(anyList());
     verify(this.validacionMapper).idPersonaLocalDtoTovalidacionDto(any(), any(), any(), any(), any());
-    verify(this.mailService).sendMail(anyList(), eq(runTareaDto));
-    verify(this.validacionMapper).booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 
   @Test

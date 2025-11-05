@@ -55,28 +55,29 @@ public class RunTareaAmbitoValidarCalculoPendienteServiceImpl implements RunTare
 
     final List<IdPersonaLocalDto> calculoPendienteValidationResult;
     final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
-    final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
       calculoPendienteValidationResult = this.tareaCalculoPendienteService.findPersonaCalculoPendiente(tareaAmbito.getIdTarea());
 
-      calculoPendienteValidationResult
-          .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
-      this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validación cálculo pendiente - Personas encontradas: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(),
+          calculoPendienteValidationResult != null ? calculoPendienteValidationResult.size() : 0);
 
-      validacionDtos
-          .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
-              PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
-              runTareaDto.getTarea()));
-      if (!calculoPendienteValidationResult.isEmpty()) {
-        this.mailService.sendMail(validacionDtos, runTareaDto);
+      if (calculoPendienteValidationResult != null && !calculoPendienteValidationResult.isEmpty()) {
+        calculoPendienteValidationResult
+            .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
+        this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
       }
+
+      return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, calculoPendienteValidationResult,
+          PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
+          runTareaDto.getTarea());
     } catch (final Exception e) {
       RunTareaAmbitoValidarCalculoPendienteServiceImpl.LOG.error(
-          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
+          "Trabajo[{}]Tarea[{}] :: Error :: RunTareaAmbitoValidarCalculoPendienteServiceImpl :: CalculoPendiente",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
+      return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }

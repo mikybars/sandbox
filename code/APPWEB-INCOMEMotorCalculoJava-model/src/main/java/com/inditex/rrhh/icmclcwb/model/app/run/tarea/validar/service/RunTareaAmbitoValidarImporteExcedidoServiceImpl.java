@@ -55,29 +55,30 @@ public class RunTareaAmbitoValidarImporteExcedidoServiceImpl implements RunTarea
 
     final List<IdPersonaLocalDto> importeExcedidoValidationResult;
     final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
-    final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
       importeExcedidoValidationResult = this.tareaImporteExcedidoService.findPersonaImporteExcedidoByIdTarea(tareaAmbito.getIdTarea(),
           tareaAmbito.getCclIdOrigen(), runTareaDto.getTarea().getStdIdLegEnt());
 
-      importeExcedidoValidationResult
-          .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
-      this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validación importe excedido - Personas encontradas: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(),
+          importeExcedidoValidationResult != null ? importeExcedidoValidationResult.size() : 0);
 
-      validacionDtos
-          .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, importeExcedidoValidationResult,
-              PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
-              runTareaDto.getTarea()));
-      if (!importeExcedidoValidationResult.isEmpty()) {
-        this.mailService.sendMail(validacionDtos, runTareaDto);
+      if (importeExcedidoValidationResult != null && !importeExcedidoValidationResult.isEmpty()) {
+        importeExcedidoValidationResult
+            .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
+        this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
       }
+
+      return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, importeExcedidoValidationResult,
+          PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
+          runTareaDto.getTarea());
     } catch (final Exception e) {
       RunTareaAmbitoValidarImporteExcedidoServiceImpl.LOG.error(
-          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
+          "Trabajo[{}]Tarea[{}] :: Error :: RunTareaAmbitoValidarImporteExcedidoServiceImpl :: ImporteExcedido",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
+      return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }

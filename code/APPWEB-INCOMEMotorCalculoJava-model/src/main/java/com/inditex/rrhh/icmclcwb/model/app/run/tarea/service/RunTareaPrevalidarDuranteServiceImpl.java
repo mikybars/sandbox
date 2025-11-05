@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.FaseDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
+import com.inditex.rrhh.icmclcwb.api.app.util.ValidationConstants;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ public class RunTareaPrevalidarDuranteServiceImpl extends AbstractRunTareaPreval
             accionDto.getId(),
             PuntoEjecucionEnum.DURANTE.getId())
         .stream()
+        .filter(tfa -> !ValidationConstants.ID_ACCIONES_NO_BLOQUEANTES.contains(tfa.getIdAccion()))
         .sorted(Comparator.comparingInt(TareaFaseAccionDto::getPeso)
             .reversed())
         .collect(Collectors.groupingBy(TareaFaseAccionDto::getPeso));
