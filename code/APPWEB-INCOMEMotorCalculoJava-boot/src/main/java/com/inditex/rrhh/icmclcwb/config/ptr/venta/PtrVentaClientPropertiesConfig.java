@@ -27,27 +27,27 @@ public class PtrVentaClientPropertiesConfig {
 
   @Bean(name = "ventaGeneralProperties")
   public Map<String, PtrPropertiesDto> ptrVentaGeneralProperties() {
-    return this.ventaGeneral;
+    return ventaGeneral;
   }
 
   @Bean(name = "ventaEmpleadoProperties")
   public Map<String, PtrPropertiesDto> ptrVentaEmpleadoProperties() {
-    return this.ventaEmpleado;
+    return ventaEmpleado;
   }
 
   @Bean(name = "ventaEcommerceProperties")
   public Map<String, PtrPropertiesDto> ptrVentaEcommerceProperties() {
-    return this.ventaEcommerce;
+    return ventaEcommerce;
   }
 
   @Bean(name = "acumuladoVentaImporteProperties")
   public Map<String, PtrPropertiesDto> ptrAcumuladoVentaImporteProperties() {
-    return this.acumuladoVentaImporte;
+    return acumuladoVentaImporte;
   }
 
   @Bean(name = "ventaVersion")
   public String ptrVentaVersion() {
-    return this.version;
+    return version;
   }
 
 }
