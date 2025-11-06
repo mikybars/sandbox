@@ -168,7 +168,8 @@ public class RunTareaAmbitoRecolectarPtrVentaEcommerceServiceImpl
           .findIdCadenaDtoByIdTareaAndCclIdOrigen(
               tarea.getId(), tareaAmbito.getCclIdOrigen(), TipoVentaConceptoEnum.ENTREGA_TIENDA.getId());
 
-      final LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(runTarea.getTrabajo().getTipoAmbito().getId());
+      final LocalizacionesAmbitoDto localizaciones = new LocalizacionesAmbitoDto(
+          runTarea.getTrabajo().getTipoAmbito().getId());
 
       if (TipoAmbitoEnum.PERSONA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())
           || TipoAmbitoEnum.LOCALIZACION.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
