@@ -5,333 +5,58 @@ on:
     types: [published]
 
 env:
-  WORKFLOW_VERSION: 1.18.0
-  GITHUB_REGISTRY: ghcr.io
+  WORKFLOW_VERSION: 1.20.0
 
 jobs:
-  generate-sbom:
-    name: Generate SBOM
-    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_DOCKER || '["citool-icr-aks__code-ubuntu24.04-medium"]') }}
+  prepare-oscos-context:
+    name: Prepare OSCOS context
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]') }}
+    outputs:
+      group-name: ${{ steps.get-group-name.outputs.group_name }}
+      runner-label: ${{ steps.pick-runner-label.outputs.label }}
     steps:
       - name: Checkout
-        id: action-checkout
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Registry
-        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
-
-      - name: Export DP Maven Repositories
+      - id: pick-runner-label
+        name: Pick runner label
+        shell: python
+        env:
+          RUNS: ${{ vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]' }}
         run: |
-          echo "DP_PUBLIC_MAVEN_REPOSITORY=$DP_PUBLIC_MAVEN_REPOSITORY" >> "$GITHUB_ENV"
-          echo "DP_INTERNAL_MAVEN_REPOSITORY=$DP_INTERNAL_MAVEN_REPOSITORY" >> "$GITHUB_ENV"
+          import os, json
+          data = json.loads(os.environ["RUNS"])
+          label = data[0] if isinstance(data, list) and data else (data if isinstance(data, str) else "oscos-icr__ci-oscos-base-large")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"label={label}\n")
 
-      - name: Generate SBOM
-        id: generate-sbom
-        uses: inditex/gha-oscodependencies/cdxgen-generator@v0
-        with:
-          code-src: ${{ github.workspace }}
-          dp_user: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
-          dp_token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
-          github_token: ${{ secrets.GH_TOKEN_READER }}
-          dp_public_maven_repository: ${{ env.DP_PUBLIC_MAVEN_REPOSITORY }}
-          dp_internal_maven_repository: ${{ env.DP_INTERNAL_MAVEN_REPOSITORY }}
-
-      - name: Upload SBOM Artifact
-        uses: actions/upload-artifact@v4
-        continue-on-error: true
-        with:
-          name: sbom
-          path: code/sbom.json
-
-  check-compliance:
-    name: Check compliance using sbom and wsc-oscodeps
-    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
-    needs: generate-sbom
-    steps:
-      - name: Checkout
-        id: action-checkout
-        uses: actions/checkout@v4
-
-      - name: Download SBOM Artifact
-        id: download-sbom-artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: sbom
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ./sbom-artifact
-
-      - name: Credentials resolver
-        id: credentials-resolver
-        uses: inditex/gha-oscodependencies/creds-resolver@v0
-        with:
-          cyberark_oauth_clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
-          cyberark_oauth_secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
-          secret_file_name: "secret_s3_storage.yml"
-
-      - name: Get project key from repository metadata
-        id: get-project-key
+      - name: Get group name from repository metadata
+        id: get-group-name
         shell: python
         run: |
           import yaml
           import os
           with open('application.yml') as f:
               application = yaml.safe_load(f)
-          project_key = application["metadata"]["project_key"]
+
+          raw_group = application["metadata"]["service"]
+          # concat + lowercase
+          group_name = f"com.inditex.{raw_group}".lower()
+
           github_env = os.getenv('GITHUB_OUTPUT')
           with open(github_env, "a") as env_file:
-              env_file.write(f"project_key={project_key}\n")
-              print(f"::notice::Project key = [{project_key}] written to GitHub environment output.")
+              env_file.write(f"group_name={group_name}\n")
 
-      - name: Determine version
-        id: determine-version
-        env:
-          INPUT_RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: |
-          echo "Extracting version from release event"
-          echo "version=${INPUT_RELEASE_TAG}" >> "$GITHUB_OUTPUT"
+          print(f"::notice::Group name = [{group_name}] written to GitHub environment output.")
 
-      - name: Set unique S3 object name
-        id: set-unique-s3-object-name
-        run: |
-          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-          OBJECT_NAME="${{ steps.get-project-key.outputs.project_key }}_${TIMESTAMP}_sbom"
-          echo "object_name=${OBJECT_NAME}" >> "$GITHUB_OUTPUT"
-          echo "::notice::The generated S3 object name is: ${OBJECT_NAME}"
-
-      - name: Upload file to an s3 bucket
-        id: upload-s3-file
-        uses: inditex/gha-oscodependencies/upload-s3@v0
-        with:
-          s3_access_key: ${{ steps.credentials-resolver.outputs.s3_access_key }}
-          s3_secret_key: ${{ steps.credentials-resolver.outputs.s3_secret_key }}
-          file_path: ${{ github.workspace }}/sbom-artifact/sbom.json
-          object_name: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
-
-      - name: Check if curation.yml exists
-        id: check-curation-file
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          oscos_curation_file="${GITHUB_WORKSPACE}/code/oscos-curation.yml"
-
-          if [[ -f "$oscos_curation_file" ]]; then
-            if grep -qE '^[[:space:]]*[^#[:space:]]' "$oscos_curation_file"; then
-              echo "curation_exists=true" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml file exists."
-            else
-              rm -f "$oscos_curation_file"
-              echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml exists but is empty or only comments. Removed."
-            fi
-          else
-            echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::oscos-curation.yml not found."
-          fi
-
-      - name: Validation project curation file
-        id: validation-project-curation-file
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'true' }}
-        uses: inditex/gha-oscodependencies/file-validation@v0
-        with:
-          schema-name: curation_schema.json
-          file-path: ${{ github.workspace }}/code/oscos-curation.yml
-
-      - name: Infer project curation file
-        id: infer-project-curation-file
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
-        uses: inditex/gha-oscodependencies/runtime-oscos-curation-file@v0
-        with:
-          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-          repository-name: ${{ github.event.repository.name }}
-
-      - name: Curation file effective
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
-        shell: bash
-        run: |
-          path=${{ github.workspace }}/code/oscos-curation.yml
-          echo "Curation path: $path"
-          if [ -f "$path" ]; then
-            echo "----- BEGIN $path -----"
-            cat "$path"
-            echo "------ END $path ------"
-          fi
-
-      - name: Check compliance with OSCODEP API
-        id: check-compliance
-        uses: inditex/gha-oscodependencies/sbom-api-client@v0
-        with:
-          use-case: SBOM_COMPLIANCE
-          sbom-id: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
-          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
-          vcs-url: https://github.com/${{ github.repository }}
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-          version: ${{ steps.determine-version.outputs.version }}
-
-      - name: Check result with OSCODEP API
-        id: check-result
-        uses: inditex/gha-oscodependencies/sbom-api-client@v0
-        with:
-          use-case: SBOM_STATUS_CHECK
-          task-id: ${{ steps.check-compliance.outputs.task_id }}
-
-      - name: Generate Compliance Summary
-        id: generate-summary
-        uses: inditex/gha-oscodependencies/compliance-result-renderer@v0
-        with:
-          result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
-          compliance-result: ${{ steps.check-result.outputs.compliance_result }}
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-          version: ${{ steps.determine-version.outputs.version }}
-          curation-file-exists: ${{ steps.check-curation-file.outputs.curation_exists }}
-
-      - name: Read CODEOWNERS file
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
-        id: read-codeowners
-        run: |
-          if [ -f ".github/CODEOWNERS" ]; then
-            echo "CODEOWNERS found"
-            owners=$(awk '!/^#/ {print $NF}' .github/CODEOWNERS | sort | uniq | paste -sd "," -)
-            echo "codeowners=$owners" >> "$GITHUB_OUTPUT"
-          else
-            echo "No CODEOWNERS file found."
-            echo "codeowners=No Owners Found" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Close previous compliance issues
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
-        id: close-previous-issues
-        uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          script: |
-            const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: 'kind/oso-compliance',
-              state: 'open'
-            });
-
-            let closedCount = 0;
-            for (const issue of issues) {
-              try {
-                await github.rest.issues.update({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  state: 'closed'
-                });
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: '🔄 **Automatically closed**: A new compliance check is being performed for a new release. Please check the latest compliance report issue.'
-                });
-                closedCount++;
-                core.notice(`Closed previous compliance issue #${issue.number}: ${issue.title}`);
-              } catch (error) {
-                core.warning(`Failed to close issue #${issue.number}: ${error.message}`);
-              }
-            }
-            if (closedCount > 0) {
-              core.notice(`Successfully closed ${closedCount} previous compliance issue(s)`);
-            } else {
-              core.notice('No previous compliance issues found to close');
-            }
-            core.setOutput("closed_issues_count", closedCount);
-
-      - name: Open Issue with report
-        id: open-issue-report
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
-        uses: actions/github-script@v7
-        env:
-          COMPLIANCE_RESULT_PATH: ${{ steps.generate-summary.outputs.md-issue-path }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          script: |
-            const fs = require('fs');
-
-            const path = process.env.COMPLIANCE_RESULT_PATH;
-            const issueTitle = "OSCOS Licenses Compliance Report - :red_circle: FAILURE ${{ steps.determine-version.outputs.version }}";
-            let issueBody = "";
-
-            try {
-              const markdownContent = fs.readFileSync(path, 'utf8');
-              issueBody += markdownContent;
-            } catch (error) {
-              core.setFailed(`Error reading compliance summary file: ${error.message}`);
-              return;
-            }
-
-            const response = await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: issueTitle,
-              body: issueBody,
-              labels: ["kind/oso-compliance"]
-            });
-
-            core.setOutput("issue_number", response.data.number);
-            core.notice(`Issue created: ${response.data.html_url}`);
-
-      - name: Comment on the issue with Code Owners
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' }}
-        uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          script: |
-            const issueNumber = parseInt('${{ steps.open-issue-report.outputs.issue_number }}');
-            const codeOwners = '${{ steps.read-codeowners.outputs.codeowners }}'
-              .split(',')
-              .map(owner => `${owner.trim()}`)
-              .join(' ');
-            const commentBody = `🔔 **Attention Code Owners:**\n${codeOwners}\n\nPlease review the compliance issue.`;
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              body: commentBody
-            });
-            core.notice("Code Owners mentioned successfully.");
-
-      - name: Upload SBOM to GitHub Release
-        id: upload-sbom-asset
-        uses: actions/github-script@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SBOM_PATH: ${{ github.workspace }}/sbom-artifact/sbom.json
-          SBOM_NAME: bom.json
-        with:
-          script: |
-            const fs = require('fs');
-            const path = process.env.SBOM_PATH;
-            const name = process.env.SBOM_NAME;
-
-            const release_id = context.payload.release.id;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-
-            const fileData = fs.readFileSync(path);
-
-            const uploadAssetResponse = await github.rest.repos.uploadReleaseAsset({
-              owner,
-              repo,
-              release_id,
-              name,
-              data: fileData,
-              headers: {
-                'content-type': 'application/json',
-                'content-length': fileData.length
-              }
-            });
-
-            core.notice(`SBOM uploaded as release asset:: ${uploadAssetResponse.data.browser_download_url}`);
-
-      - name: Action status exist
-        id: action-status-exist
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' || steps.check-result.outputs.invocation_status == 'error' }}
-        run: |
-          exit 1
+  call-reusable-workflow:
+    name: Call Reusable OSCOS Check Compliance
+    needs: prepare-oscos-context
+    uses: inditex/ghw-oscodependencies/.github/workflows/oscos-reusable-check-compliance.yml@v0
+    with:
+      runs-on: ${{ needs.prepare-oscos-context.outputs.runner-label }}
+      is-release: true
+      version: ${{ github.event.release.tag_name }}
+      group-name: ${{ needs.prepare-oscos-context.outputs.group-name }}
+      cdxgen-type: 'java'
+    secrets: inherit
