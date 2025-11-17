@@ -1,0 +1,12 @@
+# ignore all Sentinel Templates cache folders & cachepaascli.yml
+cache*
+# ignore info.before_check.yml, info.after_check.yml & info.yml
+info*.yml
+# ignore all generated kubernetes manifests
+Template*.yml
+# ignore the file that contains the source Docker image and the different destination registries where it should be promoted
+images_to_promote.txt
+# ignore the file that contains all the Sentinel rules with which the info.yml was generated
+mergedValidations.yml
+# ignore the file that is generated when building the artifact
+project_analysis.yml

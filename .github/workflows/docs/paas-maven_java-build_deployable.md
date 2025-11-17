@@ -32,5 +32,5 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
   - **Steps**
     - Builds the artifact if the deployable version is a snapshot one
-    - Generates the Dockerfile with the [sentinel](https://github.com/inditex/gha-paasdeployment/tree/main/sentinel) action
+    - Generate `Dockerfile` with  [Sentinel Forge action](https://github.com/inditex/gha-paasdeployment/tree/main/generate-dockerfile)
     - Build Docker Image and push it to [Distribution Platform](https://inditex.jfrog.io)
