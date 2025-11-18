@@ -31,7 +31,7 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 - ### `validate-slots`
 
   It'll run when `identify-changes` have finished.
-  
+
   - **Steps**
     - Ensure slot is present
     - [validate-slots](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/validate-slots) action validates that the slots provided are correct to be deployed in PaaS.
@@ -48,5 +48,4 @@ This workflow relies on [IVM's asdf plugin](https://github.com/inditex/cac-asdft
 
   - **Steps**
     - Clean up last build tag on closed PR.
-    - Detect if it is BatchAsCode.
     - [Clean Up / Delete Folder Into Deployment Branch](https://github.com/inditex/gha-paasdeployment/tree/main/deployment/delete-deployment-folder)
