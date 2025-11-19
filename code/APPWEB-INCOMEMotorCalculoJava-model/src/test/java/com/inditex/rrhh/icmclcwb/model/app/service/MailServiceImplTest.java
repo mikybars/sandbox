@@ -216,6 +216,26 @@ public class MailServiceImplTest {
   }
 
   @Test
+  void sendMailValidacionesAgrupadasValidacion36() {
+    this.sendMailValidacionesAgrupadasConLocalizacion(36, PRE, USUARIO, Boolean.TRUE);
+  }
+
+  @Test
+  void sendMailValidacionesAgrupadasValidacion37() {
+    this.sendMailValidacionesAgrupadasConLocalizacion(37, PRE, USUARIO, Boolean.TRUE);
+  }
+
+  @Test
+  void sendMailValidacionesAgrupadasValidacion36SinLocalizaciones() {
+    this.sendMailValidacionesAgrupadasConLocalizacionVacia(36, PRE, USUARIO, Boolean.TRUE);
+  }
+
+  @Test
+  void sendMailValidacionesAgrupadasValidacion37SinLocalizaciones() {
+    this.sendMailValidacionesAgrupadasConLocalizacionVacia(37, PRE, USUARIO, Boolean.TRUE);
+  }
+
+  @Test
   void sendMailValidacionesAgrupadasMultiplesValidaciones() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TrabajoDTO trabajo = new TrabajoDTO();
@@ -223,6 +243,7 @@ public class MailServiceImplTest {
     final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
     final List<ValidacionDto> validaciones = new ArrayList<>();
     final List<String> personaLocal = new ArrayList<>();
+    final List<String> localizacionLocal = new ArrayList<>();
 
     tareaAmbito.setCclIdOrigen("60");
     tarea.setIdOrganization(ORGANIZATION);
@@ -235,10 +256,15 @@ public class MailServiceImplTest {
     runTareaDto.setTrabajo(trabajo);
     runTareaDto.setTarea(tarea);
     personaLocal.add(PERSONA);
+    localizacionLocal.add("LOC001");
 
     validaciones.add(ValidacionDto.builder().idTareaFaseAccion(1L).idPersonaLocal(personaLocal).build());
     validaciones.add(ValidacionDto.builder().idTareaFaseAccion(2L).idPersonaLocal(personaLocal).build());
     validaciones.add(ValidacionDto.builder().idTareaFaseAccion(3L).idPersonaLocal(personaLocal).build());
+    validaciones.add(
+        ValidacionDto.builder().idTareaFaseAccion(4L).idPersonaLocal(new ArrayList<>()).idLocalizacionLocal(localizacionLocal).build());
+    validaciones.add(
+        ValidacionDto.builder().idTareaFaseAccion(5L).idPersonaLocal(new ArrayList<>()).idLocalizacionLocal(localizacionLocal).build());
 
     final List<UsuarioResultItemDto> usuarios = new ArrayList<>();
     usuarios.add(UsuarioResultItemDto.builder().mail(MAIL).build());
@@ -251,6 +277,10 @@ public class MailServiceImplTest {
         .thenReturn(TareaFaseAccionDto.builder().idAccion(33).build());
     when(this.tareaFaseAccionService.findById(3L))
         .thenReturn(TareaFaseAccionDto.builder().idAccion(34).build());
+    when(this.tareaFaseAccionService.findById(4L))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(36).build());
+    when(this.tareaFaseAccionService.findById(5L))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(37).build());
     when(this.meta4IcmWsCalcIncomeService.getMail(any(UsuarioRequestDto.class)))
         .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
     when(this.mailEntornoService.findEsActivoByEntorno(any())).thenReturn(Boolean.TRUE);
@@ -315,6 +345,95 @@ public class MailServiceImplTest {
         .thenReturn(List.of(
             ReglaValidacionExcedidoDto.builder().idTipoCalculo("001").importe(new BigDecimal("100")).build(),
             ReglaValidacionExcedidoDto.builder().idTipoCalculo("002").importe(new BigDecimal("200")).build()));
+
+    this.mailServiceImpl.sendMailValidacionesAgrupadas(validaciones, runTareaDto);
+
+    verify(this.mailSender, times(1)).send(any(SimpleMailMessage.class));
+  }
+
+  void sendMailValidacionesAgrupadasConLocalizacion(final Integer idAccion, final String environment,
+      final String nombreUsuario, final Boolean envioEntorno) {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    final TareaDto tarea = new TareaDto();
+    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+    final List<ValidacionDto> validaciones = new ArrayList<>();
+    final List<String> localizacionLocal = new ArrayList<>();
+
+    tareaAmbito.setCclIdOrigen("60");
+    tarea.setIdOrganization(ORGANIZATION);
+    tarea.setAmbito(List.of(tareaAmbito));
+    tarea.setStdIdLegEnt("1");
+    tarea.setId(1L);
+    trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
+    trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
+    trabajo.setNombreUsuario(nombreUsuario);
+    runTareaDto.setTrabajo(trabajo);
+    runTareaDto.setTarea(tarea);
+    localizacionLocal.add("LOC001");
+    localizacionLocal.add("LOC002");
+
+    validaciones.add(ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
+        .idPersonaLocal(new ArrayList<>())
+        .idLocalizacionLocal(localizacionLocal)
+        .build());
+
+    final List<UsuarioResultItemDto> usuarios = new ArrayList<>();
+    usuarios.add(UsuarioResultItemDto.builder().mail(MAIL).build());
+
+    ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, environment);
+
+    when(this.tareaFaseAccionService.findById(1L))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(idAccion).build());
+    when(this.meta4IcmWsCalcIncomeService.getMail(any(UsuarioRequestDto.class)))
+        .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
+    when(this.mailEntornoService.findEsActivoByEntorno(any())).thenReturn(envioEntorno);
+    when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
+        .thenReturn(List.of("test@inditex.com"));
+
+    this.mailServiceImpl.sendMailValidacionesAgrupadas(validaciones, runTareaDto);
+
+    verify(this.mailSender, times(1)).send(any(SimpleMailMessage.class));
+  }
+
+  void sendMailValidacionesAgrupadasConLocalizacionVacia(final Integer idAccion, final String environment,
+      final String nombreUsuario, final Boolean envioEntorno) {
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    final TrabajoDTO trabajo = new TrabajoDTO();
+    final TareaDto tarea = new TareaDto();
+    final TareaAmbitoDto tareaAmbito = new TareaAmbitoDto();
+    final List<ValidacionDto> validaciones = new ArrayList<>();
+
+    tareaAmbito.setCclIdOrigen("60");
+    tarea.setIdOrganization(ORGANIZATION);
+    tarea.setAmbito(List.of(tareaAmbito));
+    tarea.setStdIdLegEnt("1");
+    tarea.setId(1L);
+    trabajo.setFechaInicioPeriodo(OffsetDateTime.MIN);
+    trabajo.setFechaFinPeriodo(OffsetDateTime.MAX);
+    trabajo.setNombreUsuario(nombreUsuario);
+    runTareaDto.setTrabajo(trabajo);
+    runTareaDto.setTarea(tarea);
+
+    validaciones.add(ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
+        .idPersonaLocal(new ArrayList<>())
+        .idLocalizacionLocal(null)
+        .build());
+
+    final List<UsuarioResultItemDto> usuarios = new ArrayList<>();
+    usuarios.add(UsuarioResultItemDto.builder().mail(MAIL).build());
+
+    ReflectionTestUtils.setField(this.mailServiceImpl, ENVIRONMENT, environment);
+
+    when(this.tareaFaseAccionService.findById(1L))
+        .thenReturn(TareaFaseAccionDto.builder().idAccion(idAccion).build());
+    when(this.meta4IcmWsCalcIncomeService.getMail(any(UsuarioRequestDto.class)))
+        .thenReturn(UsuarioResponseDto.builder().items(usuarios).build());
+    when(this.mailEntornoService.findEsActivoByEntorno(any())).thenReturn(envioEntorno);
+    when(this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt("60", "1"))
+        .thenReturn(List.of("test@inditex.com"));
 
     this.mailServiceImpl.sendMailValidacionesAgrupadas(validaciones, runTareaDto);
 
