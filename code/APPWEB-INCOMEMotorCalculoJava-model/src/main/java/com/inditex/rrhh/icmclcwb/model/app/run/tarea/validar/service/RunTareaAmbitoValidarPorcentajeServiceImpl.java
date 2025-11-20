@@ -56,29 +56,30 @@ public class RunTareaAmbitoValidarPorcentajeServiceImpl implements RunTareaAmbit
 
     final List<IdPersonaLocalDto> porcentaje0ValidationResult;
     final List<TareaFaseAccionDatoDto> tareaFaseAccionDatoList = new ArrayList<>();
-    final List<ValidacionDto> validacionDtos = new ArrayList<>();
 
     try {
       porcentaje0ValidationResult = this.tareaCalculoPorcentajeService.findPersonaPorcetaje0(tareaAmbito.getIdTarea());
 
-      porcentaje0ValidationResult
-          .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
-              .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
-      this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
+      LOG.info("Trabajo[{}]Tarea[{}] :: Validación porcentaje - Personas encontradas: {}",
+          runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(),
+          porcentaje0ValidationResult != null ? porcentaje0ValidationResult.size() : 0);
 
-      validacionDtos
-          .add(this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, porcentaje0ValidationResult,
-              PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
-              runTareaDto.getTarea()));
-      if (!porcentaje0ValidationResult.isEmpty()) {
-        this.mailService.sendMail(validacionDtos, runTareaDto);
+      if (porcentaje0ValidationResult != null && !porcentaje0ValidationResult.isEmpty()) {
+        porcentaje0ValidationResult
+            .forEach(persona -> tareaFaseAccionDatoList.add(TareaFaseAccionDatoDto.builder().idTareaFaseAccion(tareaFaseAccion.getId())
+                .idTipoDato(TipoDatoEnum.PERSONA.getId()).dato(persona.getIdPersonaLocal()).build()));
+        this.tareaFaseAccionFallidasService.save(tareaFaseAccionDatoList);
       }
+
+      return this.validacionMapper.idPersonaLocalDtoTovalidacionDto(tareaAmbito, tareaFaseAccion, porcentaje0ValidationResult,
+          PrevalidarPropertiesDto.builder().sincronizacion(SincronizacionDto.builder().activo(false).build()).build(),
+          runTareaDto.getTarea());
 
     } catch (final Exception e) {
       RunTareaAmbitoValidarPorcentajeServiceImpl.LOG.error(
-          "Trabajo[{}]Tarea[{}] :: Fin :: RunTareaAmbitoValidarPorcentajeServiceImpl :: porcentaje0",
+          "Trabajo[{}]Tarea[{}] :: Error :: RunTareaAmbitoValidarPorcentajeServiceImpl :: porcentaje0",
           runTareaDto.getTrabajo().getId(), runTareaDto.getTarea().getId(), e);
+      return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
     }
-    return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, true);
   }
 }

@@ -13,11 +13,16 @@ on:
         description: 'ID number (issue or pull request)'
         required: false
         default: ''
+      DRY_RUN:
+        description: 'Allows dry-run executions (w/out deploy step)'
+        required: false
+        default: 'false' # Explicitly set to 'false' for compatibility with legacy workflows where the input may be empty; set to 'true' only to activate dry-run mode.
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.1.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
+  DRY_RUN: ${{ github.event.inputs.DRY_RUN }} # Defined for future use; allows any action or step to access dry run mode without workflow changes.
 
 jobs:
   verify-topic:
@@ -126,8 +131,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
 
+      - name: Add comment with dry-run information
+        if: ${{ github.event.inputs.DRY_RUN == 'true' }}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: |
+            ### :zzz: PIPE Dry-run Mode
+            This workflow is running in **dry-run mode** ([documentation](https://chatbot.docs.inditex.dev/chatbot/latest/commands/pipe/deploy-topic.html#dry-run)).
+            Only the verify step has been executed; no PIPE Topics deployment will take place.
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHATBOT_PR_PAT }}
+
       - name: Shepherd validation
-        if: ${{ steps.summary-generator.outputs.shepherd_regions && !startsWith(env.PIPE_CODE_VERSION, '2') }}
+        if: ${{ steps.summary-generator.outputs.shepherd_regions && !startsWith(env.PIPE_CODE_VERSION, '2') && github.event.inputs.DRY_RUN == 'false' }}
         uses: inditex/gha-pipeactions/shepherd-region-check@v2
         with:
           supraenvs: ${{ github.event.inputs.SUPRAENV }}
@@ -147,7 +164,7 @@ jobs:
   ask-for-approval:
     name: Ask for approval
     runs-on: ubuntu-latest
-    if: needs.verify-topic.outputs.sensitive == 'True'
+    if: ${{ needs.verify-topic.outputs.sensitive == 'True' && github.event.inputs.DRY_RUN == 'false' }}
     environment: pipe-deploy-topic-environment
     needs: verify-topic
     steps:
@@ -158,7 +175,7 @@ jobs:
     name: Deploy PIPE Topic
     timeout-minutes: 30
     runs-on: ${{ fromJSON( vars.RUNSON_PIPE_ONPREM || '["self-hosted", "pipe"]' ) }}
-    if: ${{ always() && (needs.verify-topic.result == 'success') && (needs.ask-for-approval.result == 'success' || needs.ask-for-approval.result == 'skipped') }}
+    if: ${{ always() && (needs.verify-topic.result == 'success') && (needs.ask-for-approval.result == 'success' || needs.ask-for-approval.result == 'skipped') && github.event.inputs.DRY_RUN == 'false' }}
     needs: [verify-topic, ask-for-approval]
     steps:
       - name: Download artifacts
@@ -175,12 +192,11 @@ jobs:
 
       - name: Deploy No PaaS Client
         id: deploy-no-paas
-        uses: inditex/gha-pipeactions/deploy-client-no-paas@v2
+        uses: inditex/gha-pipeactions/deploy-client-no-paas@v3
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           paas-cli: ${{ steps.setup-cli.outputs.path }}
-          token: ${{ secrets.CHATBOT_PR_PAT }}
           working-directory: pipe
           github-token: ${{ secrets.GH_TOKEN_READER }}
 

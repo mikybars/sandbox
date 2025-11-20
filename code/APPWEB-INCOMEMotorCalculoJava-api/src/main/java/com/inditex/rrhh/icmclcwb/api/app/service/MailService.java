@@ -17,4 +17,6 @@ public interface MailService {
    */
   void sendMail(List<ValidacionDto> fallidas, RunTareaDto runTarea);
 
+  void sendMailValidacionesAgrupadas(List<ValidacionDto> validacionesParaNotificar, RunTareaDto runTarea);
+
 }
