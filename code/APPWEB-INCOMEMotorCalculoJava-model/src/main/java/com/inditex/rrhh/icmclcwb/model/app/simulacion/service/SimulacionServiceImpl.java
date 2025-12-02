@@ -113,4 +113,14 @@ public class SimulacionServiceImpl implements SimulacionService {
     });
   }
 
+  @Override
+  public void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto) {
+    this.simulacionRepositoryCustom.updateTiendaPersonaPresencia(tarea, simulacionDto.getCclIdPerson(), simulacionDto.getCclIdCodOrigen());
+  }
+
+  @Override
+  public void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto) {
+    this.simulacionRepositoryCustom.mergePresenciaTiendaSimulada(tarea, simulacionDto.getCclIdPerson(), simulacionDto.getCclIdCodOrigen());
+  }
+
 }

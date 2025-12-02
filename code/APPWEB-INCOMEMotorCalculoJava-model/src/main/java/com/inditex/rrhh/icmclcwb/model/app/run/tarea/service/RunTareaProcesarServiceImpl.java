@@ -60,10 +60,10 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
       final TrabajoDTO trabajo = runTarea.getTrabajo();
       Boolean esPresenciaTiendaUltimoCalculo = Boolean.FALSE;
       Boolean esVentaUltimoCalculo = Boolean.FALSE;
-      SimulacionDto simulacion = null;
+      final SimulacionDto simulacion =
+          trabajo.getIdSimulacion() != null ? this.simulacionService.findbyId(trabajo.getIdSimulacion()) : null;
 
-      if (trabajo.getIdSimulacion() != null) {
-        simulacion = this.simulacionService.findbyId(trabajo.getIdSimulacion());
+      if (simulacion != null) {
         esPresenciaTiendaUltimoCalculo = simulacion.getEsPresenciaTiendaUltimoCalculo();
         esVentaUltimoCalculo = simulacion.getEsVentaUltimoCalculo();
       }
@@ -339,6 +339,11 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionIncluidoChallengePorcentaje(runTarea);
         AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManualIncluidoChallengePorcentaje, cf, cfWait);
+      }
+
+      if (simulacion != null) {
+        // Añadir presencias de tienda simulada
+        this.simulacionService.mergePresenciaTiendaSimulada(runTarea.getTarea(), simulacion);
       }
 
       /*-------------------------------------------------------------*/
