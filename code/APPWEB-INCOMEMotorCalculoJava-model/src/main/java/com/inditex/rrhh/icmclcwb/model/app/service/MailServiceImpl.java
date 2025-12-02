@@ -275,8 +275,8 @@ public class MailServiceImpl implements MailService {
     this.appendValidacion32(result, validacionesPorAccion.getOrDefault(32, List.of()), tarea);
     this.appendValidacion33(result, validacionesPorAccion.getOrDefault(33, List.of()));
     this.appendValidacion34(result, validacionesPorAccion.getOrDefault(34, List.of()));
+    this.appendValidacion35(result, validacionesPorAccion.getOrDefault(35, List.of()));
     this.appendValidacion36(result, validacionesPorAccion.getOrDefault(36, List.of()));
-    this.appendValidacion37(result, validacionesPorAccion.getOrDefault(37, List.of()));
 
     result.append(KIND_REGARDS);
     return result.toString();
@@ -342,7 +342,7 @@ public class MailServiceImpl implements MailService {
     this.appendValidacionDetails(result, validaciones.get(0));
   }
 
-  private void appendValidacion36(final StringBuilder result, final List<ValidacionDto> validaciones) {
+  private void appendValidacion35(final StringBuilder result, final List<ValidacionDto> validaciones) {
     if (validaciones.isEmpty()) {
       return;
     }
@@ -350,7 +350,7 @@ public class MailServiceImpl implements MailService {
     this.appendValidacionDetailsLocalizacion(result, validaciones.get(0));
   }
 
-  private void appendValidacion37(final StringBuilder result, final List<ValidacionDto> validaciones) {
+  private void appendValidacion36(final StringBuilder result, final List<ValidacionDto> validaciones) {
     if (validaciones.isEmpty()) {
       return;
     }

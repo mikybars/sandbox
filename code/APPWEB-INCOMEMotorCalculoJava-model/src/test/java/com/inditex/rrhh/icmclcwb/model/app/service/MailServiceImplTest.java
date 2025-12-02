@@ -216,23 +216,23 @@ public class MailServiceImplTest {
   }
 
   @Test
+  void sendMailValidacionesAgrupadasValidacion35() {
+    this.sendMailValidacionesAgrupadasConLocalizacion(35, PRE, USUARIO, Boolean.TRUE);
+  }
+
+  @Test
   void sendMailValidacionesAgrupadasValidacion36() {
     this.sendMailValidacionesAgrupadasConLocalizacion(36, PRE, USUARIO, Boolean.TRUE);
   }
 
   @Test
-  void sendMailValidacionesAgrupadasValidacion37() {
-    this.sendMailValidacionesAgrupadasConLocalizacion(37, PRE, USUARIO, Boolean.TRUE);
+  void sendMailValidacionesAgrupadasValidacion35SinLocalizaciones() {
+    this.sendMailValidacionesAgrupadasConLocalizacionVacia(35, PRE, USUARIO, Boolean.TRUE);
   }
 
   @Test
   void sendMailValidacionesAgrupadasValidacion36SinLocalizaciones() {
     this.sendMailValidacionesAgrupadasConLocalizacionVacia(36, PRE, USUARIO, Boolean.TRUE);
-  }
-
-  @Test
-  void sendMailValidacionesAgrupadasValidacion37SinLocalizaciones() {
-    this.sendMailValidacionesAgrupadasConLocalizacionVacia(37, PRE, USUARIO, Boolean.TRUE);
   }
 
   @Test
