@@ -294,7 +294,7 @@ public class SimulacionServiceImplTest {
   }
 
   @Test
-  public void updateTiendaPersonaPresenciaTest() {
+  void updateTiendaPersonaPresenciaTest() {
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final SimulacionDto simulacion = mock(SimulacionDto.class);
     final String cclIdPerson = "12345";
@@ -310,7 +310,7 @@ public class SimulacionServiceImplTest {
   }
 
   @Test
-  public void mergePresenciaTiendaSimulada() {
+  void mergePresenciaTiendaSimulada() {
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final SimulacionDto simulacion = mock(SimulacionDto.class);
     final String cclIdPerson = "12345";

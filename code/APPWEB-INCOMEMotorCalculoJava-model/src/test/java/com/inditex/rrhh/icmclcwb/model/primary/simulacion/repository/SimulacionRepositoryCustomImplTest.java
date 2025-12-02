@@ -52,9 +52,9 @@ public class SimulacionRepositoryCustomImplTest {
 
   private final static String SQL_MERGE_VENTA_ULTIMO_CALCULO = "SQL MERGE VENTA ULTIMO CALCULO";
 
-  private final static String SQL_UPDATE_TIENDA_PERSONA_PRESENCIA = "SQL UPDATE TIENDA PERSONA PRESENCIA";
+  private static final String SQL_UPDATE_TIENDA_PERSONA_PRESENCIA = "SQL UPDATE TIENDA PERSONA PRESENCIA";
 
-  private final static String SQL_MERGE_PRESENCIA_TIENDA_SIMULADA = "SQL MERGE PRESENCIA TIENDA SIMULADA";
+  private static final String SQL_MERGE_PRESENCIA_TIENDA_SIMULADA = "SQL MERGE PRESENCIA TIENDA SIMULADA";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -277,7 +277,7 @@ public class SimulacionRepositoryCustomImplTest {
   }
 
   @Test
-  public void updateTiendaPersonaPresenciaTest() {
+  void updateTiendaPersonaPresenciaTest() {
     final Long idTarea = 555L;
     final String cclIdCodOrigen = "test";
     final String cclIdPerson = "1";
@@ -301,7 +301,7 @@ public class SimulacionRepositoryCustomImplTest {
   }
 
   @Test
-  public void mergePresenciaTiendaSimulada() {
+  void mergePresenciaTiendaSimulada() {
     final Long idTarea = 555L;
     final String cclIdCodOrigen = "test";
     final String cclIdPerson = "1";
