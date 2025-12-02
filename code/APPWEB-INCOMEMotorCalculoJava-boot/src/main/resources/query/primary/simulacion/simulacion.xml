@@ -214,4 +214,20 @@ INSERT INTO TAREA_PERSONA_HISTORICO (
       WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen AND CCL_ID_SECCION = :cclIdSeccion AND ICM_BANDA = :icmBanda
    ]]>
   </entry>
+
+  <entry key="SimulacionRepositoryCustom.updateTiendaPersonaPresencia">
+    <![CDATA[
+      UPDATE TAREA_LOCALIZACION_PERSONA_PRESENCIA SET CCL_ID_COD_ORIGEN = :cclIdCodOrigen
+      WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson
+   ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergePresenciaTiendaSimulada">
+    <![CDATA[
+      INSERT INTO TAREA_LOCALIZACION_PRESENCIA (FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION,  ES_ACTIVO, FECHA_INICIO_PERIODO, MINUTOS)
+      SELECT FECHA, ID_TAREA, ID_TIPO_DATO, CCL_ID_CADENA, CCL_ID_COD_ORIGEN, CCL_ID_SECCION, ES_ACTIVO, FECHA_INICIO_PERIODO, MINUTOS
+      FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA
+      WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen
+   ]]>
+  </entry>
 </properties>
