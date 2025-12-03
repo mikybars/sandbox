@@ -22,4 +22,8 @@ public interface SimulacionService {
   SimulacionDto findbyId(@NotNull Long id);
 
   void updateBandaExcepcionada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
+
+  void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
+
+  void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
 }

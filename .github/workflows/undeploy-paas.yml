@@ -24,7 +24,7 @@ on:
         description: Parent Issue from where the deletion was triggered
         required: true
 env:
-  WORKFLOW_VERSION: 3.24.1
+  WORKFLOW_VERSION: 3.30.2
 
 jobs:
   filter-permutations:

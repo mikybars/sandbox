@@ -11,18 +11,26 @@ on:
       VERSION:
         required: true
         type: string
+      CHECKOUT_REF:
+        required: false
+        type: string
+        default: ''
   workflow_dispatch:
     inputs:
       VERSION:
         description: "Version to build"
         required: true
         default: ""
+      CHECKOUT_REF:
+        required: false
+        type: string
+        default: ''
   release:
     types:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.24.1
+  WORKFLOW_VERSION: 3.30.2
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -30,7 +38,6 @@ env:
   NPM_EMAIL: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   NPM_AUTH: ${{ secrets.DIST_PLAT_DEPLOYER_NPM_AUTH }}
   GITHUB_REGISTRY: ghcr.io
-  USE_SENTINELFORGE: ${{ vars.USE_SENTINELFORGE || 'false' }}
 
 jobs:
   set-destination-branch:
@@ -117,6 +124,8 @@ jobs:
     name: PaaS / Build Deployable & Promote
     needs: [identify-changes]
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_DOCKER || '["ubuntu-24.04"]' ) }}
+    outputs:
+      is-fast-track-release: ${{ steps.check-fast-track-release.outputs.is-fast-track || 'false' }}
     steps:
       - name: Checkout merge commit
         if: github.event.pull_request.merged == true
@@ -126,7 +135,7 @@ jobs:
         if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.inputs.CHECKOUT_REF || inputs.CHECKOUT_REF || github.event.pull_request.head.sha }}
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -244,7 +253,6 @@ jobs:
 
       - name: SentinelForge / Generate Dockerfile
         id: sentinel-forge-dockerfile
-        if: ${{ env.USE_SENTINELFORGE == 'true' }}
         uses: inditex/gha-paasdeployment/generate-dockerfile@v0
         with:
           github-token: ${{ secrets.GH_TOKEN_READER }}
@@ -253,35 +261,16 @@ jobs:
           build-type: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
           is-merged: ${{ github.event.pull_request.merged }}
           artifact-version: ${{ needs.identify-changes.outputs.release-version }}
-
-      - name: Sentinel - Generate Dockerfile
-        id: sentinel
-        if: ${{ env.USE_SENTINELFORGE != 'true' }}
-        uses: inditex/gha-paasdeployment/sentinel@v0
-        with:
-          app-version: ${{ needs.identify-changes.outputs.release-version }}
-          working-directory: code
-          token: ${{ secrets.GH_TOKEN_READER }}
-        env:
-          IMAGE_BUILD_TYPE: ${{ steps.set-deploy-vars.outputs.APP_VERSION }}
-          MERGED: ${{ github.event.pull_request.merged }}
+          checkout-ref: ${{ github.event.inputs.CHECKOUT_REF || inputs.CHECKOUT_REF }}
 
       - name: Determine Dockerfile Outputs
         id: determine-dockerfile-outputs
         run: |
-          if [[ "${{ env.USE_SENTINELFORGE }}" == "true" ]]; then
-            {
-              echo "image-name=${{ steps.sentinel-forge-dockerfile.outputs.image-name }}"
-              echo "image-tag=${{ steps.sentinel-forge-dockerfile.outputs.image-tag }}"
-              echo "image-registry=${{ steps.sentinel-forge-dockerfile.outputs.image-registry }}"
-            } >> "$GITHUB_OUTPUT"
-          else
-            {
-              echo "image-name=${{ steps.sentinel.outputs.image-name }}"
-              echo "image-tag=${{ steps.sentinel.outputs.image-tags }}"
-              echo "image-registry=${{ steps.sentinel.outputs.image-registry }}"
-            } >> "$GITHUB_OUTPUT"
-          fi
+          {
+            echo "image-name=${{ steps.sentinel-forge-dockerfile.outputs.image-name }}"
+            echo "image-tag=${{ steps.sentinel-forge-dockerfile.outputs.image-tag }}"
+            echo "image-registry=${{ steps.sentinel-forge-dockerfile.outputs.image-registry }}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Artifact / Build and Push Docker Image to ghcr
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot'
@@ -307,11 +296,18 @@ jobs:
           path: code
           dockerfile: code/Dockerfile
 
+      - name: Tag / Get fork PR commit SHA
+        if: ${{ github.event.inputs.CHECKOUT_REF != '' || inputs.CHECKOUT_REF != '' }}
+        id: get-fork-pr-commit-sha
+        run: echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Create tag from identify-changes
         if: github.event_name != 'release'
         uses: inditex/gha-paasdeployment/deployment/move-build-tag@v0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          checkout-ref: ${{ github.event.inputs.CHECKOUT_REF || inputs.CHECKOUT_REF }}
+          commit-sha: ${{ steps.get-fork-pr-commit-sha.outputs.SHA || github.sha }}
 
       - name: Create a Workflow Status Check to link this execution with a PR
         if: ${{ always() && !cancelled() && steps.set-deploy-vars.outputs.APP_VERSION == 'snapshot' }}
@@ -325,9 +321,18 @@ jobs:
             `${{ github.workflow_ref }}`
             You can find more details in the link below :arrow_down:
 
+      - name: Detect fast-track label in GitHub release
+        if: ${{ github.event_name == 'release' }}
+        id: check-fast-track-release
+        uses: inditex/gha-paasdeployment/check-fast-track-release@v0
+        with:
+          repository: ${{ github.repository }}
+          release-version: "${{ needs.identify-changes.outputs.release-version }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   create-deployment-prs:
     needs: [identify-changes, build-deployable]
-    if: ${{ github.event_name == 'release' && !failure() && !cancelled() && needs.identify-changes.result == 'success' && needs.build-deployable.result == 'success' }}
+    if: ${{ github.event_name == 'release' && !failure() && !cancelled() && needs.identify-changes.result == 'success' && needs.build-deployable.result == 'success' && needs.build-deployable.outputs.is-fast-track-release == 'false' }}
     name: CD
     uses: ./.github/workflows/paas-promote.yml
     with:

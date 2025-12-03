@@ -7,145 +7,39 @@ on:
       - completed
 
 env:
-  WORKFLOW_VERSION: 1.18.0
+  WORKFLOW_VERSION: 1.20.0
 
 jobs:
-  check-compliance:
-    name: Check compliance using sbom and wsc-oscodeps
+  prepare-oscos-context:
+    name: Prepare OSCOS context
     if: ${{ github.event.workflow_run.conclusion == 'success' && vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
-    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]') }}
+    outputs:
+      runner-label: ${{ steps.pick-runner-label.outputs.label }}
     steps:
       - name: Checkout
-        id: action-checkout
         uses: actions/checkout@v4
 
-      - name: Download SBOM Artifact
-        id: download-sbom-artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: sbom
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: ${{ github.event.workflow_run.id }}
-          path: ./sbom-artifact
-
-      - name: Credentials resolver
-        id: credentials-resolver
-        uses: inditex/gha-oscodependencies/creds-resolver@v0
-        with:
-          cyberark_oauth_clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
-          cyberark_oauth_secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
-          secret_file_name: "secret_s3_storage.yml"
-
-      - name: Get project key from repository metadata
-        id: get-project-key
+      - id: pick-runner-label
+        name: Pick runner label
         shell: python
+        env:
+          RUNS: ${{ vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]' }}
         run: |
-          import yaml
-          import os
-          with open('application.yml') as f:
-              application = yaml.safe_load(f)
-          project_key = application["metadata"]["project_key"]
-          github_env = os.getenv('GITHUB_OUTPUT')
-          with open(github_env, "a") as env_file:
-              env_file.write(f"project_key={project_key}\n")
-              print(f"::notice::Project key = [{project_key}] written to GitHub environment output.")
+          import os, json
+          data = json.loads(os.environ["RUNS"])
+          label = data[0] if isinstance(data, list) and data else (data if isinstance(data, str) else "oscos-icr__ci-oscos-base-large")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"label={label}\n")
 
-      - name: Set unique S3 object name
-        id: set-unique-s3-object-name
-        run: |
-          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-          OBJECT_NAME="${{ steps.get-project-key.outputs.project_key }}_${TIMESTAMP}_sbom"
-          echo "object_name=${OBJECT_NAME}" >> "$GITHUB_OUTPUT"
-          echo "::notice::The generated S3 object name is: ${OBJECT_NAME}"
-
-      - name: Upload file to an s3 bucket
-        id: upload-s3-file
-        uses: inditex/gha-oscodependencies/upload-s3@v0
-        with:
-          s3_access_key: ${{ steps.credentials-resolver.outputs.s3_access_key }}
-          s3_secret_key: ${{ steps.credentials-resolver.outputs.s3_secret_key }}
-          file_path: ${{ github.workspace }}/sbom-artifact/sbom.json
-          object_name: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
-
-      - name: Check if curation.yml exists
-        id: check-curation-file
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          oscos_curation_file="${GITHUB_WORKSPACE}/code/oscos-curation.yml"
-
-          if [[ -f "$oscos_curation_file" ]]; then
-            if grep -qE '^[[:space:]]*[^#[:space:]]' "$oscos_curation_file"; then
-              echo "curation_exists=true" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml file exists."
-            else
-              rm -f "$oscos_curation_file"
-              echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-              echo "::notice::oscos-curation.yml exists but is empty or only comments. Removed."
-            fi
-          else
-            echo "curation_exists=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::oscos-curation.yml not found."
-          fi
-
-      - name: Validation project curation file
-        id: validation-project-curation-file
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'true' }}
-        uses: inditex/gha-oscodependencies/file-validation@v0
-        with:
-          schema-name: curation_schema.json
-          file-path: ${{ github.workspace }}/code/oscos-curation.yml
-
-      - name: Infer project curation file
-        id: infer-project-curation-file
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
-        uses: inditex/gha-oscodependencies/runtime-oscos-curation-file@v0
-        with:
-          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-          repository-name: ${{ github.event.repository.name }}
-
-      - name: Curation file effective
-        if: ${{ steps.check-curation-file.outputs.curation_exists == 'false' }}
-        shell: bash
-        run: |
-          path=${{ github.workspace }}/code/oscos-curation.yml
-          echo "Curation path: $path"
-          if [ -f "$path" ]; then
-            echo "----- BEGIN $path -----"
-            cat "$path"
-            echo "------ END $path ------"
-          fi
-
-      - name: Check compliance with OSCODEP API
-        id: check-compliance
-        uses: inditex/gha-oscodependencies/sbom-api-client@v0
-        with:
-          use-case: SBOM_COMPLIANCE
-          sbom-id: ${{ steps.set-unique-s3-object-name.outputs.object_name }}
-          curation-path: ${{ github.workspace }}/code/oscos-curation.yml
-          vcs-url: https://github.com/${{ github.repository }}
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-
-      - name: Check result with OSCODEP API
-        id: check-result
-        uses: inditex/gha-oscodependencies/sbom-api-client@v0
-        with:
-          use-case: SBOM_STATUS_CHECK
-          task-id: ${{ steps.check-compliance.outputs.task_id }}
-
-      - name: Generate Compliance Summary
-        id: generate-summary
-        uses: inditex/gha-oscodependencies/compliance-result-renderer@v0
-        with:
-          result-json-path: ${{ steps.check-result.outputs.compliance_result_path }}
-          compliance-result: ${{ steps.check-result.outputs.compliance_result }}
-          project-key: ${{ steps.get-project-key.outputs.project_key }}
-          curation-file-exists: ${{ steps.check-curation-file.outputs.curation_exists }}
-
-      - name: Action status exist
-        id: action-status-exist
-        if: ${{ steps.check-result.outputs.compliance_result == 'FAILURE' || steps.check-result.outputs.invocation_status == 'error' }}
-        run: |
-          exit 1
+  call-reusable-workflow:
+    name: Call Reusable OSCOS Check Compliance
+    needs: prepare-oscos-context
+    uses: inditex/ghw-oscodependencies/.github/workflows/oscos-reusable-check-compliance.yml@v0
+    with:
+      runs-on: ${{ needs.prepare-oscos-context.outputs.runner-label }}
+      is-release: false
+      artifact-run-id: ${{ github.event.workflow_run.id }}
+      sbom-path: sbom-artifact/sbom.json
+      artifact-repository: ${{ github.repository }}
+    secrets: inherit

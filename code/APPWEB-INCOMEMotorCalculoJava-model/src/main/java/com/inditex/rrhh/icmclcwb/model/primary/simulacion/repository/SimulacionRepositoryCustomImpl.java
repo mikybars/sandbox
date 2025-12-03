@@ -46,6 +46,12 @@ public class SimulacionRepositoryCustomImpl
   @Value("#{simulacionPrimaryQuery['SimulacionRepositoryCustom.updateBandaExcepcionada']}")
   private String sqlUpdateBandaExcepcionada;
 
+  @Value("#{simulacionPrimaryQuery['SimulacionRepositoryCustom.updateTiendaPersonaPresencia']}")
+  private String sqlUpdateTiendaPersonaPresencia;
+
+  @Value("#{simulacionPrimaryQuery['SimulacionRepositoryCustom.mergePresenciaTiendaSimulada']}")
+  private String sqlMergePresenciaTiendaSimulada;
+
   @Override
   public void mergeEmpleadoSimulacion(@NotNull final TareaDto tarea) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
@@ -150,6 +156,26 @@ public class SimulacionRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ACTIVO, SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE);
 
     this.update(this.sqlUpdateBandaExcepcionada, parameters);
+  }
+
+  @Override
+  public void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN, cclIdCodOrigen);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPerson);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    this.update(this.sqlUpdateTiendaPersonaPresencia, parameters);
+  }
+
+  @Override
+  public void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_COD_ORIGEN, cclIdCodOrigen);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPerson);
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, tarea.getId());
+
+    this.update(this.sqlMergePresenciaTiendaSimulada, parameters);
   }
 
 }
