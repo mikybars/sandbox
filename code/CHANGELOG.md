@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.81.0] - 2025-12-03
+
+### Added
+
+- [INCOME-2402](https://jira.inditex.com/jira/browse/INCOME-2402) Cálculo simulador otras tiendas
+- [INCOME-2616](https://jira.inditex.com/jira/browse/INCOME-2616) Cálculo simulador otras tiendas. Pruebas
+- [INCOME-2838](https://jira.inditex.com/jira/browse/INCOME-2838) Refactorización agrupación validaciones cálculo
+- [INCOME-2477](https://jira.inditex.com/jira/browse/INCOME-2477) Mi comisión - Datos UK Dutti
+- [INCOME-2756](https://jira.inditex.com/jira/browse/INCOME-2756) Desarrollo solución para la agrupación de validaciones no bloqueantes
+
 ## [4.80.0] - 2025-10-30
 
 ### Added
@@ -657,7 +667,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.80.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.81.0...main
+[4.81.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.80.0...4.81.0
 [4.80.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.79.0...4.80.0
 [4.79.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.2...4.79.0
 [4.78.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.1...4.78.2
