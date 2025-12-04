@@ -13,22 +13,20 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 @Component("validarPresenciasSinVentasV1")
 @Validated
+@RequiredArgsConstructor
 public class RunTareaValidarPresenciasSinVentasServiceImpl implements RunValidacionNoBloqueante {
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private AccionService accionService;
+  private final AccionService accionService;
 
-  @Autowired
-  private RunTareaAmbitoValidarPresenciasSinVentasService runTareaAmbitoValidarPresenciasSinVentasService;
+  private final RunTareaAmbitoValidarPresenciasSinVentasService runTareaAmbitoValidarPresenciasSinVentasService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(RunTareaDto runTarea, TareaFaseAccionDto tareaFaseAccion) {

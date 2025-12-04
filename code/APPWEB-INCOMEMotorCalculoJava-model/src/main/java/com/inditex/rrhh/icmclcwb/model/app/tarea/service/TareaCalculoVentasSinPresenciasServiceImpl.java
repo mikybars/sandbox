@@ -6,16 +6,16 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoVentasSinPresenciasService;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoRepositoryCustom;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class TareaCalculoVentasSinPresenciasServiceImpl implements TareaCalculoVentasSinPresenciasService {
 
-  @Autowired
-  private TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
+  private final TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
   @Override
   public List<IdLocalizacionLocalDto> findTiendaVentasSinPresencias(Long idTarea) {

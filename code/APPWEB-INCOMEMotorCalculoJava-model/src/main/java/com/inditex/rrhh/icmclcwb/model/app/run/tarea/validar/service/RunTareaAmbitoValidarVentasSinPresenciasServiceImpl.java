@@ -19,30 +19,26 @@ import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServ
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-
+@RequiredArgsConstructor
 public class RunTareaAmbitoValidarVentasSinPresenciasServiceImpl implements RunTareaAmbitoValidarVentasSinPresenciasService {
 
   private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarVentasSinPresenciasServiceImpl.class);
 
-  @Autowired
-  private TareaFaseAccionServiceImpl tareaFaseAccionService;
+  private final TareaFaseAccionServiceImpl tareaFaseAccionService;
 
-  @Autowired
-  private TareaCalculoVentasSinPresenciasService tareaCalculoVentasSinPresenciasService;
+  private final TareaCalculoVentasSinPresenciasService tareaCalculoVentasSinPresenciasService;
 
-  @Autowired
-  private TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
+  private final TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
-  @Autowired
-  private ValidacionMapper validacionMapper;
+  private final ValidacionMapper validacionMapper;
 
   @Override
   public ValidacionDto execute(
