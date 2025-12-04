@@ -38,7 +38,7 @@ services:
     ports:
       - "2181:2181"
   redis:
-    image: inditex-docker.jfrog.io/devenv/redis:6.0.5-r3
+    image: inditex-docker.jfrog.io/devenv/redis:8.4.0-r0
     environment:
       - "REDIS_CONFIG=/tmp/redis.conf"
     ports:

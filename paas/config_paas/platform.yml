@@ -36,10 +36,10 @@ amq:
   scheduler:
     enabled: true
 redis:
-  template: com.inditex.sentinel:senttpl-redis:4.0.1
+  template: com.inditex.sentinel:senttpl-redis:5.1.0
   enabled: true
   shared: true
-  slot: icmclcwb
+  slot: icmclcwb-v5
   force: true
   replicas: 1
   ephemeral_cache: true

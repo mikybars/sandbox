@@ -7,7 +7,7 @@ amiga:
     cache:
       redis:
         cluster:
-          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379
+          nodes: redis-cluster-icmclcwb-v5.sscc-global-rhcompensa.svc.cluster.local.:6379
     rest:
       client:
         slrhorcoms:
@@ -493,4 +493,4 @@ app:
     cache:
       redis:
         cluster:
-          nodes: redis-cluster-icmclcwb.sscc-global-rhcompensa.svc.cluster.local.:6379
+          nodes: redis-cluster-icmclcwb-v5.sscc-global-rhcompensa.svc.cluster.local.:6379
