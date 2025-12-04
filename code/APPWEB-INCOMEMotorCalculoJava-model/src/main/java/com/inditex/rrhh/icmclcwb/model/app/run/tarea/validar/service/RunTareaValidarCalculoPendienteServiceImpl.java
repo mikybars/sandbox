@@ -15,22 +15,20 @@ import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 @Component("validarCalculoPendienteV1")
 @Validated
+@RequiredArgsConstructor
 public class RunTareaValidarCalculoPendienteServiceImpl implements RunValidacionNoBloqueante {
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private AccionService accionService;
+  private final AccionService accionService;
 
-  @Autowired
-  private RunTareaAmbitoValidarCalculoPendienteService runTareaAmbitoValidarCalculoPendienteService;
+  private final RunTareaAmbitoValidarCalculoPendienteService runTareaAmbitoValidarCalculoPendienteService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid RunTareaDto runTarea,

@@ -30,26 +30,24 @@ public class RunTareaValidarPresenciasSinVentasServiceImpl implements RunValidac
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(RunTareaDto runTarea, TareaFaseAccionDto tareaFaseAccion) {
-    {
-      final TareaDto tareaDto = runTarea.getTarea();
-      this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
-      final List<ValidacionDto> validaciones = runTarea.getTarea()
-          .getAmbito()
-          .stream()
-          .filter(a -> Boolean.TRUE
-              .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
-                  a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
-          .map(item -> this.runTareaAmbitoValidarPresenciasSinVentasService
-              .execute(runTarea, item, tareaFaseAccion))
-          .toList();
-      if (validaciones.isEmpty()) {
-        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-            EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-        return CompletableFuture.completedFuture(validaciones);
-      }
-
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    final TareaDto tareaDto = runTarea.getTarea();
+    this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
+    final List<ValidacionDto> validaciones = runTarea.getTarea()
+        .getAmbito()
+        .stream()
+        .filter(a -> Boolean.TRUE
+            .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
+                a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
+        .map(item -> this.runTareaAmbitoValidarPresenciasSinVentasService
+            .execute(runTarea, item, tareaFaseAccion))
+        .toList();
+    if (validaciones.isEmpty()) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+          EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
       return CompletableFuture.completedFuture(validaciones);
     }
+
+    this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    return CompletableFuture.completedFuture(validaciones);
   }
 }

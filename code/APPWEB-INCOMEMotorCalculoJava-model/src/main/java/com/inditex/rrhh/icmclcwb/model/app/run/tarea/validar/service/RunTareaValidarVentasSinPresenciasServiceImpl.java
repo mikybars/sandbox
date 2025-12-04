@@ -13,45 +13,41 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 @Component("validarVentasSinPresenciasV1")
 @Validated
+@RequiredArgsConstructor
 public class RunTareaValidarVentasSinPresenciasServiceImpl implements RunValidacionNoBloqueante {
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private AccionService accionService;
+  private final AccionService accionService;
 
-  @Autowired
-  private RunTareaAmbitoValidarVentasSinPresenciasService runTareaAmbitoValidarVentasSinPresenciasService;
+  private final RunTareaAmbitoValidarVentasSinPresenciasService runTareaAmbitoValidarVentasSinPresenciasService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(RunTareaDto runTarea, TareaFaseAccionDto tareaFaseAccion) {
-    {
-      final TareaDto tareaDto = runTarea.getTarea();
-      this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
-      final List<ValidacionDto> validaciones = runTarea.getTarea()
-          .getAmbito()
-          .stream()
-          .filter(a -> Boolean.TRUE
-              .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
-                  a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
-          .map(item -> this.runTareaAmbitoValidarVentasSinPresenciasService
-              .execute(runTarea, item, tareaFaseAccion))
-          .toList();
-      if (validaciones.isEmpty()) {
-        this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
-            EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
-        return CompletableFuture.completedFuture(validaciones);
-      }
-
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    final TareaDto tareaDto = runTarea.getTarea();
+    this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
+    final List<ValidacionDto> validaciones = runTarea.getTarea()
+        .getAmbito()
+        .stream()
+        .filter(a -> Boolean.TRUE
+            .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
+                a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
+        .map(item -> this.runTareaAmbitoValidarVentasSinPresenciasService
+            .execute(runTarea, item, tareaFaseAccion))
+        .toList();
+    if (validaciones.isEmpty()) {
+      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+          EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
       return CompletableFuture.completedFuture(validaciones);
     }
+
+    this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+    return CompletableFuture.completedFuture(validaciones);
   }
 }
