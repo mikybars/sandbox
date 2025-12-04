@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarCalculoPendienteService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaAmbitoValidarVentasSinPresenciasService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
@@ -13,26 +13,23 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Component("validarCalculoPendienteV1")
+@Component("validarVentasSinPresenciasV1")
 @Validated
 @RequiredArgsConstructor
-public class RunTareaValidarCalculoPendienteServiceImpl implements RunValidacionNoBloqueante {
+public class RunTareaValidarVentasSinPresenciasServiceImpl implements RunValidacionNoBloqueante {
 
   private final TareaFaseAccionService tareaFaseAccionService;
 
   private final AccionService accionService;
 
-  private final RunTareaAmbitoValidarCalculoPendienteService runTareaAmbitoValidarCalculoPendienteService;
+  private final RunTareaAmbitoValidarVentasSinPresenciasService runTareaAmbitoValidarVentasSinPresenciasService;
 
   @Override
-  public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid RunTareaDto runTarea,
-      @NotNull @Valid TareaFaseAccionDto tareaFaseAccion) {
+  public CompletableFuture<List<ValidacionDto>> execute(RunTareaDto runTarea, TareaFaseAccionDto tareaFaseAccion) {
     final TareaDto tareaDto = runTarea.getTarea();
     this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
     final List<ValidacionDto> validaciones = runTarea.getTarea()
@@ -41,7 +38,7 @@ public class RunTareaValidarCalculoPendienteServiceImpl implements RunValidacion
         .filter(a -> Boolean.TRUE
             .equals(this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(),
                 a.getCclIdOrigen(), tareaDto.getStdIdLegEnt())))
-        .map(item -> this.runTareaAmbitoValidarCalculoPendienteService
+        .map(item -> this.runTareaAmbitoValidarVentasSinPresenciasService
             .execute(runTarea, item, tareaFaseAccion))
         .toList();
     if (validaciones.isEmpty()) {

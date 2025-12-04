@@ -403,6 +403,125 @@ class RunValidacionesAgrupadasServiceImplTest {
     verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
   }
 
+  @Test
+  void ejecutarValidacionesNoBloqueantesShouldIncludeValidacionesWithIdLocalizacionLocal() {
+    final RunTareaDto runTareaDto = this.createRunTareaDto();
+    final FaseDto faseDto = new FaseDto(1);
+
+    final TareaFaseAccionDto tareaFaseAccion = TareaFaseAccionDto.builder()
+        .id(1L)
+        .idAccion(35)
+        .peso(10)
+        .build();
+
+    final List<TareaFaseAccionDto> accionesList = List.of(tareaFaseAccion);
+
+    final ValidacionDto validacion = ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
+        .result(Boolean.FALSE)
+        .reaccionPeso(1)
+        .idLocalizacionLocal(List.of("T123", "T456"))
+        .build();
+
+    final List<ValidacionDto> validaciones = List.of(validacion);
+
+    ReflectionTestUtils.setField(this.service, "environment", "PRE");
+
+    when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+        anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
+            .thenReturn(accionesList);
+    when(this.tareaFaseAccionService.findById(1L)).thenReturn(tareaFaseAccion);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
+    when(this.accionService.findAccionDtoById(35))
+        .thenReturn(AccionDto.builder().nombre("validarVentasSinPresenciasV1").build());
+    when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante(anyString()))
+        .thenReturn(this.runValidacionNoBloqueante);
+    when(this.runValidacionNoBloqueante.execute(any(RunTareaDto.class), any(TareaFaseAccionDto.class)))
+        .thenReturn(CompletableFuture.completedFuture(validaciones));
+    when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
+    doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
+
+    final List<ValidacionDto> result = this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+
+    assertNotNull(result);
+    assertFalse(result.isEmpty());
+    assertEquals(1, result.size());
+    assertEquals(1L, result.get(0).getIdTareaFaseAccion());
+    assertEquals(2, result.get(0).getIdLocalizacionLocal().size());
+
+    verify(this.tareaFaseAccionService, times(1))
+        .findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+            anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId()));
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
+  }
+
+  @Test
+  void ejecutarValidacionesNoBloqueantesShouldIncludeBothPersonasAndLocalizaciones() {
+    final RunTareaDto runTareaDto = this.createRunTareaDto();
+    final FaseDto faseDto = new FaseDto(1);
+
+    final TareaFaseAccionDto accion1 = TareaFaseAccionDto.builder()
+        .id(1L)
+        .idAccion(32)
+        .peso(10)
+        .build();
+
+    final TareaFaseAccionDto accion2 = TareaFaseAccionDto.builder()
+        .id(2L)
+        .idAccion(35)
+        .peso(5)
+        .build();
+
+    final ValidacionDto validacionPersonas = ValidacionDto.builder()
+        .idTareaFaseAccion(1L)
+        .result(Boolean.FALSE)
+        .reaccionPeso(2)
+        .idPersonaLocal(List.of("P123"))
+        .build();
+
+    final ValidacionDto validacionTiendas = ValidacionDto.builder()
+        .idTareaFaseAccion(2L)
+        .result(Boolean.FALSE)
+        .reaccionPeso(1)
+        .idLocalizacionLocal(List.of("T456"))
+        .build();
+
+    ReflectionTestUtils.setField(this.service, "environment", "PRE");
+
+    when(this.tareaFaseAccionService.findTareaFaseAccionDtoByIdTareaAndIdFaseAndIdPuntoEjecucion(
+        anyLong(), anyInt(), eq(PuntoEjecucionEnum.DESPUES.getId())))
+            .thenReturn(List.of(accion1, accion2));
+    when(this.tareaFaseAccionService.findById(1L)).thenReturn(accion1);
+    when(this.tareaFaseAccionService.findById(2L)).thenReturn(accion2);
+    doNothing().when(this.tareaFaseAccionService).updateFechaInicio(any(TareaFaseAccionDto.class));
+    doNothing().when(this.tareaFaseAccionService).updateFechaFinAndEstado(any(TareaFaseAccionDto.class), any());
+    when(this.accionService.findAccionDtoById(32))
+        .thenReturn(AccionDto.builder().nombre("ValidacionExcedido").build());
+    when(this.accionService.findAccionDtoById(35))
+        .thenReturn(AccionDto.builder().nombre("validarVentasSinPresenciasV1").build());
+    when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante("ValidacionExcedido"))
+        .thenReturn(this.runValidacionNoBloqueante);
+    when(this.runValidacionNoBloqueanteFactory.getRunValidacionNoBloqueante("validarVentasSinPresenciasV1"))
+        .thenReturn(this.runValidacionNoBloqueante);
+    when(this.runValidacionNoBloqueante.execute(runTareaDto, accion1))
+        .thenReturn(CompletableFuture.completedFuture(List.of(validacionPersonas)));
+    when(this.runValidacionNoBloqueante.execute(runTareaDto, accion2))
+        .thenReturn(CompletableFuture.completedFuture(List.of(validacionTiendas)));
+    when(this.mailEntornoService.findEsActivoByEntorno("PRE")).thenReturn(Boolean.TRUE);
+    doNothing().when(this.mailService).sendMailValidacionesAgrupadas(any(), any(RunTareaDto.class));
+
+    final List<ValidacionDto> result = this.service.ejecutarValidacionesNoBloqueantes(runTareaDto, faseDto);
+
+    assertNotNull(result);
+    assertFalse(result.isEmpty());
+    assertEquals(2, result.size());
+
+    verify(this.accionService, times(1)).findAccionDtoById(32);
+    verify(this.accionService, times(1)).findAccionDtoById(35);
+    verify(this.mailService, times(1)).sendMailValidacionesAgrupadas(any(), eq(runTareaDto));
+  }
+
   private RunTareaDto createRunTareaDto() {
     final TareaDto tarea = new TareaDto();
     tarea.setId(1L);

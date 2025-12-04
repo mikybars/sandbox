@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -36,6 +37,22 @@ public abstract class ValidacionMapperDecorator implements ValidacionMapper {
       result.setIdPersonaLocal(personas.stream()
           .map(IdPersonaLocalDto::getIdPersonaLocal)
           .collect(Collectors.toList()));
+    }
+    return result;
+  }
+
+  @Override
+  public ValidacionDto idLocalizacionLocalDtoTovalidacionDto(final TareaAmbitoDto ambito,
+      final TareaFaseAccionDto accion, final List<IdLocalizacionLocalDto> tiendas,
+      final PrevalidarPropertiesDto properties, final TareaDto tareaDto) {
+    final ValidacionDto result = this.delegate.idLocalizacionLocalDtoTovalidacionDto(ambito, accion,
+        tiendas, properties, tareaDto);
+    result.setIdPersonaLocal(new ArrayList<>());
+    result.setIdLocalizacionLocal(new ArrayList<>());
+    if (CollectionUtils.isNotEmpty(tiendas)) {
+      result.setIdLocalizacionLocal(tiendas.stream()
+          .map(IdLocalizacionLocalDto::getId)
+          .toList());
     }
     return result;
   }

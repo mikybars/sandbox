@@ -36,4 +36,6 @@ public class ValidacionDto implements Serializable {
 
   private PresenciaOrigenDto ptr;
 
+  private List<String> idLocalizacionLocal;
+
 }
