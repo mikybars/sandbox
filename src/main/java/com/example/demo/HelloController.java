@@ -11,7 +11,7 @@ public class HelloController {
         this.greeterService = greeterService;
     }
 
-    @GetMapping("/hello/{user}")
+    @GetMapping("/greet/{user}")
     public String hello(@PathVariable String user) {
         return greeterService.greet(user);
     }
