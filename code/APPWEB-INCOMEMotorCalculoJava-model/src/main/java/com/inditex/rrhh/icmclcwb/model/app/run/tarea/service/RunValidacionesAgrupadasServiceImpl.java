@@ -158,7 +158,8 @@ public class RunValidacionesAgrupadasServiceImpl implements RunValidacionesAgrup
   private List<ValidacionDto> notificarValidacionesFallidas(final RunTareaDto runTareaDto, final TareaDto tareaDto,
       final List<ValidacionDto> validaciones) {
     final List<ValidacionDto> validacionesParaNotificar = validaciones.stream()
-        .filter(v -> v.getIdPersonaLocal() != null && !v.getIdPersonaLocal().isEmpty())
+        .filter(v -> (v.getIdPersonaLocal() != null && !v.getIdPersonaLocal().isEmpty())
+            || (v.getIdLocalizacionLocal() != null && !v.getIdLocalizacionLocal().isEmpty()))
         .sorted(Comparator.comparingInt(ValidacionDto::getReaccionPeso).reversed())
         .toList();
 
