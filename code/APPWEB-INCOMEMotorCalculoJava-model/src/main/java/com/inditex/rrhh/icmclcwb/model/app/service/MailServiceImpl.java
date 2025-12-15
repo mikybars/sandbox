@@ -88,6 +88,14 @@ public class MailServiceImpl implements MailService {
 
   private static final String BODY_ALERT_PERCENTAGE_ZERO = "Validation: Employees with 0% percentage table in all sections.";
 
+  private static final String BODY_ALERT_VENTAS_SIN_PRESENCIAS = "Validation: Stores with sales but no employee attendance records.";
+
+  private static final String BODY_ALERT_PRESENCIAS_SIN_VENTAS = "Validation: Stores with employee attendance but no sales records.";
+
+  private static final String TOTAL_AFFECTED_STORES = "Total affected stores: ";
+
+  private static final String AFFECTED_STORES_LIST = "List of affected stores: ";
+
   private static final String TIPO_CALCULO_GT = "001";
 
   private static final String TIPO_CALCULO_GS = "002";
@@ -267,6 +275,8 @@ public class MailServiceImpl implements MailService {
     this.appendValidacion32(result, validacionesPorAccion.getOrDefault(32, List.of()), tarea);
     this.appendValidacion33(result, validacionesPorAccion.getOrDefault(33, List.of()));
     this.appendValidacion34(result, validacionesPorAccion.getOrDefault(34, List.of()));
+    this.appendValidacion35(result, validacionesPorAccion.getOrDefault(35, List.of()));
+    this.appendValidacion36(result, validacionesPorAccion.getOrDefault(36, List.of()));
 
     result.append(KIND_REGARDS);
     return result.toString();
@@ -332,6 +342,22 @@ public class MailServiceImpl implements MailService {
     this.appendValidacionDetails(result, validaciones.get(0));
   }
 
+  private void appendValidacion35(final StringBuilder result, final List<ValidacionDto> validaciones) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+    result.append(BODY_ALERT_VENTAS_SIN_PRESENCIAS);
+    this.appendValidacionDetailsLocalizacion(result, validaciones.get(0));
+  }
+
+  private void appendValidacion36(final StringBuilder result, final List<ValidacionDto> validaciones) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+    result.append(BODY_ALERT_PRESENCIAS_SIN_VENTAS);
+    this.appendValidacionDetailsLocalizacion(result, validaciones.get(0));
+  }
+
   private void appendValidacionDetails(final StringBuilder result, final ValidacionDto validacion) {
     result.append(LINE_BREAK);
     result.append(SEPARATOR);
@@ -341,6 +367,19 @@ public class MailServiceImpl implements MailService {
     result.append(AFFECTED_EMPLOYEES_LIST);
     result.append(validacion.getIdPersonaLocal());
     result.append(DOUBLE_LINE_BREAK);
+  }
+
+  private void appendValidacionDetailsLocalizacion(final StringBuilder result, final ValidacionDto validacion) {
+    if (validacion.getIdLocalizacionLocal() != null && !validacion.getIdLocalizacionLocal().isEmpty()) {
+      result.append(LINE_BREAK);
+      result.append(SEPARATOR);
+      result.append(TOTAL_AFFECTED_STORES).append(validacion.getIdLocalizacionLocal().size());
+      result.append(LINE_BREAK);
+      result.append(SEPARATOR);
+      result.append(AFFECTED_STORES_LIST);
+      result.append(validacion.getIdLocalizacionLocal());
+      result.append(DOUBLE_LINE_BREAK);
+    }
   }
 
   private SimpleMailMessage createValidacionesAgrupadasMessage(final RunTareaDto runTarea, final String messageBody) {
