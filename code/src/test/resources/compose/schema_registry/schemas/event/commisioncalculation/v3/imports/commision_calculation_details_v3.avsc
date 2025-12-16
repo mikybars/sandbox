@@ -1,0 +1,577 @@
+[
+  {
+    "namespace": "com.inditex.icmclcwb.commisioncalculation.model.v3",
+    "type": "record",
+    "name": "CommisionCalculationUpdate",
+    "doc": "A list of CommisionCalculationUpdateEvents",
+    "fields": [
+      {
+        "name": "primaryKeys",
+        "doc": "Composite primary key",
+        "type": {
+          "type": "record",
+          "name": "CommisionCalculationUpdatePK",
+          "fields": [
+            {
+              "name": "ID_TAREA",
+              "doc": "Task Id",
+              "type": "long"
+            },
+            {
+              "name": "ID_PARTICION",
+              "doc": "Partition Id",
+              "type": "long"
+            }
+          ]
+        }
+      },
+      {
+        "name": "eventsUpdate",
+        "doc": "List of Commision Calculation Update Events",
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "CommisionCalculationUpdateEvent",
+            "doc": "Information about commision calculation",
+            "fields": [
+              {
+                "name": "icm_id_periodo",
+                "doc": "Period id",
+                "type": "long"
+              },
+              {
+                "name": "ccl_id_origen",
+                "doc": "Origin id",
+                "type": "long"
+              },
+              {
+                "name": "std_id_leg_ent",
+                "doc": "Company id",
+                "type": "long"
+              },
+              {
+                "name": "ccl_id_person",
+                "doc": "Person local id",
+                "type": "long"
+              },
+              {
+                "name": "std_or_hr_period",
+                "doc": "Ordinal id",
+                "type": "long"
+              },
+              {
+                "name": "id_estado",
+                "doc": "State id",
+                "type": "int"
+              },
+              {
+                "name": "fecha_inicio_periodo",
+                "doc": "Period start date",
+                "type": "string"
+              },
+              {
+                "name": "fecha_fin_periodo",
+                "doc": "Period end date",
+                "type": "string"
+              },
+              {
+                "name": "fecha",
+                "doc": "Date corresponding to the day of the period for which it was calculated and the amount exists",
+                "type": "string"
+              },
+              {
+                "name": "tienda_calculo",
+                "doc": "Calculation store",
+                "type": "long"
+              },
+              {
+                "name": "fecha_inicio_estructura",
+                "doc": "Structure start date",
+                "type": "string"
+              },
+              {
+                "name": "fecha_fin_estructura",
+                "doc": "Structure end date",
+                "type": "string"
+              },
+              {
+                "name": "ccl_id_seccion",
+                "doc": "Calculation section",
+                "type": "long"
+              },
+              {
+                "name": "banda",
+                "doc": "Budget band number",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "valor",
+                "doc": "Value associated with the structure",
+                "type": "float"
+              },
+              {
+                "name": "icm_id_tp_comision",
+                "doc": "Commision type id",
+                "type": "string"
+              },
+              {
+                "name": "icm_id_tp_calculo",
+                "doc": "Calculation type id",
+                "type": "string"
+              },
+              {
+                "name": "icm_grupo_manual",
+                "doc": "Manual amount group for adjustments",
+                "type": ["null", "string"],
+                "default": null
+              },
+              {
+                "name": "id_tipo_opcion_calculo",
+                "doc": "Id of the type of calculation option of the structure that affects",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "ccl_id_cod_origen_destino",
+                "doc": "Destination store id in origin",
+                "type": "long"
+              },
+              {
+                "name": "cod_tipo_hora",
+                "doc": "Hour type compound by PTR hour type plus Meta4 hour type",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "minutos",
+                "doc": "Time in minutes of presence",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_tienda_presencia_empleado",
+                "doc": "Store id where employee presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_seccion_presencia_empleado",
+                "doc": "Section id where employee presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "minutos_tienda",
+                "doc": "Total store time in minutes",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_tienda_presencia",
+                "doc": "Store id where presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_seccion_presencia",
+                "doc": "Section id where presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "importe_total",
+                "doc": "Total amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_total_sin_ajuste",
+                "doc": "Total amount without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_total",
+                "doc": "Adjustment total amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_fisica",
+                "doc": "Physical amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_fisica_sin_ajuste",
+                "doc": "Physical amount without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_fisica",
+                "doc": "Adjustment amount physical",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_ipod",
+                "doc": "Online amount ipod",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_ipod_sin_ajuste",
+                "doc": "Online amount ipod without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_online_ipod",
+                "doc": "Online adjustment amount ipod",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_sint",
+                "doc": "Online amount sint",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_sint_sin_ajuste",
+                "doc": "Online amount sint without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_online_sint",
+                "doc": "Online adjustment amount sint",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_entrega_tienda",
+                "doc": "Online amount store delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_entrega_tienda_sin_ajuste",
+                "doc": "Online amount store delivery without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_online_entrega_tienda",
+                "doc": "Online adjustment amount store delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_entrega_domicilio",
+                "doc": "Online amount home delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_online_entrega_domicilio_sin_ajuste",
+                "doc": "Online amount home delivery without adjustment",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_ajuste_online_entrega_domicilio",
+                "doc": "Online adjustment amount home delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_total",
+                "doc": "Total sales",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_fisica",
+                "doc": "Physical sales",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_online_ipod",
+                "doc": "Online sales ipod",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_online_sint",
+                "doc": "Online sales sint",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_online_entrega_tienda",
+                "doc": "Online sales store delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "venta_online_entrega_domicilio",
+                "doc": "Online sales home delivery",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "objetivo",
+                "doc": "Goal",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "excepcionada",
+                "doc": "Exceptional",
+                "type": ["null", "int"],
+                "default": null
+              },
+              {
+                "name": "congelada",
+                "doc": "Frozen",
+                "type": "int"
+              },
+              {
+                "name": "challenge_venta_total",
+                "doc": "Total sales challenge",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "challenge_venta_caja",
+                "doc": "Challenge sales cash register",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "challenge_devoluciones",
+                "doc": "Challenge returns",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "challenge_venta_online_ipod",
+                "doc": "Challenge online sales ipod",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "challenge_venta_online_picking",
+                "doc": "Challenge online sales picking",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "challenge_venta_online_entrega_tienda",
+                "doc": "Challenge online sales store delivery",
+                "type": ["null", "float"],
+                "default": null
+              },
+              {
+                "name": "importe_venta_fisica_individual",
+                "doc": "Individual physical sale amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_devolucion_fisica_individual",
+                "doc": "Individual physical return amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_venta_online_ipod",
+                "doc": "Ipod online sale amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "importe_devolucion_individual_ipod",
+                "doc": "Ipod individual physical return amount",
+                "type": "float",
+                "default": 0
+              },
+              {
+                "name": "coeficiente_reduccion_jornada",
+                "doc": "Working day reduction coefficient",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "icm_ck_inc_iva_eval_ptpo",
+                "doc": "IVA evaluation Id",
+                "type": "long"
+              },
+              {
+                "name": "cod_seccion_banda",
+                "doc": "ID section band",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "tipo_porcentaje_politica",
+                "doc": "Politic percetage and type in the same string",
+                "type": ["null", "string"],
+                "default": null
+              },
+              {
+                "name": "cod_tienda_banda",
+                "doc": "Store band Id",
+                "type": ["null", "long"],
+                "default": null
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  {
+    "namespace": "com.inditex.icmclcwb.commisioncalculation.model.v3",
+    "type": "record",
+    "name": "CommisionCalculationDelete",
+    "doc": "A list of CommisionCalculationDelete",
+    "fields": [
+      {
+        "name": "primaryKeys",
+        "doc": "Composite primary key",
+        "type": {
+          "type": "record",
+          "name": "CommisionCalculationDeletePK",
+          "fields": [
+            {
+              "name": "ID_TAREA",
+              "doc": "Task Id",
+              "type": "long"
+            },
+            {
+              "name": "ID_PARTICION",
+              "doc": "Partition Id",
+              "type": "long"
+            }
+          ]
+        }
+      },
+      {
+        "name": "eventsDelete",
+        "doc": "List of Commision Calculation Events to delete",
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "CommisionCalculationDeleteEvent",
+            "doc": "Information about commision calculation values to delete",
+            "fields": [
+              {
+                "name": "icm_id_periodo",
+                "doc": "Period id",
+                "type": "long"
+              },
+              {
+                "name": "ccl_id_origen",
+                "doc": "Origin id",
+                "type": "long"
+              },
+              {
+                "name": "std_id_leg_ent",
+                "doc": "Company id",
+                "type": "long"
+              },
+              {
+                "name": "ccl_id_person",
+                "doc": "Person local id",
+                "type": "long"
+              },
+              {
+                "name": "std_or_hr_period",
+                "doc": "Ordinal id",
+                "type": "long"
+              },
+              {
+                "name": "fecha",
+                "doc": "Date corresponding to the day of the period for which it was calculated and the amount exists",
+                "type": "string"
+              },
+              {
+                "name": "tienda_calculo",
+                "doc": "Calculation store",
+                "type": "long"
+              },
+              {
+                "name": "ccl_id_seccion",
+                "doc": "Calculation section",
+                "type": "long"
+              },
+              {
+                "name": "valor",
+                "doc": "Value associated with the structure",
+                "type": "float"
+              },
+              {
+                "name": "ccl_id_cod_origen_destino",
+                "doc": "Destination store id in origin",
+                "type": "long"
+              },
+              {
+                "name": "banda",
+                "doc": "Budget band number",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "icm_id_tp_comision",
+                "doc": "Commision type id",
+                "type": "string"
+              },
+              {
+                "name": "icm_id_tp_calculo",
+                "doc": "Calculation type id",
+                "type": "string"
+              },
+              {
+                "name": "icm_grupo_manual",
+                "doc": "Manual amount group for adjustments",
+                "type": ["null", "string"],
+                "default": null
+              },
+              {
+                "name": "id_tipo_opcion_calculo",
+                "doc": "Id of the type of calculation option of the structure that affects",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_tipo_hora",
+                "doc": "Hour type compound by PTR hour type plus Meta4 hour type",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_seccion_presencia_empleado",
+                "doc": "Section id where employee presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              },
+              {
+                "name": "cod_tienda_presencia",
+                "doc": "Store id where presences are stored",
+                "type": ["null", "long"],
+                "default": null
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

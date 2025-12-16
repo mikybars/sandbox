@@ -15,3 +15,17 @@ messaging:
         - locationType: region
           location:
             - eu-southwest-es-1
+    - topic: sscc.global.des.rhcompensa.commision-calculation.public.v2
+      properties:
+        partitions: 1
+        retention: 1
+        restricted: false
+        streams: false
+        replicas: consistent
+      permissions:
+        producers:
+          - artifactid: ICMCLCWB
+      publications:
+        - locationType: region
+          location:
+            - eu-southwest-es-1

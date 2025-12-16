@@ -40,9 +40,9 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-${metadata.slot}-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary:
@@ -492,6 +492,10 @@ amiga:
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1
+        commision-calculation-v2-out-0:
+          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v2
+        commision-calculation-v3-out-0:
+          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v3
   service:
     web:
       api:
@@ -531,4 +535,4 @@ app:
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
-        message-max-size: 5000
+        message-max-size: 2000

@@ -6,31 +6,25 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationNoReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.exception.ValidationReintentoException;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.RunTareaLimpiarConsolidarByAmbitoService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaNormalizarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarValidarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaSimularService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.*;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -89,6 +83,12 @@ class RunTareaServiceImplTest {
   @Mock
   private TareaFaseAccionService tareaFaseAccionService;
 
+  @Mock
+  private RunTareaMigrarService runTareaMigrarService;
+
+  @Mock
+  private TareaMigrarService tareaMigrarService;
+
   @InjectMocks
   private RunTareaServiceImpl runTareaService;
 
@@ -106,8 +106,11 @@ class RunTareaServiceImplTest {
   @Test
   void runNormalizarTest() {
     final RunTareaDto runTarea = this.createRunTarea();
+    runTarea.setTarea(new TareaDto());
+    runTarea.getTarea().setAmbito(List.of(new TareaAmbitoDto()));
     this.runTareaService.run(runTarea);
     verify(this.runTareaNormalizarService, times(1)).run(runTarea);
+    verify(this.runTareaMigrarService, times(1)).run(runTarea, new ArrayList<>());
     verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
   }
 

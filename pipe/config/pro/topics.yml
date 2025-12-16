@@ -11,6 +11,43 @@ messaging:
       permissions:
         producers:
           - artifactid: ICMCLCWB
+        consumers:
+          - artifactid: EPMPCCLE
+          - artifactid: EPMPHSNW
+      publications:
+        - locationType: region
+          location:
+            - eu-southwest-es-1
+    - topic: sscc.global.pro.rhcompensa.commision-calculation.public.v2
+      properties:
+        partitions: 1
+        retention: 1
+        restricted: false
+        streams: false
+        replicas: consistent
+      permissions:
+        producers:
+          - artifactid: ICMCLCWB
+        consumers:
+          - artifactid: EPMPCCLE
+          - artifactid: EPMPHSNW
+      publications:
+        - locationType: region
+          location:
+            - eu-southwest-es-1
+    - topic: sscc.global.pro.rhcompensa.commision-calculation.public.v3
+      properties:
+        partitions: 1
+        retention: 1
+        restricted: false
+        streams: false
+        replicas: consistent
+      permissions:
+        producers:
+          - artifactid: ICMCLCWB
+        consumers:
+          - artifactid: EPMPCCLE
+          - artifactid: EPMPHSNW
       publications:
         - locationType: region
           location:

@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 /*
  * Copyright (c) 2022. Inditex
  */
-
 import java.util.List;
 
 /**
