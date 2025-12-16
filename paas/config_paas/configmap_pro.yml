@@ -448,6 +448,10 @@ amiga:
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.pro.rhcompensa.commision-calculation.public.v1
+        commision-calculation-v2-out-0:
+          destination: sscc.global.pro.rhcompensa.commision-calculation.public.v2
+        commision-calculation-v3-out-0:
+          destination: sscc.global.pro.rhcompensa.commision-calculation.public.v3
   service:
     web:
       api:
@@ -489,7 +493,7 @@ app:
         #server: https://openshift.axinocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
-        message-max-size: 5000
+        message-max-size: 2000
     cache:
       redis:
         cluster:

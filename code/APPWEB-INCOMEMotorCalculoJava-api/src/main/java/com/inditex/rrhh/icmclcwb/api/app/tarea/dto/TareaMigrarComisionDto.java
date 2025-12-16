@@ -147,4 +147,12 @@ public class TareaMigrarComisionDto implements Serializable {
   private float importeDevolucionIndividualIpod;
 
   private float coeficienteReduccionJornada;
+
+  private long icmCkIncIvaEvalPtpo;
+
+  private long codSeccionBanda;
+
+  private String tipoPorcentajePolitica;
+
+  private long codTiendaBanda;
 }
