@@ -99,6 +99,22 @@
   </dependencyManagement>
 
   <build>
+    <resources>
+      <!-- Recursos normales -->
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+
+      <!-- Copiar los .avsc del entorno compose -->
+      <resource>
+        <targetPath>schema_registry</targetPath>
+        <directory>src/test/resources/compose/schema_registry</directory>
+        <includes>
+          <include>**/*.avsc</include>
+        </includes>
+      </resource>
+    </resources>
+
     <pluginManagement>
       <plugins>
         <plugin>
