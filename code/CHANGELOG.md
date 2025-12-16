@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.82.0] - 2025-12-15
+
+### Added
+
+- [#1030](https://github.com/inditex/mic-incomemotorcalculojava/issues/1030) [Darwin Bot]  Upgrade Redis templates to 5.1.0
+- [INCOME-2081](https://jira.inditex.com/jira/browse/INCOME-2081) [BX]Validación tiendas. Ventas sin presencias / presencias sin ventas
+
+### Dependencies
+
+- [#995](https://github.com/inditex/mic-incomemotorcalculojava/issues/995) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.17.1 to 5.18.2 in /code
+
 ## [4.81.0] - 2025-12-03
 
 ### Added
@@ -667,7 +678,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.81.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.82.0...main
+[4.82.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.81.0...4.82.0
 [4.81.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.80.0...4.81.0
 [4.80.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.79.0...4.80.0
 [4.79.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.2...4.79.0
