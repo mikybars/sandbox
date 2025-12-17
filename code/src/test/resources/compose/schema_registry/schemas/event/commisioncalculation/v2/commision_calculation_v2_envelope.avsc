@@ -1,0 +1,22 @@
+{
+  "name": "CommisionCalculationEnvelopeV2",
+  "doc": "Visualize events details Schemas Employees V2",
+  "namespace": "com.inditex.icmclcwb.commisioncalculation.model.v2",
+  "subject": "sscc.rhcompensa.commision-calculation.v2-value",
+  "type": "record",
+  "fields": [
+    {
+      "name": "metadata",
+      "type": "com.inditex.aqsw.pipe.v1.Metadata",
+      "doc": "Metadata information like timestamp, action, etc."
+    },
+    {
+      "name": "payload",
+      "type": [
+        "com.inditex.icmclcwb.commisioncalculation.model.v2.CommisionCalculationUpdate",
+        "com.inditex.icmclcwb.commisioncalculation.model.v2.CommisionCalculationDelete"
+      ],
+      "doc": "Payload with Commision Calculation information v2"
+    }
+  ]
+}

@@ -551,6 +551,8 @@ amiga:
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.des.rhcompensa.commision-calculation.public.v1
+        commision-calculation-v2-out-0:
+          destination: sscc.global.des.rhcompensa.commision-calculation.public.v2
   service:
     web:
       api:
@@ -586,4 +588,4 @@ app:
         server: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
-        message-max-size: 5000
+        message-max-size: 2000

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -41,20 +42,20 @@ class RunTareaMigrarServiceImplTest {
   void runShouldInvokeMigrarListCalculoComision() {
     final RunTareaDto runTarea = this.createRunTarea();
     final CompletableFuture<Void> future = CompletableFuture.completedFuture(null);
-    when(this.runTareaMigrarAsyncService.migrarListCalculoComision(runTarea)).thenReturn(future);
+    when(this.runTareaMigrarAsyncService.migrarListCalculoComision(any(), any())).thenReturn(future);
 
-    this.runTareaMigrarService.run(runTarea);
+    this.runTareaMigrarService.run(runTarea, new ArrayList<>());
 
-    verify(this.runTareaMigrarAsyncService, times(1)).migrarListCalculoComision(runTarea);
+    verify(this.runTareaMigrarAsyncService, times(1)).migrarListCalculoComision(runTarea, new ArrayList<>());
   }
 
   @Test
   void runShouldInvokeMigrarListCalculoComisionCatch() {
     final RunTareaDto runTarea = this.createRunTarea();
-    when(this.runTareaMigrarAsyncService.migrarListCalculoComision(any())).thenThrow(new RuntimeException());
+    when(this.runTareaMigrarAsyncService.migrarListCalculoComision(any(), any())).thenThrow(new RuntimeException());
 
     final Exception exception = Assertions.assertThrows(Exception.class, () -> {
-      this.runTareaMigrarService.run(runTarea);
+      this.runTareaMigrarService.run(runTarea, new ArrayList<>());
     });
 
     Assertions.assertInstanceOf(RuntimeException.class, exception);

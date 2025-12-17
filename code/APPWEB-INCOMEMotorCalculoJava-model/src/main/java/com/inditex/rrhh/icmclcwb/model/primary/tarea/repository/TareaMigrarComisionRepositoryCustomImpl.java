@@ -2,11 +2,15 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.periodo.dto.EstadoPeriodoCalculoPersonaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPipeConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -20,6 +24,9 @@ public class TareaMigrarComisionRepositoryCustomImpl
 
   @Value("#{pipePrimaryQuery['TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual']}")
   private String sqlFindCalculoComision;
+
+  @Value("#{pipePrimaryQuery['TareaMigrarComisionRepositoryCustom.deleteCalculoComisionByTarea']}")
+  private String sqlDeleteCalculoComision;
 
   @Override
   public List<TareaMigrarComisionDto> findCalculoComisionByTareaActual(final TareaDto tarea) {
@@ -94,6 +101,49 @@ public class TareaMigrarComisionRepositoryCustomImpl
             .importeVentaOnlineIpod(rs.getFloat(SqlPipeConstants.SQL_RESULT_IMPORTE_VENTA_ONLINE_IPOD))
             .importeDevolucionIndividualIpod(rs.getFloat(SqlPipeConstants.SQL_RESULT_IMPORTE_DEVOLUCION_INDIVIDUAL_IPOD))
             .coeficienteReduccionJornada(rs.getFloat(SqlPipeConstants.SQL_RESULT_COEFICIENTE_REDUCCION_JORNADA))
+            .icmCkIncIvaEvalPtpo(rs.getLong(SqlPipeConstants.SQL_RESULT_ICM_CK_INC_IVA_EVAL_PTPO))
+            .codSeccionBanda(rs.getLong(SqlPipeConstants.SQL_RESULT_COD_SECCION_BANDA))
+            .tipoPorcentajePolitica(rs.getString(SqlPipeConstants.SQL_RESULT_TIPO_PORCENTAJE_POLITICA))
+            .codTiendaBanda(rs.getLong(SqlPipeConstants.SQL_RESULT_COD_TIENDA_BANDA))
             .build());
+  }
+
+  @Override
+  public List<TareaMigrarComisionDto> deleteCalculoComisionByTareaActual(@NotNull final RunTareaDto runTareaDto,
+      @NotNull final TareaAmbitoDto tareaAmbitoDto) {
+    final MapSqlParameterSource map = new MapSqlParameterSource();
+    map.addValue(SqlPipeConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    map.addValue(SqlPipeConstants.SQL_PARAM_FECHA_INICIO_PERIODO, runTareaDto.getTarea().getFechaInicioPeriodo());
+    map.addValue(SqlPipeConstants.SQL_PARAM_STD_ID_LEG_ENT,
+        runTareaDto.getTarea().getStdIdLegEnt());
+    map.addValue(SqlPipeConstants.SQL_PARAM_ICM_ID_PERIODO,
+        runTareaDto.getTrabajo().getIcmIdPeriodo());
+    map.addValue(SqlPipeConstants.SQL_PARAM_CCL_ID_ORIGEN,
+        tareaAmbitoDto.getCclIdOrigen());
+    map.addValue(SqlPipeConstants.SQL_PARAM_ID_ESTADO, EstadoPeriodoCalculoPersonaEnum.CALCULADO.getId());
+
+    return this.query(this.sqlDeleteCalculoComision, map,
+        (rs, rowNum) -> TareaMigrarComisionDto
+            .builder()
+            .icmIdPeriodo(rs.getLong(SqlPipeConstants.SQL_RESULT_ICM_ID_PERIODO))
+            .cclIdOrigen(rs.getLong(SqlPipeConstants.SQL_RESULT_CCL_ID_ORIGEN))
+            .stdIdLegEnt(rs.getLong(SqlPipeConstants.SQL_RESULT_STD_ID_LEG_ENT))
+            .cclIdPerson(rs.getLong(SqlPipeConstants.SQL_RESULT_CCL_ID_PERSON))
+            .stdOrHrPeriod(rs.getLong(SqlPipeConstants.SQL_RESULT_STD_OR_HR_PERIOD))
+            .fecha(rs.getDate(SqlPipeConstants.SQL_RESULT_FECHA).toLocalDate())
+            .tiendaCalculo(rs.getLong(SqlPipeConstants.SQL_RESULT_TIENDA_CALCULO))
+            .cclIdSeccion(rs.getLong(SqlPipeConstants.SQL_RESULT_CCL_ID_SECCION))
+            .valor(rs.getFloat(SqlPipeConstants.SQL_RESULT_VALOR))
+            .cclIdCodOrigenDestino(rs.getLong(SqlPipeConstants.SQL_RESULT_CCL_ID_COD_ORIGEN_DESTINO))
+            .banda(rs.getLong(SqlPipeConstants.SQL_RESULT_BANDA))
+            .icmIdTpComision(rs.getString(SqlPipeConstants.SQL_RESULT_ICM_ID_TP_COMISION))
+            .icmIdTpCalculo(rs.getString(SqlPipeConstants.SQL_RESULT_ICM_ID_TP_CALCULO))
+            .icmGrupoManual(rs.getString(SqlPipeConstants.SQL_RESULT_ICM_GRUPO_MANUAL))
+            .idTipoOpcionCalculo(rs.getLong(SqlPipeConstants.SQL_RESULT_ID_TIPO_OPCION_CALCULO))
+            .codTipoHora(rs.getLong(SqlPipeConstants.SQL_RESULT_COD_TIPO_HORA))
+            .codSeccionPresenciaEmpleado(rs.getLong(SqlPipeConstants.SQL_RESULT_COD_SECCION_PRESENCIA_EMPLEADO))
+            .codTiendaPresencia(rs.getLong(SqlPipeConstants.SQL_RESULT_COD_TIENDA_PRESENCIA))
+            .build());
+
   }
 }
