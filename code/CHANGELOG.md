@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.84.0] - 2025-12-19
+
+### Added
+
+- [INCOME-2922](https://jira.inditex.com/jira/browse/INCOME-2922) Deshabilitar envio al topic
+
+### Dependencies
+
+- [#1039](https://github.com/inditex/mic-incomemotorcalculojava/issues/1039) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.18.2 to 5.19.0 in /code
+
 ## [4.83.0] - 2025-12-16
 
 ### Added
@@ -684,7 +694,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.83.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.84.0...main
+[4.84.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.83.0...4.84.0
 [4.83.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.82.0...4.83.0
 [4.82.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.81.0...4.82.0
 [4.81.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.80.0...4.81.0
