@@ -19,7 +19,7 @@ on:
     paths: ['.github/workflows/code-*-snyk_analysis.yml', 'code/**/pom.xml']
 
 env:
-  WORKFLOW_VERSION: 3.11.0
+  WORKFLOW_VERSION: 3.13.0
   WORKING_DIR: code
   GITHUB_SNYK_API_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -39,6 +39,8 @@ jobs:
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Load custom secrets as environment variables
         id: creds-resolver
@@ -76,6 +78,9 @@ jobs:
           local-directory: code
           tool-name: ivm-node
           tool-version: 16
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Snyk Test Execution
         uses: inditex/gha-snykactions/test@main
