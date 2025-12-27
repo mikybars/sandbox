@@ -7,9 +7,13 @@ on:
       ATTACH_TARGET:
         description: Target platform to upload the generated report, it does not export results if empty. (p.e. jfrog)
         required: false
+      ADDITIONAL_ARGS:
+        description: 'Additional args not common to all pipelines'
+        required: false
+        default: '{"CHECKOUT_REF":""}'
 
 env:
-  WORKFLOW_VERSION: 2.33.0
+  WORKFLOW_VERSION: 2.40.0
   IS_PRJ_MULTI_MODULE: ${{ false }}
   ADAM_EXTERNAL_EXECUTION: 1
 
@@ -26,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.ref }}
 
       - name: Check where config_test is
         id: check-where-config-test-is
@@ -45,6 +50,8 @@ jobs:
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Resolve Configuration
         id: config
@@ -127,6 +134,7 @@ jobs:
           app_id: ${{ vars.WFSC_APP_ID }}
           app_private_key: ${{ secrets.WFSC_APP_PKEY }}
           name: "code-QA-mutation"
+          ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.ref }}
           summary: |
             This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
             `${{ github.workflow_ref }}`
