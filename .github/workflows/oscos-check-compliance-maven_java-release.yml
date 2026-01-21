@@ -1,0 +1,62 @@
+---
+name: "oscos-check-compliance-release"
+on:
+  release:
+    types: [published]
+
+env:
+  WORKFLOW_VERSION: 1.20.1
+
+jobs:
+  prepare-oscos-context:
+    name: Prepare OSCOS context
+    runs-on: ${{ fromJSON(vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]') }}
+    outputs:
+      group-name: ${{ steps.get-group-name.outputs.group_name }}
+      runner-label: ${{ steps.pick-runner-label.outputs.label }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: pick-runner-label
+        name: Pick runner label
+        shell: python
+        env:
+          RUNS: ${{ vars.RUNSON_OSCOS_ONPREM || '["oscos-icr__ci-oscos-base-large"]' }}
+        run: |
+          import os, json
+          data = json.loads(os.environ["RUNS"])
+          label = data[0] if isinstance(data, list) and data else (data if isinstance(data, str) else "oscos-icr__ci-oscos-base-large")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"label={label}\n")
+
+      - name: Get group name from repository metadata
+        id: get-group-name
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+              application = yaml.safe_load(f)
+
+          raw_group = application["metadata"]["service"]
+          # concat + lowercase
+          group_name = f"com.inditex.{raw_group}".lower()
+
+          github_env = os.getenv('GITHUB_OUTPUT')
+          with open(github_env, "a") as env_file:
+              env_file.write(f"group_name={group_name}\n")
+
+          print(f"::notice::Group name = [{group_name}] written to GitHub environment output.")
+
+  call-reusable-workflow:
+    name: Call Reusable OSCOS Check Compliance
+    needs: prepare-oscos-context
+    uses: inditex/ghw-oscodependencies/.github/workflows/oscos-reusable-check-compliance.yml@v0
+    with:
+      runs-on: ${{ needs.prepare-oscos-context.outputs.runner-label }}
+      is-release: true
+      version: ${{ github.event.release.tag_name }}
+      group-name: ${{ needs.prepare-oscos-context.outputs.group-name }}
+      cdxgen-type: 'java'
+    secrets: inherit

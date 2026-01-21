@@ -1,0 +1,75 @@
+---
+name: themis-new-dg-vertical
+run-name: Themis Datagravity new datagravity vertical by ${{ inputs.PETITIONER }}
+
+concurrency:
+  group: themis-new-dg-vertical
+
+env:
+  WORKFLOW_VERSION: 3.1.0
+
+on:
+  workflow_dispatch:
+    inputs:
+      PRE_ENVIRONMENT:
+        description: 'Pre environment'
+        required: true
+        default: 'pre'
+      PRE_DATASOURCES:
+        description: 'Pre datasources'
+        required: true
+        default: 'pre-datasources'
+      PRE_USER_ADMIN_REFERENCE:
+        description: 'Pre user admin reference'
+        required: true
+      PRE_PWD_ADMIN_REFERENCE:
+        description: 'Pre pwd admin reference'
+        required: false
+        default: ''
+      PRO_ENVIRONMENT:
+        description: 'Pro environment'
+        required: true
+        default: 'pro'
+      PRO_USER_ADMIN_REFERENCE:
+        description: 'Pro user admin reference'
+        required: true
+      PRO_PWD_ADMIN_REFERENCE:
+        description: 'Pro pwd admin reference'
+        required: false
+        default: ''
+      PRO_DATASOURCES:
+        description: 'Pro datasources'
+        required: true
+        default: 'pro-datasources'
+      ISSUE_NUMBER:
+        description: 'Issue number to deploy'
+        required: true
+      PETITIONER:
+        description: 'Petitioner email'
+        required: true
+
+
+jobs:
+  deploy:
+    name: Themis datasets deploy
+    timeout-minutes: 900
+    runs-on: themis-icr__database-arteixo
+    steps:
+      - name: Themis request dg vertical
+        uses: inditex/gha-themis/features/ci-cd/create_new_dg_vertical@v1
+        with:
+          PRE_ENVIRONMENT: ${{ inputs.PRE_ENVIRONMENT }}
+          PRE_DATASOURCES: ${{ inputs.PRE_DATASOURCES }}
+          PRE_USER_ADMIN_REFERENCE: ${{ inputs.PRE_USER_ADMIN_REFERENCE }}
+          PRE_PWD_ADMIN_REFERENCE: ${{ inputs.PRE_PWD_ADMIN_REFERENCE }}
+          PRO_ENVIRONMENT: ${{ inputs.PRO_ENVIRONMENT }}
+          PRO_DATASOURCES: ${{ inputs.PRO_DATASOURCES }}
+          PRO_USER_ADMIN_REFERENCE: ${{ inputs.PRO_USER_ADMIN_REFERENCE }}
+          PRO_PWD_ADMIN_REFERENCE: ${{ inputs.PRO_PWD_ADMIN_REFERENCE }}
+          PATH: "themis"
+          ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
+          PETITIONER: ${{ inputs.PETITIONER }}
+          GITHUB_TOKEN: ${{ secrets.DATABASE_GITHUB_TOKEN }}
+          DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
+          THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}
+          THEMIS_SPN_SECRET: ${{ secrets.THEMIS_SPN_SECRET }}

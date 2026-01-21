@@ -34,106 +34,84 @@ public class TrabajoConstraintValidator implements ConstraintValidator<TrabajoVa
 
   private boolean validate(final TrabajoDTO trabajo, final ConstraintValidatorContext context) {
     boolean isValid = true;
-    if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
+    // TODO: Quitar este false
+    if (false/* trabajo.getIdSimulacion() != null */) {
+      if (!TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
+        context.buildConstraintViolationWithTemplate("La simulacion debe ejecutarse siempre por persona")
+            .addConstraintViolation();
+        isValid = false;
+      }
+    } else if (TipoAmbitoEnum.SOCIEDAD.getId().equals(trabajo.getTipoAmbito().getId())) {
       if (!CollectionUtils.isEmpty(trabajo.getOrigen())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con origen en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-      if (!CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getEmpresa())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por sociedad con empresas en la entrada")
             .addConstraintViolation();
         isValid = false;
       }
-    }
-
-    if (TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
+    } else if (TipoAmbitoEnum.ORIGEN.getId().equals(trabajo.getTipoAmbito().getId())) {
       if (CollectionUtils.isEmpty(trabajo.getOrigen())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por origen sin origen en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (!CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getEmpresa())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por origen con empresas en la entrada")
             .addConstraintViolation();
         isValid = false;
       }
-    }
-
-    if (TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
+    } else if (TipoAmbitoEnum.EMPRESA.getId().equals(trabajo.getTipoAmbito().getId())) {
       if (CollectionUtils.isEmpty(trabajo.getOrigen())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por empresa sin origen en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+      } else if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por empresa sin empresas en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por empresa con localizaciones en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por empresa con personas en la entrada")
             .addConstraintViolation();
         isValid = false;
       }
-    }
-
-    if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
+    } else if (TipoAmbitoEnum.LOCALIZACION.getId().equals(trabajo.getTipoAmbito().getId())) {
       if (CollectionUtils.isEmpty(trabajo.getOrigen())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por localizacion sin origen en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+      } else if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por localizacion sin empresas en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
+      } else if (CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
         context
             .buildConstraintViolationWithTemplate("Ejecucion por localizacion sin localizaciones en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getPersona())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por localizacion con personas en la entrada")
             .addConstraintViolation();
         isValid = false;
       }
-    }
-
-    if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
+    } else if (TipoAmbitoEnum.PERSONA.getId().equals(trabajo.getTipoAmbito().getId())) {
       if (CollectionUtils.isEmpty(trabajo.getOrigen())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por persona sin origen en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
+      } else if (CollectionUtils.isEmpty(trabajo.getEmpresa())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por persona sin empresas en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (CollectionUtils.isEmpty(trabajo.getPersona())) {
+      } else if (CollectionUtils.isEmpty(trabajo.getPersona())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por persona sin personas en la entrada")
             .addConstraintViolation();
         isValid = false;
-      }
-
-      if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
+      } else if (!CollectionUtils.isEmpty(trabajo.getLocalizacion())) {
         context.buildConstraintViolationWithTemplate("Ejecucion por persona con localizaciones en la entrada")
             .addConstraintViolation();
         isValid = false;

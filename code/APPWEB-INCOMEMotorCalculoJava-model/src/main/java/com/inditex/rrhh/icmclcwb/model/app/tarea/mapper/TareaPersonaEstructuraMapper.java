@@ -50,6 +50,11 @@ public abstract class TareaPersonaEstructuraMapper {
     throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
   }
 
+  public List<TareaPersonaEstructura> simulacionTareaPersonaEstructuraDtoToTareaPersonaEstructuraDto(
+      final List<TareaPersonaEstructuraDto> tareaPersonaEstructuraDto) {
+    throw new UnsupportedOperationException(ErrorConstants.NOT_IMPLEMENTED);
+  }
+
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "idTarea", source = "tarea.id")
   @Mapping(target = "activo", constant = "true")

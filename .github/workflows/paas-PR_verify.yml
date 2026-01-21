@@ -13,13 +13,26 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.21.0
+  WORKFLOW_VERSION: 3.32.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
+  validate-yaml-extensions:
+    name: Validate YAML extensions
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
+        && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
+    steps:
+      - name: PaaS / Validate .yaml extensions in paas files
+        id: validate-yaml
+        uses: inditex/gha-paasdeployment/validate-yaml-extensions@v0
+        with:
+          head-ref: ${{ github.event.pull_request.head.ref }}
+
   check-changes-in-paths:
     name: Check for changes in corresponding paths
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    needs: [validate-yaml-extensions]
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
         && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     outputs:
@@ -34,9 +47,7 @@ jobs:
           filters: |
             yaml:
               - added|modified: 'paas/**.yml'
-              - added|modified: 'paas/**.yaml'
               - added|modified: 'paas/config_paas/**.yml'
-              - added|modified: 'paas/config_paas/**.yaml'
 
   yaml-lint:
     name: PaaS / Verify
@@ -55,6 +66,7 @@ jobs:
   check-changes-in-secrets:
     name: Check for changes secret*.yml
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    needs: [validate-yaml-extensions]
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
         && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     outputs:
@@ -188,3 +200,5 @@ jobs:
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
           install-paascli: true
           github-token: ${{ secrets.GH_TOKEN_READER }}
+          idp-federate-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          idp-federate-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}

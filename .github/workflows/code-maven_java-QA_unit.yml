@@ -12,6 +12,10 @@ on:
       ATTACH_TARGET:
         description: Target platform to upload the generated report, it does not export results if empty. (p.e. jfrog)
         required: false
+      ADDITIONAL_ARGS:
+        description: 'Additional args not common to all pipelines'
+        required: false
+        default: '{"CHECKOUT_REF":""}'
   pull_request:
     types: [closed]
     branches: ['develop', 'develop-*', 'main', 'main-*']
@@ -21,12 +25,13 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 2.29.0
+  WORKFLOW_VERSION: 2.40.0
   REF: ${{ github.base_ref || github.ref_name }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
   DT_ENDPOINT: ${{ secrets.DT_ENDPOINT }}
   DT_SECRET: ${{ secrets.DT_SECRET }}
+  ADAM_EXTERNAL_EXECUTION: 1
 
 jobs:
   unit-tests:
@@ -37,11 +42,16 @@ jobs:
         github.event_name == 'release' }}
     timeout-minutes: 30
     runs-on: ${{ fromJSON( vars.RUNSON_SONARQUBE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]' ) }}
+    permissions:
+      contents: write
+      id-token: write
+      checks: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.ref }}
 
       - name: Check where config_test is
         id: check-where-config-test-is
@@ -61,6 +71,8 @@ jobs:
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Resolve Configuration
         id: config
@@ -117,12 +129,18 @@ jobs:
           local-directory: code
           tool-name: ivm-node
           tool-version: 20
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Sonar / Setup Java version
         uses: inditex/gha-ivmactions/setup-tool@v1
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: SonarCloud / Run Maven Sonar goal with release event
         env:
@@ -178,6 +196,12 @@ jobs:
         env:
           DP_ARTIFACTS_STORAGE_USER: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
           DP_ARTIFACTS_STORAGE_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+
+      - name: Setup ADAM
+        if: ${{ always() && !cancelled() }}
+        uses: inditex/gha-testing/setup-adam@main
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Publish unit test results to DEVINS
         if: github.event_name != 'release'
@@ -245,6 +269,7 @@ jobs:
           app_id: ${{ vars.WFSC_APP_ID }}
           app_private_key: ${{ secrets.WFSC_APP_PKEY }}
           name: "code-QA-unit"
+          ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.ref }}
           summary: |
             This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
             `${{ github.workflow_ref }}`

@@ -41,7 +41,7 @@ on:
       ADDITIONAL_ARGS:
         required: false
         type: string
-        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","TARGET_BRANCH":""}'
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","TARGET_BRANCH":"","CHECKOUT_REF": "","FAST_TRACK":""}'
   workflow_dispatch:
     inputs:
       SUPRAENVS:
@@ -80,10 +80,10 @@ on:
         description: 'Additional args not common to all pipelines'
         required: false
         type: string
-        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":""}'
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","CHECKOUT_REF": "","FAST_TRACK":""}'
 
 env:
-  WORKFLOW_VERSION: 3.21.0
+  WORKFLOW_VERSION: 3.32.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -97,14 +97,29 @@ permissions:
 jobs:
   promote:
     name: Promote & Deployment PRs
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
+    runs-on: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).FAST_TRACK == 'true' && fromJson('["cdtool-icr__paasfeature-fast-track"]') || fromJSON( vars.RUNSON_PAAS_ONPREM || '["cdtool-icr__paasfeature"]' ) }}
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:
+      - name: Compute checkout ref
+        id: compute-checkout-ref
+        env:
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+          IS_MERGED: ${{ github.event.pull_request.merged }}
+        run: |
+          if [ "${{ env.IS_MERGED }}" == "true" ]; then
+            echo "checkout-ref=$GITHUB_BASE_REF" >> "$GITHUB_OUTPUT"
+            echo "checkout-ref-with-fallback=$GITHUB_BASE_REF" >> "$GITHUB_OUTPUT"
+          else
+            echo "checkout-ref=${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).CONFIG_REF || fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).CHECKOUT_REF || '' }}" >> "$GITHUB_OUTPUT"
+            echo "checkout-ref-with-fallback=${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).CONFIG_REF || fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).CHECKOUT_REF || env.GITHUB_HEAD_REF }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
+          ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref-with-fallback }}
 
       - name: Annotate the origin trigger
         if: ${{ inputs.VERSION != 'latest' && inputs.ISSUE_NUMBER != '' }}
@@ -118,6 +133,7 @@ jobs:
           issue-number: ${{ inputs.ISSUE_NUMBER }}
           token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ inputs.VERSION }}
+          fast-track: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).FAST_TRACK || false }}
 
       - name: Reset error label if the origin is an issue
         if: ${{ steps.compute-vars.outputs.is-issue == 'true' }}
@@ -178,45 +194,59 @@ jobs:
             echo "CONTAINER_REGISTRY_SNAPSHOT_BASE_URL=ghcr.io/inditex"
           } >> "$GITHUB_ENV"
 
-      - name: Sentinel - Generate manifests
-        uses: inditex/gha-paasdeployment/sentinel@v0
-        id: sentinel
+      - name: SentinelForge / Generate manifests
+        id: sentinel-forge-manifests
+        uses: inditex/gha-paasdeployment/generate-manifests@v0
         with:
-          supraenvs: ${{ inputs.SUPRAENVS }}
-          envs: ${{ inputs.ENVS }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          dp-username: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
+          dp-token: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
+          is-merged: ${{ github.event.pull_request.merged }}
+          supraenvironments: ${{ inputs.SUPRAENVS }}
+          environments: ${{ inputs.ENVS }}
           platforms: ${{ inputs.PLATFORMS }}
           tenants: ${{ inputs.TENANTS }}
           slots: ${{ inputs.SLOTS }}
           deployment-version: ${{ steps.compute-vars.outputs.deployment-version }}
-          strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
-          percentage: ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
-          working-directory: paas
-          token: ${{ secrets.GH_TOKEN_READER }}
+          bluegreen-strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
+          bluegreen-percentage: ${{ fromJson(inputs.ADDITIONAL_ARGS).PERCENTAGE }}
           trigger: ${{ fromJson(inputs.ADDITIONAL_ARGS).TRIGGER }}
           config-ref: ${{ fromJson(inputs.ADDITIONAL_ARGS).CONFIG_REF }}
           target-branch: ${{ fromJson(inputs.ADDITIONAL_ARGS).TARGET_BRANCH }}
-          is-issue: ${{ steps.compute-vars.outputs.is-issue }}
           issue-number: ${{ inputs.ISSUE_NUMBER }}
-        env:
-          MERGED: ${{ github.event.pull_request.merged }}
+          is-issue: ${{ steps.compute-vars.outputs.is-issue }}
+          checkout-ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref }}
+          is-fast-track: ${{ steps.compute-vars.outputs.is-fast-track }}
+
+      - name: Determine Manifests Outputs
+        id: determine-manifests-outputs
+        run: |
+          {
+            echo "no-deployments-needed=${{ steps.sentinel-forge-manifests.outputs.no-deployments-needed }}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Promote images to internal registries from ghcr
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io' && steps.compute-vars.outputs.deployment-version == 'latest' }}
         uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
           ghcr-username: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_USER }}
           ghcr-token: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_PASSWORD }}
           ghcr-url: ${{ env.CONTAINER_REGISTRY_SNAPSHOT_BASE_URL }}
+          oauth-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          oauth-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
 
       - name: Promote images to internal registries from JFrog
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && ( vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.compute-vars.outputs.deployment-version != 'latest' ) }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && ( vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.compute-vars.outputs.deployment-version != 'latest' ) }}
         uses: inditex/gha-paasdeployment/deployment/promote@v0
         with:
           working-directory: paas
+          oauth-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          oauth-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Promote ML Models
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-mlops == 'true' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-mlops == 'true' }}
         uses: inditex/gha-mlopsactions/actions/paas-promote-models@v0
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
@@ -226,21 +256,8 @@ jobs:
           copy-only-this-list-of-model-versions: ""
           remove-all-versions-before-copying: "true"
 
-      - name: BatchAsCode / Copy job definitions
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' && steps.compute-vars.outputs.is-batch == 'true' }}
-        run: |
-          if [ -d '../../jobs' ]; then
-            find . -maxdepth 1 -mindepth 1 -type d | while read -r dir; do
-              echo "Adding 'jobs' folder in $dir"
-              cp -r ../../jobs "$dir"/
-            done
-          else
-            echo "::error ::No jobs folder to copy!"
-          fi
-        working-directory: paas/target_tpl
-
       - name: Traffic Parrot / Promote mappings to s3 bucket
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
         uses: inditex/gha-paastol/paasmarket/trafficparrot/promote-mappings@promote-mappings-v2
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
@@ -250,8 +267,8 @@ jobs:
           delete: true
 
       - name: Create PIPE users for affected environments
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
-        uses: inditex/gha-pipeactions/deploy-client-paas@v1
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
+        uses: inditex/gha-pipeactions/deploy-client-paas@v2
         with:
           cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
           cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
@@ -261,7 +278,7 @@ jobs:
 
       - name: Create PR to deploy manifests into deployment branch
         id: create-pr-manifest
-        if: ${{ steps.sentinel.outputs.no-deployments-needed != 'True' }}
+        if: ${{ steps.determine-manifests-outputs.outputs.no-deployments-needed != 'True' }}
         uses: inditex/gha-paasdeployment/deployment/create-pr-manifests@v0
         with:
           working-directory: paas
@@ -269,7 +286,8 @@ jobs:
           version: ${{ steps.compute-vars.outputs.deployment-version }}
           strategy: ${{ fromJson(inputs.ADDITIONAL_ARGS).STRATEGY }}
           label: ${{ inputs.LABELS }}
-          force-token-usage: ${{ steps.compute-vars.outputs.force-token-usage }}
+          checkout-ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref }}
+          is-fast-track: ${{ steps.compute-vars.outputs.is-fast-track }}
         env:
           ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
           SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}

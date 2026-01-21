@@ -10,14 +10,14 @@ on:
     types: [closed]
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 3.1.0
 
 jobs:
   tagging:
     name: Database Tagging Merge
     timeout-minutes: 45
     if: github.event.pull_request.merged == true
-    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '["self-hosted", "database"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '"themis-icr__database-arteixo"' ) }}
     steps:
       - name: Tagging Model
-        uses: inditex/gha-themis/features/ci-cd/tag-on-merge@main
+        uses: inditex/gha-themis/features/ci-cd/tag-on-merge@v1

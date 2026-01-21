@@ -7,6 +7,150 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.83.0] - 2025-12-16
+
+### Added
+
+- [PIPEINCOME-6](https://jira.inditex.com/jira/browse/PIPEINCOME-6) Implement the producer
+
+## [4.82.0] - 2025-12-15
+
+### Added
+
+- [#1030](https://github.com/inditex/mic-incomemotorcalculojava/issues/1030) [Darwin Bot]  Upgrade Redis templates to 5.1.0
+- [INCOME-2081](https://jira.inditex.com/jira/browse/INCOME-2081) [BX]Validación tiendas. Ventas sin presencias / presencias sin ventas
+
+### Dependencies
+
+- [#995](https://github.com/inditex/mic-incomemotorcalculojava/issues/995) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.17.1 to 5.18.2 in /code
+
+## [4.81.0] - 2025-12-03
+
+### Added
+
+- [INCOME-2402](https://jira.inditex.com/jira/browse/INCOME-2402) Cálculo simulador otras tiendas
+- [INCOME-2616](https://jira.inditex.com/jira/browse/INCOME-2616) Cálculo simulador otras tiendas. Pruebas
+- [INCOME-2838](https://jira.inditex.com/jira/browse/INCOME-2838) Refactorización agrupación validaciones cálculo
+- [INCOME-2477](https://jira.inditex.com/jira/browse/INCOME-2477) Mi comisión - Datos UK Dutti
+- [INCOME-2756](https://jira.inditex.com/jira/browse/INCOME-2756) Desarrollo solución para la agrupación de validaciones no bloqueantes
+
+## [4.80.0] - 2025-10-30
+
+### Added
+
+- [INCOME-2412](https://jira.inditex.com/jira/browse/INCOME-2412) Nuevo cálculo Challenge Directo Venta - Query
+
+## [4.79.0] - 2025-10-16
+
+### Added
+
+- [INCOME-2675](https://jira.inditex.com/jira/browse/INCOME-2675) Validación controles (excedidos, sin cálculo, tablas %0)
+- [INCOME-2520](https://jira.inditex.com/jira/browse/INCOME-2520) Validación empleados tabla de porcentaje 0 en todas las secciones
+- [INCOME-2165](https://jira.inditex.com/jira/browse/INCOME-2165) Política horas fijas (Zara Home)
+- [INCOME-2612](https://jira.inditex.com/jira/browse/INCOME-2612) [EOL] Heimdal artifacts and legacy artifacts
+- [INCOME-2486](https://jira.inditex.com/jira/browse/INCOME-2486) Actualizar la versión del api en el cálculo
+
+### Dependencies
+
+- [#777](https://github.com/inditex/mic-incomemotorcalculojava/issues/777) build(deps): bump com.inditex.libamfmt:amiga-javaformat-maven-plugin from 3.2.0 to 3.3.0 in /code
+- [#869](https://github.com/inditex/mic-incomemotorcalculojava/issues/869) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.17.0 to 5.17.1 in /code
+- [#841](https://github.com/inditex/mic-incomemotorcalculojava/issues/841) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.16.1 to 5.17.0 in /code
+- [#821](https://github.com/inditex/mic-incomemotorcalculojava/issues/821) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.16.0 to 5.16.1 in /code
+
+## [4.78.2] - 2025-09-05
+
+### Fixed
+
+- [INCOME-2611](https://jira.inditex.com/jira/browse/INCOME-2611) Correccion cruce precio hora
+
+## [4.78.1] - 2025-09-04
+
+### Fixed
+
+- [INCOME-2607](https://jira.inditex.com/jira/browse/INCOME-2607) Correccion cruces challenge
+
+## [4.78.0] - 2025-08-06
+
+### Added
+
+- [INCOME-1201](https://jira.inditex.com/jira/browse/INCOME-1201) Modificación cadenas de conexión - ICMCLCWB - PRO
+
+## [4.77.0] - 2025-07-15
+
+### Added
+
+- [INCOME-2380](https://jira.inditex.com/jira/browse/INCOME-2380) Filtrado en envío de correos por entorno
+
+### Fixed
+
+- [INCOME-2243](https://jira.inditex.com/jira/browse/INCOME-2243) Challenge jornada. Cálculo posición en tienda. Bajas IT
+
+## [4.76.0] - 2025-06-18
+
+### Added
+
+- [#767](https://github.com/inditex/mic-incomemotorcalculojava/issues/767) fix-add-coverage-sonar
+- [INCOME-2356](https://jira.inditex.com/jira/browse/INCOME-2356) Metodo SaveProceso corregir parámetros
+- [INCOME-2184](https://jira.inditex.com/jira/browse/INCOME-2184) [BX]Validación empleados con tipo de cálculo Pendiente
+
+### Fixed
+
+- [INCOME-2357](https://jira.inditex.com/jira/browse/INCOME-2357) Corrección  endpoint presupuesto (motor de calculo)
+
+## [4.75.0] - 2025-06-10
+
+### Added
+
+- [INCOME-337](https://jira.inditex.com/jira/browse/INCOME-337) Merge con rama actualizada
+
+## [4.74.1] - 2025-06-10
+
+### Fixed
+
+- [INCOME-2337](https://jira.inditex.com/jira/browse/INCOME-2337) MX cambio fechas tiendas
+
+## [4.74.0] - 2025-06-09
+
+### Added
+
+- [INCOME-2330](https://jira.inditex.com/jira/browse/INCOME-2330) Modificacion mapeo provincia
+- [INCOME-2154](https://jira.inditex.com/jira/browse/INCOME-2154) Integración y modificación consulta validación cálculos sobre nueva tabla
+
+### Dependencies
+
+- [#694](https://github.com/inditex/mic-incomemotorcalculojava/issues/694) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.14.1 to 5.14.3 in /code
+
+## [4.73.2] - 2025-06-02
+
+### Fixed
+
+- [INCOME-2290](https://jira.inditex.com/jira/browse/INCOME-2290) Revision presencias manuales/secciones/totales
+
+## [4.73.1] - 2025-05-29
+
+### Fixed
+
+- [INCOME-2268](https://jira.inditex.com/jira/browse/INCOME-2268) Challenge seccion con estado
+
+## [4.73.0] - 2025-05-29
+
+### Added
+
+- [INCOME-2238](https://jira.inditex.com/jira/browse/INCOME-2238) Prueba getConfigPrecioHora calculo
+- [INCOME-1893](https://jira.inditex.com/jira/browse/INCOME-1893) Integración getConfPrecioHora en el proceso de calculo
+- [INCOME-1889](https://jira.inditex.com/jira/browse/INCOME-1889) Integración getAgrupOnline en el proceso de calculo
+- [INCOME-1890](https://jira.inditex.com/jira/browse/INCOME-1890) Integración getPresupuestos en el proceso de calculo
+- [INCOME-2036](https://jira.inditex.com/jira/browse/INCOME-2036) Integración getPeriodos calculo
+- [INCOME-1884](https://jira.inditex.com/jira/browse/INCOME-1884) Integración getTiendas en el proceso de calculo
+- [INCOME-1936](https://jira.inditex.com/jira/browse/INCOME-1936) No repartir las horas sindicales en tiendas/secciones cerradas
+- [INCOME-1990](https://jira.inditex.com/jira/browse/INCOME-1990) Correccion en los estados de tienda en challenge importe
+- [INCOME-1961](https://jira.inditex.com/jira/browse/INCOME-1961) Implementación lógica Validacion empleados con GT/GS e importe > 100
+
+### Dependencies
+
+- [#648](https://github.com/inditex/mic-incomemotorcalculojava/issues/648) build(deps): bump com.inditex.api:income-mic-incomemeta-api-v3-rest-stable from 4.0.0 to 6.3.0 in /code
+- [#642](https://github.com/inditex/mic-incomemotorcalculojava/issues/642) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.13.3 to 5.14.0 in /code
+
 ## [4.72.0] - 2025-03-27
 
 ### Added
@@ -540,7 +684,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.83.0...main
+[4.83.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.82.0...4.83.0
+[4.82.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.81.0...4.82.0
+[4.81.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.80.0...4.81.0
+[4.80.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.79.0...4.80.0
+[4.79.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.2...4.79.0
+[4.78.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.1...4.78.2
+[4.78.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.78.0...4.78.1
+[4.78.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.77.0...4.78.0
+[4.77.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.76.0...4.77.0
+[4.76.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.75.0...4.76.0
+[4.75.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.1...4.75.0
+[4.74.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.74.0...4.74.1
+[4.74.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.2...4.74.0
+[4.73.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.1...4.73.2
+[4.73.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.73.0...4.73.1
+[4.73.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.72.0...4.73.0
 [4.72.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.2...4.72.0
 [4.71.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.1...4.71.2
 [4.71.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.71.0...4.71.1

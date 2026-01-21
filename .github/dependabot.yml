@@ -21,6 +21,8 @@ registries:
 updates:
   # AMIGA Fwk Node.js (WSC/WEB)
   # AMIGA Fwk Web (SPA)
+  # Beacon SDK
+  # Shell LIBs
   - package-ecosystem: npm
     rebase-strategy: "disabled"
     directory: /code
@@ -46,6 +48,19 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      beacon-sdk:
+        patterns:
+          - "@beacon-itx/react"
+          - "@beacon-itx/sdk"
+        update-types:
+          - "minor"
+          - "patch"
+      shell-libs:
+        patterns:
+          - "@iop-shell-suite/*"
+        update-types:
+          - "minor"
+          - "patch"
     allow:
       # Eslint config for Inditex
       - dependency-name: "@inditex/eslint-config"
@@ -59,9 +74,19 @@ updates:
       # AMIGA Fwk Web
       - dependency-name: "@amiga-fwk-web/*"
         dependency-type: direct
+      # Beacon SDK
+      - dependency-name: "@beacon-itx/react"
+        dependency-type: direct
+      - dependency-name: "@beacon-itx/sdk"
+        dependency-type: direct
+      # Shell libs
+      - dependency-name: "@iop-shell-suite/*"
+        dependency-type: direct
     ignore:
       # Ignore major version update
       - dependency-name: "@amiga-fwk-web/components-data-viz"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@inditex/eslint-config"
         update-types: ["version-update:semver-major"]
     labels:
       - kind/dependency
@@ -77,9 +102,6 @@ updates:
     registries:
       - inditex-npm
     allow:
-      # Eslint config for Inditex
-      - dependency-name: "@inditex/eslint-config"
-        dependency-type: direct
       # AMIGA Tech Docs
       - dependency-name: "@amigatechdocs/*"
         dependency-type: direct

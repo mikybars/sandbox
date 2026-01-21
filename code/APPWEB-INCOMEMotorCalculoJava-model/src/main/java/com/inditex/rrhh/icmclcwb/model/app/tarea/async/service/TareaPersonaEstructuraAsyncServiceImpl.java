@@ -22,15 +22,15 @@ public class TareaPersonaEstructuraAsyncServiceImpl implements TareaPersonaEstru
   @Override
   public CompletableFuture<Void> save(List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
       TareaDto tareaDto) {
-    tareaPersonaEstructuraService.save(tareaPersonaEstructura, tareaDto);
+    this.tareaPersonaEstructuraService.save(tareaPersonaEstructura, tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
   @Override
   public CompletableFuture<Void> saveEstructurasComResultItemDto(
       List<EstructurasComResultItemDto> estructurasComResultItemDto, TareaDto tareaDto) {
-    tareaPersonaEstructuraService.save(
-        tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto),
+    this.tareaPersonaEstructuraService.save(
+        this.tareaPersonaEstructuraService.mergeEstructurasComResultItemDto(estructurasComResultItemDto, tareaDto),
         tareaDto);
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

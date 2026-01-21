@@ -355,7 +355,8 @@ public class TareaLocalizacionHistoricoRepositoryCustomImplTest {
                 TipoCalculoEnum.CHALLENGE_IMPORTE_TIENDA.getId(),
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_SECCION.getId(),
                 TipoCalculoEnum.CHALLENGE_PRECIO_HORA_TIENDA.getId(),
-                TipoCalculoEnum.CHALLENGE_JORNADA.getId()),
+                TipoCalculoEnum.CHALLENGE_JORNADA.getId(),
+                TipoCalculoEnum.CHALLENGE_DIRECTO_VENTA.getId()),
         this.params.getValue().getValue(SQL_PARAM_IDS_TIPOS_CALCULO));
   }
 

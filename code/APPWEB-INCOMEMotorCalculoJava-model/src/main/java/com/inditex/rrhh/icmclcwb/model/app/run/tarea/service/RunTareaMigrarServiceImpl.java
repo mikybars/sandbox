@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Validation;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.migrar.RunTareaMigrarAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaMigrarService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 
 import jakarta.validation.Valid;
@@ -35,11 +36,11 @@ public class RunTareaMigrarServiceImpl implements RunTareaMigrarService {
       metricGroupName = "RunTareaMigrarServiceGroup",
       metricDescription = "RunTareaMigrarService.run.counter")
   @Override
-  public void run(@NotNull @Valid final RunTareaDto runTarea) {
+  public void run(@NotNull @Valid final RunTareaDto runTarea, List<TareaMigrarComisionDto> deleteMigracion) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
       final CompletableFuture<Void> cfMigracion = this.runTareaMigrarAsyncService
-          .migrarListCalculoComision(runTarea);
+          .migrarListCalculoComision(runTarea, deleteMigracion);
       AsyncUtils.exceptionally(cfMigracion, cf);
     } catch (final Exception e) {
       AsyncUtils.cancel(cf);

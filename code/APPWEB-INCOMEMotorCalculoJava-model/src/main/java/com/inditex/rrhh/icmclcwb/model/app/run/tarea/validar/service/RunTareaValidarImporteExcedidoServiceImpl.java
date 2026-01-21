@@ -11,26 +11,24 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
-import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunValidacionNoBloqueante;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 @Component("validarImporteExcedidoV1")
 @Validated
-public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar {
+@RequiredArgsConstructor
+public class RunTareaValidarImporteExcedidoServiceImpl implements RunValidacionNoBloqueante {
 
-  @Autowired
-  private TareaFaseAccionService tareaFaseAccionService;
+  private final TareaFaseAccionService tareaFaseAccionService;
 
-  @Autowired
-  private AccionService accionService;
+  private final AccionService accionService;
 
-  @Autowired
-  private RunTareaAmbitoValidarImporteExcedidoService runTareaAmbitoValidarImporteExcedidoService;
+  private final RunTareaAmbitoValidarImporteExcedidoService runTareaAmbitoValidarImporteExcedidoService;
 
   @Override
   public CompletableFuture<List<ValidacionDto>> execute(
@@ -52,12 +50,8 @@ public class RunTareaValidarImporteExcedidoServiceImpl implements RunPrevalidar 
           EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
       return CompletableFuture.completedFuture(validaciones);
     }
-    if (validaciones.stream()
-        .filter(e -> e.getResult().equals(Boolean.FALSE))
-        .toList()
-        .isEmpty()) {
-      this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
-    }
+
+    this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
     return CompletableFuture.completedFuture(validaciones);
   }
 }

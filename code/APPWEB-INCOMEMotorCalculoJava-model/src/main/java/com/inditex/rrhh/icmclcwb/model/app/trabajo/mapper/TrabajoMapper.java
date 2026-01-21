@@ -29,6 +29,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(imports = {com.inditex.rrhh.icmclcwb.model.primary.programacion.entity.Programacion.class,
+    com.inditex.rrhh.icmclcwb.model.primary.simulacion.entity.Simulacion.class,
     TipoEjecucionCalculoEnum.class})
 @DecoratedWith(value = TrabajoMapperDecorator.class)
 public abstract class TrabajoMapper {
@@ -36,6 +37,9 @@ public abstract class TrabajoMapper {
   @Mapping(target = "idProgramacion",
       expression = "java(src != null && src.getProgramacion() != null && src.getProgramacion().getId() != null ?"
           + " src.getProgramacion().getId() : null)")
+  @Mapping(target = "idSimulacion",
+      expression = "java(src != null && src.getSimulacion() != null && src.getSimulacion().getId() != null ?"
+          + " src.getSimulacion().getId() : null)")
   @Mapping(target = "origen", ignore = true)
   @Mapping(target = "empresa", ignore = true)
   @Mapping(target = "persona", ignore = true)
@@ -52,6 +56,9 @@ public abstract class TrabajoMapper {
   @Mapping(target = "estado.peso", ignore = true)
   @Mapping(target = "estado.estadoTarea", ignore = true)
   @Mapping(target = "tipoAmbito.nombre", ignore = true)
+  @Mapping(target = "simulacion",
+      expression = "java(src != null && src.getIdSimulacion() != null ?"
+          + " Simulacion.builder().id(src.getIdSimulacion()).build() : null)")
   public abstract Trabajo trabajoDtoToTrabajo(TrabajoDTO src);
 
   public abstract List<Trabajo> trabajoDtoToTrabajo(List<TrabajoDTO> src);
@@ -93,8 +100,13 @@ public abstract class TrabajoMapper {
 
   @Mapping(target = "idAmbito", ignore = true)
   @Mapping(target = "idTipoEjecucionCalculo",
-      expression = "java( trabajo.getIdProgramacion() != null ?"
-          + " TipoEjecucionCalculoEnum.PROGRAMADO.getId() : TipoEjecucionCalculoEnum.MANUAL.getId())")
+      expression = "java(trabajo.getIdProgramacion() != null ? "
+          + "TipoEjecucionCalculoEnum.PROGRAMADO.getId() : "
+          + "TipoEjecucionCalculoEnum.MANUAL.getId())")
+  @Mapping(target = "idTipoEjecucion",
+      expression = "java(trabajo.getIdSimulacion() != null ? "
+          + "TipoEjecucionCalculoEnum.SIMULACION.getId() : "
+          + "TipoEjecucionCalculoEnum.MANUAL.getId())")
   @Mapping(target = "idTrabajo", source = "id")
   @Mapping(target = "nombreUsuario", source = "nombreUsuario")
   @Mapping(target = "idOrganization", ignore = true)

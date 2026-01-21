@@ -11,10 +11,10 @@ on:
     branches: ['main', 'main-*']
 
 env:
-  WORKFLOW_VERSION: 2.33.0
+  WORKFLOW_VERSION: 2.52.1
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r1
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   PR_HEAD_REF: ${{ github.head_ref }}
 

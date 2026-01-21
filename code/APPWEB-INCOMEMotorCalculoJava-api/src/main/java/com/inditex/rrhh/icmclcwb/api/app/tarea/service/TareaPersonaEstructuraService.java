@@ -25,4 +25,7 @@ public interface TareaPersonaEstructuraService {
 
   Boolean calcularFestivos(@Valid @NotNull final TareaDto tarea);
 
+  List<TareaPersonaEstructuraDto> saveSimulacion(
+      @Valid @NotNull @NotEmpty List<TareaPersonaEstructuraDto> tareaPersonaEstructura,
+      @Valid @NotNull TareaDto tarea);
 }

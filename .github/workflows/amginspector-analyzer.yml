@@ -2,7 +2,7 @@
 name: amginspector-analyzer
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.DRY_RUN }}
   cancel-in-progress: true
 
 on:
@@ -26,9 +26,7 @@ on:
         description: 'Include matches (only for dry-run mode)'
 
 env:
-  WORKFLOW_VERSION: 1.46.0
-  TOOL_VERSIONS: |
-    ivm-node 18.12.1
+  WORKFLOW_VERSION: 1.48.0
 
 jobs:
   run-inspector:
@@ -39,13 +37,13 @@ jobs:
         github.event_name == 'push' ||
         (github.event_name == 'pull_request' && contains( github.event.pull_request.labels.*.name, 'amiga-inspector'))
       }}
-    runs-on: ${{ fromJSON(vars.RUNSON_AMGINSPECTOR_ONPREM || '["self-hosted", "inspector"]') }}
-    env:
-      ASDF_DATA_DIR: /tmp/asdf/data
+    runs-on: ${{ fromJSON(vars.RUNSON_AMGINSPECTOR_ONPREM || '["amigainspect-icr__inspector"]') }}
     steps:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: project
 
       - name: Checkout Custom Rules
         uses: actions/checkout@v4
@@ -54,35 +52,6 @@ jobs:
           path: cac-amigainspectorrules
           token: ${{ secrets.GH_TOKEN_READER }}
 
-      - name: IVM / Create .tool-versions
-        run: |
-          echo "$TOOL_VERSIONS" > ${{ github.workspace }}/.tool-versions
-      - name: IVM / Create ASDF_DATA_DIR
-        run: |
-          mkdir -p "$ASDF_DATA_DIR"
-      - name: IVM / Setup plugins
-        uses: inditex/gha-ivmactions/setup-plugins@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READER }}
-        with:
-          tool-versions-directory: "."
-
-      - name: IVM / Setup environment
-        uses: inditex/gha-ivmactions/setup-environment@v1
-        with:
-          tool-versions-directory: "."
-
-      - name: IVM / Source asdf
-        run: |
-          # shellcheck source=/dev/null
-          source "$ASDF_DIR"/asdf.sh
-          echo "$PATH" >> "$GITHUB_PATH"
-
-      - name: IVM / Check versions
-        run: |
-          node --version
-          npm --version
-
       - name: Get metadata
         id: metadata
         shell: python
@@ -90,7 +59,7 @@ jobs:
           import yaml
           import os
 
-          with open('application.yml') as f:
+          with open('project/application.yml') as f:
             application = yaml.safe_load(f)
 
           github_output = os.getenv('GITHUB_OUTPUT')
@@ -162,6 +131,7 @@ jobs:
           react-scanner-enabled: ${{ steps.config.outputs.react-scanner-enabled }}
           dry-run: ${{ env.DRY_RUN }}
           include-matches: ${{ env.INCLUDE_MATCHES }}
+          working-directory: project
 
         env:
           AMGINSPECT_USERNAME: ${{ secrets.AMGINSPECT_USER }}

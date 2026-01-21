@@ -61,11 +61,11 @@ amiga:
     oauth2-client:
       default-client-config:
         #uri-token: https://apigw-sscc-des.axdesocp1.central.inditex.grp/private/authenticate
-        uri-token: https://sscc-int.axdesapigwlb.central.inditex.grp/private/authenticate
+        uri-token: https://sscc-pre.central.inditex.grp/private/authenticate
       clients:
         client-income:
-          client-id: oauthincomedes
-          client-secret: '${oauthincomedes}'
+          client-id: oauthincomepre
+          client-secret:
     rest:
       client:
         http:
@@ -80,8 +80,8 @@ amiga:
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
         slrhorcoms:
-          #base-url: https://sscc-pre.central.inditex.grp
-          base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
+          base-url: https://sscc-pre.central.inditex.grp
+          #base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
           auth-method: BASIC
           #username: srvcicmclcwbpreAX
           #password: '${srvcicmclcwbpreAX}'
@@ -94,23 +94,23 @@ amiga:
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:
-          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhvtimpwsd
+          base-url: https://sscc-pre.central.inditex.grp/rhvtimpwsd
           ping-query:
             enabled: true
             timeout: 2s
             path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhvtimpwsd/amiga/health
           auth-method: BASIC
-          username: srvcicmclcwbdes
-          password: '${srvcicmclcwbdes}'
+          username: srvcicmclcwbpreAX
+          password: '${srvcicmclcwbpreAX}'
         ptr-presencia:
-          base-url: https://des-openshift.axdesocp1.central.inditex.grp/rhpresnwsd
+          base-url: https://sscc-pre.central.inditex.grp/rhpresnwsd
           ping-query:
             enabled: true
             timeout: 2s
             path: http://des-openshift-private.axdesocp1.central.inditex.grp/rhpresnwsd/amiga/health
           auth-method: BASIC
-          username: srvcicmclcwbdes
-          password: '${srvcicmclcwbdes}'
+          username: srvcicmclcwbpreAX
+          password: '${srvcicmclcwbpreAX}'
         #[PTR][DES][FIN]
         #[PTR][PRE][INICIO]
         #        ptr-venta:
@@ -135,7 +135,7 @@ amiga:
         #          username: oauthincomedes
         #          password: '${oauthincomedes}'
         incomemeta:
-          base-url: http://localhost:8080/incomemeta
+          base-url: https://sscc-pre.central.inditex.grp/incomemeta
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
     metrics:
@@ -177,21 +177,35 @@ amiga:
           enabled: false
   data:
     stream:
-      output-bindings: commision-calculation-out-0
+      output-bindings: commision-calculation-out-0;commision-calculation-v2-out-0;commision-calculation-v3-out-0
       bindings:
         commision-calculation-out-0:
           content-type: application/*+avro
-          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+          registered-schema: classpath:commisioncalculation/v1/commision_calculation_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
+        commision-calculation-v2-out-0:
+          content-type: application/*+avro
+          registered-schema: classpath:commisioncalculation/v2/commision_calculation_v2_envelope.avsc
+          header-injection:
+            headers:
+              itx_envelope_id: pipe-event:1.0
+        commision-calculation-v3-out-0:
+          content-type: application/*+avro
+          registered-schema: classpath:commisioncalculation/v3/commision_calculation_v3_envelope.avsc
           header-injection:
             headers:
               itx_envelope_id: pipe-event:1.0
       schema:
         avro:
           schema-imports:
-            - classpath*:/pipe/**/imports/*.avsc
-            - classpath*:/commisioncalculation/**/imports/*.avsc
+            - classpath*:pipe/**/imports/*.avsc
+            - classpath*:commisioncalculation/**/imports/*.avsc
           schema-sources:
-            - classpath*:/commisioncalculation/**/*.avsc
+            - classpath*:commisioncalculation/v1/**/*.avsc
+            - classpath*:commisioncalculation/v2/**/*.avsc
+            - classpath*:commisioncalculation/v3/**/*.avsc
         kafka-brokers: localhost:30810
         developer-mode: true
         registry-client:
@@ -1096,8 +1110,8 @@ app:
       config:
         max-attempts: 20
         credentials:
-          user: SRVCICMCLCWSDESAX
-          password: '${SRVCICMCLCWSDESAX}'
+          user: SRVCICMCLCWSPREAX
+          password: '${SRVCICMCLCWSPREAX}'
           #          user: SRVCICMCLCWSDESAX
           #          password: '${SRVCICMCLCWSDESAX}'
           #          user: SRVCICMCLCWSPREAX
@@ -1115,14 +1129,14 @@ app:
         path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/validationCheck
       login:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/Login
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
+        #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/Login
-        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
+        server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
         #server: https://develop-icmclcws.axdesocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        #server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://prepru-icmclcws.axpreocp1.central.inditex.grp/services/ICM_WS_CALC_INCOME
-        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         service:
           getEmpresa:
             page:
@@ -1435,5 +1449,5 @@ spring:
     compose:
       skip:
         in-tests: false
-      file: "file:@project.parent.basedir@/src/test/resources/compose/docker-compose.yml"
+      file: ./src/test/resources/compose/docker-compose.yml
       lifecycle-management: start-and-stop

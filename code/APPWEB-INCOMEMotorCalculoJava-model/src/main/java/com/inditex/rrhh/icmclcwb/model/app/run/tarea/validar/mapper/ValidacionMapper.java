@@ -3,9 +3,11 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdMotivoDesplazamientoDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalFechaIncidenciaDto;
@@ -37,8 +39,23 @@ public interface ValidacionMapper {
   @Mapping(target = "stdIdLegEnt", source = "tareaDto.stdIdLegEnt")
   @Mapping(target = "idPersonaLocal", ignore = true)
   @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idLocalizacionLocal", expression = "java(new ArrayList<>())")
   ValidacionDto idPersonaLocalDtoTovalidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
       List<IdPersonaLocalDto> personas, PrevalidarPropertiesDto properties, TareaDto tareaDto);
+
+  @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(tiendas))")
+  @Mapping(target = "sincronizacion",
+      expression = "java((properties.getSincronizacion() != null) && properties.getSincronizacion().isActivo() && "
+          + "(properties.getSincronizacion().getMaxEmpleados() >= tiendas.size()) )")
+  @Mapping(target = "idTareaFaseAccion", source = "accion.id")
+  @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
+  @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
+  @Mapping(target = "stdIdLegEnt", source = "tareaDto.stdIdLegEnt")
+  @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idLocalizacionLocal", ignore = true)
+  ValidacionDto idLocalizacionLocalDtoTovalidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
+      List<IdLocalizacionLocalDto> tiendas, PrevalidarPropertiesDto properties, TareaDto tareaDto);
 
   @Mapping(target = "result", expression = "java(CollectionUtils.isEmpty(incidencias))")
   @Mapping(target = "sincronizacion", constant = "false")
@@ -47,6 +64,7 @@ public interface ValidacionMapper {
   @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
   @Mapping(target = "idPersonaLocal", ignore = true)
   @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idLocalizacionLocal", expression = "java(new ArrayList<>())")
   ValidacionDto idPersonaLocalFechaIncidenciaDtoToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
       List<IdPersonaLocalFechaIncidenciaDto> incidencias, PrevalidarPropertiesDto properties);
 
@@ -61,6 +79,7 @@ public interface ValidacionMapper {
   @Mapping(target = "idTareaFaseAccion", source = "accion.id")
   @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
   @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
+  @Mapping(target = "idLocalizacionLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "idMotivosDesplazamiento", ignore = true)
   ValidacionDto idMotivoDesplazamientoDtoToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion,
@@ -72,6 +91,7 @@ public interface ValidacionMapper {
   @Mapping(target = "reaccionPeso", source = "accion.reaccionPeso")
   @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
   @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idLocalizacionLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
   ValidacionDto booleanToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion, boolean result);
 
@@ -82,6 +102,7 @@ public interface ValidacionMapper {
   @Mapping(target = "cclIdOrigen", source = "ambito.cclIdOrigen")
   @Mapping(target = "idPersonaLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "idMotivosDesplazamiento", expression = "java(new ArrayList<>())")
+  @Mapping(target = "idLocalizacionLocal", expression = "java(new ArrayList<>())")
   @Mapping(target = "comis", source = "comis")
   @Mapping(target = "ptr", source = "ptr")
   ValidacionDto booleanToValidacionDto(TareaAmbitoDto ambito, TareaFaseAccionDto accion, boolean result, PresenciaOrigenDto comis,

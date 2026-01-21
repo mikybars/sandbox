@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.async.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaConfiguracionPrecioHoraDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaConfiguracionPrecioHoraService;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
+import com.inditex.rrhh.icmclcwb.rest.client.dto.ConfiguracionPrecioHoraResponseDTO;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,12 +38,13 @@ class TareaConfiguracionPrecioHoraAsyncServiceImplTest {
   }
 
   @Test
-  void saveConfPrecioHoraResultItemDtoTest() {
-    final List<ConfPrecioHoraResultItemDto> src = new ArrayList<>();
+  void saveConfiguracionPrecioHoraResponseDTOTest() {
+    final List<ConfiguracionPrecioHoraResponseDTO> src = new ArrayList<>();
     final TareaDto tarea = new TareaDto();
+    final String cclIdOrigen = "1";
 
-    this.tareaConfiguracionPrecioHoraAsyncService.saveConfPrecioHoraResultItemDto(src, tarea);
+    this.tareaConfiguracionPrecioHoraAsyncService.saveConfiguracionPrecioHoraResponseDTO(src, tarea, cclIdOrigen);
 
-    verify(this.tareaConfiguracionPrecioHoraService).saveConfPrecioHoraResultItemDto(anyList(), any(TareaDto.class));
+    verify(this.tareaConfiguracionPrecioHoraService).saveConfiguracionPrecioHoraResponseDTO(anyList(), any(TareaDto.class), anyString());
   }
 }

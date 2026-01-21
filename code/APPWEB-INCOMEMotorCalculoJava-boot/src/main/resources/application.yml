@@ -209,22 +209,30 @@ amiga:
       type: influx
 
   data:
-    stream:
-      output-bindings: commision-calculation-out-0
-      bindings:
-        commision-calculation-out-0:
-          content-type: application/*+avro
-          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
-          header-injection:
-            headers:
-              itx_envelope_id: pipe-event:1.0
-      schema:
-        avro:
-          schema-imports:
-            - classpath*:/pipe/**/imports/*.avsc
-            - classpath*:/commisioncalculation/**/imports/*.avsc
-          schema-sources:
-            - classpath*:/commisioncalculation/**/*.avsc
+#    stream:
+#      output-bindings: commision-calculation-out-0,commision-calculation-v2-out-0
+#      bindings:
+#        commision-calculation-out-0:
+#          content-type: application/*+avro
+#          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
+#          header-injection:
+#            headers:
+#              itx_envelope_id: pipe-event:1.0
+#        commision-calculation-v2-out-0:
+#          destination: sscc.rhcompensa.commision-calculation.v2
+#          content-type: application/*+avro
+#          registered-schema: classpath:/commisioncalculation/v2/commision_calculation_envelope_v2.avsc
+#          header-injection:
+#            headers:
+#              itx_envelope_id: pipe-event:1.0
+#          generate-union-helpers: true
+#      schema:
+#        avro:
+#          schema-imports:
+#            - classpath*:/pipe/**/imports/*.avsc
+#            - classpath*:/commisioncalculation/**/imports/*.avsc
+#          schema-sources:
+#            - classpath*:/commisioncalculation/**/*.avsc
   service:
     session:
       session-type: REMOTE
@@ -238,7 +246,7 @@ amiga:
         source-type: HEIMDAL
         heimdal:
           enabled: true
-          application-id: ICMCLCWB
+          application-id: INCOME
 
     rest-swagger:
       ui:

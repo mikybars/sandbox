@@ -6,7 +6,7 @@ concurrency:
   group: themis-manage-${{ inputs.SUPRAENVIRONMENT }}-${{ inputs.ENVIRONMENT }}-${{ inputs.DATASOURCE }}
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 3.1.0
 
 on:
   workflow_dispatch:
@@ -50,13 +50,14 @@ on:
 jobs:
   orchestrator:
     name: Database / Runner Selector
-    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '["self-hosted", "database"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '"themis-icr__database-arteixo"' ) }}
     outputs:
       runner_label: ${{ steps.runner_selector.outputs.runner_label }}
+      is_self_hosted: ${{ steps.runner_selector.outputs.is_self_hosted }}
     steps:
       - name: Orchestrator
         id: runner_selector
-        uses: inditex/gha-themis/features/commons/orchestration@main
+        uses: inditex/gha-themis/features/commons/orchestration@v1
         with:
           supraenv: ${{ inputs.SUPRAENVIRONMENT }}
           env: ${{ inputs.ENVIRONMENT }}
@@ -71,10 +72,10 @@ jobs:
     name: Themis manage
     needs: orchestrator
     timeout-minutes: 45
-    runs-on: [self-hosted, database, "${{ needs.orchestrator.outputs.runner_label }}"]
+    runs-on: "${{ needs.orchestrator.outputs.runner_label }}"
     steps:
       - name: Themis manage
-        uses: inditex/gha-themis/features/ci-cd/manage@main
+        uses: inditex/gha-themis/features/ci-cd/manage@v1
         with:
           SUPRAENVIRONMENT: ${{ inputs.SUPRAENVIRONMENT }}
           ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
@@ -86,6 +87,7 @@ jobs:
           PATH: ${{ inputs.PATH }}
           ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
           RUNNER_LABEL: ${{ needs.orchestrator.outputs.runner_label }}
+          IS_SELF_HOSTED: ${{ needs.orchestrator.outputs.is_self_hosted }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DATABASE_AZURE_TOKEN: ${{ secrets.DATABASE_AZURE_TOKEN }}
           THEMIS_SPN_CLIENT: ${{ vars.THEMIS_SPN_CLIENT }}

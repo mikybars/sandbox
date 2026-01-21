@@ -19,11 +19,13 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarVal
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarChallengeService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRegularizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaSimularService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 
 import jakarta.validation.Valid;
@@ -67,9 +69,13 @@ public class RunTareaServiceImpl implements RunTareaService {
 
   private final TareaFaseService tareaFaseService;
 
+  private final RunTareaSimularService runTareaSimularService;
+
   private final RunTareaMigrarService runTareaMigrarService;
 
   private final TareaFaseAccionService tareaFaseAccionService;
+
+  private final TareaMigrarService tareaMigrarService;
 
   @Auditoria
   @TimerFunctionalMetric(metricName = "RunTareaService.run.timer", metricGroupName = "RunTareaServiceGroup",
@@ -86,6 +92,7 @@ public class RunTareaServiceImpl implements RunTareaService {
       }
       this.tareaFaseService.create(runTarea);
       this.tareaFaseAccionService.create(runTarea);
+      this.runTareaSimularService.run(runTarea);
       this.runTareaRecolectarService.run(runTarea);
       this.runTareaRecolectarValidarService.run(runTarea);
       this.runTareaProcesarService.run(runTarea);
@@ -102,9 +109,14 @@ public class RunTareaServiceImpl implements RunTareaService {
           || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
         this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
       }
+      /*
+       * final List<TareaMigrarComisionDto> deleteMigracion = this.tareaMigrarService.deleteCalculoComisionByTareaActual(runTarea,
+       * runTarea.getTarea().getAmbito().get(0));
+       */
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstadoFinal(runTarea.getTarea());
       this.tareaService.updateFechaFin(runTarea.getTarea());
+      // this.runTareaMigrarService.run(runTarea, deleteMigracion);
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
       if (e instanceof ValidationNoReintentoException) {
         this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),

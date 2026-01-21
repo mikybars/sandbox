@@ -6,11 +6,11 @@ on:
     types: [labeled]
 
 env:
-  WORKFLOW_VERSION: 2.12.0
+  WORKFLOW_VERSION: 3.1.0
 
 jobs:
   dbrestore:
-    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '["self-hosted", "database"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_THEMIS_ONPREM || '"themis-icr__database-arteixo"' ) }}
     if: github.event.label.name == 'database/db-restore' || github.event_name == 'schedule'
     name: Launch restore job
     steps:
@@ -72,7 +72,7 @@ jobs:
 
       - name: Wait for workflow run ${{ steps.uuid.outputs.run_uuid }}
         id: find_workflow
-        uses: inditex/gha-themis/features/commons/findwf@main
+        uses: inditex/gha-themis/features/commons/findwf@v1
         with:
           run_uuid: ${{ steps.uuid.outputs.run_uuid }}
           token: ${{ secrets.DATABASE_GITHUB_TOKEN }}

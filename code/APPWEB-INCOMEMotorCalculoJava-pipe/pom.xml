@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava</artifactId>
-    <version>4.74.0-SNAPSHOT</version>
+    <version>4.84.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>APPWEB-INCOMEMotorCalculoJava-pipe</artifactId>
@@ -42,10 +42,15 @@
       <groupId>com.inditex.amigafwk</groupId>
       <artifactId>amiga-service</artifactId>
     </dependency>
+    <!--    <dependency>-->
+    <!--      <groupId>com.inditex.api</groupId>-->
+    <!--      <artifactId>income-income-motor-calculo-java-event-v3-event-stable</artifactId>-->
+    <!--      <version>2.0.0</version>-->
+    <!--    </dependency>-->
     <dependency>
       <groupId>com.inditex.api</groupId>
       <artifactId>income-income-motor-calculo-java-event-v3-event-stable</artifactId>
-      <version>2.0.0</version>
+      <version>2.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

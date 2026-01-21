@@ -8,7 +8,7 @@ on:
   pull_request:
     types: [closed]
     branches: ['main', 'main-*']
-    paths: ['code/**', '.github/workflows/code**']
+    paths: ['code/**']
   workflow_dispatch:
     inputs:
       BASELINE:
@@ -43,14 +43,14 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.33.0
+  WORKFLOW_VERSION: 2.52.1
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
-  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.4-node-12-ubuntu-r1
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
   SCM_EMAIL: srvcibot@inditex.com
   SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   SCM_USERNAME: butler-ci-bot
@@ -66,6 +66,12 @@ jobs:
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
         || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
+    permissions:
+      actions: write
+      contents: write
+      id-token: write
+      pull-requests: write
+      issues: read
     steps:
       - name: Get input parameters
         run: |
@@ -130,9 +136,9 @@ jobs:
       - name: Infer ci-agents asdf image
         uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
         env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.14.0-ubuntu20.04-r3
-          ASDF_RHUBI_IMAGE_TAG: 0.14.0-rhubi-r5
-          ASDF_CENTOS_IMAGE_TAG: 0.14.0-centos-r3
+          ASDF_UBUNTU_IMAGE_TAG: 0.18.0-ubuntu24.04-r0
+          ASDF_RHUBI_IMAGE_TAG: 0.18.0-rhubi-r0
+          ASDF_CENTOS_IMAGE_TAG: 0.18.0-centos-r0
         with:
           tool-versions-directory: code
           github-token: ${{ secrets.GH_TOKEN_READER }}
@@ -252,6 +258,13 @@ jobs:
         if: ${{ contains(env.RELEASE_LABELS, 'release-mode/skip-changelog') }}
         run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> "$GITHUB_ENV"
 
+      - name: Generate release metadata
+        uses: inditex/gha-citool/release-metadata@v0
+        with:
+          release-labels: ${{ env.RELEASE_LABELS }}
+          release-version: ${{ env.RELEASE_VERSION }}
+          output-file: release-meta.json
+
       - name: Github Release / Create
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
         id: github-release
@@ -262,6 +275,19 @@ jobs:
           token: ${{ secrets.GH_TOKEN_PUSH }}
           body: |
             Check out the [changelog](code/CHANGELOG.md) for version ${{ env.RELEASE_VERSION }}
+          artifacts: "release-meta.json"
+
+      - name: Metrics / Report Size
+        uses: inditex/gha-pmsactions/size-reporter@v0
+        continue-on-error: true
+        with:
+          REPOSITORY_PATH: code
+          COMMIT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.base_ref || github.head_ref || github.ref_name }}
+          BUILD_TYPE: RELEASE
+          TECHNOLOGY: maven_java
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_READER }}
+          VERSION: ${{ env.RELEASE_VERSION }}
 
       - name: Comment in PR / Sync PR creation failed
         if: ${{ vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
@@ -283,5 +309,5 @@ jobs:
         run: >
           gh pr comment ${{ github.event.number }} --body "An error occurred creating the Github Release.
           Don't panic! Your artifacts were successfully uploaded to the Distribution Platform and the new release tag was created.
-          You can manually complete the release by creating it in the [releases](https://github.com/inditex/%7Brepo%7D/releases)
+          You can manually complete the release by creating it in the [releases](https://github.com/${{ github.repository }}/releases)
           page or opening up an issue at [inditex/community](https://github.com/inditex/community/) where you will have assistance."

@@ -42,6 +42,10 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
   private static final String SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO = "RECUPERAR PERSONAS IMPORTE EXCEDIDO TEST";
 
+  private static final String SQL_RECUPERAR_PERSONAS_CALCULO_PENDIENTE = "RECUPERAR PERSONAS CALCULO PENDIENTE TEST";
+
+  private static final String SQL_RECUPERAR_PERSONAS_PORCENTAJE_0 = "RECUPERAR PERSONAS PORCENTAJE 0 TEST";
+
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -72,6 +76,14 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
 
     FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRecuperarPersonasImporteExcedido",
         SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO,
+        true);
+
+    FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRecuperarPersonasCalculoPendiente",
+        SQL_RECUPERAR_PERSONAS_CALCULO_PENDIENTE,
+        true);
+
+    FieldUtils.writeField(this.tareaCalculoRepositoryCustom, "sqlRecuperarPersonasPorcentaje0",
+        SQL_RECUPERAR_PERSONAS_PORCENTAJE_0,
         true);
   }
 
@@ -144,16 +156,45 @@ public class TareaCalculoRepositoryRegularizarCustomImplTest {
   @Test
   void findPersonaImporteExcedidoByIdTareaExecutesQueryWithCorrectParameters() {
     final Long idTarea = 1L;
-
-    this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea);
+    final String cclIdOrigen = "11";
+    final String stdIdLegEnt = "8";
+    this.tareaCalculoRepositoryCustom.findPersonaImporteExcedidoByIdTarea(idTarea, cclIdOrigen, stdIdLegEnt);
 
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
         ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
 
     assertEquals(SQL_RECUPERAR_PERSONAS_IMPORTE_EXCEDIDO, this.sql.getValue());
     final MapSqlParameterSource parameters = this.params.getValue();
+    assertEquals(3, parameters.getValues().size());
+    assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+    assertEquals(idTarea, parameters.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+  }
+
+  @Test
+  void findPersonaCalculoPendienteByIdTareaExecutesQueryWithCorrectParameters() {
+    final Long idTarea = 1L;
+    this.tareaCalculoRepositoryCustom.findPersonaCalculoPendiente(idTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
+
+    final MapSqlParameterSource parameters = this.params.getValue();
     assertEquals(1, parameters.getValues().size());
     assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
     assertEquals(idTarea, parameters.getValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+  }
+
+  @Test
+  void findPersonaPorcentaje0ByIdTareaExecutesQueryWithCorrectParameters() {
+    final Long idTarea = 1L;
+    this.tareaCalculoRepositoryCustom.findPersonaPorcentaje0(idTarea);
+    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
+        ArgumentMatchers.<RowMapper<TareaPersonaImporteExcedidoDto>>any());
+
+    final MapSqlParameterSource parameters = this.params.getValue();
+    assertEquals(SQL_RECUPERAR_PERSONAS_PORCENTAJE_0, this.sql.getValue());
+    assertEquals(1, parameters.getValues().size());
+    assertTrue(parameters.hasValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA));
+
   }
 }

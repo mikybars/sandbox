@@ -18,6 +18,7 @@ supraenvironments:
                 slots:
                   - name: default
                   - name: jdbc
+                  - name: topictest
   - name: pro
     environments:
       - name: pro

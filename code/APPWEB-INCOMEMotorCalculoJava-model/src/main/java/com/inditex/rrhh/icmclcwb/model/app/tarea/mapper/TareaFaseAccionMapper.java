@@ -5,11 +5,12 @@ import java.util.List;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaFaseAccion;
 
+import org.mapstruct.Builder;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(builder = @Builder(disableBuilder = true))
 public abstract class TareaFaseAccionMapper {
 
   @Mapping(target = "idAccion", source = "accion.id")

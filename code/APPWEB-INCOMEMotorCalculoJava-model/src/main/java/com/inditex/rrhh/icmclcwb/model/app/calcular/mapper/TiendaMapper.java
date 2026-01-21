@@ -18,7 +18,7 @@ public interface TiendaMapper {
   @Mapping(target = "fechaInicio", expression = "java(source.getFechaInicio().atStartOfDay())")
   @Mapping(target = "fechaFin", expression = "java(source.getFechaFin().atStartOfDay())")
   @Mapping(target = "idPais", source = "source.stdIdCountry")
-  @Mapping(target = "idProvincia", source = "source.stdIdGeoDiv")
+  @Mapping(target = "idProvincia", source = "source.stdIdSubGeoDiv")
   @Mapping(target = "idEmpresa", source = "source.stdIdLegEnt")
   @Mapping(target = "idCadena", source = "source.cclIdCadena")
   GenericTiendaResultItemDto toGenericTiendaResultItemDto(TiendaResponseDTO source, String cclIdOrigen);

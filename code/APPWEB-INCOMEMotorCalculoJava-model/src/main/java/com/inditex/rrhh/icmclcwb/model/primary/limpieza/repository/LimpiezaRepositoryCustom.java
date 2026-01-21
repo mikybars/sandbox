@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.limpieza.repository;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.EstadoLimpiezaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -10,9 +11,8 @@ import jakarta.validation.constraints.Positive;
 
 public interface LimpiezaRepositoryCustom {
 
-  void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
-
-  void limpiezaTareaProfunda(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito);
+  void limpieza(@NotNull @Valid final TareaDto tarea, @NotNull @Valid final TareaAmbitoDto ambito,
+      @NotNull @Valid final TrabajoDTO trabajo);
 
   void updateEstado(@NotNull @Positive final Long idTareaLimpieza,
       @NotNull @Valid final EstadoLimpiezaDto estado);
@@ -20,6 +20,11 @@ public interface LimpiezaRepositoryCustom {
   void updateFechaFinalizacion(@NotNull @Positive final Long idTareaLimpieza);
 
   void inicioLimpieza(@NotNull @Positive final Long idTareaLimpieza);
+
+  void limpiezaTareaProfunda(
+      @NotNull @Valid TareaDto tarea,
+      @NotNull @Valid TareaAmbitoDto ambito,
+      @NotNull @Valid TrabajoDTO trabajo);
 
   void limpiezaTareaPersonaHistorico(@NotNull @Valid final TareaDto tarea);
 

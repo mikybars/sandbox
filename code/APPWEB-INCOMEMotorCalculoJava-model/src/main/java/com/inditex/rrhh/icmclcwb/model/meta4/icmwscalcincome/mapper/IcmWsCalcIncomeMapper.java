@@ -1029,6 +1029,7 @@ public interface IcmWsCalcIncomeMapper {
   @Mapping(target = "idPeriodo", source = "idperiodo")
   @Mapping(target = "idTrabajo", source = "idtrabajo")
   @Mapping(target = "idTipoEjecucionCalculo", source = "idtpejeccalculo")
+  @Mapping(target = "idTipoEjecucion", source = "idtpejec")
   @Mapping(target = "idOrigen", source = "idorigen")
   @Mapping(target = "item", source = "icmParamcalprocesoRecordSet")
   SaveProcesoDto asSaveProcesoDto(IcmParamcalprocesoBlock src);

@@ -13,6 +13,9 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.Run
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalEmpresaService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.async.service.Meta4IcmWsCalcIncomeSessionAsyncService;
 import com.inditex.rrhh.icmclcwb.model.app.calcular.mapper.TiendaMapper;
 
 import org.junit.jupiter.api.Test;
@@ -31,6 +34,15 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
 
   @Mock
   private TiendaMapper tiendaMapper;
+
+  @Mock
+  private TareaPersonaEstructuraService tareaPersonaEstructuraService;
+
+  @Mock
+  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+
+  @Mock
+  private Meta4IcmWsCalcIncomeSessionAsyncService meta4IcmWsCalcIncomeSessionAsyncService;
 
   @Test
   void fechaAmbitoAndEmpresaByRunTareaTest() {
@@ -469,7 +481,7 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  void estadoWlocByRunTareaTest() {
+  void testPresupuestosWlocByRunTareaAndTareaAmbito() {
     final RunTareaDto runTarea = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     runTarea.setTarea(tarea);
@@ -477,9 +489,9 @@ class RunTareaRecolectarMeta4IcmWsCalcIncomeServiceImplTest {
     tarea.setAmbito(ambito);
     ambito.add(TareaAmbitoDto.builder().build());
 
-    this.runTareaRecolectarMeta4IcmWsCalcIncomeService.estadoWlocByRunTarea(runTarea);
+    this.runTareaRecolectarMeta4IcmWsCalcIncomeService.presupuestosWlocByRunTarea(runTarea);
 
     verify(this.runTareaAmbitoRecolectarMeta4IcmWsCalcIncomeService, times(1))
-        .estadoWlocByRunTareaAndTareaAmbito(any(RunTareaDto.class), any(TareaAmbitoDto.class));
+        .presupuestosWlocByRunTareaAndTareaAmbito(any(RunTareaDto.class), any(TareaAmbitoDto.class));
   }
 }

@@ -2,7 +2,19 @@ package com.inditex.rrhh.icmclcwb.api.app.util;
 
 public class SqlPipeConstants {
   // PARAMETROS DE FILTROS
+  public static final String SQL_PARAM_ID_TAREA = "idTarea";
+
   public static final String SQL_PARAM_ICM_ID_TAREA_ACTUAL = "idTareaActual";
+
+  public static final String SQL_PARAM_FECHA_INICIO_PERIODO = "fechaInicioPeriodo";
+
+  public static final String SQL_PARAM_STD_ID_LEG_ENT = "stdIdLegEnt";
+
+  public static final String SQL_PARAM_ICM_ID_PERIODO = "icmIdPeriodo";
+
+  public static final String SQL_PARAM_CCL_ID_ORIGEN = "cclIdOrigen";
+
+  public static final String SQL_PARAM_ID_ESTADO = "idEstado";
 
   // RESULTADOS DE CONSULTAS
   public static final String SQL_RESULT_ICM_ID_PERIODO = "ICM_ID_PERIODO";
@@ -134,6 +146,14 @@ public class SqlPipeConstants {
   public static final String SQL_RESULT_IMPORTE_DEVOLUCION_INDIVIDUAL_IPOD = "IMPORTE_DEVOLUCION_INDIVIDUAL_IPOD";
 
   public static final String SQL_RESULT_COEFICIENTE_REDUCCION_JORNADA = "COEFICIENTE_REDUCCION_JORNADA";
+
+  public static final String SQL_RESULT_ICM_CK_INC_IVA_EVAL_PTPO = "ICM_CK_INC_IVA_EVAL_PTPO";
+
+  public static final String SQL_RESULT_COD_SECCION_BANDA = "COD_SECCION_BANDA";
+
+  public static final String SQL_RESULT_TIPO_PORCENTAJE_POLITICA = "TIPO_PORCENTAJE_POLITICA";
+
+  public static final String SQL_RESULT_COD_TIENDA_BANDA = "COD_TIENDA_BANDA";
 
   private SqlPipeConstants() {
   }

@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.21.0
+  WORKFLOW_VERSION: 3.32.0
 
 jobs:
   get-details:
@@ -103,7 +103,6 @@ jobs:
           branch-name: ${{ steps.set-branch-name.outputs.branch_name }}
           app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
           app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
-          url: 'https://cdmngmt.apps.axecocpci1.ecommerce.inditex.grp/cdmngmt/api/v1/shepherd/check'
 
       - name: Add comment when the workflow is failed
         if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message == '' }}

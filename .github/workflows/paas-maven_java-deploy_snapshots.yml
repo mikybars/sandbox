@@ -41,6 +41,11 @@ on:
         description: 'ID number (issue or pull request)'
         required: false
         default: ''
+      ADDITIONAL_ARGS:
+        description: 'Additional args not common to all pipelines'
+        required: false
+        type: string
+        default: '{"CHECKOUT_REF": ""}'
 
   pull_request:
     types: [synchronize, labeled, closed]
@@ -48,7 +53,7 @@ on:
     paths: ['code/**', 'paas/**']
 
 env:
-  WORKFLOW_VERSION: 3.21.0
+  WORKFLOW_VERSION: 3.32.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -74,6 +79,7 @@ jobs:
       labels: ${{ steps.deploy-vars.outputs.LABELS }}
       additional-args: ${{ steps.deploy-vars.outputs.ADDITIONAL_ARGS }}
       app-version: ${{ steps.version.outputs.version }}
+      checkout-ref: ${{ steps.check-fork.outputs.CHECKOUT_REF }}
 
     steps:
       - name: Checkout merge commit
@@ -82,11 +88,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check if pr trigger comes from fork
+        if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed')
+        id: check-fork
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then
+            echo "This PR comes from a fork, setting as ref the PR ID."
+            echo "CHECKOUT_REF=${{ github.ref }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout head branch
         if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - name: Annotate the origin trigger
@@ -100,6 +115,7 @@ jobs:
         with:
           tag-suffix: "last-build"
           paths: "code"
+          checkout-ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}
 
       - name: Check config changes
         uses: inditex/gha-paasdeployment/deployment/identify-changes@v0
@@ -107,6 +123,7 @@ jobs:
         with:
           tag-suffix: "last-build"
           paths: "paas"
+          checkout-ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}
 
       - name: Check if latest image exists in the ghcr registry via sentcli
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY == 'ghcr.io'
@@ -118,6 +135,7 @@ jobs:
           dp_token: ${{ secrets.GITHUB_TOKEN }}
           dp_registry: ${{ vars.PAAS_DOCKER_SNAPSHOT_REGISTRY }}
           dp_image_path: ${{ github.repository_owner}}/itxapps
+          checkout_ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}
 
       - name: Check if latest image exists in the JFrog DP via sentcli
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io'
@@ -127,6 +145,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN_READER }}
           dp_username: ${{ env.DP_USERNAME }}
           dp_token: ${{ env.DP_TOKEN }}
+          checkout_ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}
 
       - name: Set deployment configuration
         id: deploy-vars
@@ -134,13 +153,13 @@ jobs:
           echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
           echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
           if [ "${{ github.event.pull_request.state }}" != "closed" ] && [ "${{ contains(github.event.pull_request.labels.*.name, 'autodeploy') }}" == "true" ]; then
-            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy"}' >> "$GITHUB_OUTPUT"
+            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'"}' >> "$GITHUB_OUTPUT"
           elif
             [ "${{ github.event.pull_request.merged }}" == "true" ]; then
             ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'"}'
             echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
           else
-            ADDITIONAL_ARGS="{'STRATEGY': '${{ inputs.STRATEGY }}','PERCENTAGE': '${{ inputs.PERCENTAGE }}','CONFIG_REF': ''}"
+            ADDITIONAL_ARGS='{"STRATEGY": "${{ inputs.STRATEGY }}","PERCENTAGE": "${{ inputs.PERCENTAGE }}","CONFIG_REF": "", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'"}'
             echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
           fi
 
@@ -170,13 +189,19 @@ jobs:
         id: slot
         env:
           REF: ${{ github.head_ref || github.ref_name }}
+          CHECKOUT_REF: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || needs.identify-changes.outputs.checkout-ref }}
         run: |
           slots="${{ github.event.inputs.SLOTS }}"
           if [ -z "${slots}" ]; then
             if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
               slots="default"
             else
-              slots=$(basename "${REF}")
+              if [[ "${CHECKOUT_REF}" =~ refs/pull/([0-9]+)/merge ]]; then
+                pr_number="${BASH_REMATCH[1]}"
+                slots="gh-PR-${pr_number}"
+              else
+                slots=$(basename "${REF}")
+              fi
             fi
           fi
           echo "slots=${slots}" >> "$GITHUB_OUTPUT"
@@ -227,6 +252,7 @@ jobs:
     uses: ./.github/workflows/paas-maven_java-build_deployable.yml
     with:
       VERSION: ${{ needs.identify-changes.outputs.app-version }}
+      CHECKOUT_REF: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || needs.identify-changes.outputs.checkout-ref }}
     secrets: inherit
 
   create-deployment-prs:
@@ -255,26 +281,26 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Calculate checkout reference for fork PRs
+        id: checkout-ref
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.fork }}" == "true" ]]; then
+            echo "CHECKOUT_REF=refs/pull/${{ github.event.pull_request.number }}/merge" >> "$GITHUB_OUTPUT"
+          else
+            echo "CHECKOUT_REF=''" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Clean up last build tag on closed PR
         uses: inditex/gha-paasdeployment/deployment/clean-up-build-tag@v0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: BatchAsCode / Detect
-        id: detect
-        shell: python
-        run: |
-          import os
-          is_bat = ("${{ github.repository }}".split('/')[1].split('-')[0] == "bat")
-          github_output = os.getenv('GITHUB_OUTPUT')
-          with open(github_output, "a") as gh_out:
-            gh_out.write('force-token-usage=%s\n' % (is_bat))
+          checkout-ref: ${{ steps.checkout-ref.outputs.CHECKOUT_REF }}
 
       - name: Clean Up / Delete Folder Into Deployment Branch
         uses: inditex/gha-paasdeployment/deployment/delete-deployment-folder@v0
         with:
           token: ${{ secrets.GH_TOKEN_PUSH }}
-          force-token-usage: ${{ steps.detect.outputs.force-token-usage }}
+          checkout-ref: ${{ steps.checkout-ref.outputs.CHECKOUT_REF }}
         env:
           SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
           ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER || github.event.pull_request.number }}
