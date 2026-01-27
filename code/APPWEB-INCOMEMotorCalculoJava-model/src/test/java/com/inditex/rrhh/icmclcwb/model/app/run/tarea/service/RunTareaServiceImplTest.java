@@ -10,6 +10,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
@@ -20,6 +21,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.limpiar.consolidar.service.Ru
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaAjustarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaCalcularService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaConsolidarService;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaNormalizarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaProcesarService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarService;
@@ -34,6 +36,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaMigrarService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.TipoAmbitoDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -92,11 +95,11 @@ class RunTareaServiceImplTest {
   @Mock
   private TareaFaseAccionService tareaFaseAccionService;
 
-  // @Mock
-  // private RunTareaMigrarService runTareaMigrarService;
+  @Mock
+  private RunTareaMigrarService runTareaMigrarService;
 
-  // @Mock
-  // private TareaMigrarService tareaMigrarService;
+  @Mock
+  private TareaMigrarService tareaMigrarService;
 
   @InjectMocks
   private RunTareaServiceImpl runTareaService;
@@ -119,7 +122,7 @@ class RunTareaServiceImplTest {
     runTarea.getTarea().setAmbito(List.of(new TareaAmbitoDto()));
     this.runTareaService.run(runTarea);
     verify(this.runTareaNormalizarService, times(1)).run(runTarea);
-    // verify(this.runTareaMigrarService, times(1)).run(runTarea, new ArrayList<>());
+    verify(this.runTareaMigrarService, times(1)).run(runTarea, new ArrayList<>());
     verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
   }
 

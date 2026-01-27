@@ -68,7 +68,7 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
               this.commisionCalculationUpdateEventMapper.tareaMigrarComisionDtoListToCCommisionCalculationUpdateEventList(
                   this.findCalculoComisionByTareaActual(runTareaDto.getTarea())));
 
-      LOG.info("[{}] [{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
+      LOG.info("Trabajo[{}]Tarea[{}] :: Commission calculation total size {}  ", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), updateLists.size());
       // Send the topic
       if (!updateLists.isEmpty()) {
@@ -88,7 +88,7 @@ public class TareaMigrarServiceImpl implements TareaMigrarService {
       }
 
     } catch (final Exception e) {
-      LOG.error("[{}] [{}] :: Error invoking producer to migrate commission calculation", runTareaDto.getTrabajo().getId(),
+      LOG.error("Trabajo[{}]Tarea[{}] :: Error invoking producer to migrate commission calculation", runTareaDto.getTrabajo().getId(),
           runTareaDto.getTarea().getId(), e);
       throw e;
     }

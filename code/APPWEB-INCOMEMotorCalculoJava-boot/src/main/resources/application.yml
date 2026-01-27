@@ -9,6 +9,10 @@ app:
   id: ${spring.application.name}
   version: '@project.version@'
   envars:
+    migracion:
+      comision:
+        page-size:
+          default: 100
     slrhorcoms:
       config:
         max-attempts: 2

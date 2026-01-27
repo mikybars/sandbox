@@ -16,6 +16,10 @@ public class SqlPipeConstants {
 
   public static final String SQL_PARAM_ID_ESTADO = "idEstado";
 
+  public static final String SQL_PARAM_LIMIT = "limit";
+
+  public static final String SQL_PARAM_OFFSET = "offset";
+
   // RESULTADOS DE CONSULTAS
   public static final String SQL_RESULT_ICM_ID_PERIODO = "ICM_ID_PERIODO";
 

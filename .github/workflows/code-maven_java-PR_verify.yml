@@ -13,7 +13,7 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 2.37.0
+  WORKFLOW_VERSION: 2.52.1
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -38,6 +38,8 @@ jobs:
         with:
           tool-versions-directory: code
           distro-branch: ${{ vars.TOOLVER_DISTRO_BRANCH }}
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Get runner resources
         continue-on-error: true
@@ -81,11 +83,11 @@ jobs:
 
       - name: Maven / Set Maven Build Cache options
         id: maven-opts
-        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') }}
+        if: ${{ vars.MAVEN_BUILD_CACHE_REMOTE == 'true' }}
         uses: inditex/gha-citool/set-maven-build-cache@v0
         with:
           save-remote-enabled: false
-          skip-cache: ${{ startsWith(github.base_ref, 'main') && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release') && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || vars.DEVELOPMENT_FLOW == 'trunk-based-development') }}
+          skip-cache: ${{ contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-build-cache') || (startsWith(github.base_ref, 'main') && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release') && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || vars.DEVELOPMENT_FLOW == 'trunk-based-development')) }}
 
       - name: Maven / Verify artifact with coverage
         if: ${{ !(contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries')) }}
@@ -169,6 +171,9 @@ jobs:
           local-directory: code
           tool-name: ivm-node
           tool-version: 20
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Sonar / Setup Java version
         if: ${{ steps.check-sonarqube-exclusion.outputs.project-excluded == 0 }}
@@ -176,6 +181,9 @@ jobs:
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: SonarCloud / Run Maven Sonar goal
         env:
