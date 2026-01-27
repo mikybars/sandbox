@@ -37,6 +37,8 @@ class TareaMigrarComisionRepositoryCustomImplTest {
 
   private final static String SQL_FIND_DELETE_CALCULO_COMISION = "SQL FIND DELETE CALCULO COMISION";
 
+  private final static String SQL_COUNT_PERSONAS = "SQL COUNT PERSONAS";
+
   @InjectMocks
   private TareaMigrarComisionRepositoryCustomImpl tareaMigrarComisionRepositoryCustomImpl;
 
@@ -54,6 +56,16 @@ class TareaMigrarComisionRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaMigrarComisionRepositoryCustomImpl,
         "sqlDeleteCalculoComision",
         SQL_FIND_DELETE_CALCULO_COMISION,
+        true);
+
+    FieldUtils.writeField(this.tareaMigrarComisionRepositoryCustomImpl,
+        "sqlCountPersonas",
+        SQL_COUNT_PERSONAS,
+        true);
+
+    FieldUtils.writeField(this.tareaMigrarComisionRepositoryCustomImpl,
+        "pageSize",
+        100,
         true);
   }
 
@@ -247,6 +259,12 @@ class TareaMigrarComisionRepositoryCustomImplTest {
         .codSeccionPresenciaEmpleado(16L)
         .codTiendaPresencia(18L)
         .build();
+
+    when(this.namedParameterJdbcTemplate.queryForObject(
+        ArgumentMatchers.eq(SQL_COUNT_PERSONAS),
+        ArgumentMatchers.any(MapSqlParameterSource.class),
+        ArgumentMatchers.eq(Long.class)))
+            .thenReturn(1L);
 
     when(this.namedParameterJdbcTemplate.query(
         ArgumentMatchers.eq(SQL_FIND_DELETE_CALCULO_COMISION),

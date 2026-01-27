@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.service;
 
+import java.util.List;
+
 import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.TipoAmbitoEnum;
@@ -22,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaSimularService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaCalculoPersonaEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaMigrarComisionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
@@ -109,14 +112,14 @@ public class RunTareaServiceImpl implements RunTareaService {
           || TipoAmbitoEnum.EMPRESA.getId().equals(runTarea.getTrabajo().getTipoAmbito().getId())) {
         this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
       }
-      /*
-       * final List<TareaMigrarComisionDto> deleteMigracion = this.tareaMigrarService.deleteCalculoComisionByTareaActual(runTarea,
-       * runTarea.getTarea().getAmbito().get(0));
-       */
+
+      final List<TareaMigrarComisionDto> deleteMigracion = this.tareaMigrarService.deleteCalculoComisionByTareaActual(runTarea,
+          runTarea.getTarea().getAmbito().get(0));
+
       this.runTareaConsolidarService.run(runTarea);
       this.tareaService.updateEstadoFinal(runTarea.getTarea());
       this.tareaService.updateFechaFin(runTarea.getTarea());
-      // this.runTareaMigrarService.run(runTarea, deleteMigracion);
+      this.runTareaMigrarService.run(runTarea, deleteMigracion);
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
       if (e instanceof ValidationNoReintentoException) {
         this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),
