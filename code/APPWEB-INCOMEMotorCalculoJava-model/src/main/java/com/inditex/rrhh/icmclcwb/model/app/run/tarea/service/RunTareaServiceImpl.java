@@ -113,13 +113,19 @@ public class RunTareaServiceImpl implements RunTareaService {
         this.runTareaLimpiarConsolidarByAmbitoService.run(runTarea);
       }
 
-      final List<TareaMigrarComisionDto> deleteMigracion = this.tareaMigrarService.deleteCalculoComisionByTareaActual(runTarea,
-          runTarea.getTarea().getAmbito().get(0));
+      if (runTarea.getTrabajo().getIdSimulacion() == null) {
+        final List<TareaMigrarComisionDto> deleteMigracion = this.tareaMigrarService.deleteCalculoComisionByTareaActual(runTarea,
+            runTarea.getTarea().getAmbito().get(0));
+        this.runTareaConsolidarService.run(runTarea);
+        this.tareaService.updateEstadoFinal(runTarea.getTarea());
+        this.tareaService.updateFechaFin(runTarea.getTarea());
+        this.runTareaMigrarService.run(runTarea, deleteMigracion);
+      } else {
+        this.runTareaConsolidarService.run(runTarea);
+        this.tareaService.updateEstadoFinal(runTarea.getTarea());
+        this.tareaService.updateFechaFin(runTarea.getTarea());
+      }
 
-      this.runTareaConsolidarService.run(runTarea);
-      this.tareaService.updateEstadoFinal(runTarea.getTarea());
-      this.tareaService.updateFechaFin(runTarea.getTarea());
-      this.runTareaMigrarService.run(runTarea, deleteMigracion);
     } catch (final ValidationNoReintentoException | ValidationReintentoException e) {
       if (e instanceof ValidationNoReintentoException) {
         this.tareaCalculoPersonaService.updateWithEstado(runTarea, EstadoTareaCalculoPersonaEnum.PENDIENTE.getDto(),

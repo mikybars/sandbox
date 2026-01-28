@@ -127,6 +127,17 @@ class RunTareaServiceImplTest {
   }
 
   @Test
+  void runNormalizarSimulacionTest() {
+    final RunTareaDto runTarea = this.createRunTarea();
+    runTarea.setTarea(new TareaDto());
+    runTarea.getTarea().setAmbito(List.of(new TareaAmbitoDto()));
+    runTarea.getTrabajo().setIdSimulacion(1L);
+    this.runTareaService.run(runTarea);
+    verify(this.runTareaNormalizarService, times(1)).run(runTarea);
+    verify(this.tareaService, times(1)).updateFechaFin(runTarea.getTarea());
+  }
+
+  @Test
   void runNormalizarExceptionTest() {
     final RunTareaDto runTarea = this.createRunTarea();
     doThrow(new RuntimeException("e")).when(this.runTareaNormalizarService).run(any(RunTareaDto.class));
