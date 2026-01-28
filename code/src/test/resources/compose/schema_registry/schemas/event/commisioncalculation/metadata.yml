@@ -11,9 +11,9 @@ api:
   description: API for PIPE events Avro
   contact: # not mandatory
     name: Income Team
-    email: income@inditex.com
+    email: incomealerts@inditex.com
   owner: # not mandatory
    name: Income Team
-   email: income@inditex.com
+   email: incomealerts@inditex.com
   tags: # not mandatory
     - API Income

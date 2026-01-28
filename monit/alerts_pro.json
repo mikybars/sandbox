@@ -2,7 +2,7 @@
   "alerts":[
     {
       "addresses":[
-        "income@inditex.com"
+        "incomealerts@inditex.com"
       ],
       "alertCount":1,
       "enabled":true,
