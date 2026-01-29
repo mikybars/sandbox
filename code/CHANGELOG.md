@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.85.1] - 2026-01-28
+
 ## [4.85.0] - 2026-01-27
 
 ### Added
@@ -700,7 +702,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.1...main
+[4.85.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.0...4.85.1
 [4.85.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.84.0...4.85.0
 [4.84.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.83.0...4.84.0
 [4.83.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.82.0...4.83.0
