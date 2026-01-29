@@ -149,7 +149,7 @@
       <plugin>
         <groupId>com.inditex.libamfmt</groupId>
         <artifactId>amiga-javaformat-maven-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.1</version>
         <configuration>
           <checkstyle>
             <excludes>com/inditex/rrhh/icmclcwb/model/meta4/icmwscalcincome/entity/**,
