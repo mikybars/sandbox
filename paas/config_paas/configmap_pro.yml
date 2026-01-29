@@ -467,7 +467,7 @@ app:
   envars:
     mail:
       sender: 'noreply@inditex.com'
-      receiver: 'income@inditex.com'
+      receiver: 'incomealerts@inditex.com'
     ptr:
       venta:
         service:

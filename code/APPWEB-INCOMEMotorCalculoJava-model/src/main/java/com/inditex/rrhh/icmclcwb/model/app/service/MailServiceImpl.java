@@ -36,10 +36,6 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
-  private static final String MAIL_1 = "iagoml@inditex.com";
-
-  private static final String MAIL_2 = "marcosop@inditex.com";
-
   private static final String LINE_BREAK = " \n";
 
   private static final String DOUBLE_LINE_BREAK = " \n\n";
@@ -106,7 +102,7 @@ public class MailServiceImpl implements MailService {
 
   private static final String COMMA_SEPARATOR = ", ";
 
-  private static final String CONTACT = "Please, contact the support team with this email at income@inditex.com.";
+  private static final String CONTACT = "Please, contact the support team with this email at incomealerts@inditex.com.";
 
   private static final String OVERLAPPED =
       " Please, check these employees for inverted or overlapped dates in SIL, correct them, and then run the calculation again.";
@@ -220,12 +216,7 @@ public class MailServiceImpl implements MailService {
 
     final SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(this.sender);
-    message.setTo(MAIL_1, MAIL_2);
-    if (this.environment.equalsIgnoreCase("PRO")) {
-      message.setTo(MAIL_1, MAIL_2);
-    } else {
-      message.setTo(this.receiver);
-    }
+    message.setTo(this.receiver);
 
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       final List<String> mails = new ArrayList<>();
