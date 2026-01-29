@@ -17,6 +17,7 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
+                  - name: mail
   - name: pro
     environments:
       - name: pro
