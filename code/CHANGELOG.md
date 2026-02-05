@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.86.0] - 2026-02-05
+
+### Added
+
+- [INCOME-3000](https://jira.inditex.com/jira/browse/INCOME-3000) mic-incomemotorcalculojava Reemplazar referencias buzón anterior
+
+### Dependencies
+
+- [#1073](https://github.com/inditex/mic-incomemotorcalculojava/issues/1073) build(deps): bump com.inditex.api:income-mic-incomemeta-api-v3-rest-stable from 10.0.0 to 12.0.0 in /code
+- [#950](https://github.com/inditex/mic-incomemotorcalculojava/issues/950) build(deps): bump com.inditex.libamfmt:amiga-javaformat-maven-plugin from 3.3.0 to 3.4.1 in /code
+- [#1085](https://github.com/inditex/mic-incomemotorcalculojava/issues/1085) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.19.0 to 5.20.1 in /code
+
 ## [4.85.1] - 2026-01-28
 
 ## [4.85.0] - 2026-01-27
@@ -702,7 +714,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.86.0...main
+[4.86.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.1...4.86.0
 [4.85.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.0...4.85.1
 [4.85.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.84.0...4.85.0
 [4.84.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.83.0...4.84.0
