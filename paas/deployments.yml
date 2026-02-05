@@ -17,6 +17,7 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
+                  - name: limpieza
   - name: pro
     environments:
       - name: pro
