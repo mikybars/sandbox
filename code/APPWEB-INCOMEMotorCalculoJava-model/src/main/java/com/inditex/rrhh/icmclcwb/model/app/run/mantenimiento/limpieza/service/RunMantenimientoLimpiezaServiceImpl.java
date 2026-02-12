@@ -35,132 +35,102 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
   @Override
   public RunMantenimientoLimpiezaDTO run() {
-    // Ejecutar findLimpieza() de forma ASYNC
-    Mono.fromCallable(() -> this.tareaService.findLimpieza())
-        .subscribeOn(reactor.core.scheduler.Schedulers.boundedElastic())
-        .doFinally(signalType -> {
-          // ...limpieza de recursos...
-        })
-        .subscribe(
-            result -> {
-              // Si result es null o está vacío, no hacer nada
-              if (result == null || result.getIdTarea() == null || result.getIdTarea().isEmpty()) {
-                return;
-              }
-
-              // Ejecutar limpieza en background
-              CompletableFuture.runAsync(() -> {
-                try {
-                  final CompletableFuture<List<TareaLimpiezaDto>> future =
-                      this.tareaLimpiezaAsyncService.save(result.getIdTarea());
-                  Mono.fromFuture(future)
-                      .subscribe(
-                          tareas -> {
-                            if (tareas != null && !tareas.isEmpty()) {
-                              Flux.fromIterable(tareas)
-                                  .parallel()
-                                  .runOn(ItxSchedulers.single())
-                                  .doOnNext(this.senderLimpieza::send)
-                                  .sequential()
-                                  .doOnError(error -> {
-                                    if (LOG.isErrorEnabled()) {
-                                      LOG.error("Error enviando tareas en limpieza", error);
-                                    }
-                                  })
-                                  .subscribe(
-                                      success -> {
-                                      },
-                                      err -> {
-                                        if (LOG.isErrorEnabled()) {
-                                          LOG.error("Error en Flux de limpieza", err);
-                                        }
-                                      });
-                            }
-                          },
-                          error -> {
-                            if (LOG.isErrorEnabled()) {
-                              LOG.error("Error en limpieza", error);
-                            }
-                          });
-                } catch (final Exception e) {
-                  if (LOG.isErrorEnabled()) {
-                    LOG.error("Excepción en limpieza", e);
-                  }
-                }
-              });
-            },
-            error -> {
-              if (LOG.isErrorEnabled()) {
-                LOG.error("Error obteniendo tareas para limpieza", error);
-              }
-            });
-
+    this.procesarLimpieza(() -> this.tareaService.findLimpieza(), "limpieza");
     return new RunMantenimientoLimpiezaDTO();
   }
 
   @Override
   public RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id) {
-    // Ejecutar findLimpiezaByIdTarea() de forma ASYNC
-    Mono.fromCallable(() -> this.tareaService.findLimpiezaByIdTarea(id))
+    this.procesarLimpieza(() -> this.tareaService.findLimpiezaByIdTarea(id), "limpieza por ID");
+    return new RunMantenimientoLimpiezaDTO();
+  }
+
+  /**
+   * Procesa la limpieza de tareas de forma asincrónica.
+   *
+   * @param tareaSupplier proveedor de tareas (findLimpieza o findLimpiezaByIdTarea)
+   * @param contexto contexto para los logs (ej: "limpieza" o "limpieza por ID")
+   */
+  private void procesarLimpieza(final java.util.function.Supplier<RunMantenimientoLimpiezaDTO> tareaSupplier,
+      final String contexto) {
+    Mono.fromCallable(tareaSupplier::get)
         .subscribeOn(reactor.core.scheduler.Schedulers.boundedElastic())
         .doFinally(signalType -> {
           // ...limpieza de recursos...
         })
         .subscribe(
-            result -> {
-              // Si result es null o está vacío, no hacer nada (silencioso)
-              if (result == null || result.getIdTarea() == null || result.getIdTarea().isEmpty()) {
-                return;
-              }
+            result -> this.procesarResultadoLimpieza(result, contexto),
+            error -> this.manejarErrorLimpieza("Error obteniendo tareas para " + contexto, error));
+  }
 
-              // Ejecutar limpieza en background
-              CompletableFuture.runAsync(() -> {
-                try {
-                  final CompletableFuture<List<TareaLimpiezaDto>> future =
-                      this.tareaLimpiezaAsyncService.save(result.getIdTarea());
-                  Mono.fromFuture(future)
-                      .subscribe(
-                          tareas -> {
-                            if (tareas != null && !tareas.isEmpty()) {
-                              Flux.fromIterable(tareas)
-                                  .parallel()
-                                  .runOn(ItxSchedulers.single())
-                                  .doOnNext(this.senderLimpieza::send)
-                                  .sequential()
-                                  .doOnError(error -> {
-                                    if (LOG.isErrorEnabled()) {
-                                      LOG.error("Error enviando tareas en limpieza por ID", error);
-                                    }
-                                  })
-                                  .subscribe(
-                                      success -> {
-                                      },
-                                      err -> {
-                                        if (LOG.isErrorEnabled()) {
-                                          LOG.error("Error en Flux de limpieza por ID", err);
-                                        }
-                                      });
-                            }
-                          },
-                          error -> {
-                            if (LOG.isErrorEnabled()) {
-                              LOG.error("Error en limpieza por ID", error);
-                            }
-                          });
-                } catch (final Exception e) {
-                  if (LOG.isErrorEnabled()) {
-                    LOG.error("Excepción en limpieza por ID", e);
-                  }
-                }
-              });
-            },
-            error -> {
-              if (LOG.isErrorEnabled()) {
-                LOG.error("Error obteniendo tareas por ID para limpieza", error);
-              }
-            });
+  /**
+   * Procesa el resultado de la búsqueda de tareas.
+   *
+   * @param result resultado de la búsqueda
+   * @param contexto contexto para los logs
+   */
+  @SuppressWarnings("unchecked")
+  private void procesarResultadoLimpieza(final RunMantenimientoLimpiezaDTO result, final String contexto) {
+    if (result == null || result.getIdTarea() == null || result.getIdTarea().isEmpty()) {
+      return;
+    }
 
-    return new RunMantenimientoLimpiezaDTO();
+    // Cast a List<Object> para evitar dependencia de IdTareaDTO
+    CompletableFuture.runAsync(() -> this.ejecutarGuardadoYEnvio((List<Object>) (List<?>) result.getIdTarea(), contexto));
+  }
+
+  /**
+   * Ejecuta el guardado de tareas de limpieza y su envío a la cola.
+   *
+   * @param idTareas lista de IDs de tareas (viene de result.getIdTarea())
+   * @param contexto contexto para los logs
+   */
+  @SuppressWarnings("unchecked")
+  private void ejecutarGuardadoYEnvio(final List<Object> idTareas, final String contexto) {
+    try {
+      // Casting implícito ya que viene de result.getIdTarea()
+      final CompletableFuture<List<TareaLimpiezaDto>> future =
+          this.tareaLimpiezaAsyncService.save((List) idTareas);
+      Mono.fromFuture(future)
+          .subscribe(
+              tareas -> this.procesarTareasGuardadas(tareas, contexto),
+              error -> this.manejarErrorLimpieza("Error en " + contexto, error));
+    } catch (final Exception e) {
+      this.manejarErrorLimpieza("Excepción en " + contexto, e);
+    }
+  }
+
+  /**
+   * Procesa las tareas guardadas y las envía a la cola.
+   *
+   * @param tareas tareas guardadas
+   * @param contexto contexto para los logs
+   */
+  private void procesarTareasGuardadas(final List<TareaLimpiezaDto> tareas, final String contexto) {
+    if (tareas != null && !tareas.isEmpty()) {
+      Flux.fromIterable(tareas)
+          .parallel()
+          .runOn(ItxSchedulers.single())
+          .doOnNext(this.senderLimpieza::send)
+          .sequential()
+          .doOnError(error -> this.manejarErrorLimpieza("Error enviando tareas en " + contexto, error))
+          .subscribe(
+              success -> {
+              },
+              err -> this.manejarErrorLimpieza("Error en Flux de " + contexto, err));
+    }
+  }
+
+  /**
+   * Maneja los errores de limpieza.
+   *
+   * @param mensaje mensaje de error
+   * @param error excepción ocurrida
+   */
+  private void manejarErrorLimpieza(final String mensaje, final Throwable error) {
+    if (LOG.isErrorEnabled()) {
+      LOG.error(mensaje, error);
+    }
   }
 
 }
