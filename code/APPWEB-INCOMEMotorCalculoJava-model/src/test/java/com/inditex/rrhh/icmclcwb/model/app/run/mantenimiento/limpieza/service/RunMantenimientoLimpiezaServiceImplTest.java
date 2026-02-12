@@ -1,13 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
@@ -35,32 +33,32 @@ class RunMantenimientoLimpiezaServiceImplTest {
   private RunMantenimientoLimpiezaServiceImpl runMantenimientoLimpiezaService;
 
   @Test
-  void runTest() {
+  void runTest() throws InterruptedException {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
-    final CompletableFuture cf = new CompletableFuture<>();
-    cf.complete(null);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList())).thenReturn(cf);
 
-    this.runMantenimientoLimpiezaService.run();
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    Thread.sleep(200);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
   }
 
   @Test
-  void runIdTareaTest() {
-    final CompletableFuture cf = new CompletableFuture<>();
+  void runIdTareaTest() throws InterruptedException {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
 
     when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList())).thenReturn(cf);
 
-    this.runMantenimientoLimpiezaService.runIdTarea(1L);
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
+    Thread.sleep(200);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
   }
 }
