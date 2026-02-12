@@ -56,7 +56,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     Mono.fromCallable(tareaSupplier::get)
         .subscribeOn(reactor.core.scheduler.Schedulers.boundedElastic())
         .doFinally(signalType -> {
-          // ...limpieza de recursos...
         })
         .subscribe(
             result -> this.procesarResultadoLimpieza(result, contexto),
@@ -75,7 +74,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
       return;
     }
 
-    // Cast a List<Object> para evitar dependencia de IdTareaDTO
     CompletableFuture.runAsync(() -> this.ejecutarGuardadoYEnvio((List<Object>) (List<?>) result.getIdTarea(), contexto));
   }
 

@@ -1,10 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
+import static org.awaitility.Awaitility.await;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
@@ -33,7 +35,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
   private RunMantenimientoLimpiezaServiceImpl runMantenimientoLimpiezaService;
 
   @Test
-  void runTest() throws InterruptedException {
+  void runTest() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
 
@@ -41,14 +43,16 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
-    Thread.sleep(200);
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> returnedResult != null);
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
   }
 
   @Test
-  void runIdTareaTest() throws InterruptedException {
+  void runIdTareaTest() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
 
@@ -56,7 +60,9 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
-    Thread.sleep(200);
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> returnedResult != null);
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
