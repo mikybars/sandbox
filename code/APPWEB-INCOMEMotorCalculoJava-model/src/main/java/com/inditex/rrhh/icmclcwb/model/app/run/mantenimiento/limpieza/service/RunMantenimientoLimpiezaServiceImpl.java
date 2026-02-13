@@ -35,7 +35,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
   @Override
   public RunMantenimientoLimpiezaDTO run() {
-    this.procesarLimpieza(() -> this.tareaService.findLimpieza(), "limpieza");
+    this.procesarLimpieza(this.tareaService::findLimpieza, "limpieza");
     return new RunMantenimientoLimpiezaDTO();
   }
 
