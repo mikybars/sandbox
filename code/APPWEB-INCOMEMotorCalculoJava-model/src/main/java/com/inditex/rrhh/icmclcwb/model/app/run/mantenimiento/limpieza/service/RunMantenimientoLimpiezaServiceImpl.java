@@ -72,6 +72,11 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
         return tareas;
 
+      } catch (final InterruptedException e) {
+        // Compliant: restaurar el estado interrumpido del thread
+        this.manejarErrorLimpieza("Thread interrumpido durante limpieza: " + contexto, e);
+        Thread.currentThread().interrupt();
+        throw new RuntimeException(e);
       } catch (final Exception e) {
         this.manejarErrorLimpieza("Error durante limpieza en background: " + contexto, e);
         throw new RuntimeException(e);

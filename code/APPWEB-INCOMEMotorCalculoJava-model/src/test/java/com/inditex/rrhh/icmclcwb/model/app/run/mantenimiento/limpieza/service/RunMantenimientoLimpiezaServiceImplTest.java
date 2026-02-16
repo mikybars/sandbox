@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 import static org.awaitility.Awaitility.await;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -95,15 +96,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
     await()
         .atMost(Duration.ofSeconds(5))
         .pollInterval(Duration.ofMillis(100))
-        .until(() -> {
-          try {
-            Thread.sleep(100);
-            return true;
-          } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return false;
-          }
-        });
+        .until(this::waitForAsyncCompletion);
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
@@ -127,15 +120,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
     await()
         .atMost(Duration.ofSeconds(5))
         .pollInterval(Duration.ofMillis(100))
-        .until(() -> {
-          try {
-            Thread.sleep(100);
-            return true;
-          } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return false;
-          }
-        });
+        .until(this::waitForAsyncCompletion);
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
@@ -161,19 +146,132 @@ class RunMantenimientoLimpiezaServiceImplTest {
     await()
         .atMost(Duration.ofSeconds(5))
         .pollInterval(Duration.ofMillis(100))
-        .until(() -> {
-          try {
-            Thread.sleep(100);
-            return true;
-          } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return false;
-          }
-        });
+        .until(this::waitForAsyncCompletion);
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
     verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
     verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
+  }
+
+  @Test
+  void runTest_ResultNull_CoversNullValidation() {
+    when(this.tareaService.findLimpieza()).thenReturn(null);
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    org.junit.jupiter.api.Assertions.assertNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+  }
+
+  @Test
+  void runTest_IdTareaNull_CoversNullValidation() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(null);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> returnedResult != null);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+  }
+
+  @Test
+  void runTest_EmptyTareaList_CoversEmptyValidation() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> returnedResult != null);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+  }
+
+  @Test
+  void runTest_WithNullTareasList_CoversTareasNullCheck() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final List tasks = new ArrayList();
+    tasks.add("task1");
+    result.setIdTarea(tasks);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList()))
+        .thenReturn(CompletableFuture.completedFuture(null));
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, never()).send(any());
+  }
+
+  @Test
+  void runTest_WithEmptyTareasResult_CoversTareasEmptyCheck() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final List tasks = new ArrayList();
+    tasks.add("task1");
+    result.setIdTarea(tasks);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList()))
+        .thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, never()).send(any());
+  }
+
+  @Test
+  void runIdTareaTest_ResultNull_CoversNullValidation() {
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(null);
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
+
+    org.junit.jupiter.api.Assertions.assertNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+  }
+
+  /**
+   * Método privado para esperar a que se complete la ejecución asincrónica. Cumple con Sonar al manejar correctamente InterruptedException.
+   *
+   * @return true si la espera se completó correctamente, false en caso contrario
+   */
+  private boolean waitForAsyncCompletion() {
+    try {
+      Thread.sleep(100);
+      return true;
+    } catch (final InterruptedException e) {
+      Thread.currentThread().interrupt();
+      return false;
+    }
   }
 }
