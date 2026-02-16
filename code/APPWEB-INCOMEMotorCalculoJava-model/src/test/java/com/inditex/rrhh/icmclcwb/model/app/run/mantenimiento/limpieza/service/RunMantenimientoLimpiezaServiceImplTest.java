@@ -93,12 +93,22 @@ class RunMantenimientoLimpiezaServiceImplTest {
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
     await()
-        .atMost(Duration.ofSeconds(4))
-        .until(() -> returnedResult != null);
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(() -> {
+          try {
+            Thread.sleep(100);
+            return true;
+          } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+          }
+        });
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
     verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(2)).send(any(TareaLimpiezaDto.class));
   }
 
   @Test
@@ -115,8 +125,17 @@ class RunMantenimientoLimpiezaServiceImplTest {
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
     await()
-        .atMost(Duration.ofSeconds(4))
-        .until(() -> returnedResult != null);
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(() -> {
+          try {
+            Thread.sleep(100);
+            return true;
+          } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+          }
+        });
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
@@ -140,11 +159,21 @@ class RunMantenimientoLimpiezaServiceImplTest {
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
     await()
-        .atMost(Duration.ofSeconds(4))
-        .until(() -> returnedResult != null);
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(() -> {
+          try {
+            Thread.sleep(100);
+            return true;
+          } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+          }
+        });
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
     verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
   }
 }
