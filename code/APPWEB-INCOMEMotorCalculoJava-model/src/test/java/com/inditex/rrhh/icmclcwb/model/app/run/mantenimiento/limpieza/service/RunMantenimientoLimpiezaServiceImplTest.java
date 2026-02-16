@@ -260,6 +260,83 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
   }
 
+  @Test
+  void runTest_WithTasksAndDebugLogging_CoversDebugLogs() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final List tasks = new ArrayList();
+    tasks.add("task1");
+    result.setIdTarea(tasks);
+
+    final TareaLimpiezaDto tarea = new TareaLimpiezaDto();
+    tarea.setId(1L);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList()))
+        .thenReturn(CompletableFuture.completedFuture(List.of(tarea)));
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
+  }
+
+  @Test
+  void runTest_WithException_CoversExceptionHandling() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final List tasks = new ArrayList();
+    tasks.add("task1");
+    result.setIdTarea(tasks);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList()))
+        .thenReturn(CompletableFuture.failedFuture(new RuntimeException("Test exception")));
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+  }
+
+  @Test
+  void runIdTareaTest_WithTasksAndDebugLogging_CoversDebugLogs() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final List tasks = new ArrayList();
+    tasks.add("task1");
+    result.setIdTarea(tasks);
+
+    final TareaLimpiezaDto tarea = new TareaLimpiezaDto();
+    tarea.setId(1L);
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
+    when(this.tareaLimpiezaAsyncService.save(anyList()))
+        .thenReturn(CompletableFuture.completedFuture(List.of(tarea)));
+
+    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
+  }
+
   /**
    * Método privado para esperar a que se complete la ejecución asincrónica. Cumple con Sonar al manejar correctamente InterruptedException.
    *

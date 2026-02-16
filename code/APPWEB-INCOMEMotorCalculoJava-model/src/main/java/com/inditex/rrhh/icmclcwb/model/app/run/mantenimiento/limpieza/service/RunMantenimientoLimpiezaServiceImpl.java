@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
@@ -73,13 +74,13 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         return tareas;
 
       } catch (final InterruptedException e) {
-        // Compliant: restaurar el estado interrumpido del thread
+        // Compliant: restaurar el estado interrumpido del thread y lanzar excepción específica
         this.manejarErrorLimpieza("Thread interrumpido durante limpieza: " + contexto, e);
         Thread.currentThread().interrupt();
-        throw new RuntimeException(e);
+        throw new IcmclcwbException("Error: Thread interrumpido durante " + contexto, e);
       } catch (final Exception e) {
         this.manejarErrorLimpieza("Error durante limpieza en background: " + contexto, e);
-        throw new RuntimeException(e);
+        throw new IcmclcwbException("Error: Fallo durante limpieza en background de " + contexto, e);
       }
     })
         .exceptionally(error -> {
