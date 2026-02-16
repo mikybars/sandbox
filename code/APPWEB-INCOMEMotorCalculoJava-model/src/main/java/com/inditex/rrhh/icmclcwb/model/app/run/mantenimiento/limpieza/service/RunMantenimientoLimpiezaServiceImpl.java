@@ -38,7 +38,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     // Capturar el contexto de seguridad ANTES de lanzar el thread
     final SecurityContext securityContext = SecurityContextHolder.getContext();
 
-    // Ejecutar TODO en background para evitar 504, propagando el contexto de seguridad
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
       try {
         if (LOG.isInfoEnabled()) {
@@ -65,7 +64,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     // Capturar el contexto de seguridad ANTES de lanzar el thread
     final SecurityContext securityContext = SecurityContextHolder.getContext();
 
-    // Ejecutar TODO en background para evitar 504, propagando el contexto de seguridad
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
       try {
         if (LOG.isInfoEnabled()) {

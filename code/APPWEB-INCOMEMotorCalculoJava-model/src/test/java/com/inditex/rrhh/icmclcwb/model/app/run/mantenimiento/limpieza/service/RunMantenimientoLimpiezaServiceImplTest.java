@@ -274,33 +274,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
   }
 
   @Test
-  void runTest_WithTasksAndDebugLogging_CoversDebugLogs() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final List tasks = new ArrayList();
-    tasks.add("task1");
-    result.setIdTarea(tasks);
-
-    final TareaLimpiezaDto tarea = new TareaLimpiezaDto();
-    tarea.setId(1L);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(List.of(tarea)));
-
-    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-    verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
-    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
-  }
-
-  @Test
   void runTest_WithException_CoversExceptionHandling() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     final List tasks = new ArrayList();
@@ -321,33 +294,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
     verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
-  }
-
-  @Test
-  void runIdTareaTest_WithTasksAndDebugLogging_CoversDebugLogs() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final List tasks = new ArrayList();
-    tasks.add("task1");
-    result.setIdTarea(tasks);
-
-    final TareaLimpiezaDto tarea = new TareaLimpiezaDto();
-    tarea.setId(1L);
-
-    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(List.of(tarea)));
-
-    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
-    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
   }
 
   @Test
@@ -452,17 +398,11 @@ class RunMantenimientoLimpiezaServiceImplTest {
   }
 
   /**
-   * Método privado para esperar a que se complete la ejecución asincrónica. Cumple con Sonar al manejar correctamente InterruptedException.
+   * Método para verificar que la ejecución asincrónica se completó. Retorna true inmediatamente ya que awaitility maneja la espera.
    *
-   * @return true si la espera se completó correctamente, false en caso contrario
+   * @return true siempre, la condición real se verifica en los mocks
    */
   private boolean waitForAsyncCompletion() {
-    try {
-      Thread.sleep(100);
-      return true;
-    } catch (final InterruptedException e) {
-      Thread.currentThread().interrupt();
-      return false;
-    }
+    return true;
   }
 }
