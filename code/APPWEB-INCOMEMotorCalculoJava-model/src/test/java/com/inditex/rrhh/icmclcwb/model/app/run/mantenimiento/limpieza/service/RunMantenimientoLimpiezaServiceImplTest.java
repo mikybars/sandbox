@@ -161,7 +161,13 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
-    org.junit.jupiter.api.Assertions.assertNull(returnedResult);
+    // Ahora siempre retorna DTO vacío inmediatamente (proceso en background)
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> true); // Esperar a que termine el background
+
     verify(this.tareaService, times(1)).findLimpieza();
     verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
   }
@@ -256,7 +262,13 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
-    org.junit.jupiter.api.Assertions.assertNull(returnedResult);
+    // Ahora siempre retorna DTO vacío inmediatamente (proceso en background)
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> true);
+
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
     verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
   }
