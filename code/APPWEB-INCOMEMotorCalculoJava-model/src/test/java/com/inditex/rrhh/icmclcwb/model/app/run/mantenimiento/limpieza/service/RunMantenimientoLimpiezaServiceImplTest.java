@@ -12,11 +12,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
@@ -33,7 +31,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
   private TareaService tareaService;
 
   @Mock
-  private TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
+  private TareaLimpiezaService tareaLimpiezaService;
 
   @Mock
   private SenderLimpieza senderLimpieza;
@@ -89,8 +87,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     tarea2.setId(2L);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(Arrays.asList(tarea1, tarea2)));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(Arrays.asList(tarea1, tarea2));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -101,7 +99,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, times(2)).send(any(TareaLimpiezaDto.class));
   }
 
@@ -113,8 +111,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.failedFuture(new RuntimeException("Save failed")));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new RuntimeException("Save failed"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -125,7 +123,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
   @Test
@@ -139,8 +137,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     tarea.setId(1L);
 
     when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(List.of(tarea)));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(List.of(tarea));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
@@ -151,7 +149,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
   }
 
@@ -169,7 +167,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
         .until(() -> true); // Esperar a que termine el background
 
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+    verify(this.tareaLimpiezaService, never()).save(anyList());
   }
 
   @Test
@@ -187,7 +185,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+    verify(this.tareaLimpiezaService, never()).save(anyList());
   }
 
   @Test
@@ -205,7 +203,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+    verify(this.tareaLimpiezaService, never()).save(anyList());
   }
 
   @Test
@@ -216,8 +214,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(null));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(null);
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -228,7 +226,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, never()).send(any());
   }
 
@@ -240,8 +238,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.completedFuture(new ArrayList<>()));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(new ArrayList<>());
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -252,7 +250,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, never()).send(any());
   }
 
@@ -270,7 +268,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
         .until(() -> true);
 
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaAsyncService, never()).save(anyList());
+    verify(this.tareaLimpiezaService, never()).save(anyList());
   }
 
   @Test
@@ -281,8 +279,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.failedFuture(new RuntimeException("Test exception")));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new RuntimeException("Test exception"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -293,11 +291,11 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
   @Test
-  void runTest_WithInterruptedException_CoversInterruptedExceptionHandling() {
+  void runTest_WithRuntimeException_CoversExceptionHandling() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     final List tasks = new ArrayList();
     tasks.add("task1");
@@ -305,12 +303,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
 
-    // Simular InterruptedException en el CompletableFuture
-    final CompletableFuture<List<TareaLimpiezaDto>> futureWithException = new CompletableFuture<>();
-    futureWithException.completeExceptionally(new InterruptedException("Thread was interrupted"));
-
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(futureWithException);
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new RuntimeException("Runtime exception"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -321,11 +315,11 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
   @Test
-  void runTest_WithExecutionException_CoversGeneralExceptionHandling() {
+  void runTest_WithValidationException_CoversGeneralExceptionHandling() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     final List tasks = new ArrayList();
     tasks.add("task1");
@@ -333,12 +327,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
 
-    // Simular ExecutionException en el CompletableFuture
-    final CompletableFuture<List<TareaLimpiezaDto>> futureWithException = new CompletableFuture<>();
-    futureWithException.completeExceptionally(new ExecutionException("Execution failed", new RuntimeException("Save error")));
-
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(futureWithException);
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new IllegalArgumentException("Validation error"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -349,7 +339,7 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
   @Test
@@ -360,8 +350,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
-        .thenReturn(CompletableFuture.failedFuture(new RuntimeException("Test exception")));
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new RuntimeException("Test exception"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
@@ -372,18 +362,18 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaAsyncService, times(1)).save(anyList());
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
   @Test
-  void runTest_WithExceptionInSupplyAsync_CoversExceptionallyCatch() {
+  void runTest_WithExceptionInBackground_CoversExceptionallyCatch() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     final List tasks = new ArrayList();
     tasks.add("task1");
     result.setIdTarea(tasks);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaAsyncService.save(anyList()))
+    when(this.tareaLimpiezaService.save(anyList()))
         .thenThrow(new RuntimeException("Unexpected error during save"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();

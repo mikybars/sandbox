@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.mantenimiento.limpieza.service.RunMantenimientoLimpiezaService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLimpiezaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaLimpiezaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaService;
 import com.inditex.rrhh.icmclcwb.dto.RunMantenimientoLimpiezaDTO;
 import com.inditex.rrhh.icmclcwb.ms.app.limpieza.SenderLimpieza;
@@ -29,7 +29,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
   private final TareaService tareaService;
 
-  private final TareaLimpiezaAsyncService tareaLimpiezaAsyncService;
+  private final TareaLimpiezaService tareaLimpiezaService;
 
   private final SenderLimpieza senderLimpieza;
 
@@ -104,10 +104,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         LOG.info("Procesando {} tareas para {}", result.getIdTarea().size(), contexto);
       }
 
-      // Guardar tareas en BD (SÍNCRONO)
-      final List<TareaLimpiezaDto> tareas = this.tareaLimpiezaAsyncService
-          .save(result.getIdTarea())
-          .get();
+      // Guardar tareas en BD (SÍNCRONO - el contexto de seguridad ya está propagado)
+      final List<TareaLimpiezaDto> tareas = this.tareaLimpiezaService.save(result.getIdTarea());
 
       // Enviar tareas a cola JMS (SÍNCRONO)
       if (tareas != null && !tareas.isEmpty()) {
@@ -117,9 +115,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         }
       }
 
-    } catch (final InterruptedException e) {
-      Thread.currentThread().interrupt();
-      this.manejarErrorLimpieza("Thread interrumpido durante " + contexto, e);
     } catch (final Exception e) {
       this.manejarErrorLimpieza("Error durante " + contexto, e);
     }
