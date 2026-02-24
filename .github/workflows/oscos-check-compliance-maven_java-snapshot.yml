@@ -7,7 +7,7 @@ on:
       - completed
 
 env:
-  WORKFLOW_VERSION: 1.20.1
+  WORKFLOW_VERSION: 1.21.0
 
 jobs:
   prepare-oscos-context:

@@ -50,7 +50,7 @@ on:
         default: ''
 
 env:
-  WORKFLOW_VERSION: 3.32.0
+  WORKFLOW_VERSION: 3.33.1
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIR_PATH_STATUS: "/tmp/artifact-results"
 
@@ -149,7 +149,7 @@ jobs:
     name: Restore affected PRs
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
     needs: [restore-init]
-    if: ${{ fromJson(needs.restore-init.outputs.permutations-data) }}
+    if: ${{ needs.restore-init.outputs.permutations-data != '' && needs.restore-init.outputs.permutations-data != '[]' }}
     strategy:
       fail-fast: false
       max-parallel: 4
