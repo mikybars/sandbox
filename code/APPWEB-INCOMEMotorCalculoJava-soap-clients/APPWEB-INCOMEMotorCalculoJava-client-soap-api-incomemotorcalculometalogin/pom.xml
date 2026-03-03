@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.inditex.rrhh.icmclcwb</groupId>
     <artifactId>APPWEB-INCOMEMotorCalculoJava-soap-clients</artifactId>
-    <version>4.87.0</version>
+    <version>4.88.0-SNAPSHOT</version>
   </parent>
   <artifactId>APPWEB-INCOMEMotorCalculoJava-client-soap-api-incomemotorcalculometalogin</artifactId>
   <packaging>jar</packaging>
