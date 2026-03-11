@@ -252,12 +252,17 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
             AccionEnum.PRESENCIAS.getDto());
 
       } else {
-        this.simulacionService.mergePresenciaEmpleadoUltimoCalculo(runTarea.getTarea());
-      }
+        // Presencias del ultimo calculo de los empleados de la tienda simulada
+        this.simulacionService.mergePresenciasEmpleadosTiendaUltimoCalculo(runTarea.getTarea());
 
-      if (simulacion != null) {
-        // Modificar la tienda de las presencias a la tienda seleccionada en la simulacion
-        this.simulacionService.updateTiendaPersonaPresencia(runTarea.getTarea(), simulacion);
+        // Presencias del empleado del ultimo calculo si no son en la tienda simulada
+        final List<String> tiendasPresenciasEmpleadoUltimoCalculo =
+            this.simulacionService.findTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+        tiendasPresenciasEmpleadoUltimoCalculo.forEach(tienda -> {
+          if (!tienda.equals(simulacion.getCclIdCodOrigen())) {
+            this.simulacionService.mergePresenciaEmpleadoUltimoCalculoOtraTienda(runTarea.getTarea(), simulacion, tienda);
+          }
+        });
       }
 
       // Coeficiente de reduccion de jornada

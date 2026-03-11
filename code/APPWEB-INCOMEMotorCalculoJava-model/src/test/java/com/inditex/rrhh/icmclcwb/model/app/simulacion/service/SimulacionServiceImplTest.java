@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionLocalizacionBandaExcepcionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.model.app.simulacion.mapper.SimulacionLocalizacionBandaExcepcionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.simulacion.mapper.SimulacionMapper;
@@ -53,6 +55,9 @@ public class SimulacionServiceImplTest {
 
   @Mock
   private SimulacionLocalizacionBandaExcepcionMapper simulacionLocalizacionBandaExcepcionMapper;
+
+  @Mock
+  private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
 
   @InjectMocks
   private SimulacionServiceImpl simulacionServiceImpl;
@@ -113,12 +118,12 @@ public class SimulacionServiceImplTest {
   }
 
   @Test
-  public void mergePresenciaEmpleadoUltimoCalculoTest() {
+  public void mergePresenciasEmpleadosTiendaUltimoCalculoTest() {
     final TareaDto tarea = mock(TareaDto.class);
-    this.simulacionServiceImpl.mergePresenciaEmpleadoUltimoCalculo(tarea);
+    this.simulacionServiceImpl.mergePresenciasEmpleadosTiendaUltimoCalculo(tarea);
 
     verify(this.simulacionRepositoryCustom, times(1))
-        .mergePresenciaEmpleadoUltimoCalculo(tarea);
+        .mergePresenciasEmpleadosTiendaUltimoCalculo(tarea);
   }
 
   @Test
@@ -294,34 +299,45 @@ public class SimulacionServiceImplTest {
   }
 
   @Test
-  void updateTiendaPersonaPresenciaTest() {
+  void mergePresenciasEmpleadosTiendaUltimoCalculoOtraTiendaTest() {
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final SimulacionDto simulacion = mock(SimulacionDto.class);
     final String cclIdPerson = "12345";
     final String cclIdCodOrigen = "67890";
+    final String tiendaPresenciaUltimoCalculo = "666";
 
     when(simulacion.getCclIdPerson()).thenReturn(cclIdPerson);
     when(simulacion.getCclIdCodOrigen()).thenReturn(cclIdCodOrigen);
 
-    this.simulacionServiceImpl.updateTiendaPersonaPresencia(tarea, simulacion);
+    this.simulacionServiceImpl.mergePresenciaEmpleadoUltimoCalculoOtraTienda(tarea, simulacion, tiendaPresenciaUltimoCalculo);
 
     verify(this.simulacionRepositoryCustom, times(1))
-        .updateTiendaPersonaPresencia(tarea, cclIdPerson, cclIdCodOrigen);
+        .mergePresenciaEmpleadoUltimoCalculoOtraTienda(tarea, cclIdPerson, cclIdCodOrigen, tiendaPresenciaUltimoCalculo);
   }
 
   @Test
-  void mergePresenciaTiendaSimulada() {
+  void mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada() {
     final TareaDto tarea = Instancio.create(TareaDto.class);
     final SimulacionDto simulacion = mock(SimulacionDto.class);
-    final String cclIdPerson = "12345";
-    final String cclIdCodOrigen = "67890";
+    final String cclIdPerson = "67890";
 
     when(simulacion.getCclIdPerson()).thenReturn(cclIdPerson);
-    when(simulacion.getCclIdCodOrigen()).thenReturn(cclIdCodOrigen);
 
-    this.simulacionServiceImpl.mergePresenciaTiendaSimulada(tarea, simulacion);
+    this.simulacionServiceImpl.mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(tarea, simulacion);
 
     verify(this.simulacionRepositoryCustom, times(1))
-        .mergePresenciaTiendaSimulada(tarea, cclIdPerson, cclIdCodOrigen);
+        .mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(tarea, cclIdPerson);
+  }
+
+  @Test
+  void findTiendasPresenciasEmpleadoUltimoCalculo() {
+    final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
+
+    when(this.tareaLocalizacionPersonaPresenciaService.findTiendasPresenciasEmpleadoUltimoCalculo(runTarea)).thenReturn(List.of("111"));
+
+    this.simulacionServiceImpl.findTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+
+    verify(this.tareaLocalizacionPersonaPresenciaService, times(1))
+        .findTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
   }
 }
