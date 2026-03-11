@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.88.1] - 2026-03-11
+
+### Fixed
+
+- [INCOME-3059](https://jira.inditex.com/jira/browse/INCOME-3059) Cálculo GT
+
+## [4.88.0] - 2026-03-11
+
+### Added
+
+- [INCOME-3058](https://jira.inditex.com/jira/browse/INCOME-3058) Modificación de la venta usada para el cálculo
+
+## [4.87.0] - 2026-03-03
+
+### Added
+
+- [INCOME-3122](https://jira.inditex.com/jira/browse/INCOME-3122) Calculo Por Venta con devoluciones totalizadas por tienda con valor 0
+- [#793](https://github.com/inditex/mic-incomemotorcalculojava/issues/793) [Darwin Bot] OSCOS curation file proposal
+
+### Dependencies
+
+- [#1100](https://github.com/inditex/mic-incomemotorcalculojava/issues/1100) build(deps-dev): bump com.inditex.libamfmt:amiga-javaformat-maven-plugin from 3.4.1 to 3.5.0 in /code
+- [#1101](https://github.com/inditex/mic-incomemotorcalculojava/issues/1101) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.20.1 to 5.20.2 in /code
+
 ## [4.86.0] - 2026-02-05
 
 ### Added
@@ -714,7 +738,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.86.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.1...main
+[4.88.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.0...4.88.1
+[4.88.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.87.0...4.88.0
+[4.87.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.86.0...4.87.0
 [4.86.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.1...4.86.0
 [4.85.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.0...4.85.1
 [4.85.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.84.0...4.85.0

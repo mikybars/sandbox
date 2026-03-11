@@ -311,7 +311,17 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
         AsyncUtils.exceptionally(cfTotalizarPresenciaEcommerceLocalizacion, cf, cfWait);
 
       } else {
+        // Presencias del ultimo calculo de la tienda simulada
         this.simulacionService.mergePresenciaTiendaUltimoCalculo(runTarea.getTarea());
+
+        // Sumar presencias del empleado del ultimo calculo si no son en la tienda simulada
+        final List<String> tiendasPresenciasEmpleadoUltimoCalculo =
+            this.simulacionService.findTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+        tiendasPresenciasEmpleadoUltimoCalculo.forEach(tienda -> {
+          if (!tienda.equals(simulacion.getCclIdCodOrigen())) {
+            this.simulacionService.mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(runTarea.getTarea(), simulacion);
+          }
+        });
       }
 
       // Empleados por venta
@@ -339,11 +349,6 @@ public class RunTareaProcesarServiceImpl implements RunTareaProcesarService {
             this.runTareaProcesarPresenciaAsyncService
                 .compensarLocalizacionIncluidoChallengePorcentaje(runTarea);
         AsyncUtils.exceptionally(cfCompensarPresenciaLocalizacionManualIncluidoChallengePorcentaje, cf, cfWait);
-      }
-
-      if (simulacion != null) {
-        // Añadir presencias de tienda simulada
-        this.simulacionService.mergePresenciaTiendaSimulada(runTarea.getTarea(), simulacion);
       }
 
       /*-------------------------------------------------------------*/

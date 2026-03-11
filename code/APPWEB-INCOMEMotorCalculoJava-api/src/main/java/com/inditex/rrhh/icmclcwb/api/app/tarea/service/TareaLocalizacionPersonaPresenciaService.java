@@ -67,4 +67,5 @@ public interface TareaLocalizacionPersonaPresenciaService {
 
   void indicadorDesplazamientoChallengeImporteTienda(@Valid @NotNull final RunTareaDto runTareaDto);
 
+  List<String> findTiendasPresenciasEmpleadoUltimoCalculo(@NotNull RunTareaDto runTareaDto);
 }
