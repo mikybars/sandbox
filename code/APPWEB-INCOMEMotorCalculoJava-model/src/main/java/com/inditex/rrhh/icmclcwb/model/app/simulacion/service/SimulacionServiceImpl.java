@@ -3,11 +3,13 @@ package com.inditex.rrhh.icmclcwb.model.app.simulacion.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionLocalizacionBandaExcepcionDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaPersonaEstructuraDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLocalizacionPersonaPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaPersonaEstructuraService;
 import com.inditex.rrhh.icmclcwb.model.app.simulacion.mapper.SimulacionLocalizacionBandaExcepcionMapper;
 import com.inditex.rrhh.icmclcwb.model.app.simulacion.mapper.SimulacionMapper;
@@ -31,6 +33,9 @@ public class SimulacionServiceImpl implements SimulacionService {
 
   @Autowired
   private SimulacionRepository simulacionRepository;
+
+  @Autowired
+  private TareaLocalizacionPersonaPresenciaService tareaLocalizacionPersonaPresenciaService;
 
   @Autowired
   private SimuladorLocalizacionBandaExcepcionRepository simulacionLocalizacionBandaExcepcionRepository;
@@ -64,8 +69,8 @@ public class SimulacionServiceImpl implements SimulacionService {
   }
 
   @Override
-  public void mergePresenciaEmpleadoUltimoCalculo(@NotNull final TareaDto tarea) {
-    this.simulacionRepositoryCustom.mergePresenciaEmpleadoUltimoCalculo(tarea);
+  public void mergePresenciasEmpleadosTiendaUltimoCalculo(@NotNull final TareaDto tarea) {
+    this.simulacionRepositoryCustom.mergePresenciasEmpleadosTiendaUltimoCalculo(tarea);
   }
 
   @Override
@@ -114,13 +119,20 @@ public class SimulacionServiceImpl implements SimulacionService {
   }
 
   @Override
-  public void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto) {
-    this.simulacionRepositoryCustom.updateTiendaPersonaPresencia(tarea, simulacionDto.getCclIdPerson(), simulacionDto.getCclIdCodOrigen());
+  public void mergePresenciaEmpleadoUltimoCalculoOtraTienda(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto,
+      @NotNull String tiendaPresenciaUltimoCalculo) {
+    this.simulacionRepositoryCustom.mergePresenciaEmpleadoUltimoCalculoOtraTienda(tarea, simulacionDto.getCclIdPerson(),
+        simulacionDto.getCclIdCodOrigen(), tiendaPresenciaUltimoCalculo);
   }
 
   @Override
-  public void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto) {
-    this.simulacionRepositoryCustom.mergePresenciaTiendaSimulada(tarea, simulacionDto.getCclIdPerson(), simulacionDto.getCclIdCodOrigen());
+  public void mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacionDto) {
+    this.simulacionRepositoryCustom.mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(tarea, simulacionDto.getCclIdPerson());
+  }
+
+  @Override
+  public List<String> findTiendasPresenciasEmpleadoUltimoCalculo(@NotNull final RunTareaDto runTareaDto) {
+    return this.tareaLocalizacionPersonaPresenciaService.findTiendasPresenciasEmpleadoUltimoCalculo(runTareaDto);
   }
 
 }

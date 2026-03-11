@@ -39,7 +39,6 @@ public class TareaMigrarComisionRepositoryCustomImpl
   public List<TareaMigrarComisionDto> findCalculoComisionByTareaActual(final TareaDto tarea) {
     final MapSqlParameterSource map = new MapSqlParameterSource();
     map.addValue(SqlPipeConstants.SQL_PARAM_ICM_ID_TAREA_ACTUAL, tarea.getId());
-    log.info("SQL Query ejecutada para la migracion: {}", this.sqlFindCalculoComision);
     return this.query(this.sqlFindCalculoComision, map,
         (rs, rowNum) -> TareaMigrarComisionDto
             .builder()

@@ -11,6 +11,7 @@ import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PAR
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_ALGORITMO;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TAREA;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_JORNADA_LOCALIZACION;
+import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_REAL;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_PARAM_STD_OR_HR_PERIOD;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE;
 import static com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE;
@@ -127,8 +128,8 @@ public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImplTest {
 
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia,idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-    // tipoDatoLocalizacionPersonaPresencia
-    assertEquals(16, result.size()); // activo
+    // tipoDatoLocalizacionPersonaPresencia, idTipoDatoVentaReal
+    assertEquals(17, result.size()); // activo
     assertTrue(result.containsKey(SQL_PARAM_ACTIVO));
     assertEquals(SQL_VALUE_BOOLEAN_TRUE,
         result.get(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
@@ -164,6 +165,8 @@ public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImplTest {
     assertTrue(result.containsKey(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
     assertEquals(SQL_VALUE_BOOLEAN_FALSE,
         result.get(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
+    // idTipoDatoVentaReal
+    assertTrue(result.containsKey(SQL_PARAM_ID_TIPO_DATO_VENTA_REAL));
   }
 
   @Test
@@ -198,7 +201,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImplTest {
 
     // parametros de la consulta: idSeccion, activo, tipoDatoLocalizacionVentaSeccion, excluido calculo,
     // tipoDatoPersonaPresencia, idAlgoritmo, idTarea, cclIdPerson, stdOrHrPeriod, comisionable, calcula
-    // tipoDatoLocalizacionPersonaPresencia
+    // tipoDatoLocalizacionPersonaPresencia, idTipoDatoVentaReal
     verify(this.namedParameterJdbcTemplate).batchUpdate(any(String.class), this.params.capture());
 
     final MapSqlParameterSource[] values =
@@ -207,7 +210,7 @@ public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImplTest {
     for (int i = 0; i < values.length; i++) {
       final MapSqlParameterSource value =
           values[i];
-      assertEquals(16, value.getValues().size()); // activo assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
+      assertEquals(17, value.getValues().size()); // activo assertTrue(value.hasValue(SQL_PARAM_ACTIVO));
       assertEquals(SQL_VALUE_BOOLEAN_TRUE, value.getValue(SQL_PARAM_ACTIVO)); // tipoDatoLocalizacionVentaSeccion
 
       // excluidoCalculo
@@ -239,9 +242,10 @@ public class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCustomImplTest {
       // esDesplazamientoBase
       assertTrue(value.hasValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
       assertEquals(SQL_VALUE_BOOLEAN_FALSE, value.getValue(SQL_PARAM_ES_DESPLAZAMIENTO_BASE));
-      // cclIdPerson, stdOrHrPeriod - existencia del parámetro
+      // cclIdPerson, stdOrHrPeriod, idTipoDatoVentaReal - existencia del parámetro
       assertTrue(value.hasValue(SQL_PARAM_CCL_ID_PERSON));
       assertTrue(value.hasValue(SQL_PARAM_STD_OR_HR_PERIOD));
+      assertTrue(value.hasValue(SQL_PARAM_ID_TIPO_DATO_VENTA_REAL));
     }
 
     // cclIdPerson, stdOrHrPeriod - valores del parámetro

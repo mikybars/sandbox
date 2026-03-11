@@ -308,6 +308,8 @@ public class SqlPrimaryConstants {
 
   public static final String SQL_PARAM_ICM_VALOR = "icmValor";
 
+  public static final String SQL_PARAM_SIMULACION_CCL_ID_COD_ORIGEN_ULTIMO_CALCULO = "cclIdCodOrigenUltimoCalculo";
+
   // PARAMETROS USADOS PARA ESTABLECER VALORES
 
   public static final String SQL_PARAM_NUEVO_ID_TIPO_DATO = "nuevoIdTipoDato";
@@ -509,6 +511,8 @@ public class SqlPrimaryConstants {
   public static final String SQL_RESULT_CCL_ID_SECCION_EFECTIVA = "CCL_ID_SECCION_EFECTIVA";
 
   public static final String SQL_RESULT_CCL_ID_SECCION_ESTRUCTURA = "CCL_ID_SECCION_ESTRUCTURA";
+
+  public static final String SQL_RESULT_CCL_ID_COD_ORIGEN = "CCL_ID_COD_ORIGEN";
 
   private SqlPrimaryConstants() {
   }

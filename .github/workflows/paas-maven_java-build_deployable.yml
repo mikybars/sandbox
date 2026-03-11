@@ -30,7 +30,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.32.0
+  WORKFLOW_VERSION: 3.33.1
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -249,7 +249,8 @@ jobs:
                 mvn -B -Dexec.executable=mvn -Dexec.args='-B dependency:get dependency:copy -Dartifact=\${project.groupId}:\${project.artifactId}:\${project.version}:\${project.packaging} -DoutputDirectory=\${project.build.directory} -Dtransitive=false' exec:exec; \
                 mvn -B -Dexec.executable=sh -Dexec.args='-c \"mv \$(find -name \${project.build.finalName}.\${project.packaging}) \${project.build.directory} ; unzip -o \${project.build.directory}/\${project.build.finalName}.\${project.packaging} *-INF/classes/project_analysis.yml || true\"' exec:exec; \
               fi; \
-              mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv"
+              mvn -q -Dexec.executable=echo -Dexec.args='\${project.groupId},\${project.artifactId},\${project.version},\${project.parent.basedir},\${project.basedir},\${project.build.directory}/\${project.build.finalName}.\${project.packaging}' exec:exec | tee maven_reactor_list.csv; \
+              test -s maven_reactor_list.csv || { echo \"::error:: the file 'maven_reactor_list.csv' was generated with no content\"; exit 1; }"
 
       - name: SentinelForge / Generate Dockerfile
         id: sentinel-forge-dockerfile

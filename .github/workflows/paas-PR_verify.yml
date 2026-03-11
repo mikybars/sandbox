@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.32.0
+  WORKFLOW_VERSION: 3.33.1
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:

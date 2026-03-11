@@ -57,4 +57,5 @@ public interface TareaLocalizacionPersonaPresenciaRepositoryCustom {
 
   void indicadorDesplazamientoChallengeImporteTienda(@NotNull RunTareaDto runTareaDto);
 
+  List<String> getTiendasPresenciasEmpleadoUltimoCalculo(@NotNull RunTareaDto runTareaDto);
 }
