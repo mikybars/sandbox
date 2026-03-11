@@ -180,19 +180,25 @@ public class TareaLimpiezaServiceImplTest {
   }
 
   @Test
-  public void saveTestBlankWithHeimdalUserButBlankLogin() {
+  public void saveTestBlankWithAuthenticationPrincipalNotHeimdalUser() {
     final TareaLimpiezaDto tareaLimpiezaDto = new TareaLimpiezaDto();
     tareaLimpiezaDto.setNombreUsuario("");
 
-    // Crear usuario válido y luego forzar login blank para cubrir la rama isNotBlank=false
-    final HeimdalUserDetails heimdalUserDetails = new HeimdalUserDetails();
-    heimdalUserDetails.setLogin("validLogin");
-    final HeimdalUser realHeimdalUser = HeimdalUser.create(heimdalUserDetails, List.of("1", "2"));
-    final HeimdalUser heimdalUser = Mockito.spy(realHeimdalUser);
-    when(heimdalUser.getLogin()).thenReturn("");
+    final Authentication authentication = Mockito.mock(Authentication.class);
+    when(authentication.getPrincipal()).thenReturn("plain-user");
+    final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+    Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
 
     final TareaLimpieza tareaLimpieza = new TareaLimpieza();
-    when(HeimdalUtils.getHeimdalUser()).thenReturn(heimdalUser);
+    when(HeimdalUtils.getHeimdalUser()).thenReturn(null);
     when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
+
+    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
+
+    assertEquals("", result.getNombreUsuario());
+    verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza);
   }
 }
