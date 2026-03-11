@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.88.0] - 2026-03-11
+
+### Added
+
+- [INCOME-3058](https://jira.inditex.com/jira/browse/INCOME-3058) Modificación de la venta usada para el cálculo
+
 ## [4.87.0] - 2026-03-03
 
 ### Added
@@ -726,7 +732,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.87.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.0...main
+[4.88.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.87.0...4.88.0
 [4.87.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.86.0...4.87.0
 [4.86.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.1...4.86.0
 [4.85.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.85.0...4.85.1
