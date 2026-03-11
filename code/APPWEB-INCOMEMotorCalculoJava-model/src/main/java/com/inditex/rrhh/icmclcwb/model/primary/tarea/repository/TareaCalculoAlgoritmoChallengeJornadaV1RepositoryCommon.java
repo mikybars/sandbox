@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,9 @@ public abstract class TareaCalculoAlgoritmoChallengeJornadaV1RepositoryCommon ex
     map.put(SqlPrimaryConstants.SQL_PARAM_ES_DESPLAZAMIENTO_BASE, algoritmo.getDesplazamientoBase()
         ? SqlPrimaryConstants.SQL_VALUE_BOOLEAN_TRUE
         : SqlPrimaryConstants.SQL_VALUE_BOOLEAN_FALSE);
+
+    map.put(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_DATO_VENTA_REAL,
+        Arrays.asList(TipoDatoEnum.VENTA_RANGO_LOCALIZACION.getId(), TipoDatoEnum.VENTA_RANGO_LOCALIZACION_SECCION.getId()));
 
     return map;
   }
