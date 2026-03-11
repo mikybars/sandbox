@@ -159,13 +159,11 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
-    // Ahora siempre retorna DTO vacío inmediatamente (proceso en background)
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-
     await()
         .atMost(Duration.ofSeconds(2))
-        .until(() -> true); // Esperar a que termine el background
+        .until(() -> returnedResult != null);
 
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
     verify(this.tareaLimpiezaService, never()).save(anyList());
   }
@@ -260,13 +258,11 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.runIdTarea(1L);
 
-    // Ahora siempre retorna DTO vacío inmediatamente (proceso en background)
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-
     await()
         .atMost(Duration.ofSeconds(2))
-        .until(() -> true);
+        .until(() -> returnedResult != null);
 
+    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
     verify(this.tareaLimpiezaService, never()).save(anyList());
   }
@@ -281,54 +277,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     when(this.tareaService.findLimpieza()).thenReturn(result);
     when(this.tareaLimpiezaService.save(anyList()))
         .thenThrow(new RuntimeException("Test exception"));
-
-    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-    verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaService, times(1)).save(anyList());
-  }
-
-  @Test
-  void runTest_WithRuntimeException_CoversExceptionHandling() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final List tasks = new ArrayList();
-    tasks.add("task1");
-    result.setIdTarea(tasks);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenThrow(new RuntimeException("Runtime exception"));
-
-    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-    verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaService, times(1)).save(anyList());
-  }
-
-  @Test
-  void runTest_WithValidationException_CoversGeneralExceptionHandling() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final List tasks = new ArrayList();
-    tasks.add("task1");
-    result.setIdTarea(tasks);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenThrow(new IllegalArgumentException("Validation error"));
 
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
@@ -363,28 +311,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
     verify(this.tareaLimpiezaService, times(1)).save(anyList());
-  }
-
-  @Test
-  void runTest_WithExceptionInBackground_CoversExceptionallyCatch() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final List tasks = new ArrayList();
-    tasks.add("task1");
-    result.setIdTarea(tasks);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenThrow(new RuntimeException("Unexpected error during save"));
-
-    final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
-    verify(this.tareaService, times(1)).findLimpieza();
   }
 
   /**

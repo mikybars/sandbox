@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -90,7 +91,7 @@ public class TareaLimpiezaServiceImplTest {
     when(HeimdalUtils.getHeimdalUser()).thenReturn(heimdalUser);
     when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
     when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
-    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(any(TareaLimpieza.class))).thenReturn(tareaLimpiezaDto);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
 
     final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
 
@@ -98,6 +99,84 @@ public class TareaLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza);
     verify(this.tareaLimpiezaMapper, times(1)).tareaLimpiezaDtoToTareaLimpieza(tareaLimpiezaDto);
     verify(this.tareaLimpiezaMapper, times(1)).tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza);
+  }
+
+  @Test
+  public void saveTestBlankWithNullHeimdalUser() {
+    final TareaLimpiezaDto tareaLimpiezaDto = new TareaLimpiezaDto();
+    tareaLimpiezaDto.setNombreUsuario("");
+
+    final TareaLimpieza tareaLimpieza = new TareaLimpieza();
+    when(HeimdalUtils.getHeimdalUser()).thenReturn(null);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
+
+    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
+
+    assertEquals("", result.getNombreUsuario());
+    verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza);
+  }
+
+  @Test
+  public void findTest() {
+    final Long idLimpieza = 1L;
+    final TareaLimpieza tareaLimpieza = mock(TareaLimpieza.class);
+    final TareaLimpiezaDto tareaLimpiezaDto = mock(TareaLimpiezaDto.class);
+
+    when(this.tareaLimpiezaRepository.findById(idLimpieza)).thenReturn(java.util.Optional.of(tareaLimpieza));
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
+
+    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.find(idLimpieza);
+
+    assertEquals(tareaLimpiezaDto, result);
+    verify(this.tareaLimpiezaRepository, times(1)).findById(idLimpieza);
+    verify(this.tareaLimpiezaMapper, times(1)).tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza);
+  }
+
+  @Test
+  public void saveSeveralWithMultipleTasksTest() {
+    final IdTareaDTO idTareaDTO1 = new IdTareaDTO();
+    idTareaDTO1.setId(1L);
+    final IdTareaDTO idTareaDTO2 = new IdTareaDTO();
+    idTareaDTO2.setId(2L);
+
+    final List<IdTareaDTO> idTareas = List.of(idTareaDTO1, idTareaDTO2);
+
+    final TareaLimpiezaDto tarea1 = new TareaLimpiezaDto();
+    tarea1.setId(1L);
+    final TareaLimpiezaDto tarea2 = new TareaLimpiezaDto();
+    tarea2.setId(2L);
+
+    final List<TareaLimpiezaDto> tareaLimpiezaDtos = List.of(tarea1, tarea2);
+
+    when(this.tareaLimpiezaMapper.idTareaDtoToTareaLimpiezaDto(idTareas)).thenReturn(tareaLimpiezaDtos);
+
+    final TareaLimpieza entity1 = new TareaLimpieza();
+    final TareaLimpieza entity2 = new TareaLimpieza();
+    when(this.tareaLimpiezaRepository.save(entity1)).thenReturn(entity1);
+    when(this.tareaLimpiezaRepository.save(entity2)).thenReturn(entity2);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(entity1)).thenReturn(tarea1);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(entity2)).thenReturn(tarea2);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tarea1)).thenReturn(entity1);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(tarea2)).thenReturn(entity2);
+
+    final List<TareaLimpiezaDto> result = this.tareaLimpiezaServiceImpl.save(idTareas);
+
+    assertEquals(2, result.size());
+    verify(this.tareaLimpiezaRepository, times(2)).save(any(TareaLimpieza.class));
+  }
+
+  @Test
+  public void findWithEmptyOptionalTest() {
+    final Long idLimpieza = 99L;
+    when(this.tareaLimpiezaRepository.findById(idLimpieza)).thenReturn(java.util.Optional.empty());
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto((TareaLimpieza) null)).thenReturn(null);
+
+    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.find(idLimpieza);
+
+    assertNull(result);
+    verify(this.tareaLimpiezaRepository, times(1)).findById(idLimpieza);
   }
 
 }

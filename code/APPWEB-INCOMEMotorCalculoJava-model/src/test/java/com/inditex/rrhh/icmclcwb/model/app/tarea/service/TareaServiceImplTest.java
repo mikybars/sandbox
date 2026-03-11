@@ -1,10 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,6 +28,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseAccionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaFaseService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaLimpiezaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
+import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
@@ -379,4 +382,105 @@ class TareaServiceImplTest {
     verify(this.senderTarea, times(1)).sendWithPriority(resultDto, TareaPriorityEnum.MANUAL);
   }
 
+  @Test
+  void createTareaWithAllAmbitosTest() {
+    final TrabajoDTO trabajoDto = mock(TrabajoDTO.class);
+    when(trabajoDto.getIdProgramacion()).thenReturn(1L);
+    final TareaDto tareaDto = mock(TareaDto.class);
+    final TareaDto resultDto = mock(TareaDto.class);
+    final List<TareaAmbitoDto> ambito = new ArrayList<>();
+    ambito.add(new TareaAmbitoDto());
+    final List<TareaAmbitoLocalizacionDto> localizacion = new ArrayList<>();
+    localizacion.add(new TareaAmbitoLocalizacionDto());
+    final List<TareaAmbitoPersonaDto> persona = new ArrayList<>();
+    persona.add(new TareaAmbitoPersonaDto());
+
+    when(tareaDto.getAmbito()).thenReturn(ambito);
+    when(tareaDto.getLocalizacion()).thenReturn(localizacion);
+    when(tareaDto.getPersona()).thenReturn(persona);
+
+    final Tarea tarea = mock(Tarea.class);
+    when(this.tareaMapper.tareaDtoToTarea(tareaDto)).thenReturn(tarea);
+    when(this.tareaRepository.save(tarea)).thenReturn(tarea);
+    when(this.tareaMapper.tareaToTareaDto(tarea)).thenReturn(resultDto);
+    when(this.tareaAmbitoService.create(ambito, resultDto)).thenReturn(ambito);
+    when(this.tareaAmbitoLocalizacionService.create(localizacion, resultDto)).thenReturn(localizacion);
+    when(this.tareaAmbitoPersonaService.create(persona, resultDto)).thenReturn(persona);
+
+    this.tareaServiceImpl.create(trabajoDto, tareaDto);
+
+    verify(this.tareaRepository, times(1)).save(tarea);
+    verify(this.tareaAmbitoService, times(1)).create(ambito, resultDto);
+    verify(this.tareaAmbitoLocalizacionService, times(1)).create(localizacion, resultDto);
+    verify(this.tareaAmbitoPersonaService, times(1)).create(persona, resultDto);
+    verify(this.senderTarea, times(1)).sendWithPriority(resultDto, TareaPriorityEnum.PROGRAMADA);
+  }
+
+  @Test
+  void findLimpiezaTest_WithValidResults() {
+    final IdTareaDTO idTarea = new IdTareaDTO();
+    idTarea.setId(1L);
+    final List<IdTareaDTO> tareas = List.of(idTarea);
+
+    when(this.tareaRepositoryCustom.findLimpieza()).thenReturn(tareas);
+    when(this.tareaRepositoryCustom.totalLimpieza()).thenReturn(5);
+
+    final var result = this.tareaServiceImpl.findLimpieza();
+
+    assertNotNull(result);
+    assertEquals(1, result.getIdTarea().size());
+    assertEquals(1, result.getTareasProcesadas());
+    assertEquals(5, result.getTareasPendientes());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
+    verify(this.tareaRepositoryCustom, times(1)).totalLimpieza();
+  }
+
+  @Test
+  void findLimpiezaByIdTareaTest_WithValidResults() {
+    final Long idTarea = 1L;
+    final IdTareaDTO idTareaDTO = new IdTareaDTO();
+    idTareaDTO.setId(idTarea);
+    final List<IdTareaDTO> tareas = List.of(idTareaDTO);
+
+    when(this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea)).thenReturn(tareas);
+    when(this.tareaRepositoryCustom.totalLimpieza()).thenReturn(3);
+
+    final var result = this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
+
+    assertNotNull(result);
+    assertEquals(1, result.getIdTarea().size());
+    assertEquals(1, result.getTareasProcesadas());
+    assertEquals(3, result.getTareasPendientes());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(idTarea);
+    verify(this.tareaRepositoryCustom, times(1)).totalLimpieza();
+  }
+
+  @Test
+  void findLimpiezaTest_WithEmptyResults() {
+    when(this.tareaRepositoryCustom.findLimpieza()).thenReturn(new ArrayList<>());
+
+    final var result = this.tareaServiceImpl.findLimpieza();
+
+    assertNotNull(result);
+    assertEquals(0, result.getIdTarea().size());
+    assertEquals(0, result.getTareasProcesadas());
+    assertEquals(0, result.getTareasPendientes());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
+    verify(this.tareaRepositoryCustom, never()).totalLimpieza();
+  }
+
+  @Test
+  void findLimpiezaByIdTareaTest_WithEmptyResults() {
+    final Long idTarea = 1L;
+    when(this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea)).thenReturn(new ArrayList<>());
+
+    final var result = this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
+
+    assertNotNull(result);
+    assertEquals(0, result.getIdTarea().size());
+    assertEquals(0, result.getTareasProcesadas());
+    assertEquals(0, result.getTareasPendientes());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(idTarea);
+    verify(this.tareaRepositoryCustom, never()).totalLimpieza();
+  }
 }
