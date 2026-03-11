@@ -105,6 +105,9 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
   @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.indicadorDesplazamientoBaseDirectoVentaSinDesplazamiento']}")
   private String sqlIndicadorDesplazamientoBaseDirectoVentaSinDesplazamiento;
 
+  @Value("#{primaryQuery['TareaLocalizacionPersonaPresenciaRepositoryCustom.getTiendasPresenciasEmpleadoUltimoCalculo']}")
+  private String sqlGetTiendasPresenciasEmpleadoUltimoCalculo;
+
   @Autowired
   private TipoDatoService tipoDatoService;
 
@@ -491,6 +494,14 @@ public class TareaLocalizacionPersonaPresenciaRepositoryCustomImpl
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TIPO_GRUPO_DATO,
         TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_DESACTIVAR_EXTERNOS.getId());
     this.update(this.sqlUpdateActivoPersonasExternas, parameters);
+  }
+
+  @Override
+  public List<String> getTiendasPresenciasEmpleadoUltimoCalculo(@NotNull final RunTareaDto runTareaDto) {
+    final MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, runTareaDto.getTarea().getId());
+    return this.query(this.sqlGetTiendasPresenciasEmpleadoUltimoCalculo, parameters,
+        (rs, rowNum) -> rs.getString(SqlPrimaryConstants.SQL_RESULT_CCL_ID_COD_ORIGEN));
   }
 
 }

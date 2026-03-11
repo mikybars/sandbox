@@ -163,9 +163,13 @@ public class TareaLocalizacionPersonaPresenciaServiceImpl implements TareaLocali
   }
 
   @Override
-  public void updateActivoPersonasExternas(
-      @Valid @NotNull final RunTareaDto runTareaDto) {
+  public void updateActivoPersonasExternas(@Valid @NotNull final RunTareaDto runTareaDto) {
     this.tareaLocalizacionPersonaPresenciaRepositoryCustom.updateActivoPersonasExternas(runTareaDto);
+  }
+
+  @Override
+  public List<String> findTiendasPresenciasEmpleadoUltimoCalculo(@NotNull final RunTareaDto runTareaDto) {
+    return this.tareaLocalizacionPersonaPresenciaRepositoryCustom.getTiendasPresenciasEmpleadoUltimoCalculo(runTareaDto);
   }
 
 }

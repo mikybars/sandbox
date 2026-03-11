@@ -1,5 +1,8 @@
 package com.inditex.rrhh.icmclcwb.api.app.simulacion.service;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 
@@ -13,7 +16,7 @@ public interface SimulacionService {
 
   void mergePresenciasEmpleadoSimulacion(@NotNull TareaDto tarea);
 
-  void mergePresenciaEmpleadoUltimoCalculo(@NotNull TareaDto tarea);
+  void mergePresenciasEmpleadosTiendaUltimoCalculo(@NotNull TareaDto tarea);
 
   void mergePresenciaTiendaUltimoCalculo(@NotNull TareaDto tarea);
 
@@ -23,7 +26,10 @@ public interface SimulacionService {
 
   void updateBandaExcepcionada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
 
-  void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
+  void mergePresenciaEmpleadoUltimoCalculoOtraTienda(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion,
+      @NotNull String tiendaPresenciaUltimoCalculo);
 
-  void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
+  void mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(@NotNull TareaDto tarea, @NotNull SimulacionDto simulacion);
+
+  List<String> findTiendasPresenciasEmpleadoUltimoCalculo(@NotNull RunTareaDto runTareaDto);
 }

@@ -293,4 +293,13 @@ class TareaLocalizacionPersonaPresenciaServiceImplTest {
     verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).updateActivoPersonasExternas(runTarea);
   }
 
+  @Test
+  void findTiendasPresenciasEmpleadoUltimoCalculoTest() {
+
+    final RunTareaDto runTarea = mock(RunTareaDto.class);
+
+    this.tareaLocalizacionPersonaPresenciaServiceImpl.findTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+    verify(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, times(1)).getTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+  }
+
 }

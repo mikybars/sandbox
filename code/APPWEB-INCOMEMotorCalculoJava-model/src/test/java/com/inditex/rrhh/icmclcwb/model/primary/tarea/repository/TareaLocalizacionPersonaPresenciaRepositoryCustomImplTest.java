@@ -58,16 +58,19 @@ import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionPersonaPresencia;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.instancio.Instancio;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -130,6 +133,8 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
       "SQL INDICADOR DESPLAZAMIENTO CHALLENGE IMPORTE TIENDA";
 
   private final static String SQL_UPDATE_ACTIVO_PERSONAS_EXTERNAS = "SQL UPDATE ACTIVO PERSONAS EXTERNAS";
+
+  private final static String SQL_GET_TIENDAS_PRESENCIAS_EMPLEADO_ULTIMO_CALCULO = "SQL_GET_TIENDAS_PRESENCIAS_EMPLEADO_ULTIMO_CALCULO";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -215,6 +220,9 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
         "sqlPresenciaDesplazamientoChallengePorcentaje",
         SQL_PRESENCIA_DESPLAZAMIENTO_CHALLENGE_PORCENTAJE, true);
+    FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom,
+        "sqlGetTiendasPresenciasEmpleadoUltimoCalculo",
+        SQL_GET_TIENDAS_PRESENCIAS_EMPLEADO_ULTIMO_CALCULO, true);
 
     FieldUtils.writeField(this.tareaLocalizacionPersonaPresenciaRepositoryCustom, "batchSize", 100, true);
   }
@@ -1049,6 +1057,20 @@ class TareaLocalizacionPersonaPresenciaRepositoryCustomImplTest {
     assertTrue(params.hasValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
     assertEquals(TipoGrupoDatoEnum.PRESENCIA_LOCALIZACION_SECCION_PERSONA_DESACTIVAR_EXTERNOS.getId(),
         params.getValue(SQL_PARAM_ID_TIPO_GRUPO_DATO));
+  }
+
+  @Test
+  void getTiendasPresenciasEmpleadoUltimoCalculoTest() {
+    final RunTareaDto runTarea = Instancio.create(RunTareaDto.class);
+
+    this.tareaLocalizacionPersonaPresenciaRepositoryCustom.getTiendasPresenciasEmpleadoUltimoCalculo(runTarea);
+
+    verify(this.namedParameterJdbcTemplate, times(1)).query(any(String.class),
+        this.paramsCaptor.capture(), ArgumentMatchers.<RowMapper<String>>any());
+
+    final MapSqlParameterSource params = this.paramsCaptor.getValue();
+    assertEquals(1, params.getValues().size());
+    assertTrue(params.hasValue(SQL_PARAM_ID_TAREA));
   }
 
 }
