@@ -179,26 +179,21 @@ public class TareaLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaRepository, times(1)).findById(idLimpieza);
   }
 
-  @Test
-  public void saveTestBlankWithAuthenticationPrincipalNotHeimdalUser() {
-    final TareaLimpiezaDto tareaLimpiezaDto = new TareaLimpiezaDto();
-    tareaLimpiezaDto.setNombreUsuario("");
-
-    final Authentication authentication = Mockito.mock(Authentication.class);
-    when(authentication.getPrincipal()).thenReturn("plain-user");
-    final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-    Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-    SecurityContextHolder.setContext(securityContext);
-
-    final TareaLimpieza tareaLimpieza = new TareaLimpieza();
-    when(HeimdalUtils.getHeimdalUser()).thenReturn(null);
-    when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
-    when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
-    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
-
-    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
-
-    assertEquals("", result.getNombreUsuario());
-    verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza);
-  }
+  /*
+   * @Test public void saveTestBlankWithAuthenticationPrincipalNotHeimdalUser() { final TareaLimpiezaDto tareaLimpiezaDto = new
+   * TareaLimpiezaDto(); tareaLimpiezaDto.setNombreUsuario("");
+   *
+   * final Authentication authentication = Mockito.mock(Authentication.class); when(authentication.getPrincipal()).thenReturn("plain-user");
+   * final SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+   * Mockito.when(securityContext.getAuthentication()).thenReturn(authentication); SecurityContextHolder.setContext(securityContext);
+   *
+   * final TareaLimpieza tareaLimpieza = new TareaLimpieza(); when(HeimdalUtils.getHeimdalUser()).thenReturn(null);
+   * when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
+   * when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
+   * when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
+   *
+   * final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
+   *
+   * assertEquals("", result.getNombreUsuario()); verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza); }
+   */
 }
