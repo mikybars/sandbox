@@ -11,6 +11,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
@@ -229,17 +230,24 @@ class RunTareaRecolectarCondicionesServiceImplTest {
       final SimulacionDto simulacion = new SimulacionDto();
       simulacion.setEsVentaUltimoCalculo(esVentaUltimoCalculo);
       simulacion.setEsPresenciaEmpleadoUltimoCalculo(esPresenciaEmpleadoUltimoCalculo);
+      simulacion.setCclIdCodOrigen("111");
 
       doReturn(simulacion).when(this.simulacionService)
           .findbyId(any(Long.class));
-    }
 
-    if (esVentaUltimoCalculo) {
-      doNothing().when(this.simulacionService).mergeVentaUltimoCalculo(this.runTarea.getTarea());
-    }
+      if (esVentaUltimoCalculo) {
+        doNothing().when(this.simulacionService).mergeVentaUltimoCalculo(this.runTarea.getTarea());
+      }
 
-    if (esPresenciaEmpleadoUltimoCalculo) {
-      doNothing().when(this.simulacionService).mergePresenciaEmpleadoUltimoCalculo(this.runTarea.getTarea());
+      if (esPresenciaEmpleadoUltimoCalculo) {
+        final List<String> tiendasUltimoCalculo = new java.util.ArrayList<>(List.of("222"));
+        tiendasUltimoCalculo.add("111");
+
+        doNothing().when(this.simulacionService).mergePresenciasEmpleadosTiendaUltimoCalculo(this.runTarea.getTarea());
+        doReturn(tiendasUltimoCalculo).when(this.simulacionService).findTiendasPresenciasEmpleadoUltimoCalculo(this.runTarea);
+        doNothing().when(this.simulacionService).mergePresenciaEmpleadoUltimoCalculoOtraTienda(this.runTarea.getTarea(),
+            simulacion, tiendasUltimoCalculo.get(0));
+      }
     }
 
     this.RunTareaRecolectarCondicionesServiceImpl.run(this.runTarea);

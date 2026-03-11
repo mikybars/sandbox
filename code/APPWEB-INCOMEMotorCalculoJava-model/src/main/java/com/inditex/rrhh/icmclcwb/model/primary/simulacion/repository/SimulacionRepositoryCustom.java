@@ -20,14 +20,15 @@ public interface SimulacionRepositoryCustom {
 
   void mergePresenciaTiendaUltimoCalculo(@NotNull TareaDto tarea);
 
-  void mergePresenciaEmpleadoUltimoCalculo(@NotNull TareaDto tarea);
+  void mergePresenciasEmpleadosTiendaUltimoCalculo(@NotNull TareaDto tarea);
 
   List<TareaPersonaEstructuraDto> findEstructurasEmpleadoSimulacion(@NotNull TareaDto tarea);
 
   void updateBandaExcepcionada(@NotNull TareaDto tarea, @NotNull Integer banda, @NotEmpty String cclIdCodOrigen,
       @NotEmpty String cclIdSeccion);
 
-  void updateTiendaPersonaPresencia(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen);
+  void mergePresenciaEmpleadoUltimoCalculoOtraTienda(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson,
+      @NotEmpty String cclIdCodOrigen, @NotNull String tiendaPresenciaUltimoCalculo);
 
-  void mergePresenciaTiendaSimulada(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson, @NotEmpty String cclIdCodOrigen);
+  void mergePresenciasEmpleadoIntoPresenciasTotalesTiendaSimulada(@NotNull TareaDto tarea, @NotEmpty String cclIdPerson);
 }
