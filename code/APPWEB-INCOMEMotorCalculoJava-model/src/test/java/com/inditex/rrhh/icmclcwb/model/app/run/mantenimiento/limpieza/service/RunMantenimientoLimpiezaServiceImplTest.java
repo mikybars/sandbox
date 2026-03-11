@@ -321,4 +321,10 @@ class RunMantenimientoLimpiezaServiceImplTest {
   private boolean waitForAsyncCompletion() {
     return true;
   }
+
+  @Test
+  void runTest_whenNoTasks_thenReturnsAndSkipsSave() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+  }
 }

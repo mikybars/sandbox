@@ -483,4 +483,71 @@ class TareaServiceImplTest {
     verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(idTarea);
     verify(this.tareaRepositoryCustom, never()).totalLimpieza();
   }
+
+  @Test
+  void findLimpieza_whenEmpty_thenTotalIsZeroAndTotalLimpiezaNotCalled() {
+    when(this.tareaRepositoryCustom.findLimpieza()).thenReturn(new ArrayList<>());
+
+    final var result = this.tareaServiceImpl.findLimpieza();
+
+    assertNotNull(result);
+    assertEquals(0, result.getTareasProcesadas());
+    assertEquals(0, result.getTareasPendientes());
+    assertNotNull(result.getIdTarea());
+    assertEquals(0, result.getIdTarea().size());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
+    verify(this.tareaRepositoryCustom, never()).totalLimpieza();
+  }
+
+  @Test
+  void findLimpieza_whenNotEmpty_thenCallsTotalLimpieza() {
+    final IdTareaDTO id = new IdTareaDTO();
+    id.setId(1L);
+    when(this.tareaRepositoryCustom.findLimpieza()).thenReturn(List.of(id));
+    when(this.tareaRepositoryCustom.totalLimpieza()).thenReturn(7);
+
+    final var result = this.tareaServiceImpl.findLimpieza();
+
+    assertNotNull(result);
+    assertEquals(1, result.getTareasProcesadas());
+    assertEquals(7, result.getTareasPendientes());
+    assertEquals(1, result.getIdTarea().size());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpieza();
+    verify(this.tareaRepositoryCustom, times(1)).totalLimpieza();
+  }
+
+  @Test
+  void findLimpiezaByIdTarea_whenEmpty_thenTotalIsZeroAndTotalLimpiezaNotCalled() {
+    final Long idTarea = 123L;
+    when(this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea)).thenReturn(new ArrayList<>());
+
+    final var result = this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
+
+    assertNotNull(result);
+    assertEquals(0, result.getTareasProcesadas());
+    assertEquals(0, result.getTareasPendientes());
+    assertNotNull(result.getIdTarea());
+    assertEquals(0, result.getIdTarea().size());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(idTarea);
+    verify(this.tareaRepositoryCustom, never()).totalLimpieza();
+  }
+
+  @Test
+  void findLimpiezaByIdTarea_whenNotEmpty_thenCallsTotalLimpieza() {
+    final Long idTarea = 123L;
+    final IdTareaDTO id = new IdTareaDTO();
+    id.setId(2L);
+
+    when(this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea)).thenReturn(List.of(id));
+    when(this.tareaRepositoryCustom.totalLimpieza()).thenReturn(9);
+
+    final var result = this.tareaServiceImpl.findLimpiezaByIdTarea(idTarea);
+
+    assertNotNull(result);
+    assertEquals(1, result.getTareasProcesadas());
+    assertEquals(9, result.getTareasPendientes());
+    assertEquals(1, result.getIdTarea().size());
+    verify(this.tareaRepositoryCustom, times(1)).findLimpiezaByIdTarea(idTarea);
+    verify(this.tareaRepositoryCustom, times(1)).totalLimpieza();
+  }
 }

@@ -179,4 +179,20 @@ public class TareaLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaRepository, times(1)).findById(idLimpieza);
   }
 
+  @Test
+  public void saveTestBlankWithHeimdalUserButBlankLogin() {
+    final TareaLimpiezaDto tareaLimpiezaDto = new TareaLimpiezaDto();
+    tareaLimpiezaDto.setNombreUsuario("");
+    final HeimdalUserDetails heimdalUserDetails = new HeimdalUserDetails();
+    heimdalUserDetails.setLogin("");
+    final HeimdalUser heimdalUser = HeimdalUser.create(heimdalUserDetails, List.of("1", "2"));
+    final TareaLimpieza tareaLimpieza = new TareaLimpieza();
+    when(HeimdalUtils.getHeimdalUser()).thenReturn(heimdalUser);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaDtoToTareaLimpieza(any(TareaLimpiezaDto.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaRepository.save(any(TareaLimpieza.class))).thenReturn(tareaLimpieza);
+    when(this.tareaLimpiezaMapper.tareaLimpiezaToTareaLimpiezaDto(tareaLimpieza)).thenReturn(tareaLimpiezaDto);
+    final TareaLimpiezaDto result = this.tareaLimpiezaServiceImpl.save(tareaLimpiezaDto);
+    assertEquals("", result.getNombreUsuario());
+    verify(this.tareaLimpiezaRepository, times(1)).save(tareaLimpieza);
+  }
 }
