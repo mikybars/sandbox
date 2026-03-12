@@ -339,4 +339,33 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaService, never()).save(anyList());
     verifyNoInteractions(this.senderLimpieza);
   }
+
+  @Test
+  void runTest_WithTasks_CoversSuccessPath() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
+    task.setId(1L);
+    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
+    tasks.add(task);
+    result.setIdTarea(tasks);
+
+    final TareaLimpiezaDto tareaDto = new TareaLimpiezaDto();
+    tareaDto.setId(1L);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(List.of(tareaDto));
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
+  }
 }
