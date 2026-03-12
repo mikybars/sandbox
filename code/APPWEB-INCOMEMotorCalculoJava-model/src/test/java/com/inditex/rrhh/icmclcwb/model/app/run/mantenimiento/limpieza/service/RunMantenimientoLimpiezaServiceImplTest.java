@@ -1,11 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.mantenimiento.limpieza.service;
 
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
@@ -313,11 +316,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 
-  /**
-   * Método para verificar que la ejecución asincrónica se completó. Retorna true inmediatamente ya que awaitility maneja la espera.
-   *
-   * @return true siempre, la condición real se verifica en los mocks
-   */
   private boolean waitForAsyncCompletion() {
     return true;
   }
@@ -326,5 +324,19 @@ class RunMantenimientoLimpiezaServiceImplTest {
   void runTest_whenNoTasks_thenReturnsAndSkipsSave() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> response != null);
+
+    assertNotNull(response);
+    assertNotNull(response.getIdTarea());
+    assertTrue(response.getIdTarea().isEmpty());
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaService, never()).save(anyList());
+    verifyNoInteractions(this.senderLimpieza);
   }
 }
