@@ -368,4 +368,110 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
   }
+
+  @Test
+  void runIdTareaTest_WithTasks_CoversSuccessPath() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
+    task.setId(5L);
+    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
+    tasks.add(task);
+    result.setIdTarea(tasks);
+
+    final TareaLimpiezaDto tareaDto = new TareaLimpiezaDto();
+    tareaDto.setId(5L);
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenReturn(List.of(tareaDto));
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.runIdTarea(5L);
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
+    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
+  }
+
+  @Test
+  void runIdTareaTest_WithEmptyTareas_CoversEmptyPath() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.runIdTarea(5L);
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> response != null);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+    verify(this.tareaLimpiezaService, never()).save(anyList());
+  }
+
+  @Test
+  void runTest_WithException_InProcesarLimpieza() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
+    task.setId(10L);
+    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
+    tasks.add(task);
+    result.setIdTarea(tasks);
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+    when(this.tareaLimpiezaService.save(anyList()))
+        .thenThrow(new RuntimeException("Save error"));
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(5))
+        .pollInterval(Duration.ofMillis(100))
+        .until(this::waitForAsyncCompletion);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpieza();
+    verify(this.tareaLimpiezaService, times(1)).save(anyList());
+  }
+
+  @Test
+  void runTest_CoversInitialLogInfoEnabled() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+
+    when(this.tareaService.findLimpieza()).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> response != null);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpieza();
+  }
+
+  @Test
+  void runIdTareaTest_CoversInitialLogInfoEnabled() {
+    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
+    result.setIdTarea(new ArrayList<>());
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
+
+    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.runIdTarea(15L);
+
+    await()
+        .atMost(Duration.ofSeconds(2))
+        .until(() -> response != null);
+
+    assertNotNull(response);
+    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+  }
 }
