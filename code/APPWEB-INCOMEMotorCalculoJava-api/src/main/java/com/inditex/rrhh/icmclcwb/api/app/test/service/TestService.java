@@ -40,7 +40,7 @@ public interface TestService {
 
   void ptrTestBbddAsync();
 
-  void slrhorcomsTest();
+  void iopcomercialcalendarTest();
 
   // Comienzo de normalización de tareas consolidadas (para borrar)
 

@@ -15,12 +15,12 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoLocalizacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoPersonaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.empleadotienda.dto.PtrPresenciaEmpleadosTiendaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineentregadomicilio.dto.PtrVentaOnlineEntregaDomicilioRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -157,92 +157,41 @@ public abstract class TareaMapperDecorator extends TareaMapper {
   public String horarioComercialFestivosRequestDtoToQuery(
       final HorarioComercialFestivosRequestDto request) {
     final StringBuilder sbResult = new StringBuilder();
-    final String query = this.horarioComercialFestivosRequestDtoToSolrRequest(request);
+    final String storesIdsParam = this.horarioComercialFestivosRequestDtoToStoreIdsParam(request);
+    final String datesParams = this.horarioComercialFestivosRequestDtoToStartDateParam(request);
 
-    final String pagination = this.horarioComercialFestivosRequestDtoToPaginationRequest(request);
-
-    return sbResult.append(HorarioComercialPropertiesConstants.Q_FIELD)
-        .append(HorarioComercialPropertiesConstants.EQUALS_SYMBOL)
-        .append(query)
-        .append(pagination)
+    return sbResult.append(storesIdsParam)
+        .append(datesParams != null ? datesParams : "")
         .toString();
   }
 
-  private String horarioComercialFestivosRequestDtoToPaginationRequest(
-      final HorarioComercialFestivosRequestDto request) {
-    String pagination = "";
-    if ((request != null) && ((request.getRows() != null) || (request.getStart() != null))) {
-      final StringBuilder sbPagination = new StringBuilder();
-      sbPagination.append(HorarioComercialPropertiesConstants.AMPERSAND_SYMBOL);
-      final List<String> filters = new ArrayList<>();
-      if (request.getRows() != null) {
-        filters.add(new StringBuilder(HorarioComercialPropertiesConstants.ROWS_FIELD)
-            .append(HorarioComercialPropertiesConstants.EQUALS_SYMBOL)
-            .append(request.getRows())
-            .toString());
-      }
-      if (request.getStart() != null) {
-        filters.add(new StringBuilder(HorarioComercialPropertiesConstants.START_FIELD)
-            .append(HorarioComercialPropertiesConstants.EQUALS_SYMBOL)
-            .append(request.getStart())
-            .toString());
-      }
-      sbPagination.append(String.join(HorarioComercialPropertiesConstants.AMPERSAND_SYMBOL, filters));
-      pagination = sbPagination.toString();
+  private String horarioComercialFestivosRequestDtoToStoreIdsParam(final HorarioComercialFestivosRequestDto request) {
+    String result = HorarioComercialPropertiesConstants.STORE_IDS_FIELD
+        + HorarioComercialPropertiesConstants.EQUALS_SYMBOL;
+    if ((request != null) && CollectionUtils.isNotEmpty(request.getIdTienda())) {
+      result += request.getIdTienda()
+          .stream()
+          .map(String::valueOf)
+          .collect(Collectors.joining(HorarioComercialPropertiesConstants.VALUES_SEPARATOR));
     }
-    return pagination;
+    return result;
   }
 
-  private String horarioComercialFestivosRequestDtoToSolrRequest(final HorarioComercialFestivosRequestDto request) {
-    String query = HorarioComercialPropertiesConstants.ASTERISK_SYMBOL;
-    if ((request != null)
-        && ((request.getIdPais() != null)
-            || (request.getIdCadena() != null) || (request.getIdTienda() != null)
-            || ((request.getFechaDesde() != null) && (request.getFechaHasta() != null)))) {
-      final List<String> filters = new ArrayList<>();
-      if (CollectionUtils.isNotEmpty(request.getIdTienda())) {
-        final List<String> filtrosTienda = request.getIdTienda()
-            .stream()
-            .map(idTienda -> new StringBuilder().append(HorarioComercialPropertiesConstants.ID_TIENDA_FIELD)
-                .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
-                .append(idTienda)
-                .toString())
-            .collect(
-                Collectors.toList());
-        filters.add(new StringBuffer().append(HorarioComercialPropertiesConstants.SOLR_GROUP_BEGIN)
-            .append(String.join(HorarioComercialPropertiesConstants.SOLR_FIELD_OR_CONNECTOR, filtrosTienda))
-            .append(HorarioComercialPropertiesConstants.SOLR_GROUP_END)
-            .toString());
-      }
-      if (request.getIdCadena() != null) {
-        filters
-            .add(new StringBuilder().append(HorarioComercialPropertiesConstants.ID_CADENA_FIELD)
-                .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
-                .append(request.getIdCadena())
-                .toString());
-      }
-      if (request.getIdPais() != null) {
-        filters.add(new StringBuilder().append(HorarioComercialPropertiesConstants.ID_PAIS_FIELD)
-            .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
-            .append(request.getIdPais())
-            .toString());
-      }
-      if ((request.getFechaDesde() != null) && (request.getFechaHasta() != null)) {
-        final SimpleDateFormat sdf = new SimpleDateFormat(
-            HorarioComercialPropertiesConstants.DATE_FORMAT);
-        filters.add(new StringBuilder().append(HorarioComercialPropertiesConstants.FECHA)
-            .append(HorarioComercialPropertiesConstants.SOLR_VALUE_SEPARATOR)
-            .append(HorarioComercialPropertiesConstants.SOLR_RANGE_BEGIN)
-            .append(sdf.format(TimeUtils
-                .toDate(request.getFechaDesde())))
-            .append(HorarioComercialPropertiesConstants.SOLR_DATE_CONNECTOR)
-            .append(sdf.format(TimeUtils.toDate(request.getFechaHasta())))
-            .append(HorarioComercialPropertiesConstants.SOLR_RANGE_END)
-            .toString());
-      }
-      query = String.join(HorarioComercialPropertiesConstants.SOLR_FIELD_AND_CONNECTOR, filters);
+  private String horarioComercialFestivosRequestDtoToStartDateParam(final HorarioComercialFestivosRequestDto request) {
+    String result = null;
+    if ((request != null) && ((request.getFechaDesde() != null) && (request.getFechaHasta() != null))) {
+      final SimpleDateFormat sdf = new SimpleDateFormat(
+          HorarioComercialPropertiesConstants.SIMPLE_DATE_FORMAT);
+      result = HorarioComercialPropertiesConstants.PARAMS_SEPARATOR
+          + HorarioComercialPropertiesConstants.START_DATE_FIELD
+          + HorarioComercialPropertiesConstants.EQUALS_SYMBOL
+          + sdf.format(TimeUtils
+              .toDate(request.getFechaDesde()))
+          + HorarioComercialPropertiesConstants.PARAMS_SEPARATOR
+          + HorarioComercialPropertiesConstants.END_DATE_FIELD + HorarioComercialPropertiesConstants.EQUALS_SYMBOL
+          + sdf.format(TimeUtils.toDate(request.getFechaHasta()));
     }
-    return query;
+    return result;
   }
 
 }

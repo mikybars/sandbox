@@ -58,8 +58,8 @@ public class ExecutorConfigTest {
   }
 
   @Test
-  public void slrhorcomsExecutorShouldReturnExecutorFactoryBean() {
-    this.executorConfig.slrhorcomsExecutor(this.executorFactory);
+  public void iopcomercialcalendarExecutorShouldReturnExecutorFactoryBean() {
+    this.executorConfig.iopcomercialcalendarExecutor(this.executorFactory);
     verify(this.executorFactory, times(1)).newExecutor();
   }
 

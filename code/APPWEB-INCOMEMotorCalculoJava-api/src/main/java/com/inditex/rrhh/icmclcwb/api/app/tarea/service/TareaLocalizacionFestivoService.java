@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.api.app.tarea.service;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
