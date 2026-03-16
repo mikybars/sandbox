@@ -21,7 +21,6 @@ import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.service.IOPComercialCalendarAsyncService;
-import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.service.IOPComercialCalendarService;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
@@ -46,9 +45,7 @@ public class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl implements 
 
   private final TareaMapper tareaMapper;
 
-  private final IOPComercialCalendarService IOPComercialCalendarService;
-
-  private final IOPComercialCalendarAsyncService IOPComercialCalendarAsyncService;
+  private final IOPComercialCalendarAsyncService iopComercialCalendarAsyncService;
 
   private final TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;
 
@@ -89,7 +86,7 @@ public class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl implements 
               .setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
           RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl.LOG.info("Peticion de festivos: {}", request);
           final CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos =
-              this.IOPComercialCalendarAsyncService
+              this.iopComercialCalendarAsyncService
                   .horarioComercialFestivos(request);
           AsyncUtils.exceptionally(cfHorarioComercialFestivos, cf);
           final ResponseDto<HorarioComercialFestivoDocDto> data = AsyncUtils
