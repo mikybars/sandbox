@@ -94,7 +94,7 @@ public class TestController implements TestApi {
   }
 
   @Override
-  public ResponseEntity<Void> iopcomercialcalendarTest() {
+  public ResponseEntity<Void> slrhorcomsTest() {
     this.testService.iopcomercialcalendarTest();
     return new ResponseEntity<>(HttpStatus.OK);
   }
