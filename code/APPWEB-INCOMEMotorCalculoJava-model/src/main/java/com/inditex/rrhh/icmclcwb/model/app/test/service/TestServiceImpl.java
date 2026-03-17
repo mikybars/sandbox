@@ -28,8 +28,8 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncServ
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.EndpointResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.IopcomercialcalendarPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
@@ -478,9 +478,9 @@ public class TestServiceImpl implements TestService {
 
     TestServiceImpl.LOG.info("ENDPOINT: {}", endpoint);
 
-    final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.iopcomercialcalendarClient
-        .getForEntity(endpoint + "q=*",
-            HorarioComercialFestivoDocDto[].class);
+    final ResponseEntity<EndpointResponseDto> responseHorarioComercial = this.iopcomercialcalendarClient
+        .getForEntity(endpoint + "storeIds=",
+            EndpointResponseDto.class);
     TestServiceImpl.LOG.info("responseHorarioComercial: {}",
         responseHorarioComercial);
   }
