@@ -6,10 +6,10 @@ package com.inditex.rrhh.icmclcwb.model.iopcomercialcalendar.service;
 
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.HORARIO_COMERCIAL_FESTIVOS;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.EndpointResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.IopcomercialcalendarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.exception.IopcomercialcalendarIcmclcwbException;
@@ -59,13 +59,13 @@ public class IOPComercialCalendarCalendarServiceImpl implements IOPComercialCale
         .append(properties.getEndpoint())
         .append(query);
     try {
-      final HorarioComercialFestivoDocDto[] response = RestUtils.checkResponse(this.iopcomercialcalendarClient
-          .getForEntity(url.toString(), HorarioComercialFestivoDocDto[].class),
+      final EndpointResponseDto response = RestUtils.checkResponse(this.iopcomercialcalendarClient
+          .getForEntity(url.toString(), EndpointResponseDto.class),
           this.iopcomercialcalendarClient,
           properties.getEndpoint(), request);
 
       final ResponseDto<HorarioComercialFestivoDocDto> result = new ResponseDto<>();
-      result.setData(Arrays.asList(response));
+      result.setData(response.getData().stream().toList());
       return result;
     } catch (final Exception e) {
       throw new IopcomercialcalendarIcmclcwbException("Error en cliente iopcomercialcalendar [url: " + url + "]", e);
