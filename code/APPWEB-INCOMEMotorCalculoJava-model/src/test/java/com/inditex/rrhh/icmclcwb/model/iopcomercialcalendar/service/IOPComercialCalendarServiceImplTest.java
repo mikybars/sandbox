@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.authenticate.dto.AuthenticateResponseDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.EndpointResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.IopcomercialcalendarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.ResponseDto;
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.exception.IopcomercialcalendarIcmclcwbException;
@@ -37,7 +38,7 @@ class IOPComercialCalendarServiceImplTest {
 
   private static final String ENDPOINT_AUTHENTICATE = "/auth";
 
-  private static final String ENDPOINT_FESTIVOS = "/festivos";
+  private static final String ENDPOINT_FESTIVOS = "/v1/holidays?";
 
   @Mock
   private RestClient iopcomercialcalendarClient;
@@ -54,7 +55,7 @@ class IOPComercialCalendarServiceImplTest {
   @InjectMocks
   private IOPComercialCalendarCalendarServiceImpl iopcomercialcalendarService;
 
-  private final HorarioComercialFestivoDocDto horaioComercial = HorarioComercialFestivoDocDto
+  private final HorarioComercialFestivoDocDto horarioComercial = HorarioComercialFestivoDocDto
       .builder()
       .date("2021-01-01")
       .name("Año nuevo")
@@ -81,9 +82,10 @@ class IOPComercialCalendarServiceImplTest {
     when(this.iopcomercialcalendarProperties.get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO))
         .thenReturn(properties);
 
-    final ResponseEntity<HorarioComercialFestivoDocDto[]> responseMock = this.mockResponse(
-        new HorarioComercialFestivoDocDto[]{this.horaioComercial});
-    when(this.iopcomercialcalendarClient.getForEntity(any(String.class), eq(HorarioComercialFestivoDocDto[].class)))
+    final EndpointResponseDto endpointResponseDto = new EndpointResponseDto();
+    endpointResponseDto.setData(List.of(this.horarioComercial));
+    final ResponseEntity<EndpointResponseDto> responseMock = this.mockResponse(endpointResponseDto);
+    when(this.iopcomercialcalendarClient.getForEntity(any(String.class), eq(EndpointResponseDto.class)))
         .thenReturn(responseMock);
     when(this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(any(HorarioComercialFestivosRequestDto.class)))
         .thenReturn("storeIds=");
@@ -104,18 +106,7 @@ class IOPComercialCalendarServiceImplTest {
     final List<HorarioComercialFestivoDocDto> actualValue = response
         .getData();
     assertEquals(1, actualValue.size());
-    assertEquals(this.horaioComercial, actualValue.get(0));
-  }
-
-  @Test
-  void festivosHasNextTest() {
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    final ResponseDto<HorarioComercialFestivoDocDto> response = this.iopcomercialcalendarService
-        .horarioComercialFestivos(request);
-    final List<HorarioComercialFestivoDocDto> actualValue = response
-        .getData();
-    assertEquals(1, actualValue.size());
-    assertEquals(this.horaioComercial, actualValue.get(0));
+    assertEquals(this.horarioComercial, actualValue.get(0));
   }
 
   @Test
