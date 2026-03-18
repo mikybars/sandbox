@@ -479,7 +479,7 @@ public class TestServiceImpl implements TestService {
     TestServiceImpl.LOG.info("ENDPOINT: {}", endpoint);
 
     final ResponseEntity<EndpointResponseDto> responseHorarioComercial = this.iopcomercialcalendarClient
-        .getForEntity(endpoint + "storeIds=",
+        .getForEntity(endpoint + "storeIds=229&startDate=2026-01-01&endDate=2026-01-31",
             EndpointResponseDto.class);
     TestServiceImpl.LOG.info("responseHorarioComercial: {}",
         responseHorarioComercial);
