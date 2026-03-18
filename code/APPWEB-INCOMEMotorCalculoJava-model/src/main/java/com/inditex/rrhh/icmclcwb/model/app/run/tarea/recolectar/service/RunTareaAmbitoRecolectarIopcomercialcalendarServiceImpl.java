@@ -91,8 +91,7 @@ public class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl implements 
           AsyncUtils.exceptionally(cfHorarioComercialFestivos, cf);
           final ResponseDto<HorarioComercialFestivoDocDto> data = AsyncUtils
               .get(cfHorarioComercialFestivos);
-          final List<HorarioComercialFestivoDocDto> festivos = data.getData().stream()
-              .filter(f -> f.getType().equals(HorarioComercialPropertiesConstants.CLOSED_STORE_VALUE)).toList();
+          final List<HorarioComercialFestivoDocDto> festivos = data.getData();
 
           if (CollectionUtils.isNotEmpty(festivos)) {
             final CompletableFuture<Void> cfSave = this.tareaLocalizacionFestivoAsyncService
