@@ -1,0 +1,186 @@
+# ============================================================================
+# Pull upstream changes Workflow (reusable)
+# ============================================================================
+# This workflow pulls changes from an upstream (source) repository into a
+# sync branch and opens a pull request to merge them into the target branch.
+#
+# It is designed to be called from another workflow (workflow_call) but can
+# also be triggered manually (workflow_dispatch) for a single branch pair.
+#
+# Setup instructions:
+#
+#   1. In your repo Settings > Actions > General > Workflow permissions:
+#      - Select "Read and write permissions"
+#      - Check "Allow GitHub Actions to create and approve pull requests"
+#      - Click Save
+#
+#   2. Create a classic PAT with the "repo" scope at:
+#      https://github.com/settings/tokens → "Generate new token (classic)"
+#      If the org uses SSO, authorize the token for the org on that same page:
+#      click "Configure SSO" next to the token and authorize it.
+#
+#      ⚠️  A classic PAT is always tied to a personal account. If that person
+#      leaves the team, the token must be rotated.
+#
+#   3. In your repo Settings > Secrets and variables > Actions:
+#      - Click "New repository secret"
+#      - Name: UPSTREAM_TOKEN / Value: the PAT you just created
+#
+#   4. Update the variables below to match your setup.
+# ============================================================================
+
+name: 'Pull upstream changes'
+
+env:
+  # Prefix for the sync branch, prepended as-is (e.g. "sync/" → sync/owner-repo-branch)
+  SYNC_BRANCH_PREFIX: automated/sync-
+  # Label applied to sync PRs (name, description, color)
+  SYNC_PR_LABEL: upstream/sync
+  SYNC_PR_LABEL_DESCRIPTION: Automated PR to sync changes from upstream
+  SYNC_PR_LABEL_COLOR: 1D76DB
+
+on:
+  # Called from the scheduler workflow
+  workflow_call:
+    inputs:
+      upstream_repo:
+        description: Upstream repository to sync from (owner/repo)
+        required: true
+        type: string
+      upstream_branch:
+        description: Branch to sync from in the upstream repository
+        required: true
+        type: string
+      target_branch:
+        description: Branch to merge upstream changes into (PR target)
+        required: true
+        type: string
+    secrets:
+      UPSTREAM_TOKEN:
+        required: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Check for existing sync PR
+    outputs:
+      skip: ${{ steps.check_pr.outputs.skip }}
+    steps:
+      - name: Look for open sync PRs
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --label "${{ env.SYNC_PR_LABEL }}" \
+            --base "${{ inputs.target_branch }}" \
+            --state open \
+            --json number,url \
+            --jq '.[0] // empty')
+          if [ -n "$EXISTING_PR" ]; then
+            PR_URL=$(echo "$EXISTING_PR" | jq -r '.url')
+            echo "There is another sync PR already open: $PR_URL — skipping."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ### ⏭️ Sync skipped (${{ inputs.upstream_branch }} → ${{ inputs.target_branch }})
+          There is another sync PR already open:
+          - $PR_URL
+
+          Merge that ☝🏼 first before continuing!
+          EOF
+          else
+            echo "No open sync PR found. Proceeding."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+  sync:
+    needs: check
+    if: needs.check.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+    name: Sync latest changes from upstream repo
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Set sync branch name
+        run: |
+          SUFFIX="${{ inputs.upstream_repo }}/${{ inputs.upstream_branch }}"
+          echo "SYNC_BRANCH=${{ env.SYNC_BRANCH_PREFIX }}${SUFFIX//\//-}" >> $GITHUB_ENV
+
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.target_branch }}
+          fetch-depth: 0
+          # Don't let actions/checkout set up a global credential helper —
+          # it would override the UPSTREAM_TOKEN we use for the upstream remote.
+          persist-credentials: false
+
+      - name: Pull upstream changes
+        id: sync
+        env:
+          UPSTREAM_TOKEN: ${{ secrets.UPSTREAM_TOKEN }}
+        run: |
+          # Add upstream remote with PAT for private repo access
+          git remote add upstream "https://x-access-token:${UPSTREAM_TOKEN}@github.com/${{ inputs.upstream_repo }}.git"
+
+          # Reconfigure origin with github.token (the global credential helper is disabled from the checkout step)
+          git remote set-url origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+
+          git fetch upstream "${{ inputs.upstream_branch }}"
+
+          # Check if there are new commits in upstream not yet in target
+          NEW_COMMITS=$(git log HEAD..upstream/${{ inputs.upstream_branch }} --oneline)
+
+          if [ -z "$NEW_COMMITS" ]; then
+            echo "No new commits to sync."
+            echo "has_new_commits=false" >> $GITHUB_OUTPUT
+            cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ### ✅ Already up to date (${{ inputs.upstream_branch }} → ${{ inputs.target_branch }})
+          No new commits found in upstream.
+          EOF
+          else
+            echo "New commits found:"
+            echo "$NEW_COMMITS"
+
+            # Create the sync branch pointing directly at upstream HEAD
+            git switch --force-create "${{ env.SYNC_BRANCH }}" upstream/${{ inputs.upstream_branch }}
+
+            # Push the sync branch (create or update)
+            git push --force origin "${{ env.SYNC_BRANCH }}"
+            echo "has_new_commits=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.sync.outputs.has_new_commits == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Ensure the label exists in the repo
+          gh label create "${{ env.SYNC_PR_LABEL }}" \
+            --repo "${{ github.repository }}" \
+            --description "${{ env.SYNC_PR_LABEL_DESCRIPTION }}" \
+            --color "${{ env.SYNC_PR_LABEL_COLOR }}" \
+            2>/dev/null || true
+
+          PR_BODY=$(cat <<BODY
+          This is an automated PR to merge upstream changes from [${{ inputs.upstream_repo }}:${{ inputs.upstream_branch }}](https://github.com/${{ inputs.upstream_repo }}/tree/${{ inputs.upstream_branch }})
+
+          > [!WARNING]
+          > For troubleshooting, it is important to use **merge commit** when merging this PR
+          BODY
+          )
+
+          PR_URL=$(gh pr create \
+            --repo "${{ github.repository }}" \
+            --title "chore(sync): pull upstream changes (${{ inputs.upstream_branch }} → ${{ inputs.target_branch }})" \
+            --body "$PR_BODY" \
+            --head "${{ env.SYNC_BRANCH }}" \
+            --base "${{ inputs.target_branch }}" \
+            --label "${{ env.SYNC_PR_LABEL }}")
+          cat >> $GITHUB_STEP_SUMMARY <<EOF
+          ### 🔄 Sync PR created (${{ inputs.upstream_branch }} → ${{ inputs.target_branch }})
+          $PR_URL
+          EOF
