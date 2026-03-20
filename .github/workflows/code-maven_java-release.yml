@@ -43,7 +43,7 @@ on:
         type: boolean
 
 env:
-  WORKFLOW_VERSION: 2.52.1
+  WORKFLOW_VERSION: 2.56.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -65,7 +65,7 @@ jobs:
       || (github.event.pull_request.merged == true && !contains(join(github.event.pull_request.labels.*.name, ', '), 'skip-release')
         && (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type')
         || vars.DEVELOPMENT_FLOW == 'trunk-based-development' && !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision')))
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     permissions:
       actions: write
       contents: write
@@ -134,13 +134,11 @@ jobs:
           persist-credentials: false
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
-        env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.18.0-ubuntu24.04-r0
-          ASDF_RHUBI_IMAGE_TAG: 0.18.0-rhubi-r0
-          ASDF_CENTOS_IMAGE_TAG: 0.18.0-centos-r0
+        id: infer-asdf-image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v2
         with:
           tool-versions-directory: code
+          image-override: ${{ vars.CI_AGENTS_ASDF_IMAGE_OVERRIDE || '' }}
           github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Setup Maven Cache
@@ -148,18 +146,18 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.m2/repository
-          key: ${{ env.ASDF_IMAGE_TAG }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ env.ASDF_IMAGE_TAG }}-maven-
+            ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-maven-
 
       - name: Setup asdf Cache
         uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.asdf/data
-          key: ${{ env.ASDF_IMAGE_TAG }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          key: ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-asdf-${{ hashFiles('**/.tool-versions') }}
           restore-keys: |
-            ${{ env.ASDF_IMAGE_TAG }}-asdf-
+            ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-asdf-
 
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
@@ -251,7 +249,7 @@ jobs:
             --mount type=bind,src="$HOME"/.m2/repository,dst=/home/runner/.m2/repository \
             --mount type=bind,src="$HOME"/.gnupg,dst=/home/runner/.gnupg \
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
-            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${{ steps.infer-asdf-image.outputs.asdf-image-tag }}" \
             mvn -B release:prepare release:perform $MVN_RELEASE_TYPE $MVN_RELEASE_ARGS $MVN_BUILD_CACHE_OPTS
 
       - name: GitHub Release / Get final version number from latest tag in branch

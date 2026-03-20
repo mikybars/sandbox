@@ -8,7 +8,7 @@ A manual dispatch (`workflow_dispatch`) invoked from the GitHub UI.
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`citool-github__ubuntu24.04-medium` slef hosted runners.
 
 ## Versions used
 

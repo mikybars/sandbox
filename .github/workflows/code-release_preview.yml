@@ -11,7 +11,7 @@ on:
     branches: ['main', 'main-*']
 
 env:
-  WORKFLOW_VERSION: 2.52.1
+  WORKFLOW_VERSION: 2.56.0
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
   CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
@@ -21,7 +21,7 @@ env:
 jobs:
   check-changes-in-paths:
     name: Check for changes in corresponding paths
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     if: ${{ github.event.pull_request.draft == false || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview') }}
     outputs:
       detected: ${{ steps.changes.outputs.paths }}
@@ -39,7 +39,7 @@ jobs:
     name: Release Preview
     needs: check-changes-in-paths
     if: ${{ (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview')) && needs.check-changes-in-paths.outputs.detected == 'true' }}
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     steps:
       - name: Checkout merge commit
         uses: actions/checkout@v4
@@ -306,7 +306,7 @@ jobs:
     name: Add PR comment with configuration management information
     needs: check-changes-in-paths
     if: ${{ (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview'))) && needs.check-changes-in-paths.outputs.detected == 'false' }}
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -333,7 +333,7 @@ jobs:
     name: Add PR comment with release information
     needs: check-changes-in-paths
     if: ${{ !contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') && needs.check-changes-in-paths.outputs.detected == 'true' && github.event.pull_request.draft == false && vars.DEVELOPMENT_FLOW != 'trunk-based-development' }}
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:

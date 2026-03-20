@@ -10,10 +10,10 @@ on:
     paths:
       - 'code/**'
       - '.github/workflows/code*'
-    types: [opened, synchronize, ready_for_review, reopened]
+    types: [opened, synchronize, ready_for_review, reopened, labeled]
 
 env:
-  WORKFLOW_VERSION: 2.52.1
+  WORKFLOW_VERSION: 2.56.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -21,7 +21,7 @@ jobs:
   unit-tests:
     name: Code / Verify
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_ONPREM || '["citool-icr__code-ubuntu24.04-large"]') }}
-    if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
+    if: ${{ (github.event.action != 'labeled' || contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries')) && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     permissions:
       contents: write
       checks: write
@@ -99,6 +99,7 @@ jobs:
           mvn -B clean verify -Djacoco.skip=false -Damiga.jacoco -DskipITs -DfailIfNoTests=false -Dmaven.test.failure.ignore=false $MVN_BUILD_CACHE_OPTS
 
       - name: Maven / Verify artifact with coverage and deploy PR-versioned SNAPSHOT binaries
+        id: deploy-snapshot
         if: ${{ contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries') }}
         working-directory: code
         env:
@@ -211,3 +212,24 @@ jobs:
             -Dsonar.pullrequest.github.repository="${{ github.repository }}" \
             -Dsonar.pullrequest.github.summary_comment=true \
             -Dsonar.coverage.jacoco.xmlReportPaths="$JACOCO_REPORT_PATH"
+
+      - name: Dependabot / Notify about autopublish/snapshot-binaries permissions
+        if: ${{ failure() && steps.deploy-snapshot.outcome == 'failure' && github.actor == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'autopublish/snapshot-binaries') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MESSAGE="## ⚠️ Dependabot PR with autopublish/snapshot-binaries label
+
+          This workflow was triggered by Dependabot, which runs with minimal permissions and **cannot publish SNAPSHOT binaries** due to security restrictions.
+
+          ### What happened?
+          The \`autopublish/snapshot-binaries\` label is present on this PR, but [Dependabot does not have the necessary permissions](https://docs.github.com/en/code-security/dependabot/troubleshooting-dependabot/troubleshooting-dependabot-on-github-actions#accessing-secrets) to execute \`mvn deploy\` with the needed credentials.
+
+          ### How to fix this?
+          If you want to publish PR-versioned SNAPSHOT binaries for this PR:
+          1. Remove the \`autopublish/snapshot-binaries\` label
+          2. Re-add the \`autopublish/snapshot-binaries\` label manually
+
+          This will re-trigger the workflow with the correct permissions, allowing the SNAPSHOT deployment to succeed."
+
+          gh pr comment ${{ github.event.pull_request.number }} --body "$MESSAGE"
