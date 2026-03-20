@@ -1,0 +1,93 @@
+---
+name: jira-transition
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed, ready_for_review, converted_to_draft]
+  pull_request_review:
+    types: [dismissed, submitted]
+
+env:
+  WORKFLOW_VERSION: 1.7.0
+  GITHUB_REGISTRY: ghcr.io
+  CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
+  CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
+
+jobs:
+  jira-transition:
+    if: ${{ github.event_name != 'pull_request_review' || contains('approved dismissed', github.event.review.state)
+        || contains('changes_requested', github.event.review.state) }}
+    name: Jira Transition
+    runs-on: ${{ fromJSON( vars.RUNSON_JIRATRANSITION_GENERIC || '["citool-icr-aks__ubuntu24.04-small"]' ) }}
+    steps:
+      - name: Jira Transition
+        uses: inditex/gha-jiratransition@v1
+        with:
+          extraHeaders: "{ \"itx-apikey\": \"${{secrets.JANUS_JIRASIST_APIKEY}}\"}"
+          jiraUsername: ${{ vars.SRVCJIRATRANSIT_USERNAME }}
+          jiraPassword: ${{ secrets.SRVCJIRATRANSIT_PASSWORD }}
+          jiraAPIRoot: /jirasist/rest/api/2/
+          jiraHost: api.inditex.com
+
+  jira-transition-release:
+    if: ( github.base_ref == 'main' || startsWith(github.base_ref, 'main-') ) &&
+        ( github.event.pull_request.merged == true &&
+          !contains(github.event.pull_request.labels.*.name, 'release-mode/skip-changelog') ) &&
+        ( contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') ||
+          ( vars.DEVELOPMENT_FLOW == 'trunk-based-development' &&
+            !contains(join(github.event.pull_request.labels.*.name, ', '), 'butler/feature-provision') &&
+            !contains(github.event.pull_request.labels.*.name, 'skip-release')
+          )
+        )
+    name: Jira Transition in release event
+    runs-on: ${{ fromJSON( vars.RUNSON_JIRATRANSITION_DOCKER || '["citool-icr-aks__ubuntu24.04-small"]' ) }}
+    needs: [jira-transition]
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Log in to GitHub Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+
+      - name: Get whats-changed.md
+        run: |
+          # shellcheck disable=SC2086
+          docker run --workdir /app/code \
+            -u runner \
+            -e ISSUE_TRACKER_JIRA_USERNAME=${{ vars.SRVCJIRATRANSIT_USERNAME }} \
+            -e ISSUE_TRACKER_JIRA_SECRET=${{ secrets.SRVCJIRATRANSIT_PASSWORD }} \
+            -e ISSUE_TRACKER_EXTRAHEADERS="{ \"itx-apikey\": \"${{secrets.JANUS_JIRASIST_APIKEY}}\"}" \
+            -e ISSUE_TRACKER_GITHUB_SECRET="${{ secrets.GITHUB_TOKEN }}" \
+            --mount type=bind,src="$(pwd)",dst=/app \
+            "${GITHUB_REGISTRY}/${CHANGELOG_DRAFTER_IMAGE_NAME}:${CHANGELOG_DRAFTER_IMAGE_TAG}" \
+            sh -c "changelog-drafter release --headless --drafterconfig-path .ci-drafterconfig.yml > .release-version 2> .error.log \
+              && changelog-drafter whats-changed > .whats-changed.md"
+
+      - name: Get related issues
+        id: get-issues
+        shell: python
+        run: |
+          import re
+          import os
+          with open('code/.whats-changed.md', 'r') as file:
+              cdrafter_output = file.read()
+          result = re.findall(r"- \[(\w+-\d+)\]\(.*", cdrafter_output)
+          if result != None:
+              result_output = ','.join(result)
+              github_output = os.getenv('GITHUB_OUTPUT')
+              with open(github_output, "a") as gh_out:
+                  gh_out.write(f'issues={result_output}\n')
+
+      - name: Jira Transition
+        if: ${{ steps.get-issues.outputs.issues != '' }}
+        uses: inditex/gha-jiratransition@v1
+        with:
+          extraHeaders: "{ \"itx-apikey\": \"${{secrets.JANUS_JIRASIST_APIKEY}}\"}"
+          jiraUsername: ${{ vars.SRVCJIRATRANSIT_USERNAME }}
+          jiraPassword: ${{ secrets.SRVCJIRATRANSIT_PASSWORD }}
+          jiraAPIRoot: /jirasist/rest/api/2/
+          jiraHost: api.inditex.com
+          releaseIssues: ${{ steps.get-issues.outputs.issues }}
