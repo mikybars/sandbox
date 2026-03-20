@@ -1,13 +1,13 @@
 ---
 # For more information, see: https://github-cicd.docs.inditex.dev/githubcicd/stable/features/jira-transition.html#configuration-file
 version: '1.0'
+# https://jira.inditex.com/jira/rest/api/2/issue/IOPINCOME-1/transitions
 jira-transitions:
   name: 'Default transitions'
   default-transitions:
-    draft: '131' # In progress
-    ready-for-review: '141' # In review
-    approved: '151' # Ready to Verify
-    merged: '161' # Accepted
-    reopened: '201' # To Reword
-    release: '171' # To Deploy
+    draft: '131' # In Progress
+    ready-for-review: '141' # In Review
+    approved: '141' # In Review
+    reopened: '201' # To Rework
+    merged: '151' # Ready to Verify
 issue-regexp-search: '^[\s]{0,}\[?(?<issueId>[A-Z]{2,}-\d+)\]?(.*)$'
