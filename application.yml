@@ -1,6 +1,7 @@
+---
 metadata:
   domain: rhcompensa
-  service: income
-  project_key: ICMCLCWB
-  project_name: mic-incomemotorcalculojava
+  project_key: ICMCLCCORE
+  project_name: mic-motorcalculoincome
   risk_profile: HIGH (7.0)
+  service: income
