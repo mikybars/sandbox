@@ -2,7 +2,7 @@ spring:
   main:
     allow-bean-definition-overriding: false
   application:
-    name: ICMCLCWB
+    name: ICMCLCCORE
   profiles:
     active: standalone
 app:
