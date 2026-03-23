@@ -57,6 +57,9 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpieza();
+
+    when(this.tareaService.findLimpieza()).thenThrow(new Exception("Error durante limpieza"));
+
   }
 
   @Test
@@ -74,6 +77,8 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     org.junit.jupiter.api.Assertions.assertNotNull(returnedResult);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
+
+    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenThrow(new Exception("Error durante limpieza"));
   }
 
   @Test
@@ -104,6 +109,9 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaService, times(1)).findLimpieza();
     verify(this.tareaLimpiezaService, times(1)).save(anyList());
     verify(this.senderLimpieza, times(2)).send(any(TareaLimpiezaDto.class));
+
+    when(this.tareaLimpiezaService.save(anyList())).thenThrow(new Exception("Error durante limpieza"));
+
   }
 
   @Test

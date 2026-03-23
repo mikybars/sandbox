@@ -35,7 +35,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
   @Override
   public RunMantenimientoLimpiezaDTO run() {
-    // Capturar el contexto de seguridad ANTES de lanzar el thread
     final SecurityContext securityContext = SecurityContextHolder.getContext();
 
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
@@ -55,13 +54,11 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
       this.manejarErrorLimpieza("Excepción no capturada en limpieza background", error);
       return null;
     });
-    // Retornar inmediatamente respuesta vacía
     return new RunMantenimientoLimpiezaDTO();
   }
 
   @Override
   public RunMantenimientoLimpiezaDTO runIdTarea(@NotNull final Long id) {
-    // Capturar el contexto de seguridad ANTES de lanzar el thread
     final SecurityContext securityContext = SecurityContextHolder.getContext();
 
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
@@ -81,12 +78,11 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
       this.manejarErrorLimpieza("Excepción no capturada en limpieza por ID background", error);
       return null;
     });
-    // Retornar inmediatamente respuesta vacía
     return new RunMantenimientoLimpiezaDTO();
   }
 
   /**
-   * Procesa la limpieza de forma SÍNCRONA (ya estamos en un thread separado).
+   * Procesa la limpieza de forma SÍNCRONA
    *
    * @param result resultado de la búsqueda de tareas
    * @param contexto contexto para logs
@@ -104,7 +100,7 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
         LOG.info("Procesando {} tareas para {}", result.getIdTarea().size(), contexto);
       }
 
-      // Guardar tareas en BD (SÍNCRONO - el contexto de seguridad ya está propagado)
+      // Guardar tareas en BD (SÍNCRONO)
       final List<TareaLimpiezaDto> tareas = this.tareaLimpiezaService.save(result.getIdTarea());
 
       // Enviar tareas a cola JMS (SÍNCRONO)
