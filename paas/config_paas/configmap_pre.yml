@@ -3,7 +3,7 @@ amiga:
     oauth2-client:
       clients:
         client-income:
-          client-id: oauthincomepre
+          client-id: oauthiopincomepro
     cache:
       redis:
         cluster:
