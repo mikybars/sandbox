@@ -4,4 +4,4 @@ metadata:
   project_key: ICMCLCCORE
   project_name: mic-motorcalculoincome
   risk_profile: HIGH (7.0)
-  service: income
+  service: iopincome

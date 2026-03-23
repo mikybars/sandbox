@@ -506,7 +506,7 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthincomepre
+              client-id: oauthiopincomepro
 app:
   envars:
     mail:
