@@ -9,7 +9,7 @@
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`https://github.com/inditex/.github/blob/main/features/dependabot/resources/.github/dependabot.yml#L170` GitHub infrastructure.
 
 ## Versions used
 
