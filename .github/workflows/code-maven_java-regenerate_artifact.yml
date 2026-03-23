@@ -10,7 +10,7 @@ on:
         required: true
 
 env:
-  WORKFLOW_VERSION: 2.52.1
+  WORKFLOW_VERSION: 2.56.0
   GITHUB_REGISTRY: ghcr.io
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
   DP_USERNAME: ${{ secrets.DIST_PLAT_DEPLOYER_USERNAME }}
@@ -22,7 +22,7 @@ env:
 jobs:
   regenerate-artifact:
     name: Regenerate artifact
-    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_MAVEN_JAVA_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     outputs:
       is-service: ${{ steps.project.outputs.is-service }}
     steps:
@@ -38,23 +38,20 @@ jobs:
           echo "is-service=$(if test -d paas || test -d faas; then echo 1; else echo 0; fi)" >> "$GITHUB_OUTPUT"
 
       - name: Infer ci-agents asdf image
-        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v1
-        env:
-          ASDF_UBUNTU_IMAGE_TAG: 0.18.0-ubuntu24.04-r0
-          ASDF_RHUBI_IMAGE_TAG: 0.18.0-rhubi-r0
-          ASDF_CENTOS_IMAGE_TAG: 0.18.0-centos-r0
+        id: infer-asdf-image
+        uses: inditex/gha-ivmactions/infer-ci-agent-asdf@v2
         with:
           tool-versions-directory: code
+          image-override: ${{ vars.CI_AGENTS_ASDF_IMAGE_OVERRIDE || '' }}
           github-token: ${{ secrets.GH_TOKEN_READER }}
-
       - name: Setup asdf Cache
         uses: actions/cache@v4
         continue-on-error: true
         with:
           path: ~/.asdf/data
-          key: ${{ env.ASDF_IMAGE_TAG }}-asdf-${{ hashFiles('**/.tool-versions') }}
+          key: ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-asdf-${{ hashFiles('**/.tool-versions') }}
           restore-keys: |
-            ${{ env.ASDF_IMAGE_TAG }}-asdf-
+            ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-asdf-
 
       - name: Log in to GitHub Registry
         run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
@@ -106,7 +103,7 @@ jobs:
             -e TOOLVER_DISTRO_BRANCH=${{ vars.TOOLVER_DISTRO_BRANCH }} \
             --mount type=bind,src="$(pwd)",dst=/app \
             --mount type=bind,src="$HOME"/.asdf/data,dst=/opt/asdf/data \
-            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${ASDF_IMAGE_TAG}" \
+            "${GITHUB_REGISTRY}/${ASDF_IMAGE_NAME}:${{ steps.infer-asdf-image.outputs.asdf-image-tag }}" \
             mvn -DskipEnforceSnapshots -DskipITs -Dbuild.type=release -DskipTests $MVN_BUILD_CACHE_OPTS deploy
 
       - name: PaaS / Dispatch Build Deployable

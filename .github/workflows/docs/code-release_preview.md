@@ -8,7 +8,7 @@ Any pull request `labeled` to `main` branch about `code` path with `release-type
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`citool-github__ubuntu24.04-medium` GitHub infrastructure.
 
 ## Jobs
 

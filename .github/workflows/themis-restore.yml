@@ -6,7 +6,7 @@ on:
     types: [labeled]
 
 env:
-  WORKFLOW_VERSION: 3.1.0
+  WORKFLOW_VERSION: 3.2.0
 
 jobs:
   dbrestore:
