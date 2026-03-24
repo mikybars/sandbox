@@ -8,12 +8,12 @@ import com.inditex.amigafwk.common.metrics.annotation.CounterFunctionalMetric;
 import com.inditex.amigafwk.common.metrics.annotation.TimerFunctionalMetric;
 import com.inditex.rrhh.icmclcwb.api.app.aop.annotation.Auditoria;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarIopcomercialcalendarAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaRecolectarCondicionesService;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
@@ -44,7 +44,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
 
   private final RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
-  private final RunTareaRecolectarSlrhorcomsAsyncService runTareaRecolectarSlrhorcomsAsyncService;
+  private final RunTareaRecolectarIopcomercialcalendarAsyncService runTareaRecolectarIopcomercialcalendarAsyncService;
 
   private final RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
 
@@ -303,7 +303,7 @@ public class RunTareaRecolectarCondicionesServiceImpl implements RunTareaRecolec
       AsyncUtils.exceptionally(cfPoliticasAgrupacion, cf, cfWait);
 
       // Festivos
-      final CompletableFuture<Void> cfFestivos = this.runTareaRecolectarSlrhorcomsAsyncService
+      final CompletableFuture<Void> cfFestivos = this.runTareaRecolectarIopcomercialcalendarAsyncService
           .horarioComercialFestivoByRunTarea(runTarea);
       AsyncUtils.exceptionally(cfFestivos, cf, cfWait);
 

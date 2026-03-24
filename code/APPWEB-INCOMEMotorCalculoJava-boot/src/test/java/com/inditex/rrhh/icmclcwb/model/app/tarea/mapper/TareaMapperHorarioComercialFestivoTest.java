@@ -1,12 +1,12 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,125 +21,72 @@ public class TareaMapperHorarioComercialFestivoTest {
   private final TareaMapper tareaMapper = Mappers.getMapper(TareaMapper.class);
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryNullRequestTest() {
+  public void horarioComercialFestivosRequestDtoToQueryParamsNullRequestTest() {
 
     final HorarioComercialFestivosRequestDto request = null;
 
-    assertEquals("q=*", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
+    assertEquals("storeIds=", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
 
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryNoValuesTest() {
+  public void horarioComercialFestivosRequestDtoToQueryParamsNoValuesTest() {
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
 
-    assertEquals("q=*", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
+    assertEquals("storeIds=", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdPaisTest() {
+  public void horarioComercialFestivosRequestDtoToQueryParamsIdTiendaUniqueTest() {
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdPais("11");
+    request.setIdTienda(List.of("21"));
 
-    assertEquals("q=idPais:11", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
+    assertEquals("storeIds=21",
+        this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdCadenaTest() {
-
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdCadena("1");
-
-    assertEquals("q=idCadena:1", this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdTiendaTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsIdTiendaTest() {
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
     request.setIdTienda(Arrays.asList("21", "112"));
 
-    assertEquals("q=(idTienda:21 OR idTienda:112)",
+    assertEquals("storeIds=21,112",
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryFechasTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsDatesTest() {
 
+    final LocalDate startDate = LocalDate.of(2020, 3, 1);
+    final LocalDate endDate = LocalDate.of(2020, 4, 5);
+    final String expectedResult = "storeIds=&startDate=2020-03-01&endDate=2020-04-06"; // endDate is incremented by 1 day in the mapper to
+                                                                                       // make the end date inclusive
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setFechaDesde(LocalDate.of(2020, 3, 1));
-    request.setFechaHasta(LocalDate.of(2020, 4, 5));
+    request.setFechaDesde(startDate);
+    request.setFechaHasta(endDate);
 
-    assertNotNull(this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdPaisAndFechaTest() {
-
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdPais("11");
-    request.setFechaDesde(LocalDate.of(2020, 3, 1));
-    request.setFechaHasta(LocalDate.of(2020, 4, 5));
-
-    assertNotNull(
+    assertEquals(expectedResult,
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdPaisAndIdCadenaTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsAllParamsTest() {
+
+    final List<String> storeIds = Arrays.asList("21", "112");
+    final LocalDate startDate = LocalDate.of(2020, 3, 1);
+    final LocalDate endDate = LocalDate.of(2020, 4, 5);
+    final String expectedResult = "storeIds=21,112&startDate=2020-03-01&endDate=2020-04-06"; // endDate is incremented by 1 day in the
+                                                                                             // mapper to make the end date inclusive
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdPais("11");
-    request.setIdCadena("2");
+    request.setFechaDesde(startDate);
+    request.setFechaHasta(endDate);
+    request.setIdTienda(storeIds);
 
-    assertEquals("q=idCadena:2 AND idPais:11",
-        this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdTiendaAndIdCadenaTest() {
-
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdTienda(Arrays.asList("111", "123"));
-    request.setIdCadena("2");
-
-    assertEquals("q=(idTienda:111 OR idTienda:123) AND idCadena:2",
-        this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToQueryNullTest() {
-
-    assertEquals("q=*",
-        this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(null));
-
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToQueryPaginationTest() {
-
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setStart(12);
-    request.setRows(71);
-
-    assertEquals("q=*&rows=71&start=12",
-        this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
-
-  }
-
-  @Test
-  public void horarioComercialFestivosRequestDtoToSolrQueryIdPaisAndFechaAndPaginationTest() {
-
-    final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
-    request.setIdPais("11");
-    request.setFechaDesde(LocalDate.of(2020, 3, 1));
-    request.setFechaHasta(LocalDate.of(2020, 4, 5));
-    request.setRows(89);
-    request.setStart(155);
-
-    assertNotNull(
+    assertEquals(expectedResult,
         this.tareaMapper.horarioComercialFestivosRequestDtoToQuery(request));
   }
 
