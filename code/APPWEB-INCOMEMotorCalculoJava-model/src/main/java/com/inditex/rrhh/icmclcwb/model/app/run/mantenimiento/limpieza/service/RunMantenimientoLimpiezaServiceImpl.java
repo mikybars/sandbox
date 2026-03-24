@@ -81,12 +81,6 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
     return new RunMantenimientoLimpiezaDTO();
   }
 
-  /**
-   * Procesa la limpieza de forma SÍNCRONA
-   *
-   * @param result resultado de la búsqueda de tareas
-   * @param contexto contexto para logs
-   */
   private void procesarLimpieza(final RunMantenimientoLimpiezaDTO result, final String contexto) {
     if (result == null || result.getIdTarea() == null || result.getIdTarea().isEmpty()) {
       if (LOG.isInfoEnabled()) {
