@@ -61,7 +61,7 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     name: Check for existing sync PR
     outputs:
       skip: ${{ steps.check_pr.outputs.skip }}
@@ -97,7 +97,7 @@ jobs:
   sync:
     needs: check
     if: needs.check.outputs.skip == 'false'
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     name: Sync latest changes from upstream repo
     permissions:
       contents: write
