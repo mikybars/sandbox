@@ -11,9 +11,9 @@ amiga:
     rest:
       client:
         iopcomercialcalendar:
-          base-url: https://people-pre.idp.inditex.com/michorario
+          base-url: https://people-pre.inditex.com/michorario
           ping-query:
-            path: https://people-pre.idp.inditex.com/michorario/amiga/health
+            path: https://people-pre.inditex.com/michorario/amiga/health
         ptr-venta:
           base-url: http://rhvtimpwsd.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbdes
