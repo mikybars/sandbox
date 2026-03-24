@@ -21,13 +21,13 @@ on:
     paths: [".github/workflows/code-*-sca_analysis.yml", "code/**/pom.xml"]
 
 env:
-  WORKFLOW_VERSION: 1.3.0
+  WORKFLOW_VERSION: 1.3.1
   WORKING_DIR: code
 
 jobs:
   sca-analysis-execution:
     runs-on: ${{ fromJSON( vars.RUNSON_SCA_MAVEN_JAVA_ONPREM || '["auditassistant-icr__sca-ubuntu24.04"]' ) }}
-    name: SCA Analysis execution
+    name: SCA / Analysis execution
     if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     steps:
       - name: Checkout

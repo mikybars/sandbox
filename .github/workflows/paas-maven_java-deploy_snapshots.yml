@@ -53,7 +53,7 @@ on:
     paths: ['code/**', 'paas/**']
 
 env:
-  WORKFLOW_VERSION: 3.33.1
+  WORKFLOW_VERSION: 3.34.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
