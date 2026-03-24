@@ -126,8 +126,8 @@ jobs:
           # Add upstream remote with PAT for private repo access
           git remote add upstream "https://x-access-token:${UPSTREAM_TOKEN}@github.com/${{ inputs.upstream_repo }}.git"
 
-          # Reconfigure origin with github.token (the global credential helper is disabled from the checkout step)
-          git remote set-url origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          # Reconfigure origin with UPSTREAM_TOKEN (which must have the 'workflows' permission in the event of changes to .github/workflows/**)
+          git remote set-url origin "https://x-access-token:${UPSTREAM_TOKEN}@github.com/${{ github.repository }}.git"
 
           git fetch upstream "${{ inputs.upstream_branch }}"
 
