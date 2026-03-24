@@ -10,10 +10,10 @@ amiga:
           nodes: redis-cluster-icmclcwb-v5.icmclcwb.svc.cluster.local.:6379
     rest:
       client:
-        slrhorcoms:
-          base-url: http://develop.slrhorcoms.svc.cluster.local.:8080/slrhorcoms-develop
+        iopcomercialcalendar:
+          base-url: https://people-pre.inditex.com/michorario
           ping-query:
-            path: http://develop.slrhorcoms.svc.cluster.local.:8081/slrhorcoms-develop/amiga/health
+            path: https://people-pre.inditex.com/michorario/amiga/health
         ptr-venta:
           base-url: http://rhvtimpwsd.rhvtimpwsd.svc.cluster.local.:8080/rhvtimpwsd
           username: srvcicmclcwbdes
