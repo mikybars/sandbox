@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
@@ -71,7 +70,7 @@ public class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl implements 
             .findIdEmpresaByIdTarea(tarea.getId())
             .stream()
             .map(IdEmpresaDto::getStdIdLegEnt)
-            .collect(Collectors.toList());
+            .toList();
         for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
             this.tareaLocalizacionHistoricoService
                 .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(tarea.getId(),
@@ -83,7 +82,7 @@ public class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl implements 
               .mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(trabajo,
                   tarea, tareaAmbito);
           request
-              .setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
+              .setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).toList());
           RunTareaAmbitoRecolectarIopcomercialcalendarServiceImpl.LOG.info("Peticion de festivos: {}", request);
           final CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> cfHorarioComercialFestivos =
               this.iopComercialCalendarAsyncService

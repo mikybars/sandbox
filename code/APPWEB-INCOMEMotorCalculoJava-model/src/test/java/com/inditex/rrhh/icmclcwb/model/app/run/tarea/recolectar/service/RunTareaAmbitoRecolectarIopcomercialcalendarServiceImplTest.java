@@ -13,7 +13,6 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdEmpresaDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
@@ -58,10 +57,10 @@ class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImplTest {
   private TareaMapper tareaMapper;
 
   @Mock
-  private IOPComercialCalendarService IOPComercialCalendarService;
+  private IOPComercialCalendarService iopComercialCalendarService;
 
   @Mock
-  private IOPComercialCalendarAsyncService IOPComercialCalendarAsyncService;
+  private IOPComercialCalendarAsyncService iopComercialCalendarAsyncService;
 
   @Mock
   private TareaLocalizacionFestivoAsyncService tareaLocalizacionFestivoAsyncService;
@@ -108,7 +107,7 @@ class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImplTest {
       doReturn(true).when(this.tareaPersonaEstructuraService).calcularFestivos(this.runTarea.getTarea());
 
       doReturn(idEmpresaDtoList).when(this.tareaAmbitoGlobalEmpresaService).findIdEmpresaByIdTarea(this.runTarea.getTarea().getId());
-      final List<String> empresasAmbito = idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).collect(Collectors.toList());
+      final List<String> empresasAmbito = idEmpresaDtoList.stream().map(IdEmpresaDto::getStdIdLegEnt).toList();
 
       doReturn(idLocalizacionLocalDtoList).when(this.tareaLocalizacionHistoricoService)
           .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(this.runTarea.getTarea().getId(),
@@ -122,9 +121,9 @@ class RunTareaAmbitoRecolectarIopcomercialcalendarServiceImplTest {
       doReturn(request).when(this.tareaMapper).mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(
           this.runTarea.getTrabajo(), this.runTarea.getTarea(), this.tareaAmbito);
       // Acondicionamiento de request
-      request.setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).collect(Collectors.toList()));
+      request.setIdTienda(iter.stream().map(IdLocalizacionLocalDto::getId).toList());
 
-      doReturn(cfHorarioComercialFestivos).when(this.IOPComercialCalendarAsyncService).horarioComercialFestivos(request);
+      doReturn(cfHorarioComercialFestivos).when(this.iopComercialCalendarAsyncService).horarioComercialFestivos(request);
 
       doReturn(cfSave).when(this.tareaLocalizacionFestivoAsyncService).save(data.getData(), this.runTarea.getTarea());
 

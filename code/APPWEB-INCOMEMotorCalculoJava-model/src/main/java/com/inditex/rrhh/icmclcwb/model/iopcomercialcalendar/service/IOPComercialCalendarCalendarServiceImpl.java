@@ -20,8 +20,6 @@ import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.util.HorarioComercialP
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,8 +30,6 @@ import org.springframework.validation.annotation.Validated;
 @Service
 @Validated
 public class IOPComercialCalendarCalendarServiceImpl implements IOPComercialCalendarService {
-
-  private static final Logger LOG = LoggerFactory.getLogger(IOPComercialCalendarCalendarServiceImpl.class);
 
   @Autowired
   @Qualifier("iopcomercialcalendarClient")

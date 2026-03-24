@@ -63,7 +63,7 @@ class IOPComercialCalendarServiceImplTest {
       .build();
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     final IopcomercialcalendarPropertiesDto propertiesAuthenticate = new IopcomercialcalendarPropertiesDto();
     propertiesAuthenticate.setEndpoint(ENDPOINT_AUTHENTICATE);
     when(this.iopcomercialcalendarProperties.get(HorarioComercialPropertiesConstants.AUTHENTICATE))

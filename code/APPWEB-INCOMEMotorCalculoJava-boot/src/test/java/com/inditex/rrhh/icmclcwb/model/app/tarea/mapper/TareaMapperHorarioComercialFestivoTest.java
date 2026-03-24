@@ -48,7 +48,7 @@ public class TareaMapperHorarioComercialFestivoTest {
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToQueryParamsIdTiendaTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsIdTiendaTest() {
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
     request.setIdTienda(Arrays.asList("21", "112"));
@@ -58,7 +58,7 @@ public class TareaMapperHorarioComercialFestivoTest {
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToQueryParamsDatesTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsDatesTest() {
 
     final LocalDate startDate = LocalDate.of(2020, 3, 1);
     final LocalDate endDate = LocalDate.of(2020, 4, 5);
@@ -73,7 +73,7 @@ public class TareaMapperHorarioComercialFestivoTest {
   }
 
   @Test
-  public void horarioComercialFestivosRequestDtoToQueryParamsAllParamsTest() {
+  void horarioComercialFestivosRequestDtoToQueryParamsAllParamsTest() {
 
     final List<String> storeIds = Arrays.asList("21", "112");
     final LocalDate startDate = LocalDate.of(2020, 3, 1);

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class IOPComercialCalendarAsyncServiceImplTest {
   @Mock
-  private IOPComercialCalendarService IOPComercialCalendarService;
+  private IOPComercialCalendarService iopComercialCalendarService;
 
   @InjectMocks
   private IOPComercialCalendarAsyncServiceImpl iopcomercialcalendarAsyncService;
@@ -26,7 +26,7 @@ class IOPComercialCalendarAsyncServiceImplTest {
 
     this.iopcomercialcalendarAsyncService.horarioComercialFestivos(request);
 
-    verify(this.IOPComercialCalendarService).horarioComercialFestivos(any(HorarioComercialFestivosRequestDto.class));
+    verify(this.iopComercialCalendarService).horarioComercialFestivos(any(HorarioComercialFestivosRequestDto.class));
   }
 
 }

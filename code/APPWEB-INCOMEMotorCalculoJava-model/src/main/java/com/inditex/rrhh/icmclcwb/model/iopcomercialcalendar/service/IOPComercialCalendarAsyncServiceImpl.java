@@ -17,13 +17,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class IOPComercialCalendarAsyncServiceImpl implements IOPComercialCalendarAsyncService {
 
+  private final IOPComercialCalendarService iopComercialCalendarService;
+
   @Autowired
-  private IOPComercialCalendarService iopcomercialcalendarService;
+  public IOPComercialCalendarAsyncServiceImpl(IOPComercialCalendarService iopComercialCalendarService) {
+    this.iopComercialCalendarService = iopComercialCalendarService;
+  }
 
   @Override
   public CompletableFuture<ResponseDto<HorarioComercialFestivoDocDto>> horarioComercialFestivos(
       final HorarioComercialFestivosRequestDto request) {
-    return CompletableFuture.completedFuture(this.iopcomercialcalendarService.horarioComercialFestivos(request));
+    return CompletableFuture.completedFuture(this.iopComercialCalendarService.horarioComercialFestivos(request));
   }
 
 }
