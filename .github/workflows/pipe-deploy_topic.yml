@@ -19,7 +19,7 @@ on:
         default: 'false' # Explicitly set to 'false' for compatibility with legacy workflows where the input may be empty; set to 'true' only to activate dry-run mode.
 
 env:
-  WORKFLOW_VERSION: 3.1.1
+  WORKFLOW_VERSION: 3.1.4
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
   DRY_RUN: ${{ github.event.inputs.DRY_RUN }} # Defined for future use; allows any action or step to access dry run mode without workflow changes.
@@ -163,7 +163,7 @@ jobs:
 
   ask-for-approval:
     name: Ask for approval
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNSON_PIPE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     if: ${{ needs.verify-topic.outputs.sensitive == 'True' && github.event.inputs.DRY_RUN == 'false' }}
     environment: pipe-deploy-topic-environment
     needs: verify-topic
