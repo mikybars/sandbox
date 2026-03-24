@@ -62,7 +62,8 @@ public class TareaMapperHorarioComercialFestivoTest {
 
     final LocalDate startDate = LocalDate.of(2020, 3, 1);
     final LocalDate endDate = LocalDate.of(2020, 4, 5);
-    final String expectedResult = "storeIds=&startDate=2020-03-01&endDate=2020-04-05";
+    final String expectedResult = "storeIds=&startDate=2020-03-01&endDate=2020-04-06"; // endDate is incremented by 1 day in the mapper to
+                                                                                       // make the end date inclusive
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
     request.setFechaDesde(startDate);
     request.setFechaHasta(endDate);
@@ -77,7 +78,8 @@ public class TareaMapperHorarioComercialFestivoTest {
     final List<String> storeIds = Arrays.asList("21", "112");
     final LocalDate startDate = LocalDate.of(2020, 3, 1);
     final LocalDate endDate = LocalDate.of(2020, 4, 5);
-    final String expectedResult = "storeIds=21,112&startDate=2020-03-01&endDate=2020-04-05";
+    final String expectedResult = "storeIds=21,112&startDate=2020-03-01&endDate=2020-04-06"; // endDate is incremented by 1 day in the
+                                                                                             // mapper to make the end date inclusive
 
     final HorarioComercialFestivosRequestDto request = new HorarioComercialFestivosRequestDto();
     request.setFechaDesde(startDate);

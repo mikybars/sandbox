@@ -189,7 +189,7 @@ public abstract class TareaMapperDecorator extends TareaMapper {
               .toDate(request.getFechaDesde()))
           + HorarioComercialPropertiesConstants.PARAMS_SEPARATOR
           + HorarioComercialPropertiesConstants.END_DATE_FIELD + HorarioComercialPropertiesConstants.EQUALS_SYMBOL
-          + sdf.format(TimeUtils.toDate(request.getFechaHasta()));
+          + sdf.format(TimeUtils.toDate(request.getFechaHasta().plusDays(1)));
     }
     return result;
   }
