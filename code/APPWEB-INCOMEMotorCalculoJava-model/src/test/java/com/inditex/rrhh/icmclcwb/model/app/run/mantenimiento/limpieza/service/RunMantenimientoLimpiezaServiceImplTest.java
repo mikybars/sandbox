@@ -183,7 +183,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     result.setIdTarea(null);
 
     when(this.tareaService.findLimpieza()).thenReturn(result);
-
     final RunMantenimientoLimpiezaDTO returnedResult = this.runMantenimientoLimpiezaService.run();
 
     await()
