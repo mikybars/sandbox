@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoGlobalFechaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.dto.TrabajoDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.ErrorConstants;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
@@ -46,7 +47,6 @@ import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipod.dto.PtrVentaOnlineIpod
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlineipodindividualdetalle.dto.PtrVentaOnlineIpodIndividualDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.onlinepicking.dto.PtrVentaOnlinePickingRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.totalizado.dto.PtrVentaTotalizadoRequestDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoAmbitoEmpresaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.decorator.TareaMapperDecorator;
@@ -752,12 +752,8 @@ public abstract class TareaMapper {
       TrabajoDTO srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 
   @Mapping(target = "idTienda", ignore = true)
-  @Mapping(target = "idCadena", ignore = true)
-  @Mapping(target = "idPais", source = "srcTareaAmbito.cclIdOrigen")
   @Mapping(target = "fechaDesde", source = "srcTrabajo.fechaInicioPeriodo")
   @Mapping(target = "fechaHasta", source = "srcTrabajo.fechaFinPeriodo")
-  @Mapping(target = "rows", ignore = true)
-  @Mapping(target = "start", constant = "0")
   public abstract HorarioComercialFestivosRequestDto mergeTrabajoDtoAndTareaDtoAndTareaAmbitoDtoDtoToHorarioComercialFestivosRequestDto(
       TrabajoDTO srcTrabajo, TareaDto srcTarea, TareaAmbitoDto srcTareaAmbito);
 

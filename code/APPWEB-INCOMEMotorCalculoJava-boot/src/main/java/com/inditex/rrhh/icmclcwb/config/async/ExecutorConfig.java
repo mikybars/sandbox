@@ -30,8 +30,8 @@ public class ExecutorConfig {
     return executorFactory.newExecutor();
   }
 
-  @AmigaExecutor("slrhorcoms-executor")
-  public ItxExecutorFactoryBean slrhorcomsExecutor(final ItxExecutorFactory executorFactory) {
+  @AmigaExecutor("iopcomercialcalendar-executor")
+  public ItxExecutorFactoryBean iopcomercialcalendarExecutor(final ItxExecutorFactory executorFactory) {
     return executorFactory.newExecutor();
   }
 

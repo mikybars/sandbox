@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.recolectar.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -15,12 +16,12 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarIopcomercialcalendarAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarMeta4IcmWsCalcIncomeAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEcommerceAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaEmpleadoAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarPtrVentaGeneralAsyncService;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.recolectar.async.service.RunTareaRecolectarSlrhorcomsAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.service.RunTareaPrevalidarDuranteService;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
@@ -55,7 +56,7 @@ class RunTareaRecolectarCondicionesServiceImplTest {
   private RunTareaRecolectarPtrVentaEmpleadoAsyncService runTareaRecolectarPtrVentaEmpleadoAsyncService;
 
   @Mock
-  private RunTareaRecolectarSlrhorcomsAsyncService runTareaRecolectarSlrhorcomsAsyncService;
+  private RunTareaRecolectarIopcomercialcalendarAsyncService runTareaRecolectarIopcomercialcalendarAsyncService;
 
   @Mock
   private RunTareaPrevalidarDuranteService runTareaPrevalidarDuranteService;
@@ -208,7 +209,7 @@ class RunTareaRecolectarCondicionesServiceImplTest {
     doReturn(completableFuture).when(this.runTareaRecolectarMeta4IcmWsCalcIncomeAsyncService)
         .estructurasPolByConfiguracionVentaOnlineEntregaDomicilio(this.runTarea);
 
-    doReturn(completableFuture).when(this.runTareaRecolectarSlrhorcomsAsyncService)
+    doReturn(completableFuture).when(this.runTareaRecolectarIopcomercialcalendarAsyncService)
         .horarioComercialFestivoByRunTarea(this.runTarea);
 
     doReturn(completableFuture).when(this.runTareaRecolectarPtrPresenciaAsyncService)
