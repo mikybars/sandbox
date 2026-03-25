@@ -27,7 +27,7 @@ amiga:
           read-timeout: 300000
         auth:
           method: BASIC
-        slrhorcoms:
+        iopcomercialcalendar:
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
           ping-query:
