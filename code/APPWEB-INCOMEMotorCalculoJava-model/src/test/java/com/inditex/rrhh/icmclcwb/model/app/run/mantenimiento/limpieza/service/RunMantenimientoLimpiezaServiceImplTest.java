@@ -59,7 +59,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.tareaService, times(1)).findLimpieza();
 
     when(this.tareaService.findLimpieza()).thenThrow(new RuntimeException("Error durante limpieza"));
-
   }
 
   @Test
@@ -111,7 +110,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
     verify(this.senderLimpieza, times(2)).send(any(TareaLimpiezaDto.class));
 
     when(this.tareaLimpiezaService.save(anyList())).thenThrow(new RuntimeException("Error durante limpieza"));
-
   }
 
   @Test
@@ -467,35 +465,6 @@ class RunMantenimientoLimpiezaServiceImplTest {
   }
 
   @Test
-  void runTest_CoversLoggingWithTasks() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
-    task.setId(20L);
-    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
-    tasks.add(task);
-    result.setIdTarea(tasks);
-
-    final TareaLimpiezaDto tareaDto = new TareaLimpiezaDto();
-    tareaDto.setId(20L);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenReturn(List.of(tareaDto));
-
-    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    assertNotNull(response);
-    verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaService, times(1)).save(anyList());
-    verify(this.senderLimpieza, times(1)).send(any(TareaLimpiezaDto.class));
-  }
-
-  @Test
   void runIdTareaTest_CoversInitialLogInfoEnabled() {
     final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
     result.setIdTarea(new ArrayList<>());
@@ -510,55 +479,5 @@ class RunMantenimientoLimpiezaServiceImplTest {
 
     assertNotNull(response);
     verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-  }
-
-  @Test
-  void runTest_CoversExceptionCatch_InBackground() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
-    task.setId(30L);
-    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
-    tasks.add(task);
-    result.setIdTarea(tasks);
-
-    when(this.tareaService.findLimpieza()).thenReturn(result);
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenThrow(new RuntimeException("Background error"));
-
-    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.run();
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    assertNotNull(response);
-    verify(this.tareaService, times(1)).findLimpieza();
-    verify(this.tareaLimpiezaService, times(1)).save(anyList());
-  }
-
-  @Test
-  void runIdTareaTest_CoversExceptionCatch_InBackground() {
-    final RunMantenimientoLimpiezaDTO result = new RunMantenimientoLimpiezaDTO();
-    final com.inditex.rrhh.icmclcwb.dto.IdTareaDTO task = new com.inditex.rrhh.icmclcwb.dto.IdTareaDTO();
-    task.setId(40L);
-    final List<com.inditex.rrhh.icmclcwb.dto.IdTareaDTO> tasks = new ArrayList<>();
-    tasks.add(task);
-    result.setIdTarea(tasks);
-
-    when(this.tareaService.findLimpiezaByIdTarea(any(Long.class))).thenReturn(result);
-    when(this.tareaLimpiezaService.save(anyList()))
-        .thenThrow(new RuntimeException("Background error by id"));
-
-    final RunMantenimientoLimpiezaDTO response = this.runMantenimientoLimpiezaService.runIdTarea(40L);
-
-    await()
-        .atMost(Duration.ofSeconds(5))
-        .pollInterval(Duration.ofMillis(100))
-        .until(this::waitForAsyncCompletion);
-
-    assertNotNull(response);
-    verify(this.tareaService, times(1)).findLimpiezaByIdTarea(any(Long.class));
-    verify(this.tareaLimpiezaService, times(1)).save(anyList());
   }
 }

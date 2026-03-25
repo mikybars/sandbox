@@ -39,14 +39,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
       try {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Iniciando proceso de limpieza en background");
-        }
         final RunMantenimientoLimpiezaDTO result = this.tareaService.findLimpieza();
         this.procesarLimpieza(result, "limpieza");
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Proceso de limpieza en background finalizado");
-        }
       } catch (final Exception e) {
         this.manejarErrorLimpieza("Error en proceso de limpieza background", e);
       }
@@ -63,14 +57,8 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
     CompletableFuture.runAsync(new DelegatingSecurityContextRunnable(() -> {
       try {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Iniciando proceso de limpieza por ID {} en background", id);
-        }
         final RunMantenimientoLimpiezaDTO result = this.tareaService.findLimpiezaByIdTarea(id);
         this.procesarLimpieza(result, "limpieza por ID");
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Proceso de limpieza por ID {} en background finalizado", id);
-        }
       } catch (final Exception e) {
         this.manejarErrorLimpieza("Error en proceso de limpieza por ID background", e);
       }
@@ -83,26 +71,16 @@ public class RunMantenimientoLimpiezaServiceImpl implements RunMantenimientoLimp
 
   private void procesarLimpieza(final RunMantenimientoLimpiezaDTO result, final String contexto) {
     if (result == null || result.getIdTarea() == null || result.getIdTarea().isEmpty()) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("No hay tareas para limpiar en: {}", contexto);
-      }
       return;
     }
 
     try {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("Procesando {} tareas para {}", result.getIdTarea().size(), contexto);
-      }
-
       // Guardar tareas en BD (SÍNCRONO)
       final List<TareaLimpiezaDto> tareas = this.tareaLimpiezaService.save(result.getIdTarea());
 
       // Enviar tareas a cola JMS (SÍNCRONO)
       if (tareas != null && !tareas.isEmpty()) {
         tareas.forEach(this.senderLimpieza::send);
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Limpieza completada para: {} - {} tareas enviadas a cola", contexto, tareas.size());
-        }
       }
 
     } catch (final Exception e) {
