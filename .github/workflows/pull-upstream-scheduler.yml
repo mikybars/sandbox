@@ -22,9 +22,6 @@ jobs:
           - upstream_repo: inditex/mic-incomemotorcalculojava
             upstream_branch: develop
             target_branch: develop
-          - upstream_repo: inditex/mic-incomemotorcalculojava
-            upstream_branch: main
-            target_branch: main
     uses: ./.github/workflows/pull-upstream-changes.yml
     with:
       upstream_repo: ${{ matrix.upstream_repo }}
