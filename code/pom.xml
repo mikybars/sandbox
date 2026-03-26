@@ -26,9 +26,9 @@
   </modules>
 
   <scm>
-    <connection>scm:git:https://github.com/inditex/mic-incomemotorcalculojava.git</connection>
-    <developerConnection>scm:git:https://github.com/inditex/mic-incomemotorcalculojava.git</developerConnection>
-    <url>https://github.com/inditex/mic-incomemotorcalculojava</url>
+    <connection>scm:git:https://github.com/inditex/mic-motorcalculoincome.git</connection>
+    <developerConnection>scm:git:https://github.com/inditex/mic-motorcalculoincome.git</developerConnection>
+    <url>https://github.com/inditex/mic-motorcalculoincome</url>
     <tag>HEAD</tag>
   </scm>
   <distributionManagement>
