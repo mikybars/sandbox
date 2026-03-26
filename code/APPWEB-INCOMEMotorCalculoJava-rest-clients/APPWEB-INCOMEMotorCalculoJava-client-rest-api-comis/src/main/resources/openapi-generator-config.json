@@ -1,0 +1,8 @@
+{
+    "typeMappings": {
+        "OffsetDateTime": "java.time.LocalDateTime"
+    },
+    "schemaMappings": {
+        "java.time.OffsetDateTime": "java.time.LocalDateTime"
+    }
+}

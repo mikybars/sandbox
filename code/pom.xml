@@ -59,6 +59,7 @@
     <release.strategy.developmentBranch>develop</release.strategy.developmentBranch>
     <release.strategy.syncPullReqLabels>kind/internal</release.strategy.syncPullReqLabels>
     <release.strategy.createSyncPR>true</release.strategy.createSyncPR>
+    <iopincome-comis-ptr-facade-rest-stable.version>0.0.1</iopincome-comis-ptr-facade-rest-stable.version>
   </properties>
 
   <dependencyManagement>
@@ -94,6 +95,11 @@
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-pipe</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.inditex.api</groupId>
+        <artifactId>iopincome-comis-ptr-facade-rest-stable</artifactId>
+        <version>${iopincome-comis-ptr-facade-rest-stable.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

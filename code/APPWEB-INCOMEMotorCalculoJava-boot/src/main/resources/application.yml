@@ -9,6 +9,8 @@ app:
   id: ${spring.application.name}
   version: '@project.version@'
   envars:
+    facade:
+      enabled: false
     migracion:
       comision:
         page-size:

@@ -28,12 +28,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class ComisServiceImpl implements ComisService {
+@ConditionalOnProperty(name = "app.envars.facade.enabled", havingValue = "false", matchIfMissing = true)
+public class JdbcComisService implements ComisService {
 
   @Autowired
   private ComisRepositoryCustom comisRepositoryCustom;

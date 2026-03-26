@@ -28,13 +28,13 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-class ComisServiceImplTest {
+class JdbcComisServiceTest {
 
   @Mock
   private ComisRepositoryCustom comisRepositoryCustom;
 
   @InjectMocks
-  private ComisServiceImpl comisServiceImpl;
+  private JdbcComisService jdbcComisService;
 
   @Mock
   private TareaAmbitoGlobalFechaService tareaAmbitoGlobalFechaService;
@@ -51,7 +51,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findPresenciasOrigenAndFecha(any(TareaDto.class));
   }
@@ -64,7 +64,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findMotivoDesplazamiento(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findMotivoDesplazamiento(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findMotivoDesplazamiento(any(TareaDto.class));
   }
@@ -77,7 +77,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findFechasIncidencias(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findFechasIncidencias(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findFechasIncidencias(any(TareaDto.class));
   }
@@ -90,7 +90,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findFechasDesplazamientos(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findFechasDesplazamientos(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findFechasDesplazamientos(any(TareaDto.class));
   }
@@ -107,7 +107,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesHistorico(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesHistorico(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesHistorico(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -120,7 +120,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesHistoricoEs(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesHistoricoEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesHistoricoEs(any(TareaDto.class));
   }
@@ -137,7 +137,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesDesplazamiento(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesDesplazamiento(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamiento(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -154,7 +154,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesDesplazamientoEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamientoEs(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -167,7 +167,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesResalta(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesResalta(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesResalta(any(TareaDto.class));
   }
@@ -180,7 +180,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesResaltaSinPrimas(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesResaltaSinPrimas(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesResaltaSinPrimas(any(TareaDto.class));
   }
@@ -193,7 +193,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesResaltaEs(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesResaltaEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesResaltaEs(any(TareaDto.class));
   }
@@ -206,7 +206,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesPrimas(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesPrimas(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesPrimas(any(TareaDto.class));
   }
@@ -223,7 +223,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findBajasIt(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findBajasIt(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findBajasIt(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -236,7 +236,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCarencia(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCarencia(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCarencia(any(TareaDto.class));
   }
@@ -249,7 +249,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findExternosByClase(runTareaDto, tareaAmbitoDto,
+    this.jdbcComisService.findExternosByClase(runTareaDto, tareaAmbitoDto,
         ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
     verify(this.comisRepositoryCustom, times(1)).findExternosByClase(tarea,
         ComisClaseEmpleadoEnum.EMPLEADO_EXTERNO_BRASIL);
@@ -264,7 +264,7 @@ class ComisServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
     final Long idEmpleado = 898989L;
-    this.comisServiceImpl.findExternosByMinIdPersona(runTareaDto, tareaAmbitoDto,
+    this.jdbcComisService.findExternosByMinIdPersona(runTareaDto, tareaAmbitoDto,
         idEmpleado);
     verify(this.comisRepositoryCustom, times(1)).findExternosByMinIdPersona(tarea,
         idEmpleado);
@@ -278,7 +278,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findBajasItEs(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findBajasItEs(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findBajasItEs(any(TareaDto.class));
   }
@@ -295,7 +295,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesHistoricoSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesHistoricoSinChallenge(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -312,7 +312,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesDesplazamientoSinChallenge(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesDesplazamientoSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamientoSinChallenge(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -325,7 +325,7 @@ class ComisServiceImplTest {
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.comisServiceImpl.findCondicionesResaltaSinChallenge(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesResaltaSinChallenge(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesResaltaSinChallenge(any(TareaDto.class));
   }
@@ -333,14 +333,14 @@ class ComisServiceImplTest {
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void findComisionManualTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbito) {
-    this.comisServiceImpl.findComisionManual(runTarea, tareaAmbito);
+    this.jdbcComisService.findComisionManual(runTarea, tareaAmbito);
     verify(this.comisRepositoryCustom, times(1)).findComisionManual(runTarea.getTarea());
   }
 
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void findPersonasTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto, final Long maxIdPersona) {
-    this.comisServiceImpl.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
+    this.jdbcComisService.findPersonas(runTarea, tareaAmbitoDto, maxIdPersona);
     verify(this.comisRepositoryCustom, times(1)).findPersonas(runTarea.getTarea(), maxIdPersona);
   }
 
@@ -349,7 +349,7 @@ class ComisServiceImplTest {
   void findPersonasSilEstadoNullTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(null);
-    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    this.jdbcComisService.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 
@@ -358,7 +358,7 @@ class ComisServiceImplTest {
   void findPersonasSilEstadoVacioTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(new ArrayList<>());
-    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    this.jdbcComisService.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilSinEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 
@@ -367,7 +367,7 @@ class ComisServiceImplTest {
   void findPersonasSilConEstadoTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto,
       final Long maxIdPersona, final ClaseResultItemDto clase) {
     clase.setIdsEstadoSil(Collections.singletonList("ea"));
-    this.comisServiceImpl.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
+    this.jdbcComisService.findPersonasSil(runTarea, tareaAmbitoDto, maxIdPersona, clase);
     verify(this.comisRepositoryCustom, times(1)).findPersonasSilConEstado(runTarea.getTarea(), maxIdPersona, clase);
   }
 
@@ -383,7 +383,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesHistoricoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesHistoricoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -400,7 +400,7 @@ class ComisServiceImplTest {
         ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Integer.class)))
             .thenReturn(new PeriodoDto());
 
-    this.comisServiceImpl.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
+    this.jdbcComisService.findCondicionesDesplazamientoChallengeIncluidoPorcentaje(runTareaDto, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1))
         .findCondicionesDesplazamientoChallengeIncluidoPorcentaje(any(TareaDto.class), any(PeriodoDto.class));
   }
@@ -408,7 +408,7 @@ class ComisServiceImplTest {
   @ParameterizedTest
   @InstancioSource(samples = 1)
   void validateTempComisRecuperarFranciaTest(final RunTareaDto runTarea, final TareaAmbitoDto tareaAmbitoDto) {
-    this.comisServiceImpl.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
+    this.jdbcComisService.validateTempComisRecuperarFrancia(runTarea, tareaAmbitoDto);
     verify(this.comisRepositoryCustom, times(1)).validateTempComisRecuperarFrancia(runTarea.getTarea());
   }
 }
