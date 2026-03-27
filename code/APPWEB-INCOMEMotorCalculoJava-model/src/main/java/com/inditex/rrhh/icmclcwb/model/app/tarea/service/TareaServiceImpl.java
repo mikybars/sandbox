@@ -158,7 +158,7 @@ public class TareaServiceImpl implements TareaService {
   @Override
   public RunMantenimientoLimpiezaDTO findLimpieza() {
     final List<IdTareaDTO> tareas = this.tareaRepositoryCustom.findLimpieza();
-    final Integer total = this.tareaRepositoryCustom.totalLimpieza();
+    final Integer total = tareas.isEmpty() ? 0 : this.tareaRepositoryCustom.totalLimpieza();
     final RunMantenimientoLimpiezaDTO limpieza = new RunMantenimientoLimpiezaDTO();
     limpieza.idTarea(tareas);
     limpieza.tareasProcesadas(tareas.size());
@@ -170,7 +170,7 @@ public class TareaServiceImpl implements TareaService {
   @Override
   public RunMantenimientoLimpiezaDTO findLimpiezaByIdTarea(@NotNull @Positive final Long idTarea) {
     final List<IdTareaDTO> tareas = this.tareaRepositoryCustom.findLimpiezaByIdTarea(idTarea);
-    final Integer total = this.tareaRepositoryCustom.totalLimpieza();
+    final Integer total = tareas.isEmpty() ? 0 : this.tareaRepositoryCustom.totalLimpieza();
     final RunMantenimientoLimpiezaDTO limpieza = new RunMantenimientoLimpiezaDTO();
     limpieza.idTarea(tareas);
     limpieza.tareasProcesadas(tareas.size());

@@ -36,7 +36,8 @@ public class TareaLimpiezaServiceImpl implements TareaLimpiezaService {
   public TareaLimpiezaDto save(final TareaLimpiezaDto tareaLimpieza) {
     if (StringUtils.isBlank(tareaLimpieza.getNombreUsuario())) {
       final HeimdalUser heimdalUser = HeimdalUtils.getHeimdalUser();
-      if (StringUtils.isNotBlank(heimdalUser.getLogin())) {
+      // Null check para soportar ejecución en threads sin contexto de seguridad (ej: limpieza asincrónica)
+      if (heimdalUser != null && StringUtils.isNotBlank(heimdalUser.getLogin())) {
         tareaLimpieza.setNombreUsuario(heimdalUser.getLogin());
       }
     }
