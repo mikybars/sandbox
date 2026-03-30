@@ -79,8 +79,8 @@ amiga:
         #          password: '${srvcicmclcwbdes}'
         #[HORARIOCOMERCIAL][DES][FIN]
         #[HORARIOCOMERCIAL][PRE][INICIO]
-        slrhorcoms:
-          base-url: https://sscc-pre.central.inditex.grp
+        iopcomercialcalendar:
+          base-url: https://people-pre.idp.inditex.com/michorario
           #base-url: https://apigw-sscc-des.axdesocp1.central.inditex.grp/slrhorcoms/openapi-rest/api
           auth-method: BASIC
           #username: srvcicmclcwbpreAX
@@ -90,7 +90,7 @@ amiga:
           ping-query:
             #Desactivado por problemas de funcionamiento. No establece conexión con el url correctamente en local.
             enabled: false
-            path: http://des-openshift-private.axdesocp1.central.inditex.grp/slrhorcoms-develop/amiga/health
+            path: https://people-pre.idp.inditex.com/michorario/amiga/health
         #[HORARIOCOMERCIAL][PRE][FIN]
         #[PTR][DES][INICIO]
         ptr-venta:

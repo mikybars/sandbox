@@ -9,7 +9,7 @@
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`citool-github__ubuntu24.04-medium` self hosted runners.
 
 ## Versions used
 

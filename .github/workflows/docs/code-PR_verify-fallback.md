@@ -11,7 +11,7 @@ Any pull request `opened` with only changes outside `code` folder or `code-*` wo
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`citool-github__ubuntu24.04-medium` GitHub infrastructure.
 
 ## Jobs
 

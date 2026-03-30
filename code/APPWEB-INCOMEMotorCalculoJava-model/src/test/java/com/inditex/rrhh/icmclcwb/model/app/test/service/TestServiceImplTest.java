@@ -25,8 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestExceptionService;
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.IopcomercialcalendarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
@@ -97,12 +97,12 @@ class TestServiceImplTest {
   // Fin de normalización de tareas consolidadas (para borrar)
 
   @Mock
-  @Qualifier("slrhorcomsProperties")
-  private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
+  @Qualifier("iopcomercialcalendarProperties")
+  private Map<String, IopcomercialcalendarPropertiesDto> iopcomercialcalendarProperties;
 
   @Mock
-  @Qualifier("slrhorcomsClient")
-  private RestClient slrhorcomsClient;
+  @Qualifier("iopcomercialcalendarClient")
+  private RestClient iopcomercialcalendarClient;
 
   @InjectMocks
   private TestServiceImpl testServiceImpl;
@@ -275,17 +275,17 @@ class TestServiceImplTest {
   // Fin de normalización de tareas consolidadas (para borrar)
 
   @Test
-  void testSlrhorcomsTest() {
+  void testIopcomercialcalendarTest() {
 
-    final SlrhorcomsPropertiesDto slrhorcoms = new SlrhorcomsPropertiesDto();
-    slrhorcoms.setEndpoint("/HorarioComercialFestivos/list");
+    final IopcomercialcalendarPropertiesDto iopcomercialcalendar = new IopcomercialcalendarPropertiesDto();
+    iopcomercialcalendar.setEndpoint("/v1/holidays");
 
-    when(this.slrhorcomsProperties.get("festivos")).thenReturn(slrhorcoms);
-    when(this.slrhorcomsClient.getForEntity("/HorarioComercialFestivos/list?q=*",
+    when(this.iopcomercialcalendarProperties.get("festivos")).thenReturn(iopcomercialcalendar);
+    when(this.iopcomercialcalendarClient.getForEntity("/v1/holidays?storeIds=",
         HorarioComercialFestivoDocDto[].class))
             .thenReturn(mock(ResponseEntity.class));
 
-    this.testServiceImpl.slrhorcomsTest();
+    this.testServiceImpl.iopcomercialcalendarTest();
   }
 
 }

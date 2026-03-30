@@ -10,10 +10,10 @@ amiga:
           nodes: redis-cluster-icmclcwb-v5.sscc-global-rhcompensa.svc.cluster.local.:6379
     rest:
       client:
-        slrhorcoms:
-          base-url: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8080/slrhorcoms
+        iopcomercialcalendar:
+          base-url: https://people.idp.inditex.com/michorario
           ping-query:
-            path: http://slrhorcoms.${metadata.platformgroup}-${metadata.tenant}-hroptcont.svc.cluster.local.:8081/slrhorcoms/amiga/health
+            path: https://people.idp.inditex.com/michorario/amiga/health
         ptr-venta:
           #base-url: https://openshift.axinocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos.svc.cluster.local.:8080/rhvtimpwsd

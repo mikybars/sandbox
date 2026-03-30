@@ -11,7 +11,7 @@ Any pull request `opened` with only changes outside `code` folder or `code-*` wo
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`RUNSON_SONARQUBE_GENERIC` repository variable (default: `citool-github__ubuntu24.04-medium`).
 
 ## Jobs
 

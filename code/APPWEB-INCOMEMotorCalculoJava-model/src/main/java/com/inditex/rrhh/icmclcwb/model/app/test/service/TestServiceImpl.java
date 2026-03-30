@@ -28,9 +28,9 @@ import com.inditex.rrhh.icmclcwb.api.app.test.service.TestNormalizacionAsyncServ
 import com.inditex.rrhh.icmclcwb.api.app.test.service.TestService;
 import com.inditex.rrhh.icmclcwb.api.app.trabajo.service.TrabajoService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppTestConstants;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.dto.SlrhorcomsPropertiesDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.util.HorarioComercialPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.EndpointResponseDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.IopcomercialcalendarPropertiesDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.util.HorarioComercialPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.dto.AjusteComisionDTO;
 import com.inditex.rrhh.icmclcwb.dto.IdTareaDTO;
 import com.inditex.rrhh.icmclcwb.dto.RelojDTO;
@@ -123,8 +123,8 @@ public class TestServiceImpl implements TestService {
   private PtrService ptrService;
 
   @Autowired
-  @Qualifier("slrhorcomsClient")
-  private RestClient slrhorcomsClient;
+  @Qualifier("iopcomercialcalendarClient")
+  private RestClient iopcomercialcalendarClient;
 
   @Autowired
   @Qualifier("meta4ClientPool")
@@ -137,8 +137,8 @@ public class TestServiceImpl implements TestService {
   private PtrAsyncService ptrAsyncService;
 
   @Autowired
-  @Qualifier("slrhorcomsProperties")
-  private Map<String, SlrhorcomsPropertiesDto> slrhorcomsProperties;
+  @Qualifier("iopcomercialcalendarProperties")
+  private Map<String, IopcomercialcalendarPropertiesDto> iopcomercialcalendarProperties;
 
   @Autowired
   private TareaRepositoryCustom tareaRepositoryCustom;
@@ -468,19 +468,19 @@ public class TestServiceImpl implements TestService {
   }
 
   @Override
-  public void slrhorcomsTest() {
+  public void iopcomercialcalendarTest() {
 
     TestServiceImpl.LOG.info("URI-STRING: {}", this.oauthProperty);
 
-    final String endpoint = this.slrhorcomsProperties
+    final String endpoint = this.iopcomercialcalendarProperties
         .get(HorarioComercialPropertiesConstants.HORARIO_COMERCIAL_FESTIVO)
         .getEndpoint();
 
     TestServiceImpl.LOG.info("ENDPOINT: {}", endpoint);
 
-    final ResponseEntity<HorarioComercialFestivoDocDto[]> responseHorarioComercial = this.slrhorcomsClient
-        .getForEntity(endpoint + "q=*",
-            HorarioComercialFestivoDocDto[].class);
+    final ResponseEntity<EndpointResponseDto> responseHorarioComercial = this.iopcomercialcalendarClient
+        .getForEntity(endpoint + "storeIds=229&startDate=2026-01-01&endDate=2026-01-31",
+            EndpointResponseDto.class);
     TestServiceImpl.LOG.info("responseHorarioComercial: {}",
         responseHorarioComercial);
   }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.slrhorcoms.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
+import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfestivo.dto.HorarioComercialFestivoDocDto;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.mapper.TareaLocalizacionFestivoMapper;
 import com.inditex.rrhh.icmclcwb.model.app.trabajo.service.TrabajoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaLocalizacionFestivo;
@@ -44,7 +44,7 @@ public class TareaLocalizacionFestivoServiceImplTest {
 
     this.tareaLocalizacionFestivoServiceImpl.save(items, tarea);
     verify(this.tareaLocalizacionFestivoRepositoryCustom, times(1))
-        .save(ArgumentMatchers.<List<TareaLocalizacionFestivo>>any());
+        .save(ArgumentMatchers.any());
   }
 
 }
