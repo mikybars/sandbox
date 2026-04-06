@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.89.0] - 2026-03-30
+
+### Added
+
+- [INCOME-3094](https://jira.inditex.com/jira/browse/INCOME-3094) Cambio llamada a API Horarios Comerciales
+
+### Dependencies
+
+- [#1122](https://github.com/inditex/mic-incomemotorcalculojava/issues/1122) build(deps): bump com.inditex.maven.release:maven-release-strategies from 0.7.1 to 0.8.0 in /code
+- [#1134](https://github.com/inditex/mic-incomemotorcalculojava/issues/1134) build(deps): bump com.inditex.amigafwk:amiga-framework from 5.20.2 to 5.21.0 in /code
+
+### Fixed
+
+- [INCOME-3162](https://jira.inditex.com/jira/browse/INCOME-3162) Cálculos simulación. Correciones
+- [INCOME-2880](https://jira.inditex.com/jira/browse/INCOME-2880) Error en proceso en PRO: FINC-ICMCLCWB_LimpiezasProgramadas_v2
+
 ## [4.88.1] - 2026-03-11
 
 ### Fixed
@@ -738,7 +754,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.1...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.0...main
+[4.89.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.1...4.89.0
 [4.88.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.0...4.88.1
 [4.88.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.87.0...4.88.0
 [4.87.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.86.0...4.87.0
