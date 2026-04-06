@@ -1,1 +1,1 @@
-COMMENT ON COLUMN GESTION_COMISION.FASE.PESO IS 'define el peso de una fase sobre otras';
+COMMENT ON COLUMN GESTION_COMISION.FASE.PESO IS 'Define el peso de una fase sobre otras';
