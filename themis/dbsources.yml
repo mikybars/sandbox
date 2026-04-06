@@ -11,7 +11,7 @@ databases:
           database: INDITEX
           credentials:
             user: pincome
-            password: cyberark.AX-N-COMP-THEMIS.Apl_axdesdb26fin1#inditex_pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axdesdb26fin1_pincome
 
   pre:
     pre: # onprem configuration
@@ -25,7 +25,7 @@ databases:
           database: INDITEX
           credentials:
             user: pincome
-            password: cyberark.AX-N-COMP-THEMIS.Apl_axpredb26fin1#inditex_pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axpredb26fin1_pincome
 
   pro:
     pre: # onprem configuration
@@ -39,4 +39,4 @@ databases:
           database: INDITEX
           credentials:
             user: pincome
-            password: cyberark.AX-N-COMP-THEMIS.Apl_axinddb26fin1#inditex_pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axindb26finv1_pincome
