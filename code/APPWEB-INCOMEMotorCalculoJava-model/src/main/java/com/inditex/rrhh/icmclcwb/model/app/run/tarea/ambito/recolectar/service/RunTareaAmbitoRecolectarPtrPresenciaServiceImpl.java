@@ -17,6 +17,8 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.ambito.recolectar.service.RunTareaAmbitoRecolectarPtrPresenciaService;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.dto.SimulacionDto;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -31,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.ptr.dto.PtrPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.async.service.PtrPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResponseDto;
+import com.inditex.rrhh.icmclcwb.api.ptr.presencia.detalle.dto.PtrPresenciaDetalleResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.util.PtrPropertiesConstants;
 import com.inditex.rrhh.icmclcwb.api.ptr.venta.PtrAgruparSeccionEnum;
@@ -42,6 +45,7 @@ import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -49,30 +53,26 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@RequiredArgsConstructor
 public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
     extends AbstractRunTareaAmbitoRecolectarPtrPresenciaService
     implements RunTareaAmbitoRecolectarPtrPresenciaService {
 
-  @Autowired
-  private PtrPresenciaAsyncService ptrPresenciaAsyncService;
+  private final PtrPresenciaAsyncService ptrPresenciaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
+  private final TareaLocalizacionHistoricoService tareaLocalizacionHistoricoService;
 
-  @Autowired
-  private TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
+  private final TareaLocalizacionPersonaPresenciaAsyncService tareaLocalizacionPersonaPresenciaAsyncService;
 
-  @Autowired
-  private TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
+  private final TareaLocalizacionPresupuestoService tareaLocalizacionPresupuestoService;
 
-  @Autowired
-  private TareaMapper tareaMapper;
+  private final TareaMapper tareaMapper;
 
-  @Autowired
-  private TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
+  private final TareaAmbitoGlobalEmpresaService tareaAmbitoGlobalEmpresaService;
 
-  @Autowired
-  private TareaTipoHoraService tareaTipoHoraService;
+  private final TareaTipoHoraService tareaTipoHoraService;
+
+  private final SimulacionService simulacionService;
 
   @Autowired
   @Qualifier("presenciasProperties")
@@ -92,6 +92,9 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
       @NotNull @Valid final TareaAmbitoDto tareaAmbito) {
     final List<CompletableFuture<?>> cf = new ArrayList<>();
     try {
+      final SimulacionDto simulacion =
+          runTarea.getTrabajo().getIdSimulacion() != null ? this.simulacionService.findbyId(runTarea.getTrabajo().getIdSimulacion()) : null;
+
       final TareaDto tarea = runTarea.getTarea();
       final PtrFilterPropertiesDto filter = this.presenciasProperties
           .get(PtrPropertiesConstants.PRESENCIA_DETALLE)
@@ -107,6 +110,12 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
       final List<IdLocalizacionLocalDto> localizaciones = this.tareaLocalizacionHistoricoService
           .findIdLocalizacionLocalDtoByIdTareaAndCclIdOrigenAndStdIdLegEntInAmbito(
               tarea.getId(), tareaAmbito.getCclIdOrigen(), empresasAmbito);
+
+      if (simulacion != null
+          && localizaciones.stream().noneMatch(localizacion -> localizacion.getId().equals(simulacion.getCclIdCodOrigen()))) {
+        localizaciones.add(IdLocalizacionLocalDto.builder().id(simulacion.getCclIdCodOrigen()).build());
+      }
+
       for (final List<IdLocalizacionLocalDto> iter : StreamUtils.partition(
           Stream.concat(localizaciones.stream(), ficticias.stream())
               .collect(Collectors.toList()),
@@ -132,6 +141,17 @@ public class RunTareaAmbitoRecolectarPtrPresenciaServiceImpl
           AsyncUtils.exceptionally(cfData, cf, cfPersist);
 
           final PtrPresenciaDetalleResponseDto data = AsyncUtils.get(cfData);
+
+          // Modificar la tienda del empleado simulado a la tienda simulacion
+          if (simulacion != null && data != null) {
+            final List<PtrPresenciaDetalleResultItemDto> presencias = data.getPresenciasDetalle();
+            if (CollectionUtils.isNotEmpty(presencias)) {
+              presencias.stream()
+                  .filter(presencia -> presencia.getPersona().equals(Integer.parseInt(simulacion.getCclIdPerson())))
+                  .forEach(presencia -> presencia.setTienda(Integer.parseInt(simulacion.getCclIdCodOrigen())));
+            }
+          }
+
           if ((data != null) && CollectionUtils.isNotEmpty(data.getPresenciasDetalle())) {
             AsyncUtils.checkAsyncAvaliable(cfPersist, filter.getMaxPersistenceSize());
             AsyncUtils.exceptionally(this.tareaLocalizacionPersonaPresenciaAsyncService
