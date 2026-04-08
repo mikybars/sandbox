@@ -1,33 +1,42 @@
-# !!! REMOVE THIS COMMENT AFTER FIRST CONFIGURATION !!!
-# DBSOURCES FILE TEMPLATE
-# * TEMPLATE
-# databases:
-#   [SUPRAENV]:
-#     [ENV]:
-#     - name: [DATASOURCE-NAME]
-#       stack:
-#         platform: [DATABASE PLATFOR]
-#         provider: [DATABASE PROVIDER]
-#         runner-label: [RUNNER LABEL (optional)]
-#       config:
-#         host:  [DATABASE HOST]
-#         dbtype: [DATABASE TYPE]
-#         database: [DATABASE NAME]
-#         credentials:
-#           user: [USER]
-#           password: [PASS]
-# * EXAMPLE
-# databases:
-#   dev:
-#     dev:
-#     - name: my-dev-datasource
-#       stack:
-#         platform: cloud
-#         provider: azure
-#       config:
-#         host:  my-postgres-cloud-db.postgres.database.azure.com
-#         dbtype: postgres
-#         database: MY_DB
-#         credentials:
-#           user: keyvault.my-kv.user-secret
-#           password: keyvault.my-kv.pass-secret
+databases:
+  dev:
+    dev: # onprem configuration
+      - name: dev-onprem-db2
+        stack:
+          platform: onprem
+          provider: inditex
+        config:
+          host: axdesdb26fin1.central.inditex.grp
+          dbtype: db2
+          database: INDITEX
+          credentials:
+            user: pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axdesdb26fin1_pincome
+
+  pre:
+    pre: # onprem configuration
+      - name: pre-onprem-db2
+        stack:
+          platform: onprem
+          provider: inditex
+        config:
+          host: axpredb26fin1.central.inditex.grp
+          dbtype: db2
+          database: INDITEX
+          credentials:
+            user: pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axpredb26fin1_pincome
+
+  pro:
+    pre: # onprem configuration
+      - name: pro-onprem-db2
+        stack:
+          platform: onprem
+          provider: inditex
+        config:
+          host: axindb26finv1.central.inditex.grp
+          dbtype: db2
+          database: INDITEX
+          credentials:
+            user: pincome
+            password: cyberark.AX-N-APP-THEMIS.Apl_axindb26finv1_pincome
