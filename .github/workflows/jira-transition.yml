@@ -8,7 +8,7 @@ on:
     types: [dismissed, submitted]
 
 env:
-  WORKFLOW_VERSION: 1.7.0
+  WORKFLOW_VERSION: 1.7.1
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
   CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
@@ -44,7 +44,7 @@ jobs:
     needs: [jira-transition]
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
