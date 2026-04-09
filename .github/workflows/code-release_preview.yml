@@ -11,11 +11,10 @@ on:
     branches: ['main', 'main-*']
 
 env:
-  WORKFLOW_VERSION: 2.57.0
+  WORKFLOW_VERSION: 2.58.0
   GITHUB_REGISTRY: ghcr.io
   CHANGELOG_DRAFTER_IMAGE_NAME: inditex/ci-agents/changelog-drafter
   CHANGELOG_DRAFTER_IMAGE_TAG: 2.20.5-node-12-ubuntu-r0
-  SCM_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
   PR_HEAD_REF: ${{ github.head_ref }}
 
 jobs:
@@ -25,10 +24,12 @@ jobs:
     if: ${{ github.event.pull_request.draft == false || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview') }}
     outputs:
       detected: ${{ steps.changes.outputs.paths }}
+    permissions:
+      pull-requests: read
     steps:
       - name: Check for changed files in specific paths
         id: changes
-        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d
         with:
           filters: |
             paths:
@@ -40,9 +41,14 @@ jobs:
     needs: check-changes-in-paths
     if: ${{ (contains(join(github.event.pull_request.labels.*.name, ', '), 'release-type') || contains(join(github.event.pull_request.labels.*.name, ', '), 'release-preview')) && needs.check-changes-in-paths.outputs.detected == 'true' }}
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
+    permissions:
+      contents: read
+      pull-requests: write
+      packages: read
+      issues: write
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -107,7 +113,7 @@ jobs:
           exit 1
 
       - name: Log in to GitHub Registry
-        run: echo "${{ secrets.GH_TOKEN_READER }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login "${GITHUB_REGISTRY}" -u none --password-stdin
 
       - name: Check merge strategy
         run: |
@@ -309,9 +315,13 @@ jobs:
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -336,9 +346,13 @@ jobs:
     runs-on: ${{ fromJSON(vars.RUNSON_CODE_GENERIC || '["citool-github__ubuntu24.04-medium"]') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - name: Checkout merge commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
