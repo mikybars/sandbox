@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.run.tarea.ambito.recolectar.service;
 /*
  * Copyright (c) 2021. Inditex
  */
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,6 +26,7 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdLocalizacionLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.PeriodoDto;
 import com.inditex.rrhh.icmclcwb.api.app.recolectar.properties.dto.RecolectarPropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.simulacion.service.SimulacionService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.TipoDatoEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.async.service.TareaLocalizacionPersonaPresenciaAsyncService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
@@ -58,10 +60,13 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith({SpringExtension.class})
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@MockitoSettings(strictness = Strictness.LENIENT)
 class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
 
   @Mock
@@ -86,11 +91,12 @@ class RunTareaAmbitoRecolectarPtrPresenciaServiceImplTest {
   private TareaTipoHoraService tareaTipoHoraService;
 
   @Mock
-  @Qualifier("presenciasProperties")
+  private SimulacionService simulacionService;
+
+  @Mock
   private Map<String, PtrPropertiesDto> presenciasProperties;
 
   @Mock
-  @Qualifier(value = "recolectarProperties")
   private RecolectarPropertiesDto recolectarProperties;
 
   @Spy
