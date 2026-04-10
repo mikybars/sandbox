@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.89.2] - 2026-04-09
+
+### Fixed
+
+- [INCOME-3189](https://jira.inditex.com/jira/browse/INCOME-3189) Simulacion - Migración de presencias del empleado simulado para simulaciones con presencias actuales
+
+## [4.89.1] - 2026-04-08
+
+### Fixed
+
+- [INCOME-3150](https://jira.inditex.com/jira/browse/INCOME-3150) Nuevo CH Jornada - Error cálculo periodos no completos
+
 ## [4.89.0] - 2026-03-30
 
 ### Added
@@ -754,7 +766,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.2...main
+[4.89.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.1...4.89.2
+[4.89.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.0...4.89.1
 [4.89.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.1...4.89.0
 [4.88.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.0...4.88.1
 [4.88.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.87.0...4.88.0
