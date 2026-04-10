@@ -102,8 +102,6 @@ public class MailServiceImpl implements MailService {
 
   private static final String COMMA_SEPARATOR = ", ";
 
-  private static final String CONTACT = "Please, contact the support team with this email at incomealerts@inditex.com.";
-
   private static final String OVERLAPPED =
       " Please, check these employees for inverted or overlapped dates in SIL, correct them, and then run the calculation again.";
 
@@ -157,8 +155,6 @@ public class MailServiceImpl implements MailService {
         result.append(OVERLAPPED);
       } else if (accion.getId().equals(AccionEnum.PRESENCIAS.getId())) {
         result.append(HOURS);
-      } else {
-        result.append(CONTACT);
       }
       if ((e.getIdPersonaLocal() != null) && !e.getIdPersonaLocal().isEmpty()) {
         result.append(SEPARATOR);
