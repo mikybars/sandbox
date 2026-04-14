@@ -5,6 +5,7 @@ spring:
     name: ICMCLCCORE
   profiles:
     active: standalone
+    include: datasource
 app:
   id: ${spring.application.name}
   version: '@project.version@'
@@ -30,6 +31,8 @@ app:
         connect-timeout: 10s
         read-timeout: 10s
         type: 2
+    primary:
+      use-psql: true
 amiga:
   common:
     soap:

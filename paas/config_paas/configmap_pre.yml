@@ -45,450 +45,202 @@ amiga:
           brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
+        primary-psql:
+          username: usr_app
+          jdbc-url: jdbc:postgresql://people-psqlf-esc1-pre-001-income.postgres.database.azure.com/income
         primary:
-          driver-class-name: com.ibm.db2.jcc.DB2Driver
-          maximum-pool-size: 10
           username: uincome
           jdbc-url: jdbc:db2://axpredb26fin1.central.inditex.grp:50000/INDITEX:currentSchema=GESTION_COMISION;
-          xa-properties:
-            clientProgramName: ${metadata.jirakey}-${metadata.slot}
-            loginTimeout: 10
-            keepAliveTimeOut: 15
-            connectionTimeout: 60
-            timerLevelForQueryTimeOut: 2
-            interruptProcessingMode: 2
-            currentSchema: GESTION_COMISION
         ptr:
-          driver-class-name: oracle.jdbc.OracleDriver
           jdbc-url: jdbc:oracle:thin:@(DESCRIPTION = (FAILOVER=ON)(CONNECT_TIMEOUT=3)(RETRY_COUNT=3)(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=axine6-scanpre.central.inditex.grp)(PORT=11521)))(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmpreptrdb-scan.ocimaditx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbpr01rt_gener.central.inditex.grp)))
           username: uincome
-          defaultIsolationLevel: 2
         comis1:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis2:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBE
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis3:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis4:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDE
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis5:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis6:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUK
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis7:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIrlanda
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis8:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDK
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis9:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalGR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis10:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis11-8:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-20:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-233:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-28:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-33:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-101:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-11:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalPull;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-2:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalOysho;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-30:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalDutti;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis11-25:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalBsk;multiSubnetFailover=true
           username: uincome
-          data-source-properties:
-            encrypt: false
         comis18:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalLuxemburgo
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis28:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalNoruega
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis30:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalSuecia
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis32:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFinlandia
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis38:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis39:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCH
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis52:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis60:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis61:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCZ
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis63:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalEslovaquia
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis64:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHU
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis66:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRO
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis68:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBG
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis70:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis72:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis73:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionBY
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis75:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRU
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis79:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis91:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis92:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis93:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBosnia
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis95:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionXK
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis96:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMacedonia
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis97:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMontenegro
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis98:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRS
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis139:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis388:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis400:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUS
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis404:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCA
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis412:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMX
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis508:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis512:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCL
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis524:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUY
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis528:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAR
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis664:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIN
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis720:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis728:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-          #mock
           jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCN
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis732:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionJP
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis736:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionTW
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis740:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis743:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
         comis800:
-          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
           username: uincome
-          readOnly: true
-          data-source-properties:
-            encrypt: false
-    stream:
+        stream:
       bindings:
         commision-calculation-out-0:
           destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1

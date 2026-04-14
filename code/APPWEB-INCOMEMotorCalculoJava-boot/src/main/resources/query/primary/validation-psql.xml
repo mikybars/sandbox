@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="RunTareaValidarService.checkDuplicatedTiendasHistorico">
+    <![CDATA[
+SELECT ccl_id_cod_origen 
+FROM income.tarea_localizacion_historico
+WHERE id_tarea = :idTarea 
+GROUP BY ccl_id_cod_origen, id_tarea, fecha_inicio, fecha_fin
+HAVING COUNT(*) > 1
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.checkDuplicatedTiposHora">
+    <![CDATA[
+SELECT cod_tipo_hora 
+FROM income.tarea_tipo_hora 
+WHERE id_tarea = :idTarea
+GROUP BY cod_tipo_hora
+HAVING COUNT(*) > 1
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countEmpleadosHistorico">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_persona_historico 
+WHERE id_tarea = :idTarea 
+    ]]>
+</entry>
+    
+<entry key="RunTareaValidarService.countTiendasHistorico">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_localizacion_historico 
+WHERE id_tarea = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countEstructuras">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_persona_estructura 
+WHERE id_tarea = :idTarea 
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaPresenciaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_localizacion_presencia 
+WHERE id_tarea = :idTarea 
+AND ccl_id_seccion != :idSeccion
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaEmpleadoPresenciaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_localizacion_persona_presencia
+WHERE id_tarea = :idTarea 
+AND ccl_id_seccion != :idSeccion
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.countTiendaVentaSeccion">
+    <![CDATA[
+SELECT COUNT(*) 
+FROM income.tarea_localizacion_venta
+WHERE id_tarea = :idTarea
+AND ccl_id_seccion != :idSeccion
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.EmpleadoHistoricoEmptyFields">
+    <![CDATA[
+SELECT * FROM income.tarea_persona_historico
+WHERE id_tarea = :idTarea 
+AND ((std_id_hr IS NULL OR std_id_hr = '')
+OR (ccl_id_person IS NULL OR ccl_id_person = '') 
+OR (ccl_id_cod_origen IS NULL OR ccl_id_cod_origen = '') 
+OR (std_id_work_locat IS NULL OR std_id_work_locat = '') 
+OR (fecha_fin IS NULL )
+OR (fecha_inicio IS NULL )
+OR (std_or_hr_period IS NULL OR std_or_hr_period = '') 
+OR (id_tarea IS NULL ))
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.AmbitoLocalizacion">
+    <![CDATA[
+WITH tablas AS
+(SELECT std_id_work_locat AS localizacion, COUNT(*) AS row_count
+ FROM income.tarea_ambito_localizacion
+ WHERE id_tarea = :idTarea
+ GROUP BY std_id_work_locat
+UNION ALL
+ SELECT std_id_work_locat AS localizacion, COUNT(*) AS row_count
+ FROM income.tarea_localizacion_historico
+ WHERE id_tarea = :idTarea
+ GROUP BY std_id_work_locat)
+SELECT localizacion, row_count FROM tablas
+GROUP BY localizacion, row_count HAVING COUNT(*) <> 2
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.AmbitoPersona">
+    <![CDATA[
+WITH tablas AS
+(SELECT ccl_id_person AS name, COUNT(*) AS row_count
+ FROM income.tarea_ambito_persona
+ WHERE id_tarea = :idTarea
+ GROUP BY ccl_id_person
+UNION ALL
+ SELECT ccl_id_person AS name, COUNT(*) AS row_count
+ FROM income.tarea_persona_historico
+ WHERE id_tarea = :idTarea
+ GROUP BY ccl_id_person)
+SELECT name, row_count FROM tablas
+GROUP BY name, row_count HAVING COUNT(*) <> 2
+    ]]>
+</entry>
+
+<entry key="RunTareaValidarService.AmbitoEmpresa">
+    <![CDATA[
+WITH tablas AS
+(SELECT std_id_leg_ent AS name, COUNT(*) AS row_count
+ FROM income.tarea_localizacion_historico
+ WHERE id_tarea = :idTarea
+ GROUP BY std_id_leg_ent
+UNION ALL
+ SELECT std_id_leg_ent AS name, COUNT(*) AS row_count
+ FROM income.tarea
+WHERE id_tarea = :idTarea
+ GROUP BY std_id_leg_ent)
+SELECT name FROM tablas
+GROUP BY name HAVING COUNT(*) <> 2
+    ]]>
+</entry>
+
+</properties>

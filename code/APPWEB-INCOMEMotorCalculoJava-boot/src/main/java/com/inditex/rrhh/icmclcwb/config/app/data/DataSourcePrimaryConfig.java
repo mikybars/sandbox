@@ -7,6 +7,7 @@ import com.inditex.amigafwk.data.jpa.annotations.AmigaEnableJpaRepositories;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class DataSourcePrimaryConfig {
 
   @Primary
   @AmigaJdbcDatasource(value = "primary", beanName = "primaryDataSource")
+  @ConditionalOnBooleanProperty(prefix = "app.envars.primary", name = "use-psql", havingValue = false, matchIfMissing = true)
   public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }
