@@ -55,191 +55,196 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@(DESCRIPTION = (FAILOVER=ON)(CONNECT_TIMEOUT=3)(RETRY_COUNT=3)(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=axine6-scanpre.central.inditex.grp)(PORT=11521)))(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmpreptrdb-scan.ocimaditx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbpr01rt_gener.central.inditex.grp)))
           username: uincome
         comis1:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFR
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis2:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBE
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBE;encrypt=false;trustServerCertificate=true
           username: uincome
         comis3:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis4:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDE
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDE;encrypt=false;trustServerCertificate=true
           username: uincome
         comis5:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis6:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUK
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUK;encrypt=false;trustServerCertificate=true
           username: uincome
         comis7:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIrlanda
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIrlanda;encrypt=false;trustServerCertificate=true
           username: uincome
         comis8:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDK
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalDK;encrypt=false;trustServerCertificate=true
           username: uincome
         comis9:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalGR
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalGR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis10:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-8:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-20:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-233:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-28:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-33:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-101:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=Personal;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-11:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalPull;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalPull;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-2:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalOysho;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalOysho;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-30:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalDutti;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalDutti;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-25:
-          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalBsk;multiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXPRESQL1L1:11433;databaseName=PersonalBsk;multiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis18:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalLuxemburgo
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalLuxemburgo;encrypt=false;trustServerCertificate=true
           username: uincome
         comis28:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalNoruega
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalNoruega;encrypt=false;trustServerCertificate=true
           username: uincome
         comis30:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalSuecia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalSuecia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis32:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFinlandia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalFinlandia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis38:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis39:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCH
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCH;encrypt=false;trustServerCertificate=true
           username: uincome
         comis52:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTR
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PERSONALTR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis60:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL;encrypt=false;trustServerCertificate=true
           username: uincome
         comis61:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCZ
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCZ;encrypt=false;trustServerCertificate=true
           username: uincome
         comis63:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalEslovaquia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalEslovaquia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis64:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHU
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHU;encrypt=false;trustServerCertificate=true
           username: uincome
         comis66:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRO
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRO;encrypt=false;trustServerCertificate=true
           username: uincome
         comis68:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBG
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBG;encrypt=false;trustServerCertificate=true
           username: uincome
         comis70:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis72:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis73:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionBY
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionBY;encrypt=false;trustServerCertificate=true
           username: uincome
         comis75:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRU
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRU;encrypt=false;trustServerCertificate=true
           username: uincome
         comis79:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis91:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis92:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHR
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalHR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis93:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBosnia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBosnia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis95:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionXK
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionXK;encrypt=false;trustServerCertificate=true
           username: uincome
         comis96:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMacedonia
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMacedonia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis97:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMontenegro
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMontenegro;encrypt=false;trustServerCertificate=true
           username: uincome
         comis98:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRS
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalRS;encrypt=false;trustServerCertificate=true
           username: uincome
         comis139:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL;encrypt=false;trustServerCertificate=true
           username: uincome
         comis388:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalPL;encrypt=false;trustServerCertificate=true
           username: uincome
         comis400:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUS
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUS;encrypt=false;trustServerCertificate=true
           username: uincome
         comis404:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCA
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCA;encrypt=false;trustServerCertificate=true
           username: uincome
         comis412:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMX
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalMX;encrypt=false;trustServerCertificate=true
           username: uincome
         comis508:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBR
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalBR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis512:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCL
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCL;encrypt=false;trustServerCertificate=true
           username: uincome
         comis524:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUY
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalUY;encrypt=false;trustServerCertificate=true
           username: uincome
         comis528:
-          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAR
+          jdbc-url: jdbc:sqlserver://AXPREAMSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAR;encrypt=false;trustServerCertificate=true
           username: uincome
         comis664:
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIN
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalIN;encrypt=false;trustServerCertificate=true
           username: uincome
         comis720:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis728:
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCN
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalCN;encrypt=false;trustServerCertificate=true
           username: uincome
         comis732:
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionJP
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionJP;encrypt=false;trustServerCertificate=true
           username: uincome
         comis736:
-          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionTW
+          jdbc-url: jdbc:sqlserver://AXPREAPSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalComisionTW;encrypt=false;trustServerCertificate=true
           username: uincome
         comis740:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis743:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
         comis800:
-          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT
+          jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
+    jpa:
+      properties:
+        hibernate:
+          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
+          default_schema: GESTION_COMISION
         stream:
       bindings:
         commision-calculation-out-0:
@@ -276,13 +281,13 @@ app:
         credentials:
           user: SRVCICMCLCWSPREAX
       ping-query-custom:
-        path: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/validationCheck
+        path: https://sscc-pre.central.inditex.grp/icmclcws/validationCheck
       login:
-        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/Login
+        server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
-        server: http://icmclcws.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
         #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:

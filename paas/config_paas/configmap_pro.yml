@@ -55,190 +55,190 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@(DESCRIPTION = (FAILOVER=ON)(CONNECT_TIMEOUT=3)(RETRY_COUNT=3)(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmptrdb-scan.ocimaditx.net)(PORT=7521)))(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=axine5-scansrv.central.inditex.grp)(PORT=11521)))(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocaptrdb-scan.ociamsitx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbin01rt_gener.central.inditex.grp)))
           username: uincome
         comis1:
-          jdbc-url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://FRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis2:
-          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis3:
-          jdbc-url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://NLSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis4:
-          jdbc-url: jdbc:sqlserver://DESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://DESQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis5:
-          jdbc-url: jdbc:sqlserver://ITSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://ITSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis6:
-          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis7:
-          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalIrlanda
+          jdbc-url: jdbc:sqlserver://UKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalIrlanda;encrypt=false;trustServerCertificate=true
           username: uincome
         comis8:
-          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis9:
-          jdbc-url: jdbc:sqlserver://GRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://GRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis10:
-          jdbc-url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://PTSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-8:
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-20:
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-233:
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-28:
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-33:
-          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true
+          jdbc-url: jdbc:sqlserver://AXINSQL1V1:11433;databaseName=Personal;MultiSubnetFailover=true;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-101:
-          jdbc-url: jdbc:sqlserver://SASQL1R1\\I1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://SASQL1R1\\I1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-11:
-          jdbc-url: jdbc:sqlserver://NASQL:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://NASQL:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-2:
-          jdbc-url: jdbc:sqlserver://TOSQL55v3.TORDERA.INDITEX.GRP\\oysho:31433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TOSQL55v3.TORDERA.INDITEX.GRP\\oysho:31433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-30:
-          jdbc-url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP\\massimodutti:21433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TOSQL66v2.TORDERA.INDITEX.GRP\\massimodutti:21433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-25:
-          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://TOSQL55v1.TORDERA.INDITEX.GRP\\bershka:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis18:
-          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo
+          jdbc-url: jdbc:sqlserver://BESQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalLuxemburgo;encrypt=false;trustServerCertificate=true
           username: uincome
         comis28:
-          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalNoruega
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalNoruega;encrypt=false;trustServerCertificate=true
           username: uincome
         comis30:
-          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalSuecia
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalSuecia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis32:
-          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalFinlandia
+          jdbc-url: jdbc:sqlserver://DKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalFinlandia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis38:
-          jdbc-url: jdbc:sqlserver://ATSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://ATSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis39:
-          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis52:
-          jdbc-url: jdbc:sqlserver://TRSQL.SEDES.INDITEX.GRP:1433;databaseName=PERSONAL
+          jdbc-url: jdbc:sqlserver://TRSQL.SEDES.INDITEX.GRP:1433;databaseName=PERSONAL;encrypt=false;trustServerCertificate=true
           username: uincome
         comis60:
-          jdbc-url: jdbc:sqlserver://PLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://PLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis61:
-          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis63:
-          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalEslovaquia
+          jdbc-url: jdbc:sqlserver://CZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalEslovaquia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis64:
-          jdbc-url: jdbc:sqlserver://HUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://HUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis66:
-          jdbc-url: jdbc:sqlserver://ROSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://ROSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis68:
-          jdbc-url: jdbc:sqlserver://BGSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://BGSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis70:
-          jdbc-url: jdbc:sqlserver://ALSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://ALSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis72:
-          jdbc-url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://UASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis73:
-          jdbc-url: jdbc:sqlserver://BYSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://BYSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis75:
-          jdbc-url: jdbc:sqlserver://RUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://RUSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis79:
-          jdbc-url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://KZSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis91:
-          jdbc-url: jdbc:sqlserver://SISQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://SISQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis92:
-          jdbc-url: jdbc:sqlserver://HRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://HRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis93:
-          jdbc-url: jdbc:sqlserver://BASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalBosnia
+          jdbc-url: jdbc:sqlserver://BASQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalBosnia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis95:
-          jdbc-url: jdbc:sqlserver://XKSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://XKSQL.SEDES.INDITEX.GRP:11433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis96:
-          jdbc-url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacedonia
+          jdbc-url: jdbc:sqlserver://MKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMacedonia;encrypt=false;trustServerCertificate=true
           username: uincome
         comis97:
-          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMontenegro
+          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalMontenegro;encrypt=false;trustServerCertificate=true
           username: uincome
         comis98:
-          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://RSSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis139:
-          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://CHSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis388:
-          jdbc-url: jdbc:sqlserver://ZAFSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://ZAFSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis400:
-          jdbc-url: jdbc:sqlserver://USSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://USSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis404:
-          jdbc-url: jdbc:sqlserver://CASQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://CASQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis412:
-          jdbc-url: jdbc:sqlserver://MXSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://MXSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis508:
-          jdbc-url: jdbc:sqlserver://BRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://BRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis512:
-          jdbc-url: jdbc:sqlserver://CLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://CLSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis524:
-          jdbc-url: jdbc:sqlserver://UYSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://UYSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis528:
-          jdbc-url: jdbc:sqlserver://ARSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://ARSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis664:
-          jdbc-url: jdbc:sqlserver://INSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://INSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis720:
-          jdbc-url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://CNSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis728:
-          jdbc-url: jdbc:sqlserver://KRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://KRSQL.SEDES.INDITEX.GRP:1433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis732:
-          jdbc-url: jdbc:sqlserver://JPSQL.SEDES.INDITEX.GRP:1433;databaseName=personalcomision
+          jdbc-url: jdbc:sqlserver://JPSQL.SEDES.INDITEX.GRP:1433;databaseName=personalcomision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis736:
-          jdbc-url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://TWSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis740:
-          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         comis743:
-          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao
+          jdbc-url: jdbc:sqlserver://HKSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComisionMacao;encrypt=false;trustServerCertificate=true
           username: uincome
         comis800:
-          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision
+          jdbc-url: jdbc:sqlserver://AUSQL.SEDES.INDITEX.GRP:1433;databaseName=PersonalComision;encrypt=false;trustServerCertificate=true
           username: uincome
         stream:
       bindings:

@@ -378,4 +378,4 @@ amiga:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
-          default_schema: GESTION_COMISION
+          default_schema: income

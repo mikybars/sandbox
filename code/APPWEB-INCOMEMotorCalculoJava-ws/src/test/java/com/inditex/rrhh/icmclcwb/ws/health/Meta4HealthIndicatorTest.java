@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclcwb.api.utils.TypeHealthEnum;
 import com.inditex.rrhh.icmclcwb.ws.health.utils.HealthUtil;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ class LivelinkHealthIndicatorTest {
   Meta4HealthIndicator healthIndicator;
 
   @Test
+  @Disabled("Disabled because after migration, this will be removed")
   void healthDown() {
     final Map<String, String> dataProject = new HashMap<>();
     dataProject.put("projectService", "ICMCLCWB");

@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.config.app;
 
+import com.inditex.amigafwk.data.jpa.annotations.AmigaEnableJpaRepositories;
+
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
  * mediante AutoWiring.
  */
 @Configuration
+@AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
+    "com.inditex.rrhh.icmclcwb.model.primary"})
 public class AppConfiguration {
 
 }

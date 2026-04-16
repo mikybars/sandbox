@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
-import com.inditex.amigafwk.data.jpa.annotations.AmigaEnableJpaRepositories;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,13 +17,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
-    "com.inditex.rrhh.icmclcwb.model.primary"})
+@ConditionalOnBooleanProperty(prefix = "app.envars.primary", name = "use-psql", havingValue = false, matchIfMissing = true)
 public class DataSourcePrimaryConfig {
 
   @Primary
   @AmigaJdbcDatasource(value = "primary", beanName = "primaryDataSource")
-  @ConditionalOnBooleanProperty(prefix = "app.envars.primary", name = "use-psql", havingValue = false, matchIfMissing = true)
   public DataSource primaryDataSource(final DataSourceBuilder dataSourceBuilder) {
     return dataSourceBuilder.build(DataSourceType.NONXA);
   }

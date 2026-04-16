@@ -50,190 +50,190 @@ amiga:
           jdbc-url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=ocmdesptrdb-scan.ocimaditx.net)(PORT=7521)))(CONNECT_DATA=(SERVICE_NAME=s_pdbds01rt_gener.central.inditex.grp)))
           username: uincome
         comis1:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis2:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis3:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis4:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis5:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis6:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis7:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis8:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis9:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis10:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-8:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-20:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-233:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-28:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-33:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-101:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-11:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-2:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-30:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis11-25:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis18:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis28:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis30:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis32:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis38:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis39:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis52:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis60:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis61:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis63:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis64:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis66:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis68:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis70:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis72:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis73:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis75:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis79:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis91:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis92:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis93:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis95:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis96:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis97:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis98:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis139:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis388:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis400:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis404:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis412:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis508:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis512:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis524:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis528:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis664:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis720:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis728:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis732:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis736:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis740:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis743:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         comis800:
-          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal
+          jdbc-url: jdbc:sqlserver://AXDESSQL1:11433;databaseName=Personal;encrypt=false;trustServerCertificate=true
           username: uincome
         stream:
       bindings:
@@ -269,11 +269,11 @@ app:
         credentials:
           user: SRVCICMCLCWSDESAX
       ping-query-custom:
-        path: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/validationCheck
+        path: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/validationCheck
       login:
-        server: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/services/Login
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
-        server: http://icmclcws.icmclcws.svc.cluster.local.:8080/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
         message-max-size: 2000
