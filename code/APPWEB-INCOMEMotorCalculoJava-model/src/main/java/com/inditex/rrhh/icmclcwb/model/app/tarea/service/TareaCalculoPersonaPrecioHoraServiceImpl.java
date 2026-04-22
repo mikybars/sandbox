@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaCalculoPersonaPrecioHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
@@ -25,12 +26,17 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
     private final TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
 
     @Override
-    public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTarea(@Valid @NotNull final Long idTarea) {
-        return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(idTarea);
+    public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@Valid @NotNull final RunTareaDto runTareaDto,
+        @Valid @NotNull final TareaAmbitoDto ambitoDto) {
+
+        final TareaDto tareaDto = runTareaDto.getTarea();
+
+        return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(tareaDto.getId(), ambitoDto.getCclIdOrigen());
     }
 
     @Override
     public CompletableFuture<Void> calcularPrecioHora(@Valid @NotNull final RunTareaDto runTareaDto,
+        @Valid @NotNull final TareaAmbitoDto ambitoDto,
         @Valid @NotNull List<IdPersonaLocalDto> personas) {
 
         final TareaDto tarea = runTareaDto.getTarea();
@@ -39,6 +45,8 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
         this.tareaCalculoPersonaPrecioHoraRepositoryCustom.insertPrecioHora(
             tarea.getId(),
             trabajo.getIcmIdPeriodo(),
+            ambitoDto.getCclIdOrigen(),
+            tarea.getStdIdLegEnt(),
             personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList()
         );
 

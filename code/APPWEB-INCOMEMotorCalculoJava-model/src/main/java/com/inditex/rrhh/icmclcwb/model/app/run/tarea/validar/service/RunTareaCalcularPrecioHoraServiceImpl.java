@@ -1,26 +1,22 @@
 package com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaCalcularPrecioHoraService;
-import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
+import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaCalculoPersonaPrecioHoraServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
-import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
-import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,47 +25,39 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class RunTareaCalcularPrecioHoraServiceImpl implements RunTareaCalcularPrecioHoraService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunTareaAmbitoValidarVentasSinPresenciasServiceImpl.class);
-
     private final TareaFaseAccionServiceImpl tareaFaseAccionService;
+
+    private final AccionService accionService;
 
     private final TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
 
-    private final TareaCalculoPersonaPrecioHoraServiceImpl tareaCalculoPersonaPrecioHoraService;
+    private final RunTareaAmbitoCalcularPrecioHoraServiceImpl runTareaAmbitoCalcularPrecioHoraService;
 
     private final ValidacionMapper validacionMapper;
 
     @Override
-    public ValidacionDto execute(@Valid final RunTareaDto runTarea,
-        @Valid final TareaAmbitoDto tareaAmbito,
-        @Valid final TareaFaseAccionDto tareaFaseAccion) {
+    public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,
+        @NotNull @Valid final TareaFaseAccionDto tareaFaseAccion) {
+        final TareaDto tareaDto = runTarea.getTarea();
 
-        final List<CompletableFuture<?>> cf = new ArrayList<>();
-        final List<IdPersonaLocalDto> ids =
-            this.tareaCalculoPersonaPrecioHoraService.getIdsPersonasCalculoPrecioHoraByTarea(runTarea.getTarea().getId());
+        this.tareaFaseAccionService.updateFechaInicio(tareaFaseAccion);
 
-        for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, 1000)) {
-            AsyncUtils.checkAsyncAvaliable(cf, 10);
-            LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora :: Personas: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
-            try {
-                final CompletableFuture<Void> cfCalc = this.tareaCalculoPersonaPrecioHoraService
-                    .calcularPrecioHora(runTarea, personas);
-                AsyncUtils.exceptionally(cfCalc, cf);
-            } catch (final Exception e) {
-                AsyncUtils.cancel(cf);
-                LOG.error(
-                    "Trabajo[{}]Tarea[{}] :: Cálculo precio hora :: KO :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
-            }
-            LOG.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: Cálculo precio hora :: Personas: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+        final List<ValidacionDto> validaciones = runTarea.getTarea().getAmbito().stream()
+            .filter(a -> Boolean.TRUE.equals(
+                this.accionService.findByIdAccionAndIdOrigenAndStdIdLegEnt(tareaFaseAccion.getIdAccion(), a.getCclIdOrigen(),
+                    tareaDto.getStdIdLegEnt())))
+            .map(item -> this.runTareaAmbitoCalcularPrecioHoraService.execute(runTarea, item, tareaFaseAccion)).toList();
+
+        if (validaciones.isEmpty()) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion,
+                EstadoTareaFaseAccionEnum.NO_EJECUTADA.getDto());
+            return CompletableFuture.completedFuture(validaciones);
         }
 
-        AsyncUtils.waitAllOfIsOk(cf, cf);
-
-        return null;
+        if (validaciones.stream().noneMatch(e -> e.getResult().equals(Boolean.FALSE))) {
+            this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.OK.getDto());
+        }
+        return CompletableFuture.completedFuture(validaciones);
     }
 
 }
