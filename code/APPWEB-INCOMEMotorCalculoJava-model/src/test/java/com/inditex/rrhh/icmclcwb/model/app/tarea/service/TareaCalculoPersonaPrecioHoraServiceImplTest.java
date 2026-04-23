@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoPersonaPrecioHoraServiceImplTest {
+class TareaCalculoPersonaPrecioHoraServiceImplTest {
 
   @Mock
   private TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
@@ -35,7 +35,7 @@ public class TareaCalculoPersonaPrecioHoraServiceImplTest {
   private TareaCalculoPersonaPrecioHoraServiceImpl tareaCalculoPersonaPrecioHoraServiceImpl;
 
   @Test
-  public void getIdsPersonasCalculoPrecioHoraByTareaTest() {
+  void getIdsPersonasCalculoPrecioHoraByTareaTest() {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(123L);
 
@@ -60,7 +60,7 @@ public class TareaCalculoPersonaPrecioHoraServiceImplTest {
   }
 
   @Test
-  public void calcularPrecioHoraTest() {
+  void calcularPrecioHoraTest() {
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(123L);
     tareaDto.setStdIdLegEnt("stdIdLegEnt");

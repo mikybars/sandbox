@@ -30,7 +30,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaAmbitoCalcularPrecioHoraServiceImplTest {
+class RunTareaAmbitoCalcularPrecioHoraServiceImplTest {
 
   @Mock
   private TareaCalculoPersonaPrecioHoraServiceImpl tareaCalculoPersonaPrecioHoraService;
@@ -45,7 +45,7 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImplTest {
   private RunTareaAmbitoCalcularPrecioHoraServiceImpl runTareaAmbitoCalcularPrecioHoraServiceImpl;
 
   @Test
-  public void execute() {
+  void execute() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);

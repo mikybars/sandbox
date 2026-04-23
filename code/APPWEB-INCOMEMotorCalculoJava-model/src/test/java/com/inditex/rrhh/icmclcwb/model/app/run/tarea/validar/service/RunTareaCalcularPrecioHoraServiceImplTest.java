@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class RunTareaCalcularPrecioHoraServiceImplTest {
+class RunTareaCalcularPrecioHoraServiceImplTest {
 
   @Mock
   private TareaFaseAccionServiceImpl tareaFaseAccionService;
@@ -38,7 +38,7 @@ public class RunTareaCalcularPrecioHoraServiceImplTest {
   private RunTareaCalcularPrecioHoraServiceImpl runTareaCalcularPrecioHoraServiceImpl;
 
   @Test
-  public void execute() {
+  void execute() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
@@ -86,7 +86,7 @@ public class RunTareaCalcularPrecioHoraServiceImplTest {
   }
 
   @Test
-  public void executeWithEmptyValidations() {
+  void executeWithEmptyValidations() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setId(1L);
