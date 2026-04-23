@@ -10,10 +10,10 @@ import org.springframework.scheduling.annotation.Async;
 
 public interface TareaCalculoPersonaPrecioHoraRepositoryCustom {
 
-    List<IdPersonaLocalDto> ids(@NotNull Long idTarea, @NotNull String cclIdOrigen);
+  List<IdPersonaLocalDto> ids(@NotNull Long idTarea, @NotNull String cclIdOrigen);
 
-    @Async("calculoExecutor")
-    CompletableFuture<Void> insertPrecioHora(@NotNull Long idTarea, @NotNull Long icmIdPeriodo, @NotNull String cclIdOrigen,
-        @NotNull String stdIdLegEnt, @NotNull List<String> cclIdPersonList);
+  @Async("calculoExecutor")
+  CompletableFuture<Void> insertPrecioHora(@NotNull Long idTarea, @NotNull Long icmIdPeriodo, @NotNull String cclIdOrigen,
+      @NotNull String stdIdLegEnt, @NotNull List<String> cclIdPersonList);
 
 }

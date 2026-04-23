@@ -23,35 +23,34 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPersonaPrecioHoraService {
 
-    private final TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
+  private final TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
 
-    @Override
-    public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@Valid @NotNull final RunTareaDto runTareaDto,
-        @Valid @NotNull final TareaAmbitoDto ambitoDto) {
+  @Override
+  public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@Valid @NotNull final RunTareaDto runTareaDto,
+      @Valid @NotNull final TareaAmbitoDto ambitoDto) {
 
-        final TareaDto tareaDto = runTareaDto.getTarea();
+    final TareaDto tareaDto = runTareaDto.getTarea();
 
-        return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(tareaDto.getId(), ambitoDto.getCclIdOrigen());
-    }
+    return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(tareaDto.getId(), ambitoDto.getCclIdOrigen());
+  }
 
-    @Override
-    public CompletableFuture<Void> calcularPrecioHora(@Valid @NotNull final RunTareaDto runTareaDto,
-        @Valid @NotNull final TareaAmbitoDto ambitoDto,
-        @Valid @NotNull List<IdPersonaLocalDto> personas) {
+  @Override
+  public CompletableFuture<Void> calcularPrecioHora(@Valid @NotNull final RunTareaDto runTareaDto,
+      @Valid @NotNull final TareaAmbitoDto ambitoDto,
+      @Valid @NotNull final List<IdPersonaLocalDto> personas) {
 
-        final TareaDto tarea = runTareaDto.getTarea();
-        final TrabajoDTO trabajo = runTareaDto.getTrabajo();
+    final TareaDto tarea = runTareaDto.getTarea();
+    final TrabajoDTO trabajo = runTareaDto.getTrabajo();
 
-        this.tareaCalculoPersonaPrecioHoraRepositoryCustom.insertPrecioHora(
-            tarea.getId(),
-            trabajo.getIcmIdPeriodo(),
-            ambitoDto.getCclIdOrigen(),
-            tarea.getStdIdLegEnt(),
-            personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList()
-        );
+    this.tareaCalculoPersonaPrecioHoraRepositoryCustom.insertPrecioHora(
+        tarea.getId(),
+        trabajo.getIcmIdPeriodo(),
+        ambitoDto.getCclIdOrigen(),
+        tarea.getStdIdLegEnt(),
+        personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList());
 
-        return CompletableFuture.completedFuture(AsyncConstants.NIL);
+    return CompletableFuture.completedFuture(AsyncConstants.NIL);
 
-    }
+  }
 
 }
