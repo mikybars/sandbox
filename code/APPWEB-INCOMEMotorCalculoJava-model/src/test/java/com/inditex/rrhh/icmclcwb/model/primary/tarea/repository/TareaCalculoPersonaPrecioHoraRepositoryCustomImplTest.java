@@ -23,11 +23,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
+class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
 
-  private final String SQL_INSERT_PRECIO_HOORA = "INSERT PRECIO HORA";
+  private final String sqlInsert = "INSERT PRECIO HORA";
 
-  private final String SQL_IDS = "SELECT IDS";
+  private final String sqlIds = "SELECT IDS";
 
   @Mock
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -42,28 +42,28 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
   private ArgumentCaptor<MapSqlParameterSource> params;
 
   @BeforeEach
-  public void setup() throws IllegalAccessException {
-    FieldUtils.writeField(this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl, "sqlInsertPrecioHora", this.SQL_INSERT_PRECIO_HOORA,
+  void setup() throws IllegalAccessException {
+    FieldUtils.writeField(this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl, "sqlInsertPrecioHora", this.sqlInsert,
         true);
-    FieldUtils.writeField(this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl, "sqlIds", this.SQL_IDS, true);
+    FieldUtils.writeField(this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl, "sqlIds", this.sqlIds, true);
   }
 
   @Test
-  public void idsTest() {
+  void idsTest() {
     final Long idTarea = 123L;
     final String cclIdOrigen = "origen";
     this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl.ids(idTarea, cclIdOrigen);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
         ArgumentMatchers.<RowMapper<TareaCalculoPersona>>any());
 
-    assertEquals(this.SQL_IDS, this.sql.getValue());
+    assertEquals(this.sqlIds, this.sql.getValue());
     assertEquals(2, this.params.getValue().getValues().size());
     assertEquals(idTarea, this.params.getValue().getValue("idTarea"));
     assertEquals(cclIdOrigen, this.params.getValue().getValue("cclIdOrigen"));
   }
 
   @Test
-  public void insertPrecioHoraTest() {
+  void insertPrecioHoraTest() {
     final Long idTarea = 123L;
     final Long icmIdPeriodo = 456L;
     final String cclIdOrigen = "origen";
@@ -75,7 +75,7 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
         ArgumentMatchers.<RowMapper<TareaCalculoPersona>>any());
 
-    assertEquals(this.SQL_INSERT_PRECIO_HOORA, this.sql.getValue());
+    assertEquals(this.sqlInsert, this.sql.getValue());
     assertEquals(5, this.params.getValue().getValues().size());
     assertEquals(idTarea, this.params.getValue().getValue("idTarea"));
     assertEquals(icmIdPeriodo, this.params.getValue().getValue("icmIdPeriodo"));
