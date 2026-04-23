@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.90.0] - 2026-04-23
+
+### Added
+
+- [INCOME-3224](https://jira.inditex.com/jira/browse/INCOME-3224) Eliminar correo en el texto de los correos de las validaciones
+
+### Fixed
+
+- [INCOME-3240](https://jira.inditex.com/jira/browse/INCOME-3240) Simulacion - Las bajas IT no se están aplicando
+
 ## [4.89.2] - 2026-04-09
 
 ### Fixed
@@ -766,7 +776,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.2...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.90.0...main
+[4.90.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.2...4.90.0
 [4.89.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.1...4.89.2
 [4.89.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.0...4.89.1
 [4.89.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.88.1...4.89.0
