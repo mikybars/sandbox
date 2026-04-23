@@ -10,17 +10,15 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
-import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionDatoServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Service
+@Component("calcularPrecioHoraV1")
 @Validated
 @RequiredArgsConstructor
 public class RunTareaCalcularPrecioHoraServiceImpl implements RunTareaCalcularPrecioHoraService {
@@ -29,11 +27,7 @@ public class RunTareaCalcularPrecioHoraServiceImpl implements RunTareaCalcularPr
 
     private final AccionService accionService;
 
-    private final TareaFaseAccionDatoServiceImpl tareaFaseAccionFallidasService;
-
     private final RunTareaAmbitoCalcularPrecioHoraServiceImpl runTareaAmbitoCalcularPrecioHoraService;
-
-    private final ValidacionMapper validacionMapper;
 
     @Override
     public CompletableFuture<List<ValidacionDto>> execute(@NotNull @Valid final RunTareaDto runTarea,

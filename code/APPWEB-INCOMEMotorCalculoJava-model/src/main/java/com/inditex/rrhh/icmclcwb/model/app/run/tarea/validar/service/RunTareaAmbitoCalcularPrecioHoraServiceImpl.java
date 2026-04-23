@@ -49,8 +49,8 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImpl implements RunTareaAmbi
 
         for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, 1000)) {
             AsyncUtils.checkAsyncAvaliable(cf, 10);
-            LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora :: Personas: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+            LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora ambito {} :: Personas: {}",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size());
             try {
                 final CompletableFuture<Void> cfCalc = this.tareaCalculoPersonaPrecioHoraService
                     .calcularPrecioHora(runTarea, tareaAmbito, personas);
@@ -59,13 +59,13 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImpl implements RunTareaAmbi
                 this.tareaFaseAccionService.updateFechaFinAndEstado(tareaFaseAccion, EstadoTareaFaseAccionEnum.ERROR.getDto());
                 AsyncUtils.cancel(cf);
                 LOG.error(
-                    "Trabajo[{}]Tarea[{}] :: Cálculo precio hora :: KO :: Personas: {}",
-                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size(), e);
+                    "Trabajo[{}]Tarea[{}] :: Cálculo precio hora ambito {} :: KO :: Personas: {}",
+                    runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size(), e);
                 throw e;
             }
             LOG.info(
-                "Trabajo[{}]Tarea[{}] :: Fin :: Cálculo precio hora :: Personas: {}",
-                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), personas.size());
+                "Trabajo[{}]Tarea[{}] :: Fin :: Cálculo precio hora ambito {} :: Personas: {}",
+                runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size());
         }
 
         AsyncUtils.waitAllOfIsOk(cf, cf);
