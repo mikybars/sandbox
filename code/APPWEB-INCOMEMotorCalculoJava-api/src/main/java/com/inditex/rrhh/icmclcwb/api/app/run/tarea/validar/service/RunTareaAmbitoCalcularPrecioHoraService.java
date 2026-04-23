@@ -9,6 +9,6 @@ import jakarta.validation.Valid;
 
 public interface RunTareaAmbitoCalcularPrecioHoraService {
 
-    ValidacionDto execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbitoDto,
-        @Valid final TareaFaseAccionDto tareaFaseAccion);
+  ValidacionDto execute(@Valid RunTareaDto runTareaDto, @Valid TareaAmbitoDto tareaAmbitoDto,
+      @Valid final TareaFaseAccionDto tareaFaseAccion);
 }

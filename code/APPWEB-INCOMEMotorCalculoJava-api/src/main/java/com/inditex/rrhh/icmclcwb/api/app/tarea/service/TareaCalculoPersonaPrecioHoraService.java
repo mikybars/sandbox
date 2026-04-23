@@ -9,9 +9,9 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
 public interface TareaCalculoPersonaPrecioHoraService {
 
-    List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(RunTareaDto runTareaDto, TareaAmbitoDto ambitoDto);
+  List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(RunTareaDto runTareaDto, TareaAmbitoDto ambitoDto);
 
-    CompletableFuture<Void> calcularPrecioHora(RunTareaDto tunTarea, TareaAmbitoDto ambitoDto,
-        List<IdPersonaLocalDto> personas);
+  CompletableFuture<Void> calcularPrecioHora(RunTareaDto tunTarea, TareaAmbitoDto ambitoDto,
+      List<IdPersonaLocalDto> personas);
 
 }

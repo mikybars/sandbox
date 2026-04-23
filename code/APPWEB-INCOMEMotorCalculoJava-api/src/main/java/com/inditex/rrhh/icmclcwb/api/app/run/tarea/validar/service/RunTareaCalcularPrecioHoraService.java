@@ -11,6 +11,6 @@ import jakarta.validation.Valid;
 
 public interface RunTareaCalcularPrecioHoraService {
 
-    CompletableFuture<List<ValidacionDto>> execute(@Valid RunTareaDto runTareaDto, @Valid final TareaFaseAccionDto tareaFaseAccion);
+  CompletableFuture<List<ValidacionDto>> execute(@Valid RunTareaDto runTareaDto, @Valid final TareaFaseAccionDto tareaFaseAccion);
 
 }
