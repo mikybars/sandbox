@@ -12,7 +12,6 @@ import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaPrecioHoraRepositoryCustom;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,8 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
   private final TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
 
   @Override
-  public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@Valid @NotNull final RunTareaDto runTareaDto,
-      @Valid @NotNull final TareaAmbitoDto ambitoDto) {
+  public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@NotNull final RunTareaDto runTareaDto,
+      @NotNull final TareaAmbitoDto ambitoDto) {
 
     final TareaDto tareaDto = runTareaDto.getTarea();
 
@@ -35,9 +34,9 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
   }
 
   @Override
-  public CompletableFuture<Void> calcularPrecioHora(@Valid @NotNull final RunTareaDto runTareaDto,
-      @Valid @NotNull final TareaAmbitoDto ambitoDto,
-      @Valid @NotNull final List<IdPersonaLocalDto> personas) {
+  public CompletableFuture<Void> calcularPrecioHora(@NotNull final RunTareaDto runTareaDto,
+      @NotNull final TareaAmbitoDto ambitoDto,
+      @NotNull final List<IdPersonaLocalDto> personas) {
 
     final TareaDto tarea = runTareaDto.getTarea();
     final TrabajoDTO trabajo = runTareaDto.getTrabajo();

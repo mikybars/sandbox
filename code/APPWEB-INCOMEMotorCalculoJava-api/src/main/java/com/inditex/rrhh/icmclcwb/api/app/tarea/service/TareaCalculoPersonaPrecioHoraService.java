@@ -7,11 +7,14 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 
+import jakarta.validation.constraints.NotNull;
+
 public interface TareaCalculoPersonaPrecioHoraService {
 
-  List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(RunTareaDto runTareaDto, TareaAmbitoDto ambitoDto);
+  List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@NotNull RunTareaDto runTareaDto,
+      @NotNull TareaAmbitoDto ambitoDto);
 
-  CompletableFuture<Void> calcularPrecioHora(RunTareaDto tunTarea, TareaAmbitoDto ambitoDto,
-      List<IdPersonaLocalDto> personas);
+  CompletableFuture<Void> calcularPrecioHora(@NotNull RunTareaDto tunTarea, @NotNull TareaAmbitoDto ambitoDto,
+      @NotNull List<IdPersonaLocalDto> personas);
 
 }
