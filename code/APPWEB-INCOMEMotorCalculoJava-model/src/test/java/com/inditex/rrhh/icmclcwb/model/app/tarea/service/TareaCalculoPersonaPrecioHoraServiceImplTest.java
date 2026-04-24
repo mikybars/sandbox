@@ -1,11 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,7 +16,6 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
-import com.inditex.rrhh.icmclcwb.model.app.util.AsyncUtils;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaPrecioHoraRepositoryCustom;
 
 import org.junit.jupiter.api.Test;
@@ -88,17 +87,9 @@ class TareaCalculoPersonaPrecioHoraServiceImplTest {
         personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList())).thenReturn(
             CompletableFuture.completedFuture(AsyncConstants.NIL));
 
-    final List<CompletableFuture<?>> cf = new ArrayList<>();
+    this.tareaCalculoPersonaPrecioHoraServiceImpl.calcularPrecioHora(runTareaDto, tareaAmbitoDto, personas);
 
-    AsyncUtils.checkAsyncAvaliable(cf, 1);
-    final CompletableFuture<Void> cfCalc =
-        this.tareaCalculoPersonaPrecioHoraServiceImpl.calcularPrecioHora(runTareaDto, tareaAmbitoDto, personas);
-
-    AsyncUtils.exceptionally(cfCalc, cf);
-
-    AsyncUtils.waitAllOfIsOk(cf, cf);
-
-    verify(this.tareaCalculoPersonaPrecioHoraRepositoryCustom, times(1)).insertPrecioHora(
+    verify(this.tareaCalculoPersonaPrecioHoraRepositoryCustom, timeout(1000).times(1)).insertPrecioHora(
         runTareaDto.getTarea().getId(),
         runTareaDto.getTrabajo().getIcmIdPeriodo(),
         tareaAmbitoDto.getCclIdOrigen(),
