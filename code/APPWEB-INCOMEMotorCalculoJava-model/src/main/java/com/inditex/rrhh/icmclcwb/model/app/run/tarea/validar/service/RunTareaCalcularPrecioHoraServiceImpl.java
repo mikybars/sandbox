@@ -5,11 +5,11 @@ import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.ValidacionDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.run.tarea.validar.service.RunTareaCalcularPrecioHoraService;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.AccionService;
+import com.inditex.rrhh.icmclcwb.model.app.calcular.RunPrevalidar;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ import org.springframework.validation.annotation.Validated;
 @Component("calcularPrecioHoraV1")
 @Validated
 @RequiredArgsConstructor
-public class RunTareaCalcularPrecioHoraServiceImpl implements RunTareaCalcularPrecioHoraService {
+public class RunTareaCalcularPrecioHoraServiceImpl implements RunPrevalidar {
 
   private final TareaFaseAccionServiceImpl tareaFaseAccionService;
 
