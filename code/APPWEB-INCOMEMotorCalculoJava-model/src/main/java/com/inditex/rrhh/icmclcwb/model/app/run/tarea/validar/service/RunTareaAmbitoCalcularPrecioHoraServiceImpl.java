@@ -51,6 +51,12 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImpl implements RunTareaAmbi
       AsyncUtils.checkAsyncAvaliable(cf, 10);
       LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora ambito {} :: Personas: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size());
+
+      LOG.info("DEBUG precio hora :: Tarea: {}", runTarea.getTarea().getId());
+      LOG.info("DEBUG precio hora :: Periodo: {}", runTarea.getTrabajo().getIcmIdPeriodo());
+      LOG.info("DEBUG precio hora :: Origen: {}", tareaAmbito.getCclIdOrigen());
+      LOG.info("DEBUG precio hora :: IdLegEnt: {}", runTarea.getTarea().getStdIdLegEnt());
+      LOG.info("DEBUG precio hora :: Personas: {}", personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList());
       try {
         final CompletableFuture<Void> cfCalc = this.tareaCalculoPersonaPrecioHoraService
             .calcularPrecioHora(runTarea, tareaAmbito, personas);
