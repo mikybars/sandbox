@@ -11,6 +11,8 @@ import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersonaP
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatchPrimaryRepositoryAbstract<TareaCalculoPersonaPrecioHora>
     implements TareaCalculoPersonaPrecioHoraRepositoryCustom {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TareaCalculoPersonaPrecioHoraRepositoryCustomImpl.class);
 
   @Value("#{primaryQuery['TareaCalculoPersonaPrecioHoraRepositoryCustom.insertPrecioHora']}")
   private String sqlInsertPrecioHora;
@@ -45,6 +49,8 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
       @Valid @NotNull final String cclIdOrigen, @Valid @NotNull final String stdIdLegEnt,
       @Valid @NotNull final List<String> cclIdPersonList) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
+
+    LOG.info("DEBUG precio hora :: params: {} , {}, {}, {}, {}", idTarea, icmIdPeriodo, cclIdOrigen, stdIdLegEnt, cclIdPersonList);
 
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ICM_ID_PERIODO, icmIdPeriodo);
