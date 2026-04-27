@@ -59,7 +59,7 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
 
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPersonList);
 
-    this.query(this.sqlInsertPrecioHora, parameters, null);
+    this.update(this.sqlInsertPrecioHora, parameters);
 
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

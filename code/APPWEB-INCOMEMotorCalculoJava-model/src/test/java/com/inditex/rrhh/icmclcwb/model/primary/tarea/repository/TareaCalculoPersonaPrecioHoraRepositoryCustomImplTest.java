@@ -72,8 +72,7 @@ class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
 
     this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl.insertPrecioHora(idTarea, icmIdPeriodo, cclIdOrigen, stdIdLegEnt,
         List.of(cclIdPerson));
-    verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
-        ArgumentMatchers.<RowMapper<TareaCalculoPersona>>any());
+    verify(this.namedParameterJdbcTemplate, times(1)).update(this.sql.capture(), this.params.capture());
 
     assertEquals(this.sqlInsert, this.sql.getValue());
     assertEquals(5, this.params.getValue().getValues().size());
