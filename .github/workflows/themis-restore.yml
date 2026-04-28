@@ -6,7 +6,7 @@ on:
     types: [labeled]
 
 env:
-  WORKFLOW_VERSION: 3.2.0
+  WORKFLOW_VERSION: 3.2.2
 
 jobs:
   dbrestore:
@@ -15,11 +15,11 @@ jobs:
     name: Launch restore job
     steps:
       - name: Checkout my repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check sender permissions
         if: ${{ github.event.label.name == 'database/db-restore' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         id: set-result
         with:
           result-encoding: string
@@ -80,7 +80,7 @@ jobs:
 
       - name: Add workflow link to issue on success
         if: ${{ github.event.label.name == 'database/db-restore' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
           script: |
@@ -93,7 +93,7 @@ jobs:
 
       - name: Add workflow link to issue on failure
         if: ${{ failure() && !cancelled() && github.event.label.name == 'database/db-restore' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.DATABASE_GITHUB_TOKEN }}
           script: |
