@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 1.50.1
+  WORKFLOW_VERSION: 1.51.0
   SRVC_ALERTHUBINTDESAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTDESAX_USERNAME }}
   SRVC_ALERTHUBINTDESAX_PASSWORD: ${{ secrets.SRVC_ALERTHUBINTDESAX_PASSWORD }}
   SRVC_ALERTHUBINTPREAX_USERNAME: ${{ secrets.SRVC_ALERTHUBINTPREAX_USERNAME }}
@@ -22,10 +22,10 @@ jobs:
     name: Linter
     if: github.event_name == 'workflow_dispatch'
     timeout-minutes: 30
-    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["citool-github__ubuntu24.04-medium"]') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.sha}}
@@ -47,7 +47,7 @@ jobs:
         run: echo "env=\"pro\"" >> "$GITHUB_ENV"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get metadata
         id: metadata
@@ -68,12 +68,9 @@ jobs:
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
-
-      - name: Setup Poetry tool
-        uses: inditex/gha-ivmactions/setup-tool@v1
-        with:
-          tool-name: ivm-poetry
-          tool-version: 1.2.2
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Monit step
         uses: inditex/gha-alerthub/code@main

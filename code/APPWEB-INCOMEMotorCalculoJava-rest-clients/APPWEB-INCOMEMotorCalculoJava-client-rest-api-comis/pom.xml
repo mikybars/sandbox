@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.inditex.rrhh.icmclccore</groupId>
+    <artifactId>APPWEB-INCOMEMotorCalculoJava-rest-clients</artifactId>
+    <version>4.90.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-comis</artifactId>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>REST client for consuming mic-incomefacadecomis services</description>
+
+  <properties>
+    <amiga.common.rest.generator.jsonConfigurationFile>openapi-generator-config.json</amiga.common.rest.generator.jsonConfigurationFile>
+    <amiga.common.rest.generator.generateClientAsBean>false</amiga.common.rest.generator.generateClientAsBean>
+    <amiga.common.rest.generator.api.package>${project.groupId}.comisfacade.rest.client.api</amiga.common.rest.generator.api.package>
+    <amiga.common.rest.generator.model.package>${project.groupId}.comisfacade.rest.client.model</amiga.common.rest.generator.model.package>
+    <amiga.common.rest.generator.invoker.package>${project.groupId}.comisfacade.rest.client.invoker</amiga.common.rest.generator.invoker.package>
+    <amiga.common.rest.generator.modelNameSuffix>Dto</amiga.common.rest.generator.modelNameSuffix>
+    <income.incomemeta.openapi.version>12.0.0</income.incomemeta.openapi.version>
+    <income.incomemeta.openapi.status>stable</income.incomemeta.openapi.status>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.inditex.amigafwk.common</groupId>
+      <artifactId>common-starter-rest-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.api</groupId>
+      <artifactId>iopincome-comis-ptr-facade-rest-stable</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.inditex.amigafwk.plugin</groupId>
+        <artifactId>api-first-generator-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-rest-client</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate-rest-client-api-first</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

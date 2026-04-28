@@ -5,19 +5,21 @@ registries:
   inditex-npm:
     type: npm-registry
     url: https://inditex.jfrog.io/artifactory/api/npm/node-public
-    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
-    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+    jfrog-oidc-provider-name: inditex-github-actions
     replaces-base: true
   inditex-maven:
     type: maven-repository
     url: https://inditex.jfrog.io/artifactory/maven-public
-    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
-    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+    jfrog-oidc-provider-name: inditex-github-actions
   inditex-poetry:
     type: python-index
     url: https://inditex.jfrog.io/artifactory/api/pypi/python-public/simple/
-    username: ${{secrets.DIST_PLAT_READER_USERNAME}}
-    password: ${{secrets.DIST_PLAT_READER_TOKEN}}
+    jfrog-oidc-provider-name: inditex-github-actions
+  github-inditex:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: ${{secrets.GH_TOKEN_READER}}
 updates:
   # AMIGA Fwk Node.js (WSC/WEB)
   # AMIGA Fwk Web (SPA)
@@ -58,6 +60,12 @@ updates:
       shell-libs:
         patterns:
           - "@iop-shell-suite/*"
+        update-types:
+          - "minor"
+          - "patch"
+      sewing-iop-ds:
+        patterns:
+          - "@inditex/sewingiopdsweb-*"
         update-types:
           - "minor"
           - "patch"
@@ -199,3 +207,19 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "amigamlserver"
         update-types: ["version-update:semver-major"]
+  # Swift Package Manager (Xcode iOS)
+  - package-ecosystem: "swift"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "02:00"
+      timezone: UTC
+    rebase-strategy: "disabled"
+    registries:
+      - github-inditex
+    labels:
+      - kind/dependency
+    allow:
+      - dependency-name: "github.com/inditex/*"
+        dependency-type: direct

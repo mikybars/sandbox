@@ -13,13 +13,13 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.35.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
   validate-yaml-extensions:
     name: Validate YAML extensions
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
         && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
     steps:
@@ -31,7 +31,7 @@ jobs:
 
   check-changes-in-paths:
     name: Check for changes in corresponding paths
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     needs: [validate-yaml-extensions]
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
         && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 5
     needs: [check-changes-in-paths]
     if: needs.check-changes-in-paths.outputs.yaml == 'true'
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
 
   check-changes-in-secrets:
     name: Check for changes secret*.yml
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     needs: [validate-yaml-extensions]
     if: ${{ github.event.action != 'closed' && github.event_name != 'workflow_dispatch'
         && ((github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false) }}
@@ -117,7 +117,7 @@ jobs:
     needs: [check-changes-in-secrets, check-secrets]
     if: ${{ failure() && needs.check-changes-in-secrets.outputs.secrets == 'true' && github.event_name != 'workflow_dispatch' }}
     name: "PaaS / Summary for check secrets action"
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       summary: ${{ steps.summary-check-secrets.outputs.summary }}
 
@@ -131,7 +131,7 @@ jobs:
 
   create-check-secrets-tag:
     name: Create check-secrets tag
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     needs: [check-secrets]
     if: ${{ needs.check-secrets.result == 'success' && github.event_name != 'workflow_dispatch' }}
 
@@ -145,7 +145,7 @@ jobs:
 
   remove-check-secrets-tag:
     name: Remove check-secrets tag
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     if: ${{ github.event.action == 'closed' && github.event_name != 'workflow_dispatch' }}
 
     steps:

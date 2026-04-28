@@ -2,13 +2,16 @@ spring:
   main:
     allow-bean-definition-overriding: false
   application:
-    name: ICMCLCWB
+    name: ICMCLCCORE
   profiles:
     active: standalone
+    include: datasource
 app:
   id: ${spring.application.name}
   version: '@project.version@'
   envars:
+    facade:
+      enabled: false
     migracion:
       comision:
         page-size:
@@ -28,6 +31,8 @@ app:
         connect-timeout: 10s
         read-timeout: 10s
         type: 2
+    primary:
+      use-psql: true
 amiga:
   common:
     soap:

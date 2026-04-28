@@ -9,7 +9,7 @@
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`RUNSON_PAAS_GENERIC` repository variable (default: `citool-github__ubuntu24.04-medium`) GitHub infrastructure.
 
 ## Versions used
 
