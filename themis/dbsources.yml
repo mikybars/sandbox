@@ -28,7 +28,7 @@ databases:
             password: cyberark.AX-N-APP-THEMIS.Apl_axpredb26fin1_pincome
 
   pro:
-    pre: # onprem configuration
+    pro: # onprem configuration
       - name: pro-onprem-db2
         stack:
           platform: onprem
