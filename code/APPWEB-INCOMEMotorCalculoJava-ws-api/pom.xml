@@ -22,6 +22,10 @@
       <artifactId>income-income-motor-calculo-java-api-v3-rest-stable</artifactId>
       <version>1.0.4</version>
     </dependency>
+    <dependency>
+      <groupId>com.inditex.api</groupId>
+      <artifactId>iopincome-incomemeta-motor-calculo-rest-stable</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.inditex.amigafwk.common</groupId>

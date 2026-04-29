@@ -1,0 +1,13 @@
+supraenvironments:
+- name: "pre"
+  environments:
+  - name: "pre"
+    platforms:
+    - name: "ssccarteixo"
+#      TODO: https://jira.inditex.com/jira/browse/IOPINCOME-304 (Publicar API Incomemeta Motor Calculo en IOP)
+#    - name: "ioppeople2"
+
+      tenants:
+      - name: "global"
+        slots:
+        - name: "default"
