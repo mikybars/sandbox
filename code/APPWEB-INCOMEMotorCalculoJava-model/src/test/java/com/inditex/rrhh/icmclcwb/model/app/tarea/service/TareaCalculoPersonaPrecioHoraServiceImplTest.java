@@ -8,13 +8,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.dto.TrabajoDTO;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaCalculoPersonaPrecioHoraRepositoryCustom;
 
@@ -78,14 +76,6 @@ class TareaCalculoPersonaPrecioHoraServiceImplTest {
     persona.setIdPersonaLocal("personaLocalId");
 
     final List<IdPersonaLocalDto> personas = Collections.singletonList(persona);
-
-    when(this.tareaCalculoPersonaPrecioHoraRepositoryCustom.insertPrecioHora(
-        runTareaDto.getTarea().getId(),
-        runTareaDto.getTrabajo().getIcmIdPeriodo(),
-        tareaAmbitoDto.getCclIdOrigen(),
-        runTareaDto.getTarea().getStdIdLegEnt(),
-        personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList())).thenReturn(
-            CompletableFuture.completedFuture(AsyncConstants.NIL));
 
     this.tareaCalculoPersonaPrecioHoraServiceImpl.calcularPrecioHora(runTareaDto, tareaAmbitoDto, personas);
 

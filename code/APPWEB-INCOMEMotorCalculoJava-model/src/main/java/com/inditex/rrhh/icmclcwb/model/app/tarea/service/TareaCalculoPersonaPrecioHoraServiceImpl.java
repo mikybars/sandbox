@@ -49,7 +49,6 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
         personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList());
 
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
-
   }
 
 }

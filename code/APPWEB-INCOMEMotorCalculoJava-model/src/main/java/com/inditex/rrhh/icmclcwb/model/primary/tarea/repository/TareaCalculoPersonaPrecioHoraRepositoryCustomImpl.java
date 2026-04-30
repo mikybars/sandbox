@@ -1,10 +1,8 @@
 package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
-import com.inditex.rrhh.icmclcwb.api.app.util.AsyncConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersonaPrecioHora;
@@ -45,7 +43,7 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
   }
 
   @Override
-  public CompletableFuture<Void> insertPrecioHora(@Valid @NotNull final Long idTarea, @Valid @NotNull final Long icmIdPeriodo,
+  public void insertPrecioHora(@Valid @NotNull final Long idTarea, @Valid @NotNull final Long icmIdPeriodo,
       @Valid @NotNull final String cclIdOrigen, @Valid @NotNull final String stdIdLegEnt,
       @Valid @NotNull final List<String> cclIdPersonList) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
@@ -60,8 +58,6 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_PERSON, cclIdPersonList);
 
     this.update(this.sqlInsertPrecioHora, parameters);
-
-    return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }
 
 }
