@@ -47,9 +47,9 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImpl implements RunTareaAmbi
     final List<IdPersonaLocalDto> ids =
         this.tareaCalculoPersonaPrecioHoraService.getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(runTarea, tareaAmbito);
 
-    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, 1000)) {
+    for (final List<IdPersonaLocalDto> personas : StreamUtils.partition(ids, 500)) {
       AsyncUtils.checkAsyncAvaliable(cf, 10);
-      LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora ambito {} :: Personas: {}",
+      LOG.info("Trabajo[{}]Tarea[{}] :: Inicio :: Cálculo precio hora ambito {} :: Personas partition: {}",
           runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size());
 
       try {
@@ -64,12 +64,13 @@ public class RunTareaAmbitoCalcularPrecioHoraServiceImpl implements RunTareaAmbi
             runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size(), e);
         throw e;
       }
-      LOG.info(
-          "Trabajo[{}]Tarea[{}] :: Fin :: Cálculo precio hora ambito {} :: Personas: {}",
-          runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), personas.size());
     }
 
     AsyncUtils.waitAllOfIsOk(cf, cf);
+
+    LOG.info(
+        "Trabajo[{}]Tarea[{}] :: Fin :: Cálculo precio hora ambito {} :: Personas: {}",
+        runTarea.getTrabajo().getId(), runTarea.getTarea().getId(), tareaAmbito.getCclIdOrigen(), ids.size());
 
     return this.validacionMapper.booleanToValidacionDto(tareaAmbito, tareaFaseAccion, Boolean.TRUE);
   }
