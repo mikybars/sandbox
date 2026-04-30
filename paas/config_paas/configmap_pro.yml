@@ -247,7 +247,7 @@ amiga:
         commision-calculation-v2-out-0:
           destination: sscc.global.pro.rhcompensa.commision-calculation.public.v2
         commision-calculation-v3-out-0:
-          destination: sscc.global.pro.rhcompensa.commision-calculation.public.v3
+          destination: iop.global.pro.rhcompensa.commision-calculation.public.v3
   service:
     web:
       api:

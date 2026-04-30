@@ -9,3 +9,5 @@ app:
     optin: false
 redis:
   replicas: 3
+pipe:
+  force_migrated_cluster: true
