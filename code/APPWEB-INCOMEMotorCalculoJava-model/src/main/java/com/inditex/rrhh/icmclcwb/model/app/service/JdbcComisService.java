@@ -19,6 +19,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabaseContextHolder;
@@ -33,7 +34,8 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class ComisServiceImpl implements ComisService {
+@AntiguoMotor
+public class JdbcComisService implements ComisService {
 
   @Autowired
   private ComisRepositoryCustom comisRepositoryCustom;

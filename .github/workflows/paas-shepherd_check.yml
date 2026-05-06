@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.35.0
 
 jobs:
   get-details:
@@ -105,7 +105,7 @@ jobs:
           app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Add comment when the workflow is failed
-        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message == '' }}
+        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message == '' && github.event.inputs.ISSUE_NUMBER != '' }}
         uses: inditex/gha-citool/add-comment@v0
         with:
           issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'
@@ -115,7 +115,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add comment when the workflow is failed and there is an error message
-        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message != '' }}
+        if: ${{ failure() && !cancelled() && steps.shepherd.outputs.error-message != '' && github.event.inputs.ISSUE_NUMBER != '' }}
         uses: inditex/gha-citool/add-comment@v0
         with:
           issue-number: '${{ github.event.inputs.ISSUE_NUMBER }}'

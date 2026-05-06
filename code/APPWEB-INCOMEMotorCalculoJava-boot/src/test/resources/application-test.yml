@@ -1,9 +1,6 @@
 spring:
   activemq:
-    #broker-url: vm://embedded?broker.persistent=false&useShutdownHook=false&broker.useJmx=false
     broker-url: vm://embedded?broker.persistent=false&broker.useShutdownHook=false&broker.useJmx=false
-    #broker-url: vm://localhost:61616?broker.persistent=false&broker.useShutdownHook=false&broker.useJmx=false
-    #broker-url: tcp://localhost:61616//embedded?broker.persistent=false&useShutdownHook=false&broker.useJmx=false
     in-memory: true
 amiga:
   common:
@@ -27,13 +24,9 @@ amiga:
     jms:
       connection-factory:
         broker-escritura:
-          #brokerURL: failover:(vm://embedded)
           brokerURL: vm://embedded
-          #brokerURL: tcp://localhost:61616
         broker-lectura:
-          #brokerURL: failover:(vm://embedded)
           brokerURL: vm://embedded
-          #brokerURL: tcp://localhost:61616
 app:
   envars:
     meta4:

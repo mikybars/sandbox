@@ -30,7 +30,7 @@ on:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.35.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -42,7 +42,7 @@ env:
 jobs:
   set-destination-branch:
     name: Get Destination Branch
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       release-branch: ${{ steps.release-branch.outputs.release-branch }}
     steps:
@@ -62,7 +62,7 @@ jobs:
   identify-changes:
     name: Identify Changes
     needs: [set-destination-branch]
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
@@ -123,7 +123,7 @@ jobs:
   build-deployable:
     name: PaaS / Build Deployable & Promote
     needs: [identify-changes]
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_DOCKER || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_DOCKER || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       is-fast-track-release: ${{ steps.check-fast-track-release.outputs.is-fast-track || 'false' }}
     steps:

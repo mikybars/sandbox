@@ -21,7 +21,7 @@ on:
     paths: [".github/workflows/code-*-sca_analysis.yml", "code/**/pom.xml"]
 
 env:
-  WORKFLOW_VERSION: 1.3.1
+  WORKFLOW_VERSION: 1.4.1
   WORKING_DIR: code
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
     if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.merged == true && github.event.repository.default_branch || github.event.pull_request.head.sha }}
 
@@ -50,20 +50,17 @@ jobs:
 
       - name: Run SCA Analysis
         id: sca-analysis
-        uses: inditex/gha-xygeniactions/sca-scan@main
+        uses: inditex/gha-xrayactions/sca-scan@v0
         with:
-          xygeni-token: ${{ secrets.XYGENI_TOKEN }}
-          project-name: ${{ github.repository }}
           working-directory: ${{ env.WORKING_DIR }}
-          development-flow: ${{ vars.DEVELOPMENT_FLOW }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload SCA Report to DefectDojo
         if: ${{ (github.event_name == 'workflow_dispatch') || (github.event.pull_request.merged == true && ( (vars.DEVELOPMENT_FLOW == 'trunk-based-development' && (github.ref_name == 'main' || startsWith(github.ref_name, 'main-'))) || (vars.DEVELOPMENT_FLOW != 'trunk-based-development' && (github.ref_name == 'develop' || startsWith(github.ref_name, 'develop-'))) ) ) }}
-        uses: inditex/gha-defectdojoactions/upload-report@main
+        uses: inditex/gha-defectdojoactions/upload-report@v0
         with:
           origin: "DEVHUB"
-          tool: "Xygeni SCA"
+          tool: "Xray SCA"
           report-path: "sca-report-filtered.json"
           working-directory: ${{ env.WORKING_DIR }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -10,4 +10,4 @@ Any pull request `opened` with empty commits.
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+`RUNSON_DSECRETS_ONPREM` repository variable (default: `citool-github__ubuntu24.04-medium`) defines the label of the internal/self-hosted runner used by this workflow (not GitHub-hosted runners).

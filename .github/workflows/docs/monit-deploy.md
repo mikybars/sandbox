@@ -8,7 +8,8 @@ Any pull request `merged` to `main` branch when there are changes into `monit` p
 
 ## Where does it run?
 
-[github-runners](https://github.com/inditex/github-runners) self hosted.
+The `linter` job runs in `citool-github__ubuntu24.04-medium` internal runners (configurable via `vars.RUNSON_ALERTHUB_DOCKER`).
+The `monit` job runs in [github-runners](https://github.com/inditex/github-runners) self hosted (configurable via `vars.RUNSON_ALERTHUB_ONPREM`).
 
 ## Steps
 

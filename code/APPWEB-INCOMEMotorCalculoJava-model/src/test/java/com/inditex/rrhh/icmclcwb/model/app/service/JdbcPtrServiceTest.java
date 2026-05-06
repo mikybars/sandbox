@@ -32,7 +32,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class PtrServiceImplTest {
+class JdbcPtrServiceTest {
 
   @Mock
   private PtrRepositoryCustom ptrRepositoryCustom;
@@ -41,7 +41,7 @@ public class PtrServiceImplTest {
   private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @InjectMocks
-  private PtrServiceImpl ptrServiceImpl;
+  private JdbcPtrService jdbcPtrService;
 
   final RunTareaDto runTareaDto = Instancio.create(RunTareaDto.class);
 
@@ -52,20 +52,20 @@ public class PtrServiceImplTest {
   private static final long ID_TAREA = 1L;
 
   @Test
-  public void findPresenciasOrigenAndFecha() {
+  void findPresenciasOrigenAndFecha() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
     runTareaDto.setTarea(tarea);
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen(ORIGEN);
-    this.ptrServiceImpl.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
+    this.jdbcPtrService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
     verify(this.ptrRepositoryCustom, times(1))
         .findPresenciasOrigenAndFecha(any(TareaDto.class), any(TareaAmbitoDto.class));
   }
 
   @Test
-  public void findPresenciasOrigenAndFechaEs() {
+  void findPresenciasOrigenAndFechaEs() {
     final RunTareaDto runTareaDto = new RunTareaDto();
     final TareaDto tarea = new TareaDto();
     tarea.setId(ID_TAREA);
@@ -82,7 +82,7 @@ public class PtrServiceImplTest {
         ArgumentMatchers.any(CatalogoRequestDto.class)))
             .thenReturn(response);
 
-    this.ptrServiceImpl.findPresenciasOrigenAndFechaEs(runTareaDto, tareaAmbitoDto);
+    this.jdbcPtrService.findPresenciasOrigenAndFechaEs(runTareaDto, tareaAmbitoDto);
 
     verify(this.ptrRepositoryCustom, times(1))
         .findPresenciasOrigenAndFechaEs(any(TareaDto.class), any(TareaAmbitoDto.class), any(Integer.class));
@@ -100,7 +100,7 @@ public class PtrServiceImplTest {
         .build());
 
     assertThrows(IcmclcwbException.class, () -> {
-      this.ptrServiceImpl.findPresenciasOrigenAndFechaEs(this.runTareaDto, this.tareaAmbito);
+      this.jdbcPtrService.findPresenciasOrigenAndFechaEs(this.runTareaDto, this.tareaAmbito);
     });
   }
 

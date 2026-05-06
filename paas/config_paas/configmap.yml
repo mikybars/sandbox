@@ -145,11 +145,6 @@ amiga:
         hikari:
           maximum-pool-size: 10
           auto-commit: true
-    jpa:
-      properties:
-        hibernate:
-          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-          default_schema: GESTION_COMISION
     stream:
       output-bindings: commision-calculation-out-0;commision-calculation-v2-out-0;commision-calculation-v3-out-0
       bindings:

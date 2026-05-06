@@ -1,0 +1,19 @@
+version: 2
+definition:
+  api:
+    spec: apis/rest/incomemeta-motor-calculo/openapi-rest.yml
+    repository: https://github.com/inditex/app-iopincome
+    branch: main
+routing:
+  features:
+    - name: itx-auth
+    - name: custom-timeout
+      connect: 120000
+      read: 120000
+      write: 120000
+  scope:
+    name: EXTERNAL
+  routes:
+    context: /{{.projectkey}}
+    operations:
+      - operation_id: "*"

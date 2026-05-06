@@ -14,7 +14,7 @@ app:
       initial_delay_seconds: 180
     liveness_probe:
       initial_delay_seconds: 210
-  has_spnego: true
+  has_spnego: false
   services:
     http:
       route:

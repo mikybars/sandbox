@@ -1,0 +1,128 @@
+---
+name: apigateway-definitions
+concurrency: apigateway-definitions-${{ github.ref }}
+on:
+  pull_request:
+    paths:
+      - 'apigateway/*/template*.yml'
+      - 'apigateway/*/apigateway.yml'
+    types: [opened, synchronize, reopened, closed]
+  push:
+    branches:
+      - main
+    paths:
+      - 'apigateway/*/template*.yml'
+      - 'apigateway/*/apigateway.yml'
+  delete:
+
+env:
+  WORKFLOW_VERSION: 3.2.0
+
+jobs:
+  load-definitions:
+    name: definitions apigateway and templates
+    timeout-minutes: 30
+    runs-on: ${{ fromJSON( vars.RUNSON_JANUS_ONPREM || '["self-hosted", "apigateway"]' ) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+
+      - name: Filter with files are change
+        id: filter
+        if: ${{ github.event_name != 'delete' }}
+        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
+        with:
+          base: main
+          list-files: json
+          filters: |
+            changed:
+              - added|modified: 'apigateway/*/template*.yml'
+              - added|modified: 'apigateway/*/apigateway.yml'
+
+      - name: Filter with files are deleted
+        id: filter_deleted
+        run: |
+          if [ "${{ github.event_name }}" != 'delete' ] && ! { [ "${{ github.event_name }}" == 'pull_request' ] && [ "${{ github.event.action }}" == 'closed' ]; }; then
+              echo "FILE_CHANGES=${{ steps.filter.outputs.changed_files }}" >> "$GITHUB_ENV"
+          fi
+
+          if [ "${{ github.event_name }}" == 'pull_request' ] && [ "${{ github.event.action }}" == 'closed' ]; then
+            echo "Closed PR"
+            echo "DELETED_FILES=${{ steps.filter.outputs.changed_files }}" >> "$GITHUB_ENV"
+            echo "FILE_CHANGES=[]" >> "$GITHUB_ENV"
+          elif [ "${{ github.event_name }}" == "delete" ]; then
+            echo "Branch deleted"
+            deleted_files=$(git ls-tree -r --name-only ${{ github.sha }} | grep -E '^(apigateway/[^/]+/(template.*\.yml|apigateway\.yml))' | tr '\n' ',' | sed 's/,$//' | sed 's/\([^,]*\)/"\1"/g')
+            echo "DELETED_FILES=[$deleted_files]" >> "$GITHUB_ENV"
+            echo "FILE_CHANGES=[]" >> "$GITHUB_ENV"
+          elif [ -z "${{ github.event.before }}" ] || [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "No previous commits on the branch"
+            git fetch --depth=1 origin ${{ github.event.repository.default_branch }}
+            deleted_files=$(git diff --name-only --diff-filter=D origin/${{ github.event.repository.default_branch }} ${{ github.sha }} | grep -E '^(apigateway/[^/]+/(template.*\.yml|apigateway\.yml))' | tr '\n' ',' | sed 's/,$//' | sed 's/\([^,]*\)/"\1"/g')
+            echo "DELETED_FILES=[$deleted_files]" >> "$GITHUB_ENV"
+          else
+            echo "There are previous commits on the branch"
+            deleted_files=$(git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | grep -E '^(apigateway/[^/]+/(template.*\.yml|apigateway\.yml))' | tr '\n' ',' | sed 's/,$//' | sed 's/\([^,]*\)/"\1"/g')
+            echo "DELETED_FILES=[$deleted_files]" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set DELETED_BRANCH
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "DELETED_BRANCH=${PULL_REQUEST_HEAD_REF}" >> "$GITHUB_ENV"
+          else
+            echo "DELETED_BRANCH=${GITHUB_EVENT_REF}" >> "$GITHUB_ENV"
+          fi
+        env:
+          PULL_REQUEST_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          GITHUB_EVENT_REF: ${{ github.event.ref }}
+
+      - name: Setup Paas Cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@main
+        with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Setup Janus Tools
+        id: janus-tools
+        uses: inditex/gha-janusactions/setup-tools@v4
+        with:
+          version: "pro"
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Send definitions
+        if: "${{ env.FILE_CHANGES || env.DELETED_FILES }}"
+        uses: inditex/gha-janusactions/definitions@v3
+        with:
+          extra-features: "--verbose"
+          files-changes: ${{ env.FILE_CHANGES }}
+          files-deleted: ${{ env.DELETED_FILES }}
+          issue-number: '${{ github.ref }}'
+          apigateway-bin-path: '${{ steps.janus-tools.outputs.bin-path }}'
+          apigateway-conf-path: '${{ steps.janus-tools.outputs.conf-path }}'
+          apigateway-platform-path: '${{ steps.janus-tools.outputs.conf-path }}/platforms'
+          apigateway-paas-cli: ${{ steps.setup-cli.outputs.path }}
+          apigateway-deck-cli: ${{ steps.janus-tools.outputs.deck-bin }}
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
+          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+          TARGET_BRANCH: ${{ github.head_ref}}
+          DELETED_BRANCH: ${{ env.DELETED_BRANCH }}
