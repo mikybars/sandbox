@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.app.prevalidar.properties.dto.PrevalidarPro
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@AntiguoMotor
 public class ComisRepositoryCustomImpl
     extends JdbcBatchComisRepositoryAbstract<Integer>
     implements ComisRepositoryCustom {

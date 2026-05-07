@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.Catalogo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.NuevoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
 import jakarta.validation.Valid;
@@ -22,18 +23,17 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 /**
  * PTR implementation backed by Facade COMIS/PTR REST APIs.
  *
- * <p>Active only when {@code app.envars.facade.enabled=true}.
+ * <p>Active only when {@code app.motor-calculo.nuevo.enabled=true}.
  */
 @Service
 @Validated
-@ConditionalOnProperty(name = "app.envars.facade.enabled", havingValue = "true")
+@NuevoMotor
 @RequiredArgsConstructor
 public class RestPtrService implements PtrService {
 

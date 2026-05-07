@@ -4,15 +4,16 @@ import static com.inditex.rrhh.icmclcwb.config.app.data.query.QueryPropertiesLoa
 
 import java.io.IOException;
 
+import com.inditex.rrhh.icmclcwb.model.app.annotation.NuevoMotor;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 
 @Configuration
-@ConditionalOnBooleanProperty(prefix = "app.envars.primary", name = "use-psql")
+@NuevoMotor
 @RequiredArgsConstructor
 public class QueryPrimaryPsqlConfig {
 

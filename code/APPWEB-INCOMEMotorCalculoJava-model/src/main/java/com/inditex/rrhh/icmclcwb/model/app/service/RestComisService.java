@@ -37,6 +37,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.service.TareaAmbitoGlobalFechaService;
 import com.inditex.rrhh.icmclcwb.api.app.util.AppConstants;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseResultItemDto;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.NuevoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.mapper.ComisClientMapper;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 
@@ -45,7 +46,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -55,11 +55,11 @@ import org.springframework.validation.annotation.Validated;
  * <p>Replaces direct database access ({@code ComisRepositoryCustom}) with calls to the COMIS facade REST API, passing the
  * {@code X-Origin-Id} header to route each request to the correct COMIS SQL Server database.
  *
- * <p>Active only when {@code app.envars.facade.enabled=true}.
+ * <p>Active only when {@code app.motor-calculo.nuevo.enabled=true}.
  */
 @Service
 @Validated
-@ConditionalOnProperty(name = "app.envars.facade.enabled", havingValue = "true")
+@NuevoMotor
 @RequiredArgsConstructor
 public class RestComisService implements ComisService {
 

@@ -3,10 +3,10 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@ConditionalOnBooleanProperty(prefix = "app.envars.primary", name = "use-psql", havingValue = false, matchIfMissing = true)
+@AntiguoMotor
 public class DataSourcePrimaryConfig {
 
   @Primary

@@ -3,11 +3,11 @@ amiga:
     oauth2-client:
       clients:
         client-income:
-          client-id: oauthiopincomepro
+          client-id: oauthiopincomepre
     cache:
       redis:
         cluster:
-          nodes: redis-cluster-icmclcwb-v5.sscc-global-rhcompensa-pre.svc.cluster.local.:6379
+          nodes: redis-cluster-icmclcwb-v5.${metadata.platformgroup}-${metadata.tenant}-iopincome-${metadata.environment}.svc.cluster.local.:6379
     rest:
       client:
         iopcomercialcalendar:
@@ -15,13 +15,11 @@ amiga:
           ping-query:
             path: https://people-pre.inditex.com/michorario/amiga/health
         ptr-venta:
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhvtimpwsd
           base-url: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8080/rhvtimpwsd
           ping-query:
             path: http://rhvtimpwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8081/rhvtimpwsd/amiga/health
           username: srvcicmclcwbpreAX
         ptr-presencia:
-          #base-url: https://pre-openshift.axpreocp1.central.inditex.grp/rhpresnwsd
           base-url: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8080/rhpresnwsd
           ping-query:
             path: http://rhpresnwsd.${metadata.platformgroup}-${metadata.tenant}-inforepos-pre.svc.cluster.local.:8081/rhpresnwsd/amiga/health
@@ -31,18 +29,18 @@ amiga:
           ping-query:
             path: http://dqservice.${metadata.platformgroup}-${metadata.tenant}-dgquality-pre.svc.cluster.local.:8081/dqservice/amiga/health
         incomemeta:
-          base-url: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8080/incomemeta
+          base-url: https://preint-api.inditex.com/incomemeta/iop
           ping-query:
-            path: http://incomemeta.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-pre.svc.cluster.local.:8081/incomemeta/amiga/health
+            path: https://preint-api.inditex.com/incomemeta/iop/amiga/health
     metrics:
       type: influx
   data:
     jms:
       connection-factory:
         broker-escritura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-iopincome-${metadata.environment}.svc.cluster.local.:61616
         broker-lectura:
-          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-${metadata.domain}-${metadata.environment}.svc.cluster.local.:61616
+          brokerURL: tcp://middleware-amq-icmclcwb-tcp.${metadata.platformgroup}-${metadata.tenant}-iopincome-${metadata.environment}.svc.cluster.local.:61616
     jdbc:
       datasource:
         primary-psql:
@@ -245,12 +243,12 @@ amiga:
         hibernate:
           dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
           default_schema: GESTION_COMISION
-        stream:
+    stream:
       bindings:
         commision-calculation-out-0:
-          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v1
+          destination: iop.global.pre.rhcompensa.commision-calculation.public.v3
         commision-calculation-v2-out-0:
-          destination: sscc.global.pre.rhcompensa.commision-calculation.public.v2
+          destination: iop.global.pre.rhcompensa.commision-calculation.public.v3
         commision-calculation-v3-out-0:
           destination: iop.global.pre.rhcompensa.commision-calculation.public.v3
   service:
@@ -263,8 +261,11 @@ amiga:
         heimdal:
           remote:
             oauth-service-user:
-              client-id: oauthiopincomepro
+              client-id: oauthiopincomepre
 app:
+  motor-calculo:
+    nuevo:
+      enabled: true
   envars:
     mail:
       sender: 'noreply@inditex.com'
@@ -284,12 +285,8 @@ app:
         path: https://sscc-pre.central.inditex.grp/icmclcws/validationCheck
       login:
         server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
-        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
-        #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/Login
       icmwscalcincome:
         server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        #server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
-        #server: https://pre-openshift.axpreocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
         message-max-size: 2000
