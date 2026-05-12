@@ -16,6 +16,7 @@
   <modules>
     <module>APPWEB-INCOMEMotorCalculoJava-client-rest-api-incomemeta</module>
     <module>APPWEB-INCOMEMotorCalculoJava-client-rest-api-comis</module>
+    <module>APPWEB-INCOMEMotorCalculoJava-client-rest-api-calculoincome</module>
   </modules>
 
   <dependencyManagement>
@@ -28,6 +29,11 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-comis</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-calculoincome</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

@@ -11,6 +11,11 @@
   <description>Este módulo se proporciona para que el ejemplo funcione, pero lo recomendable es que no exista
     dentro del proyecto, y en su lugar se importe una librería con el api y el acceso a datos.</description>
 
+  <properties>
+    <!-- Awaitility -->
+    <awaitility.version>4.2.2</awaitility.version>
+  </properties>
+
   <dependencies>
 
     <!-- PROJECT DEPENDENCIES -->
@@ -34,6 +39,11 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-comis</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>APPWEB-INCOMEMotorCalculoJava-client-rest-api-calculoincome</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -125,6 +135,13 @@
     <dependency>
       <groupId>com.inditex.amigafwk.test</groupId>
       <artifactId>test-starter-instancio</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Awaitility -->
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <version>${awaitility.version}</version>
       <scope>test</scope>
     </dependency>
 

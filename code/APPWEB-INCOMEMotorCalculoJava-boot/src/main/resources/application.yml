@@ -32,6 +32,8 @@ app:
         connect-timeout: 10s
         read-timeout: 10s
         type: 2
+      icmwscalcincome:
+        migration-mode: shadow
 amiga:
   common:
     soap:
@@ -117,6 +119,15 @@ amiga:
       meta4-executor:
         name: async-meta4-executor
         name-format: async-meta4-executor-%d
+        executor-type: THREAD_POOL
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      meta4-migration-executor:
+        name: async-meta4-migration-executor
+        name-format: async-meta4-migration-executor-%d
         executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100

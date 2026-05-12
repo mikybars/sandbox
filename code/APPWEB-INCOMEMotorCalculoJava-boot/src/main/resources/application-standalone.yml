@@ -106,6 +106,10 @@ amiga:
           base-url: https://sscc-pre.central.inditex.grp/incomemeta
           auth-method: OAUTH2-CLIENT-CREDENTIALS
           client-name: client-income
+        calculo-income:
+          base-url: https://preint-api.inditex.com/iopincome-calculoincome-income
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
     metrics:
       type: influx
   service:

@@ -32,6 +32,8 @@ amiga:
           base-url: https://preint-api.inditex.com/incomemeta/iop
           ping-query:
             path: https://preint-api.inditex.com/incomemeta/iop/amiga/health
+        calculo-income:
+          base-url: https://preint-api.inditex.com/iopincome-calculoincome-income
     metrics:
       type: influx
   data:

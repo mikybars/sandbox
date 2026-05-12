@@ -55,6 +55,9 @@ amiga:
           ping-query:
             enabled: true
             timeout: 2s
+        calculo-income:
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
     metrics:
       type: influx
     cache:
