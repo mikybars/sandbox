@@ -19,8 +19,8 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaFaseAccionVentaIntegraDt
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraDataResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.exception.VentaIntegraIcmclcwbException;
+import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentaIntegraService;
 import com.inditex.rrhh.icmclcwb.model.app.run.tarea.validar.mapper.ValidacionMapper;
-import com.inditex.rrhh.icmclcwb.model.app.service.VentaIntegraServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaFaseAccionVentaIntegraServiceImpl;
 import com.inditex.rrhh.icmclcwb.model.app.tarea.service.TareaLocalizacionHistoricoServiceImpl;
@@ -42,7 +42,7 @@ public class RunTareaAmbitoValidarVentaIntegraServiceImpl implements RunTareaAmb
   private TareaLocalizacionHistoricoServiceImpl findIdLocalizacionDtoByIdTareaAndCclIdOrigenInAmbito;
 
   @Autowired
-  private VentaIntegraServiceImpl ventaIntegraService;
+  private VentaIntegraService ventaIntegraService;
 
   @Autowired
   private TareaFaseAccionVentaIntegraServiceImpl tareaFaseAccionVentaIntegraService;

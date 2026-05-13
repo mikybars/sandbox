@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+  <entry key="SimulacionRepositoryCustom.mergeEmpleadoSimulacion">
+    <![CDATA[
+INSERT INTO income.tarea_persona_historico (
+            id_tarea,
+            fecha_inicio_periodo,
+            fecha_fin, fecha_inicio,
+            fecha_inicio_seccion,
+            fecha_fin_seccion,
+            fecha_inicio_localizacion,
+            fecha_fin_localizacion,
+            std_id_hr,
+            ccl_id_person,
+            ccl_id_cod_origen,
+            std_id_work_locat,
+            std_or_hr_period,
+            std_id_leg_ent,
+            ccl_id_origen,
+            ccl_id_seccion,
+            fecha_antiguedad)
+    SELECT
+    :idTarea AS id_tarea,
+    :fechaInicioPeriodo AS fecha_inicio_periodo,
+    fecha_inicio,
+    fecha_fin,
+    fecha_inicio AS fecha_inicio_seccion,
+    fecha_fin AS fecha_fin_seccion,
+    fecha_inicio AS fecha_inicio_localizacion,
+    fecha_fin AS fecha_fin_localizacion,
+    std_id_hr,
+    ccl_id_person,
+    ccl_id_cod_origen,
+    std_id_work_locat,
+    std_or_hr_period,
+    std_id_leg_ent,
+    ccl_id_origen,
+    4 AS ccl_id_seccion,
+    fecha_inicio AS fecha_antiguedad
+    FROM
+    income.simulacion
+    WHERE id_simulacion = :idSimulacion
+    ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergeEmpleadoSimulacion">
+    <![CDATA[
+    MERGE INTO income.tarea_persona_historico AS p USING (
+      SELECT tph.id_tarea_persona_historico, s.ccl_id_cod_origen, s.std_id_work_locat
+      FROM income.tarea t
+      INNER JOIN income.trabajo tr
+      ON t.id_trabajo = tr.id_trabajo
+      INNER JOIN income.simulacion s
+      ON s.id_simulacion = tr.id_simulacion
+      INNER JOIN income.tarea_persona_historico tph
+      ON t.fecha_inicio_periodo = tph.fecha_inicio_periodo
+      AND t.id_tarea = tph.id_tarea
+      AND s.ccl_id_person = tph.ccl_id_person
+      AND s.std_or_hr_period = tph.std_or_hr_period
+      WHERE
+        t.id_tarea = :idTarea
+    ) AS s ON (s.id_tarea_persona_historico = p.id_tarea_persona_historico)
+    WHEN MATCHED THEN
+        UPDATE SET ccl_id_cod_origen = s.ccl_id_cod_origen, std_id_work_locat = s.std_id_work_locat
+    ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.findEstructurasEmpleadoSimulacion">
+    <![CDATA[
+      SELECT
+      t.id_tarea AS id_tarea,
+      0 AS icm_id_estr_comision,
+      s.ccl_id_origen AS ccl_id_origen,
+      s.std_id_hr AS std_id_hr,
+      s.ccl_id_person AS ccl_id_person,
+      c.ccl_id_seccion AS ccl_id_seccion_efectiva,
+      c.ccl_id_seccion AS ccl_id_seccion_estructura,
+      c.icm_id_tp_calculo AS icm_id_tp_calculo,
+      c.icm_id_tp_comision AS icm_id_tp_comision,
+      s.std_or_hr_period AS std_or_hr_period,
+      s.fecha_inicio AS fecha_inicio,
+      s.fecha_fin AS fecha_fin,
+      c.icm_valor AS icm_valor,
+      0 AS es_desplazamiento,
+      0 AS es_desplazamiento_base,
+      0 AS ordinal_estructura,
+      1 AS es_activo,
+      c.es_dia_lunes AS es_dia_lunes,
+      c.es_dia_martes AS es_dia_martes,
+      c.es_dia_miercoles AS es_dia_miercoles,
+      c.es_dia_jueves AS es_dia_jueves,
+      c.es_dia_viernes AS es_dia_viernes,
+      c.es_dia_sabado AS es_dia_sabado,
+      c.es_dia_domingo AS es_dia_domingo,
+      0 AS icm_id_estr_comision_base,
+      0 AS icm_id_estr_comision_padre,
+      0 AS icm_id_tp_estructura,
+      c.icm_ord_tope AS icm_ord_tope,
+      t.fecha_inicio_periodo AS fecha_inicio_periodo,
+      0 AS icm_grupo_manual,
+      c.es_festivo AS es_festivo
+      FROM income.tarea t
+      INNER JOIN income.trabajo tr
+      ON t.id_trabajo = tr.id_trabajo
+      INNER JOIN income.simulacion s
+      ON s.id_simulacion = tr.id_simulacion
+      INNER JOIN income.simulacion_condicion sc
+      ON s.id_simulacion = sc.id_simulacion
+      INNER JOIN income.condicion c
+      ON c.id_condicion = sc.id_condicion
+      WHERE t.id_tarea = :idTarea
+    ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergePresenciasEmpleadoSimulacion">
+    <![CDATA[
+    MERGE INTO income.tarea_localizacion_persona_presencia AS p USING (
+      SELECT tlpp.id_tarea_localizacion_persona_presencia, s.ccl_id_cod_origen
+      FROM income.tarea t
+      INNER JOIN income.trabajo tr
+      ON t.id_trabajo = tr.id_trabajo
+      INNER JOIN income.simulacion s
+      ON s.id_simulacion = tr.id_simulacion
+      INNER JOIN income.tarea_localizacion_persona_presencia tlpp
+      ON t.fecha_inicio_periodo = tlpp.fecha_inicio_periodo
+      AND t.id_tarea = tlpp.id_tarea
+      AND s.ccl_id_person = tlpp.ccl_id_person
+      WHERE
+        t.id_tarea = :idTarea
+    ) AS s ON (s.id_tarea_localizacion_persona_presencia = p.id_tarea_localizacion_persona_presencia)
+    WHEN MATCHED THEN
+        UPDATE SET ccl_id_cod_origen = s.ccl_id_cod_origen
+    ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergeVentaUltimoCalculo">
+    <![CDATA[
+      INSERT INTO income.tarea_localizacion_venta (fecha, id_tarea, id_tipo_dato, ccl_id_cadena, ccl_id_cod_origen, ccl_id_seccion, es_activo, fecha_inicio_periodo, importe_sin_impuestos, importe_con_impuestos)
+      SELECT tlv.fecha, :idTarea, tlv.id_tipo_dato, tlv.ccl_id_cadena, tlv.ccl_id_cod_origen, tlv.ccl_id_seccion, 1 as es_activo, tlv.fecha_inicio_periodo, tlv.importe_sin_impuestos, tlv.importe_con_impuestos
+      FROM income.tarea t
+      INNER JOIN income.trabajo tr
+      ON tr.id_trabajo = t.id_trabajo
+      INNER JOIN income.simulacion s
+      ON s.id_simulacion = tr.id_simulacion
+      INNER JOIN income.periodo_calculo_persona pcp
+      ON pcp.ccl_id_origen = s.ccl_id_origen
+      AND pcp.std_id_leg_ent = s.std_id_leg_ent
+      AND pcp.icm_id_periodo = s.icm_id_periodo
+      AND pcp.ccl_id_person = s.ccl_id_person
+      AND pcp.std_or_hr_period = s.std_or_hr_period
+      INNER JOIN income.tarea t_antigua
+      ON t_antigua.id_tarea = pcp.id_tarea_actual
+      INNER JOIN income.tarea_localizacion_venta tlv
+      ON tlv.fecha_inicio_periodo = t_antigua.fecha_inicio_periodo
+      AND tlv.id_tarea = t_antigua.id_tarea
+      AND tlv.ccl_id_cod_origen = s.ccl_id_cod_origen
+      INNER JOIN tipo_dato td
+  	    ON tlv.id_tipo_dato = td.id_tipo_dato
+      WHERE t.id_tarea = :idTarea
+        AND td.es_procesado= 0
+    ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergePresenciaTiendaUltimoCalculo">
+    <![CDATA[
+        INSERT INTO income.tarea_localizacion_presencia (fecha, id_tarea, id_tipo_dato, ccl_id_cadena, ccl_id_cod_origen, ccl_id_seccion, es_activo, fecha_inicio_periodo, minutos)
+        SELECT tlp.fecha, :idTarea, tlp.id_tipo_dato, tlp.ccl_id_cadena, tlp.ccl_id_cod_origen, tlp.ccl_id_seccion, tlp.es_activo, tlp.fecha_inicio_periodo, tlp.minutos
+        FROM income.tarea t
+        INNER JOIN income.trabajo tr
+        ON tr.id_trabajo = t.id_trabajo
+        INNER JOIN income.simulacion s
+        ON s.id_simulacion = tr.id_simulacion
+        INNER JOIN income.periodo_calculo_persona pcp
+        ON pcp.ccl_id_origen = s.ccl_id_origen
+        AND pcp.std_id_leg_ent = s.std_id_leg_ent
+        AND pcp.icm_id_periodo = s.icm_id_periodo
+        AND pcp.ccl_id_person = s.ccl_id_person
+        INNER JOIN income.tarea t_antigua
+        ON t_antigua.id_tarea = pcp.id_tarea_ultima
+        INNER JOIN income.tarea_localizacion_presencia tlp
+        ON tlp.fecha_inicio_periodo = t_antigua.fecha_inicio_periodo
+        AND tlp.id_tarea = t_antigua.id_tarea
+        AND tlp.ccl_id_cod_origen = s.ccl_id_cod_origen
+        WHERE t.id_tarea = :idTarea
+   ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergePresenciaEmpleadoUltimoCalculo">
+    <![CDATA[
+        INSERT INTO income.tarea_localizacion_persona_presencia (std_id_leg_ent, ccl_id_origen, cod_tipo_hora, fecha, id_tarea, id_tipo_dato, ccl_id_cadena, ccl_id_cod_origen, ccl_id_person, ccl_id_seccion, es_activo, fecha_inicio_periodo, minutos)
+        SELECT pcp.std_id_leg_ent, pcp.ccl_id_origen, tlpp.cod_tipo_hora, tlpp.fecha, :idTarea, tlpp.id_tipo_dato, tlpp.ccl_id_cadena, tlpp.ccl_id_cod_origen, tlpp.ccl_id_person, tlpp.ccl_id_seccion, tlpp.es_activo, tlpp.fecha_inicio_periodo, tlpp.minutos
+        FROM income.tarea t
+        INNER JOIN income.trabajo tr
+        ON tr.id_trabajo = t.id_trabajo
+        INNER JOIN income.simulacion s
+        ON s.id_simulacion = tr.id_simulacion
+        INNER JOIN income.periodo_calculo_persona pcp
+        ON pcp.ccl_id_origen = s.ccl_id_origen
+        AND pcp.std_id_leg_ent = s.std_id_leg_ent
+        AND pcp.icm_id_periodo = s.icm_id_periodo
+        AND pcp.ccl_id_person = s.ccl_id_person
+        INNER JOIN income.tarea t_antigua
+        ON t_antigua.id_tarea = pcp.id_tarea_ultima
+        INNER JOIN income.tarea_localizacion_persona_presencia tlpp
+        ON tlpp.fecha_inicio_periodo = t_antigua.fecha_inicio_periodo
+        AND tlpp.id_tarea = t_antigua.id_tarea
+        AND tlpp.ccl_id_person = pcp.ccl_id_person
+        WHERE t.id_tarea = :idTarea
+   ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.updateBandaExcepcionada">
+    <![CDATA[
+      UPDATE income.tarea_localizacion_presupuesto SET es_activo = :activo, icm_ck_excepcion = :activo
+      WHERE id_tarea = :idTarea AND ccl_id_cod_origen = :cclIdCodOrigen AND ccl_id_seccion = :cclIdSeccion AND icm_banda = :icmBanda
+   ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.updateTiendaPersonaPresencia">
+    <![CDATA[
+      UPDATE income.tarea_localizacion_persona_presencia SET ccl_id_cod_origen = :cclIdCodOrigen
+      WHERE id_tarea = :idTarea AND ccl_id_person = :cclIdPerson
+   ]]>
+  </entry>
+
+  <entry key="SimulacionRepositoryCustom.mergePresenciaTiendaSimulada">
+    <![CDATA[
+      INSERT INTO income.tarea_localizacion_presencia (fecha, id_tarea, id_tipo_dato, ccl_id_cadena, ccl_id_cod_origen, ccl_id_seccion, es_activo, fecha_inicio_periodo, minutos)
+      SELECT fecha, id_tarea, id_tipo_dato, ccl_id_cadena, ccl_id_cod_origen, ccl_id_seccion, es_activo, fecha_inicio_periodo, minutos
+      FROM income.tarea_localizacion_persona_presencia
+      WHERE id_tarea = :idTarea AND ccl_id_person = :cclIdPerson AND ccl_id_cod_origen = :cclIdCodOrigen
+   ]]>
+  </entry>
+</properties>

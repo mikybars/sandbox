@@ -1,0 +1,191 @@
+---
+name: apigateway-deploy
+run-name: "Args: supraenvs=${{ inputs.SUPRAENVS }}, envs=${{ inputs.ENVS }}, platforms=${{ inputs.PLATFORMS }}, tenants=${{ inputs.TENANTS }}, slots=${{ inputs.SLOTS }}, publication=${{ inputs.PUBLICATION }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUPRAENVS:
+        description: 'Supra environments to generate manifest files'
+        required: true
+        default: ''
+      ENVS:
+        description: 'Environments to generate manifest files'
+        required: true
+        default: ''
+      PLATFORMS:
+        description: 'Platforms to generate manifest files'
+        required: true
+        default: ''
+      TENANTS:
+        description: 'Tenants to generate manifest files'
+        required: true
+        default: ''
+      SLOTS:
+        description: 'Slots to generate manifest files'
+        required: false
+        default: 'default'
+      PUBLICATION:
+        description: 'Subfolder into apigateway folder'
+        required: true
+        default: ''
+      ISSUE_NUMBER:
+        description: 'ID number (issue or pull request)'
+        required: true
+        default: ''
+      REF:
+        description: 'The branch, tag, or commit SHA to checkout'
+        required: false
+        default: ''
+env:
+  WORKFLOW_VERSION: 3.2.0
+  SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
+
+jobs:
+  get-path:
+    name: Get path from supraenvironment
+    runs-on: ${{ fromJSON( vars.RUNSON_JANUS_GENERIC || '["ubuntu-24.04"]' ) }}
+    outputs:
+      azfaas-env: ${{ steps.obtain-environment.outputs.azfaas-env }}
+    steps:
+      - name: Check number of supraenvironments
+        shell: python
+        run: |
+          supraenv = '${{ github.event.inputs.SUPRAENVS }}'
+
+          if len(supraenv.split(',')) != 1:
+              print("::error ::Only one supraenvironment is supported!")
+              exit(1)
+
+      - name: Obtain environment
+        id: obtain-environment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! deployments=$(gh api -X GET /repos/${{ github.repository }}/environments --jq '.environments[] | select(.name=="${{ github.event.inputs.ENVS }}.${{ github.event.inputs.SLOTS }}") | .name'); then
+              echo "::error::API request failed, obtaining environment."
+          fi
+          if [[ "${{ github.event.inputs.ENVS }}.${{ github.event.inputs.SLOTS }}" == "$deployments" ]]; then
+            echo "azfaas-env=${{ github.event.inputs.ENVS }}.${{ github.event.inputs.SLOTS }}" >> "$GITHUB_OUTPUT"
+          else
+            echo azfaas-env="" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish-apigateway:
+    name: Publish APIGateway
+    concurrency:
+      group: ${{ ((contains(needs.get-path.outputs.azfaas-env, 'staging') && format('deploy-automated/{0}-{1}-default', inputs.TENANTS, inputs.ENVS)) || (needs.get-path.outputs.azfaas-env != '' && format('deploy-automated/{0}-{1}-{2}', inputs.TENANTS, inputs.ENVS, inputs.SLOTS))) || github.run_id }}
+    environment: ${{ needs.get-path.outputs.azfaas-env }}
+    timeout-minutes: 30
+    runs-on: ${{ fromJSON( vars.RUNSON_JANUS_ONPREM || '["self-hosted", "apigateway"]' ) }}
+    needs: [get-path]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.REF || github.ref }}
+
+      - name: Get metadata
+        id: metadata
+        shell: python
+        run: |
+          import yaml
+          import os
+          with open('application.yml') as f:
+            application = yaml.safe_load(f)
+
+          github_output = os.getenv('GITHUB_OUTPUT')
+          with open(github_output, "a") as gh_out:
+            gh_out.write(f'project-key={ application["metadata"]["project_key"] }\n')
+            gh_out.write(f'project-name={ application["metadata"]["project_name"] }\n')
+
+      - name: Prepare committer information
+        run: |
+          echo "$SCM_COMMITTER_PGP_KEY" | gpg --import
+
+      - name: Setup Paas Cli
+        id: setup-cli
+        uses: inditex/gha-paasdeployment/setup-cli@main
+        with:
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Setup Janus Tools
+        id: janus-tools
+        uses: inditex/gha-janusactions/setup-tools@v4
+        with:
+          version: '${{ github.event.inputs.SUPRAENVS }}'
+          github_token: ${{ secrets.GH_TOKEN_READER }}
+
+      - name: Publish APIGateway
+        uses: inditex/gha-janusactions/publish@v3
+        with:
+          supraenvs: ${{ github.event.inputs.SUPRAENVS }}
+          envs: ${{ github.event.inputs.ENVS }}
+          platforms: ${{ github.event.inputs.PLATFORMS }}
+          tenants: ${{ github.event.inputs.TENANTS }}
+          slots: ${{ github.event.inputs.SLOTS }}
+          publication: ${{ github.event.inputs.PUBLICATION }}
+          extra-features: "--verbose"
+          apigateway-bin-path: '${{ steps.janus-tools.outputs.bin-path }}'
+          apigateway-conf-path: '${{ steps.janus-tools.outputs.conf-path }}'
+          apigateway-platform-path: '${{ steps.janus-tools.outputs.conf-path }}/platforms'
+          apigateway-paas-cli: ${{ steps.setup-cli.outputs.path }}
+          apigateway-deck-cli: ${{ steps.janus-tools.outputs.deck-bin }}
+          cyberark-oauth-clientid: ${{ secrets.APPLICATION_CLIENT_ID }}
+          cyberark-oauth-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PUSH }}
+          SRVC_BITBUCKET_USERNAME: ${{ secrets.SRVC_BITBUCKET_USERNAME }}
+          SRVC_BITBUCKET_PASSWORD: ${{ secrets.SRVC_BITBUCKET_PASSWORD }}
+          JIRAKEY: ${{ steps.metadata.outputs.project-key }}
+          JIRA_PROJECT_NAME: ${{ steps.metadata.outputs.project-name }}
+          ISSUE_NUMBER: ${{ github.event.inputs.ISSUE_NUMBER }}
+          AZFAAS_KEYS: ${{ secrets.AZFAAS_KEYS }}
+          AZFAAS_CONFIG: ${{ vars.AZFAAS_CONFIG }}
+          TARGET_BRANCH: ${{ github.head_ref}}
+
+      - name: Add comment with deployment information
+        if: ${{ !failure() && !cancelled()}}
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: |
+            ### ${{ github.event.inputs.REF != '' && ':back: API Gateway rollback' || ':rocket: API Gateway published' }}
+            - **Publication**: "${{ github.event.inputs.PUBLICATION }}"
+            - **Supraenvironments**: "${{ github.event.inputs.SUPRAENVS }}"
+            - **Environments**: "${{ github.event.inputs.ENVS }}"
+            - **Platforms**: "${{ github.event.inputs.PLATFORMS }}"
+            - **Tenants**: "${{ github.event.inputs.TENANTS }}"
+            - **Slots**: "${{ github.event.inputs.SLOTS }}"
+            - **Action**: "[${{ github.workflow }}-${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add comment with deployment information error
+        if: failure()
+        uses: inditex/gha-citool/add-comment@v0
+        with:
+          issue-number: "${{ github.event.inputs.ISSUE_NUMBER }}"
+          body: |
+            ### ${{ github.event.inputs.REF != '' && ':x: API Gateway rollback failed' || ':x: API Gateway published failed' }}
+            - **Publication**: "${{ github.event.inputs.PUBLICATION }}"
+            - **Supraenvironments**: "${{ github.event.inputs.SUPRAENVS }}"
+            - **Environments**: "${{ github.event.inputs.ENVS }}"
+            - **Platforms**: "${{ github.event.inputs.PLATFORMS }}"
+            - **Tenants**: "${{ github.event.inputs.TENANTS }}"
+            - **Slots**: "${{ github.event.inputs.SLOTS }}"
+            - **Action**: "[${{ github.workflow }}-${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a Workflow Status Check to link this execution with a PR
+        if: always() && !cancelled() && github.event_name == 'workflow_dispatch'
+        uses: inditex/gha-citool/create-status-check@v0
+        with:
+          app_id: ${{ vars.WFSC_APP_ID }}
+          app_private_key: ${{ secrets.WFSC_APP_PKEY }}
+          name: "apigateway-deploy-${{ github.event.inputs.SUPRAENVS }}"
+          summary: |
+            This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
+            `${{ github.workflow_ref }}`
+            You can find more details in the link below :arrow_down:

@@ -26,7 +26,7 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatien
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.SoapMeta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import org.junit.jupiter.api.Assertions;
@@ -41,7 +41,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class Meta4PageableServiceImplTest {
 
   @InjectMocks
-  private Meta4IcmWsCalcIncomeServiceImpl meta4IcmWsCalcIncomeServiceImpl;
+  private SoapMeta4IcmWsCalcIncomeService soapMeta4IcmWsCalcIncomeService;
 
   @InjectMocks
   private Meta4PageableServiceImpl meta4PageableServiceImpl;
@@ -69,7 +69,7 @@ public class Meta4PageableServiceImplTest {
           Meta4PropertiesConstants.FLAG_CALCULA, FlagCalculaResponseDto.class,
           FlagCalculaResultItemDto.class);
 
-      verify(this.meta4IcmWsCalcIncomeServiceImpl, timeout(1000).times(1))
+      verify(this.soapMeta4IcmWsCalcIncomeService, timeout(1000).times(1))
           .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
     });
   }
