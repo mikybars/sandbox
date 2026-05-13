@@ -8,7 +8,7 @@
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub cloud runner.
+- `RUNSON_PAAS_GENERIC` (default: `citool-github__ubuntu24.04-medium`)
 
 ## Diagrams fot the workflow and actions
 

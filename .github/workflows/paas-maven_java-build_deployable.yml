@@ -15,6 +15,10 @@ on:
         required: false
         type: string
         default: ''
+      BULK_ID:
+        required: false
+        type: string
+        default: ''
   workflow_dispatch:
     inputs:
       VERSION:
@@ -25,12 +29,16 @@ on:
         required: false
         type: string
         default: ''
+      BULK_ID:
+        required: false
+        type: string
+        default: ''
   release:
     types:
       - published
 
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.36.0
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
   DP_TOKEN: ${{ secrets.DIST_PLAT_DEPLOYER_TOKEN }}
@@ -42,13 +50,13 @@ env:
 jobs:
   set-destination-branch:
     name: Get Destination Branch
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       release-branch: ${{ steps.release-branch.outputs.release-branch }}
     steps:
       - name: Checkout repository
         if: ${{ github.event_name == 'release' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -62,7 +70,7 @@ jobs:
   identify-changes:
     name: Identify Changes
     needs: [set-destination-branch]
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
       config-changes: ${{ steps.check-config-changes.outputs.changed }}
@@ -81,7 +89,7 @@ jobs:
 
       - name: Checkout
         if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.release-version.outputs.release-version }}
           fetch-depth: 0
@@ -123,22 +131,22 @@ jobs:
   build-deployable:
     name: PaaS / Build Deployable & Promote
     needs: [identify-changes]
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_DOCKER || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_DOCKER || '["citool-github__ubuntu24.04-medium"]' ) }}
     outputs:
       is-fast-track-release: ${{ steps.check-fast-track-release.outputs.is-fast-track || 'false' }}
     steps:
       - name: Checkout merge commit
         if: github.event.pull_request.merged == true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout head branch
         if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.inputs.CHECKOUT_REF || inputs.CHECKOUT_REF || github.event.pull_request.head.sha }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         if: ${{ !contains(inputs.VERSION, 'SNAPSHOT') || github.event.release.tag_name != '' }}
         with:
           ref: ${{ needs.identify-changes.outputs.release-version }}
@@ -169,7 +177,7 @@ jobs:
           github-token: ${{ secrets.GH_TOKEN_READER }}
 
       - name: Setup Maven Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         continue-on-error: true
         with:
           path: ~/.m2/repository
@@ -178,7 +186,7 @@ jobs:
             ${{ steps.infer-asdf-image.outputs.asdf-image-tag }}-maven-
 
       - name: Setup asdf Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         continue-on-error: true
         with:
           path: ~/.asdf/data
@@ -202,6 +210,16 @@ jobs:
         uses: inditex/gha-citool/get-runner-resources@v0
         with:
           memory_magnitude: ${{ vars.RUNNER_TOTAL_MEMORY_MAGNITUDE || 'MB' }}
+
+      - name: Event / Artifact Build Start
+        if: ${{ github.event.inputs.BULK_ID != '' || inputs.BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          type: SUCCESS
+          action: ARTIFACT_BUILD_START
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Build artifact
         shell: bash
@@ -227,6 +245,26 @@ jobs:
             mvn -B clean install -DskipTests -Dbuild.type=snapshot
         env:
           MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Ddarwin-telemetry-maven-extension.output=json"
+
+      - name: Event / Error Artifact Build
+        if: ${{ failure() && (github.event.inputs.BULK_ID != '' || inputs.BULK_ID != '') }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          type: FAILED
+          action: ARTIFACT_BUILD_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
+      - name: Event / Artifact Build End
+        if: ${{ success() && (github.event.inputs.BULK_ID != '' || inputs.BULK_ID != '') }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          type: SUCCESS
+          action: ARTIFACT_BUILD_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Checkout Released Tag and Generate Maven Reactor List
         run: |
@@ -261,6 +299,9 @@ jobs:
           is-merged: ${{ github.event.pull_request.merged }}
           artifact-version: ${{ needs.identify-changes.outputs.release-version }}
           checkout-ref: ${{ github.event.inputs.CHECKOUT_REF || inputs.CHECKOUT_REF }}
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Determine Dockerfile Outputs
         id: determine-dockerfile-outputs
@@ -282,6 +323,9 @@ jobs:
           tags: ${{ steps.determine-dockerfile-outputs.outputs.image-tag }}
           path: code
           dockerfile: code/Dockerfile
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Artifact / Build and Push Docker Image to JFrog
         if: vars.PAAS_DOCKER_SNAPSHOT_REGISTRY != 'ghcr.io' || steps.set-deploy-vars.outputs.APP_VERSION == 'release'
@@ -294,6 +338,9 @@ jobs:
           tags: ${{ steps.determine-dockerfile-outputs.outputs.image-tag }}
           path: code
           dockerfile: code/Dockerfile
+          bulk-id: ${{ github.event.inputs.BULK_ID || inputs.BULK_ID }}
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
 
       - name: Tag / Get fork PR commit SHA
         if: ${{ github.event.inputs.CHECKOUT_REF != '' || inputs.CHECKOUT_REF != '' }}

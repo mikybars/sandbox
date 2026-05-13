@@ -10,7 +10,9 @@
 
 ## Where does it run?
 
-`ubuntu-24.04` GitHub infrastructure.
+This workflow runs on GitHub-hosted runners configured via repository variables:
+- `RUNSON_PAAS_GENERIC` (default: `citool-github__ubuntu24.04-medium`) for generic jobs such as `identify-changes`.
+- `RUNSON_PAAS_DOCKER` for container build jobs such as `build-deployable`.
 
 ## Versions used
 
