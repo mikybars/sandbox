@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKFLOW_VERSION: 3.35.0
+  WORKFLOW_VERSION: 3.36.0
   DIR_PATH_STATUS: "/tmp/check-secret-results"
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Check for changed files in specific paths
         id: changes
-        uses: dorny/paths-filter@ebc4d7e9ebcb0b1eb21480bb8f43113e996ac77a
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d
         with:
           list-files: shell
           filters: |
@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: YAML Lint
@@ -96,7 +96,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -165,7 +165,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
@@ -187,7 +187,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0

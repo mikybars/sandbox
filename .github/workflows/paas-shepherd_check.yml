@@ -8,7 +8,7 @@ on:
         type: string
         required: true
 env:
-  WORKFLOW_VERSION: 3.35.0
+  WORKFLOW_VERSION: 3.36.0
 
 jobs:
   get-details:
@@ -59,7 +59,7 @@ jobs:
     steps:
       - name: Checkout
         id: matrix-branch-checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         continue-on-error: true
         with:
           ref: ${{ matrix.branch_name }}
@@ -75,7 +75,7 @@ jobs:
 
       - name: Checkout fallback
         if: steps.matrix-branch-checkout.outcome == 'failure'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.set-branch-name.outputs.branch_name }}
 

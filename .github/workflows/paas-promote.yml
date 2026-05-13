@@ -84,7 +84,7 @@ on:
         default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","CHECKOUT_REF": "","FAST_TRACK":"","DESTINATIONS":"","BULK_ID":""}'
 
 env:
-  WORKFLOW_VERSION: 3.35.0
+  WORKFLOW_VERSION: 3.36.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -102,6 +102,16 @@ jobs:
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:
+      - name: Event / Promote Start
+        if: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: SUCCESS
+          action: PAAS_PROMOTE_WORKFLOW_START
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
       - name: Compute checkout ref
         id: compute-checkout-ref
         env:
@@ -118,7 +128,7 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref-with-fallback }}
 
@@ -342,6 +352,26 @@ jobs:
             This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
             `${{ github.workflow_ref }}`
             You can find more details in the link below :arrow_down:
+
+      - name: Event / Error Promote End
+        if: ${{ failure() && fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: FAILED
+          action: PAAS_PROMOTE_WORKFLOW_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
+      - name: Event / Promote End
+        if: ${{ success() && fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: SUCCESS
+          action: PAAS_PROMOTE_WORKFLOW_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
   shepherd-check:
     name: Shepherd check
     needs: promote

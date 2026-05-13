@@ -53,7 +53,7 @@ on:
     paths: ['code/**', 'paas/**']
 
 env:
-  WORKFLOW_VERSION: 3.35.0
+  WORKFLOW_VERSION: 3.36.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -84,7 +84,7 @@ jobs:
     steps:
       - name: Checkout merge commit
         if: github.event.pull_request.merged == true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -99,7 +99,7 @@ jobs:
 
       - name: Checkout head branch
         if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -253,6 +253,7 @@ jobs:
     with:
       VERSION: ${{ needs.identify-changes.outputs.app-version }}
       CHECKOUT_REF: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || needs.identify-changes.outputs.checkout-ref }}
+      BULK_ID: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID != '') && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID || '' }}
     secrets: inherit
 
   create-deployment-prs:
@@ -279,7 +280,7 @@ jobs:
     needs: [create-deployment-prs]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Calculate checkout reference for fork PRs
         id: checkout-ref
