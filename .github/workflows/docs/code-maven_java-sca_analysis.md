@@ -1,15 +1,15 @@
 # code-maven_java-sca_analysis
 
-[`code-maven_java-sca_analysis.yml`](../code-maven_java-sca_analysis.yml) workflow allows to **execute Software Composition Analysis** with the [Xygeni CLI tool](https://xygeni.io/)
+[`code-maven_java-sca_analysis.yml`](../code-maven_java-sca_analysis.yml) workflow allows to **execute Software Composition Analysis** with [JFrog XRay](https://jfrog.com/xray/)
 
 ## Trigger
 - Manually with `workflow_dispatch` invoked from a ChatBot command. See ChatBot official documentation here: [ChatBot documentation](https://chatbot.docs.inditex.dev/chatbot/latest/commands/test-qa.html)
-- Any `closed` pull request with changes either in the `code` folder or the workflow file itself.
-- Any published `release`.
+- Any `opened`, `synchronize`, or `closed` pull request with changes either in the `code` folder or the workflow file itself.
 
 ## Where does it run?
 
-Self-hosted runner: [iac-githubrunners/testing-ivm](https://githubrunners.docs.inditex.dev/githubrunners/latest/custom-runners/testing-ivm.html)
+Self-hosted on-prem runner selected dynamically by the workflow through `vars.RUNSON_SCA_*_ONPREM`.
+When no contingency variable is set, the workflow falls back to the default runner label `auditassistant-icr__sca-ubuntu24.04`.
 
 ## Versions used
 

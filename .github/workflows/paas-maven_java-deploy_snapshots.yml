@@ -1,13 +1,13 @@
 ---
 name: paas-maven-deploy-snapshots
-run-name: "Args: supraenvs=${{ inputs.SUPRAENVS || 'des' }}, envs=${{ inputs.ENVS || 'all' }}, platforms=${{ inputs.PLATFORMS || 'all' }}, tenants=${{ inputs.TENANTS || 'all' }}, slots=${{ inputs.SLOTS || 'all' }}"
+run-name: "Args: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS != '') && format('destinations={0}', fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS) || format('supraenvs={0}, envs={1}, platforms={2}, tenants={3}, slots={4}', inputs.SUPRAENVS || 'des', inputs.ENVS || 'all', inputs.PLATFORMS || 'all', inputs.TENANTS || 'all', inputs.SLOTS || 'all') }}"
 
 on:
   workflow_dispatch:
     inputs:
       SUPRAENVS:
         description: 'Supra environments to generate manifest files'
-        required: true
+        required: false
         default: ''
       ENVS:
         description: 'Environments to generate manifest files'
@@ -45,7 +45,7 @@ on:
         description: 'Additional args not common to all pipelines'
         required: false
         type: string
-        default: '{"CHECKOUT_REF": ""}'
+        default: '{"CHECKOUT_REF": "","DESTINATIONS":"","BULK_ID":""}'
 
   pull_request:
     types: [synchronize, labeled, closed]
@@ -53,7 +53,7 @@ on:
     paths: ['code/**', 'paas/**']
 
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.36.0
   GITHUB_REGISTRY: ghcr.io
   JFROG_REGISTRY: inditex-docker.jfrog.io
   ASDF_IMAGE_NAME: inditex/ci-agents/asdf
@@ -69,7 +69,7 @@ jobs:
         ((github.event.action == 'synchronize' || github.event.action == 'labeled') &&
         contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') ||
         (github.event.action == 'closed' && github.event.pull_request.merged == true && !startsWith(github.event.pull_request.base.ref, 'main'))
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
 
     outputs:
       code-changes: ${{ steps.check-code-changes.outputs.changed }}
@@ -84,7 +84,7 @@ jobs:
     steps:
       - name: Checkout merge commit
         if: github.event.pull_request.merged == true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -99,7 +99,7 @@ jobs:
 
       - name: Checkout head branch
         if: (contains(github.event.pull_request.labels.*.name, 'autodeploy') && github.event.pull_request.state != 'closed') || (github.event_name == 'workflow_dispatch')
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -153,13 +153,13 @@ jobs:
           echo "SUPRAENVS=des,pre,pro" >> "$GITHUB_OUTPUT"
           echo "LABELS=auto-approval" >> "$GITHUB_OUTPUT"
           if [ "${{ github.event.pull_request.state }}" != "closed" ] && [ "${{ contains(github.event.pull_request.labels.*.name, 'autodeploy') }}" == "true" ]; then
-            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'"}' >> "$GITHUB_OUTPUT"
+            echo 'ADDITIONAL_ARGS={"TRIGGER": "autodeploy", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'", "BULK_ID": ""}' >> "$GITHUB_OUTPUT"
           elif
             [ "${{ github.event.pull_request.merged }}" == "true" ]; then
-            ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'"}'
+            ADDITIONAL_ARGS='{"TRIGGER": "merged_pr", "TARGET_BRANCH": "'${{ github.event.pull_request.base.ref }}'", "BULK_ID": ""}'
             echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
           else
-            ADDITIONAL_ARGS='{"STRATEGY": "${{ inputs.STRATEGY }}","PERCENTAGE": "${{ inputs.PERCENTAGE }}","CONFIG_REF": "", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'"}'
+            ADDITIONAL_ARGS='{"STRATEGY": "${{ inputs.STRATEGY }}","PERCENTAGE": "${{ inputs.PERCENTAGE }}","CONFIG_REF": "", "CHECKOUT_REF": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || steps.check-fork.outputs.CHECKOUT_REF }}'", "DESTINATIONS": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS != '') && fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS || '' }}'", "BULK_ID": "'${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID != '') && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID || '' }}'"}'
             echo "ADDITIONAL_ARGS=$ADDITIONAL_ARGS" >> "$GITHUB_OUTPUT"
           fi
 
@@ -179,7 +179,7 @@ jobs:
 
   validate-slots:
     name: Validate Slots
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     needs: [identify-changes]
     outputs:
       slots: ${{ steps.slot.outputs.slots }}
@@ -253,6 +253,7 @@ jobs:
     with:
       VERSION: ${{ needs.identify-changes.outputs.app-version }}
       CHECKOUT_REF: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF != '') && fromJson(inputs.ADDITIONAL_ARGS).CHECKOUT_REF || needs.identify-changes.outputs.checkout-ref }}
+      BULK_ID: ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID != '') && fromJson(inputs.ADDITIONAL_ARGS).BULK_ID || '' }}
     secrets: inherit
 
   create-deployment-prs:
@@ -275,11 +276,11 @@ jobs:
   clean-resources:
     name: Clean Resources
     if: always() && github.event.pull_request.state == 'closed'
-    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["ubuntu-24.04"]' ) }}
+    runs-on: ${{ fromJSON( vars.RUNSON_PAAS_GENERIC || '["citool-github__ubuntu24.04-medium"]' ) }}
     needs: [create-deployment-prs]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Calculate checkout reference for fork PRs
         id: checkout-ref
