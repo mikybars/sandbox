@@ -503,11 +503,6 @@ amiga:
           data-source-properties:
             encrypt: false
             multiSubnetFailover: true
-    jpa:
-      properties:
-        hibernate:
-          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-          default_schema: GESTION_COMISION
 app:
   envars:
     calculo:

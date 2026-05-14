@@ -240,11 +240,6 @@ amiga:
         comis800:
           jdbc-url: jdbc:sqlserver://AXPREEUSQL1.CENTRAL.INDITEX.GRP:11433;databaseName=PersonalAT;encrypt=false;trustServerCertificate=true
           username: uincome
-    jpa:
-      properties:
-        hibernate:
-          dialect: com.inditex.rrhh.icmclcwb.model.primary.dialect.DB2NativeDialect
-          default_schema: GESTION_COMISION
     stream:
       bindings:
         commision-calculation-out-0:
