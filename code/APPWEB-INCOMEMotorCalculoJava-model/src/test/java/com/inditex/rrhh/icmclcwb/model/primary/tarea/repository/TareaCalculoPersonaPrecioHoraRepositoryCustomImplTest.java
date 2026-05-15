@@ -52,7 +52,7 @@ class TareaCalculoPersonaPrecioHoraRepositoryCustomImplTest {
   void idsTest() {
     final Long idTarea = 123L;
     final String cclIdOrigen = "origen";
-    this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl.ids(idTarea, cclIdOrigen);
+    this.tareaCalculoPersonaPrecioHoraRepositoryCustomImpl.getEmployeeLocalIds(idTarea, cclIdOrigen);
     verify(this.namedParameterJdbcTemplate, times(1)).query(this.sql.capture(), this.params.capture(),
         ArgumentMatchers.<RowMapper<TareaCalculoPersona>>any());
 
