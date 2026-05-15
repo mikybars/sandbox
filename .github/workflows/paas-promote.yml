@@ -1,6 +1,6 @@
 ---
 name: paas-promote
-run-name: "Args: version=${{ inputs.VERSION || 'latest' }}, supraenvs=${{ inputs.SUPRAENVS }}, envs=${{ inputs.ENVS || 'all' }}, platforms=${{ inputs.PLATFORMS || 'all' }}, tenants=${{ inputs.TENANTS || 'all' }}, slots=${{ inputs.SLOTS || 'all' }}, issue_number=${{ inputs.ISSUE_NUMBER || 'none' }}"
+run-name: "Args: version=${{ inputs.VERSION || 'latest' }}, ${{ (inputs.ADDITIONAL_ARGS != '' && fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS != '') && format('destinations={0}', fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS) || format('supraenvs={0}, envs={1}, platforms={2}, tenants={3}, slots={4}', inputs.SUPRAENVS, inputs.ENVS || 'all', inputs.PLATFORMS || 'all', inputs.TENANTS || 'all', inputs.SLOTS || 'all') }}, issue_number=${{ inputs.ISSUE_NUMBER || 'none' }}"
 
 concurrency:
   group: "promote-${{ github.ref_name }}-${{ inputs.VERSION }}"
@@ -9,7 +9,8 @@ on:
   workflow_call:
     inputs:
       SUPRAENVS:
-        required: true
+        required: false
+        default: 'des'
         type: string
       ENVS:
         required: false
@@ -41,13 +42,13 @@ on:
       ADDITIONAL_ARGS:
         required: false
         type: string
-        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","TARGET_BRANCH":"","CHECKOUT_REF": "","FAST_TRACK":""}'
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","TARGET_BRANCH":"","CHECKOUT_REF": "","FAST_TRACK":"","DESTINATIONS":"","BULK_ID":""}'
   workflow_dispatch:
     inputs:
       SUPRAENVS:
-        description: 'Supra environments to generate manifest files'
-        required: true
-        default: ''
+        description: 'Supra environments to generate manifest files. If not specified and not specified destination in additional args, it will default to "des"'
+        required: false
+        default: 'des'
       ENVS:
         description: 'Environments to generate manifest files'
         required: false
@@ -80,10 +81,10 @@ on:
         description: 'Additional args not common to all pipelines'
         required: false
         type: string
-        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","CHECKOUT_REF": "","FAST_TRACK":""}'
+        default: '{"STRATEGY":"","PERCENTAGE":"","CONFIG_REF":"","TRIGGER":"","CHECKOUT_REF": "","FAST_TRACK":"","DESTINATIONS":"","BULK_ID":""}'
 
 env:
-  WORKFLOW_VERSION: 3.34.0
+  WORKFLOW_VERSION: 3.36.0
   DP_USERNAME: ${{ secrets.DIST_PLAT_READER_USERNAME }}
   DP_TOKEN: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
@@ -101,6 +102,16 @@ jobs:
     outputs:
       pr-list: ${{ steps.create-pr-manifest.outputs.pr-list }}
     steps:
+      - name: Event / Promote Start
+        if: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: SUCCESS
+          action: PAAS_PROMOTE_WORKFLOW_START
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
       - name: Compute checkout ref
         id: compute-checkout-ref
         env:
@@ -117,7 +128,7 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref-with-fallback }}
 
@@ -217,6 +228,10 @@ jobs:
           is-issue: ${{ steps.compute-vars.outputs.is-issue }}
           checkout-ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref }}
           is-fast-track: ${{ steps.compute-vars.outputs.is-fast-track }}
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS).BULK_ID}}
+          oauth-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          oauth-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          destinations: ${{ fromJson(inputs.ADDITIONAL_ARGS).DESTINATIONS }}
 
       - name: Determine Manifests Outputs
         id: determine-manifests-outputs
@@ -288,6 +303,9 @@ jobs:
           label: ${{ inputs.LABELS }}
           checkout-ref: ${{ steps.compute-checkout-ref.outputs.checkout-ref }}
           is-fast-track: ${{ steps.compute-vars.outputs.is-fast-track }}
+          oauth-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          oauth-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+          deployments: ${{ steps.sentinel-forge-manifests.outputs.deployments }}
         env:
           ISSUE_NUMBER: ${{ inputs.ISSUE_NUMBER }}
           SCM_COMMITTER_PGP_KEY: ${{ secrets.BUTLER_PGP_KEY }}
@@ -334,6 +352,26 @@ jobs:
             This status check represents the conclusion (__${{ job.status }}__) of the last dispatched execution of workflow:
             `${{ github.workflow_ref }}`
             You can find more details in the link below :arrow_down:
+
+      - name: Event / Error Promote End
+        if: ${{ failure() && fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: FAILED
+          action: PAAS_PROMOTE_WORKFLOW_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
+
+      - name: Event / Promote End
+        if: ${{ success() && fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS || '{}').BULK_ID != '' }}
+        uses: inditex/gha-paasdeployment/cdveritas/bulk-event@v0
+        with:
+          bulk-id: ${{ fromJson(inputs.ADDITIONAL_ARGS || github.event.inputs.ADDITIONAL_ARGS).BULK_ID }}
+          type: SUCCESS
+          action: PAAS_PROMOTE_WORKFLOW_END
+          app-client-id: ${{ secrets.APPLICATION_CLIENT_ID }}
+          app-client-secret: ${{ secrets.APPLICATION_CLIENT_SECRET }}
   shepherd-check:
     name: Shepherd check
     needs: promote
