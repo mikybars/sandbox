@@ -279,11 +279,11 @@ app:
         credentials:
           user: SRVCICMCLCWSPREAX
       ping-query-custom:
-        path: https://sscc-pre.central.inditex.grp/icmclcws/validationCheck
+        path: https://preint-api.inditex.com/icmclcws/validationCheck
       login:
-        server: https://sscc-pre.central.inditex.grp/icmclcws/services/Login
+        server: https://preint-api.inditex.com/icmclcws/services/Login
       icmwscalcincome:
-        server: https://sscc-pre.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+        server: https://preint-api.inditex.com/icmclcws/services/ICM_WS_CALC_INCOME
     pipe:
       commission-calculation:
         message-max-size: 2000

@@ -166,7 +166,8 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
   public TiendaOnlineResponseDto getTiendasOnline(TiendaOnlineRequestDto request) {
     return migrationDispatcher.dispatch("getTiendasOnline",
         () -> peopleAclService.searchTiendasOnline(request),
-        () -> soapService.getTiendasOnline(request));
+        () -> soapService.getTiendasOnline(request),
+        request);
   }
 
   @Override

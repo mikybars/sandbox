@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.IncomeResponseComparator;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -40,6 +42,9 @@ class MigrationDispatcherTest {
   @Mock
   Supplier<String> soapCall;
 
+  @Mock
+  IncomeResponseComparator comparator;
+
   ExecutorService migrationExecutor;
 
   @BeforeEach
@@ -61,9 +66,9 @@ class MigrationDispatcherTest {
     void whenShadowValueExpectShadowBehavior(String value) {
       when(restCall.get()).thenReturn("rest");
       when(soapCall.get()).thenReturn("soap");
-      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("soap");
       verify(soapCall, times(1)).get();
@@ -74,9 +79,9 @@ class MigrationDispatcherTest {
     @ValueSource(strings = {"rest", "REST", "Rest"})
     void whenRestValueExpectRestBehavior(String value) {
       when(restCall.get()).thenReturn("rest");
-      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("rest");
       verify(restCall, times(1)).get();
@@ -88,9 +93,9 @@ class MigrationDispatcherTest {
     void whenUnknownValueExpectShadowFallback(String value) {
       when(restCall.get()).thenReturn("rest");
       when(soapCall.get()).thenReturn("soap");
-      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher(value, migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("soap");
       verify(soapCall, times(1)).get();
@@ -104,9 +109,9 @@ class MigrationDispatcherTest {
     @Test
     void whenShadowModeExpectSoapResultReturned() {
       when(soapCall.get()).thenReturn("soap-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("soap-value");
     }
@@ -114,9 +119,9 @@ class MigrationDispatcherTest {
     @Test
     void whenShadowModeExpectSoapCalledOnce() {
       when(soapCall.get()).thenReturn("soap-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor, comparator);
 
-      dispatcher.dispatch(OPERATION, restCall, soapCall);
+      dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       verify(soapCall, times(1)).get();
     }
@@ -129,9 +134,9 @@ class MigrationDispatcherTest {
         return "rest-value";
       });
       when(soapCall.get()).thenReturn("soap-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor, comparator);
 
-      dispatcher.dispatch(OPERATION, restCall, soapCall);
+      dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       await().atMost(AWAIT_TIMEOUT).untilAsserted(() -> assertThat(restThread.get()).isNotNull());
       assertThat(restThread.get().getName()).isEqualTo(MIGRATION_THREAD_NAME);
@@ -141,9 +146,9 @@ class MigrationDispatcherTest {
     void whenShadowModeAndRestSupplierFailsExpectSoapResultReturnedAndNoExceptionPropagated() {
       when(restCall.get()).thenThrow(new IllegalStateException("rest failure"));
       when(soapCall.get()).thenReturn("soap-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("shadow", migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("soap-value");
       await().atMost(AWAIT_TIMEOUT).untilAsserted(() -> verify(restCall, times(1)).get());
@@ -152,9 +157,9 @@ class MigrationDispatcherTest {
     @Test
     void whenRestModeExpectRestResultReturned() {
       when(restCall.get()).thenReturn("rest-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor, comparator);
 
-      String result = dispatcher.dispatch(OPERATION, restCall, soapCall);
+      String result = dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       assertThat(result).isEqualTo("rest-value");
     }
@@ -162,9 +167,9 @@ class MigrationDispatcherTest {
     @Test
     void whenRestModeExpectSoapNotInvoked() {
       when(restCall.get()).thenReturn("rest-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor, comparator);
 
-      dispatcher.dispatch(OPERATION, restCall, soapCall);
+      dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       verify(soapCall, never()).get();
     }
@@ -172,9 +177,9 @@ class MigrationDispatcherTest {
     @Test
     void whenRestModeExpectRestCalledOnce() {
       when(restCall.get()).thenReturn("rest-value");
-      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor);
+      MigrationDispatcher dispatcher = new MigrationDispatcher("rest", migrationExecutor, comparator);
 
-      dispatcher.dispatch(OPERATION, restCall, soapCall);
+      dispatcher.dispatch(OPERATION, restCall, soapCall, null);
 
       verify(restCall, times(1)).get();
     }

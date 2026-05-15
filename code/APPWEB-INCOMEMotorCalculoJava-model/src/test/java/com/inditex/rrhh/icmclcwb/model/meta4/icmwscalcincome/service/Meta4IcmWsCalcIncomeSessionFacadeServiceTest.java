@@ -205,12 +205,12 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
       List<TiendaOnlineResultItemDto> expected = List.of(resultItem);
-      when(migrationDispatcher.dispatch(eq("tiendaOnline"), any(), any())).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("tiendaOnline"), any(), any(), any())).thenReturn(expected);
 
       List<TiendaOnlineResultItemDto> result = service.tiendaOnline(request);
 
       assertThat(result).isSameAs(expected);
-      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), any(), any(), any());
     }
 
     @Test
@@ -221,7 +221,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.tiendaOnline(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture());
+      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
       List<TiendaOnlineResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).searchTiendasOnline(request);
@@ -234,7 +234,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.tiendaOnline(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture());
+      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
       List<TiendaOnlineResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).tiendaOnline(request);

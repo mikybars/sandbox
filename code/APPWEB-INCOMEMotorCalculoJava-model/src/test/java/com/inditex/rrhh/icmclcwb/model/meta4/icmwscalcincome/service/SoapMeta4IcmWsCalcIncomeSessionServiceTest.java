@@ -77,7 +77,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -103,7 +102,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class SoapMeta4IcmWsCalcIncomeSessionServiceTest {
 
   @Mock
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  private SoapMeta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Mock
   private Meta4ClientPool meta4ClientPool;

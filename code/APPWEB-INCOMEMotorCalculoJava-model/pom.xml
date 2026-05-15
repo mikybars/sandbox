@@ -93,6 +93,10 @@
       <artifactId>jaxb2-basics-runtime</artifactId>
       <version>${app.org.jvnet.jaxb2_commons.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
 
     <!-- CLIENT DEPENDENCIES -->
     <dependency>
@@ -142,6 +146,11 @@
       <groupId>org.awaitility</groupId>
       <artifactId>awaitility</artifactId>
       <version>${awaitility.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.inditex.amigafwk.test</groupId>
+      <artifactId>test-starter-logcaptor</artifactId>
       <scope>test</scope>
     </dependency>
 
