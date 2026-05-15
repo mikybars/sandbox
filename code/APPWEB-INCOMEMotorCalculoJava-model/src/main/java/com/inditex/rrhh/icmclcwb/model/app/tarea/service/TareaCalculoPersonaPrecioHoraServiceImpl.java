@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.app.tarea.service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalSimpleDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -25,18 +25,18 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
   private final TareaCalculoPersonaPrecioHoraRepositoryCustom tareaCalculoPersonaPrecioHoraRepositoryCustom;
 
   @Override
-  public List<IdPersonaLocalDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@NotNull final RunTareaDto runTareaDto,
+  public List<IdPersonaLocalSimpleDto> getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(@NotNull final RunTareaDto runTareaDto,
       @NotNull final TareaAmbitoDto ambitoDto) {
 
     final TareaDto tareaDto = runTareaDto.getTarea();
 
-    return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(tareaDto.getId(), ambitoDto.getCclIdOrigen());
+    return this.tareaCalculoPersonaPrecioHoraRepositoryCustom.getEmployeeLocalIds(tareaDto.getId(), ambitoDto.getCclIdOrigen());
   }
 
   @Override
   public CompletableFuture<Void> calcularPrecioHora(@NotNull final RunTareaDto runTareaDto,
       @NotNull final TareaAmbitoDto ambitoDto,
-      @NotNull final List<IdPersonaLocalDto> personas) {
+      @NotNull final List<IdPersonaLocalSimpleDto> personas) {
 
     final TareaDto tarea = runTareaDto.getTarea();
     final TrabajoDTO trabajo = runTareaDto.getTrabajo();
@@ -46,7 +46,7 @@ public class TareaCalculoPersonaPrecioHoraServiceImpl implements TareaCalculoPer
         trabajo.getIcmIdPeriodo(),
         ambitoDto.getCclIdOrigen(),
         tarea.getStdIdLegEnt(),
-        personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList());
+        personas.stream().map(IdPersonaLocalSimpleDto::getIdPersonaLocal).toList());
 
     return CompletableFuture.completedFuture(AsyncConstants.NIL);
   }

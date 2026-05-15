@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.Collections;
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalSimpleDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
@@ -42,17 +42,17 @@ class TareaCalculoPersonaPrecioHoraServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen("origen");
 
-    final List<IdPersonaLocalDto> expected = Collections.singletonList(new IdPersonaLocalDto());
+    final List<IdPersonaLocalSimpleDto> expected = Collections.singletonList(new IdPersonaLocalSimpleDto());
 
-    when(this.tareaCalculoPersonaPrecioHoraRepositoryCustom.ids(runTareaDto.getTarea().getId(),
+    when(this.tareaCalculoPersonaPrecioHoraRepositoryCustom.getEmployeeLocalIds(runTareaDto.getTarea().getId(),
         tareaAmbitoDto.getCclIdOrigen())).thenReturn(expected);
 
-    final List<IdPersonaLocalDto> result =
+    final List<IdPersonaLocalSimpleDto> result =
         this.tareaCalculoPersonaPrecioHoraServiceImpl.getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(runTareaDto, tareaAmbitoDto);
 
     assertEquals(expected, result);
 
-    verify(this.tareaCalculoPersonaPrecioHoraRepositoryCustom, times(1)).ids(runTareaDto.getTarea().getId(),
+    verify(this.tareaCalculoPersonaPrecioHoraRepositoryCustom, times(1)).getEmployeeLocalIds(runTareaDto.getTarea().getId(),
         tareaAmbitoDto.getCclIdOrigen());
   }
 
@@ -72,10 +72,10 @@ class TareaCalculoPersonaPrecioHoraServiceImplTest {
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen("origen");
 
-    final IdPersonaLocalDto persona = new IdPersonaLocalDto();
+    final IdPersonaLocalSimpleDto persona = new IdPersonaLocalSimpleDto();
     persona.setIdPersonaLocal("personaLocalId");
 
-    final List<IdPersonaLocalDto> personas = Collections.singletonList(persona);
+    final List<IdPersonaLocalSimpleDto> personas = Collections.singletonList(persona);
 
     this.tareaCalculoPersonaPrecioHoraServiceImpl.calcularPrecioHora(runTareaDto, tareaAmbitoDto, personas);
 
@@ -84,7 +84,7 @@ class TareaCalculoPersonaPrecioHoraServiceImplTest {
         runTareaDto.getTrabajo().getIcmIdPeriodo(),
         tareaAmbitoDto.getCclIdOrigen(),
         runTareaDto.getTarea().getStdIdLegEnt(),
-        personas.stream().map(IdPersonaLocalDto::getIdPersonaLocal).toList());
+        personas.stream().map(IdPersonaLocalSimpleDto::getIdPersonaLocal).toList());
   }
 
 }

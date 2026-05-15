@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalSimpleDto;
 import com.inditex.rrhh.icmclcwb.api.app.run.tarea.dto.RunTareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.EstadoTareaFaseAccionEnum;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.AccionDto;
@@ -60,10 +60,10 @@ class RunTareaAmbitoCalcularPrecioHoraServiceImplTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
-    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+    final IdPersonaLocalSimpleDto idPersonaLocalDto = new IdPersonaLocalSimpleDto();
     idPersonaLocalDto.setIdPersonaLocal("1");
 
-    final List<IdPersonaLocalDto> idsPersonaLocal = List.of(idPersonaLocalDto);
+    final List<IdPersonaLocalSimpleDto> idsPersonaLocal = List.of(idPersonaLocalDto);
 
     when(this.tareaCalculoPersonaPrecioHoraService.getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(
         ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class)))
@@ -105,10 +105,10 @@ class RunTareaAmbitoCalcularPrecioHoraServiceImplTest {
     final AccionDto accionDto = new AccionDto();
     accionDto.setId(1);
 
-    final IdPersonaLocalDto idPersonaLocalDto = new IdPersonaLocalDto();
+    final IdPersonaLocalSimpleDto idPersonaLocalDto = new IdPersonaLocalSimpleDto();
     idPersonaLocalDto.setIdPersonaLocal("1");
 
-    final List<IdPersonaLocalDto> idsPersonaLocal = List.of(idPersonaLocalDto);
+    final List<IdPersonaLocalSimpleDto> idsPersonaLocal = List.of(idPersonaLocalDto);
 
     when(this.tareaCalculoPersonaPrecioHoraService.getIdsPersonasCalculoPrecioHoraByTareaAndAmbito(
         ArgumentMatchers.any(RunTareaDto.class), ArgumentMatchers.any(TareaAmbitoDto.class)))
