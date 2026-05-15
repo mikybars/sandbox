@@ -2,7 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.primary.tarea.repository;
 
 import java.util.List;
 
-import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
+import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalSimpleDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPrimaryConstants;
 import com.inditex.rrhh.icmclcwb.model.primary.repository.JdbcBatchPrimaryRepositoryAbstract;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.TareaCalculoPersonaPrecioHora;
@@ -28,16 +28,15 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
   private String sqlIds;
 
   @Override
-  public List<IdPersonaLocalDto> ids(@Valid @NotNull final Long idTarea,
+  public List<IdPersonaLocalSimpleDto> getEmployeeLocalIds(@Valid @NotNull final Long idTarea,
       @Valid @NotNull final String cclIdOrigen) {
     final MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
     parameters.addValue(SqlPrimaryConstants.SQL_PARAM_CCL_ID_ORIGEN, cclIdOrigen);
 
     return this.query(this.sqlIds, parameters, (rs, rowNum) -> {
-      final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+      final IdPersonaLocalSimpleDto dto = new IdPersonaLocalSimpleDto();
       dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
-      dto.setStdOrHrPeriod("1");
       return dto;
     });
   }
