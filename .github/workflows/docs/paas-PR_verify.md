@@ -12,7 +12,7 @@ This workflow can be skipped in draft PRs by setting the repository variable `PR
 
 ## Where does it run?
 
-[ubuntu-24.04](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md) GitHub runner.
+- `RUNSON_PAAS_GENERIC` (default: `citool-github__ubuntu24.04-medium`)
 
 ## Jobs
 
