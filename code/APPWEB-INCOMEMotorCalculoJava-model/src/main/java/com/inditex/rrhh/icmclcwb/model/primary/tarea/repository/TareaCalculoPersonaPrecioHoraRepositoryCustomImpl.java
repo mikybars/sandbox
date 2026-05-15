@@ -37,7 +37,7 @@ public class TareaCalculoPersonaPrecioHoraRepositoryCustomImpl extends JdbcBatch
     return this.query(this.sqlIds, parameters, (rs, rowNum) -> {
       final IdPersonaLocalDto dto = new IdPersonaLocalDto();
       dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_PERSONA_LOCAL));
-      dto.setStdOrHrPeriod(rs.getString(SqlPrimaryConstants.SQL_RESULT_OR_PERSONA));
+      dto.setStdOrHrPeriod("1");
       return dto;
     });
   }

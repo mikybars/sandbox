@@ -10848,21 +10848,10 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
 
   <entry key="TareaCalculoPersonaPrecioHoraRepositoryCustom.getIds">
       <![CDATA[
-      SELECT
-        CCL_ID_PERSON,
-        STD_OR_HR_PERIOD,
-        ID_ESTADO,
-        CCL_ID_ORIGEN,
-        ID_TAREA
+      SELECT DISTINCT CCL_ID_PERSON
       FROM TAREA_CALCULO_PERSONA
       WHERE ID_TAREA = :idTarea
       AND CCL_ID_ORIGEN = :cclIdOrigen
-      GROUP BY
-        CCL_ID_PERSON,
-        STD_OR_HR_PERIOD,
-        ID_ESTADO,
-        CCL_ID_ORIGEN,
-        ID_TAREA
      ]]>
   </entry>
 
