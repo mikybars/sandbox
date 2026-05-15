@@ -5,15 +5,6 @@ metadata:
 app:
   context_path_builder:
     enabled: true
-  readiness_probe:
-    initial_delay_seconds: 120
-  liveness_probe:
-    initial_delay_seconds: 150
-  instrumented:
-    readiness_probe:
-      initial_delay_seconds: 180
-    liveness_probe:
-      initial_delay_seconds: 210
   has_spnego: true
   services:
     http:
