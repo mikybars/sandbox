@@ -5,12 +5,17 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -38,6 +43,9 @@ class PeopleAclServiceTest {
   OrigenesApi origenesApi;
 
   @Mock
+  EmpresasApi empresasApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -48,7 +56,7 @@ class PeopleAclServiceTest {
 
   @BeforeEach
   void beforeEach() {
-    service = new PeopleAclService(tiendasOnlineApi, origenesApi, peopleAclMapper);
+    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, peopleAclMapper);
   }
 
   @Nested
@@ -166,6 +174,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toOrigenResponseDto(null);
+    }
+  }
+
+  @Nested
+  class SearchEmpresas {
+
+    @Captor
+    ArgumentCaptor<SearchEmpresasRequestDto> empresasRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      EmpresaRequestDto request = new EmpresaRequestDto();
+      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
+      SearchEmpresasResponseDto restResponse = new SearchEmpresasResponseDto();
+      EmpresaResponseDto expected = new EmpresaResponseDto();
+      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
+      when(empresasApi.searchEmpresas(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toEmpresaResponseDto(restResponse)).thenReturn(expected);
+
+      EmpresaResponseDto result = service.searchEmpresas(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      EmpresaRequestDto request = new EmpresaRequestDto();
+      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
+      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
+
+      service.searchEmpresas(request);
+
+      verify(peopleAclMapper, times(1)).toSearchEmpresasRequestDto(request);
+      verify(empresasApi, times(1)).searchEmpresas(empresasRestRequestCaptor.capture());
+      assertThat(empresasRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      EmpresaRequestDto request = new EmpresaRequestDto();
+      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
+      SearchEmpresasResponseDto restResponse = new SearchEmpresasResponseDto();
+      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
+      when(empresasApi.searchEmpresas(restRequest)).thenReturn(restResponse);
+
+      service.searchEmpresas(request);
+
+      verify(peopleAclMapper, times(1)).toEmpresaResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      EmpresaRequestDto request = new EmpresaRequestDto();
+      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
+      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
+      when(empresasApi.searchEmpresas(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toEmpresaResponseDto(null)).thenReturn(null);
+
+      EmpresaResponseDto result = service.searchEmpresas(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toEmpresaResponseDto(null);
     }
   }
 }

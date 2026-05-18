@@ -427,16 +427,51 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     EmpresaResultItemDto resultItem;
 
+    @Mock
+    com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<EmpresaResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<EmpresaResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<EmpresaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getEmpresa(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getEmpresa"), any(), any(), any())).thenReturn(expected);
 
       List<EmpresaResultItemDto> result = service.getEmpresa(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndUnwrapsData() {
+      List<EmpresaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.searchEmpresas(request)).thenReturn(restResponse);
+
+      service.getEmpresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<EmpresaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).searchEmpresas(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<EmpresaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getEmpresa(request)).thenReturn(soapData);
+
+      service.getEmpresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<EmpresaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getEmpresa(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

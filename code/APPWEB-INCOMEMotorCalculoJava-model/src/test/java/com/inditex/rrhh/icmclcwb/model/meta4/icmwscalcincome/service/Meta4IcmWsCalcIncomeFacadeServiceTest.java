@@ -487,15 +487,50 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     EmpresaResponseDto response;
 
+    @Mock
+    EmpresaResponseDto restResponse;
+
+    @Mock
+    EmpresaResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<EmpresaResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<EmpresaResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getEmpresa(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getEmpresa"), any(), any(), any())).thenReturn(response);
 
       EmpresaResponseDto result = service.getEmpresa(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.searchEmpresas(request)).thenReturn(restResponse);
+
+      service.getEmpresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      EmpresaResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).searchEmpresas(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getEmpresa(request)).thenReturn(soapResponse);
+
+      service.getEmpresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      EmpresaResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getEmpresa(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

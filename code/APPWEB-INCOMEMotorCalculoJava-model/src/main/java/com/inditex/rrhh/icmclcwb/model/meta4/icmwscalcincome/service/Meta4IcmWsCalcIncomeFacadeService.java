@@ -182,7 +182,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public EmpresaResponseDto getEmpresa(EmpresaRequestDto request) {
-    return soapService.getEmpresa(request);
+    return migrationDispatcher.dispatch("getEmpresa",
+        () -> peopleAclService.searchEmpresas(request),
+        () -> soapService.getEmpresa(request),
+        request);
   }
 
   @Override
