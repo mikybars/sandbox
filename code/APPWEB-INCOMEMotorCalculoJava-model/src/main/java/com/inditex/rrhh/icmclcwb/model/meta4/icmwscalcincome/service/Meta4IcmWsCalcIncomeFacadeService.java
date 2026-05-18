@@ -187,7 +187,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public OrigenResponseDto getOrigen(OrigenRequestDto request) {
-    return soapService.getOrigen(request);
+    return migrationDispatcher.dispatch("getOrigen",
+        () -> peopleAclService.searchOrigenes(request),
+        () -> soapService.getOrigen(request),
+        request);
   }
 
   @Override

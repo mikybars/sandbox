@@ -508,15 +508,50 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     OrigenResponseDto response;
 
+    @Mock
+    OrigenResponseDto restResponse;
+
+    @Mock
+    OrigenResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<OrigenResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<OrigenResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getOrigen(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getOrigen"), any(), any(), any())).thenReturn(response);
 
       OrigenResponseDto result = service.getOrigen(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.searchOrigenes(request)).thenReturn(restResponse);
+
+      service.getOrigen(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      OrigenResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).searchOrigenes(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getOrigen(request)).thenReturn(soapResponse);
+
+      service.getOrigen(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      OrigenResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getOrigen(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -46,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
@@ -448,16 +449,51 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     OrigenResultItemDto resultItem;
 
+    @Mock
+    OrigenResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<OrigenResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<OrigenResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<OrigenResultItemDto> expected = List.of(resultItem);
-      when(soapService.getOrigen(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getOrigen"), any(), any(), any())).thenReturn(expected);
 
       List<OrigenResultItemDto> result = service.getOrigen(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndUnwrapsData() {
+      List<OrigenResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.searchOrigenes(request)).thenReturn(restResponse);
+
+      service.getOrigen(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<OrigenResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).searchOrigenes(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<OrigenResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getOrigen(request)).thenReturn(soapData);
+
+      service.getOrigen(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<OrigenResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getOrigen(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -5,9 +5,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.PeopleAclMapper;
@@ -30,14 +35,20 @@ class PeopleAclServiceTest {
   TiendasOnlineApi tiendasOnlineApi;
 
   @Mock
+  OrigenesApi origenesApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
   ArgumentCaptor<SearchTiendasOnlineRequestDto> restRequestCaptor;
 
+  @Captor
+  ArgumentCaptor<SearchOrigenesRequestDto> origenesRestRequestCaptor;
+
   @BeforeEach
   void beforeEach() {
-    service = new PeopleAclService(tiendasOnlineApi, peopleAclMapper);
+    service = new PeopleAclService(tiendasOnlineApi, origenesApi, peopleAclMapper);
   }
 
   @Nested
@@ -96,6 +107,65 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toTiendaOnlineResponseDto(null);
+    }
+  }
+
+  @Nested
+  class SearchOrigenes {
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      OrigenRequestDto request = new OrigenRequestDto();
+      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
+      SearchOrigenesResponseDto restResponse = new SearchOrigenesResponseDto();
+      OrigenResponseDto expected = new OrigenResponseDto();
+      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
+      when(origenesApi.searchOrigenes(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toOrigenResponseDto(restResponse)).thenReturn(expected);
+
+      OrigenResponseDto result = service.searchOrigenes(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      OrigenRequestDto request = new OrigenRequestDto();
+      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
+      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
+
+      service.searchOrigenes(request);
+
+      verify(peopleAclMapper, times(1)).toSearchOrigenesRequestDto(request);
+      verify(origenesApi, times(1)).searchOrigenes(origenesRestRequestCaptor.capture());
+      assertThat(origenesRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      OrigenRequestDto request = new OrigenRequestDto();
+      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
+      SearchOrigenesResponseDto restResponse = new SearchOrigenesResponseDto();
+      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
+      when(origenesApi.searchOrigenes(restRequest)).thenReturn(restResponse);
+
+      service.searchOrigenes(request);
+
+      verify(peopleAclMapper, times(1)).toOrigenResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      OrigenRequestDto request = new OrigenRequestDto();
+      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
+      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
+      when(origenesApi.searchOrigenes(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toOrigenResponseDto(null)).thenReturn(null);
+
+      OrigenResponseDto result = service.searchOrigenes(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toOrigenResponseDto(null);
     }
   }
 }

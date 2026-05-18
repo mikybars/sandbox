@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.config.calculoincome;
 import com.inditex.amigafwk.common.rest.client.RestClient;
 import com.inditex.amigafwk.common.rest.client.annotation.AmigaRestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.invoker.ApiClient;
 
@@ -29,6 +30,11 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "tiendasOnlineCalculoIncomeApiClient")
   public TiendasOnlineApi tiendasOnlineCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new TiendasOnlineApi(apiClient);
+  }
+
+  @Bean(name = "origenesCalculoIncomeApiClient")
+  public OrigenesApi origenesCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new OrigenesApi(apiClient);
   }
 
 }
