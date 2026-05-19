@@ -35,6 +35,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Es
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
@@ -166,12 +167,24 @@ public class Meta4IcmWsCalcIncomeSessionFacadeService implements Meta4IcmWsCalcI
 
   @Override
   public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request) {
-    return soapService.getConfiguracionProductoVenta(request);
+    return migrationDispatcher.dispatch(
+        "getConfiguracionProductoVenta",
+        () -> peopleAclService.getConfiguracionProductoVenta(request).getData(),
+        () -> soapService.getConfiguracionProductoVenta(request),
+        request);
   }
 
   @Override
   public List<ConfiguracionProductoVentaResultItemDto> getConfiguracionProductoVenta(Long idTarea, String cclIdOrigen) {
-    return soapService.getConfiguracionProductoVenta(idTarea, cclIdOrigen);
+    var filter = new GenericFilterDto();
+    filter.setIdOrigen(cclIdOrigen);
+    var productoRequest = new ConfiguracionProductoVentaRequestDto();
+    productoRequest.setData(filter);
+    return migrationDispatcher.dispatch(
+        "getConfiguracionProductoVenta",
+        () -> peopleAclService.getConfiguracionProductoVenta(productoRequest).getData(),
+        () -> soapService.getConfiguracionProductoVenta(idTarea, cclIdOrigen),
+        productoRequest);
   }
 
   @Override

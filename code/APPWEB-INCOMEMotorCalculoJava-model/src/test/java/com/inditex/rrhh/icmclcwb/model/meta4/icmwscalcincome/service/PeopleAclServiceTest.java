@@ -13,6 +13,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeAp
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
@@ -25,6 +27,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
@@ -447,6 +451,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toTiendasResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetConfiguracionProductoVenta {
+
+    @Captor
+    ArgumentCaptor<SearchConfProductoVentaRequestDto> confProductoVentaRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
+      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
+      SearchConfProductoVentaResponseDto restResponse = new SearchConfProductoVentaResponseDto();
+      ConfiguracionProductoVentaResponseDto expected = new ConfiguracionProductoVentaResponseDto();
+      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfProductoVenta(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toConfiguracionProductoVentaResponseDto(restResponse)).thenReturn(expected);
+
+      ConfiguracionProductoVentaResponseDto result = service.getConfiguracionProductoVenta(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
+      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
+      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(peopleAclMapper, times(1)).toSearchConfProductoVentaRequestDto(request);
+      verify(configuracionVentaApi, times(1)).searchConfProductoVenta(confProductoVentaRestRequestCaptor.capture());
+      assertThat(confProductoVentaRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
+      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
+      SearchConfProductoVentaResponseDto restResponse = new SearchConfProductoVentaResponseDto();
+      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfProductoVenta(restRequest)).thenReturn(restResponse);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(peopleAclMapper, times(1)).toConfiguracionProductoVentaResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
+      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
+      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfProductoVenta(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toConfiguracionProductoVentaResponseDto(null)).thenReturn(null);
+
+      ConfiguracionProductoVentaResponseDto result = service.getConfiguracionProductoVenta(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toConfiguracionProductoVentaResponseDto(null);
     }
   }
 }

@@ -22,6 +22,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
@@ -616,30 +617,99 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     ConfiguracionProductoVentaResultItemDto resultItem;
 
+    @Mock
+    ConfiguracionProductoVentaResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<ConfiguracionProductoVentaResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<ConfiguracionProductoVentaResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedWithRequestDtoExpectDelegateToSoapResult() {
+    void whenInvokedWithRequestDtoExpectDispatcherResultReturned() {
       List<ConfiguracionProductoVentaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getConfiguracionProductoVenta(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any())).thenReturn(expected);
 
       List<ConfiguracionProductoVentaResultItemDto> result = service.getConfiguracionProductoVenta(request);
 
       assertThat(result).isSameAs(expected);
-      verify(soapService, times(1)).getConfiguracionProductoVenta(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any());
     }
 
     @Test
-    void whenInvokedWithIdTareaAndOrigenExpectDelegateToSoapResult() {
+    void whenInvokedWithRequestDtoExpectRestSupplierCallsPeopleAclService() {
+      List<ConfiguracionProductoVentaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getConfiguracionProductoVenta(request)).thenReturn(restResponse);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionProductoVentaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getConfiguracionProductoVenta(request);
+    }
+
+    @Test
+    void whenInvokedWithRequestDtoExpectSoapSupplierCallsSoapService() {
+      List<ConfiguracionProductoVentaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getConfiguracionProductoVenta(request)).thenReturn(soapData);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionProductoVentaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
+      verify(soapService, times(1)).getConfiguracionProductoVenta(request);
+    }
+
+    @Test
+    void whenInvokedWithIdTareaAndOrigenExpectDispatcherResultReturned() {
       Long idTarea = 42L;
       String cclIdOrigen = "ORIG-1";
       List<ConfiguracionProductoVentaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getConfiguracionProductoVenta(idTarea, cclIdOrigen)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any())).thenReturn(expected);
 
       List<ConfiguracionProductoVentaResultItemDto> result = service.getConfiguracionProductoVenta(idTarea, cclIdOrigen);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedWithIdTareaAndOrigenExpectRestSupplierCallsPeopleAclService() {
+      Long idTarea = 42L;
+      String cclIdOrigen = "ORIG-1";
+      List<ConfiguracionProductoVentaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class))).thenReturn(restResponse);
+
+      service.getConfiguracionProductoVenta(idTarea, cclIdOrigen);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionProductoVentaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getConfiguracionProductoVenta(any(ConfiguracionProductoVentaRequestDto.class));
+    }
+
+    @Test
+    void whenInvokedWithIdTareaAndOrigenExpectSoapSupplierCallsSoapService() {
+      Long idTarea = 42L;
+      String cclIdOrigen = "ORIG-1";
+      List<ConfiguracionProductoVentaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getConfiguracionProductoVenta(idTarea, cclIdOrigen)).thenReturn(soapData);
+
+      service.getConfiguracionProductoVenta(idTarea, cclIdOrigen);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionProductoVentaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getConfiguracionProductoVenta(idTarea, cclIdOrigen);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

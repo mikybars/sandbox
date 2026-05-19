@@ -519,15 +519,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     ConfiguracionProductoVentaResponseDto response;
 
+    @Mock
+    ConfiguracionProductoVentaResponseDto restResponse;
+
+    @Mock
+    ConfiguracionProductoVentaResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<ConfiguracionProductoVentaResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<ConfiguracionProductoVentaResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getConfiguracionProductoVenta(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any())).thenReturn(response);
 
       ConfiguracionProductoVentaResponseDto result = service.getConfiguracionProductoVenta(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getConfiguracionProductoVenta(request)).thenReturn(restResponse);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      ConfiguracionProductoVentaResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getConfiguracionProductoVenta(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getConfiguracionProductoVenta(request)).thenReturn(soapResponse);
+
+      service.getConfiguracionProductoVenta(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      ConfiguracionProductoVentaResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getConfiguracionProductoVenta(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

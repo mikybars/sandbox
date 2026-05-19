@@ -8,6 +8,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeAp
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
@@ -99,6 +101,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchTiendasIncomeRequestDto(request);
     var response = tiendasIncomeApi.searchTiendasIncome(restRequest);
     return peopleAclMapper.toTiendasResponseDto(response);
+  }
+
+  public ConfiguracionProductoVentaResponseDto getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchConfProductoVenta");
+
+    var restRequest = peopleAclMapper.toSearchConfProductoVentaRequestDto(request);
+    var response = configuracionVentaApi.searchConfProductoVenta(restRequest);
+    return peopleAclMapper.toConfiguracionProductoVentaResponseDto(response);
   }
 
 }
