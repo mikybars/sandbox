@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVe
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -58,6 +61,9 @@ public class PeopleAclService {
 
   @Qualifier("flagCalculaCalculoIncomeApiClient")
   private final FlagCalculaApi flagCalculaApi;
+
+  @Qualifier("presenciasManualCalculoIncomeApiClient")
+  private final PresenciasManualApi presenciasManualApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -123,6 +129,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchFlagCalculaRequestDto(request);
     var response = flagCalculaApi.searchFlagCalcula(restRequest);
     return peopleAclMapper.toFlagCalculaResponseDto(response);
+  }
+
+  public PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchPresenciasManual");
+
+    var restRequest = peopleAclMapper.toSearchPresenciaManualRequestDto(request);
+    var response = presenciasManualApi.searchPresenciasManual(restRequest);
+    return peopleAclMapper.toPresenciaManualResponseDto(response);
   }
 
 }

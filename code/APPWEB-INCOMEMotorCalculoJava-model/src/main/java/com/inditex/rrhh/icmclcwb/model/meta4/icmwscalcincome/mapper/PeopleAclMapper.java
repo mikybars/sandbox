@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.Configuracion
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
@@ -24,10 +26,13 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -44,12 +49,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -381,6 +389,107 @@ public interface PeopleAclMapper {
   @org.mapstruct.Named("calculaEnumToBoolean")
   default Boolean calculaEnumToBoolean(FlagCalculaDto.CalculaEnum calcula) {
     return calcula == null ? null : "1".equals(calcula.getValue());
+  }
+
+  // ── SOAP → REST (request): PresenciaManual ──
+
+  /**
+   * Builds the REST client {@link SearchPresenciaManualRequestDto} from the internal {@link PresenciaManualRequestDto}. The request filter
+   * fields ({@code idOrigen}, {@code idsEmpresa}, {@code fechaInicio}, {@code fechaFin}) are extracted from {@link GenericFilterDto}. The
+   * employee, work location, and hour type filters are collected from the {@code item} list of {@link GenericFilterParametersDto}.
+   */
+  default SearchPresenciaManualRequestDto toSearchPresenciaManualRequestDto(PresenciaManualRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchPresenciaManualRequestDto().idOrigen("");
+    }
+    GenericFilterDto filter = src.getData();
+    SearchPresenciaManualRequestDto request = new SearchPresenciaManualRequestDto()
+        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()))
+        .idEmpresas(filter.getIdsEmpresa());
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      List<String> idLugaresTrabajo = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdLugarTrabajo)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      List<String> idEmpleados = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdEmpleado)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      List<String> idTiposHora = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdTipoHora)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idLugaresTrabajo.isEmpty()) {
+        request.idLugaresTrabajo(idLugaresTrabajo);
+      }
+      if (!idEmpleados.isEmpty()) {
+        request.idEmpleados(idEmpleados);
+      }
+      if (!idTiposHora.isEmpty()) {
+        request.idTiposHora(idTiposHora);
+      }
+    }
+    return request;
+  }
+
+  // ── REST → SOAP (response): PresenciaManual ──
+
+  /**
+   * Flattens the nested REST response into the flat internal representation. Each {@link PresenciaManualDto} contains a {@code secciones}
+   * list; the mapping produces one {@link GenericEmpleadoResultItemDto} per section, combining parent-level fields with section-level
+   * fields ({@code idSeccion}, {@code minutos}). Field renames: {@code idOrdinalEmpleado → orEmpleado}, {@code fechaPresencia → fecha},
+   * {@code idTipoHora} String → Integer. Meta4 audit fields and all other date fields are left null.
+   */
+  default PresenciaManualResponseDto toPresenciaManualResponseDto(SearchPresenciaManualResponseDto src) {
+    if (src == null) {
+      return new PresenciaManualResponseDto();
+    }
+    List<GenericEmpleadoResultItemDto> items = new ArrayList<>();
+    if (src.getData() != null) {
+      for (PresenciaManualDto record : src.getData()) {
+        if (record.getSecciones() != null && !record.getSecciones().isEmpty()) {
+          for (SeccionPresenciaDto seccion : record.getSecciones()) {
+            items.add(toGenericEmpleadoResultItemDto(record, seccion));
+          }
+        } else {
+          items.add(toGenericEmpleadoResultItemDto(record, null));
+        }
+      }
+    }
+    PresenciaManualResponseDto response = new PresenciaManualResponseDto();
+    response.setData(items);
+    return response;
+  }
+
+  /**
+   * Maps a single REST {@link PresenciaManualDto} and its {@link SeccionPresenciaDto} into a flat {@link GenericEmpleadoResultItemDto}.
+   */
+  default GenericEmpleadoResultItemDto toGenericEmpleadoResultItemDto(PresenciaManualDto parent, SeccionPresenciaDto seccion) {
+    GenericEmpleadoResultItemDto item = new GenericEmpleadoResultItemDto();
+    item.setIdEmpleado(parent.getIdEmpleado());
+    item.setOrEmpleado(parent.getIdOrdinalEmpleado());
+    item.setIdEmpleadoLocal(parent.getIdEmpleadoLocal());
+    item.setIdOrigen(parent.getIdOrigen());
+    item.setIdEmpresa(parent.getIdEmpresa());
+    item.setIdCadena(parent.getIdCadena());
+    item.setIdLugarTrabajo(parent.getIdLugarTrabajo());
+    item.setIdLugarTrabajoMtu(parent.getIdLugarTrabajoMtu());
+    item.setFecha(toLocalDateTime(parent.getFechaPresencia()));
+    if (parent.getIdTipoHora() != null) {
+      try {
+        item.setIdTipoHora(Integer.valueOf(parent.getIdTipoHora()));
+      } catch (NumberFormatException e) {
+        item.setIdTipoHora(null);
+      }
+    }
+    if (seccion != null) {
+      item.setIdSeccion(seccion.getIdSeccion());
+      item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : null);
+    }
+    return item;
   }
 
 }

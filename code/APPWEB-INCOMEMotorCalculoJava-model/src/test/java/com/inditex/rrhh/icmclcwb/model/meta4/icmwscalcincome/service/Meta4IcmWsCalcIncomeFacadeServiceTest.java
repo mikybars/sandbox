@@ -256,15 +256,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     PresenciaManualResponseDto response;
 
+    @Mock
+    PresenciaManualResponseDto restResponse;
+
+    @Mock
+    PresenciaManualResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresenciaManualResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresenciaManualResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getPresenciaManual(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getPresenciaManual"), any(), any(), any())).thenReturn(response);
 
       PresenciaManualResponseDto result = service.getPresenciaManual(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManual"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getPresenciaManual(request)).thenReturn(restResponse);
+
+      service.getPresenciaManual(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManual"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
+      PresenciaManualResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getPresenciaManual(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getPresenciaManual(request)).thenReturn(soapResponse);
+
+      service.getPresenciaManual(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManual"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
+      PresenciaManualResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPresenciaManual(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.Configuracion
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
@@ -25,10 +26,13 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -45,12 +49,15 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -1582,6 +1589,130 @@ class PeopleAclMapperTest {
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();
       assertThat(result.getPage()).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchPresenciaManualRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectAllFilterFieldsMapped() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      item1.setIdEmpleado("EMP-1");
+      item1.setIdTipoHora("3");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdLugarTrabajo("T002");
+      item2.setIdEmpleado("EMP-2");
+      item2.setIdTipoHora("4");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setIdsEmpresa(List.of("SOC-1", "SOC-2"));
+      filter.setItem(List.of(item1, item2));
+      PresenciaManualRequestDto src = new PresenciaManualRequestDto();
+      src.setData(filter);
+
+      SearchPresenciaManualRequestDto result = mapper.toSearchPresenciaManualRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdEmpresas()).containsExactly("SOC-1", "SOC-2");
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001", "T002");
+      assertThat(result.getIdEmpleados()).containsExactly("EMP-1", "EMP-2");
+      assertThat(result.getIdTiposHora()).containsExactly("3", "4");
+    }
+
+    @Test
+    void whenRequestDataNullExpectRequestWithEmptyIdOrigen() {
+      PresenciaManualRequestDto src = new PresenciaManualRequestDto();
+      src.setData(null);
+
+      SearchPresenciaManualRequestDto result = mapper.toSearchPresenciaManualRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenRequestNullExpectRequestWithEmptyIdOrigen() {
+      SearchPresenciaManualRequestDto result = mapper.toSearchPresenciaManualRequestDto((PresenciaManualRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToPresenciaManualResponseDto {
+
+    @Test
+    void whenResponseWithSectionsExpectFlattenedItems() {
+      SeccionPresenciaDto seccion1 = new SeccionPresenciaDto();
+      seccion1.setIdSeccion("SEC-1");
+      seccion1.setMinutos(30);
+      SeccionPresenciaDto seccion2 = new SeccionPresenciaDto();
+      seccion2.setIdSeccion("SEC-2");
+      seccion2.setMinutos(60);
+      PresenciaManualDto record = new PresenciaManualDto();
+      record.setIdEmpleado("EMP-1");
+      record.setIdOrdinalEmpleado("2");
+      record.setIdEmpleadoLocal("LOCAL-1");
+      record.setIdOrigen("ORIG-1");
+      record.setIdEmpresa("SOC-1");
+      record.setIdCadena("CAD-1");
+      record.setIdLugarTrabajo("T001");
+      record.setIdLugarTrabajoMtu("MTU-1");
+      record.setIdTipoHora("5");
+      record.setFechaPresencia(FECHA_INICIO_UTC);
+      record.setSecciones(List.of(seccion1, seccion2));
+      SearchPresenciaManualResponseDto src = new SearchPresenciaManualResponseDto();
+      src.setData(List.of(record));
+
+      PresenciaManualResponseDto result = mapper.toPresenciaManualResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(2);
+      GenericEmpleadoResultItemDto first = result.getData().get(0);
+      assertThat(first.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(first.getOrEmpleado()).isEqualTo("2");
+      assertThat(first.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(first.getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(first.getFecha()).isEqualTo(FECHA_INICIO);
+      assertThat(first.getIdTipoHora()).isEqualTo(5);
+      assertThat(first.getIdSeccion()).isEqualTo("SEC-1");
+      assertThat(first.getMinutos()).isEqualTo("30");
+      GenericEmpleadoResultItemDto second = result.getData().get(1);
+      assertThat(second.getIdSeccion()).isEqualTo("SEC-2");
+      assertThat(second.getMinutos()).isEqualTo("60");
+    }
+
+    @Test
+    void whenResponseWithEmptySectionsExpectOneItemWithNullSeccionAndMinutos() {
+      PresenciaManualDto record = new PresenciaManualDto();
+      record.setIdEmpleado("EMP-1");
+      record.setIdOrigen("ORIG-1");
+      record.setSecciones(List.of());
+      SearchPresenciaManualResponseDto src = new SearchPresenciaManualResponseDto();
+      src.setData(List.of(record));
+
+      PresenciaManualResponseDto result = mapper.toPresenciaManualResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdSeccion()).isNull();
+      assertThat(result.getData().get(0).getMinutos()).isNull();
+    }
+
+    @Test
+    void whenResponseNullExpectEmptyResponse() {
+      PresenciaManualResponseDto result = mapper.toPresenciaManualResponseDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isNull();
     }
   }
 }

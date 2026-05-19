@@ -10,6 +10,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVe
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
@@ -24,6 +25,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -40,6 +43,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -82,6 +87,9 @@ class PeopleAclServiceTest {
   FlagCalculaApi flagCalculaApi;
 
   @Mock
+  PresenciasManualApi presenciasManualApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -96,7 +104,7 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, peopleAclMapper);
+        flagCalculaApi, presenciasManualApi, peopleAclMapper);
   }
 
   @Nested
@@ -583,6 +591,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toFlagCalculaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetPresenciaManual {
+
+    @Captor
+    ArgumentCaptor<SearchPresenciaManualRequestDto> presenciaManualRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
+      SearchPresenciaManualResponseDto restResponse = new SearchPresenciaManualResponseDto();
+      PresenciaManualResponseDto expected = new PresenciaManualResponseDto();
+      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualApi.searchPresenciasManual(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toPresenciaManualResponseDto(restResponse)).thenReturn(expected);
+
+      PresenciaManualResponseDto result = service.getPresenciaManual(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
+      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
+
+      service.getPresenciaManual(request);
+
+      verify(peopleAclMapper, times(1)).toSearchPresenciaManualRequestDto(request);
+      verify(presenciasManualApi, times(1)).searchPresenciasManual(presenciaManualRestRequestCaptor.capture());
+      assertThat(presenciaManualRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
+      SearchPresenciaManualResponseDto restResponse = new SearchPresenciaManualResponseDto();
+      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualApi.searchPresenciasManual(restRequest)).thenReturn(restResponse);
+
+      service.getPresenciaManual(request);
+
+      verify(peopleAclMapper, times(1)).toPresenciaManualResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
+      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
+      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualApi.searchPresenciasManual(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toPresenciaManualResponseDto(null)).thenReturn(null);
+
+      PresenciaManualResponseDto result = service.getPresenciaManual(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toPresenciaManualResponseDto(null);
     }
   }
 }
