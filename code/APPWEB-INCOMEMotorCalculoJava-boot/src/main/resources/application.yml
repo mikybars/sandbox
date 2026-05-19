@@ -40,8 +40,12 @@ amiga:
       client:
         login:
           url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
         meta4:
           url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
     rest:
       client:
         health:
