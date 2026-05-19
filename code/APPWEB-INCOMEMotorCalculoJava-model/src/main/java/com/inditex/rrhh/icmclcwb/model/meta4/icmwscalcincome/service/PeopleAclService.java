@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
@@ -14,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -64,6 +67,9 @@ public class PeopleAclService {
 
   @Qualifier("presenciasManualCalculoIncomeApiClient")
   private final PresenciasManualApi presenciasManualApi;
+
+  @Qualifier("empleadosDesplazadosCalculoIncomeApiClient")
+  private final EmpleadosDesplazadosApi empleadosDesplazadosApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -137,6 +143,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchPresenciaManualRequestDto(request);
     var response = presenciasManualApi.searchPresenciasManual(restRequest);
     return peopleAclMapper.toPresenciaManualResponseDto(response);
+  }
+
+  public EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchEmpleadosDesplazados");
+
+    var restRequest = peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request);
+    var response = empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest);
+    return peopleAclMapper.toEmpleadosDesplazamientoResponseDto(response);
   }
 
 }

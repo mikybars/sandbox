@@ -5,6 +5,7 @@ import com.inditex.amigafwk.common.rest.client.annotation.AmigaRestClient;
 import com.inditex.amigafwk.common.rest.client.builder.RestClientBuilder;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
@@ -71,6 +72,12 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "presenciasManualCalculoIncomeApiClient")
   public PresenciasManualApi presenciasManualCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new PresenciasManualApi(apiClient);
+  }
+
+  @Bean(name = "empleadosDesplazadosCalculoIncomeApiClient")
+  public EmpleadosDesplazadosApi empleadosDesplazadosCalculoIncomeApiClient(
+      @Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new EmpleadosDesplazadosApi(apiClient);
   }
 
 }

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
@@ -39,6 +42,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -90,6 +95,9 @@ class PeopleAclServiceTest {
   PresenciasManualApi presenciasManualApi;
 
   @Mock
+  EmpleadosDesplazadosApi empleadosDesplazadosApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -104,7 +112,7 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, presenciasManualApi, peopleAclMapper);
+        flagCalculaApi, presenciasManualApi, empleadosDesplazadosApi, peopleAclMapper);
   }
 
   @Nested
@@ -653,6 +661,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toPresenciaManualResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetEmpleadosDesplazamiento {
+
+    @Captor
+    ArgumentCaptor<SearchEmpleadosDesplazadosRequestDto> empleadosDesplazadosRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
+      SearchEmpleadosDesplazadosResponseDto restResponse = new SearchEmpleadosDesplazadosResponseDto();
+      EmpleadosDesplazamientoResponseDto expected = new EmpleadosDesplazamientoResponseDto();
+      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
+      when(empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toEmpleadosDesplazamientoResponseDto(restResponse)).thenReturn(expected);
+
+      EmpleadosDesplazamientoResponseDto result = service.getEmpleadosDesplazamiento(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
+      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
+
+      service.getEmpleadosDesplazamiento(request);
+
+      verify(peopleAclMapper, times(1)).toSearchEmpleadosDesplazadosRequestDto(request);
+      verify(empleadosDesplazadosApi, times(1)).searchEmpleadosDesplazados(empleadosDesplazadosRestRequestCaptor.capture());
+      assertThat(empleadosDesplazadosRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
+      SearchEmpleadosDesplazadosResponseDto restResponse = new SearchEmpleadosDesplazadosResponseDto();
+      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
+      when(empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest)).thenReturn(restResponse);
+
+      service.getEmpleadosDesplazamiento(request);
+
+      verify(peopleAclMapper, times(1)).toEmpleadosDesplazamientoResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
+      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
+      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
+      when(empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toEmpleadosDesplazamientoResponseDto(null)).thenReturn(null);
+
+      EmpleadosDesplazamientoResponseDto result = service.getEmpleadosDesplazamiento(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toEmpleadosDesplazamientoResponseDto(null);
     }
   }
 }

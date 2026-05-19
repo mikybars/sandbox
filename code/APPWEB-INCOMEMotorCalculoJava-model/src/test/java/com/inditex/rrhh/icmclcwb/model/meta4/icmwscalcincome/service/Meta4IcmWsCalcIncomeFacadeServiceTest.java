@@ -784,15 +784,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     EmpleadosDesplazamientoResponseDto response;
 
+    @Mock
+    EmpleadosDesplazamientoResponseDto restResponse;
+
+    @Mock
+    EmpleadosDesplazamientoResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<EmpleadosDesplazamientoResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<EmpleadosDesplazamientoResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getEmpleadosDesplazamiento(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), any())).thenReturn(response);
 
       EmpleadosDesplazamientoResponseDto result = service.getEmpleadosDesplazamiento(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getEmpleadosDesplazamiento(request)).thenReturn(restResponse);
+
+      service.getEmpleadosDesplazamiento(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      EmpleadosDesplazamientoResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getEmpleadosDesplazamiento(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getEmpleadosDesplazamiento(request)).thenReturn(soapResponse);
+
+      service.getEmpleadosDesplazamiento(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      EmpleadosDesplazamientoResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getEmpleadosDesplazamiento(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 
