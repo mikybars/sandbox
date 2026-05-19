@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.CoeficientesJornadaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
@@ -12,6 +13,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeAp
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -67,6 +70,9 @@ public class PeopleAclService {
 
   @Qualifier("flagCalculaCalculoIncomeApiClient")
   private final FlagCalculaApi flagCalculaApi;
+
+  @Qualifier("coeficientesJornadaCalculoIncomeApiClient")
+  private final CoeficientesJornadaApi coeficientesJornadaApi;
 
   @Qualifier("presenciasManualCalculoIncomeApiClient")
   private final PresenciasManualApi presenciasManualApi;
@@ -141,6 +147,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchFlagCalculaRequestDto(request);
     var response = flagCalculaApi.searchFlagCalcula(restRequest);
     return peopleAclMapper.toFlagCalculaResponseDto(response);
+  }
+
+  public CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchCoeficientesJornada");
+
+    var restRequest = peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request);
+    var response = coeficientesJornadaApi.searchCoeficientesJornada(restRequest);
+    return peopleAclMapper.toCoefJornadaResponseDto(response);
   }
 
   public PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request) {

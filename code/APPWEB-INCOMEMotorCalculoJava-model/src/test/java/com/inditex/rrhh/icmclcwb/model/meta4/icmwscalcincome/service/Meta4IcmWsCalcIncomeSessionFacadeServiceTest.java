@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
@@ -436,16 +437,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     GenericEmpleadoResultItemDto resultItem;
 
+    @Mock
+    CoefJornadaResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericEmpleadoResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericEmpleadoResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<GenericEmpleadoResultItemDto> expected = List.of(resultItem);
-      when(soapService.getCoefJornada(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getCoefJornada"), any(), any(), any())).thenReturn(expected);
 
       List<GenericEmpleadoResultItemDto> result = service.getCoefJornada(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndUnwrapsData() {
+      List<GenericEmpleadoResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getCoefJornada(request)).thenReturn(restResponse);
+
+      service.getCoefJornada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<GenericEmpleadoResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getCoefJornada(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<GenericEmpleadoResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getCoefJornada(request)).thenReturn(soapData);
+
+      service.getCoefJornada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<GenericEmpleadoResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getCoefJornada(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

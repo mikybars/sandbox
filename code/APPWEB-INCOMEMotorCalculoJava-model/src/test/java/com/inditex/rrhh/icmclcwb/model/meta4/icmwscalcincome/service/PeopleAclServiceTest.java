@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.CoeficientesJornadaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
@@ -17,6 +18,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeAp
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
@@ -39,6 +42,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
@@ -97,6 +102,9 @@ class PeopleAclServiceTest {
   FlagCalculaApi flagCalculaApi;
 
   @Mock
+  CoeficientesJornadaApi coeficientesJornadaApi;
+
+  @Mock
   PresenciasManualApi presenciasManualApi;
 
   @Mock
@@ -120,7 +128,7 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, peopleAclMapper);
+        flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, peopleAclMapper);
   }
 
   @Nested
@@ -607,6 +615,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toFlagCalculaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetCoefJornada {
+
+    @Captor
+    ArgumentCaptor<SearchCoeficienteJornadaRequestDto> coefJornadaRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
+      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
+      SearchCoeficienteJornadaResponseDto restResponse = new SearchCoeficienteJornadaResponseDto();
+      CoefJornadaResponseDto expected = new CoefJornadaResponseDto();
+      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
+      when(coeficientesJornadaApi.searchCoeficientesJornada(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toCoefJornadaResponseDto(restResponse)).thenReturn(expected);
+
+      CoefJornadaResponseDto result = service.getCoefJornada(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
+      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
+      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
+
+      service.getCoefJornada(request);
+
+      verify(peopleAclMapper, times(1)).toSearchCoeficienteJornadaRequestDto(request);
+      verify(coeficientesJornadaApi, times(1)).searchCoeficientesJornada(coefJornadaRestRequestCaptor.capture());
+      assertThat(coefJornadaRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
+      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
+      SearchCoeficienteJornadaResponseDto restResponse = new SearchCoeficienteJornadaResponseDto();
+      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
+      when(coeficientesJornadaApi.searchCoeficientesJornada(restRequest)).thenReturn(restResponse);
+
+      service.getCoefJornada(request);
+
+      verify(peopleAclMapper, times(1)).toCoefJornadaResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
+      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
+      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
+      when(coeficientesJornadaApi.searchCoeficientesJornada(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toCoefJornadaResponseDto(null)).thenReturn(null);
+
+      CoefJornadaResponseDto result = service.getCoefJornada(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toCoefJornadaResponseDto(null);
     }
   }
 

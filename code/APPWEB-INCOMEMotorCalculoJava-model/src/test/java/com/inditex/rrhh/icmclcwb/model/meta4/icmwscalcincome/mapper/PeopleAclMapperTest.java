@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
@@ -44,6 +47,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineD
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
@@ -1477,6 +1482,98 @@ class PeopleAclMapperTest {
   }
 
   @Nested
+  class ToSearchCoeficienteJornadaRequestDto {
+
+    @Test
+    void whenRequestPopulatedWithItemsExpectFieldsMapped() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdEmpleado("EMP-001");
+      item1.setOrEmpleado("1");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdEmpleado("EMP-002");
+      item2.setOrEmpleado("2");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item1, item2));
+      CoefJornadaRequestDto src = new CoefJornadaRequestDto();
+      src.setData(filter);
+
+      SearchCoeficienteJornadaRequestDto result = mapper.toSearchCoeficienteJornadaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getEmpleados()).hasSize(2);
+      assertThat(result.getEmpleados().get(0).getIdEmpleado()).isEqualTo("EMP-001");
+      assertThat(result.getEmpleados().get(0).getIdOrdinalEmpleado()).isEqualTo("1");
+      assertThat(result.getEmpleados().get(1).getIdEmpleado()).isEqualTo("EMP-002");
+      assertThat(result.getEmpleados().get(1).getIdOrdinalEmpleado()).isEqualTo("2");
+    }
+
+    @Test
+    void whenRequestNullExpectEmptyDto() {
+      SearchCoeficienteJornadaRequestDto result = mapper.toSearchCoeficienteJornadaRequestDto((CoefJornadaRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyDto() {
+      CoefJornadaRequestDto src = new CoefJornadaRequestDto();
+      src.setData(null);
+
+      SearchCoeficienteJornadaRequestDto result = mapper.toSearchCoeficienteJornadaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+
+    @Test
+    void whenItemNullExpectNoEmpleados() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(null);
+      CoefJornadaRequestDto src = new CoefJornadaRequestDto();
+      src.setData(filter);
+
+      SearchCoeficienteJornadaRequestDto result = mapper.toSearchCoeficienteJornadaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getEmpleados()).isNullOrEmpty();
+    }
+
+    @Test
+    void whenItemEmptyExpectNoEmpleados() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of());
+      CoefJornadaRequestDto src = new CoefJornadaRequestDto();
+      src.setData(filter);
+
+      SearchCoeficienteJornadaRequestDto result = mapper.toSearchCoeficienteJornadaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getEmpleados()).isNullOrEmpty();
+    }
+  }
+
+  @Nested
   class ToFlagCalculaItemDto {
 
     @Test
@@ -1517,6 +1614,93 @@ class PeopleAclMapperTest {
       GenericTiendaResultItemDto result = mapper.toFlagCalculaItemDto(src);
 
       assertThat(result.getCalcula()).isFalse();
+    }
+  }
+
+  @Nested
+  class ToGenericEmpleadoResultItemDtoFromCoeficienteJornada {
+
+    @Test
+    void whenSourcePopulatedExpectFieldsMappedAndRenamed() {
+      CoeficienteJornadaDto src = new CoeficienteJornadaDto();
+      src.setIdEmpleado("EMP-1");
+      src.setIdOrdinalEmpleado("2");
+      src.setFechaInicioCompleta(FECHA_INICIO_UTC);
+      src.setFechaFinCompleta(FECHA_FIN_UTC);
+      src.setFechaInicioParcial(FECHA_INICIO_UTC);
+      src.setFechaFinParcial(FECHA_FIN_UTC);
+      src.setCoeficienteJornada("0.75");
+
+      GenericEmpleadoResultItemDto result = mapper.toGenericEmpleadoResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(result.getOrEmpleado()).isEqualTo("2");
+      assertThat(result.getFechaInicioCom()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFinCom()).isEqualTo(FECHA_FIN);
+      assertThat(result.getFechaInicioPar()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFinPar()).isEqualTo(FECHA_FIN);
+      assertThat(result.getCoefJornada()).isEqualTo("0.75");
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+      assertThat(result.getFecha()).isNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getIdCadena()).isNull();
+      assertThat(result.getIdEmpresa()).isNull();
+      assertThat(result.getIdPais()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      GenericEmpleadoResultItemDto result = mapper.toGenericEmpleadoResultItemDto((CoeficienteJornadaDto) null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToGenericEmpleadoResultItemDtoListFromCoeficienteJornada {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      CoeficienteJornadaDto first = new CoeficienteJornadaDto();
+      first.setIdEmpleado("EMP-A");
+      first.setIdOrdinalEmpleado("1");
+      first.setCoeficienteJornada("0.5");
+      first.setFechaInicioCompleta(FECHA_INICIO_UTC);
+      first.setFechaFinCompleta(FECHA_FIN_UTC);
+      CoeficienteJornadaDto second = new CoeficienteJornadaDto();
+      second.setIdEmpleado("EMP-B");
+      second.setIdOrdinalEmpleado("2");
+      second.setCoeficienteJornada("1.0");
+      second.setFechaInicioCompleta(FECHA_INICIO_UTC);
+      second.setFechaFinCompleta(FECHA_FIN_UTC);
+
+      List<GenericEmpleadoResultItemDto> result = mapper.toGenericEmpleadoResultItemDtoList(List.of(first, second));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdEmpleado()).isEqualTo("EMP-A");
+      assertThat(result.get(0).getOrEmpleado()).isEqualTo("1");
+      assertThat(result.get(0).getCoefJornada()).isEqualTo("0.5");
+      assertThat(result.get(1).getIdEmpleado()).isEqualTo("EMP-B");
+      assertThat(result.get(1).getOrEmpleado()).isEqualTo("2");
+      assertThat(result.get(1).getCoefJornada()).isEqualTo("1.0");
+    }
+
+    @Test
+    void whenNullListExpectNull() {
+      List<GenericEmpleadoResultItemDto> result = mapper.toGenericEmpleadoResultItemDtoList((List<CoeficienteJornadaDto>) null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyListExpectEmptyList() {
+      List<GenericEmpleadoResultItemDto> result = mapper.toGenericEmpleadoResultItemDtoList(List.<CoeficienteJornadaDto>of());
+
+      assertThat(result).isEmpty();
     }
   }
 
@@ -1595,6 +1779,50 @@ class PeopleAclMapperTest {
       src.setData(List.of());
 
       FlagCalculaResponseDto result = mapper.toFlagCalculaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+      assertThat(result.getPage()).isNull();
+    }
+  }
+
+  @Nested
+  class ToCoefJornadaResponseDto {
+
+    @Test
+    void whenResponsePopulatedExpectDataMappedAndPageIgnored() {
+      CoeficienteJornadaDto item = new CoeficienteJornadaDto();
+      item.setIdEmpleado("EMP-X");
+      item.setIdOrdinalEmpleado("1");
+      item.setCoeficienteJornada("0.8");
+      item.setFechaInicioCompleta(FECHA_INICIO_UTC);
+      item.setFechaFinCompleta(FECHA_FIN_UTC);
+      SearchCoeficienteJornadaResponseDto src = new SearchCoeficienteJornadaResponseDto();
+      src.setData(List.of(item));
+
+      CoefJornadaResponseDto result = mapper.toCoefJornadaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdEmpleado()).isEqualTo("EMP-X");
+      assertThat(result.getData().get(0).getOrEmpleado()).isEqualTo("1");
+      assertThat(result.getData().get(0).getCoefJornada()).isEqualTo("0.8");
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      CoefJornadaResponseDto result = mapper.toCoefJornadaResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyDataExpectEmptyList() {
+      SearchCoeficienteJornadaResponseDto src = new SearchCoeficienteJornadaResponseDto();
+      src.setData(List.of());
+
+      CoefJornadaResponseDto result = mapper.toCoefJornadaResponseDto(src);
 
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();

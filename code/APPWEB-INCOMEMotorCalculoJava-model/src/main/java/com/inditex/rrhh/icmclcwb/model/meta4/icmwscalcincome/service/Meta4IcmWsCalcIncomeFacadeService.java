@@ -155,7 +155,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request) {
-    return soapService.getCoefJornada(request);
+    return migrationDispatcher.dispatch("getCoefJornada",
+        () -> peopleAclService.getCoefJornada(request),
+        () -> soapService.getCoefJornada(request),
+        request);
   }
 
   @Override

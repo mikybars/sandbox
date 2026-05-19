@@ -416,15 +416,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     CoefJornadaResponseDto response;
 
+    @Mock
+    CoefJornadaResponseDto restResponse;
+
+    @Mock
+    CoefJornadaResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<CoefJornadaResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<CoefJornadaResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getCoefJornada(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getCoefJornada"), any(), any(), any())).thenReturn(response);
 
       CoefJornadaResponseDto result = service.getCoefJornada(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getCoefJornada(request)).thenReturn(restResponse);
+
+      service.getCoefJornada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      CoefJornadaResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getCoefJornada(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getCoefJornada(request)).thenReturn(soapResponse);
+
+      service.getCoefJornada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      CoefJornadaResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getCoefJornada(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

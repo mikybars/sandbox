@@ -10,9 +10,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoOrdinalDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
@@ -20,6 +22,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
@@ -46,6 +50,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineD
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
@@ -373,6 +379,36 @@ public interface PeopleAclMapper {
     return request;
   }
 
+  // ── SOAP → REST (request): Coeficientes Jornada ──
+
+  /**
+   * Builds the REST client {@link SearchCoeficienteJornadaRequestDto} from the internal {@link CoefJornadaRequestDto}. The
+   * {@code empleados} list is populated by extracting {@code idEmpleado} and {@code orEmpleado} (mapped to {@code idOrdinalEmpleado}) from
+   * each {@link GenericFilterParametersDto} item in the filter's {@code item} list. Date fields are converted using
+   * {@link #toOffsetDateTime(LocalDateTime)}.
+   */
+  default SearchCoeficienteJornadaRequestDto toSearchCoeficienteJornadaRequestDto(CoefJornadaRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchCoeficienteJornadaRequestDto();
+    }
+    GenericFilterDto filter = src.getData();
+    SearchCoeficienteJornadaRequestDto request = new SearchCoeficienteJornadaRequestDto()
+        .idOrigen(filter.getIdOrigen())
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()));
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      List<EmpleadoOrdinalDto> empleados = new ArrayList<>();
+      for (GenericFilterParametersDto item : filter.getItem()) {
+        empleados.add(new EmpleadoOrdinalDto()
+            .idEmpleado(item.getIdEmpleado())
+            .idOrdinalEmpleado(item.getOrEmpleado()));
+      }
+      request.empleados(empleados);
+    }
+    return request;
+  }
+
   // ── REST → SOAP (response): FlagCalcula ──
 
   /**
@@ -402,6 +438,75 @@ public interface PeopleAclMapper {
   default Boolean calculaEnumToBoolean(FlagCalculaDto.CalculaEnum calcula) {
     return calcula == null ? null : "1".equals(calcula.getValue());
   }
+  // ── REST → SOAP (response): Coeficientes Jornada ──
+
+  /**
+   * Maps REST client {@link CoeficienteJornadaDto} items into internal {@link GenericEmpleadoResultItemDto} records. Renames
+   * {@code idOrdinalEmpleado → orEmpleado}, {@code fechaInicioCompleta → fechaInicioCom}, {@code fechaFinCompleta → fechaFinCom},
+   * {@code fechaInicioParcial → fechaInicioPar}, {@code fechaFinParcial → fechaFinPar}, {@code coeficienteJornada → coefJornada}. Meta4
+   * audit fields and fields not present in the REST response are ignored.
+   */
+  @Mapping(target = "orEmpleado", source = "idOrdinalEmpleado")
+  @Mapping(target = "fechaInicioCom", source = "fechaInicioCompleta")
+  @Mapping(target = "fechaFinCom", source = "fechaFinCompleta")
+  @Mapping(target = "fechaInicioPar", source = "fechaInicioParcial")
+  @Mapping(target = "fechaFinPar", source = "fechaFinParcial")
+  @Mapping(target = "coefJornada", source = "coeficienteJornada")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  @Mapping(target = "fecha", ignore = true)
+  @Mapping(target = "fechaInicio", ignore = true)
+  @Mapping(target = "fechaFin", ignore = true)
+  @Mapping(target = "fechaInicioSec", ignore = true)
+  @Mapping(target = "fechaFinSec", ignore = true)
+  @Mapping(target = "fechaInicioLoc", ignore = true)
+  @Mapping(target = "fechaFinLoc", ignore = true)
+  @Mapping(target = "fechaAntiguedad", ignore = true)
+  @Mapping(target = "idCadena", ignore = true)
+  @Mapping(target = "idOrigen", ignore = true)
+  @Mapping(target = "idPais", ignore = true)
+  @Mapping(target = "idEmpresa", ignore = true)
+  @Mapping(target = "idSeccion", ignore = true)
+  @Mapping(target = "idTipoHora", ignore = true)
+  @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+  @Mapping(target = "idLugarTrabajo", ignore = true)
+  @Mapping(target = "importe", ignore = true)
+  @Mapping(target = "minutos", ignore = true)
+  @Mapping(target = "idPuesto", ignore = true)
+  GenericEmpleadoResultItemDto toGenericEmpleadoResultItemDto(CoeficienteJornadaDto src);
+
+  /**
+   * Maps a single REST {@link PresenciaManualDto} and its {@link SeccionPresenciaDto} into a flat {@link GenericEmpleadoResultItemDto}.
+   */
+  default GenericEmpleadoResultItemDto toGenericEmpleadoResultItemDto(PresenciaManualDto parent, SeccionPresenciaDto seccion) {
+    GenericEmpleadoResultItemDto item = new GenericEmpleadoResultItemDto();
+    item.setIdEmpleado(parent.getIdEmpleado());
+    item.setOrEmpleado(parent.getIdOrdinalEmpleado());
+    item.setIdEmpleadoLocal(parent.getIdEmpleadoLocal());
+    item.setIdOrigen(parent.getIdOrigen());
+    item.setIdEmpresa(parent.getIdEmpresa());
+    item.setIdCadena(parent.getIdCadena());
+    item.setIdLugarTrabajo(parent.getIdLugarTrabajo());
+    item.setIdLugarTrabajoMtu(parent.getIdLugarTrabajoMtu());
+    item.setFecha(toLocalDateTime(parent.getFechaPresencia()));
+    if (parent.getIdTipoHora() != null) {
+      try {
+        item.setIdTipoHora(Integer.valueOf(parent.getIdTipoHora()));
+      } catch (NumberFormatException e) {
+        item.setIdTipoHora(null);
+      }
+    }
+    if (seccion != null) {
+      item.setIdSeccion(seccion.getIdSeccion());
+      item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : null);
+    }
+    return item;
+  }
+
+  List<GenericEmpleadoResultItemDto> toGenericEmpleadoResultItemDtoList(List<CoeficienteJornadaDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  CoefJornadaResponseDto toCoefJornadaResponseDto(SearchCoeficienteJornadaResponseDto src);
 
   // ── SOAP → REST (request): PresenciaManual ──
 
@@ -452,34 +557,6 @@ public interface PeopleAclMapper {
     PresenciaManualResponseDto response = new PresenciaManualResponseDto();
     response.setData(items);
     return response;
-  }
-
-  /**
-   * Maps a single REST {@link PresenciaManualDto} and its {@link SeccionPresenciaDto} into a flat {@link GenericEmpleadoResultItemDto}.
-   */
-  default GenericEmpleadoResultItemDto toGenericEmpleadoResultItemDto(PresenciaManualDto parent, SeccionPresenciaDto seccion) {
-    GenericEmpleadoResultItemDto item = new GenericEmpleadoResultItemDto();
-    item.setIdEmpleado(parent.getIdEmpleado());
-    item.setOrEmpleado(parent.getIdOrdinalEmpleado());
-    item.setIdEmpleadoLocal(parent.getIdEmpleadoLocal());
-    item.setIdOrigen(parent.getIdOrigen());
-    item.setIdEmpresa(parent.getIdEmpresa());
-    item.setIdCadena(parent.getIdCadena());
-    item.setIdLugarTrabajo(parent.getIdLugarTrabajo());
-    item.setIdLugarTrabajoMtu(parent.getIdLugarTrabajoMtu());
-    item.setFecha(toLocalDateTime(parent.getFechaPresencia()));
-    if (parent.getIdTipoHora() != null) {
-      try {
-        item.setIdTipoHora(Integer.valueOf(parent.getIdTipoHora()));
-      } catch (NumberFormatException e) {
-        item.setIdTipoHora(null);
-      }
-    }
-    if (seccion != null) {
-      item.setIdSeccion(seccion.getIdSeccion());
-      item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : null);
-    }
-    return item;
   }
 
   // ── SOAP → REST (request): EmpleadosDesplazados ──
