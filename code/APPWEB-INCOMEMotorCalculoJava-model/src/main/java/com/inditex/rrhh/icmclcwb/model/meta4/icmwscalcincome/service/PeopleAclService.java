@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
@@ -14,6 +15,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -52,6 +55,9 @@ public class PeopleAclService {
 
   @Qualifier("tiendasIncomeCalculoIncomeApiClient")
   private final TiendasIncomeApi tiendasIncomeApi;
+
+  @Qualifier("flagCalculaCalculoIncomeApiClient")
+  private final FlagCalculaApi flagCalculaApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -109,6 +115,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchConfProductoVentaRequestDto(request);
     var response = configuracionVentaApi.searchConfProductoVenta(restRequest);
     return peopleAclMapper.toConfiguracionProductoVentaResponseDto(response);
+  }
+
+  public FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchFlagCalcula");
+
+    var restRequest = peopleAclMapper.toSearchFlagCalculaRequestDto(request);
+    var response = flagCalculaApi.searchFlagCalcula(restRequest);
+    return peopleAclMapper.toFlagCalculaResponseDto(response);
   }
 
 }

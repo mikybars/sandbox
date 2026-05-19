@@ -46,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.Es
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericEmpleadoResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -400,16 +401,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     GenericTiendaResultItemDto resultItem;
 
+    @Mock
+    FlagCalculaResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericTiendaResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericTiendaResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<GenericTiendaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getFlagCalcula(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getFlagCalcula"), any(), any(), any())).thenReturn(expected);
 
       List<GenericTiendaResultItemDto> result = service.getFlagCalcula(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<GenericTiendaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getFlagCalcula(request)).thenReturn(restResponse);
+
+      service.getFlagCalcula(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<GenericTiendaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getFlagCalcula(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<GenericTiendaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getFlagCalcula(request)).thenReturn(soapData);
+
+      service.getFlagCalcula(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<GenericTiendaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getFlagCalcula(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

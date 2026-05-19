@@ -152,7 +152,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request) {
-    return soapService.getFlagCalcula(request);
+    return migrationDispatcher.dispatch("getFlagCalcula",
+        () -> peopleAclService.getFlagCalcula(request),
+        () -> soapService.getFlagCalcula(request),
+        request);
   }
 
   @Override

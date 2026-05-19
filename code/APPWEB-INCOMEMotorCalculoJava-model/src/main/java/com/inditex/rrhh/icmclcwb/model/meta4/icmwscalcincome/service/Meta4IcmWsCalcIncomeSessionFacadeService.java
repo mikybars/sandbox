@@ -132,7 +132,10 @@ public class Meta4IcmWsCalcIncomeSessionFacadeService implements Meta4IcmWsCalcI
 
   @Override
   public List<GenericTiendaResultItemDto> getFlagCalcula(FlagCalculaRequestDto request) {
-    return soapService.getFlagCalcula(request);
+    return migrationDispatcher.dispatch("getFlagCalcula",
+        () -> peopleAclService.getFlagCalcula(request).getData(),
+        () -> soapService.getFlagCalcula(request),
+        request);
   }
 
   @Override

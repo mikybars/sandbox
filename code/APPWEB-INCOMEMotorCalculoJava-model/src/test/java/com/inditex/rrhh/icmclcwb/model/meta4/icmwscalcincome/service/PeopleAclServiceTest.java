@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
@@ -19,6 +20,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
@@ -33,6 +36,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -74,6 +79,9 @@ class PeopleAclServiceTest {
   TiendasIncomeApi tiendasIncomeApi;
 
   @Mock
+  FlagCalculaApi flagCalculaApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -88,7 +96,7 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        peopleAclMapper);
+        flagCalculaApi, peopleAclMapper);
   }
 
   @Nested
@@ -513,6 +521,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toConfiguracionProductoVentaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetFlagCalcula {
+
+    @Captor
+    ArgumentCaptor<SearchFlagCalculaRequestDto> flagCalculaRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
+      SearchFlagCalculaResponseDto restResponse = new SearchFlagCalculaResponseDto();
+      FlagCalculaResponseDto expected = new FlagCalculaResponseDto();
+      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
+      when(flagCalculaApi.searchFlagCalcula(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toFlagCalculaResponseDto(restResponse)).thenReturn(expected);
+
+      FlagCalculaResponseDto result = service.getFlagCalcula(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
+      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
+
+      service.getFlagCalcula(request);
+
+      verify(peopleAclMapper, times(1)).toSearchFlagCalculaRequestDto(request);
+      verify(flagCalculaApi, times(1)).searchFlagCalcula(flagCalculaRestRequestCaptor.capture());
+      assertThat(flagCalculaRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
+      SearchFlagCalculaResponseDto restResponse = new SearchFlagCalculaResponseDto();
+      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
+      when(flagCalculaApi.searchFlagCalcula(restRequest)).thenReturn(restResponse);
+
+      service.getFlagCalcula(request);
+
+      verify(peopleAclMapper, times(1)).toFlagCalculaResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
+      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
+      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
+      when(flagCalculaApi.searchFlagCalcula(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toFlagCalculaResponseDto(null)).thenReturn(null);
+
+      FlagCalculaResponseDto result = service.getFlagCalcula(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toFlagCalculaResponseDto(null);
     }
   }
 }

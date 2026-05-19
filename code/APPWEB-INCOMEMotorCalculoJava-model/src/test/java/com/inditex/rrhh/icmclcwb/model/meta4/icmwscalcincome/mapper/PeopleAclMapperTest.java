@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
@@ -20,6 +21,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
@@ -40,6 +43,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
@@ -1346,6 +1351,233 @@ class PeopleAclMapperTest {
       src.setData(List.of());
 
       ConfiguracionProductoVentaResponseDto result = mapper.toConfiguracionProductoVentaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+      assertThat(result.getPage()).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchFlagCalculaRequestDto {
+
+    @Test
+    void whenRequestNullExpectEmptyRequest() {
+      SearchFlagCalculaRequestDto result = mapper.toSearchFlagCalculaRequestDto((FlagCalculaRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getIdEmpresa()).isNull();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyRequest() {
+      FlagCalculaRequestDto src = new FlagCalculaRequestDto();
+      src.setData(null);
+
+      SearchFlagCalculaRequestDto result = mapper.toSearchFlagCalculaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getIdEmpresa()).isNull();
+    }
+
+    @Test
+    void whenFullRequestExpectAllFieldsMapped() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdLugarTrabajo("LT-1");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdLugarTrabajo("LT-2");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setIdsEmpresa(List.of("EMP-1", "EMP-2"));
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item1, item2));
+      FlagCalculaRequestDto src = new FlagCalculaRequestDto();
+      src.setData(filter);
+
+      SearchFlagCalculaRequestDto result = mapper.toSearchFlagCalculaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpresa()).isEqualTo("EMP-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("LT-1", "LT-2");
+    }
+
+    @Test
+    void whenEmptyIdsEmpresaExpectIdEmpresaNotSet() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setIdsEmpresa(List.of());
+      FlagCalculaRequestDto src = new FlagCalculaRequestDto();
+      src.setData(filter);
+
+      SearchFlagCalculaRequestDto result = mapper.toSearchFlagCalculaRequestDto(src);
+
+      assertThat(result.getIdEmpresa()).isNull();
+    }
+
+    @Test
+    void whenEmptyItemsExpectIdLugaresTrabajoNotSet() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setItem(List.of());
+      FlagCalculaRequestDto src = new FlagCalculaRequestDto();
+      src.setData(filter);
+
+      SearchFlagCalculaRequestDto result = mapper.toSearchFlagCalculaRequestDto(src);
+
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+    }
+  }
+
+  @Nested
+  class CalculaEnumToBoolean {
+
+    @Test
+    void whenEnum1ExpectTrue() {
+      Boolean result = mapper.calculaEnumToBoolean(FlagCalculaDto.CalculaEnum._1);
+
+      assertThat(result).isTrue();
+    }
+
+    @Test
+    void whenEnum0ExpectFalse() {
+      Boolean result = mapper.calculaEnumToBoolean(FlagCalculaDto.CalculaEnum._0);
+
+      assertThat(result).isFalse();
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      Boolean result = mapper.calculaEnumToBoolean(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToFlagCalculaItemDto {
+
+    @Test
+    void whenSourcePopulatedExpectFieldsMappedAndCalculaConverted() {
+      FlagCalculaDto src = new FlagCalculaDto();
+      src.setIdLugarTrabajo("T123");
+      src.setIdLugarTrabajoMtu("MTU-1");
+      src.setFechaInicio(FECHA_INICIO_UTC);
+      src.setFechaFin(FECHA_FIN_UTC);
+      src.setCalcula(FlagCalculaDto.CalculaEnum._1);
+      src.setEsComisionable(true);
+
+      GenericTiendaResultItemDto result = mapper.toFlagCalculaItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugarTrabajo()).isEqualTo("T123");
+      assertThat(result.getIdLugarTrabajoMtu()).isEqualTo("MTU-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getCalcula()).isTrue();
+      assertThat(result.getEsComisionable()).isTrue();
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      GenericTiendaResultItemDto result = mapper.toFlagCalculaItemDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenCalculaEnum0ExpectFalse() {
+      FlagCalculaDto src = new FlagCalculaDto();
+      src.setCalcula(FlagCalculaDto.CalculaEnum._0);
+
+      GenericTiendaResultItemDto result = mapper.toFlagCalculaItemDto(src);
+
+      assertThat(result.getCalcula()).isFalse();
+    }
+  }
+
+  @Nested
+  class ToFlagCalculaItemDtoList {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      FlagCalculaDto first = new FlagCalculaDto();
+      first.setIdLugarTrabajo("T1");
+      first.setCalcula(FlagCalculaDto.CalculaEnum._1);
+      first.setFechaInicio(FECHA_INICIO_UTC);
+      first.setFechaFin(FECHA_FIN_UTC);
+      FlagCalculaDto second = new FlagCalculaDto();
+      second.setIdLugarTrabajo("T2");
+      second.setCalcula(FlagCalculaDto.CalculaEnum._0);
+      second.setFechaInicio(FECHA_INICIO_UTC);
+      second.setFechaFin(FECHA_FIN_UTC);
+
+      List<GenericTiendaResultItemDto> result = mapper.toFlagCalculaItemDtoList(List.of(first, second));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdLugarTrabajo()).isEqualTo("T1");
+      assertThat(result.get(0).getCalcula()).isTrue();
+      assertThat(result.get(1).getIdLugarTrabajo()).isEqualTo("T2");
+      assertThat(result.get(1).getCalcula()).isFalse();
+    }
+
+    @Test
+    void whenNullListExpectNull() {
+      List<GenericTiendaResultItemDto> result = mapper.toFlagCalculaItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyListExpectEmptyList() {
+      List<GenericTiendaResultItemDto> result = mapper.toFlagCalculaItemDtoList(List.of());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToFlagCalculaResponseDto {
+
+    @Test
+    void whenResponsePopulatedExpectDataMappedAndPageIgnored() {
+      FlagCalculaDto item = new FlagCalculaDto();
+      item.setIdLugarTrabajo("T123");
+      item.setCalcula(FlagCalculaDto.CalculaEnum._1);
+      item.setFechaInicio(FECHA_INICIO_UTC);
+      item.setFechaFin(FECHA_FIN_UTC);
+      SearchFlagCalculaResponseDto src = new SearchFlagCalculaResponseDto();
+      src.setData(List.of(item));
+
+      FlagCalculaResponseDto result = mapper.toFlagCalculaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdLugarTrabajo()).isEqualTo("T123");
+      assertThat(result.getData().get(0).getCalcula()).isTrue();
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      FlagCalculaResponseDto result = mapper.toFlagCalculaResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyDataExpectEmptyList() {
+      SearchFlagCalculaResponseDto src = new SearchFlagCalculaResponseDto();
+      src.setData(List.of());
+
+      FlagCalculaResponseDto result = mapper.toFlagCalculaResponseDto(src);
 
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();
