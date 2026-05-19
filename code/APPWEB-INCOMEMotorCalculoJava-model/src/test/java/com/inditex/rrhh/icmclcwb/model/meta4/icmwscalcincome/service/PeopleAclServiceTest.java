@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
@@ -22,6 +23,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
@@ -40,10 +43,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -98,6 +103,9 @@ class PeopleAclServiceTest {
   EmpleadosDesplazadosApi empleadosDesplazadosApi;
 
   @Mock
+  EmpleadosPresenciaApi empleadosPresenciaApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -112,7 +120,7 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, presenciasManualApi, empleadosDesplazadosApi, peopleAclMapper);
+        flagCalculaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, peopleAclMapper);
   }
 
   @Nested
@@ -723,6 +731,55 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toEmpleadosDesplazamientoResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetEmpleadosPresencia {
+
+    @Captor
+    ArgumentCaptor<SearchEmpleadosPresenciaRequestDto> empleadosPresenciaRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
+      SearchEmpleadosPresenciaRequestDto restRequest = new SearchEmpleadosPresenciaRequestDto();
+      SearchEmpleadosPresenciaResponseDto restResponse = new SearchEmpleadosPresenciaResponseDto();
+      EmpleadosPresenciaResponseDto expected = new EmpleadosPresenciaResponseDto();
+      when(peopleAclMapper.toSearchEmpleadosPresenciaRequestDto(request)).thenReturn(restRequest);
+      when(empleadosPresenciaApi.searchEmpleadosPresencia(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toEmpleadosPresenciaResponseDto(restResponse)).thenReturn(expected);
+
+      EmpleadosPresenciaResponseDto result = service.getEmpleadosPresencia(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
+      SearchEmpleadosPresenciaRequestDto restRequest = new SearchEmpleadosPresenciaRequestDto();
+      when(peopleAclMapper.toSearchEmpleadosPresenciaRequestDto(request)).thenReturn(restRequest);
+
+      service.getEmpleadosPresencia(request);
+
+      verify(peopleAclMapper, times(1)).toSearchEmpleadosPresenciaRequestDto(request);
+      verify(empleadosPresenciaApi, times(1)).searchEmpleadosPresencia(empleadosPresenciaRestRequestCaptor.capture());
+      assertThat(empleadosPresenciaRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
+      SearchEmpleadosPresenciaRequestDto restRequest = new SearchEmpleadosPresenciaRequestDto();
+      when(peopleAclMapper.toSearchEmpleadosPresenciaRequestDto(request)).thenReturn(restRequest);
+      when(empleadosPresenciaApi.searchEmpleadosPresencia(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toEmpleadosPresenciaResponseDto(null)).thenReturn(null);
+
+      EmpleadosPresenciaResponseDto result = service.getEmpleadosPresencia(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toEmpleadosPresenciaResponseDto(null);
     }
   }
 }

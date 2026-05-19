@@ -6,11 +6,14 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
@@ -23,6 +26,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
@@ -49,6 +54,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -414,29 +421,7 @@ public interface PeopleAclMapper {
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
 
-    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
-      List<String> idLugaresTrabajo = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdLugarTrabajo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      List<String> idEmpleados = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdEmpleado)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      List<String> idTiposHora = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdTipoHora)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idLugaresTrabajo.isEmpty()) {
-        request.idLugaresTrabajo(idLugaresTrabajo);
-      }
-      if (!idEmpleados.isEmpty()) {
-        request.idEmpleados(idEmpleados);
-      }
-      if (!idTiposHora.isEmpty()) {
-        request.idTiposHora(idTiposHora);
-      }
-    }
+    applyItemFilters(filter, request::idLugaresTrabajo, request::idEmpleados, request::idTiposHora);
     return request;
   }
 
@@ -516,22 +501,7 @@ public interface PeopleAclMapper {
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
 
-    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
-      List<String> idLugaresTrabajo = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdLugarTrabajo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      List<String> idEmpleados = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdEmpleado)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idLugaresTrabajo.isEmpty()) {
-        request.idLugaresTrabajo(idLugaresTrabajo);
-      }
-      if (!idEmpleados.isEmpty()) {
-        request.idEmpleados(idEmpleados);
-      }
-    }
+    applyItemFilters(filter, request::idLugaresTrabajo, request::idEmpleados, null);
     return request;
   }
 
@@ -570,5 +540,102 @@ public interface PeopleAclMapper {
 
   @Mapping(target = "page", ignore = true)
   EmpleadosDesplazamientoResponseDto toEmpleadosDesplazamientoResponseDto(SearchEmpleadosDesplazadosResponseDto src);
+
+  // ── SOAP → REST (request): EmpleadosPresencia ──
+
+  /**
+   * Builds the REST client {@link SearchEmpleadosPresenciaRequestDto} from the internal {@link EmpleadosPresenciaRequestDto}. The request
+   * filter fields ({@code idOrigen}, {@code idsEmpresa}, {@code fechaInicio}, {@code fechaFin}) are extracted from
+   * {@link GenericFilterDto}. The employee, work location, and hour type filters are collected from the {@code item} list of
+   * {@link GenericFilterParametersDto}.
+   */
+  default SearchEmpleadosPresenciaRequestDto toSearchEmpleadosPresenciaRequestDto(EmpleadosPresenciaRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchEmpleadosPresenciaRequestDto().idOrigen("");
+    }
+    GenericFilterDto filter = src.getData();
+    SearchEmpleadosPresenciaRequestDto request = new SearchEmpleadosPresenciaRequestDto()
+        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()))
+        .idEmpresas(filter.getIdsEmpresa());
+
+    applyItemFilters(filter, request::idLugaresTrabajo, request::idEmpleados, request::idTiposHora);
+    return request;
+  }
+
+  // ── REST → SOAP (response): EmpleadosPresencia ──
+
+  /**
+   * Maps REST client {@link EmpleadoPresenciaDto} items into internal {@link GenericEmpleadoResultItemDto} records. Field rename:
+   * {@code idOrdinalEmpleado → orEmpleado}. All SOAP-only fields not present in the REST response are ignored.
+   */
+  @Mapping(target = "orEmpleado", source = "idOrdinalEmpleado")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  @Mapping(target = "fechaInicio", ignore = true)
+  @Mapping(target = "fecha", ignore = true)
+  @Mapping(target = "fechaFin", ignore = true)
+  @Mapping(target = "fechaFinSec", ignore = true)
+  @Mapping(target = "fechaInicioSec", ignore = true)
+  @Mapping(target = "fechaFinCom", ignore = true)
+  @Mapping(target = "fechaFinPar", ignore = true)
+  @Mapping(target = "fechaInicioLoc", ignore = true)
+  @Mapping(target = "fechaFinLoc", ignore = true)
+  @Mapping(target = "fechaInicioCom", ignore = true)
+  @Mapping(target = "fechaInicioPar", ignore = true)
+  @Mapping(target = "fechaAntiguedad", ignore = true)
+  @Mapping(target = "idCadena", ignore = true)
+  @Mapping(target = "idPais", ignore = true)
+  @Mapping(target = "idSeccion", ignore = true)
+  @Mapping(target = "idTipoHora", ignore = true)
+  @Mapping(target = "coefJornada", ignore = true)
+  @Mapping(target = "importe", ignore = true)
+  @Mapping(target = "minutos", ignore = true)
+  @Mapping(target = "idPuesto", ignore = true)
+  GenericEmpleadoResultItemDto toEmpleadoPresenciaItemDto(EmpleadoPresenciaDto src);
+
+  List<GenericEmpleadoResultItemDto> toEmpleadoPresenciaItemDtoList(List<EmpleadoPresenciaDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  EmpleadosPresenciaResponseDto toEmpleadosPresenciaResponseDto(SearchEmpleadosPresenciaResponseDto src);
+
+  // ── Private helpers ──
+
+  /**
+   * Applies item-level filters (idLugaresTrabajo, idEmpleados, idTiposHora) from the {@link GenericFilterDto} to the target request DTO via
+   * consumer functions. If {@code setIdTiposHora} is {@code null}, the idTiposHora extraction is skipped.
+   */
+  private void applyItemFilters(GenericFilterDto filter, Consumer<List<String>> setIdLugaresTrabajo,
+      Consumer<List<String>> setIdEmpleados, Consumer<List<String>> setIdTiposHora) {
+    if (filter.getItem() == null || filter.getItem().isEmpty()) {
+      return;
+    }
+    List<String> idLugaresTrabajo = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdLugarTrabajo);
+    List<String> idEmpleados = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdEmpleado);
+    if (!idLugaresTrabajo.isEmpty()) {
+      setIdLugaresTrabajo.accept(idLugaresTrabajo);
+    }
+    if (!idEmpleados.isEmpty()) {
+      setIdEmpleados.accept(idEmpleados);
+    }
+    if (setIdTiposHora != null) {
+      List<String> idTiposHora = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdTipoHora);
+      if (!idTiposHora.isEmpty()) {
+        setIdTiposHora.accept(idTiposHora);
+      }
+    }
+  }
+
+  /**
+   * Extracts non-null String values from a list of {@link GenericFilterParametersDto} items using the provided extractor function.
+   */
+  private List<String> extractNonNullValues(List<GenericFilterParametersDto> items,
+      Function<GenericFilterParametersDto, String> extractor) {
+    return items.stream()
+        .map(extractor)
+        .filter(java.util.Objects::nonNull)
+        .toList();
+  }
 
 }

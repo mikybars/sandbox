@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
@@ -17,6 +18,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
@@ -70,6 +73,9 @@ public class PeopleAclService {
 
   @Qualifier("empleadosDesplazadosCalculoIncomeApiClient")
   private final EmpleadosDesplazadosApi empleadosDesplazadosApi;
+
+  @Qualifier("empleadosPresenciaCalculoIncomeApiClient")
+  private final EmpleadosPresenciaApi empleadosPresenciaApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -151,6 +157,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request);
     var response = empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest);
     return peopleAclMapper.toEmpleadosDesplazamientoResponseDto(response);
+  }
+
+  public EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchEmpleadosPresencia");
+
+    var restRequest = peopleAclMapper.toSearchEmpleadosPresenciaRequestDto(request);
+    var response = empleadosPresenciaApi.searchEmpleadosPresencia(restRequest);
+    return peopleAclMapper.toEmpleadosPresenciaResponseDto(response);
   }
 
 }

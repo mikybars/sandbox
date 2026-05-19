@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
@@ -24,6 +25,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
@@ -49,6 +52,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonl
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -1885,6 +1890,109 @@ class PeopleAclMapperTest {
     @Test
     void whenResponseNullExpectNull() {
       EmpleadosDesplazamientoResponseDto result = mapper.toEmpleadosDesplazamientoResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchEmpleadosPresenciaRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectAllFilterFieldsMapped() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      item1.setIdEmpleado("EMP-1");
+      item1.setIdTipoHora("3");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdLugarTrabajo("T002");
+      item2.setIdEmpleado("EMP-2");
+      item2.setIdTipoHora("4");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setIdsEmpresa(List.of("SOC-1", "SOC-2"));
+      filter.setItem(List.of(item1, item2));
+      EmpleadosPresenciaRequestDto src = new EmpleadosPresenciaRequestDto();
+      src.setData(filter);
+
+      SearchEmpleadosPresenciaRequestDto result = mapper.toSearchEmpleadosPresenciaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdEmpresas()).containsExactly("SOC-1", "SOC-2");
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001", "T002");
+      assertThat(result.getIdEmpleados()).containsExactly("EMP-1", "EMP-2");
+      assertThat(result.getIdTiposHora()).containsExactly("3", "4");
+    }
+
+    @Test
+    void whenRequestDataNullExpectRequestWithEmptyIdOrigen() {
+      EmpleadosPresenciaRequestDto src = new EmpleadosPresenciaRequestDto();
+      src.setData(null);
+
+      SearchEmpleadosPresenciaRequestDto result = mapper.toSearchEmpleadosPresenciaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenRequestNullExpectRequestWithEmptyIdOrigen() {
+      SearchEmpleadosPresenciaRequestDto result = mapper.toSearchEmpleadosPresenciaRequestDto((EmpleadosPresenciaRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToEmpleadosPresenciaResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectItemsMappedWithOrdinalRename() {
+      EmpleadoPresenciaDto empleadoPresencia = new EmpleadoPresenciaDto();
+      empleadoPresencia.setIdEmpleado("EMP-1");
+      empleadoPresencia.setIdOrdinalEmpleado("2");
+      empleadoPresencia.setIdEmpleadoLocal("LOCAL-1");
+      empleadoPresencia.setIdOrigen("ORIG-1");
+      empleadoPresencia.setIdEmpresa("SOC-1");
+      empleadoPresencia.setIdLugarTrabajo("T001");
+      empleadoPresencia.setIdLugarTrabajoMtu("MTU-1");
+      SearchEmpleadosPresenciaResponseDto src = new SearchEmpleadosPresenciaResponseDto();
+      src.setData(List.of(empleadoPresencia));
+
+      EmpleadosPresenciaResponseDto result = mapper.toEmpleadosPresenciaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      GenericEmpleadoResultItemDto item = result.getData().get(0);
+      assertThat(item.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(item.getOrEmpleado()).isEqualTo("2");
+      assertThat(item.getIdEmpleadoLocal()).isEqualTo("LOCAL-1");
+      assertThat(item.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(item.getIdEmpresa()).isEqualTo("SOC-1");
+      assertThat(item.getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(item.getIdLugarTrabajoMtu()).isEqualTo("MTU-1");
+    }
+
+    @Test
+    void whenResponseWithEmptyDataExpectEmptyList() {
+      SearchEmpleadosPresenciaResponseDto src = new SearchEmpleadosPresenciaResponseDto();
+      src.setData(List.of());
+
+      EmpleadosPresenciaResponseDto result = mapper.toEmpleadosPresenciaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+    }
+
+    @Test
+    void whenResponseNullExpectNull() {
+      EmpleadosPresenciaResponseDto result = mapper.toEmpleadosPresenciaResponseDto(null);
 
       assertThat(result).isNull();
     }
