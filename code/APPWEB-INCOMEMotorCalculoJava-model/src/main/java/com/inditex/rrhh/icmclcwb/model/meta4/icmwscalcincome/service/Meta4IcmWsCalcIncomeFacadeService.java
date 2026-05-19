@@ -218,7 +218,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public AusenciasResponseDto getAusencias(AusenciasRequestDto request) {
-    return soapService.getAusencias(request);
+    return migrationDispatcher.dispatch("getAusencias",
+        () -> peopleAclService.getAusencias(request),
+        () -> soapService.getAusencias(request),
+        request);
   }
 
   @Override

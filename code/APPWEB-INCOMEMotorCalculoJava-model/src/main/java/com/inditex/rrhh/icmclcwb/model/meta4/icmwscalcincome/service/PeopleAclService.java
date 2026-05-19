@@ -1,8 +1,11 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -33,6 +36,9 @@ public class PeopleAclService {
   @Qualifier("empresasCalculoIncomeApiClient")
   private final EmpresasApi empresasApi;
 
+  @Qualifier("ausenciasCalculoIncomeApiClient")
+  private final AusenciasApi ausenciasApi;
+
   private final PeopleAclMapper peopleAclMapper;
 
   public TiendaOnlineResponseDto searchTiendasOnline(TiendaOnlineRequestDto request) {
@@ -57,6 +63,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchEmpresasRequestDto(request);
     var response = empresasApi.searchEmpresas(restRequest);
     return peopleAclMapper.toEmpresaResponseDto(response);
+  }
+
+  public AusenciasResponseDto getAusencias(AusenciasRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchAusencias");
+
+    var restRequest = peopleAclMapper.toSearchAusenciasRequestDto(request);
+    var response = ausenciasApi.searchAusencias(restRequest);
+    return peopleAclMapper.toAusenciasResponseDto(response);
   }
 
 }

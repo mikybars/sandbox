@@ -683,15 +683,50 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     AusenciasResponseDto response;
 
+    @Mock
+    AusenciasResponseDto restResponse;
+
+    @Mock
+    AusenciasResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<AusenciasResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<AusenciasResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getAusencias(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getAusencias"), any(), any(), any())).thenReturn(response);
 
       AusenciasResponseDto result = service.getAusencias(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getAusencias(request)).thenReturn(restResponse);
+
+      service.getAusencias(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      AusenciasResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getAusencias(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getAusencias(request)).thenReturn(soapResponse);
+
+      service.getAusencias(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      AusenciasResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getAusencias(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

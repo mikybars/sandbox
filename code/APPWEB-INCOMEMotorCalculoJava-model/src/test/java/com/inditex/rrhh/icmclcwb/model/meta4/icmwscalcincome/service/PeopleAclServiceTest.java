@@ -5,15 +5,20 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -46,6 +51,9 @@ class PeopleAclServiceTest {
   EmpresasApi empresasApi;
 
   @Mock
+  AusenciasApi ausenciasApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -56,7 +64,7 @@ class PeopleAclServiceTest {
 
   @BeforeEach
   void beforeEach() {
-    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, peopleAclMapper);
+    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, peopleAclMapper);
   }
 
   @Nested
@@ -236,6 +244,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toEmpresaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetAusencias {
+
+    @Captor
+    ArgumentCaptor<SearchAusenciasRequestDto> ausenciasRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      AusenciasRequestDto request = new AusenciasRequestDto();
+      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
+      SearchAusenciasResponseDto restResponse = new SearchAusenciasResponseDto();
+      AusenciasResponseDto expected = new AusenciasResponseDto();
+      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
+      when(ausenciasApi.searchAusencias(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toAusenciasResponseDto(restResponse)).thenReturn(expected);
+
+      AusenciasResponseDto result = service.getAusencias(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      AusenciasRequestDto request = new AusenciasRequestDto();
+      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
+      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
+
+      service.getAusencias(request);
+
+      verify(peopleAclMapper, times(1)).toSearchAusenciasRequestDto(request);
+      verify(ausenciasApi, times(1)).searchAusencias(ausenciasRestRequestCaptor.capture());
+      assertThat(ausenciasRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      AusenciasRequestDto request = new AusenciasRequestDto();
+      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
+      SearchAusenciasResponseDto restResponse = new SearchAusenciasResponseDto();
+      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
+      when(ausenciasApi.searchAusencias(restRequest)).thenReturn(restResponse);
+
+      service.getAusencias(request);
+
+      verify(peopleAclMapper, times(1)).toAusenciasResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      AusenciasRequestDto request = new AusenciasRequestDto();
+      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
+      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
+      when(ausenciasApi.searchAusencias(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toAusenciasResponseDto(null)).thenReturn(null);
+
+      AusenciasResponseDto result = service.getAusencias(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toAusenciasResponseDto(null);
     }
   }
 }

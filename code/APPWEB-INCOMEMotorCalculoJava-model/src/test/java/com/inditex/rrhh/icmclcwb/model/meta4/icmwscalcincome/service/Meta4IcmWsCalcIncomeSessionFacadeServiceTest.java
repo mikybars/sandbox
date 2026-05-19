@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
@@ -643,16 +644,51 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     AusenciasResultItemDto resultItem;
 
+    @Mock
+    AusenciasResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<AusenciasResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<AusenciasResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<AusenciasResultItemDto> expected = List.of(resultItem);
-      when(soapService.getAusencias(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getAusencias"), any(), any(), any())).thenReturn(expected);
 
       List<AusenciasResultItemDto> result = service.getAusencias(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndUnwrapsData() {
+      List<AusenciasResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getAusencias(request)).thenReturn(restResponse);
+
+      service.getAusencias(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<AusenciasResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getAusencias(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<AusenciasResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getAusencias(request)).thenReturn(soapData);
+
+      service.getAusencias(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<AusenciasResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getAusencias(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

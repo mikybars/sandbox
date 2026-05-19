@@ -7,14 +7,20 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -543,6 +549,261 @@ class PeopleAclMapperTest {
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();
       assertThat(result.getPage()).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchAusenciasRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectAllFieldsMapped() {
+      GenericFilterParametersDto item = new GenericFilterParametersDto();
+      item.setIdEmpleado("EMP-001");
+      item.setOrEmpleado("1");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setIdsEmpresa(List.of("SOC-1"));
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item));
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(filter);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpresa()).isEqualTo("SOC-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdEmpleado()).isEqualTo("EMP-001");
+      assertThat(result.getIdOrdinalEmpleado()).isEqualTo("1");
+    }
+
+    @Test
+    void whenRequestNullExpectEmptyDto() {
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto((AusenciasRequestDto) null);
+
+      assertThat(result).isNotNull();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyDto() {
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(null);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result).isNotNull();
+    }
+
+    @Test
+    void whenIdsEmpresaNullExpectIdEmpresaNull() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setIdsEmpresa(null);
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(filter);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result.getIdEmpresa()).isNull();
+    }
+
+    @Test
+    void whenIdsEmpresaEmptyExpectIdEmpresaNull() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setIdsEmpresa(List.of());
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(filter);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result.getIdEmpresa()).isNull();
+    }
+
+    @Test
+    void whenItemNullExpectEmpleadoFieldsNull() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setItem(null);
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(filter);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result.getIdEmpleado()).isNull();
+      assertThat(result.getIdOrdinalEmpleado()).isNull();
+    }
+
+    @Test
+    void whenItemEmptyExpectEmpleadoFieldsNull() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setItem(List.of());
+      AusenciasRequestDto src = new AusenciasRequestDto();
+      src.setData(filter);
+
+      SearchAusenciasRequestDto result = mapper.toSearchAusenciasRequestDto(src);
+
+      assertThat(result.getIdEmpleado()).isNull();
+      assertThat(result.getIdOrdinalEmpleado()).isNull();
+    }
+  }
+
+  @Nested
+  class ToAusenciasResultItemDto {
+
+    @Test
+    void whenSourcePopulatedExpectFieldsMappedAndAuditFieldsIgnored() {
+      AusenciaDto src = new AusenciaDto();
+      src.setIdOrigen("ORIG-1");
+      src.setIdEmpleado("EMP-1");
+      src.setIdOrdinalEmpleado("2");
+      src.setTipo(AusenciaDto.TipoEnum._1);
+      src.setFechaInicio(FECHA_INICIO_UTC);
+      src.setFechaFin(FECHA_FIN_UTC);
+
+      AusenciasResultItemDto result = mapper.toAusenciasResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdorigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(result.getOrEmpleado()).isEqualTo("2");
+      assertThat(result.getTipo()).isEqualTo("1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      AusenciasResultItemDto result = mapper.toAusenciasResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenTipoNullExpectTipoNull() {
+      AusenciaDto src = new AusenciaDto();
+      src.setIdOrigen("ORIG-1");
+      src.setTipo(null);
+
+      AusenciasResultItemDto result = mapper.toAusenciasResultItemDto(src);
+
+      assertThat(result.getTipo()).isNull();
+    }
+  }
+
+  @Nested
+  class ToAusenciasResultItemDtoList {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      AusenciaDto first = new AusenciaDto();
+      first.setIdOrigen("ORIG-A");
+      first.setIdEmpleado("EMP-A");
+      first.setTipo(AusenciaDto.TipoEnum._1);
+      first.setFechaInicio(FECHA_INICIO_UTC);
+      first.setFechaFin(FECHA_FIN_UTC);
+      AusenciaDto second = new AusenciaDto();
+      second.setIdOrigen("ORIG-B");
+      second.setIdEmpleado("EMP-B");
+      second.setTipo(AusenciaDto.TipoEnum._2);
+      second.setFechaInicio(FECHA_INICIO_UTC);
+      second.setFechaFin(FECHA_FIN_UTC);
+
+      List<AusenciasResultItemDto> result = mapper.toAusenciasResultItemDtoList(List.of(first, second));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdorigen()).isEqualTo("ORIG-A");
+      assertThat(result.get(0).getTipo()).isEqualTo("1");
+      assertThat(result.get(1).getIdorigen()).isEqualTo("ORIG-B");
+      assertThat(result.get(1).getTipo()).isEqualTo("2");
+    }
+
+    @Test
+    void whenNullListExpectNull() {
+      List<AusenciasResultItemDto> result = mapper.toAusenciasResultItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyListExpectEmptyList() {
+      List<AusenciasResultItemDto> result = mapper.toAusenciasResultItemDtoList(List.of());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToAusenciasResponseDto {
+
+    @Test
+    void whenResponsePopulatedExpectDataMappedAndPageIgnored() {
+      AusenciaDto item = new AusenciaDto();
+      item.setIdOrigen("ORIG-X");
+      item.setIdEmpleado("EMP-X");
+      item.setTipo(AusenciaDto.TipoEnum._1);
+      item.setFechaInicio(FECHA_INICIO_UTC);
+      item.setFechaFin(FECHA_FIN_UTC);
+      SearchAusenciasResponseDto src = new SearchAusenciasResponseDto();
+      src.setData(List.of(item));
+
+      AusenciasResponseDto result = mapper.toAusenciasResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdorigen()).isEqualTo("ORIG-X");
+      assertThat(result.getData().get(0).getTipo()).isEqualTo("1");
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      AusenciasResponseDto result = mapper.toAusenciasResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyDataExpectEmptyList() {
+      SearchAusenciasResponseDto src = new SearchAusenciasResponseDto();
+      src.setData(List.of());
+
+      AusenciasResponseDto result = mapper.toAusenciasResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+      assertThat(result.getPage()).isNull();
+    }
+  }
+
+  @Nested
+  class TipoEnumToString {
+
+    @Test
+    void whenNullExpectNull() {
+      String result = mapper.tipoEnumToString(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenType1ExpectString1() {
+      String result = mapper.tipoEnumToString(AusenciaDto.TipoEnum._1);
+
+      assertThat(result).isEqualTo("1");
+    }
+
+    @Test
+    void whenType2ExpectString2() {
+      String result = mapper.tipoEnumToString(AusenciaDto.TipoEnum._2);
+
+      assertThat(result).isEqualTo("2");
     }
   }
 }
