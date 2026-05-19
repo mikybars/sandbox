@@ -366,15 +366,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     ConfiguracionVentaOnlineResponseDto response;
 
+    @Mock
+    ConfiguracionVentaOnlineResponseDto restResponse;
+
+    @Mock
+    ConfiguracionVentaOnlineResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<ConfiguracionVentaOnlineResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<ConfiguracionVentaOnlineResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getConfVentaOnline(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getConfVentaOnline"), any(), any(), any())).thenReturn(response);
 
       ConfiguracionVentaOnlineResponseDto result = service.getConfVentaOnline(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getConfVentaOnline(request)).thenReturn(restResponse);
+
+      service.getConfVentaOnline(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      ConfiguracionVentaOnlineResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getConfVentaOnline(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getConfVentaOnline(request)).thenReturn(soapResponse);
+
+      service.getConfVentaOnline(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      ConfiguracionVentaOnlineResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getConfVentaOnline(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -8,10 +8,13 @@ import java.time.ZoneOffset;
 import java.util.List;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
@@ -21,6 +24,9 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineD
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
@@ -804,6 +810,189 @@ class PeopleAclMapperTest {
       String result = mapper.tipoEnumToString(AusenciaDto.TipoEnum._2);
 
       assertThat(result).isEqualTo("2");
+    }
+  }
+
+  @Nested
+  class ToSearchConfVentaOnlineRequestDtoFromFilter {
+
+    @Test
+    void whenFilterPopulatedExpectFieldsMapped() {
+      GenericFilterDto src = new GenericFilterDto();
+      src.setIdOrigen("ORIG-1");
+      src.setIdCadena("CAD-1");
+      src.setFechaInicio(FECHA_INICIO);
+      src.setFechaFin(FECHA_FIN);
+
+      SearchConfVentaOnlineRequestDto result = mapper.toSearchConfVentaOnlineRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdCadena()).isEqualTo("CAD-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+    }
+
+    @Test
+    void whenFilterNullExpectNull() {
+      SearchConfVentaOnlineRequestDto result = mapper.toSearchConfVentaOnlineRequestDto((GenericFilterDto) null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchConfVentaOnlineRequestDtoFromRequest {
+
+    @Test
+    void whenRequestPopulatedExpectDataUnwrappedAndMapped() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setIdOrigen("ORIG-2");
+      filter.setIdCadena("CAD-2");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      ConfiguracionVentaOnlineRequestDto src = new ConfiguracionVentaOnlineRequestDto();
+      src.setData(filter);
+
+      SearchConfVentaOnlineRequestDto result = mapper.toSearchConfVentaOnlineRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-2");
+      assertThat(result.getIdCadena()).isEqualTo("CAD-2");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+    }
+
+    @Test
+    void whenRequestDataNullExpectNull() {
+      ConfiguracionVentaOnlineRequestDto src = new ConfiguracionVentaOnlineRequestDto();
+      src.setData(null);
+
+      SearchConfVentaOnlineRequestDto result = mapper.toSearchConfVentaOnlineRequestDto(src);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToConfiguracionVentaOnlineResultItemDto {
+
+    @Test
+    void whenSourcePopulatedExpectFieldsMapped() {
+      ConfiguracionVentaOnlineDto src = new ConfiguracionVentaOnlineDto();
+      src.setIdOrigen("ORIG-3");
+      src.setIdAgrupacion("AGRUP-1");
+      src.setIdConcepto("CONC-1");
+      src.setPorcentaje("50.5");
+      src.setFechaInicio(FECHA_INICIO_UTC);
+      src.setFechaFin(FECHA_FIN_UTC);
+
+      ConfiguracionVentaOnlineResultItemDto result = mapper.toConfiguracionVentaOnlineResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-3");
+      assertThat(result.getIdAgrupacion()).isEqualTo("AGRUP-1");
+      assertThat(result.getIdConcepto()).isEqualTo("CONC-1");
+      assertThat(result.getPorcentaje()).isEqualTo("50.5");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      ConfiguracionVentaOnlineResultItemDto result = mapper.toConfiguracionVentaOnlineResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToConfiguracionVentaOnlineResultItemDtoList {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      ConfiguracionVentaOnlineDto first = new ConfiguracionVentaOnlineDto();
+      first.setIdOrigen("ORIG-A");
+      first.setIdAgrupacion("AGRUP-A");
+      first.setIdConcepto("CONC-A");
+      first.setPorcentaje("10");
+      first.setFechaInicio(FECHA_INICIO_UTC);
+      first.setFechaFin(FECHA_FIN_UTC);
+      ConfiguracionVentaOnlineDto second = new ConfiguracionVentaOnlineDto();
+      second.setIdOrigen("ORIG-B");
+      second.setIdAgrupacion("AGRUP-B");
+      second.setIdConcepto("CONC-B");
+      second.setPorcentaje("20");
+      second.setFechaInicio(FECHA_INICIO_UTC);
+      second.setFechaFin(FECHA_FIN_UTC);
+
+      List<ConfiguracionVentaOnlineResultItemDto> result = mapper.toConfiguracionVentaOnlineResultItemDtoList(List.of(first, second));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdOrigen()).isEqualTo("ORIG-A");
+      assertThat(result.get(0).getIdConcepto()).isEqualTo("CONC-A");
+      assertThat(result.get(1).getIdOrigen()).isEqualTo("ORIG-B");
+      assertThat(result.get(1).getIdConcepto()).isEqualTo("CONC-B");
+    }
+
+    @Test
+    void whenNullListExpectNull() {
+      List<ConfiguracionVentaOnlineResultItemDto> result = mapper.toConfiguracionVentaOnlineResultItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyListExpectEmptyList() {
+      List<ConfiguracionVentaOnlineResultItemDto> result = mapper.toConfiguracionVentaOnlineResultItemDtoList(List.of());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToConfiguracionVentaOnlineResponseDto {
+
+    @Test
+    void whenResponsePopulatedExpectDataMappedAndPageIgnored() {
+      ConfiguracionVentaOnlineDto item = new ConfiguracionVentaOnlineDto();
+      item.setIdOrigen("ORIG-X");
+      item.setIdAgrupacion("AGRUP-X");
+      item.setIdConcepto("CONC-X");
+      item.setPorcentaje("75");
+      item.setFechaInicio(FECHA_INICIO_UTC);
+      item.setFechaFin(FECHA_FIN_UTC);
+      SearchConfVentaOnlineResponseDto src = new SearchConfVentaOnlineResponseDto();
+      src.setData(List.of(item));
+
+      ConfiguracionVentaOnlineResponseDto result = mapper.toConfiguracionVentaOnlineResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdOrigen()).isEqualTo("ORIG-X");
+      assertThat(result.getData().get(0).getIdConcepto()).isEqualTo("CONC-X");
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      ConfiguracionVentaOnlineResponseDto result = mapper.toConfiguracionVentaOnlineResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyDataExpectEmptyList() {
+      SearchConfVentaOnlineResponseDto src = new SearchConfVentaOnlineResponseDto();
+      src.setData(List.of());
+
+      ConfiguracionVentaOnlineResponseDto result = mapper.toConfiguracionVentaOnlineResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+      assertThat(result.getPage()).isNull();
     }
   }
 }

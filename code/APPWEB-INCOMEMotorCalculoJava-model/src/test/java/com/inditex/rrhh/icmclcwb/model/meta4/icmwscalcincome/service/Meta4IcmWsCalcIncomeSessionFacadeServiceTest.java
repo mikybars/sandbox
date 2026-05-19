@@ -24,6 +24,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChT
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraResultItemDto;
@@ -384,16 +385,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     ConfiguracionVentaOnlineResultItemDto resultItem;
 
+    @Mock
+    ConfiguracionVentaOnlineResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<ConfiguracionVentaOnlineResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<ConfiguracionVentaOnlineResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<ConfiguracionVentaOnlineResultItemDto> expected = List.of(resultItem);
-      when(soapService.getConfiguracionVentaOnline(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getConfiguracionVentaOnline"), any(), any(), any())).thenReturn(expected);
 
       List<ConfiguracionVentaOnlineResultItemDto> result = service.getConfiguracionVentaOnline(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionVentaOnline"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<ConfiguracionVentaOnlineResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getConfVentaOnline(request)).thenReturn(restResponse);
+
+      service.getConfiguracionVentaOnline(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionVentaOnline"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionVentaOnlineResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getConfVentaOnline(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<ConfiguracionVentaOnlineResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getConfiguracionVentaOnline(request)).thenReturn(soapData);
+
+      service.getConfiguracionVentaOnline(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionVentaOnline"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<ConfiguracionVentaOnlineResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getConfiguracionVentaOnline(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

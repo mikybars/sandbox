@@ -1,11 +1,14 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -39,6 +42,9 @@ public class PeopleAclService {
   @Qualifier("ausenciasCalculoIncomeApiClient")
   private final AusenciasApi ausenciasApi;
 
+  @Qualifier("configuracionVentaCalculoIncomeApiClient")
+  private final ConfiguracionVentaApi configuracionVentaApi;
+
   private final PeopleAclMapper peopleAclMapper;
 
   public TiendaOnlineResponseDto searchTiendasOnline(TiendaOnlineRequestDto request) {
@@ -71,6 +77,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchAusenciasRequestDto(request);
     var response = ausenciasApi.searchAusencias(restRequest);
     return peopleAclMapper.toAusenciasResponseDto(response);
+  }
+
+  public ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchConfVentaOnline");
+
+    var restRequest = peopleAclMapper.toSearchConfVentaOnlineRequestDto(request);
+    var response = configuracionVentaApi.searchConfVentaOnline(restRequest);
+    return peopleAclMapper.toConfiguracionVentaOnlineResponseDto(response);
   }
 
 }

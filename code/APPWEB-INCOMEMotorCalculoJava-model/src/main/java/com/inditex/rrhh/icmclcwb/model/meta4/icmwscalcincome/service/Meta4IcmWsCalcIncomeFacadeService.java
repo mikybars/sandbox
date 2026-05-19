@@ -159,7 +159,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request) {
-    return soapService.getConfVentaOnline(request);
+    return migrationDispatcher.dispatch("getConfVentaOnline",
+        () -> peopleAclService.getConfVentaOnline(request),
+        () -> soapService.getConfVentaOnline(request),
+        request);
   }
 
   @Override

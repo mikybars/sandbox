@@ -6,11 +6,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
@@ -19,6 +22,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
@@ -54,6 +59,9 @@ class PeopleAclServiceTest {
   AusenciasApi ausenciasApi;
 
   @Mock
+  ConfiguracionVentaApi configuracionVentaApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -64,7 +72,7 @@ class PeopleAclServiceTest {
 
   @BeforeEach
   void beforeEach() {
-    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, peopleAclMapper);
+    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, peopleAclMapper);
   }
 
   @Nested
@@ -306,6 +314,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toAusenciasResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetConfVentaOnline {
+
+    @Captor
+    ArgumentCaptor<SearchConfVentaOnlineRequestDto> confVentaRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
+      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
+      SearchConfVentaOnlineResponseDto restResponse = new SearchConfVentaOnlineResponseDto();
+      ConfiguracionVentaOnlineResponseDto expected = new ConfiguracionVentaOnlineResponseDto();
+      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfVentaOnline(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toConfiguracionVentaOnlineResponseDto(restResponse)).thenReturn(expected);
+
+      ConfiguracionVentaOnlineResponseDto result = service.getConfVentaOnline(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
+      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
+      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
+
+      service.getConfVentaOnline(request);
+
+      verify(peopleAclMapper, times(1)).toSearchConfVentaOnlineRequestDto(request);
+      verify(configuracionVentaApi, times(1)).searchConfVentaOnline(confVentaRestRequestCaptor.capture());
+      assertThat(confVentaRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
+      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
+      SearchConfVentaOnlineResponseDto restResponse = new SearchConfVentaOnlineResponseDto();
+      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfVentaOnline(restRequest)).thenReturn(restResponse);
+
+      service.getConfVentaOnline(request);
+
+      verify(peopleAclMapper, times(1)).toConfiguracionVentaOnlineResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
+      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
+      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
+      when(configuracionVentaApi.searchConfVentaOnline(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toConfiguracionVentaOnlineResponseDto(null)).thenReturn(null);
+
+      ConfiguracionVentaOnlineResponseDto result = service.getConfVentaOnline(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toConfiguracionVentaOnlineResponseDto(null);
     }
   }
 }
