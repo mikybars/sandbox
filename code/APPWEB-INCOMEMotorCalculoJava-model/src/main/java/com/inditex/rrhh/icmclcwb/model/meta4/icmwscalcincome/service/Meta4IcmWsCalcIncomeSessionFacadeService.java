@@ -79,7 +79,10 @@ public class Meta4IcmWsCalcIncomeSessionFacadeService implements Meta4IcmWsCalcI
 
   @Override
   public List<GenericTiendaResultItemDto> getTiendas(TiendasRequestDto request) {
-    return soapService.getTiendas(request);
+    return migrationDispatcher.dispatch("getTiendas",
+        () -> peopleAclService.getTiendas(request).getData(),
+        () -> soapService.getTiendas(request),
+        request);
   }
 
   @Override

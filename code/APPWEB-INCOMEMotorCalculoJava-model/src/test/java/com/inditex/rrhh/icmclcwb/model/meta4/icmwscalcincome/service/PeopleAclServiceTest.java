@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
@@ -18,6 +19,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresa
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
@@ -28,6 +31,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.PeopleAclMapper;
@@ -62,17 +67,24 @@ class PeopleAclServiceTest {
   ConfiguracionVentaApi configuracionVentaApi;
 
   @Mock
+  TiendasIncomeApi tiendasIncomeApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
   ArgumentCaptor<SearchTiendasOnlineRequestDto> restRequestCaptor;
 
   @Captor
+  ArgumentCaptor<SearchTiendasIncomeRequestDto> tiendasIncomeRestRequestCaptor;
+
+  @Captor
   ArgumentCaptor<SearchOrigenesRequestDto> origenesRestRequestCaptor;
 
   @BeforeEach
   void beforeEach() {
-    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, peopleAclMapper);
+    service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
+        peopleAclMapper);
   }
 
   @Nested
@@ -376,6 +388,65 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toConfiguracionVentaOnlineResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetTiendas {
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      TiendasRequestDto request = new TiendasRequestDto();
+      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
+      SearchTiendasIncomeResponseDto restResponse = new SearchTiendasIncomeResponseDto();
+      TiendasResponseDto expected = new TiendasResponseDto();
+      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
+      when(tiendasIncomeApi.searchTiendasIncome(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toTiendasResponseDto(restResponse)).thenReturn(expected);
+
+      TiendasResponseDto result = service.getTiendas(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      TiendasRequestDto request = new TiendasRequestDto();
+      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
+      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
+
+      service.getTiendas(request);
+
+      verify(peopleAclMapper, times(1)).toSearchTiendasIncomeRequestDto(request);
+      verify(tiendasIncomeApi, times(1)).searchTiendasIncome(tiendasIncomeRestRequestCaptor.capture());
+      assertThat(tiendasIncomeRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      TiendasRequestDto request = new TiendasRequestDto();
+      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
+      SearchTiendasIncomeResponseDto restResponse = new SearchTiendasIncomeResponseDto();
+      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
+      when(tiendasIncomeApi.searchTiendasIncome(restRequest)).thenReturn(restResponse);
+
+      service.getTiendas(request);
+
+      verify(peopleAclMapper, times(1)).toTiendasResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      TiendasRequestDto request = new TiendasRequestDto();
+      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
+      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
+      when(tiendasIncomeApi.searchTiendasIncome(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toTiendasResponseDto(null)).thenReturn(null);
+
+      TiendasResponseDto result = service.getTiendas(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toTiendasResponseDto(null);
     }
   }
 }

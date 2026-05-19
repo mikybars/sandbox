@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
@@ -18,8 +19,11 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpresasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
@@ -32,9 +36,12 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
@@ -42,6 +49,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mapstruct.factory.Mappers;
 
 class PeopleAclMapperTest {
@@ -798,18 +808,208 @@ class PeopleAclMapperTest {
       assertThat(result).isNull();
     }
 
-    @Test
-    void whenType1ExpectString1() {
-      String result = mapper.tipoEnumToString(AusenciaDto.TipoEnum._1);
+    @ParameterizedTest
+    @MethodSource("tipoEnumProvider")
+    void whenEnumValueExpectStringRepresentation(AusenciaDto.TipoEnum input, String expected) {
+      String result = mapper.tipoEnumToString(input);
 
-      assertThat(result).isEqualTo("1");
+      assertThat(result).isEqualTo(expected);
+    }
+
+    static Stream<Arguments> tipoEnumProvider() {
+      return Stream.of(
+          Arguments.of(AusenciaDto.TipoEnum._1, "1"),
+          Arguments.of(AusenciaDto.TipoEnum._2, "2"));
+    }
+  }
+
+  @Nested
+  class ToSearchTiendasIncomeRequestDto {
+
+    @Test
+    void whenRequestPopulatedWithItemsExpectFieldsMapped() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdLugarTrabajo("T002");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item1, item2));
+      TiendasRequestDto src = new TiendasRequestDto();
+      src.setData(filter);
+
+      SearchTiendasIncomeRequestDto result = mapper.toSearchTiendasIncomeRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001", "T002");
     }
 
     @Test
-    void whenType2ExpectString2() {
-      String result = mapper.tipoEnumToString(AusenciaDto.TipoEnum._2);
+    void whenRequestNullExpectEmptyDto() {
+      SearchTiendasIncomeRequestDto result = mapper.toSearchTiendasIncomeRequestDto((TiendasRequestDto) null);
 
-      assertThat(result).isEqualTo("2");
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyDto() {
+      TiendasRequestDto src = new TiendasRequestDto();
+      src.setData(null);
+
+      SearchTiendasIncomeRequestDto result = mapper.toSearchTiendasIncomeRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+
+    @Test
+    void whenItemNullExpectNoIdLugaresTrabajo() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(null);
+      TiendasRequestDto src = new TiendasRequestDto();
+      src.setData(filter);
+
+      SearchTiendasIncomeRequestDto result = mapper.toSearchTiendasIncomeRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToGenericTiendaResultItemDto {
+
+    @Test
+    void whenSourcePopulatedExpectMappedFieldsAndIgnoredFields() {
+      TiendaIncomeDto src = new TiendaIncomeDto();
+      src.setIdLugarTrabajo("T123");
+      src.setIdLugarTrabajoMtu("MTU-99");
+      src.setFechaInicio(FECHA_INICIO_UTC);
+      src.setFechaFin(FECHA_FIN_UTC);
+      src.setEsComisionable(true);
+
+      GenericTiendaResultItemDto result = mapper.toGenericTiendaResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugarTrabajo()).isEqualTo("T123");
+      assertThat(result.getIdLugarTrabajoMtu()).isEqualTo("MTU-99");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getEsComisionable()).isTrue();
+      assertThat(result.getIdPais()).isNull();
+      assertThat(result.getIdProvincia()).isNull();
+      assertThat(result.getCalcula()).isNull();
+      assertThat(result.getIdCadena()).isNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getIdEmpresa()).isNull();
+      assertThat(result.getIdTiendaMtu()).isNull();
+      assertThat(result.getFechaFestivo()).isNull();
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      GenericTiendaResultItemDto result = mapper.toGenericTiendaResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToGenericTiendaResultItemDtoList {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      TiendaIncomeDto first = new TiendaIncomeDto();
+      first.setIdLugarTrabajo("T1");
+      first.setIdLugarTrabajoMtu("MTU-1");
+      first.setFechaInicio(FECHA_INICIO_UTC);
+      first.setFechaFin(FECHA_FIN_UTC);
+      first.setEsComisionable(true);
+      TiendaIncomeDto second = new TiendaIncomeDto();
+      second.setIdLugarTrabajo("T2");
+      second.setIdLugarTrabajoMtu("MTU-2");
+      second.setFechaInicio(FECHA_INICIO_UTC);
+      second.setFechaFin(FECHA_FIN_UTC);
+      second.setEsComisionable(false);
+
+      List<GenericTiendaResultItemDto> result = mapper.toGenericTiendaResultItemDtoList(List.of(first, second));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdLugarTrabajo()).isEqualTo("T1");
+      assertThat(result.get(0).getEsComisionable()).isTrue();
+      assertThat(result.get(1).getIdLugarTrabajo()).isEqualTo("T2");
+      assertThat(result.get(1).getEsComisionable()).isFalse();
+    }
+
+    @Test
+    void whenNullListExpectNull() {
+      List<GenericTiendaResultItemDto> result = mapper.toGenericTiendaResultItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyListExpectEmptyList() {
+      List<GenericTiendaResultItemDto> result = mapper.toGenericTiendaResultItemDtoList(List.of());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToTiendasResponseDto {
+
+    @Test
+    void whenResponsePopulatedExpectDataMappedAndPageIgnored() {
+      TiendaIncomeDto item = new TiendaIncomeDto();
+      item.setIdLugarTrabajo("T123");
+      item.setIdLugarTrabajoMtu("MTU-5");
+      item.setFechaInicio(FECHA_INICIO_UTC);
+      item.setFechaFin(FECHA_FIN_UTC);
+      item.setEsComisionable(true);
+      SearchTiendasIncomeResponseDto src = new SearchTiendasIncomeResponseDto();
+      src.setData(List.of(item));
+
+      TiendasResponseDto result = mapper.toTiendasResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdLugarTrabajo()).isEqualTo("T123");
+      assertThat(result.getData().get(0).getEsComisionable()).isTrue();
+      assertThat(result.getData().get(0).getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getData().get(0).getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      TiendasResponseDto result = mapper.toTiendasResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyDataExpectEmptyList() {
+      SearchTiendasIncomeResponseDto src = new SearchTiendasIncomeResponseDto();
+      src.setData(List.of());
+
+      TiendasResponseDto result = mapper.toTiendasResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+      assertThat(result.getPage()).isNull();
     }
   }
 

@@ -62,6 +62,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
@@ -130,16 +131,51 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     GenericTiendaResultItemDto resultItem;
 
+    @Mock
+    TiendasResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericTiendaResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<GenericTiendaResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<GenericTiendaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getTiendas(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getTiendas"), any(), any(), any())).thenReturn(expected);
 
       List<GenericTiendaResultItemDto> result = service.getTiendas(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<GenericTiendaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getTiendas(request)).thenReturn(restResponse);
+
+      service.getTiendas(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<GenericTiendaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getTiendas(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<GenericTiendaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getTiendas(request)).thenReturn(soapData);
+
+      service.getTiendas(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<GenericTiendaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getTiendas(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

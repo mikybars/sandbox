@@ -4,6 +4,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
@@ -13,6 +14,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaR
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.PeopleAclMapper;
@@ -44,6 +47,9 @@ public class PeopleAclService {
 
   @Qualifier("configuracionVentaCalculoIncomeApiClient")
   private final ConfiguracionVentaApi configuracionVentaApi;
+
+  @Qualifier("tiendasIncomeCalculoIncomeApiClient")
+  private final TiendasIncomeApi tiendasIncomeApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -85,6 +91,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchConfVentaOnlineRequestDto(request);
     var response = configuracionVentaApi.searchConfVentaOnline(restRequest);
     return peopleAclMapper.toConfiguracionVentaOnlineResponseDto(response);
+  }
+
+  public TiendasResponseDto getTiendas(TiendasRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchTiendasIncome");
+
+    var restRequest = peopleAclMapper.toSearchTiendasIncomeRequestDto(request);
+    var response = tiendasIncomeApi.searchTiendasIncome(restRequest);
+    return peopleAclMapper.toTiendasResponseDto(response);
   }
 
 }
