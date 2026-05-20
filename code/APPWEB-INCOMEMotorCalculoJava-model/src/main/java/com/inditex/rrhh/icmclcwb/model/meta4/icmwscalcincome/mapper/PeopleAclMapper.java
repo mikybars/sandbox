@@ -1,5 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -20,6 +21,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
@@ -40,6 +42,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -76,6 +80,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -676,6 +685,77 @@ public interface PeopleAclMapper {
 
   @Mapping(target = "page", ignore = true)
   EmpleadosPresenciaResponseDto toEmpleadosPresenciaResponseDto(SearchEmpleadosPresenciaResponseDto src);
+
+  // ── SOAP → REST (request): PresupuestosWloc ──
+
+  /**
+   * Builds the REST client {@link SearchPresupuestosWlocRequestDto} from the internal {@link PresupuestosWlocRequestDto}. The
+   * {@code idOrigen}, {@code fechaInicio}, {@code fechaFin} are extracted from the {@link PresupuestosWlocFilterDto} header. The
+   * {@code idLugaresTrabajo}, {@code idTiposPresupuesto}, and {@code idEmpresas} lists are populated by extracting from each
+   * {@link PresupuestosWlocFilterParametersDto} item in the filter's {@code item} list.
+   */
+  default SearchPresupuestosWlocRequestDto toSearchPresupuestosWlocRequestDto(PresupuestosWlocRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchPresupuestosWlocRequestDto().idOrigen("");
+    }
+    PresupuestosWlocFilterDto filter = src.getData();
+    SearchPresupuestosWlocRequestDto request = new SearchPresupuestosWlocRequestDto()
+        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()));
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      List<String> idLugaresTrabajo = filter.getItem().stream()
+          .map(PresupuestosWlocFilterParametersDto::getIdLugarTrabajo)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      List<String> idTiposPresupuesto = filter.getItem().stream()
+          .map(PresupuestosWlocFilterParametersDto::getIdTpPresupuesto)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      List<String> idEmpresas = filter.getItem().stream()
+          .map(PresupuestosWlocFilterParametersDto::getIdEmpresa)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idLugaresTrabajo.isEmpty()) {
+        request.idLugaresTrabajo(idLugaresTrabajo);
+      }
+      if (!idTiposPresupuesto.isEmpty()) {
+        request.idTiposPresupuesto(idTiposPresupuesto);
+      }
+      if (!idEmpresas.isEmpty()) {
+        request.idEmpresas(idEmpresas);
+      }
+    }
+    return request;
+  }
+
+  // ── REST → SOAP (response): PresupuestosWloc ──
+
+  /**
+   * Maps REST client {@link PresupuestoWlocDto} items into internal {@link PresupuestosWlocResultItemDto} records. Renames
+   * {@code idTipoPresupuesto → idTpPresupuesto}. Fields {@code importeSinImpuestos} and {@code importeConImpuestos} are converted from
+   * {@link BigDecimal} to {@link String} via a helper. Meta4 audit fields, {@code cumplida}, and {@code idLugarTrabajoMtu} are ignored.
+   * Source field {@code idCodOrigen} has no target in the internal DTO.
+   */
+  @Mapping(target = "idTpPresupuesto", source = "idTipoPresupuesto")
+  @Mapping(target = "importeSinImpuestos", source = "importeSinImpuestos", qualifiedByName = "bigDecimalToString")
+  @Mapping(target = "importeConImpuestos", source = "importeConImpuestos", qualifiedByName = "bigDecimalToString")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  @Mapping(target = "cumplida", ignore = true)
+  @Mapping(target = "idLugarTrabajoMtu", ignore = true)
+  PresupuestosWlocResultItemDto toPresupuestosWlocResultItemDto(PresupuestoWlocDto src);
+
+  List<PresupuestosWlocResultItemDto> toPresupuestosWlocResultItemDtoList(List<PresupuestoWlocDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  PresupuestosWlocResponseDto toPresupuestosWlocResponseDto(SearchPresupuestosWlocResponseDto src);
+
+  @org.mapstruct.Named("bigDecimalToString")
+  default String bigDecimalToString(BigDecimal value) {
+    return value == null ? null : value.toPlainString();
+  }
 
   // ── Private helpers ──
 

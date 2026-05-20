@@ -263,7 +263,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public PresupuestosWlocResponseDto getPresupuestosWloc(PresupuestosWlocRequestDto request) {
-    return soapService.getPresupuestosWloc(request);
+    return migrationDispatcher.dispatch("getPresupuestosWloc",
+        () -> peopleAclService.getPresupuestosWloc(request),
+        () -> soapService.getPresupuestosWloc(request),
+        request);
   }
 
   @Override

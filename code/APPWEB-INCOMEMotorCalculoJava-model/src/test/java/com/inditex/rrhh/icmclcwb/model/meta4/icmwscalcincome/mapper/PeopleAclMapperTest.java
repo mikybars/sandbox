@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -18,6 +19,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
@@ -37,6 +39,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -73,6 +77,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -2223,6 +2232,182 @@ class PeopleAclMapperTest {
       EmpleadosPresenciaResponseDto result = mapper.toEmpleadosPresenciaResponseDto(null);
 
       assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchPresupuestosWlocRequestDto {
+
+    @Test
+    void whenNullRequestExpectEmptyRequest() {
+      SearchPresupuestosWlocRequestDto result = mapper.toSearchPresupuestosWlocRequestDto((PresupuestosWlocRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenNullFilterExpectEmptyRequest() {
+      PresupuestosWlocRequestDto src = new PresupuestosWlocRequestDto();
+      src.setData(null);
+
+      SearchPresupuestosWlocRequestDto result = mapper.toSearchPresupuestosWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenValidFilterWithItemsExpectListsExtracted() {
+      PresupuestosWlocFilterParametersDto param1 = new PresupuestosWlocFilterParametersDto();
+      param1.setIdLugarTrabajo("LT-1");
+      param1.setIdTpPresupuesto("TP-1");
+      param1.setIdEmpresa("EMP-1");
+      PresupuestosWlocFilterParametersDto param2 = new PresupuestosWlocFilterParametersDto();
+      param2.setIdLugarTrabajo("LT-2");
+      param2.setIdTpPresupuesto("TP-2");
+      param2.setIdEmpresa("EMP-2");
+      PresupuestosWlocFilterDto filter = new PresupuestosWlocFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(param1, param2));
+      PresupuestosWlocRequestDto src = new PresupuestosWlocRequestDto();
+      src.setData(filter);
+
+      SearchPresupuestosWlocRequestDto result = mapper.toSearchPresupuestosWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("LT-1", "LT-2");
+      assertThat(result.getIdTiposPresupuesto()).containsExactly("TP-1", "TP-2");
+      assertThat(result.getIdEmpresas()).containsExactly("EMP-1", "EMP-2");
+    }
+
+    @Test
+    void whenFilterWithoutItemsExpectOnlyHeaderFieldsMapped() {
+      PresupuestosWlocFilterDto filter = new PresupuestosWlocFilterDto();
+      filter.setIdOrigen("ORIG-2");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      PresupuestosWlocRequestDto src = new PresupuestosWlocRequestDto();
+      src.setData(filter);
+
+      SearchPresupuestosWlocRequestDto result = mapper.toSearchPresupuestosWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-2");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).isNullOrEmpty();
+      assertThat(result.getIdTiposPresupuesto()).isNullOrEmpty();
+      assertThat(result.getIdEmpresas()).isNullOrEmpty();
+    }
+  }
+
+  @Nested
+  class ToPresupuestosWlocResultItemDto {
+
+    @Test
+    void whenValidDtoExpectFieldsMapped() {
+      PresupuestoWlocDto src = new PresupuestoWlocDto();
+      src.setIdOrigen("ORIG-1");
+      src.setIdEmpresa("EMP-1");
+      src.setIdLugarTrabajo("LT-1");
+      src.setIdSeccion("SEC-1");
+      src.setIdTipoPresupuesto("TP-1");
+      src.setBanda("B1");
+      src.setOrdinal("1");
+      src.setExcepcion("N");
+      src.setImporteSinImpuestos(new BigDecimal("100.50"));
+      src.setImporteConImpuestos(new BigDecimal("121.605"));
+      src.setFechaInicio(FECHA_INICIO_UTC);
+      src.setFechaFin(FECHA_FIN_UTC);
+
+      PresupuestosWlocResultItemDto result = mapper.toPresupuestosWlocResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpresa()).isEqualTo("EMP-1");
+      assertThat(result.getIdLugarTrabajo()).isEqualTo("LT-1");
+      assertThat(result.getIdSeccion()).isEqualTo("SEC-1");
+      assertThat(result.getIdTpPresupuesto()).isEqualTo("TP-1");
+      assertThat(result.getBanda()).isEqualTo("B1");
+      assertThat(result.getOrdinal()).isEqualTo("1");
+      assertThat(result.getExcepcion()).isEqualTo("N");
+      assertThat(result.getImporteSinImpuestos()).isEqualTo("100.50");
+      assertThat(result.getImporteConImpuestos()).isEqualTo("121.605");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+    }
+
+    @Test
+    void whenNullAmountsExpectNullStrings() {
+      PresupuestoWlocDto src = new PresupuestoWlocDto();
+      src.setImporteSinImpuestos(null);
+      src.setImporteConImpuestos(null);
+
+      PresupuestosWlocResultItemDto result = mapper.toPresupuestosWlocResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getImporteSinImpuestos()).isNull();
+      assertThat(result.getImporteConImpuestos()).isNull();
+    }
+  }
+
+  @Nested
+  class ToPresupuestosWlocResponseDto {
+
+    @Test
+    void whenValidResponseExpectDataMapped() {
+      PresupuestoWlocDto item = new PresupuestoWlocDto();
+      item.setIdOrigen("ORIG-1");
+      item.setImporteSinImpuestos(new BigDecimal("50.00"));
+      item.setImporteConImpuestos(new BigDecimal("60.50"));
+      SearchPresupuestosWlocResponseDto src = new SearchPresupuestosWlocResponseDto();
+      src.setData(List.of(item));
+
+      PresupuestosWlocResponseDto result = mapper.toPresupuestosWlocResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getData().get(0).getImporteSinImpuestos()).isEqualTo("50.00");
+      assertThat(result.getData().get(0).getImporteConImpuestos()).isEqualTo("60.50");
+    }
+
+    @Test
+    void whenNullResponseExpectNull() {
+      PresupuestosWlocResponseDto result = mapper.toPresupuestosWlocResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class BigDecimalToStringMethod {
+
+    @Test
+    void whenNullValueExpectNull() {
+      String result = mapper.bigDecimalToString(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenValidValueExpectPlainString() {
+      String result = mapper.bigDecimalToString(new BigDecimal("123.456"));
+
+      assertThat(result).isEqualTo("123.456");
+    }
+
+    @Test
+    void whenScientificNotationExpectPlainString() {
+      String result = mapper.bigDecimalToString(new BigDecimal("1.23E+5"));
+
+      assertThat(result).isEqualTo("123000");
     }
   }
 }

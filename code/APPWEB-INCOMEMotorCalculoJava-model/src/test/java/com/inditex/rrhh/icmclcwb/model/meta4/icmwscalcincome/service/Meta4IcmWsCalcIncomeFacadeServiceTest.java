@@ -1079,15 +1079,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     PresupuestosWlocResponseDto response;
 
+    @Mock
+    PresupuestosWlocResponseDto restResponse;
+
+    @Mock
+    PresupuestosWlocResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresupuestosWlocResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresupuestosWlocResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getPresupuestosWloc(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getPresupuestosWloc"), any(), any(), any())).thenReturn(response);
 
       PresupuestosWlocResponseDto result = service.getPresupuestosWloc(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getPresupuestosWloc(request)).thenReturn(restResponse);
+
+      service.getPresupuestosWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      PresupuestosWlocResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getPresupuestosWloc(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getPresupuestosWloc(request)).thenReturn(soapResponse);
+
+      service.getPresupuestosWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      PresupuestosWlocResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPresupuestosWloc(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

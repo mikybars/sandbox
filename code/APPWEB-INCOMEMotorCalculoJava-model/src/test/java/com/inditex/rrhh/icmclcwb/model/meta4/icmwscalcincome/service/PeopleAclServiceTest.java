@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
@@ -36,6 +37,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -60,6 +63,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -114,6 +119,9 @@ class PeopleAclServiceTest {
   EmpleadosPresenciaApi empleadosPresenciaApi;
 
   @Mock
+  PresupuestosApi presupuestosApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -128,7 +136,8 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, peopleAclMapper);
+        flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, presupuestosApi,
+        peopleAclMapper);
   }
 
   @Nested
@@ -850,6 +859,51 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toEmpleadosPresenciaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetPresupuestosWloc {
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
+      SearchPresupuestosWlocRequestDto restRequest = new SearchPresupuestosWlocRequestDto();
+      SearchPresupuestosWlocResponseDto restResponse = new SearchPresupuestosWlocResponseDto();
+      PresupuestosWlocResponseDto expected = new PresupuestosWlocResponseDto();
+      when(peopleAclMapper.toSearchPresupuestosWlocRequestDto(request)).thenReturn(restRequest);
+      when(presupuestosApi.searchPresupuestosWloc(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toPresupuestosWlocResponseDto(restResponse)).thenReturn(expected);
+
+      PresupuestosWlocResponseDto result = service.getPresupuestosWloc(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
+      SearchPresupuestosWlocRequestDto restRequest = new SearchPresupuestosWlocRequestDto();
+      when(peopleAclMapper.toSearchPresupuestosWlocRequestDto(request)).thenReturn(restRequest);
+
+      service.getPresupuestosWloc(request);
+
+      verify(peopleAclMapper, times(1)).toSearchPresupuestosWlocRequestDto(request);
+      verify(presupuestosApi, times(1)).searchPresupuestosWloc(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
+      SearchPresupuestosWlocRequestDto restRequest = new SearchPresupuestosWlocRequestDto();
+      when(peopleAclMapper.toSearchPresupuestosWlocRequestDto(request)).thenReturn(restRequest);
+      when(presupuestosApi.searchPresupuestosWloc(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toPresupuestosWlocResponseDto(null)).thenReturn(null);
+
+      PresupuestosWlocResponseDto result = service.getPresupuestosWloc(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toPresupuestosWlocResponseDto(null);
     }
   }
 }

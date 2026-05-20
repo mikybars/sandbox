@@ -1059,16 +1059,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     PresupuestosWlocResultItemDto resultItem;
 
+    @Mock
+    com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PresupuestosWlocResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PresupuestosWlocResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<PresupuestosWlocResultItemDto> expected = List.of(resultItem);
-      when(soapService.getPresupuestosWloc(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getPresupuestosWloc"), any(), any(), any())).thenReturn(expected);
 
       List<PresupuestosWlocResultItemDto> result = service.getPresupuestosWloc(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndReturnsData() {
+      List<PresupuestosWlocResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getPresupuestosWloc(request)).thenReturn(restResponse);
+
+      service.getPresupuestosWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<PresupuestosWlocResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getPresupuestosWloc(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<PresupuestosWlocResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getPresupuestosWloc(request)).thenReturn(soapData);
+
+      service.getPresupuestosWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      List<PresupuestosWlocResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPresupuestosWloc(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

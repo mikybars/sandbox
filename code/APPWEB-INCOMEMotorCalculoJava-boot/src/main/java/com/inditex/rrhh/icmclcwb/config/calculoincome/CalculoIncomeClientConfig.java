@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.invoker.ApiClient;
@@ -90,6 +91,11 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "empleadosPresenciaCalculoIncomeApiClient")
   public EmpleadosPresenciaApi empleadosPresenciaCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new EmpleadosPresenciaApi(apiClient);
+  }
+
+  @Bean(name = "presupuestosCalculoIncomeApiClient")
+  public PresupuestosApi presupuestosCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new PresupuestosApi(apiClient);
   }
 
 }
