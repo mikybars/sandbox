@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,9 +46,12 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.VentaCongeladaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
@@ -87,6 +91,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -2408,6 +2417,260 @@ class PeopleAclMapperTest {
       String result = mapper.bigDecimalToString(new BigDecimal("1.23E+5"));
 
       assertThat(result).isEqualTo("123000");
+    }
+  }
+
+  // ── VentasCongeladas mapping tests ──
+
+  @Nested
+  class SearchVentasCongeladas {
+
+    @Test
+    void whenFullFilterWithItemsExpectFlatRequestPopulated() {
+      VentaCongeladaFilterParametersDto item1 = new VentaCongeladaFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      item1.setIdSeccion("S01");
+      item1.setIdConceptoVenta("CV1");
+      item1.setIdTpPresupuesto("TP1");
+
+      VentaCongeladaFilterParametersDto item2 = new VentaCongeladaFilterParametersDto();
+      item2.setIdLugarTrabajo("T002");
+      item2.setIdSeccion("S02");
+      item2.setIdConceptoVenta("CV2");
+      item2.setIdTpPresupuesto("TP2");
+
+      VentaCongeladaFilterDto filter = new VentaCongeladaFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item1, item2));
+
+      VentaCongeladaRequestDto src = new VentaCongeladaRequestDto();
+      src.setData(filter);
+
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001", "T002");
+      assertThat(result.getIdSecciones()).containsExactly("S01", "S02");
+      assertThat(result.getIdConceptosVenta()).containsExactly("CV1", "CV2");
+      assertThat(result.getIdTiposPresupuesto()).containsExactly("TP1", "TP2");
+    }
+
+    @Test
+    void whenNullRequestExpectEmptyRequestWithEmptyLugares() {
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+    }
+
+    @Test
+    void whenNullDataExpectEmptyRequestWithEmptyLugares() {
+      VentaCongeladaRequestDto src = new VentaCongeladaRequestDto();
+      src.setData(null);
+
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+    }
+
+    @Test
+    void whenEmptyItemsExpectDatesButNoLists() {
+      VentaCongeladaFilterDto filter = new VentaCongeladaFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of());
+
+      VentaCongeladaRequestDto src = new VentaCongeladaRequestDto();
+      src.setData(filter);
+
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+      assertThat(result.getIdSecciones()).isEmpty();
+      assertThat(result.getIdConceptosVenta()).isEmpty();
+      assertThat(result.getIdTiposPresupuesto()).isEmpty();
+    }
+
+    @Test
+    void whenNullItemsExpectDatesButNoLists() {
+      VentaCongeladaFilterDto filter = new VentaCongeladaFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(null);
+
+      VentaCongeladaRequestDto src = new VentaCongeladaRequestDto();
+      src.setData(filter);
+
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+      assertThat(result.getIdSecciones()).isEmpty();
+      assertThat(result.getIdConceptosVenta()).isEmpty();
+      assertThat(result.getIdTiposPresupuesto()).isEmpty();
+    }
+
+    @Test
+    void whenItemsWithNullFieldsExpectNullsFilteredOut() {
+      VentaCongeladaFilterParametersDto item1 = new VentaCongeladaFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      item1.setIdSeccion(null);
+      item1.setIdConceptoVenta(null);
+      item1.setIdTpPresupuesto(null);
+
+      VentaCongeladaFilterParametersDto item2 = new VentaCongeladaFilterParametersDto();
+      item2.setIdLugarTrabajo(null);
+      item2.setIdSeccion("S02");
+      item2.setIdConceptoVenta(null);
+      item2.setIdTpPresupuesto(null);
+
+      VentaCongeladaFilterDto filter = new VentaCongeladaFilterDto();
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setItem(List.of(item1, item2));
+
+      VentaCongeladaRequestDto src = new VentaCongeladaRequestDto();
+      src.setData(filter);
+
+      SearchVentasCongeladasRequestDto result = mapper.toSearchVentasCongeladasRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001");
+      assertThat(result.getIdSecciones()).containsExactly("S02");
+      assertThat(result.getIdConceptosVenta()).isEmpty();
+      assertThat(result.getIdTiposPresupuesto()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToVentaCongeladaResultItemDto {
+
+    @Test
+    void whenPopulatedExpectFieldsMappedWithRename() {
+      VentaCongeladaDto src = new VentaCongeladaDto()
+          .idLugarTrabajo("T001")
+          .idLugarTrabajoMtu("MTU-1")
+          .idOrigen("ORIG-1")
+          .idCadena("CAD-1")
+          .fechaInicio(FECHA_INICIO_UTC)
+          .fechaFin(FECHA_FIN_UTC)
+          .idSeccion("S01")
+          .idTipoPresupuesto("TP1")
+          .idConceptoVenta("CV1")
+          .ordinal("1")
+          .importeConImpuestos(new BigDecimal("100.50"))
+          .importeSinImpuestos(new BigDecimal("82.23"));
+
+      VentaCongeladaResultItemDto result = mapper.toVentaCongeladaResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(result.getIdLugarTrabajoMtu()).isEqualTo("MTU-1");
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdCadena()).isEqualTo("CAD-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(result.getIdSeccion()).isEqualTo("S01");
+      assertThat(result.getIdTpPresupuesto()).isEqualTo("TP1");
+      assertThat(result.getIdConceptoVenta()).isEqualTo("CV1");
+      assertThat(result.getOrdinal()).isEqualTo("1");
+      assertThat(result.getImporteConImpuestos()).isEqualByComparingTo(new BigDecimal("100.50"));
+      assertThat(result.getImporteSinImpuestos()).isEqualByComparingTo(new BigDecimal("82.23"));
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+      assertThat(result.isM4AutoGeneratedToDelete()).isFalse();
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      VentaCongeladaResultItemDto result = mapper.toVentaCongeladaResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToVentaCongeladaResultItemDtoList {
+
+    @Test
+    void whenPopulatedExpectListMapped() {
+      VentaCongeladaDto item = new VentaCongeladaDto()
+          .idLugarTrabajo("T001")
+          .idTipoPresupuesto("TP1");
+
+      List<VentaCongeladaResultItemDto> result = mapper.toVentaCongeladaResultItemDtoList(List.of(item));
+
+      assertThat(result).hasSize(1);
+      assertThat(result.get(0).getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(result.get(0).getIdTpPresupuesto()).isEqualTo("TP1");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      List<VentaCongeladaResultItemDto> result = mapper.toVentaCongeladaResultItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyExpectEmpty() {
+      List<VentaCongeladaResultItemDto> result = mapper.toVentaCongeladaResultItemDtoList(Collections.emptyList());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToVentaCongeladaResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectItemsMappedPageIgnored() {
+      VentaCongeladaDto item = new VentaCongeladaDto()
+          .idLugarTrabajo("T001")
+          .idTipoPresupuesto("TP1")
+          .fechaInicio(FECHA_INICIO_UTC)
+          .fechaFin(FECHA_FIN_UTC)
+          .importeConImpuestos(new BigDecimal("200.00"));
+      SearchVentasCongeladasResponseDto src = new SearchVentasCongeladasResponseDto();
+      src.setData(List.of(item));
+
+      VentaCongeladaResponseDto result = mapper.toVentaCongeladaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      VentaCongeladaResultItemDto mapped = result.getData().get(0);
+      assertThat(mapped.getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(mapped.getIdTpPresupuesto()).isEqualTo("TP1");
+      assertThat(mapped.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(mapped.getFechaFin()).isEqualTo(FECHA_FIN);
+      assertThat(mapped.getImporteConImpuestos()).isEqualByComparingTo(new BigDecimal("200.00"));
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenResponseNullExpectNull() {
+      VentaCongeladaResponseDto result = mapper.toVentaCongeladaResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenResponseWithEmptyDataExpectEmptyList() {
+      SearchVentasCongeladasResponseDto src = new SearchVentasCongeladasResponseDto();
+      src.setData(List.of());
+
+      VentaCongeladaResponseDto result = mapper.toVentaCongeladaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
     }
   }
 }

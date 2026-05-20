@@ -48,9 +48,12 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.VentaCongeladaDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResultItemDto;
@@ -90,6 +93,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -756,6 +764,73 @@ public interface PeopleAclMapper {
   default String bigDecimalToString(BigDecimal value) {
     return value == null ? null : value.toPlainString();
   }
+
+  // ── SOAP → REST (request): VentasCongeladas ──
+
+  /**
+   * Builds the REST client {@link SearchVentasCongeladasRequestDto} from the internal {@link VentaCongeladaRequestDto}. The
+   * {@code fechaInicio} and {@code fechaFin} are extracted from the {@link VentaCongeladaFilterDto} header. The {@code idLugaresTrabajo},
+   * {@code idSecciones}, {@code idConceptosVenta}, and {@code idTiposPresupuesto} lists are populated by extracting distinct non-null
+   * values from each {@link VentaCongeladaFilterParametersDto} item in the filter's {@code item} list.
+   */
+  default SearchVentasCongeladasRequestDto toSearchVentasCongeladasRequestDto(VentaCongeladaRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchVentasCongeladasRequestDto().idLugaresTrabajo(Collections.emptyList());
+    }
+    VentaCongeladaFilterDto filter = src.getData();
+    SearchVentasCongeladasRequestDto request = new SearchVentasCongeladasRequestDto()
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()))
+        .idLugaresTrabajo(Collections.emptyList());
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      List<String> idLugaresTrabajo = filter.getItem().stream()
+          .map(VentaCongeladaFilterParametersDto::getIdLugarTrabajo)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idLugaresTrabajo.isEmpty()) {
+        request.idLugaresTrabajo(idLugaresTrabajo);
+      }
+      List<String> idSecciones = filter.getItem().stream()
+          .map(VentaCongeladaFilterParametersDto::getIdSeccion)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idSecciones.isEmpty()) {
+        request.idSecciones(idSecciones);
+      }
+      List<String> idConceptosVenta = filter.getItem().stream()
+          .map(VentaCongeladaFilterParametersDto::getIdConceptoVenta)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idConceptosVenta.isEmpty()) {
+        request.idConceptosVenta(idConceptosVenta);
+      }
+      List<String> idTiposPresupuesto = filter.getItem().stream()
+          .map(VentaCongeladaFilterParametersDto::getIdTpPresupuesto)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idTiposPresupuesto.isEmpty()) {
+        request.idTiposPresupuesto(idTiposPresupuesto);
+      }
+    }
+    return request;
+  }
+
+  // ── REST → SOAP (response): VentasCongeladas ──
+
+  /**
+   * Maps REST client {@link VentaCongeladaDto} items into internal {@link VentaCongeladaResultItemDto} records. Renames
+   * {@code idTipoPresupuesto → idTpPresupuesto}. Meta4 audit fields are ignored.
+   */
+  @Mapping(target = "idTpPresupuesto", source = "idTipoPresupuesto")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  VentaCongeladaResultItemDto toVentaCongeladaResultItemDto(VentaCongeladaDto src);
+
+  List<VentaCongeladaResultItemDto> toVentaCongeladaResultItemDtoList(List<VentaCongeladaDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  VentaCongeladaResponseDto toVentaCongeladaResponseDto(SearchVentasCongeladasResponseDto src);
 
   // ── Private helpers ──
 

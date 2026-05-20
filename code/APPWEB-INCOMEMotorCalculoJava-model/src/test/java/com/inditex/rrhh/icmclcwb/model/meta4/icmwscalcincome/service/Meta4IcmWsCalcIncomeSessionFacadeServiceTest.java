@@ -73,6 +73,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.Tie
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResultItemDto;
@@ -1184,16 +1185,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     VentaCongeladaResultItemDto resultItem;
 
+    @Mock
+    VentaCongeladaResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<VentaCongeladaResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<VentaCongeladaResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<VentaCongeladaResultItemDto> expected = List.of(resultItem);
-      when(soapService.getVentaCongelada(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getVentaCongelada"), any(), any(), any())).thenReturn(expected);
 
       List<VentaCongeladaResultItemDto> result = service.getVentaCongelada(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<VentaCongeladaResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getVentaCongelada(request)).thenReturn(restResponse);
+
+      service.getVentaCongelada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<VentaCongeladaResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getVentaCongelada(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<VentaCongeladaResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getVentaCongelada(request)).thenReturn(soapData);
+
+      service.getVentaCongelada(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<VentaCongeladaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getVentaCongelada(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -257,7 +257,10 @@ public class Meta4IcmWsCalcIncomeSessionFacadeService implements Meta4IcmWsCalcI
 
   @Override
   public List<VentaCongeladaResultItemDto> getVentaCongelada(VentaCongeladaRequestDto request) {
-    return soapService.getVentaCongelada(request);
+    return migrationDispatcher.dispatch("getVentaCongelada",
+        () -> peopleAclService.getVentaCongelada(request).getData(),
+        () -> soapService.getVentaCongelada(request),
+        request);
   }
 
   @Override

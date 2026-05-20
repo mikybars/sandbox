@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManua
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
@@ -38,6 +39,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.PeopleAclMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -88,6 +91,9 @@ public class PeopleAclService {
 
   @Qualifier("presupuestosCalculoIncomeApiClient")
   private final PresupuestosApi presupuestosApi;
+
+  @Qualifier("ventasCongeladasCalculoIncomeApiClient")
+  private final VentasCongeladasApi ventasCongeladasApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -193,6 +199,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchPresupuestosWlocRequestDto(request);
     var response = presupuestosApi.searchPresupuestosWloc(restRequest);
     return peopleAclMapper.toPresupuestosWlocResponseDto(response);
+  }
+
+  public VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchVentasCongeladas");
+
+    var restRequest = peopleAclMapper.toSearchVentasCongeladasRequestDto(request);
+    var response = ventasCongeladasApi.searchVentasCongeladas(restRequest);
+    return peopleAclMapper.toVentaCongeladaResponseDto(response);
   }
 
 }

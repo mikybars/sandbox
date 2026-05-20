@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManua
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchCoeficienteJornadaRequestDto;
@@ -43,6 +44,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.coefjornada.dto.CoefJornadaRequestDto;
@@ -69,6 +72,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.PeopleAclMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -122,6 +127,9 @@ class PeopleAclServiceTest {
   PresupuestosApi presupuestosApi;
 
   @Mock
+  VentasCongeladasApi ventasCongeladasApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -137,7 +145,7 @@ class PeopleAclServiceTest {
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
         flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, presupuestosApi,
-        peopleAclMapper);
+        ventasCongeladasApi, peopleAclMapper);
   }
 
   @Nested
@@ -904,6 +912,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toPresupuestosWlocResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetVentaCongelada {
+
+    @Captor
+    ArgumentCaptor<SearchVentasCongeladasRequestDto> ventasCongeladasRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
+      SearchVentasCongeladasResponseDto restResponse = new SearchVentasCongeladasResponseDto();
+      VentaCongeladaResponseDto expected = new VentaCongeladaResponseDto();
+      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
+      when(ventasCongeladasApi.searchVentasCongeladas(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toVentaCongeladaResponseDto(restResponse)).thenReturn(expected);
+
+      VentaCongeladaResponseDto result = service.getVentaCongelada(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
+      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
+
+      service.getVentaCongelada(request);
+
+      verify(peopleAclMapper, times(1)).toSearchVentasCongeladasRequestDto(request);
+      verify(ventasCongeladasApi, times(1)).searchVentasCongeladas(ventasCongeladasRestRequestCaptor.capture());
+      assertThat(ventasCongeladasRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
+      SearchVentasCongeladasResponseDto restResponse = new SearchVentasCongeladasResponseDto();
+      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
+      when(ventasCongeladasApi.searchVentasCongeladas(restRequest)).thenReturn(restResponse);
+
+      service.getVentaCongelada(request);
+
+      verify(peopleAclMapper, times(1)).toVentaCongeladaResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
+      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
+      when(ventasCongeladasApi.searchVentasCongeladas(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toVentaCongeladaResponseDto(null)).thenReturn(null);
+
+      VentaCongeladaResponseDto result = service.getVentaCongelada(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toVentaCongeladaResponseDto(null);
     }
   }
 }

@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManua
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.invoker.ApiClient;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -96,6 +97,11 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "presupuestosCalculoIncomeApiClient")
   public PresupuestosApi presupuestosCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new PresupuestosApi(apiClient);
+  }
+
+  @Bean(name = "ventasCongeladasCalculoIncomeApiClient")
+  public VentasCongeladasApi ventasCongeladasCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new VentasCongeladasApi(apiClient);
   }
 
 }
