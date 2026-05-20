@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PeriodosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.SistemasDestinoApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
@@ -115,6 +116,11 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "periodosCalculoIncomeApiClient")
   public PeriodosApi periodosCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new PeriodosApi(apiClient);
+  }
+
+  @Bean(name = "sistemasDestinoCalculoIncomeApiClient")
+  public SistemasDestinoApi sistemasDestinoCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new SistemasDestinoApi(apiClient);
   }
 
 }

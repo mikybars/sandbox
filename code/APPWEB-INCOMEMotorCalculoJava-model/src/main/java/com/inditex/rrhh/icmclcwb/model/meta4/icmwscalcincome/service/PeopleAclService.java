@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PeriodosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.SistemasDestinoApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
@@ -41,6 +42,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.d
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -106,6 +109,9 @@ public class PeopleAclService {
 
   @Qualifier("periodosCalculoIncomeApiClient")
   private final PeriodosApi periodosApi;
+
+  @Qualifier("sistemasDestinoCalculoIncomeApiClient")
+  private final SistemasDestinoApi sistemasDestinoApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -235,6 +241,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchPeriodosRequestDto(request);
     var response = periodosApi.searchPeriodos(restRequest);
     return peopleAclMapper.toPeriodosResponseDto(response);
+  }
+
+  public SistemaDestinoResponseDto searchSistemasDestino(SistemaDestinoRequestDto request) {
+    log.debug("calling People ACL REST endpoint searchSistemasDestino");
+
+    var restRequest = peopleAclMapper.toSearchSistemasDestinoRequestDto(request);
+    var response = sistemasDestinoApi.searchSistemasDestino(restRequest);
+    return peopleAclMapper.toSistemaDestinoResponseDto(response);
   }
 
 }

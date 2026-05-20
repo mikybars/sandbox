@@ -49,6 +49,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenc
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -57,6 +59,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasC
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaWlocDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SistemaDestinoDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.VentaCongeladaDto;
@@ -102,6 +105,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -3221,6 +3226,75 @@ class PeopleAclMapperTest {
       LocalDate result = mapper.offsetDateTimeToLocalDate(src);
 
       assertThat(result).isEqualTo(LocalDate.of(2026, 6, 15));
+    }
+  }
+
+  @Nested
+  class ToSearchSistemasDestinoRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectIdOrigenMapped() {
+      SistemaDestinoRequestDto src = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
+
+      SearchSistemasDestinoRequestDto result = mapper.toSearchSistemasDestinoRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("OR1");
+    }
+
+    @Test
+    void whenRequestNullExpectEmptyIdOrigen() {
+      SearchSistemasDestinoRequestDto result = mapper.toSearchSistemasDestinoRequestDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToSistemaDestinoResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectFirstIdSistemaMapped() {
+      SistemaDestinoDto item = new SistemaDestinoDto();
+      item.setIdSistema("SYS-1");
+      SearchSistemasDestinoResponseDto src = new SearchSistemasDestinoResponseDto();
+      src.setData(List.of(item));
+
+      SistemaDestinoResponseDto result = mapper.toSistemaDestinoResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdSistemaDestino()).isEqualTo("SYS-1");
+    }
+
+    @Test
+    void whenResponseNullExpectEmptyResponse() {
+      SistemaDestinoResponseDto result = mapper.toSistemaDestinoResponseDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdSistemaDestino()).isNull();
+    }
+
+    @Test
+    void whenResponseDataNullExpectEmptyResponse() {
+      SearchSistemasDestinoResponseDto src = new SearchSistemasDestinoResponseDto();
+      src.setData(null);
+
+      SistemaDestinoResponseDto result = mapper.toSistemaDestinoResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdSistemaDestino()).isNull();
+    }
+
+    @Test
+    void whenResponseDataEmptyExpectEmptyResponse() {
+      SearchSistemasDestinoResponseDto src = new SearchSistemasDestinoResponseDto();
+      src.setData(Collections.emptyList());
+
+      SistemaDestinoResponseDto result = mapper.toSistemaDestinoResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdSistemaDestino()).isNull();
     }
   }
 }

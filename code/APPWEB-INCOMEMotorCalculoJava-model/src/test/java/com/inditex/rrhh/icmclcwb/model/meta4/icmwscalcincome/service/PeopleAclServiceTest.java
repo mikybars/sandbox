@@ -17,6 +17,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PeriodosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.SistemasDestinoApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.VentasCongeladasApi;
@@ -46,6 +47,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenc
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -78,6 +81,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.d
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -146,6 +151,9 @@ class PeopleAclServiceTest {
   PeriodosApi periodosApi;
 
   @Mock
+  SistemasDestinoApi sistemasDestinoApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -161,7 +169,7 @@ class PeopleAclServiceTest {
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
         flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, presenciasManualWlocApi, empleadosDesplazadosApi,
-        empleadosPresenciaApi, presupuestosApi, ventasCongeladasApi, periodosApi, peopleAclMapper);
+        empleadosPresenciaApi, presupuestosApi, ventasCongeladasApi, periodosApi, sistemasDestinoApi, peopleAclMapper);
   }
 
   @Nested
@@ -1114,6 +1122,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toPeriodosResponseDto(null);
+    }
+  }
+
+  @Nested
+  class SearchSistemasDestino {
+
+    @Captor
+    ArgumentCaptor<SearchSistemasDestinoRequestDto> sistemasDestinoRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
+      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
+      SearchSistemasDestinoResponseDto restResponse = new SearchSistemasDestinoResponseDto();
+      SistemaDestinoResponseDto expected = SistemaDestinoResponseDto.builder().build();
+      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
+      when(sistemasDestinoApi.searchSistemasDestino(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toSistemaDestinoResponseDto(restResponse)).thenReturn(expected);
+
+      SistemaDestinoResponseDto result = service.searchSistemasDestino(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
+      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
+      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
+
+      service.searchSistemasDestino(request);
+
+      verify(peopleAclMapper, times(1)).toSearchSistemasDestinoRequestDto(request);
+      verify(sistemasDestinoApi, times(1)).searchSistemasDestino(sistemasDestinoRestRequestCaptor.capture());
+      assertThat(sistemasDestinoRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
+      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
+      SearchSistemasDestinoResponseDto restResponse = new SearchSistemasDestinoResponseDto();
+      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
+      when(sistemasDestinoApi.searchSistemasDestino(restRequest)).thenReturn(restResponse);
+
+      service.searchSistemasDestino(request);
+
+      verify(peopleAclMapper, times(1)).toSistemaDestinoResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
+      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
+      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
+      when(sistemasDestinoApi.searchSistemasDestino(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toSistemaDestinoResponseDto(null)).thenReturn(null);
+
+      SistemaDestinoResponseDto result = service.searchSistemasDestino(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toSistemaDestinoResponseDto(null);
     }
   }
 }

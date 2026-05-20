@@ -51,6 +51,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenc
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchSistemasDestinoResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasOnlineRequestDto;
@@ -104,6 +106,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
@@ -1012,6 +1016,35 @@ public interface PeopleAclMapper {
   @org.mapstruct.Named("offsetDateTimeToLocalDate")
   default LocalDate offsetDateTimeToLocalDate(OffsetDateTime src) {
     return src == null ? null : src.withOffsetSameInstant(ZoneOffset.UTC).toLocalDate();
+  }
+
+  // ── SOAP → REST (request): SistemasDestino ──
+
+  /**
+   * Builds the REST client {@link SearchSistemasDestinoRequestDto} from the internal {@link SistemaDestinoRequestDto}. Renames
+   * {@code cclIdOrigen → idOrigen}.
+   */
+  default SearchSistemasDestinoRequestDto toSearchSistemasDestinoRequestDto(SistemaDestinoRequestDto src) {
+    if (src == null) {
+      return new SearchSistemasDestinoRequestDto().idOrigen("");
+    }
+    return new SearchSistemasDestinoRequestDto().idOrigen(src.getCclIdOrigen());
+  }
+
+  // ── REST → SOAP (response): SistemasDestino ──
+
+  /**
+   * Maps REST client {@link SearchSistemasDestinoResponseDto} into internal {@link SistemaDestinoResponseDto}. Takes the first element from
+   * the {@code data} list and extracts its {@code idSistema} field into {@code idSistemaDestino}, mirroring the legacy SOAP behavior which
+   * only returns the first destination system.
+   */
+  default SistemaDestinoResponseDto toSistemaDestinoResponseDto(SearchSistemasDestinoResponseDto src) {
+    if (src == null || src.getData() == null || src.getData().isEmpty()) {
+      return SistemaDestinoResponseDto.builder().build();
+    }
+    return SistemaDestinoResponseDto.builder()
+        .idSistemaDestino(src.getData().get(0).getIdSistema())
+        .build();
   }
 
   // ── Private helpers ──

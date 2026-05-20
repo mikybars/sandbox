@@ -1458,15 +1458,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     SistemaDestinoResponseDto response;
 
+    @Mock
+    SistemaDestinoResponseDto restResponse;
+
+    @Mock
+    SistemaDestinoResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<SistemaDestinoResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<SistemaDestinoResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getSistemaDestino(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getSistemaDestino"), any(), any(), any())).thenReturn(response);
 
       SistemaDestinoResponseDto result = service.getSistemaDestino(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.searchSistemasDestino(request)).thenReturn(restResponse);
+
+      service.getSistemaDestino(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      SistemaDestinoResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).searchSistemasDestino(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getSistemaDestino(request)).thenReturn(soapResponse);
+
+      service.getSistemaDestino(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      SistemaDestinoResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getSistemaDestino(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

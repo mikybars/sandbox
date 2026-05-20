@@ -332,7 +332,11 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public SistemaDestinoResponseDto getSistemaDestino(SistemaDestinoRequestDto request) {
-    return soapService.getSistemaDestino(request);
+    return migrationDispatcher.dispatch(
+        "getSistemaDestino",
+        () -> peopleAclService.searchSistemasDestino(request),
+        () -> soapService.getSistemaDestino(request),
+        request);
   }
 
   @Override
