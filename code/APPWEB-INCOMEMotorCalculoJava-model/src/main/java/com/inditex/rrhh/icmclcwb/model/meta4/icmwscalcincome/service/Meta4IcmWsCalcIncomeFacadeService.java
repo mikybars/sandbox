@@ -307,7 +307,10 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(DesplazamientosMultiempresaRequestDto request) {
-    return soapService.getDesplazamientosMultiempresa(request);
+    return migrationDispatcher.dispatch("getDesplazamientosMultiempresa",
+        () -> peopleAclService.searchDesplazamientosMultiempresa(request),
+        () -> soapService.getDesplazamientosMultiempresa(request),
+        request);
   }
 
   @Override

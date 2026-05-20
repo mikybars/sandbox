@@ -1345,27 +1345,6 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
   }
 
   @Nested
-  class GetDesplazamientosMultiempresa {
-
-    @Mock
-    DesplazamientosMultiempresaRequestDto request;
-
-    @Mock
-    DesplazamientosMultiempresaResponseDto response;
-
-    @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getDesplazamientosMultiempresa(request)).thenReturn(response);
-
-      DesplazamientosMultiempresaResponseDto result = service.getDesplazamientosMultiempresa(request);
-
-      assertThat(result).isSameAs(response);
-      verify(soapService, times(1)).getDesplazamientosMultiempresa(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
-    }
-  }
-
-  @Nested
   class GetPresenciaManualWloc {
 
     @Mock
@@ -1688,6 +1667,64 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       assertThat(result).isSameAs(response);
       verify(soapService, times(1)).getEstadoWloc(request);
       verifyNoInteractions(peopleAclService, migrationDispatcher);
+    }
+  }
+
+  @Nested
+  class GetDesplazamientosMultiempresa {
+
+    @Mock
+    DesplazamientosMultiempresaRequestDto request;
+
+    @Mock
+    DesplazamientosMultiempresaResponseDto response;
+
+    @Mock
+    DesplazamientosMultiempresaResponseDto restResponse;
+
+    @Mock
+    DesplazamientosMultiempresaResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<DesplazamientosMultiempresaResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<DesplazamientosMultiempresaResponseDto>> soapSupplierCaptor;
+
+    @Test
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getDesplazamientosMultiempresa"), any(), any(), any())).thenReturn(response);
+
+      DesplazamientosMultiempresaResponseDto result = service.getDesplazamientosMultiempresa(request);
+
+      assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazamientosMultiempresa"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.searchDesplazamientosMultiempresa(request)).thenReturn(restResponse);
+
+      service.getDesplazamientosMultiempresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazamientosMultiempresa"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      DesplazamientosMultiempresaResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).searchDesplazamientosMultiempresa(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getDesplazamientosMultiempresa(request)).thenReturn(soapResponse);
+
+      service.getDesplazamientosMultiempresa(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazamientosMultiempresa"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      DesplazamientosMultiempresaResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
+      verify(soapService, times(1)).getDesplazamientosMultiempresa(request);
     }
   }
 

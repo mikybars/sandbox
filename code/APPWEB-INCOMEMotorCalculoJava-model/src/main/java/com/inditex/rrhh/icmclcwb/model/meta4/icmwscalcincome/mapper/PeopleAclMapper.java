@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoMultiempresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazamientoInputDto;
@@ -35,6 +36,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
@@ -79,6 +82,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
@@ -153,6 +160,10 @@ public interface PeopleAclMapper {
 
   default OffsetDateTime toOffsetDateTime(LocalDateTime src) {
     return src == null ? null : src.atOffset(ZoneOffset.UTC);
+  }
+
+  default OffsetDateTime toOffsetDateTime(LocalDate src) {
+    return src == null ? null : src.atStartOfDay().atOffset(ZoneOffset.UTC);
   }
 
   // ── REST → SOAP (response): calculo-income REST client model to internal DTOs ──
@@ -1141,5 +1152,40 @@ public interface PeopleAclMapper {
 
   @Mapping(target = "page", ignore = true)
   DesplazamientoRealResponseDto toDesplazamientoRealResponseDto(SearchDesplazamientosRealesResponseDto src);
+
+  // ── SOAP → REST (request): DesplazamientosMultiempresa ──
+
+  /**
+   * Builds the REST client {@link SearchDesplazamientosMultiempresaRequestDto} from the internal
+   * {@link DesplazamientosMultiempresaRequestDto}. Fields {@code idOrigen} and {@code idEmpresa} map directly. Dates {@code fechaInicio}
+   * and {@code fechaFin} are converted from {@link LocalDate} to {@link OffsetDateTime} at start of day UTC.
+   */
+  default SearchDesplazamientosMultiempresaRequestDto toSearchDesplazamientosMultiempresaRequestDto(
+      DesplazamientosMultiempresaRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchDesplazamientosMultiempresaRequestDto();
+    }
+    DesplazamientosMultiempresaRequestItemDto data = src.getData();
+    return new SearchDesplazamientosMultiempresaRequestDto()
+        .idOrigen(data.getIdOrigen())
+        .idEmpresa(data.getIdEmpresa())
+        .fechaInicio(toOffsetDateTime(data.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(data.getFechaFin()));
+  }
+
+  // ── REST → SOAP (response): DesplazamientosMultiempresa ──
+
+  /**
+   * Maps REST client {@link DesplazamientoMultiempresaDto} items into internal {@link DesplazamientosMultiempresaItemDto} records. All
+   * fields ({@code idOrigen}, {@code idEmpresa}, {@code fechaInicio}, {@code fechaFin}) map directly by name. Date conversions from
+   * {@link OffsetDateTime} to {@link LocalDateTime} are handled by the existing {@code toLocalDateTime} helper.
+   */
+  DesplazamientosMultiempresaItemDto toDesplazamientosMultiempresaItemDto(DesplazamientoMultiempresaDto src);
+
+  List<DesplazamientosMultiempresaItemDto> toDesplazamientosMultiempresaItemDtoList(List<DesplazamientoMultiempresaDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  DesplazamientosMultiempresaResponseDto toDesplazamientosMultiempresaResponseDto(
+      SearchDesplazamientosMultiempresaResponseDto src);
 
 }

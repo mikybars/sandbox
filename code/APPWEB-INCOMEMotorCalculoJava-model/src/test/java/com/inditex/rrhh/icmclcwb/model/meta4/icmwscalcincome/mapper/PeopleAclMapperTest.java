@@ -15,6 +15,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoMultiempresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazamientoInputDto;
@@ -34,6 +35,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
@@ -78,6 +81,10 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
@@ -225,7 +232,7 @@ class PeopleAclMapperTest {
 
     @Test
     void whenSourceNullExpectNull() {
-      OffsetDateTime result = mapper.toOffsetDateTime(null);
+      OffsetDateTime result = mapper.toOffsetDateTime((LocalDateTime) null);
 
       assertThat(result).isNull();
     }
@@ -3550,6 +3557,161 @@ class PeopleAclMapperTest {
 
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToSearchDesplazamientosMultiempresaRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectFieldsMapped() {
+      DesplazamientosMultiempresaRequestItemDto item = DesplazamientosMultiempresaRequestItemDto.builder()
+          .idOrigen("OR1")
+          .idEmpresa("EMP1")
+          .fechaInicio(LocalDate.of(2026, 1, 1))
+          .fechaFin(LocalDate.of(2026, 12, 31))
+          .build();
+      DesplazamientosMultiempresaRequestDto src = new DesplazamientosMultiempresaRequestDto();
+      src.setData(item);
+
+      SearchDesplazamientosMultiempresaRequestDto result = mapper.toSearchDesplazamientosMultiempresaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("OR1");
+      assertThat(result.getIdEmpresa()).isEqualTo("EMP1");
+      assertThat(result.getFechaInicio()).isEqualTo(OffsetDateTime.of(2026, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC));
+      assertThat(result.getFechaFin()).isEqualTo(OffsetDateTime.of(2026, 12, 31, 0, 0, 0, 0, ZoneOffset.UTC));
+    }
+
+    @Test
+    void whenRequestNullExpectEmptyDto() {
+      SearchDesplazamientosMultiempresaRequestDto result = mapper.toSearchDesplazamientosMultiempresaRequestDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+      assertThat(result.getIdEmpresa()).isNull();
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyDto() {
+      DesplazamientosMultiempresaRequestDto src = new DesplazamientosMultiempresaRequestDto();
+      src.setData(null);
+
+      SearchDesplazamientosMultiempresaRequestDto result = mapper.toSearchDesplazamientosMultiempresaRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isNull();
+    }
+  }
+
+  @Nested
+  class ToOffsetDateTimeFromLocalDate {
+
+    @Test
+    void whenPopulatedExpectStartOfDayUtc() {
+      LocalDate src = LocalDate.of(2026, 3, 15);
+
+      OffsetDateTime result = mapper.toOffsetDateTime(src);
+
+      assertThat(result).isEqualTo(OffsetDateTime.of(2026, 3, 15, 0, 0, 0, 0, ZoneOffset.UTC));
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.toOffsetDateTime((LocalDate) null)).isNull();
+    }
+  }
+
+  @Nested
+  class ToDesplazamientosMultiempresaItemDto {
+
+    @Test
+    void whenItemPopulatedExpectFieldsMapped() {
+      DesplazamientoMultiempresaDto src = new DesplazamientoMultiempresaDto();
+      src.setIdOrigen("OR1");
+      src.setIdEmpresa("EMP1");
+      src.setFechaInicio(OffsetDateTime.of(2026, 1, 1, 10, 0, 0, 0, ZoneOffset.ofHours(2)));
+      src.setFechaFin(OffsetDateTime.of(2026, 12, 31, 23, 0, 0, 0, ZoneOffset.ofHours(2)));
+
+      DesplazamientosMultiempresaItemDto result = mapper.toDesplazamientosMultiempresaItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("OR1");
+      assertThat(result.getIdEmpresa()).isEqualTo("EMP1");
+      assertThat(result.getFechaInicio()).isEqualTo(LocalDateTime.of(2026, 1, 1, 8, 0, 0));
+      assertThat(result.getFechaFin()).isEqualTo(LocalDateTime.of(2026, 12, 31, 21, 0, 0));
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.toDesplazamientosMultiempresaItemDto(null)).isNull();
+    }
+  }
+
+  @Nested
+  class ToDesplazamientosMultiempresaItemDtoList {
+
+    @Test
+    void whenListPopulatedExpectAllItemsMapped() {
+      DesplazamientoMultiempresaDto item1 = new DesplazamientoMultiempresaDto();
+      item1.setIdOrigen("OR1");
+      item1.setIdEmpresa("EMP1");
+      DesplazamientoMultiempresaDto item2 = new DesplazamientoMultiempresaDto();
+      item2.setIdOrigen("OR2");
+      item2.setIdEmpresa("EMP2");
+
+      List<DesplazamientosMultiempresaItemDto> result = mapper.toDesplazamientosMultiempresaItemDtoList(List.of(item1, item2));
+
+      assertThat(result).hasSize(2);
+      assertThat(result.get(0).getIdOrigen()).isEqualTo("OR1");
+      assertThat(result.get(1).getIdOrigen()).isEqualTo("OR2");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.toDesplazamientosMultiempresaItemDtoList(null)).isNull();
+    }
+
+    @Test
+    void whenEmptyExpectEmpty() {
+      assertThat(mapper.toDesplazamientosMultiempresaItemDtoList(Collections.emptyList())).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToDesplazamientosMultiempresaResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectItemsMapped() {
+      DesplazamientoMultiempresaDto item = new DesplazamientoMultiempresaDto();
+      item.setIdOrigen("OR1");
+      item.setIdEmpresa("EMP1");
+      SearchDesplazamientosMultiempresaResponseDto src = new SearchDesplazamientosMultiempresaResponseDto();
+      src.setData(List.of(item));
+
+      DesplazamientosMultiempresaResponseDto result = mapper.toDesplazamientosMultiempresaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdOrigen()).isEqualTo("OR1");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.toDesplazamientosMultiempresaResponseDto(null)).isNull();
+    }
+
+    @Test
+    void whenResponseDataNullExpectNullData() {
+      SearchDesplazamientosMultiempresaResponseDto src = new SearchDesplazamientosMultiempresaResponseDto();
+      src.setData(null);
+
+      DesplazamientosMultiempresaResponseDto result = mapper.toDesplazamientosMultiempresaResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isNull();
     }
   }
 }
