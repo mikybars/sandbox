@@ -14,6 +14,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
@@ -38,6 +39,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
@@ -66,6 +69,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -118,6 +123,9 @@ class PeopleAclServiceTest {
   PresenciasManualApi presenciasManualApi;
 
   @Mock
+  PresenciasManualWlocApi presenciasManualWlocApi;
+
+  @Mock
   EmpleadosDesplazadosApi empleadosDesplazadosApi;
 
   @Mock
@@ -144,8 +152,9 @@ class PeopleAclServiceTest {
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
-        flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, empleadosDesplazadosApi, empleadosPresenciaApi, presupuestosApi,
-        ventasCongeladasApi, peopleAclMapper);
+        flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, presenciasManualWlocApi, empleadosDesplazadosApi,
+        empleadosPresenciaApi,
+        presupuestosApi, ventasCongeladasApi, peopleAclMapper);
   }
 
   @Nested
@@ -974,6 +983,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toVentaCongeladaResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetPresenciaManualWloc {
+
+    @Captor
+    ArgumentCaptor<SearchPresenciasManualWlocRequestDto> presenciasManualWlocRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
+      SearchPresenciasManualWlocResponseDto restResponse = new SearchPresenciasManualWlocResponseDto();
+      PresenciaManualWlocResponseDto expected = new PresenciaManualWlocResponseDto();
+      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualWlocApi.searchPresenciasManualWloc(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toPresenciaManualWlocResponseDto(restResponse)).thenReturn(expected);
+
+      PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
+      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(peopleAclMapper, times(1)).toSearchPresenciasManualWlocRequestDto(request);
+      verify(presenciasManualWlocApi, times(1)).searchPresenciasManualWloc(presenciasManualWlocRestRequestCaptor.capture());
+      assertThat(presenciasManualWlocRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
+      SearchPresenciasManualWlocResponseDto restResponse = new SearchPresenciasManualWlocResponseDto();
+      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualWlocApi.searchPresenciasManualWloc(restRequest)).thenReturn(restResponse);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(peopleAclMapper, times(1)).toPresenciaManualWlocResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
+      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
+      when(presenciasManualWlocApi.searchPresenciasManualWloc(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toPresenciaManualWlocResponseDto(null)).thenReturn(null);
+
+      PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toPresenciaManualWlocResponseDto(null);
     }
   }
 }

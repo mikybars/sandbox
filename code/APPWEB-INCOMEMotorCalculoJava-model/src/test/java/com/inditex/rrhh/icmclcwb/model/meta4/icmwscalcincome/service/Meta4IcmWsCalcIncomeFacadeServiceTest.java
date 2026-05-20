@@ -1300,15 +1300,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     PresenciaManualWlocResponseDto response;
 
+    @Mock
+    PresenciaManualWlocResponseDto restResponse;
+
+    @Mock
+    PresenciaManualWlocResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresenciaManualWlocResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<PresenciaManualWlocResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getPresenciaManualWloc(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getPresenciaManualWloc"), any(), any(), any())).thenReturn(response);
 
       PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getPresenciaManualWloc(request)).thenReturn(restResponse);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      PresenciaManualWlocResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getPresenciaManualWloc(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getPresenciaManualWloc(request)).thenReturn(soapResponse);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      PresenciaManualWlocResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPresenciaManualWloc(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

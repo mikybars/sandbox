@@ -304,7 +304,11 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request) {
-    return soapService.getPresenciaManualWloc(request);
+    return migrationDispatcher.dispatch(
+        "getPresenciaManualWloc",
+        () -> peopleAclService.getPresenciaManualWloc(request),
+        () -> soapService.getPresenciaManualWloc(request),
+        request);
   }
 
   @Override

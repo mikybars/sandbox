@@ -20,6 +20,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
@@ -40,6 +41,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
@@ -49,6 +52,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.VentaCongeladaDto;
@@ -81,6 +85,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
@@ -1913,20 +1922,20 @@ class PeopleAclMapperTest {
       SeccionPresenciaDto seccion2 = new SeccionPresenciaDto();
       seccion2.setIdSeccion("SEC-2");
       seccion2.setMinutos(60);
-      PresenciaManualDto record = new PresenciaManualDto();
-      record.setIdEmpleado("EMP-1");
-      record.setIdOrdinalEmpleado("2");
-      record.setIdEmpleadoLocal("LOCAL-1");
-      record.setIdOrigen("ORIG-1");
-      record.setIdEmpresa("SOC-1");
-      record.setIdCadena("CAD-1");
-      record.setIdLugarTrabajo("T001");
-      record.setIdLugarTrabajoMtu("MTU-1");
-      record.setIdTipoHora("5");
-      record.setFechaPresencia(FECHA_INICIO_UTC);
-      record.setSecciones(List.of(seccion1, seccion2));
+      PresenciaManualDto presencia = new PresenciaManualDto();
+      presencia.setIdEmpleado("EMP-1");
+      presencia.setIdOrdinalEmpleado("2");
+      presencia.setIdEmpleadoLocal("LOCAL-1");
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setIdEmpresa("SOC-1");
+      presencia.setIdCadena("CAD-1");
+      presencia.setIdLugarTrabajo("T001");
+      presencia.setIdLugarTrabajoMtu("MTU-1");
+      presencia.setIdTipoHora("5");
+      presencia.setFechaPresencia(FECHA_INICIO_UTC);
+      presencia.setSecciones(List.of(seccion1, seccion2));
       SearchPresenciaManualResponseDto src = new SearchPresenciaManualResponseDto();
-      src.setData(List.of(record));
+      src.setData(List.of(presencia));
 
       PresenciaManualResponseDto result = mapper.toPresenciaManualResponseDto(src);
 
@@ -1948,12 +1957,12 @@ class PeopleAclMapperTest {
 
     @Test
     void whenResponseWithEmptySectionsExpectOneItemWithNullSeccionAndMinutos() {
-      PresenciaManualDto record = new PresenciaManualDto();
-      record.setIdEmpleado("EMP-1");
-      record.setIdOrigen("ORIG-1");
-      record.setSecciones(List.of());
+      PresenciaManualDto presencia = new PresenciaManualDto();
+      presencia.setIdEmpleado("EMP-1");
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setSecciones(List.of());
       SearchPresenciaManualResponseDto src = new SearchPresenciaManualResponseDto();
-      src.setData(List.of(record));
+      src.setData(List.of(presencia));
 
       PresenciaManualResponseDto result = mapper.toPresenciaManualResponseDto(src);
 
@@ -2671,6 +2680,197 @@ class PeopleAclMapperTest {
 
       assertThat(result).isNotNull();
       assertThat(result.getData()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToSearchPresenciasManualWlocRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectAllFilterFieldsMapped() {
+      PresenciaManualWlocFilterParametersDto item1 = new PresenciaManualWlocFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      PresenciaManualWlocFilterParametersDto item2 = new PresenciaManualWlocFilterParametersDto();
+      item2.setIdLugarTrabajo("T002");
+      PresenciaManualWlocFilterDto filter = new PresenciaManualWlocFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setFechaInicio(FECHA_INICIO);
+      filter.setFechaFin(FECHA_FIN);
+      filter.setIdsEmpresa(List.of("SOC-1", "SOC-2"));
+      filter.setItem(List.of(item1, item2));
+      PresenciaManualWlocRequestDto src = new PresenciaManualWlocRequestDto();
+      src.setData(filter);
+
+      SearchPresenciasManualWlocRequestDto result = mapper.toSearchPresenciasManualWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      assertThat(result.getIdEmpresas()).containsExactly("SOC-1", "SOC-2");
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001", "T002");
+    }
+
+    @Test
+    void whenRequestDataNullExpectRequestWithEmptyIdOrigen() {
+      PresenciaManualWlocRequestDto src = new PresenciaManualWlocRequestDto();
+      src.setData(null);
+
+      SearchPresenciasManualWlocRequestDto result = mapper.toSearchPresenciasManualWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenRequestNullExpectRequestWithEmptyIdOrigen() {
+      SearchPresenciasManualWlocRequestDto result = mapper.toSearchPresenciasManualWlocRequestDto((PresenciaManualWlocRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEmpty();
+    }
+
+    @Test
+    void whenItemListEmptyExpectEmptyIdLugaresTrabajo() {
+      PresenciaManualWlocFilterDto filter = new PresenciaManualWlocFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setItem(List.of());
+      PresenciaManualWlocRequestDto src = new PresenciaManualWlocRequestDto();
+      src.setData(filter);
+
+      SearchPresenciasManualWlocRequestDto result = mapper.toSearchPresenciasManualWlocRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdLugaresTrabajo()).isEmpty();
+    }
+
+    @Test
+    void whenItemListHasNullIdLugarTrabajoExpectFiltered() {
+      PresenciaManualWlocFilterParametersDto item1 = new PresenciaManualWlocFilterParametersDto();
+      item1.setIdLugarTrabajo("T001");
+      PresenciaManualWlocFilterParametersDto item2 = new PresenciaManualWlocFilterParametersDto();
+      item2.setIdLugarTrabajo(null);
+      PresenciaManualWlocFilterDto filter = new PresenciaManualWlocFilterDto();
+      filter.setIdOrigen("ORIG-1");
+      filter.setItem(List.of(item1, item2));
+      PresenciaManualWlocRequestDto src = new PresenciaManualWlocRequestDto();
+      src.setData(filter);
+
+      SearchPresenciasManualWlocRequestDto result = mapper.toSearchPresenciasManualWlocRequestDto(src);
+
+      assertThat(result.getIdLugaresTrabajo()).containsExactly("T001");
+    }
+  }
+
+  @Nested
+  class ToPresenciaManualWlocResponseDto {
+
+    @Test
+    void whenResponseWithSectionsExpectFlattenedItems() {
+      SeccionPresenciaWlocDto seccion1 = new SeccionPresenciaWlocDto();
+      seccion1.setIdSeccion("SEC-1");
+      seccion1.setMinutos(30);
+      SeccionPresenciaWlocDto seccion2 = new SeccionPresenciaWlocDto();
+      seccion2.setIdSeccion("SEC-2");
+      seccion2.setMinutos(60);
+      PresenciaManualWlocDto presencia = new PresenciaManualWlocDto();
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setIdEmpresa("SOC-1");
+      presencia.setIdCadena("CAD-1");
+      presencia.setIdLugarTrabajo("T001");
+      presencia.setIdLugarTrabajoMtu("MTU-1");
+      presencia.setFechaPresencia(FECHA_INICIO_UTC);
+      presencia.setSecciones(List.of(seccion1, seccion2));
+      SearchPresenciasManualWlocResponseDto src = new SearchPresenciasManualWlocResponseDto();
+      src.setData(List.of(presencia));
+
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(2);
+      PresenciaManualWlocResultItemDto first = result.getData().get(0);
+      assertThat(first.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(first.getIdEmpresa()).isEqualTo("SOC-1");
+      assertThat(first.getIdCadena()).isEqualTo("CAD-1");
+      assertThat(first.getIdLugarTrabajo()).isEqualTo("T001");
+      assertThat(first.getIdLugarTrabajoMtu()).isEqualTo("MTU-1");
+      assertThat(first.getFecha()).isEqualTo("2026-01-01");
+      assertThat(first.getIdSeccion()).isEqualTo("SEC-1");
+      assertThat(first.getMinutos()).isEqualTo("30");
+      PresenciaManualWlocResultItemDto second = result.getData().get(1);
+      assertThat(second.getIdSeccion()).isEqualTo("SEC-2");
+      assertThat(second.getMinutos()).isEqualTo("60");
+    }
+
+    @Test
+    void whenResponseWithEmptySectionsExpectOneItemWithNullSeccionAndMinutos() {
+      PresenciaManualWlocDto presencia = new PresenciaManualWlocDto();
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setSecciones(List.of());
+      SearchPresenciasManualWlocResponseDto src = new SearchPresenciasManualWlocResponseDto();
+      src.setData(List.of(presencia));
+
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdSeccion()).isNull();
+      assertThat(result.getData().get(0).getMinutos()).isNull();
+    }
+
+    @Test
+    void whenResponseNullExpectEmptyResponse() {
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isNull();
+    }
+
+    @Test
+    void whenResponseWithNullSectionsExpectOneItemPerRecord() {
+      PresenciaManualWlocDto presencia = new PresenciaManualWlocDto();
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setSecciones(null);
+      SearchPresenciasManualWlocResponseDto src = new SearchPresenciasManualWlocResponseDto();
+      src.setData(List.of(presencia));
+
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      assertThat(result.getData().get(0).getIdOrigen()).isEqualTo("ORIG-1");
+    }
+
+    @Test
+    void whenFechaPresenciaNullExpectFechaNull() {
+      PresenciaManualWlocDto presencia = new PresenciaManualWlocDto();
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setFechaPresencia(null);
+      presencia.setSecciones(List.of());
+      SearchPresenciasManualWlocResponseDto src = new SearchPresenciasManualWlocResponseDto();
+      src.setData(List.of(presencia));
+
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(src);
+
+      assertThat(result.getData().get(0).getFecha()).isNull();
+    }
+
+    @Test
+    void whenMinutosNullExpectMinutosNull() {
+      SeccionPresenciaWlocDto seccion = new SeccionPresenciaWlocDto();
+      seccion.setIdSeccion("SEC-1");
+      seccion.setMinutos(null);
+      PresenciaManualWlocDto presencia = new PresenciaManualWlocDto();
+      presencia.setIdOrigen("ORIG-1");
+      presencia.setSecciones(List.of(seccion));
+      SearchPresenciasManualWlocResponseDto src = new SearchPresenciasManualWlocResponseDto();
+      src.setData(List.of(presencia));
+
+      PresenciaManualWlocResponseDto result = mapper.toPresenciaManualWlocResponseDto(src);
+
+      assertThat(result.getData().get(0).getIdSeccion()).isEqualTo("SEC-1");
+      assertThat(result.getData().get(0).getMinutos()).isNull();
     }
   }
 }

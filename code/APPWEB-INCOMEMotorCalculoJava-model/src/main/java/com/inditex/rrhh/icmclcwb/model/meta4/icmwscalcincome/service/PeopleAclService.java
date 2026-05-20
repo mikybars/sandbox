@@ -9,6 +9,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
@@ -33,6 +34,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
@@ -82,6 +85,9 @@ public class PeopleAclService {
 
   @Qualifier("presenciasManualCalculoIncomeApiClient")
   private final PresenciasManualApi presenciasManualApi;
+
+  @Qualifier("presenciasManualWlocCalculoIncomeApiClient")
+  private final PresenciasManualWlocApi presenciasManualWlocApi;
 
   @Qualifier("empleadosDesplazadosCalculoIncomeApiClient")
   private final EmpleadosDesplazadosApi empleadosDesplazadosApi;
@@ -207,6 +213,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchVentasCongeladasRequestDto(request);
     var response = ventasCongeladasApi.searchVentasCongeladas(restRequest);
     return peopleAclMapper.toVentaCongeladaResponseDto(response);
+  }
+
+  public PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchPresenciasManualWloc");
+
+    var restRequest = peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request);
+    var response = presenciasManualWlocApi.searchPresenciasManualWloc(restRequest);
+    return peopleAclMapper.toPresenciaManualWlocResponseDto(response);
   }
 
 }

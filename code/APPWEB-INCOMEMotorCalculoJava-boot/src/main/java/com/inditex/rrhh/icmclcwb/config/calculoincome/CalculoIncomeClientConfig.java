@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasIncomeApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.TiendasOnlineApi;
@@ -81,6 +82,12 @@ public class CalculoIncomeClientConfig {
   @Bean(name = "presenciasManualCalculoIncomeApiClient")
   public PresenciasManualApi presenciasManualCalculoIncomeApiClient(@Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
     return new PresenciasManualApi(apiClient);
+  }
+
+  @Bean(name = "presenciasManualWlocCalculoIncomeApiClient")
+  public PresenciasManualWlocApi presenciasManualWlocCalculoIncomeApiClient(
+      @Qualifier("calculoIncomeApiClient") final ApiClient apiClient) {
+    return new PresenciasManualWlocApi(apiClient);
   }
 
   @Bean(name = "empleadosDesplazadosCalculoIncomeApiClient")

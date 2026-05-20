@@ -21,6 +21,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchAusenciasResponseDto;
@@ -42,6 +43,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigene
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresupuestosWlocResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendasIncomeRequestDto;
@@ -51,6 +54,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchTiendas
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchVentasCongeladasResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SeccionPresenciaWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaIncomeDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.TiendaOnlineDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.VentaCongeladaDto;
@@ -83,6 +87,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterParametersDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
@@ -561,13 +570,13 @@ public interface PeopleAclMapper {
     }
     List<GenericEmpleadoResultItemDto> items = new ArrayList<>();
     if (src.getData() != null) {
-      for (PresenciaManualDto record : src.getData()) {
-        if (record.getSecciones() != null && !record.getSecciones().isEmpty()) {
-          for (SeccionPresenciaDto seccion : record.getSecciones()) {
-            items.add(toGenericEmpleadoResultItemDto(record, seccion));
+      for (PresenciaManualDto presencia : src.getData()) {
+        if (presencia.getSecciones() != null && !presencia.getSecciones().isEmpty()) {
+          for (SeccionPresenciaDto seccion : presencia.getSecciones()) {
+            items.add(toGenericEmpleadoResultItemDto(presencia, seccion));
           }
         } else {
-          items.add(toGenericEmpleadoResultItemDto(record, null));
+          items.add(toGenericEmpleadoResultItemDto(presencia, null));
         }
       }
     }
@@ -831,6 +840,86 @@ public interface PeopleAclMapper {
 
   @Mapping(target = "page", ignore = true)
   VentaCongeladaResponseDto toVentaCongeladaResponseDto(SearchVentasCongeladasResponseDto src);
+
+  // ── SOAP → REST (request): PresenciasManualWloc ──
+
+  /**
+   * Builds the REST client {@link SearchPresenciasManualWlocRequestDto} from the internal {@link PresenciaManualWlocRequestDto}. The
+   * {@code idOrigen}, {@code fechaInicio}, {@code fechaFin}, and {@code idsEmpresa} (renamed to {@code idEmpresas}) are extracted from the
+   * {@link PresenciaManualWlocFilterDto} header. The {@code idLugaresTrabajo} list is populated by extracting from each
+   * {@link PresenciaManualWlocFilterParametersDto} item in the filter's {@code item} list.
+   */
+  default SearchPresenciasManualWlocRequestDto toSearchPresenciasManualWlocRequestDto(PresenciaManualWlocRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchPresenciasManualWlocRequestDto().idOrigen("");
+    }
+    PresenciaManualWlocFilterDto filter = src.getData();
+    SearchPresenciasManualWlocRequestDto request = new SearchPresenciasManualWlocRequestDto()
+        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
+        .fechaFin(toOffsetDateTime(filter.getFechaFin()))
+        .idEmpresas(filter.getIdsEmpresa());
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      List<String> idLugaresTrabajo = filter.getItem().stream()
+          .map(PresenciaManualWlocFilterParametersDto::getIdLugarTrabajo)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idLugaresTrabajo.isEmpty()) {
+        request.idLugaresTrabajo(idLugaresTrabajo);
+      }
+    }
+    return request;
+  }
+
+  // ── REST → SOAP (response): PresenciasManualWloc ──
+
+  /**
+   * Flattens the nested REST response into the flat internal representation. Each {@link PresenciaManualWlocDto} contains a
+   * {@code secciones} list; the mapping produces one {@link PresenciaManualWlocResultItemDto} per section, combining parent-level fields
+   * with section-level fields ({@code idSeccion}, {@code minutos}). Field renames: {@code fechaPresencia → fecha}. Many internal fields
+   * (diaD, diaJ, etc.) are not present in the REST response and will be null.
+   */
+  default PresenciaManualWlocResponseDto toPresenciaManualWlocResponseDto(SearchPresenciasManualWlocResponseDto src) {
+    if (src == null) {
+      return new PresenciaManualWlocResponseDto();
+    }
+    List<PresenciaManualWlocResultItemDto> items = new ArrayList<>();
+    if (src.getData() != null) {
+      for (PresenciaManualWlocDto presencia : src.getData()) {
+        if (presencia.getSecciones() != null && !presencia.getSecciones().isEmpty()) {
+          for (SeccionPresenciaWlocDto seccion : presencia.getSecciones()) {
+            items.add(toPresenciaManualWlocResultItemDto(presencia, seccion));
+          }
+        } else {
+          items.add(toPresenciaManualWlocResultItemDto(presencia, null));
+        }
+      }
+    }
+    PresenciaManualWlocResponseDto response = new PresenciaManualWlocResponseDto();
+    response.setData(items);
+    return response;
+  }
+
+  /**
+   * Maps a single REST {@link PresenciaManualWlocDto} and its {@link SeccionPresenciaWlocDto} into a flat
+   * {@link PresenciaManualWlocResultItemDto}.
+   */
+  default PresenciaManualWlocResultItemDto toPresenciaManualWlocResultItemDto(PresenciaManualWlocDto parent,
+      SeccionPresenciaWlocDto seccion) {
+    PresenciaManualWlocResultItemDto item = new PresenciaManualWlocResultItemDto();
+    item.setFecha(parent.getFechaPresencia() != null ? parent.getFechaPresencia().toLocalDate().toString() : null);
+    item.setIdOrigen(parent.getIdOrigen());
+    item.setIdEmpresa(parent.getIdEmpresa());
+    item.setIdCadena(parent.getIdCadena());
+    item.setIdLugarTrabajo(parent.getIdLugarTrabajo());
+    item.setIdLugarTrabajoMtu(parent.getIdLugarTrabajoMtu());
+    if (seccion != null) {
+      item.setIdSeccion(seccion.getIdSeccion());
+      item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : null);
+    }
+    return item;
+  }
 
   // ── Private helpers ──
 

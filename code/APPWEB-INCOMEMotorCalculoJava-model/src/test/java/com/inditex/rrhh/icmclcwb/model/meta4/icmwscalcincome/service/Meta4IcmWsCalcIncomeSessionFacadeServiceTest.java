@@ -1288,16 +1288,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     PresenciaManualWlocResultItemDto resultItem;
 
+    @Mock
+    com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PresenciaManualWlocResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PresenciaManualWlocResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<PresenciaManualWlocResultItemDto> expected = List.of(resultItem);
-      when(soapService.getPresenciaManualWloc(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getPresenciaManualWloc"), any(), any(), any())).thenReturn(expected);
 
       List<PresenciaManualWlocResultItemDto> result = service.getPresenciaManualWloc(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclServiceAndUnwrapsData() {
+      List<PresenciaManualWlocResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getPresenciaManualWloc(request)).thenReturn(restResponse);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<PresenciaManualWlocResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getPresenciaManualWloc(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<PresenciaManualWlocResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getPresenciaManualWloc(request)).thenReturn(soapData);
+
+      service.getPresenciaManualWloc(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<PresenciaManualWlocResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPresenciaManualWloc(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 
