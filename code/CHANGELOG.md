@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.91.0] - 2026-05-14
+
+### Added
+
+- [INCOME-3180](https://jira.inditex.com/jira/browse/INCOME-3180) Dato precio/hora. Persistir durante el cálculo
+
 ## [4.90.0] - 2026-04-23
 
 ### Added
@@ -776,7 +782,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2019-10-30
 
-[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.90.0...main
+[Unreleased]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.91.0...main
+[4.91.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.90.0...4.91.0
 [4.90.0]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.2...4.90.0
 [4.89.2]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.1...4.89.2
 [4.89.1]: https://github.com/inditex/mic-incomemotorcalculojava/compare/4.89.0...4.89.1
