@@ -33,6 +33,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.Co
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
@@ -1280,16 +1281,53 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     DesplazamientoRealResultItemDto resultItem;
 
+    @Mock
+    DesplazamientoRealResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<DesplazamientoRealResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<DesplazamientoRealResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<DesplazamientoRealResultItemDto> expected = List.of(resultItem);
-      when(soapService.getDesplazReal(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getDesplazReal"), any(), any(), any())).thenReturn(expected);
 
       List<DesplazamientoRealResultItemDto> result = service.getDesplazReal(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<DesplazamientoRealResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.getDesplazReal(request)).thenReturn(restResponse);
+
+      service.getDesplazReal(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<DesplazamientoRealResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).getDesplazReal(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<DesplazamientoRealResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getDesplazReal(request)).thenReturn(soapData);
+
+      service.getDesplazReal(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      List<DesplazamientoRealResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getDesplazReal(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

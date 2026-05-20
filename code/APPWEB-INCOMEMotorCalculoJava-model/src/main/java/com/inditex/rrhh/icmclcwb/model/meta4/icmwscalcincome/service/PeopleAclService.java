@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.CoeficientesJornadaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.DesplazamientosRealesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
@@ -24,6 +25,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -112,6 +115,9 @@ public class PeopleAclService {
 
   @Qualifier("sistemasDestinoCalculoIncomeApiClient")
   private final SistemasDestinoApi sistemasDestinoApi;
+
+  @Qualifier("desplazamientosRealesCalculoIncomeApiClient")
+  private final DesplazamientosRealesApi desplazamientosRealesApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -249,6 +255,14 @@ public class PeopleAclService {
     var restRequest = peopleAclMapper.toSearchSistemasDestinoRequestDto(request);
     var response = sistemasDestinoApi.searchSistemasDestino(restRequest);
     return peopleAclMapper.toSistemaDestinoResponseDto(response);
+  }
+
+  public DesplazamientoRealResponseDto getDesplazReal(DesplazamientoRealRequestDto request) {
+    log.debug("🌐 calling People ACL REST endpoint searchDesplazamientosReales");
+
+    var restRequest = peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request);
+    var response = desplazamientosRealesApi.searchDesplazamientosReales(restRequest);
+    return peopleAclMapper.toDesplazamientoRealResponseDto(response);
   }
 
 }

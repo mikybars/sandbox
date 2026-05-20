@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.AusenciasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.CoeficientesJornadaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.ConfiguracionVentaApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.DesplazamientosRealesApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosDesplazadosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresenciaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
@@ -29,6 +30,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
@@ -63,6 +66,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -154,6 +159,9 @@ class PeopleAclServiceTest {
   SistemasDestinoApi sistemasDestinoApi;
 
   @Mock
+  DesplazamientosRealesApi desplazamientosRealesApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -169,7 +177,8 @@ class PeopleAclServiceTest {
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
         flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, presenciasManualWlocApi, empleadosDesplazadosApi,
-        empleadosPresenciaApi, presupuestosApi, ventasCongeladasApi, periodosApi, sistemasDestinoApi, peopleAclMapper);
+        empleadosPresenciaApi, presupuestosApi, ventasCongeladasApi, periodosApi, sistemasDestinoApi, desplazamientosRealesApi,
+        peopleAclMapper);
   }
 
   @Nested
@@ -1184,6 +1193,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toSistemaDestinoResponseDto(null);
+    }
+  }
+
+  @Nested
+  class GetDesplazReal {
+
+    @Captor
+    ArgumentCaptor<SearchDesplazamientosRealesRequestDto> desplazamientosRealesRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
+      SearchDesplazamientosRealesResponseDto restResponse = new SearchDesplazamientosRealesResponseDto();
+      DesplazamientoRealResponseDto expected = new DesplazamientoRealResponseDto();
+      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
+      when(desplazamientosRealesApi.searchDesplazamientosReales(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toDesplazamientoRealResponseDto(restResponse)).thenReturn(expected);
+
+      DesplazamientoRealResponseDto result = service.getDesplazReal(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
+      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
+
+      service.getDesplazReal(request);
+
+      verify(peopleAclMapper, times(1)).toSearchDesplazamientosRealesRequestDto(request);
+      verify(desplazamientosRealesApi, times(1)).searchDesplazamientosReales(desplazamientosRealesRestRequestCaptor.capture());
+      assertThat(desplazamientosRealesRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
+      SearchDesplazamientosRealesResponseDto restResponse = new SearchDesplazamientosRealesResponseDto();
+      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
+      when(desplazamientosRealesApi.searchDesplazamientosReales(restRequest)).thenReturn(restResponse);
+
+      service.getDesplazReal(request);
+
+      verify(peopleAclMapper, times(1)).toDesplazamientoRealResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
+      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
+      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
+      when(desplazamientosRealesApi.searchDesplazamientosReales(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toDesplazamientoRealResponseDto(null)).thenReturn(null);
+
+      DesplazamientoRealResponseDto result = service.getDesplazReal(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toDesplazamientoRealResponseDto(null);
     }
   }
 }

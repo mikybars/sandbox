@@ -15,7 +15,9 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazamientoInputDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
@@ -32,6 +34,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
@@ -74,6 +78,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -3295,6 +3304,252 @@ class PeopleAclMapperTest {
 
       assertThat(result).isNotNull();
       assertThat(result.getIdSistemaDestino()).isNull();
+    }
+  }
+
+  @Nested
+  class ToSearchDesplazamientosRealesRequestDto {
+
+    @Test
+    void whenRequestPopulatedExpectEmpleadosListMapped() {
+      DesplazamientoRealFilterParametersDto item1 = new DesplazamientoRealFilterParametersDto();
+      item1.setIdOrigen("ORIG-1");
+      item1.setIdEmpleado("EMP-1");
+      item1.setOrEmpleado("ORD-1");
+      item1.setIdEstructura("EST-1");
+      item1.setIdEstructuraBase("EST-BASE-1");
+      item1.setIdEstructuraPadre("EST-DEST-1");
+      item1.setIdEstructuraAmbito("EST-AMB-1");
+      item1.setFechaInicio(FECHA_INICIO);
+      item1.setFechaFin(FECHA_FIN);
+      DesplazamientoRealFilterParametersDto item2 = new DesplazamientoRealFilterParametersDto();
+      item2.setIdOrigen("ORIG-2");
+      item2.setIdEmpleado("EMP-2");
+      item2.setOrEmpleado("ORD-2");
+      item2.setIdEstructuraPadre("EST-DEST-2");
+      DesplazamientoRealFilterDto filter = new DesplazamientoRealFilterDto();
+      filter.setItem(List.of(item1, item2));
+      DesplazamientoRealRequestDto src = new DesplazamientoRealRequestDto();
+      src.setData(filter);
+
+      SearchDesplazamientosRealesRequestDto result = mapper.toSearchDesplazamientosRealesRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEmpleados()).hasSize(2);
+      EmpleadoDesplazamientoInputDto emp1 = result.getEmpleados().get(0);
+      assertThat(emp1.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(emp1.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(emp1.getIdOrdinalEmpleado()).isEqualTo("ORD-1");
+      assertThat(emp1.getIdEstructura()).isEqualTo("EST-1");
+      assertThat(emp1.getIdEstructuraBase()).isEqualTo("EST-BASE-1");
+      assertThat(emp1.getIdEstructuraDestino()).isEqualTo("EST-DEST-1");
+      assertThat(emp1.getIdEstructuraAmbito()).isEqualTo("EST-AMB-1");
+      assertThat(emp1.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(emp1.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+      EmpleadoDesplazamientoInputDto emp2 = result.getEmpleados().get(1);
+      assertThat(emp2.getIdOrigen()).isEqualTo("ORIG-2");
+      assertThat(emp2.getIdEmpleado()).isEqualTo("EMP-2");
+      assertThat(emp2.getIdOrdinalEmpleado()).isEqualTo("ORD-2");
+      assertThat(emp2.getIdEstructuraDestino()).isEqualTo("EST-DEST-2");
+    }
+
+    @Test
+    void whenRequestNullExpectEmptyEmpleadosList() {
+      SearchDesplazamientosRealesRequestDto result = mapper.toSearchDesplazamientosRealesRequestDto((DesplazamientoRealRequestDto) null);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEmpleados()).isEmpty();
+    }
+
+    @Test
+    void whenRequestDataNullExpectEmptyEmpleadosList() {
+      DesplazamientoRealRequestDto src = new DesplazamientoRealRequestDto();
+      src.setData(null);
+
+      SearchDesplazamientosRealesRequestDto result = mapper.toSearchDesplazamientosRealesRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEmpleados()).isEmpty();
+    }
+
+    @Test
+    void whenItemListNullExpectEmptyEmpleadosList() {
+      DesplazamientoRealFilterDto filter = new DesplazamientoRealFilterDto();
+      filter.setItem(null);
+      DesplazamientoRealRequestDto src = new DesplazamientoRealRequestDto();
+      src.setData(filter);
+
+      SearchDesplazamientosRealesRequestDto result = mapper.toSearchDesplazamientosRealesRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEmpleados()).isEmpty();
+    }
+
+    @Test
+    void whenItemListEmptyExpectEmptyEmpleadosList() {
+      DesplazamientoRealFilterDto filter = new DesplazamientoRealFilterDto();
+      filter.setItem(List.of());
+      DesplazamientoRealRequestDto src = new DesplazamientoRealRequestDto();
+      src.setData(filter);
+
+      SearchDesplazamientosRealesRequestDto result = mapper.toSearchDesplazamientosRealesRequestDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEmpleados()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToEmpleadoDesplazamientoInputDto {
+
+    @Test
+    void whenSourcePopulatedExpectFieldRenames() {
+      DesplazamientoRealFilterParametersDto src = new DesplazamientoRealFilterParametersDto();
+      src.setIdOrigen("ORIG-1");
+      src.setIdEmpleado("EMP-1");
+      src.setOrEmpleado("ORD-1");
+      src.setIdEstructura("EST-1");
+      src.setIdEstructuraBase("EST-BASE-1");
+      src.setIdEstructuraPadre("EST-DEST-1");
+      src.setIdEstructuraAmbito("EST-AMB-1");
+      src.setFechaInicio(FECHA_INICIO);
+      src.setFechaFin(FECHA_FIN);
+
+      EmpleadoDesplazamientoInputDto result = mapper.toEmpleadoDesplazamientoInputDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(result.getIdOrdinalEmpleado()).isEqualTo("ORD-1");
+      assertThat(result.getIdEstructura()).isEqualTo("EST-1");
+      assertThat(result.getIdEstructuraBase()).isEqualTo("EST-BASE-1");
+      assertThat(result.getIdEstructuraDestino()).isEqualTo("EST-DEST-1");
+      assertThat(result.getIdEstructuraAmbito()).isEqualTo("EST-AMB-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO_UTC);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN_UTC);
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      EmpleadoDesplazamientoInputDto result = mapper.toEmpleadoDesplazamientoInputDto(null);
+
+      assertThat(result).isNull();
+    }
+  }
+
+  @Nested
+  class ToDesplazamientoRealResultItemDto {
+
+    @Test
+    void whenSourcePopulatedExpectFieldRenames() {
+      DesplazamientoRealDto src = new DesplazamientoRealDto();
+      src.setIdOrigen("ORIG-1");
+      src.setIdEmpleado("EMP-1");
+      src.setIdOrdinalEmpleado("ORD-1");
+      src.setIdEstructura("EST-1");
+      src.setIdEstructuraBase("EST-BASE-1");
+      src.setIdEstructuraDestino("EST-DEST-1");
+      src.setIdEstructuraAmbito("EST-AMB-1");
+      src.setFechaInicioDesplazamiento(FECHA_INICIO_UTC);
+      src.setFechaFinDesplazamiento(FECHA_FIN_UTC);
+
+      DesplazamientoRealResultItemDto result = mapper.toDesplazamientoRealResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(result.getOrEmpleado()).isEqualTo("ORD-1");
+      assertThat(result.getIdEstructura()).isEqualTo("EST-1");
+      assertThat(result.getIdEstructuraBase()).isEqualTo("EST-BASE-1");
+      assertThat(result.getIdEstructuraPadre()).isEqualTo("EST-DEST-1");
+      assertThat(result.getIdEstructuraAmbito()).isEqualTo("EST-AMB-1");
+      assertThat(result.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(result.getFechaFin()).isEqualTo(FECHA_FIN);
+    }
+
+    @Test
+    void whenSourceNullExpectNull() {
+      DesplazamientoRealResultItemDto result = mapper.toDesplazamientoRealResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenDatesNullExpectDatesNull() {
+      DesplazamientoRealDto src = new DesplazamientoRealDto();
+      src.setIdOrigen("ORIG-1");
+      src.setFechaInicioDesplazamiento(null);
+      src.setFechaFinDesplazamiento(null);
+
+      DesplazamientoRealResultItemDto result = mapper.toDesplazamientoRealResultItemDto(src);
+
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isNull();
+      assertThat(result.getFechaFin()).isNull();
+    }
+  }
+
+  @Nested
+  class ToDesplazamientoRealResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectListMapped() {
+      DesplazamientoRealDto item1 = new DesplazamientoRealDto();
+      item1.setIdOrigen("ORIG-1");
+      item1.setIdEmpleado("EMP-1");
+      item1.setIdOrdinalEmpleado("ORD-1");
+      item1.setIdEstructuraDestino("EST-DEST-1");
+      item1.setFechaInicioDesplazamiento(FECHA_INICIO_UTC);
+      item1.setFechaFinDesplazamiento(FECHA_FIN_UTC);
+      DesplazamientoRealDto item2 = new DesplazamientoRealDto();
+      item2.setIdOrigen("ORIG-2");
+      item2.setIdEmpleado("EMP-2");
+      SearchDesplazamientosRealesResponseDto src = new SearchDesplazamientosRealesResponseDto();
+      src.setData(List.of(item1, item2));
+
+      DesplazamientoRealResponseDto result = mapper.toDesplazamientoRealResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(2);
+      DesplazamientoRealResultItemDto first = result.getData().get(0);
+      assertThat(first.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(first.getIdEmpleado()).isEqualTo("EMP-1");
+      assertThat(first.getOrEmpleado()).isEqualTo("ORD-1");
+      assertThat(first.getIdEstructuraPadre()).isEqualTo("EST-DEST-1");
+      assertThat(first.getFechaInicio()).isEqualTo(FECHA_INICIO);
+      assertThat(first.getFechaFin()).isEqualTo(FECHA_FIN);
+      DesplazamientoRealResultItemDto second = result.getData().get(1);
+      assertThat(second.getIdOrigen()).isEqualTo("ORIG-2");
+      assertThat(second.getIdEmpleado()).isEqualTo("EMP-2");
+    }
+
+    @Test
+    void whenResponseNullExpectNull() {
+      DesplazamientoRealResponseDto result = mapper.toDesplazamientoRealResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenResponseDataNullExpectDataNull() {
+      SearchDesplazamientosRealesResponseDto src = new SearchDesplazamientosRealesResponseDto();
+      src.setData(null);
+
+      DesplazamientoRealResponseDto result = mapper.toDesplazamientoRealResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isNull();
+    }
+
+    @Test
+    void whenResponseDataEmptyExpectDataEmpty() {
+      SearchDesplazamientosRealesResponseDto src = new SearchDesplazamientosRealesResponseDto();
+      src.setData(List.of());
+
+      DesplazamientoRealResponseDto result = mapper.toDesplazamientoRealResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
     }
   }
 }

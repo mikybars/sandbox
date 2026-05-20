@@ -1295,15 +1295,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     DesplazamientoRealResponseDto response;
 
+    @Mock
+    DesplazamientoRealResponseDto restResponse;
+
+    @Mock
+    DesplazamientoRealResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<DesplazamientoRealResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<DesplazamientoRealResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getDesplazReal(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getDesplazReal"), any(), any(), any())).thenReturn(response);
 
       DesplazamientoRealResponseDto result = service.getDesplazReal(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.getDesplazReal(request)).thenReturn(restResponse);
+
+      service.getDesplazReal(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      DesplazamientoRealResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).getDesplazReal(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getDesplazReal(request)).thenReturn(soapResponse);
+
+      service.getDesplazReal(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
+          soapSupplierCaptor.capture(), any());
+      DesplazamientoRealResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getDesplazReal(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

@@ -298,7 +298,11 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   @Override
   public DesplazamientoRealResponseDto getDesplazReal(DesplazamientoRealRequestDto request) {
-    return soapService.getDesplazReal(request);
+    return migrationDispatcher.dispatch(
+        "getDesplazReal",
+        () -> peopleAclService.getDesplazReal(request),
+        () -> soapService.getDesplazReal(request),
+        request);
   }
 
   @Override

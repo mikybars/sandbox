@@ -15,7 +15,9 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionProductoVentaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.ConfiguracionVentaOnlineDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.DesplazamientoRealDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazadoDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoDesplazamientoInputDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoOrdinalDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPresenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
@@ -33,6 +35,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfPro
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfProductoVentaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchConfVentaOnlineResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchDesplazamientosRealesResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosDesplazadosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchEmpleadosPresenciaRequestDto;
@@ -75,6 +79,11 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproducto
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterParametersDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadosdesplazamiento.dto.EmpleadosDesplazamientoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dto.EmpleadosPresenciaRequestDto;
@@ -1084,5 +1093,53 @@ public interface PeopleAclMapper {
         .filter(java.util.Objects::nonNull)
         .toList();
   }
+
+  // ── SOAP → REST (request): DesplazamientosReales ──
+
+  /**
+   * Builds the REST client {@link SearchDesplazamientosRealesRequestDto} from the internal {@link DesplazamientoRealRequestDto}. The
+   * {@code empleados} list is populated by mapping each {@link DesplazamientoRealFilterParametersDto} item from the filter's {@code item}
+   * list. Field renames: {@code orEmpleado → idOrdinalEmpleado}, {@code idEstructuraPadre → idEstructuraDestino}. Date fields are converted
+   * using {@link #toOffsetDateTime(LocalDateTime)}.
+   */
+  default SearchDesplazamientosRealesRequestDto toSearchDesplazamientosRealesRequestDto(DesplazamientoRealRequestDto src) {
+    if (src == null || src.getData() == null || src.getData().getItem() == null) {
+      return new SearchDesplazamientosRealesRequestDto().empleados(Collections.emptyList());
+    }
+    DesplazamientoRealFilterDto filter = src.getData();
+    List<EmpleadoDesplazamientoInputDto> empleados = new ArrayList<>();
+    for (DesplazamientoRealFilterParametersDto item : filter.getItem()) {
+      empleados.add(toEmpleadoDesplazamientoInputDto(item));
+    }
+    return new SearchDesplazamientosRealesRequestDto().empleados(empleados);
+  }
+
+  /**
+   * Maps a single internal {@link DesplazamientoRealFilterParametersDto} to REST client {@link EmpleadoDesplazamientoInputDto}. Renames:
+   * {@code orEmpleado → idOrdinalEmpleado}, {@code idEstructuraPadre → idEstructuraDestino}.
+   */
+  @Mapping(target = "idOrdinalEmpleado", source = "orEmpleado")
+  @Mapping(target = "idEstructuraDestino", source = "idEstructuraPadre")
+  EmpleadoDesplazamientoInputDto toEmpleadoDesplazamientoInputDto(DesplazamientoRealFilterParametersDto src);
+
+  // ── REST → SOAP (response): DesplazamientosReales ──
+
+  /**
+   * Maps REST client {@link DesplazamientoRealDto} items into internal {@link DesplazamientoRealResultItemDto} records. Renames:
+   * {@code idOrdinalEmpleado → orEmpleado}, {@code idEstructuraDestino → idEstructuraPadre},
+   * {@code fechaInicioDesplazamiento → fechaInicio}, {@code fechaFinDesplazamiento → fechaFin}. Meta4 audit fields are ignored.
+   */
+  @Mapping(target = "orEmpleado", source = "idOrdinalEmpleado")
+  @Mapping(target = "idEstructuraPadre", source = "idEstructuraDestino")
+  @Mapping(target = "fechaInicio", source = "fechaInicioDesplazamiento")
+  @Mapping(target = "fechaFin", source = "fechaFinDesplazamiento")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  DesplazamientoRealResultItemDto toDesplazamientoRealResultItemDto(DesplazamientoRealDto src);
+
+  List<DesplazamientoRealResultItemDto> toDesplazamientoRealResultItemDtoList(List<DesplazamientoRealDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  DesplazamientoRealResponseDto toDesplazamientoRealResponseDto(SearchDesplazamientosRealesResponseDto src);
 
 }
