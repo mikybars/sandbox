@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
+@AntiguoMotor
 public class DataSourcePtrConfig {
 
   @AmigaJdbcDatasource(value = "ptr", beanName = "ptrDataSource")

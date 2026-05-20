@@ -1,6 +1,6 @@
 package com.inditex.rrhh.icmclcwb.model.app.service;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import com.inditex.rrhh.icmclcwb.api.app.dto.PresenciaOrigenDto;
 import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.Catalogo
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
 import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
@@ -23,7 +24,8 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class PtrServiceImpl implements PtrService {
+@AntiguoMotor
+public class JdbcPtrService implements PtrService {
 
   @Autowired
   private PtrRepositoryCustom ptrRepositoryCustom;
@@ -47,11 +49,10 @@ public class PtrServiceImpl implements PtrService {
           .getCatalogo(CatalogoRequestDto
               .builder()
               .cclIdOrigen(tareaAmbito.getCclIdOrigen())
-              .items(Arrays
-                  .asList(CatalogoRequestItemDto
-                      .builder()
-                      .stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt())
-                      .build()))
+              .items(Collections.singletonList(CatalogoRequestItemDto
+                  .builder()
+                  .stdIdLegEnt(runTareaDto.getTarea().getStdIdLegEnt())
+                  .build()))
               .build());
       if ((response != null)
           && CollectionUtils.isNotEmpty(response.getItems())

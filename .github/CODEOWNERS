@@ -4,16 +4,16 @@
 # for review when someone opens a pull request.
 
 # Default reviewers
-* @inditex/income-poweruser @inditex/income-regularuser
+* @inditex/iopincome-poweruser @inditex/iopincome-regularuser
 
 # Project metadata reviewers
-application.yml @inditex/income-poweruser
+application.yml @inditex/iopincome-poweruser
 
 # CI/CD workflows reviewers
-.github/workflows/* @inditex/income-poweruser
+.github/workflows/* @inditex/iopincome-poweruser
 
 # Maven configuration management and quality metrics files
-code/src/main/config/*-style.xml @inditex/income-poweruser
-code/src/main/config/pom-code-convention.xml @inditex/income-poweruser
+code/src/main/config/*-style.xml @inditex/iopincome-poweruser
+code/src/main/config/pom-code-convention.xml @inditex/iopincome-poweruser
 
 # Other reviewers

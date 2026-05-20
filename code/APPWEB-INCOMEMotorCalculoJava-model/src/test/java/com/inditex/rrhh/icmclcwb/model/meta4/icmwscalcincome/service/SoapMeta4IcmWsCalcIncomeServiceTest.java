@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -7,8 +9,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
+import com.inditex.rrhh.icmclcwb.api.app.exception.IcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.agruponline.dto.AgrupOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
@@ -18,10 +24,14 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.Con
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchdiasminimos.ConfChDiasMinimosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confchtpventa.ConfChTpVentaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionorganizacion.ConfiguracionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionproductoventa.dto.ConfiguracionProductoVentaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.configuracionventaonline.dto.ConfiguracionVentaOnlineRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.confpreciohora.dto.ConfPrecioHoraRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazamientosmultiempresa.dto.DesplazamientosMultiempresaRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.desplazreal.dto.DesplazamientoRealRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleados.dto.EmpleadosRequestDto;
@@ -30,22 +40,29 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empleadospresencia.dt
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.empresas.dto.EmpresaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estadowloc.dto.EstadoWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructurascom.dto.EstructurasComRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.estructuraspol.dto.EstructurasPolRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.festivos.dto.FestivosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.liquidacion.dto.LiquidacionRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.motivosdesplazamiento.dto.MotivosDesplazamientoRequestItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.planificacion.dto.PlanificacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestosrango.dto.PresupuestosRangoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presupuestoswloc.dto.PresupuestosWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.dto.SaveResultErrorDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.save.proceso.dto.SaveProcesoDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosRequestDto;
@@ -56,112 +73,20 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.Si
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sistdestino.dto.SistemaDestinoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendas.dto.TiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiendasonline.dto.TiendaOnlineResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.tiposhora.dto.TiposHoraRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.usuario.dto.UsuarioRequestDto;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetagruponlineOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcadenaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcatalogoOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetclasesOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetcoefjornadaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchdiasminimosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfchtpventaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfpreciohoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfprodventaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetconfventaonlineOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetdesplazrealOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadosdesplazOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempleadospresenciaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetempresasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestadowlocOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetestructuraspolOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetfestivosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetmailOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetorigenesOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetperiodosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresenciamanualOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestosrangoOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetpresupuestoswlocOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetsistdestinoOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasincomeOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiendasonlineOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GettiposhoraOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListacadenasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchdiasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchdiasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchventaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfchventaRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfiguracionRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaconfpreciohoraRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListadesplazrealRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempleadosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaempresasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestadoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaestadoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaorigenesRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListaperiodosRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapoliticasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestosrangoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListapresupuestoswlocRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasincroBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListasincroRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcadenaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalcatalogoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchdiasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfchventaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalconfpreciohoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaldesplazrealBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadosdesplazBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalempleadospresenciaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalestructuraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalflagcalculaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalliquidacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalorigenBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalperiodoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalplanificadorBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresenciamanualBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestosrangoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalpresupuestoswlocBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalprocesoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsincroBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsistdestinoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalsociedadBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiendasBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcaltiposhoraBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParamcalusuarioBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrosentradaBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoBlock;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmResultadoguardadoRecord;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.LiquidacionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.PlanificacionOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SaveprocesoOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchempleadosOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SincronizacionOutput;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.VentaCongeladaRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.*;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.instancio.junit.InstancioSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -171,7 +96,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith({SpringExtension.class})
-public class Meta4IcmWsCalcIncomeServiceImplTest {
+class SoapMeta4IcmWsCalcIncomeServiceTest {
 
   @Mock
   private Meta4ClientPool meta4ClientPool;
@@ -180,10 +105,10 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 
   @InjectMocks
-  private Meta4IcmWsCalcIncomeServiceImpl meta4IcmWsCalcIncomeServiceImpl;
+  private SoapMeta4IcmWsCalcIncomeService soapMeta4IcmWsCalcIncomeService;
 
   @Test
-  public void getAgrupOnlineTest() {
+  void getAgrupOnlineTest() {
     final IcmParamcalorigenBlock origen = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaconfiguracionBlock block = new IcmListaconfiguracionBlock();
@@ -202,13 +127,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getAgrupOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getAgrupOnline(request);
     verify(this.meta4ClientPool, times(1)).getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getAgrupOnlineTestNullOutput() {
+  void getAgrupOnlineTestNullOutput() {
     final IcmParamcalorigenBlock origen = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -221,13 +146,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getAgrupOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getAgrupOnline(request);
     verify(this.meta4ClientPool, times(1)).getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getAgrupOnlineTestNullPageNullData() {
+  void getAgrupOnlineTestNullPageNullData() {
     final IcmParamcalorigenBlock origen = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaconfiguracionBlock block = new IcmListaconfiguracionBlock();
@@ -246,13 +171,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final AgrupOnlineRequestDto request = new AgrupOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getAgrupOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getAgrupOnline(request);
     verify(this.meta4ClientPool, times(1)).getagruponline(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFlagCalculaTest() {
+  void getFlagCalculaTest() {
     final IcmParamcalflagcalculaBlock entrada = new IcmParamcalflagcalculaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -270,13 +195,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFlagCalcula(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFlagCalcula(request);
     verify(this.meta4ClientPool, times(1)).getflagcalcula(any(IcmParamcalflagcalculaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFlagCalculaTestNullOutput() {
+  void getFlagCalculaTestNullOutput() {
     final IcmParamcalflagcalculaBlock entrada = new IcmParamcalflagcalculaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -288,13 +213,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFlagCalcula(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFlagCalcula(request);
     verify(this.meta4ClientPool, times(1)).getflagcalcula(any(IcmParamcalflagcalculaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFlagCalculaTestNullPageNullData() {
+  void getFlagCalculaTestNullPageNullData() {
     final IcmParamcalflagcalculaBlock entrada = new IcmParamcalflagcalculaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -312,13 +237,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FlagCalculaRequestDto request = new FlagCalculaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFlagCalcula(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFlagCalcula(request);
     verify(this.meta4ClientPool, times(1)).getflagcalcula(any(IcmParamcalflagcalculaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCoefJornadaTest() {
+  void getCoefJornadaTest() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -336,13 +261,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CoefJornadaRequestDto request = new CoefJornadaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCoefJornada(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCoefJornada(request);
     verify(this.meta4ClientPool, times(1)).getcoefjornada(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCoefJornadaTestNullOutput() {
+  void getCoefJornadaTestNullOutput() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -354,13 +279,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CoefJornadaRequestDto request = new CoefJornadaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCoefJornada(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCoefJornada(request);
     verify(this.meta4ClientPool, times(1)).getcoefjornada(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCoefJornadaTestNullPageNullData() {
+  void getCoefJornadaTestNullPageNullData() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -378,13 +303,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CoefJornadaRequestDto request = new CoefJornadaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCoefJornada(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCoefJornada(request);
     verify(this.meta4ClientPool, times(1)).getcoefjornada(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFestivos() {
+  void getFestivos() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -403,13 +328,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFestivos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFestivos(request);
     verify(this.meta4ClientPool, times(1)).getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFestivosNullOutput() {
+  void getFestivosNullOutput() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -424,13 +349,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFestivos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFestivos(request);
     verify(this.meta4ClientPool, times(1)).getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getFestivosNullPageNullData() {
+  void getFestivosNullPageNullData() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -449,13 +374,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final FestivosRequestDto request = new FestivosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getFestivos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getFestivos(request);
     verify(this.meta4ClientPool, times(1)).getfestivos(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPresenciaManual() {
+  void getPresenciaManual() {
     final IcmParamcalpresenciamanualBlock entrada = new IcmParamcalpresenciamanualBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -474,13 +399,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresenciaManual(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManual(request);
     verify(this.meta4ClientPool, times(1)).getpresenciamanual(any(IcmParamcalpresenciamanualBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPresenciaManualNullOutput() {
+  void getPresenciaManualNullOutput() {
     final IcmParamcalpresenciamanualBlock entrada = new IcmParamcalpresenciamanualBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -495,13 +420,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresenciaManual(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManual(request);
     verify(this.meta4ClientPool, times(1)).getpresenciamanual(any(IcmParamcalpresenciamanualBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPresenciaManualNullPageNullData() {
+  void getPresenciaManualNullPageNullData() {
     final IcmParamcalpresenciamanualBlock entrada = new IcmParamcalpresenciamanualBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetpresenciamanualOutput output = new GetpresenciamanualOutput();
@@ -518,13 +443,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresenciaManualRequestDto request = new PresenciaManualRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresenciaManual(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManual(request);
     verify(this.meta4ClientPool, times(1)).getpresenciamanual(any(IcmParamcalpresenciamanualBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosPresencia() {
+  void getEmpleadosPresencia() {
     final IcmParamcalempleadospresenciaBlock entrada = new IcmParamcalempleadospresenciaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -543,13 +468,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosPresencia(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosPresencia(request);
     verify(this.meta4ClientPool, times(1)).getempleadospresencia(any(IcmParamcalempleadospresenciaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosPresenciaNullOutput() {
+  void getEmpleadosPresenciaNullOutput() {
     final IcmParamcalempleadospresenciaBlock entrada = new IcmParamcalempleadospresenciaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadosBlock block = new IcmListaempleadosBlock();
@@ -564,13 +489,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosPresencia(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosPresencia(request);
     verify(this.meta4ClientPool, times(1)).getempleadospresencia(any(IcmParamcalempleadospresenciaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosPresenciaNullPageNullData() {
+  void getEmpleadosPresenciaNullPageNullData() {
     final IcmParamcalempleadospresenciaBlock entrada = new IcmParamcalempleadospresenciaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempleadospresenciaOutput output = new GetempleadospresenciaOutput();
@@ -587,13 +512,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosPresencia(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosPresencia(request);
     verify(this.meta4ClientPool, times(1)).getempleadospresencia(any(IcmParamcalempleadospresenciaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPeriodos() {
+  void getPeriodos() {
     final IcmParamcalperiodoBlock entrada = new IcmParamcalperiodoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaperiodosBlock block = new IcmListaperiodosBlock();
@@ -612,13 +537,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPeriodos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPeriodos(request);
     verify(this.meta4ClientPool, times(1)).getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPeriodosNullOutput() {
+  void getPeriodosNullOutput() {
     final IcmParamcalperiodoBlock entrada = new IcmParamcalperiodoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -631,13 +556,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPeriodos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPeriodos(request);
     verify(this.meta4ClientPool, times(1)).getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPeriodosNullPageNullData() {
+  void getPeriodosNullPageNullData() {
     final IcmParamcalperiodoBlock entrada = new IcmParamcalperiodoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaperiodosBlock block = new IcmListaperiodosBlock();
@@ -656,13 +581,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PeriodosRequestDto request = new PeriodosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPeriodos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPeriodos(request);
     verify(this.meta4ClientPool, times(1)).getperiodos(any(IcmParamcalperiodoBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void searchTiendas() {
+  void searchTiendas() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -681,13 +606,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
     request.setData(new SearchTiendasFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchTiendas(request);
     verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void searchTiendasNullOutput() {
+  void searchTiendasNullOutput() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -700,13 +625,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
     request.setData(new SearchTiendasFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchTiendas(request);
     verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void searchTiendasNullPageNullData() {
+  void searchTiendasNullPageNullData() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final SearchtiendasOutput output = new SearchtiendasOutput();
@@ -723,13 +648,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchTiendasRequestDto request = new SearchTiendasRequestDto();
     request.setData(new SearchTiendasFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.searchTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchTiendas(request);
     verify(this.meta4ClientPool, times(1)).searchtiendas(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getTiendas() {
+  void getTiendas() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
@@ -747,13 +672,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final TiendasRequestDto request = new TiendasRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.getTiendas(request);
     verify(this.meta4ClientPool, times(1)).gettiendasincome(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void getTiendasNullOutput() {
+  void getTiendasNullOutput() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -765,13 +690,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final TiendasRequestDto request = new TiendasRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.getTiendas(request);
     verify(this.meta4ClientPool, times(1)).gettiendasincome(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void getTiendasNullPageNullData() {
+  void getTiendasNullPageNullData() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GettiendasincomeOutput output = new GettiendasincomeOutput();
@@ -787,13 +712,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final TiendasRequestDto request = new TiendasRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendas(request);
+    this.soapMeta4IcmWsCalcIncomeService.getTiendas(request);
     verify(this.meta4ClientPool, times(1)).gettiendasincome(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void searchEmpleados() {
+  void searchEmpleados() {
     final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final IcmListaempleadoBlock block = new IcmListaempleadoBlock();
@@ -813,14 +738,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
     request.setData(new SearchEmpleadosFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchEmpleados(request);
 
     verify(this.meta4ClientPool, times(1)).searchempleados(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadoBlock.class));
   }
 
   @Test
-  public void searchEmpleadosNullOutput() {
+  void searchEmpleadosNullOutput() {
     final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     entrada.getIcmParamcalempleadoRecordSet().add(new IcmParamcalempleadoRecord());
@@ -834,14 +759,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
     request.setData(new SearchEmpleadosFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchEmpleados(request);
 
     verify(this.meta4ClientPool, times(1)).searchempleados(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadoBlock.class));
   }
 
   @Test
-  public void searchEmpleadosNullPageNullData() {
+  void searchEmpleadosNullPageNullData() {
     final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final SearchempleadosOutput output = new SearchempleadosOutput();
@@ -859,68 +784,103 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SearchEmpleadosRequestDto request = new SearchEmpleadosRequestDto();
     request.setData(new SearchEmpleadosFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.searchEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.searchEmpleados(request);
 
     verify(this.meta4ClientPool, times(1)).searchempleados(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadoBlock.class));
   }
 
-  // @Test
-  // public void getEstructurasCom() {
-  // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-  // final IcmListaestructuraBlock block = new IcmListaestructuraBlock();
-  // final GetestructurascomOutput output = new GetestructurascomOutput();
-  // block.getIcmListaestructuraRecordSet().add(new IcmListaestructuraRecord());
-  // output.setReturn(NumberUtils.DOUBLE_ZERO);
-  // output.setIcmListaestructura(block);
-  //
-  // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-  // .thenReturn(entrada);
-  // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-  //
-  // final EstructurasComRequestDto request = new EstructurasComRequestDto();
-  // request.setData(new EstructurasComFilterDto());
-  // request.setPage(new PageDto());
-  // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-  // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-  // }
-  //
-  //
-  // @Test
-  // public void getEstructurasComNullOutput() {
-  // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-  //
-  // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-  // .thenReturn(entrada);
-  // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
-  //
-  // final EstructurasComRequestDto request = new EstructurasComRequestDto();
-  // request.setData(new EstructurasComFilterDto());
-  // request.setPage(new PageDto());
-  // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-  // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-  // }
-  //
-  // @Test
-  // public void getEstructurasComNullData() {
-  // final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
-  // final GetestructurascomOutput output = new GetestructurascomOutput();
-  // output.setReturn(NumberUtils.DOUBLE_ZERO);
-  // output.setIcmListaestructura(null);
-  //
-  // when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
-  // .thenReturn(entrada);
-  // when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
-  //
-  // final EstructurasComRequestDto request = new EstructurasComRequestDto();
-  // request.setData(new EstructurasComFilterDto());
-  // request.setPage(new PageDto());
-  // this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasCom(request);
-  // verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
-  // }
+  @Test
+  void getEstructurasCom() {
+    final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    final IcmListaestructuraBlock block = new IcmListaestructuraBlock();
+    final GetestructurascomOutput output = new GetestructurascomOutput();
+    block.getIcmListaestructuraRecordSet().add(new IcmListaestructuraRecord());
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmListaestructura(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+
+    final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    request.setData(new EstructurasComFilterDto());
+    request.setPage(new PageDto());
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasCom(request);
+    verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+  }
 
   @Test
-  public void getEstructurasPol() {
+  void getEstructurasComNullOutput() {
+    final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(null);
+
+    final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    request.setData(new EstructurasComFilterDto());
+    request.setPage(new PageDto());
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasCom(request);
+    verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+  }
+
+  @Test
+  void getEstructurasComNullData() {
+    final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    final GetestructurascomOutput output = new GetestructurascomOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmListaestructura(null);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+
+    final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    request.setData(new EstructurasComFilterDto());
+    request.setPage(new PageDto());
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasCom(request);
+    verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+  }
+
+  @Test
+  void getEstructurasComReturnNotZero() {
+    final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    final GetestructurascomOutput output = new GetestructurascomOutput();
+    output.setReturn(1.0d);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+
+    final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    request.setData(new EstructurasComFilterDto());
+    request.setPage(new PageDto());
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasCom(request);
+    verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+  }
+
+  @Test
+  void getEstructurasComEmptyRecordSet() {
+    final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
+    final IcmListaestructuraBlock block = new IcmListaestructuraBlock();
+    final GetestructurascomOutput output = new GetestructurascomOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmListaestructura(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(EstructurasComFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getestructurascom(any(IcmParamcalestructuraBlock.class))).thenReturn(output);
+
+    final EstructurasComRequestDto request = new EstructurasComRequestDto();
+    request.setData(new EstructurasComFilterDto());
+    request.setPage(new PageDto());
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasCom(request);
+    verify(this.meta4ClientPool, times(1)).getestructurascom(any(IcmParamcalestructuraBlock.class));
+  }
+
+  @Test
+  void getEstructurasPol() {
     final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
     final IcmListapoliticasBlock block = new IcmListapoliticasBlock();
     final GetestructuraspolOutput output = new GetestructuraspolOutput();
@@ -934,12 +894,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstructurasPolRequestDto request = new EstructurasPolRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasPol(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasPol(request);
     verify(this.meta4ClientPool, times(1)).getestructuraspol(any(IcmParamcalestructuraBlock.class));
   }
 
   @Test
-  public void getEstructurasPolNullOutput() {
+  void getEstructurasPolNullOutput() {
     final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalestructuraBlock(any(GenericFilterDto.class))).thenReturn(entrada);
@@ -948,12 +908,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstructurasPolRequestDto request = new EstructurasPolRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasPol(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasPol(request);
     verify(this.meta4ClientPool, times(1)).getestructuraspol(any(IcmParamcalestructuraBlock.class));
   }
 
   @Test
-  public void getEstructurasPolNullData() {
+  void getEstructurasPolNullData() {
     final IcmParamcalestructuraBlock entrada = new IcmParamcalestructuraBlock();
     final GetestructuraspolOutput output = new GetestructuraspolOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
@@ -965,12 +925,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstructurasPolRequestDto request = new EstructurasPolRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto());
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstructurasPol(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstructurasPol(request);
     verify(this.meta4ClientPool, times(1)).getestructuraspol(any(IcmParamcalestructuraBlock.class));
   }
 
   @Test
-  public void getEmpleados() {
+  void getEmpleados() {
     final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempleadosOutput output = new GetempleadosOutput();
@@ -988,13 +948,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosRequestDto request = new EmpleadosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleados(request);
     verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosNullOutput() {
+  void getEmpleadosNullOutput() {
     final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1006,13 +966,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosRequestDto request = new EmpleadosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleados(request);
     verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosNullPageNullData() {
+  void getEmpleadosNullPageNullData() {
     final IcmParamcalempleadosBlock entrada = new IcmParamcalempleadosBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempleadosOutput output = new GetempleadosOutput();
@@ -1028,13 +988,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosRequestDto request = new EmpleadosRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleados(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleados(request);
     verify(this.meta4ClientPool, times(1)).getempleados(any(IcmParamcalempleadosBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfVentaOnline() {
+  void getConfVentaOnline() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetconfventaonlineOutput output = new GetconfventaonlineOutput();
@@ -1052,13 +1012,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfVentaOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfVentaOnline(request);
     verify(this.meta4ClientPool, times(1)).getconfventaonline(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfVentaOnlineNullOutput() {
+  void getConfVentaOnlineNullOutput() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1070,13 +1030,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfVentaOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfVentaOnline(request);
     verify(this.meta4ClientPool, times(1)).getconfventaonline(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfVentaOnlineNullPageNullData() {
+  void getConfVentaOnlineNullPageNullData() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetconfventaonlineOutput output = new GetconfventaonlineOutput();
@@ -1092,77 +1052,91 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfVentaOnline(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfVentaOnline(request);
     verify(this.meta4ClientPool, times(1)).getconfventaonline(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getTiendasOnline() {
+  void whenGettiendasonlineReturnsOutputWithDataExpectMappedResponse() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-    final GettiendasonlineOutput output = new GettiendasonlineOutput();
     final IcmListatiendasBlock block = new IcmListatiendasBlock();
     block.getIcmListatiendasRecordSet().add(new IcmListatiendasRecord());
+    final GettiendasonlineOutput output = new GettiendasonlineOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
     output.setIcmParametrospaginacion(paginacion);
     output.setIcmListatiendas(block);
-
+    final PageDto mappedPage = new PageDto(1, 100);
+    final List<TiendaOnlineResultItemDto> mappedItems = List.of(new TiendaOnlineResultItemDto());
     when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class))).thenReturn(output);
-
+    when(this.icmWsCalcIncomeMapper.asPageDto(paginacion)).thenReturn(mappedPage);
+    when(this.icmWsCalcIncomeMapper.asTiendaOnlineResultItemDto(block.getIcmListatiendasRecordSet()))
+        .thenReturn(mappedItems);
     final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendasOnline(request);
+
+    final TiendaOnlineResponseDto result = this.soapMeta4IcmWsCalcIncomeService.getTiendasOnline(request);
+
+    assertThat(result).isNotNull();
+    assertThat(result.getPage()).isSameAs(mappedPage);
+    assertThat(result.getData()).isSameAs(mappedItems);
     verify(this.meta4ClientPool, times(1)).gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void getTiendasOnlineNullOutput() {
+  void whenGettiendasonlineReturnsNullExpectEmptyResponse() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
-
     when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class))).thenReturn(null);
-
     final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendasOnline(request);
+
+    final TiendaOnlineResponseDto result = this.soapMeta4IcmWsCalcIncomeService.getTiendasOnline(request);
+
+    assertThat(result).isNotNull();
+    assertThat(result.getPage()).isNull();
+    assertThat(result.getData()).isNull();
     verify(this.meta4ClientPool, times(1)).gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void getTiendasOnlineNullPageNullData() {
+  void whenGettiendasonlineReturnsOutputWithNullPageAndNullListExpectEmptyResponse() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GettiendasonlineOutput output = new GettiendasonlineOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
     output.setIcmParametrospaginacion(null);
     output.setIcmListatiendas(null);
-
     when(this.icmWsCalcIncomeMapper.asIcmParametrosentradaBlock(any(GenericFilterDto.class))).thenReturn(entrada);
     when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
     when(this.meta4ClientPool.gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class))).thenReturn(output);
-
     final TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiendasOnline(request);
+
+    final TiendaOnlineResponseDto result = this.soapMeta4IcmWsCalcIncomeService.getTiendasOnline(request);
+
+    assertThat(result).isNotNull();
+    assertThat(result.getPage()).isNull();
+    assertThat(result.getData()).isNull();
     verify(this.meta4ClientPool, times(1)).gettiendasonline(any(IcmParametrospaginacionBlock.class),
         any(IcmParametrosentradaBlock.class));
   }
 
   @Test
-  public void getConfiguracionProductoVenta() {
+  void getConfiguracionProductoVenta() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetconfprodventaOutput output = new GetconfprodventaOutput();
@@ -1180,13 +1154,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfiguracionProductoVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfiguracionProductoVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfprodventa(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfiguracionProductoVentaNullOutput() {
+  void getConfiguracionProductoVentaNullOutput() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1198,13 +1172,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfiguracionProductoVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfiguracionProductoVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfprodventa(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfiguracionProductoVentaNullPageNullData() {
+  void getConfiguracionProductoVentaNullPageNullData() {
     final IcmParametrosentradaBlock entrada = new IcmParametrosentradaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetconfprodventaOutput output = new GetconfprodventaOutput();
@@ -1220,13 +1194,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfiguracionProductoVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfiguracionProductoVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfprodventa(any(IcmParametrosentradaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCadena() {
+  void getCadena() {
     final IcmParamcalcadenaBlock entrada = new IcmParamcalcadenaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetcadenaOutput output = new GetcadenaOutput();
@@ -1245,13 +1219,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCadena(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCadena(request);
     verify(this.meta4ClientPool, times(1)).getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCadenaNullOutput() {
+  void getCadenaNullOutput() {
     final IcmParamcalcadenaBlock entrada = new IcmParamcalcadenaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1264,13 +1238,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCadena(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCadena(request);
     verify(this.meta4ClientPool, times(1)).getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getCadenaNullPageNullData() {
+  void getCadenaNullPageNullData() {
     final IcmParamcalcadenaBlock entrada = new IcmParamcalcadenaBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetcadenaOutput output = new GetcadenaOutput();
@@ -1287,13 +1261,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final CadenaRequestDto request = new CadenaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getCadena(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCadena(request);
     verify(this.meta4ClientPool, times(1)).getcadena(any(IcmParamcalcadenaBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpresa() {
+  void getEmpresa() {
     final IcmParamcalorigenBlock entrada = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempresasOutput output = new GetempresasOutput();
@@ -1312,13 +1286,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpresa(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpresa(request);
     verify(this.meta4ClientPool, times(1)).getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpresaNullOutput() {
+  void getEmpresaNullOutput() {
     final IcmParamcalorigenBlock entrada = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1331,13 +1305,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpresa(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpresa(request);
     verify(this.meta4ClientPool, times(1)).getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpresaNullPageNullData() {
+  void getEmpresaNullPageNullData() {
     final IcmParamcalorigenBlock entrada = new IcmParamcalorigenBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempresasOutput output = new GetempresasOutput();
@@ -1354,13 +1328,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpresaRequestDto request = new EmpresaRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpresa(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpresa(request);
     verify(this.meta4ClientPool, times(1)).getempresas(any(IcmParamcalorigenBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getOrigen() {
+  void getOrigen() {
     final IcmParamcalsociedadBlock entrada = new IcmParamcalsociedadBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetorigenesOutput output = new GetorigenesOutput();
@@ -1379,13 +1353,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getOrigen(request);
+    this.soapMeta4IcmWsCalcIncomeService.getOrigen(request);
     verify(this.meta4ClientPool, times(1)).getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getOrigenNullOutput() {
+  void getOrigenNullOutput() {
     final IcmParamcalsociedadBlock entrada = new IcmParamcalsociedadBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1398,13 +1372,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getOrigen(request);
+    this.soapMeta4IcmWsCalcIncomeService.getOrigen(request);
     verify(this.meta4ClientPool, times(1)).getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getOrigenNullPageNullData() {
+  void getOrigenNullPageNullData() {
     final IcmParamcalsociedadBlock entrada = new IcmParamcalsociedadBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetorigenesOutput output = new GetorigenesOutput();
@@ -1421,13 +1395,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final OrigenRequestDto request = new OrigenRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getOrigen(request);
+    this.soapMeta4IcmWsCalcIncomeService.getOrigen(request);
     verify(this.meta4ClientPool, times(1)).getorigenes(any(IcmParamcalsociedadBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEmpleadosDesplazamiento() {
+  void getEmpleadosDesplazamiento() {
     final IcmParamcalempleadosdesplazBlock entrada = new IcmParamcalempleadosdesplazBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempleadosdesplazOutput output = new GetempleadosdesplazOutput();
@@ -1446,13 +1420,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosDesplazamiento(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosDesplazamiento(request);
     verify(this.meta4ClientPool, times(1)).getempleadosdesplaz(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadosdesplazBlock.class));
   }
 
   @Test
-  public void getEmpleadosDesplazamientoNullOutput() {
+  void getEmpleadosDesplazamientoNullOutput() {
     final IcmParamcalempleadosdesplazBlock entrada = new IcmParamcalempleadosdesplazBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1465,13 +1439,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosDesplazamiento(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosDesplazamiento(request);
     verify(this.meta4ClientPool, times(1)).getempleadosdesplaz(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadosdesplazBlock.class));
   }
 
   @Test
-  public void getEmpleadosDesplazamientoNullPageNullData() {
+  void getEmpleadosDesplazamientoNullPageNullData() {
     final IcmParamcalempleadosdesplazBlock entrada = new IcmParamcalempleadosdesplazBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetempleadosdesplazOutput output = new GetempleadosdesplazOutput();
@@ -1488,13 +1462,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
     request.setData(new GenericFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEmpleadosDesplazamiento(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEmpleadosDesplazamiento(request);
     verify(this.meta4ClientPool, times(1)).getempleadosdesplaz(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalempleadosdesplazBlock.class));
   }
 
   @Test
-  public void saveProceso() {
+  void saveProceso() {
     final IcmParamcalprocesoBlock entrada = new IcmParamcalprocesoBlock();
     final SaveprocesoOutput output = new SaveprocesoOutput();
     final SaveResultDto result = new SaveResultDto();
@@ -1508,12 +1482,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.meta4ClientPool.saveproceso(any(IcmParamcalprocesoBlock.class))).thenReturn(output);
 
     final SaveProcesoDto dto = mock(SaveProcesoDto.class);
-    this.meta4IcmWsCalcIncomeServiceImpl.saveProceso(dto);
+    this.soapMeta4IcmWsCalcIncomeService.saveProceso(dto);
     verify(this.meta4ClientPool, times(1)).saveproceso(any(IcmParamcalprocesoBlock.class));
   }
 
   @Test
-  public void getConfChallengeDiasMinimos() {
+  void getConfChallengeDiasMinimos() {
     final IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock();
     final GetconfchdiasminimosOutput output = new GetconfchdiasminimosOutput();
     final IcmListaconfchdiasBlock block = new IcmListaconfchdiasBlock();
@@ -1528,12 +1502,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
     request.setData(new ConfChDiasMinimosFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeDiasMinimos(request);
     verify(this.meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
   }
 
   @Test
-  public void getConfChallengeDiasMinimosNullOutput() {
+  void getConfChallengeDiasMinimosNullOutput() {
     final IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalconfchdiasBlock(any(ConfChDiasMinimosFilterDto.class)))
@@ -1543,12 +1517,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
     request.setData(new ConfChDiasMinimosFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeDiasMinimos(request);
     verify(this.meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
   }
 
   @Test
-  public void getConfChallengeDiasMinimosNullPageNullData() {
+  void getConfChallengeDiasMinimosNullPageNullData() {
     final IcmParamcalconfchdiasBlock entrada = new IcmParamcalconfchdiasBlock();
     final GetconfchdiasminimosOutput output = new GetconfchdiasminimosOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
@@ -1561,12 +1535,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChDiasMinimosRequestDto request = new ConfChDiasMinimosRequestDto();
     request.setData(new ConfChDiasMinimosFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeDiasMinimos(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeDiasMinimos(request);
     verify(this.meta4ClientPool, times(1)).getconfchdiasminimos(any(IcmParamcalconfchdiasBlock.class));
   }
 
   @Test
-  public void getPresupuestosWloc() {
+  void getPresupuestosWloc() {
     final IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetpresupuestoswlocOutput output = new GetpresupuestoswlocOutput();
@@ -1585,13 +1559,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
     request.setData(new PresupuestosWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosWloc(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPresupuestosWlocNullOutput() {
+  void getPresupuestosWlocNullOutput() {
     final IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1604,13 +1578,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
     request.setData(new PresupuestosWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosWloc(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getPresupuestosWlocNullPageNullData() {
+  void getPresupuestosWlocNullPageNullData() {
     final IcmParamcalpresupuestoswlocBlock entrada = new IcmParamcalpresupuestoswlocBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetpresupuestoswlocOutput output = new GetpresupuestoswlocOutput();
@@ -1627,13 +1601,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
     request.setData(new PresupuestosWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosWloc(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestoswloc(any(IcmParamcalpresupuestoswlocBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getConfPrecioHora() {
+  void getConfPrecioHora() {
     final IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock();
     final GetconfpreciohoraOutput output = new GetconfpreciohoraOutput();
     final IcmListaconfpreciohoraBlock block = new IcmListaconfpreciohoraBlock();
@@ -1648,12 +1622,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
     request.setData(new ConfPrecioHoraFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfPrecioHora(request);
     verify(this.meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
   }
 
   @Test
-  public void getConfPrecioHoraNullOutput() {
+  void getConfPrecioHoraNullOutput() {
     final IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalconfpreciohoraBlock(any(ConfPrecioHoraFilterDto.class)))
@@ -1663,12 +1637,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
     request.setData(new ConfPrecioHoraFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfPrecioHora(request);
     verify(this.meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
   }
 
   @Test
-  public void getConfPrecioHoraNullPageNullData() {
+  void getConfPrecioHoraNullPageNullData() {
     final IcmParamcalconfpreciohoraBlock entrada = new IcmParamcalconfpreciohoraBlock();
     final GetconfpreciohoraOutput output = new GetconfpreciohoraOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
@@ -1681,12 +1655,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfPrecioHoraRequestDto request = new ConfPrecioHoraRequestDto();
     request.setData(new ConfPrecioHoraFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfPrecioHora(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfPrecioHora(request);
     verify(this.meta4ClientPool, times(1)).getconfpreciohora(any(IcmParamcalconfpreciohoraBlock.class));
   }
 
   @Test
-  public void getConfChallengeTpVenta() {
+  void getConfChallengeTpVenta() {
     final IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock();
     final GetconfchtpventaOutput output = new GetconfchtpventaOutput();
     final IcmListaconfchventaBlock block = new IcmListaconfchventaBlock();
@@ -1701,12 +1675,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
     request.setData(new ConfChTpVentaFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeTpVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
   }
 
   @Test
-  public void getConfChallengeTpVentaNullOutput() {
+  void getConfChallengeTpVentaNullOutput() {
     final IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalconfchventaBlock(any(ConfChTpVentaFilterDto.class)))
@@ -1716,12 +1690,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
     request.setData(new ConfChTpVentaFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeTpVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
   }
 
   @Test
-  public void getConfChallengeTpVentaNullPageNullData() {
+  void getConfChallengeTpVentaNullPageNullData() {
     final IcmParamcalconfchventaBlock entrada = new IcmParamcalconfchventaBlock();
     final GetconfchtpventaOutput output = new GetconfchtpventaOutput();
     output.setReturn(NumberUtils.DOUBLE_ZERO);
@@ -1734,14 +1708,14 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final ConfChTpVentaRequestDto request = new ConfChTpVentaRequestDto();
     request.setData(new ConfChTpVentaFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getConfChallengeTpVenta(request);
+    this.soapMeta4IcmWsCalcIncomeService.getConfChallengeTpVenta(request);
     verify(this.meta4ClientPool, times(1)).getconfchtpventa(any(IcmParamcalconfchventaBlock.class));
   }
 
   /**/
 
   @Test
-  public void getPresupuestosRango() {
+  void getPresupuestosRango() {
     final IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetpresupuestosrangoOutput output = new GetpresupuestosrangoOutput();
@@ -1760,13 +1734,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
     request.setData(new PresupuestosRangoFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosRango(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalpresupuestosrangoBlock.class));
   }
 
   @Test
-  public void getPresupuestosRangoNullOutput() {
+  void getPresupuestosRangoNullOutput() {
     final IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -1779,13 +1753,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
     request.setData(new PresupuestosRangoFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosRango(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalpresupuestosrangoBlock.class));
   }
 
   @Test
-  public void getPresupuestosRangoNullPageNullData() {
+  void getPresupuestosRangoNullPageNullData() {
     final IcmParamcalpresupuestosrangoBlock entrada = new IcmParamcalpresupuestosrangoBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetpresupuestosrangoOutput output = new GetpresupuestosrangoOutput();
@@ -1802,13 +1776,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PresupuestosRangoRequestDto request = new PresupuestosRangoRequestDto();
     request.setData(new PresupuestosRangoFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getPresupuestosRango(request);
+    this.soapMeta4IcmWsCalcIncomeService.getPresupuestosRango(request);
     verify(this.meta4ClientPool, times(1)).getpresupuestosrango(any(IcmParametrospaginacionBlock.class),
         any(IcmParamcalpresupuestosrangoBlock.class));
   }
 
   @Test
-  public void getDesplazReal() {
+  void getDesplazReal() {
     final IcmParamcaldesplazrealBlock entrada = new IcmParamcaldesplazrealBlock();
     final GetdesplazrealOutput output = new GetdesplazrealOutput();
     final IcmListadesplazrealBlock block = new IcmListadesplazrealBlock();
@@ -1823,12 +1797,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
     request.setData(new DesplazamientoRealFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getDesplazReal(request);
+    this.soapMeta4IcmWsCalcIncomeService.getDesplazReal(request);
     verify(this.meta4ClientPool, times(1)).getdesplazreal(any(IcmParamcaldesplazrealBlock.class));
   }
 
   @Test
-  public void getDesplazRealNullOutput() {
+  void getDesplazRealNullOutput() {
     final IcmParamcaldesplazrealBlock entrada = new IcmParamcaldesplazrealBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcaldesplazrealBlock(any(DesplazamientoRealFilterDto.class)))
@@ -1838,12 +1812,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
     request.setData(new DesplazamientoRealFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getDesplazReal(request);
+    this.soapMeta4IcmWsCalcIncomeService.getDesplazReal(request);
     verify(this.meta4ClientPool, times(1)).getdesplazreal(any(IcmParamcaldesplazrealBlock.class));
   }
 
   @Test
-  public void sincronizacion() {
+  void sincronizacion() {
     final IcmParamcalsincroBlock entrada = new IcmParamcalsincroBlock();
     final SincronizacionOutput output = new SincronizacionOutput();
     final IcmListasincroBlock block = new IcmListasincroBlock();
@@ -1858,12 +1832,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SincronizacionRequestDto request = new SincronizacionRequestDto();
     request.setData(new SincronizacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.sincronizacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.sincronizacion(request);
     verify(this.meta4ClientPool, times(1)).sincronizacion(any(IcmParamcalsincroBlock.class));
   }
 
   @Test
-  public void sincronizacionNullOutput() {
+  void sincronizacionNullOutput() {
     final IcmParamcalsincroBlock entrada = new IcmParamcalsincroBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalsincroBlock(any(SincronizacionFilterDto.class)))
@@ -1873,12 +1847,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final SincronizacionRequestDto request = new SincronizacionRequestDto();
     request.setData(new SincronizacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.sincronizacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.sincronizacion(request);
     verify(this.meta4ClientPool, times(1)).sincronizacion(any(IcmParamcalsincroBlock.class));
   }
 
   @Test
-  public void sistemaDestino() {
+  void sistemaDestino() {
 
     final IcmParamcalsistdestinoBlock entrada = new IcmParamcalsistdestinoBlock();
     final GetsistdestinoOutput output = new GetsistdestinoOutput();
@@ -1887,7 +1861,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(entrada);
     when(this.meta4ClientPool.getsisdestino(entrada)).thenReturn(output);
     final SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().build();
-    this.meta4IcmWsCalcIncomeServiceImpl.getSistemaDestino(request);
+    this.soapMeta4IcmWsCalcIncomeService.getSistemaDestino(request);
 
     verify(this.meta4ClientPool, times(1)).getsisdestino(entrada);
     verify(this.icmWsCalcIncomeMapper, times(1)).asSistemaDestinoResponseDto(output);
@@ -1896,7 +1870,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  public void catalogo() {
+  void catalogo() {
 
     final IcmParamcalcatalogoBlock entrada = new IcmParamcalcatalogoBlock();
     final GetcatalogoOutput output = new GetcatalogoOutput();
@@ -1904,7 +1878,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(entrada);
     when(this.meta4ClientPool.getcatalogo(entrada)).thenReturn(output);
     final CatalogoRequestDto request = CatalogoRequestDto.builder().build();
-    this.meta4IcmWsCalcIncomeServiceImpl.getCatalogo(request);
+    this.soapMeta4IcmWsCalcIncomeService.getCatalogo(request);
 
     verify(this.meta4ClientPool, times(1)).getcatalogo(entrada);
     verify(this.icmWsCalcIncomeMapper, times(1)).asCatalogoResponseDto(output);
@@ -1913,7 +1887,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  public void tiposhoras() {
+  void tiposhoras() {
 
     final IcmParamcaltiposhoraBlock entrada = new IcmParamcaltiposhoraBlock();
     final GettiposhoraOutput output = new GettiposhoraOutput();
@@ -1921,7 +1895,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(entrada);
     when(this.meta4ClientPool.gettiposhora(entrada)).thenReturn(output);
     final TiposHoraRequestDto request = TiposHoraRequestDto.builder().build();
-    this.meta4IcmWsCalcIncomeServiceImpl.getTiposHora(request);
+    this.soapMeta4IcmWsCalcIncomeService.getTiposHora(request);
 
     verify(this.meta4ClientPool, times(1)).gettiposhora(entrada);
     verify(this.icmWsCalcIncomeMapper, times(1)).asTiposHoraResponseDto(output);
@@ -1930,7 +1904,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  public void mail() {
+  void mail() {
 
     final IcmParamcalusuarioBlock entrada = new IcmParamcalusuarioBlock();
     final GetmailOutput output = new GetmailOutput();
@@ -1938,7 +1912,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
         .thenReturn(entrada);
     when(this.meta4ClientPool.getmail(entrada)).thenReturn(output);
     final UsuarioRequestDto request = UsuarioRequestDto.builder().build();
-    this.meta4IcmWsCalcIncomeServiceImpl.getMail(request);
+    this.soapMeta4IcmWsCalcIncomeService.getMail(request);
 
     verify(this.meta4ClientPool, times(1)).getmail(entrada);
     verify(this.icmWsCalcIncomeMapper, times(1)).asUsuarioResponseDto(output);
@@ -1954,7 +1928,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     when(this.meta4ClientPool.getclases(any(IcmParamcalorigenBlock.class))).thenReturn(output);
     when(this.icmWsCalcIncomeMapper.asClaseResponseDto(any(GetclasesOutput.class))).thenReturn(response);
 
-    final ClaseResponseDto result = this.meta4IcmWsCalcIncomeServiceImpl.getClases(request);
+    final ClaseResponseDto result = this.soapMeta4IcmWsCalcIncomeService.getClases(request);
 
     verify(this.icmWsCalcIncomeMapper, times(1)).asIcmParamcalorigenBlock(request);
     verify(this.icmWsCalcIncomeMapper, times(1)).asClaseResponseDto(output);
@@ -1963,7 +1937,7 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
   }
 
   @Test
-  public void liquidacion() {
+  void liquidacion() {
     final IcmParamcalliquidacionBlock entrada = new IcmParamcalliquidacionBlock();
     final LiquidacionOutput output = new LiquidacionOutput();
     final IcmResultadoguardadoBlock block = new IcmResultadoguardadoBlock();
@@ -1978,12 +1952,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final LiquidacionRequestDto request = new LiquidacionRequestDto();
     request.setData(new LiquidacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.liquidacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.liquidacion(request);
     verify(this.meta4ClientPool, times(1)).liquidacion(any(IcmParamcalliquidacionBlock.class));
   }
 
   @Test
-  public void liquidacionNullOutput() {
+  void liquidacionNullOutput() {
     final IcmParamcalliquidacionBlock entrada = new IcmParamcalliquidacionBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalliquidacionBlock(any(LiquidacionFilterDto.class)))
@@ -1993,12 +1967,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final LiquidacionRequestDto request = new LiquidacionRequestDto();
     request.setData(new LiquidacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.liquidacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.liquidacion(request);
     verify(this.meta4ClientPool, times(1)).liquidacion(any(IcmParamcalliquidacionBlock.class));
   }
 
   @Test
-  public void planificacion() {
+  void planificacion() {
     final IcmParamcalplanificadorBlock entrada = new IcmParamcalplanificadorBlock();
     final PlanificacionOutput output = new PlanificacionOutput();
     final IcmResultadoguardadoBlock block = new IcmResultadoguardadoBlock();
@@ -2013,12 +1987,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PlanificacionRequestDto request = new PlanificacionRequestDto();
     request.setData(new PlanificacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.planificacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.planificacion(request);
     verify(this.meta4ClientPool, times(1)).planificacion(any(IcmParamcalplanificadorBlock.class));
   }
 
   @Test
-  public void planificacionNullOutput() {
+  void planificacionNullOutput() {
     final IcmParamcalplanificadorBlock entrada = new IcmParamcalplanificadorBlock();
 
     when(this.icmWsCalcIncomeMapper.asIcmParamcalplanificadorBlock(any(PlanificacionFilterDto.class)))
@@ -2028,12 +2002,12 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final PlanificacionRequestDto request = new PlanificacionRequestDto();
     request.setData(new PlanificacionFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.planificacion(request);
+    this.soapMeta4IcmWsCalcIncomeService.planificacion(request);
     verify(this.meta4ClientPool, times(1)).planificacion(any(IcmParamcalplanificadorBlock.class));
   }
 
   @Test
-  public void getEstadoWloc() {
+  void getEstadoWloc() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetestadowlocOutput output = new GetestadowlocOutput();
@@ -2052,13 +2026,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstadoWloc(request);
     verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEstadoWlocNullOutput() {
+  void getEstadoWlocNullOutput() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
 
@@ -2071,13 +2045,13 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstadoWloc(request);
     verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
   }
 
   @Test
-  public void getEstadoWlocNullPageNullData() {
+  void getEstadoWlocNullPageNullData() {
     final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
     final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
     final GetestadowlocOutput output = new GetestadowlocOutput();
@@ -2094,9 +2068,459 @@ public class Meta4IcmWsCalcIncomeServiceImplTest {
     final EstadoWlocRequestDto request = new EstadoWlocRequestDto();
     request.setData(new EstadoWlocFilterDto());
     request.setPage(new PageDto(1, 100));
-    this.meta4IcmWsCalcIncomeServiceImpl.getEstadoWloc(request);
+    this.soapMeta4IcmWsCalcIncomeService.getEstadoWloc(request);
     verify(this.meta4ClientPool, times(1)).getEstadoWloc(any(IcmParamcaltiendasBlock.class),
         any(IcmParametrospaginacionBlock.class));
+  }
+
+  @Test
+  void getAusencias() {
+    final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetausenciasOutput output = new GetausenciasOutput();
+    final IcmListaausenciasBlock block = new IcmListaausenciasBlock();
+    block.getIcmListaausenciasRecordSet().add(new IcmListaausenciasRecord());
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(paginacion);
+    output.setIcmListaausencias(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(GenericFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class))).thenReturn(output);
+
+    final AusenciasRequestDto request = new AusenciasRequestDto();
+    request.setData(new GenericFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getAusencias(request);
+    verify(this.meta4ClientPool, times(1)).getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class));
+  }
+
+  @Test
+  void getAusenciasNullOutput() {
+    final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(GenericFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class))).thenReturn(null);
+
+    final AusenciasRequestDto request = new AusenciasRequestDto();
+    request.setData(new GenericFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getAusencias(request);
+    verify(this.meta4ClientPool, times(1)).getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class));
+  }
+
+  @Test
+  void getAusenciasNullPageNullData() {
+    final IcmParamcalempleadoBlock entrada = new IcmParamcalempleadoBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetausenciasOutput output = new GetausenciasOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(null);
+    output.setIcmListaausencias(null);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalempleadoBlock(any(GenericFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class))).thenReturn(output);
+
+    final AusenciasRequestDto request = new AusenciasRequestDto();
+    request.setData(new GenericFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getAusencias(request);
+    verify(this.meta4ClientPool, times(1)).getausencias(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalempleadoBlock.class));
+  }
+
+  @Test
+  void getConfiguracion() {
+    final IcmParamcalconforigenBlock entrada = new IcmParamcalconforigenBlock();
+    final GetconfiguracionOutput output = new GetconfiguracionOutput();
+    final ConfiguracionesResponseDto expected = new ConfiguracionesResponseDto();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamconfBlock(any(ConfiguracionesRequestDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getconfiguracion(any(IcmParamcalconforigenBlock.class))).thenReturn(output);
+    when(this.icmWsCalcIncomeMapper.asConfiguracionesResponseDto(any(GetconfiguracionOutput.class), any()))
+        .thenReturn(expected);
+
+    final ConfiguracionesRequestDto request = ConfiguracionesRequestDto.builder().idOrigen("ORIG").build();
+    final ConfiguracionesResponseDto result = this.soapMeta4IcmWsCalcIncomeService.getConfiguracion(request);
+    assertThat(result).isSameAs(expected);
+    verify(this.meta4ClientPool, times(1)).getconfiguracion(any(IcmParamcalconforigenBlock.class));
+  }
+
+  @Test
+  void saveProcesoResultadoError() {
+    final IcmParamcalprocesoBlock entrada = new IcmParamcalprocesoBlock();
+    final SaveprocesoOutput output = new SaveprocesoOutput();
+    final SaveResultDto result = new SaveResultDto();
+    result.setResultadoError(Boolean.TRUE);
+    result.setResultadoOk(Boolean.TRUE);
+    final SaveResultErrorDto errorItem = new SaveResultErrorDto();
+    errorItem.setLiteral("error literal");
+    errorItem.setRegistroAfectado("REC1");
+    result.setData(List.of(errorItem));
+    output.setIcmResultadoguardado(new IcmResultadoguardadoBlock());
+    when(this.icmWsCalcIncomeMapper.asSaveResultDto(any(IcmResultadoguardadoBlock.class))).thenReturn(result);
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalprocesoBlock(any(SaveProcesoDto.class))).thenReturn(entrada);
+    when(this.meta4ClientPool.saveproceso(any(IcmParamcalprocesoBlock.class))).thenReturn(output);
+
+    final SaveProcesoDto dto = mock(SaveProcesoDto.class);
+    final ThrowingCallable call = () -> this.soapMeta4IcmWsCalcIncomeService.saveProceso(dto);
+
+    assertThatThrownBy(call).isInstanceOf(IcmclcwbException.class)
+        .hasMessageContaining("Error al guardar el proceso");
+  }
+
+  @Test
+  void saveProcesoResultadoOkFalse() {
+    final IcmParamcalprocesoBlock entrada = new IcmParamcalprocesoBlock();
+    final SaveprocesoOutput output = new SaveprocesoOutput();
+    final SaveResultDto result = new SaveResultDto();
+    result.setResultadoError(Boolean.FALSE);
+    result.setResultadoOk(Boolean.FALSE);
+    result.setData(List.of());
+    output.setIcmResultadoguardado(new IcmResultadoguardadoBlock());
+    when(this.icmWsCalcIncomeMapper.asSaveResultDto(any(IcmResultadoguardadoBlock.class))).thenReturn(result);
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalprocesoBlock(any(SaveProcesoDto.class))).thenReturn(entrada);
+    when(this.meta4ClientPool.saveproceso(any(IcmParamcalprocesoBlock.class))).thenReturn(output);
+
+    final SaveProcesoDto dto = mock(SaveProcesoDto.class);
+    final ThrowingCallable call = () -> this.soapMeta4IcmWsCalcIncomeService.saveProceso(dto);
+
+    assertThatThrownBy(call).isInstanceOf(IcmclcwbException.class)
+        .hasMessageContaining("Error al guardar el proceso");
+  }
+
+  @Test
+  void getVentaCongelada() {
+    final IcmParamcalventacongeladaBlock entrada = new IcmParamcalventacongeladaBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetventacongeladaOutput output = new GetventacongeladaOutput();
+    final IcmListaventacongeladaBlock block = new IcmListaventacongeladaBlock();
+    block.getIcmListaventacongeladaRecordSet().add(new IcmListaventacongeladaRecord());
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(paginacion);
+    output.setIcmListaventacongelada(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalventacongeladaBlock(any(VentaCongeladaFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class))).thenReturn(output);
+
+    final VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+    request.setData(new VentaCongeladaFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaCongelada(request);
+    verify(this.meta4ClientPool, times(1)).getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class));
+  }
+
+  @Test
+  void getVentaCongeladaNullOutput() {
+    final IcmParamcalventacongeladaBlock entrada = new IcmParamcalventacongeladaBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalventacongeladaBlock(any(VentaCongeladaFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class))).thenReturn(null);
+
+    final VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+    request.setData(new VentaCongeladaFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaCongelada(request);
+    verify(this.meta4ClientPool, times(1)).getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class));
+  }
+
+  @Test
+  void getVentaCongeladaNullPageNullData() {
+    final IcmParamcalventacongeladaBlock entrada = new IcmParamcalventacongeladaBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetventacongeladaOutput output = new GetventacongeladaOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(null);
+    output.setIcmListaventacongelada(null);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalventacongeladaBlock(any(VentaCongeladaFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class))).thenReturn(output);
+
+    final VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
+    request.setData(new VentaCongeladaFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaCongelada(request);
+    verify(this.meta4ClientPool, times(1)).getventacongelada(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcalventacongeladaBlock.class));
+  }
+
+  @Test
+  void getDesplazamientosMultiempresa() {
+    final IcmParamcalmultiempresaRecord multiEmpresaParamRecord = new IcmParamcalmultiempresaRecord();
+    final GetdesplazmultiempresaOutput output = new GetdesplazmultiempresaOutput();
+    final IcmListamultiempresaBlock block = new IcmListamultiempresaBlock();
+    block.getIcmListamultiempresaRecordSet().add(new IcmListamultiempresaRecord());
+    output.setIcmListamultiempresa(block);
+
+    when(this.icmWsCalcIncomeMapper
+        .asIcmParamcalmultiempresaRecord(any(DesplazamientosMultiempresaRequestItemDto.class)))
+            .thenReturn(multiEmpresaParamRecord);
+    when(this.meta4ClientPool.getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class)))
+        .thenReturn(output);
+
+    final DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
+    request.setData(mock(DesplazamientosMultiempresaRequestItemDto.class));
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getDesplazamientosMultiempresa(request);
+    verify(this.meta4ClientPool, times(1)).getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class));
+  }
+
+  @Test
+  void getDesplazamientosMultiempresaNullList() {
+    final IcmParamcalmultiempresaRecord icmParamCalMultiEmpresaRecord = new IcmParamcalmultiempresaRecord();
+    final GetdesplazmultiempresaOutput output = new GetdesplazmultiempresaOutput();
+    output.setIcmListamultiempresa(null);
+
+    when(this.icmWsCalcIncomeMapper
+        .asIcmParamcalmultiempresaRecord(any(DesplazamientosMultiempresaRequestItemDto.class)))
+            .thenReturn(icmParamCalMultiEmpresaRecord);
+    when(this.meta4ClientPool.getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class)))
+        .thenReturn(output);
+
+    final DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
+    request.setData(mock(DesplazamientosMultiempresaRequestItemDto.class));
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getDesplazamientosMultiempresa(request);
+    verify(this.meta4ClientPool, times(1)).getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class));
+  }
+
+  @Test
+  void getDesplazamientosMultiempresaEmptyRecordSet() {
+    final IcmParamcalmultiempresaRecord icmParamCalMultiEmpresaRecord = new IcmParamcalmultiempresaRecord();
+    final GetdesplazmultiempresaOutput output = new GetdesplazmultiempresaOutput();
+    output.setIcmListamultiempresa(new IcmListamultiempresaBlock());
+
+    when(this.icmWsCalcIncomeMapper
+        .asIcmParamcalmultiempresaRecord(any(DesplazamientosMultiempresaRequestItemDto.class)))
+            .thenReturn(icmParamCalMultiEmpresaRecord);
+    when(this.meta4ClientPool.getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class)))
+        .thenReturn(output);
+
+    final DesplazamientosMultiempresaRequestDto request = new DesplazamientosMultiempresaRequestDto();
+    request.setData(mock(DesplazamientosMultiempresaRequestItemDto.class));
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getDesplazamientosMultiempresa(request);
+    verify(this.meta4ClientPool, times(1)).getDesplazamientoMultiempresa(any(IcmParamcalmultiempresaBlock.class));
+  }
+
+  @Test
+  void getPresenciaManualWloc() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetpresenciamanualwlocOutput output = new GetpresenciamanualwlocOutput();
+    final IcmListapresenciamanwlocBlock block = new IcmListapresenciamanwlocBlock();
+    block.getIcmListapresenciamanwlocRecordSet().add(new IcmListapresenciamanwlocRecord());
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(paginacion);
+    output.setIcmListapresenciamanwloc(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(PresenciaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+    request.setData(new PresenciaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getPresenciaManualWlocNullOutput() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(PresenciaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(null);
+
+    final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+    request.setData(new PresenciaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getPresenciaManualWlocReturnNotZero() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetpresenciamanualwlocOutput output = new GetpresenciamanualwlocOutput();
+    output.setReturn(1.0d);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(PresenciaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+    request.setData(new PresenciaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getPresenciaManualWlocNullPageNullData() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetpresenciamanualwlocOutput output = new GetpresenciamanualwlocOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(null);
+    output.setIcmListapresenciamanwloc(null);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(PresenciaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
+    request.setData(new PresenciaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getPresenciaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getpresenciamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getVentaManualWloc() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetventamanualwlocOutput output = new GetventamanualwlocOutput();
+    final IcmListaventamanwlocBlock block = new IcmListaventamanwlocBlock();
+    block.getIcmListaventamanwlocRecordSet().add(new IcmListaventamanwlocRecord());
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(paginacion);
+    output.setIcmListaventamanwloc(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(VentaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto();
+    request.setData(new VentaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getVentaManualWlocNullOutput() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(VentaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(null);
+
+    final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto();
+    request.setData(new VentaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getVentaManualWlocReturnNotZero() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetventamanualwlocOutput output = new GetventamanualwlocOutput();
+    output.setReturn(1.0d);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(VentaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto();
+    request.setData(new VentaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getVentaManualWlocNullPageNullData() {
+    final IcmParamcaltiendasBlock entrada = new IcmParamcaltiendasBlock();
+    final IcmParametrospaginacionBlock paginacion = new IcmParametrospaginacionBlock();
+    final GetventamanualwlocOutput output = new GetventamanualwlocOutput();
+    output.setReturn(NumberUtils.DOUBLE_ZERO);
+    output.setIcmParametrospaginacion(null);
+    output.setIcmListaventamanwloc(null);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcaltiendasBlock(any(VentaManualWlocFilterDto.class)))
+        .thenReturn(entrada);
+    when(this.icmWsCalcIncomeMapper.asIcmParametrospaginacionBlock(any(PageDto.class))).thenReturn(paginacion);
+    when(this.meta4ClientPool.getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class))).thenReturn(output);
+
+    final VentaManualWlocRequestDto request = new VentaManualWlocRequestDto();
+    request.setData(new VentaManualWlocFilterDto());
+    request.setPage(new PageDto(1, 100));
+    this.soapMeta4IcmWsCalcIncomeService.getVentaManualWloc(request);
+    verify(this.meta4ClientPool, times(1)).getventamanualwloc(any(IcmParametrospaginacionBlock.class),
+        any(IcmParamcaltiendasBlock.class));
+  }
+
+  @Test
+  void getMotivosDesplazamiento() {
+    final IcmParamcalmotivosBlock entrada = new IcmParamcalmotivosBlock();
+    final GetmotivosdesplazamientoOutput output = new GetmotivosdesplazamientoOutput();
+    final IcmListamotivosBlock block = new IcmListamotivosBlock();
+    block.getIcmListamotivosRecordSet().add(new IcmListamotivosRecord());
+    output.setIcmListamotivos(block);
+
+    when(this.icmWsCalcIncomeMapper.asIcmParamcalmotivosBlock(any(MotivosDesplazamientoRequestDto.class)))
+        .thenReturn(entrada);
+    when(this.meta4ClientPool.getmotivosdesplazamiento(any(IcmParamcalmotivosBlock.class)))
+        .thenReturn(output);
+
+    final MotivosDesplazamientoRequestDto request = MotivosDesplazamientoRequestDto.builder()
+        .items(List.of(mock(MotivosDesplazamientoRequestItemDto.class)))
+        .build();
+    this.soapMeta4IcmWsCalcIncomeService.getMotivosDesplazamiento(request);
+    verify(this.meta4ClientPool, times(1)).getmotivosdesplazamiento(any(IcmParamcalmotivosBlock.class));
   }
 
 }

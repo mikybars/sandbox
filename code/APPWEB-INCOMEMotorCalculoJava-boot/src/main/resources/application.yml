@@ -2,12 +2,16 @@ spring:
   main:
     allow-bean-definition-overriding: false
   application:
-    name: ICMCLCWB
+    name: ICMCLCCORE
   profiles:
     active: standalone
+    include: datasource, datasource-legacy
 app:
   id: ${spring.application.name}
   version: '@project.version@'
+  motor-calculo:
+    nuevo:
+      enabled: false
   envars:
     migracion:
       comision:
@@ -28,14 +32,20 @@ app:
         connect-timeout: 10s
         read-timeout: 10s
         type: 2
+      icmwscalcincome:
+        migration-mode: shadow
 amiga:
   common:
     soap:
       client:
         login:
           url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/Login
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
         meta4:
           url: https://des-openshift.axdesocp1.central.inditex.grp/icmclcws/services/ICM_WS_CALC_INCOME
+          auth-method: OAUTH2-CLIENT-CREDENTIALS
+          client-name: client-income
     rest:
       client:
         health:
@@ -113,6 +123,15 @@ amiga:
       meta4-executor:
         name: async-meta4-executor
         name-format: async-meta4-executor-%d
+        executor-type: THREAD_POOL
+        core-pool-size: 10
+        maximum-pool-size: 100
+        queue-size: 2000
+        allow-core-thread-timeout: true
+        keep-alive-time: 60s
+      meta4-migration-executor:
+        name: async-meta4-migration-executor
+        name-format: async-meta4-migration-executor-%d
         executor-type: THREAD_POOL
         core-pool-size: 10
         maximum-pool-size: 100
@@ -212,31 +231,6 @@ amiga:
     metrics:
       type: influx
 
-  data:
-#    stream:
-#      output-bindings: commision-calculation-out-0,commision-calculation-v2-out-0
-#      bindings:
-#        commision-calculation-out-0:
-#          content-type: application/*+avro
-#          registered-schema: classpath:/commisioncalculation/v1/commision_calculation_envelope.avsc
-#          header-injection:
-#            headers:
-#              itx_envelope_id: pipe-event:1.0
-#        commision-calculation-v2-out-0:
-#          destination: sscc.rhcompensa.commision-calculation.v2
-#          content-type: application/*+avro
-#          registered-schema: classpath:/commisioncalculation/v2/commision_calculation_envelope_v2.avsc
-#          header-injection:
-#            headers:
-#              itx_envelope_id: pipe-event:1.0
-#          generate-union-helpers: true
-#      schema:
-#        avro:
-#          schema-imports:
-#            - classpath*:/pipe/**/imports/*.avsc
-#            - classpath*:/commisioncalculation/**/imports/*.avsc
-#          schema-sources:
-#            - classpath*:/commisioncalculation/**/*.avsc
   service:
     session:
       session-type: REMOTE
@@ -250,7 +244,7 @@ amiga:
         source-type: HEIMDAL
         heimdal:
           enabled: true
-          application-id: INCOME
+          application-id: IOPINCOME
 
     rest-swagger:
       ui:

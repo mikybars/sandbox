@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculo">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculoAjuste">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO_AJUSTE WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersona">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaDesplazamiento">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaPresencia">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalLocalizacionPersonaPresenciaManual">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaAmbitoGlobalPersona">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaLocalizacionPersonaPresencia">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaLocalizacionPersonaVenta">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_LOCALIZACION_PERSONA_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaPersonaCoeficiente">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_COEFICIENTE WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaEstructura">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaEstructuraPolitica">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_ESTRUCTURA_POLITICA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaPersonaHistorico">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_PERSONA_HISTORICO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaPersonaExterna">
+    <![CDATA[SELECT CCL_ID_PERSON FROM TAREA_PERSONA_EXTERNA WHERE ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.personas.tareaCalculoAjusteComision">
+    <![CDATA[SELECT CCL_ID_PERSON, STD_OR_HR_PERIOD FROM TAREA_CALCULO_AJUSTE_COMISION WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea GROUP BY CCL_ID_PERSON, STD_OR_HR_PERIOD]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.tareaFase">
+    <![CDATA[SELECT ID_TAREA_FASE FROM TAREA_FASE WHERE ID_TAREA=:idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.tareaFaseAccion">
+    <![CDATA[SELECT DISTINCT TFA.ID_TAREA_FASE FROM TAREA_FASE_ACCION TFA JOIN TAREA_FASE TF ON TFA.ID_TAREA_FASE=TF.ID_TAREA_FASE WHERE TF.ID_TAREA=:idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.tareaFaseAccionDato">
+    <![CDATA[SELECT DISTINCT TFAD.ID_TAREA_FASE_ACCION FROM TAREA_FASE_ACCION_DATO TFAD JOIN TAREA_FASE_ACCION TFA ON TFAD.ID_TAREA_FASE_ACCION=TFA.ID_TAREA_FASE_ACCION JOIN TAREA_FASE TF ON TFA.ID_TAREA_FASE=TF.ID_TAREA_FASE WHERE TF.ID_TAREA=:idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.tareaFaseAccionVentaIntegra">
+    <![CDATA[SELECT DISTINCT TFAVI.ID_TAREA_FASE_ACCION FROM TAREA_FASE_ACCION_VENTA_INTEGRA TFAVI JOIN TAREA_FASE_ACCION TFA ON TFAVI.ID_TAREA_FASE_ACCION=TFA.ID_TAREA_FASE_ACCION JOIN TAREA_FASE TF ON TFA.ID_TAREA_FASE=TF.ID_TAREA_FASE WHERE TF.ID_TAREA=:idTarea]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.trabajo">
+    <![CDATA[UPDATE TRABAJO SET ID_SIMULACION = NULL WHERE ID_TRABAJO = :idTrabajo]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculo">
+    <![CDATA[DELETE FROM TAREA_CALCULO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculoAjuste">
+    <![CDATA[DELETE FROM TAREA_CALCULO_AJUSTE WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionCadena">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_CADENA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracion">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_CONFIGURACION WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionPresencia">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_PRESENCIA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionVenta">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_VENTA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacion">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersona">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaPersonaExterna">
+    <![CDATA[DELETE FROM TAREA_PERSONA_EXTERNA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLozalizacionPersonaDesplazamiento">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_DESPLAZAMIENTO WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersonaPresencia">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalLocalizacionPersonaPresenciaManual">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_LOCALIZACION_PERSONA_PRESENCIA_MANUAL WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalPersona">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_PERSONA WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAmbitoGlobalFecha">
+    <![CDATA[DELETE FROM TAREA_AMBITO_GLOBAL_FECHA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionAbierta">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_ABIERTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionCalcular">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_CALCULAR WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionComisionHistorico">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_COMISION_HISTORICO WHERE ID_TAREA = :idTarea AND STD_ID_WORK_LOCAT = :stdIdWorkLocat]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionFestivo">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_FESTIVO WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionHistorico">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_HISTORICO WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionOnlineHistorico">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_ONLINE_HISTORICO WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPersonaPresencia">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPersonaVenta">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PERSONA_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresencia">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESENCIA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionVenta">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_VENTA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaPersonaCoeficiente">
+    <![CDATA[DELETE FROM TAREA_PERSONA_COEFICIENTE WHERE ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructura">
+    <![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructuraDesplazamiento">
+    <![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_DESPLAZAMIENTO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaEstructuraPolitica">
+    <![CDATA[DELETE FROM TAREA_PERSONA_ESTRUCTURA_POLITICA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaPersonaHistorico">
+    <![CDATA[DELETE FROM TAREA_PERSONA_HISTORICO WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaTipoHora">
+    <![CDATA[DELETE FROM TAREA_TIPO_HORA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracion">
+    <![CDATA[DELETE FROM TAREA_CONFIGURACION WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuesto">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoVenta">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO_VENTA WHERE ID_TAREA = :idTarea AND CCL_ID_COD_ORIGEN = :cclIdCodOrigen]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracionChallengeDiasMinimos">
+    <![CDATA[DELETE FROM TAREA_CONFIGURACION_CHALLENGE_DIAS_MINIMOS WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaConfiguracionPrecioHora">
+    <![CDATA[DELETE FROM TAREA_CONFIGURACION_PRECIO_HORA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaAgrupacionConfiguracionChallengeTipoVenta">
+    <![CDATA[DELETE FROM TAREA_AGRUPACION_CONFIGURACION_CHALLENGE_TIPO_VENTA WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaLocalizacionPresupuestoTareaPersonaEstructura">
+    <![CDATA[DELETE FROM TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+             AND ID_TAREA_PERSONA_ESTRUCTURA IN (
+             SELECT TLPTPE.ID_TAREA_PERSONA_ESTRUCTURA
+             FROM TAREA_LOCALIZACION_PRESUPUESTO_TAREA_PERSONA_ESTRUCTURA TLPTPE
+             INNER JOIN TAREA_PERSONA_ESTRUCTURA TPE
+             ON TLPTPE.FECHA_INICIO_PERIODO = TPE.FECHA_INICIO_PERIODO
+             AND TLPTPE.ID_TAREA_PERSONA_ESTRUCTURA = TPE.ID_TAREA_PERSONA_ESTRUCTURA
+             WHERE TPE.FECHA_INICIO_PERIODO = :fechaInicioPeriodo
+             AND TPE.ID_TAREA = :idTarea
+             GROUP BY TLPTPE.ID_TAREA_PERSONA_ESTRUCTURA
+        )]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaCalculoAjusteComision">
+    <![CDATA[DELETE FROM TAREA_CALCULO_AJUSTE_COMISION WHERE FECHA_INICIO_PERIODO = :fechaInicioPeriodo AND ID_TAREA = :idTarea AND CCL_ID_PERSON = :cclIdPerson AND STD_OR_HR_PERIOD = :stdOrHrPeriod]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaFase">
+    <![CDATA[DELETE FROM TAREA_FASE WHERE ID_TAREA = :idTarea]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaFaseAccion">
+    <![CDATA[DELETE FROM TAREA_FASE_ACCION WHERE ID_TAREA_FASE = :idTareaFase]]>
+  </entry>
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaFaseAccionDato">
+    <![CDATA[DELETE FROM TAREA_FASE_ACCION_DATO WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion]]> <!--TODO MIRAR -->
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacion">
+    <![CDATA[
+      DELETE FROM SIMULACION S WHERE S.ID_SIMULACION = :idSimulacion AND S.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacionCondiciones">
+    <![CDATA[
+      DELETE FROM SIMULACION_CONDICION SC WHERE SC.ID_SIMULACION = :idSimulacion AND SC.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.simulacionLocalizacionBandaExcepcion">
+    <![CDATA[
+      DELETE FROM SIMULACION_LOCALIZACION_BANDA_EXCEPCION SC WHERE SC.ID_SIMULACION = :idSimulacion AND SC.ID_SIMULACION NOT IN (SELECT ID_SIMULACION FROM TRABAJO TR WHERE TR.ID_SIMULACION = :idSimulacion)
+   ]]>
+  </entry>
+
+  <entry key="LimpiezaRepositoryCustom.limpieza.tareaFaseAccionVentaIntegra">
+    <![CDATA[DELETE FROM TAREA_FASE_ACCION_VENTA_INTEGRA WHERE ID_TAREA_FASE_ACCION = :idTareaFaseAccion]]>
+  </entry>
+
+</properties>

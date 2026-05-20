@@ -66,7 +66,7 @@ public class Meta4ClientReallocator implements Reallocator<Meta4ClientPoolable> 
           // CxfUtils.cloneHeaders(loginService, icmWsCalcIncomeService);
           cookies = CxfUtils.getCookies(loginService);
           CxfUtils.setCookies(icmWsCalcIncomeService, cookies);
-          icmWsCalcIncomeService.retrieveM4Session(id);
+          loginService.retrieveM4Session(id);
         } else {
           LOG.error("Error :: Meta4ClientReallocator :: allocate({}) :: No ha sido posible hacer login",
               effectiveCount);

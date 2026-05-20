@@ -1,11 +1,21 @@
 platformgroups:
-  - sscc
+  - iop
 tenants:
   - global
 environments:
-  des:
-    - des
   pre:
     - pre
   pro:
     - pro
+
+# platformgroups:
+#   - sscc
+# tenants:
+#   - global
+# environments:
+#   des:
+#     - des
+#   pre:
+#     - pre
+#   pro:
+#     - pro

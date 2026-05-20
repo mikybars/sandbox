@@ -1,0 +1,31 @@
+# ============================================================================
+# Pull upstream scheduler
+# ============================================================================
+# Calls the reusable "Pull upstream changes" workflow for each branch pair.
+#
+# 👇 To add or remove branches, just edit the matrix below.
+# ============================================================================
+
+name: 'Pull upstream scheduler'
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - upstream_repo: inditex/mic-incomemotorcalculojava
+            upstream_branch: develop
+            target_branch: develop
+    uses: ./.github/workflows/pull-upstream-changes.yml
+    with:
+      upstream_repo: ${{ matrix.upstream_repo }}
+      upstream_branch: ${{ matrix.upstream_branch }}
+      target_branch: ${{ matrix.target_branch }}
+    secrets:
+      UPSTREAM_TOKEN: ${{ secrets.UPSTREAM_TOKEN }}

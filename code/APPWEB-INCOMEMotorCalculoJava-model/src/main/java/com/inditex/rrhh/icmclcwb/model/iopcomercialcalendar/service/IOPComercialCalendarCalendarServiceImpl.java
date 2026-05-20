@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.model.iopcomercialcalendar.service;
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import static com.inditex.rrhh.icmclcwb.model.app.util.CacheNamesUtils.HORARIO_COMERCIAL_FESTIVOS;
 
 import java.util.Map;

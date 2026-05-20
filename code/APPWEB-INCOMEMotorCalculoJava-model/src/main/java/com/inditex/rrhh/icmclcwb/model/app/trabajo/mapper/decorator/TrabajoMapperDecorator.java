@@ -12,6 +12,7 @@ import com.inditex.rrhh.icmclcwb.model.app.trabajo.mapper.TrabajoMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.entity.EstadoTrabajo;
 import com.inditex.rrhh.icmclcwb.model.primary.trabajo.entity.Trabajo;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class TrabajoMapperDecorator extends TrabajoMapper {
@@ -28,11 +29,13 @@ public abstract class TrabajoMapperDecorator extends TrabajoMapper {
   @Autowired
   private TrabajoAmbitoPersonaMapper trabajoAmbitoPersonaMapper;
 
+  @Autowired
+  private EntityManager entityManager;
+
   @Override
   public Trabajo trabajoDtoToTrabajo(final TrabajoDTO src) {
     final Trabajo result = this.delegate.trabajoDtoToTrabajo(src);
-    result.setEstado(new EstadoTrabajo());
-    result.getEstado().setId(src.getEstadoTrabajo().getId());
+    result.setEstado(this.entityManager.getReference(EstadoTrabajo.class, src.getEstadoTrabajo().getId()));
     return result;
   }
 

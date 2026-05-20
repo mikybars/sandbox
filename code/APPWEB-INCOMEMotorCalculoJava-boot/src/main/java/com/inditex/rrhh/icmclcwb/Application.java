@@ -6,8 +6,10 @@ import com.inditex.amigafwk.amiga.service.AmigaBootServiceApplication;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @AmigaBootServiceApplication
+@ConfigurationPropertiesScan
 public class Application {
 
   @PostConstruct

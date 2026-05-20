@@ -101,7 +101,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.S
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchempleados.dto.SearchEmpleadosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.searchtiendas.dto.SearchTiendasResponseDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.sincronizacion.dto.SincronizacionResultItemDto;
@@ -199,23 +198,21 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.Sincronizaci
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeService {
+@RequiredArgsConstructor
+public class SoapMeta4IcmWsCalcIncomeService {
 
-  @Autowired
   @Qualifier("meta4ClientPool")
-  private Meta4ClientPool meta4ClientPool;
+  private final Meta4ClientPool meta4ClientPool;
 
-  @Autowired
-  private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
+  private final IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
 
-  @Override
   public AgrupOnlineResponseDto getAgrupOnline(final AgrupOnlineRequestDto request) {
     final AgrupOnlineResponseDto result = new AgrupOnlineResponseDto();
     final IcmParamcalorigenBlock param1 = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request.getData());
@@ -241,7 +238,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public FlagCalculaResponseDto getFlagCalcula(final FlagCalculaRequestDto request) {
     final FlagCalculaResponseDto result = new FlagCalculaResponseDto();
     final IcmParamcalflagcalculaBlock param1 = this.icmWsCalcIncomeMapper
@@ -273,7 +269,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public CoefJornadaResponseDto getCoefJornada(final CoefJornadaRequestDto request) {
     final CoefJornadaResponseDto result = new CoefJornadaResponseDto();
     final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
@@ -300,7 +295,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public FestivosResponseDto getFestivos(final FestivosRequestDto request) {
     final FestivosResponseDto result = new FestivosResponseDto();
     final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
@@ -326,7 +320,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PresenciaManualResponseDto getPresenciaManual(final PresenciaManualRequestDto request) {
     final PresenciaManualResponseDto result = new PresenciaManualResponseDto();
     final IcmParamcalpresenciamanualBlock param1 = this.icmWsCalcIncomeMapper
@@ -354,7 +347,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EmpleadosPresenciaResponseDto getEmpleadosPresencia(final EmpleadosPresenciaRequestDto request) {
     final EmpleadosPresenciaResponseDto result = new EmpleadosPresenciaResponseDto();
     final IcmParamcalempleadospresenciaBlock param1 = this.icmWsCalcIncomeMapper
@@ -382,7 +374,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PeriodosResponseDto getPeriodos(final PeriodosRequestDto request) {
     final PeriodosResponseDto result = new PeriodosResponseDto();
     final IcmParamcalperiodoBlock param1 = this.icmWsCalcIncomeMapper.asIcmParamcalperiodoBlock(request.getData());
@@ -407,7 +398,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public SearchTiendasResponseDto searchTiendas(final SearchTiendasRequestDto request) {
     final SearchTiendasResponseDto result = new SearchTiendasResponseDto();
     final IcmParametrospaginacionBlock param2 = this.icmWsCalcIncomeMapper
@@ -434,7 +424,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public TiendasResponseDto getTiendas(final TiendasRequestDto request) {
     final TiendasResponseDto result = new TiendasResponseDto();
     final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
@@ -458,7 +447,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public SearchEmpleadosResponseDto searchEmpleados(final SearchEmpleadosRequestDto request) {
     final SearchEmpleadosResponseDto result = new SearchEmpleadosResponseDto();
     final IcmParamcalempleadoBlock param1 = this.icmWsCalcIncomeMapper
@@ -487,7 +475,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   }
 
-  @Override
   public EstructurasComResponseDto getEstructurasCom(final EstructurasComRequestDto request) {
     final EstructurasComResponseDto result = new EstructurasComResponseDto();
     final IcmParamcalestructuraBlock param1 = this.icmWsCalcIncomeMapper
@@ -506,7 +493,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EstructurasPolResponseDto getEstructurasPol(final EstructurasPolRequestDto request) {
     final EstructurasPolResponseDto result = new EstructurasPolResponseDto();
     final IcmParamcalestructuraBlock param1 = this.icmWsCalcIncomeMapper
@@ -525,7 +511,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EmpleadosResponseDto getEmpleados(final EmpleadosRequestDto request) {
     final EmpleadosResponseDto result = new EmpleadosResponseDto();
     final IcmParamcalempleadosBlock param1 = this.icmWsCalcIncomeMapper
@@ -553,7 +538,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public ConfiguracionVentaOnlineResponseDto getConfVentaOnline(final ConfiguracionVentaOnlineRequestDto request) {
     final ConfiguracionVentaOnlineResponseDto result = new ConfiguracionVentaOnlineResponseDto();
     final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
@@ -578,7 +562,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public TiendaOnlineResponseDto getTiendasOnline(final TiendaOnlineRequestDto request) {
     final TiendaOnlineResponseDto result = new TiendaOnlineResponseDto();
     final IcmParametrosentradaBlock param1 = this.icmWsCalcIncomeMapper
@@ -602,7 +585,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public ConfiguracionProductoVentaResponseDto getConfiguracionProductoVenta(
       final ConfiguracionProductoVentaRequestDto request) {
     final ConfiguracionProductoVentaResponseDto result = new ConfiguracionProductoVentaResponseDto();
@@ -629,7 +611,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public CadenaResponseDto getCadena(final CadenaRequestDto request) {
     final CadenaResponseDto result = new CadenaResponseDto();
     final IcmParamcalcadenaBlock param1 = this.icmWsCalcIncomeMapper
@@ -652,7 +633,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EmpresaResponseDto getEmpresa(final EmpresaRequestDto request) {
     final EmpresaResponseDto result = new EmpresaResponseDto();
     final IcmParamcalorigenBlock param1 = this.icmWsCalcIncomeMapper.asIcmParamcalorigenBlock(request.getData());
@@ -675,7 +655,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public OrigenResponseDto getOrigen(final OrigenRequestDto request) {
     final OrigenResponseDto result = new OrigenResponseDto();
     final IcmParamcalsociedadBlock param1 = this.icmWsCalcIncomeMapper
@@ -699,7 +678,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(
       final EmpleadosDesplazamientoRequestDto request) {
     final EmpleadosDesplazamientoResponseDto result = new EmpleadosDesplazamientoResponseDto();
@@ -725,7 +703,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public AusenciasResponseDto getAusencias(final AusenciasRequestDto request) {
     final AusenciasResponseDto result = new AusenciasResponseDto();
     final IcmParamcalempleadoBlock param1 = this.icmWsCalcIncomeMapper
@@ -749,7 +726,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public SaveResultDto saveProceso(final SaveProcesoDto request) {
     final SaveprocesoOutput saveProcesoOutput = this.meta4ClientPool
         .saveproceso(this.icmWsCalcIncomeMapper.asIcmParamcalprocesoBlock(request));
@@ -766,7 +742,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return saveResult;
   }
 
-  @Override
   public ConfiguracionesResponseDto getConfiguracion(final ConfiguracionesRequestDto request) {
     final GetconfiguracionOutput configuracionOutput = this.meta4ClientPool
         .getconfiguracion(this.icmWsCalcIncomeMapper.asIcmParamconfBlock(request));
@@ -774,7 +749,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
         .asConfiguracionesResponseDto(configuracionOutput, request.getIdOrigen());
   }
 
-  @Override
   public ConfChDiasMinimosResponseDto getConfChallengeDiasMinimos(final ConfChDiasMinimosRequestDto request) {
     final ConfChDiasMinimosResponseDto result = new ConfChDiasMinimosResponseDto();
     final IcmParamcalconfchdiasBlock param1 = this.icmWsCalcIncomeMapper
@@ -792,7 +766,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PresupuestosWlocResponseDto getPresupuestosWloc(final PresupuestosWlocRequestDto request) {
     final PresupuestosWlocResponseDto result = new PresupuestosWlocResponseDto();
     final IcmParamcalpresupuestoswlocBlock param1 = this.icmWsCalcIncomeMapper
@@ -821,7 +794,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public ConfPrecioHoraResponseDto getConfPrecioHora(final ConfPrecioHoraRequestDto request) {
     final ConfPrecioHoraResponseDto result = new ConfPrecioHoraResponseDto();
     final IcmParamcalconfpreciohoraBlock param1 = this.icmWsCalcIncomeMapper
@@ -839,7 +811,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public ConfChTpVentaResponseDto getConfChallengeTpVenta(final ConfChTpVentaRequestDto request) {
     final ConfChTpVentaResponseDto result = new ConfChTpVentaResponseDto();
     final IcmParamcalconfchventaBlock param1 = this.icmWsCalcIncomeMapper
@@ -856,7 +827,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PresupuestosRangoResponseDto getPresupuestosRango(final PresupuestosRangoRequestDto request) {
     final PresupuestosRangoResponseDto result = new PresupuestosRangoResponseDto();
     final IcmParamcalpresupuestosrangoBlock param1 = this.icmWsCalcIncomeMapper
@@ -885,7 +855,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public VentaCongeladaResponseDto getVentaCongelada(final VentaCongeladaRequestDto request) {
     final VentaCongeladaResponseDto result = new VentaCongeladaResponseDto();
     final IcmParamcalventacongeladaBlock param1 = this.icmWsCalcIncomeMapper
@@ -911,7 +880,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(
       final DesplazamientosMultiempresaRequestDto request) {
 
@@ -932,7 +900,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public DesplazamientoRealResponseDto getDesplazReal(final DesplazamientoRealRequestDto request) {
     final DesplazamientoRealResponseDto result = new DesplazamientoRealResponseDto();
     final IcmParamcaldesplazrealBlock param1 = this.icmWsCalcIncomeMapper
@@ -952,7 +919,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PresenciaManualWlocResponseDto getPresenciaManualWloc(final PresenciaManualWlocRequestDto request) {
     final PresenciaManualWlocResponseDto result = new PresenciaManualWlocResponseDto();
     final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
@@ -983,7 +949,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public VentaManualWlocResponseDto getVentaManualWloc(final VentaManualWlocRequestDto request) {
     final VentaManualWlocResponseDto result = new VentaManualWlocResponseDto();
     final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper
@@ -1014,7 +979,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public SincronizacionResponseDto sincronizacion(final SincronizacionRequestDto request) {
     final SincronizacionResponseDto result = new SincronizacionResponseDto();
     final IcmParamcalsincroBlock param1 = this.icmWsCalcIncomeMapper
@@ -1032,7 +996,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public MotivosDesplazamientoResponseDto getMotivosDesplazamiento(
       final MotivosDesplazamientoRequestDto request) {
     final IcmParamcalmotivosBlock param = this.icmWsCalcIncomeMapper.asIcmParamcalmotivosBlock(request);
@@ -1049,7 +1012,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   }
 
-  @Override
   @Cacheable(value = GET_SISTEMA_DESTINO, key = "{#request.cclIdOrigen}")
   public SistemaDestinoResponseDto getSistemaDestino(
       final SistemaDestinoRequestDto request) {
@@ -1061,7 +1023,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   }
 
-  @Override
   public CatalogoResponseDto getCatalogo(
       final CatalogoRequestDto request) {
 
@@ -1071,7 +1032,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   }
 
-  @Override
   @Cacheable(value = GET_TIPOS_HORA, key = "{#request.idOrigen, #request.idsEmpresa}")
   public TiposHoraResponseDto getTiposHora(
       final TiposHoraRequestDto request) {
@@ -1083,7 +1043,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
 
   }
 
-  @Override
   public UsuarioResponseDto getMail(
       final UsuarioRequestDto request) {
     final IcmParamcalusuarioBlock param = this.icmWsCalcIncomeMapper
@@ -1092,7 +1051,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return this.icmWsCalcIncomeMapper.asUsuarioResponseDto(mail);
   }
 
-  @Override
   @Cacheable(value = GET_CLASES, key = "{#request.cclIdOrigen}")
   public ClaseResponseDto getClases(
       final ClaseRequestDto request) {
@@ -1101,7 +1059,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return this.icmWsCalcIncomeMapper.asClaseResponseDto(clases);
   }
 
-  @Override
   public LiquidacionResponseDto liquidacion(
       final LiquidacionRequestDto request) {
     final LiquidacionResponseDto result = new LiquidacionResponseDto();
@@ -1122,7 +1079,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public PlanificacionResponseDto planificacion(
       final PlanificacionRequestDto request) {
     final PlanificacionResponseDto result = new PlanificacionResponseDto();
@@ -1143,7 +1099,6 @@ public class Meta4IcmWsCalcIncomeServiceImpl implements Meta4IcmWsCalcIncomeServ
     return result;
   }
 
-  @Override
   public EstadoWlocResponseDto getEstadoWloc(final EstadoWlocRequestDto request) {
     final EstadoWlocResponseDto result = new EstadoWlocResponseDto();
     final IcmParamcaltiendasBlock param1 = this.icmWsCalcIncomeMapper

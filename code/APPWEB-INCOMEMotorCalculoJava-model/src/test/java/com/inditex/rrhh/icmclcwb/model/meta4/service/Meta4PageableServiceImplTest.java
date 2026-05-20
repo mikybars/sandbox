@@ -18,7 +18,6 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTiendaResultItemDto;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.util.Meta4PropertiesConstants;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.GetflagcalculaOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatiendasBlock;
@@ -26,7 +25,8 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmListatien
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionBlock;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametrospaginacionRecord;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper.IcmWsCalcIncomeMapper;
-import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeServiceImpl;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.SoapMeta4IcmWsCalcIncomeService;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.SoapMeta4IcmWsCalcIncomeSessionService;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 
 import org.junit.jupiter.api.Assertions;
@@ -41,13 +41,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class Meta4PageableServiceImplTest {
 
   @InjectMocks
-  private Meta4IcmWsCalcIncomeServiceImpl meta4IcmWsCalcIncomeServiceImpl;
+  private SoapMeta4IcmWsCalcIncomeSessionService soapMeta4IcmWsCalcIncomeService;
 
   @InjectMocks
   private Meta4PageableServiceImpl meta4PageableServiceImpl;
 
   @Mock
-  protected Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  protected SoapMeta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Mock
   private IcmWsCalcIncomeMapper icmWsCalcIncomeMapper;
@@ -69,7 +69,7 @@ public class Meta4PageableServiceImplTest {
           Meta4PropertiesConstants.FLAG_CALCULA, FlagCalculaResponseDto.class,
           FlagCalculaResultItemDto.class);
 
-      verify(this.meta4IcmWsCalcIncomeServiceImpl, timeout(1000).times(1))
+      verify(this.soapMeta4IcmWsCalcIncomeService, timeout(1000).times(1))
           .getFlagCalcula(ArgumentMatchers.any(FlagCalculaRequestDto.class));
     });
   }

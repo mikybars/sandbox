@@ -5,7 +5,7 @@ metadata:
 app:
   context_path_builder:
     enabled: true
-  has_spnego: true
+  has_spnego: false
   services:
     http:
       route:

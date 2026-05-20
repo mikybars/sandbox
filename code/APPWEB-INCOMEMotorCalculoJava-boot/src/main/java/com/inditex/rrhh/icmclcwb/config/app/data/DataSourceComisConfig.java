@@ -6,6 +6,7 @@ import java.util.Map;
 import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.comis.repository.ClientDatabase;
 
 import javax.sql.DataSource;
@@ -20,6 +21,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@AntiguoMotor
 public class DataSourceComisConfig {
 
   @AmigaJdbcDatasource(value = "comis1", beanName = "comis1Datasource")
