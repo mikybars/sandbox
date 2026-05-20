@@ -107,7 +107,11 @@ public class Meta4IcmWsCalcIncomeSessionFacadeService implements Meta4IcmWsCalcI
 
   @Override
   public List<PeriodosResultItemDto> getPeriodos(PeriodosRequestDto request) {
-    return soapService.getPeriodos(request);
+    return migrationDispatcher.dispatch(
+        "getPeriodos",
+        () -> peopleAclService.searchPeriodos(request).getData(),
+        () -> soapService.getPeriodos(request),
+        request);
   }
 
   @Override

@@ -8,6 +8,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PeriodosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
@@ -32,6 +33,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
@@ -100,6 +103,9 @@ public class PeopleAclService {
 
   @Qualifier("ventasCongeladasCalculoIncomeApiClient")
   private final VentasCongeladasApi ventasCongeladasApi;
+
+  @Qualifier("periodosCalculoIncomeApiClient")
+  private final PeriodosApi periodosApi;
 
   private final PeopleAclMapper peopleAclMapper;
 
@@ -216,11 +222,19 @@ public class PeopleAclService {
   }
 
   public PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request) {
-    log.debug("🌐 calling People ACL REST endpoint searchPresenciasManualWloc");
+    log.debug("calling People ACL REST endpoint searchPresenciasManualWloc");
 
     var restRequest = peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request);
     var response = presenciasManualWlocApi.searchPresenciasManualWloc(restRequest);
     return peopleAclMapper.toPresenciaManualWlocResponseDto(response);
+  }
+
+  public PeriodosResponseDto searchPeriodos(PeriodosRequestDto request) {
+    log.debug("calling People ACL REST endpoint searchPeriodos");
+
+    var restRequest = peopleAclMapper.toSearchPeriodosRequestDto(request);
+    var response = periodosApi.searchPeriodos(restRequest);
+    return peopleAclMapper.toPeriodosResponseDto(response);
   }
 
 }

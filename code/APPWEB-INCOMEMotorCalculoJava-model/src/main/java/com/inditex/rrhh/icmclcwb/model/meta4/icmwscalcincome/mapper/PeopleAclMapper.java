@@ -1,6 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -20,6 +21,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPrese
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PeriodoDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
@@ -41,6 +43,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
@@ -85,6 +89,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
@@ -872,6 +879,52 @@ public interface PeopleAclMapper {
     return request;
   }
 
+  // ── SOAP → REST (request): Periodos ──
+
+  /**
+   * Builds the REST client {@link SearchPeriodosRequestDto} from the internal {@link PeriodosRequestDto}. Boolean filters
+   * ({@code esAbierto}, {@code esActivo}, {@code esVigente}) are extracted from the first {@link GenericFilterParametersDto} item and
+   * converted from String "1"/"0" to Boolean. List filters ({@code idPeriodos}, {@code idOrigenes}, {@code idSociedades}) are collected
+   * from all items in the filter's {@code item} list.
+   */
+  default SearchPeriodosRequestDto toSearchPeriodosRequestDto(PeriodosRequestDto src) {
+    if (src == null || src.getData() == null) {
+      return new SearchPeriodosRequestDto();
+    }
+    GenericFilterDto filter = src.getData();
+    SearchPeriodosRequestDto request = new SearchPeriodosRequestDto();
+
+    if (filter.getItem() != null && !filter.getItem().isEmpty()) {
+      GenericFilterParametersDto firstItem = filter.getItem().get(0);
+      request.esAbierto(stringToBoolean(firstItem.getAbierto()));
+      request.esActivo(stringToBoolean(firstItem.getActivo()));
+      request.esVigente(stringToBoolean(firstItem.getVigente()));
+
+      List<String> idPeriodos = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdPeriodo)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idPeriodos.isEmpty()) {
+        request.idPeriodos(idPeriodos);
+      }
+      List<String> idOrigenes = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdOrigenReg)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idOrigenes.isEmpty()) {
+        request.idOrigenes(idOrigenes);
+      }
+      List<String> idSociedades = filter.getItem().stream()
+          .map(GenericFilterParametersDto::getIdSociedadReg)
+          .filter(java.util.Objects::nonNull)
+          .toList();
+      if (!idSociedades.isEmpty()) {
+        request.idSociedades(idSociedades);
+      }
+    }
+    return request;
+  }
+
   // ── REST → SOAP (response): PresenciasManualWloc ──
 
   /**
@@ -919,6 +972,46 @@ public interface PeopleAclMapper {
       item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : null);
     }
     return item;
+  }
+
+  // ── REST → SOAP (response): Periodos ──
+
+  /**
+   * Maps REST client {@link PeriodoDto} items into internal {@link PeriodosResultItemDto} records. Renames: {@code esAbierto → abierto} and
+   * {@code esActivo → activo} (Boolean to String "1"/"0" via helper). Date fields are converted from {@link OffsetDateTime} to
+   * {@link LocalDate}. Meta4 audit fields and SOAP-only fields ({@code borrado}, {@code modificado}, {@code nuevo}, {@code nombrePeriodo})
+   * are ignored.
+   */
+  @Mapping(target = "abierto", source = "esAbierto", qualifiedByName = "booleanToString")
+  @Mapping(target = "activo", source = "esActivo", qualifiedByName = "booleanToString")
+  @Mapping(target = "fechaInicio", source = "fechaInicio", qualifiedByName = "offsetDateTimeToLocalDate")
+  @Mapping(target = "fechaFin", source = "fechaFin", qualifiedByName = "offsetDateTimeToLocalDate")
+  @Mapping(target = "m4AutoGeneratedRecordID", ignore = true)
+  @Mapping(target = "m4AutoGeneratedToDelete", ignore = true)
+  @Mapping(target = "borrado", ignore = true)
+  @Mapping(target = "modificado", ignore = true)
+  @Mapping(target = "nuevo", ignore = true)
+  @Mapping(target = "nombrePeriodo", ignore = true)
+  PeriodosResultItemDto toPeriodosResultItemDto(PeriodoDto src);
+
+  List<PeriodosResultItemDto> toPeriodosResultItemDtoList(List<PeriodoDto> src);
+
+  @Mapping(target = "page", ignore = true)
+  PeriodosResponseDto toPeriodosResponseDto(SearchPeriodosResponseDto src);
+
+  @org.mapstruct.Named("booleanToString")
+  default String booleanToString(Boolean value) {
+    return value == null ? null : value ? "1" : "0";
+  }
+
+  @org.mapstruct.Named("stringToBoolean")
+  default Boolean stringToBoolean(String value) {
+    return value == null ? null : "1".equals(value);
+  }
+
+  @org.mapstruct.Named("offsetDateTimeToLocalDate")
+  default LocalDate offsetDateTimeToLocalDate(OffsetDateTime src) {
+    return src == null ? null : src.withOffsetSameInstant(ZoneOffset.UTC).toLocalDate();
   }
 
   // ── Private helpers ──

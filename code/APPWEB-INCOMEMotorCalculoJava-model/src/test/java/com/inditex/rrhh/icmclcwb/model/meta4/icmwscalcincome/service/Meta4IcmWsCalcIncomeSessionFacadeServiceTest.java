@@ -56,6 +56,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRe
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
@@ -296,16 +297,51 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
     @Mock
     PeriodosResultItemDto resultItem;
 
+    @Mock
+    PeriodosResponseDto restResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PeriodosResultItemDto>>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<List<PeriodosResultItemDto>>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
+    void whenInvokedExpectDispatcherResultReturned() {
       List<PeriodosResultItemDto> expected = List.of(resultItem);
-      when(soapService.getPeriodos(request)).thenReturn(expected);
+      when(migrationDispatcher.dispatch(eq("getPeriodos"), any(), any(), any())).thenReturn(expected);
 
       List<PeriodosResultItemDto> result = service.getPeriodos(request);
 
       assertThat(result).isSameAs(expected);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      List<PeriodosResultItemDto> restData = List.of(resultItem);
+      when(restResponse.getData()).thenReturn(restData);
+      when(peopleAclService.searchPeriodos(request)).thenReturn(restResponse);
+
+      service.getPeriodos(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<PeriodosResultItemDto> restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restData);
+      verify(peopleAclService, times(1)).searchPeriodos(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      List<PeriodosResultItemDto> soapData = List.of(resultItem);
+      when(soapService.getPeriodos(request)).thenReturn(soapData);
+
+      service.getPeriodos(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      List<PeriodosResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPeriodos(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

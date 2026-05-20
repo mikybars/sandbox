@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.mapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -19,6 +20,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpleadoPrese
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.EmpresaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.FlagCalculaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.OrigenDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PeriodoDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresenciaManualWlocDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.PresupuestoWlocDto;
@@ -39,6 +41,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
@@ -83,6 +87,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.generic.dto.GenericTi
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResultItemDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResultItemDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocFilterDto;
@@ -2763,6 +2770,139 @@ class PeopleAclMapperTest {
     }
   }
 
+  // ── Periodos ──
+
+  @Nested
+  class ToSearchPeriodosRequestDto {
+
+    @Test
+    void whenNullRequestExpectEmptyDto() {
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(null);
+
+      assertThat(result).isNotNull();
+    }
+
+    @Test
+    void whenNullDataExpectEmptyDto() {
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(null);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result).isNotNull();
+    }
+
+    @Test
+    void whenFilterWithBooleanFieldsExpectConvertedFromString() {
+      GenericFilterParametersDto params = new GenericFilterParametersDto();
+      params.setAbierto("1");
+      params.setActivo("0");
+      params.setVigente("1");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(params));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getEsAbierto()).isTrue();
+      assertThat(result.getEsActivo()).isFalse();
+      assertThat(result.getEsVigente()).isTrue();
+    }
+
+    @Test
+    void whenFilterWithNullBooleanFieldsExpectNullInResult() {
+      GenericFilterParametersDto params = new GenericFilterParametersDto();
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(params));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getEsAbierto()).isNull();
+      assertThat(result.getEsActivo()).isNull();
+      assertThat(result.getEsVigente()).isNull();
+    }
+
+    @Test
+    void whenFilterWithIdPeriodosExpectCollectedFromAllItems() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdPeriodo("P1");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdPeriodo("P2");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(item1, item2));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getIdPeriodos()).containsExactly("P1", "P2");
+    }
+
+    @Test
+    void whenFilterWithIdOrigenesExpectCollectedFromAllItems() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdOrigenReg("O1");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdOrigenReg("O2");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(item1, item2));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getIdOrigenes()).containsExactly("O1", "O2");
+    }
+
+    @Test
+    void whenFilterWithIdSociedadesExpectCollectedFromAllItems() {
+      GenericFilterParametersDto item1 = new GenericFilterParametersDto();
+      item1.setIdSociedadReg("S1");
+      GenericFilterParametersDto item2 = new GenericFilterParametersDto();
+      item2.setIdSociedadReg("S2");
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(item1, item2));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getIdSociedades()).containsExactly("S1", "S2");
+    }
+
+    @Test
+    void whenFilterWithNullIdFieldsExpectListsEmpty() {
+      GenericFilterParametersDto params = new GenericFilterParametersDto();
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(List.of(params));
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result.getIdPeriodos()).isEmpty();
+      assertThat(result.getIdOrigenes()).isEmpty();
+      assertThat(result.getIdSociedades()).isEmpty();
+    }
+
+    @Test
+    void whenFilterWithEmptyItemListExpectEmptyDto() {
+      GenericFilterDto filter = new GenericFilterDto();
+      filter.setItem(Collections.emptyList());
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      request.setData(filter);
+
+      SearchPeriodosRequestDto result = mapper.toSearchPeriodosRequestDto(request);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getEsAbierto()).isNull();
+      assertThat(result.getIdPeriodos()).isEmpty();
+    }
+  }
+
   @Nested
   class ToPresenciaManualWlocResponseDto {
 
@@ -2871,6 +3011,216 @@ class PeopleAclMapperTest {
 
       assertThat(result.getData().get(0).getIdSeccion()).isEqualTo("SEC-1");
       assertThat(result.getData().get(0).getMinutos()).isNull();
+    }
+  }
+
+  @Nested
+  class ToPeriodosResultItemDto {
+
+    @Test
+    void whenPopulatedExpectFieldsMapped() {
+      OffsetDateTime fechaInicio = OffsetDateTime.of(2026, 3, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+      OffsetDateTime fechaFin = OffsetDateTime.of(2026, 3, 31, 23, 59, 59, 0, ZoneOffset.UTC);
+      PeriodoDto src = new PeriodoDto()
+          .idPeriodo("PER-001")
+          .idOrigen("ORIG-1")
+          .fechaInicio(fechaInicio)
+          .fechaFin(fechaFin)
+          .esAbierto(true)
+          .esActivo(false);
+
+      PeriodosResultItemDto result = mapper.toPeriodosResultItemDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getIdPeriodo()).isEqualTo("PER-001");
+      assertThat(result.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(result.getFechaInicio()).isEqualTo(LocalDate.of(2026, 3, 1));
+      assertThat(result.getFechaFin()).isEqualTo(LocalDate.of(2026, 3, 31));
+      assertThat(result.getAbierto()).isEqualTo("1");
+      assertThat(result.getActivo()).isEqualTo("0");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      PeriodosResultItemDto result = mapper.toPeriodosResultItemDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenBooleanFieldsNullExpectStringFieldsNull() {
+      PeriodoDto src = new PeriodoDto()
+          .idPeriodo("PER-002")
+          .esAbierto(null)
+          .esActivo(null);
+
+      PeriodosResultItemDto result = mapper.toPeriodosResultItemDto(src);
+
+      assertThat(result.getAbierto()).isNull();
+      assertThat(result.getActivo()).isNull();
+    }
+
+    @Test
+    void whenIgnoredFieldsExpectNull() {
+      PeriodoDto src = new PeriodoDto().idPeriodo("PER-003");
+
+      PeriodosResultItemDto result = mapper.toPeriodosResultItemDto(src);
+
+      assertThat(result.getBorrado()).isNull();
+      assertThat(result.getModificado()).isNull();
+      assertThat(result.getNuevo()).isNull();
+      assertThat(result.getNombrePeriodo()).isNull();
+      assertThat(result.getM4AutoGeneratedRecordID()).isNull();
+    }
+  }
+
+  @Nested
+  class ToPeriodosResultItemDtoList {
+
+    @Test
+    void whenPopulatedExpectListMapped() {
+      PeriodoDto item = new PeriodoDto()
+          .idPeriodo("PER-001")
+          .idOrigen("ORIG-1");
+
+      List<PeriodosResultItemDto> result = mapper.toPeriodosResultItemDtoList(List.of(item));
+
+      assertThat(result).hasSize(1);
+      assertThat(result.get(0).getIdPeriodo()).isEqualTo("PER-001");
+      assertThat(result.get(0).getIdOrigen()).isEqualTo("ORIG-1");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      List<PeriodosResultItemDto> result = mapper.toPeriodosResultItemDtoList(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenEmptyExpectEmpty() {
+      List<PeriodosResultItemDto> result = mapper.toPeriodosResultItemDtoList(Collections.emptyList());
+
+      assertThat(result).isEmpty();
+    }
+  }
+
+  @Nested
+  class ToPeriodosResponseDto {
+
+    @Test
+    void whenResponseWithDataExpectItemsMappedPageIgnored() {
+      PeriodoDto item = new PeriodoDto()
+          .idPeriodo("PER-001")
+          .idOrigen("ORIG-1")
+          .fechaInicio(FECHA_INICIO_UTC)
+          .fechaFin(FECHA_FIN_UTC)
+          .esAbierto(true)
+          .esActivo(false);
+      SearchPeriodosResponseDto src = new SearchPeriodosResponseDto();
+      src.setData(List.of(item));
+
+      PeriodosResponseDto result = mapper.toPeriodosResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).hasSize(1);
+      PeriodosResultItemDto mapped = result.getData().get(0);
+      assertThat(mapped.getIdPeriodo()).isEqualTo("PER-001");
+      assertThat(mapped.getIdOrigen()).isEqualTo("ORIG-1");
+      assertThat(mapped.getFechaInicio()).isEqualTo(LocalDate.of(2026, 1, 1));
+      assertThat(mapped.getFechaFin()).isEqualTo(LocalDate.of(2026, 12, 31));
+      assertThat(mapped.getAbierto()).isEqualTo("1");
+      assertThat(mapped.getActivo()).isEqualTo("0");
+      assertThat(result.getPage()).isNull();
+    }
+
+    @Test
+    void whenResponseNullExpectNull() {
+      PeriodosResponseDto result = mapper.toPeriodosResponseDto(null);
+
+      assertThat(result).isNull();
+    }
+
+    @Test
+    void whenResponseWithEmptyDataExpectEmptyList() {
+      SearchPeriodosResponseDto src = new SearchPeriodosResponseDto();
+      src.setData(List.of());
+
+      PeriodosResponseDto result = mapper.toPeriodosResponseDto(src);
+
+      assertThat(result).isNotNull();
+      assertThat(result.getData()).isEmpty();
+    }
+  }
+
+  @Nested
+  class BooleanToString {
+
+    @Test
+    void whenTrueExpectOne() {
+      assertThat(mapper.booleanToString(true)).isEqualTo("1");
+    }
+
+    @Test
+    void whenFalseExpectZero() {
+      assertThat(mapper.booleanToString(false)).isEqualTo("0");
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.booleanToString(null)).isNull();
+    }
+  }
+
+  @Nested
+  class StringToBoolean {
+
+    @Test
+    void whenOneExpectTrue() {
+      assertThat(mapper.stringToBoolean("1")).isTrue();
+    }
+
+    @Test
+    void whenZeroExpectFalse() {
+      assertThat(mapper.stringToBoolean("0")).isFalse();
+    }
+
+    @Test
+    void whenOtherStringExpectFalse() {
+      assertThat(mapper.stringToBoolean("abc")).isFalse();
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.stringToBoolean(null)).isNull();
+    }
+  }
+
+  @Nested
+  class OffsetDateTimeToLocalDate {
+
+    @Test
+    void whenPopulatedExpectLocalDateExtracted() {
+      OffsetDateTime src = OffsetDateTime.of(2026, 6, 15, 14, 30, 0, 0, ZoneOffset.ofHours(2));
+
+      LocalDate result = mapper.offsetDateTimeToLocalDate(src);
+
+      assertThat(result).isEqualTo(LocalDate.of(2026, 6, 15));
+    }
+
+    @Test
+    void whenNullExpectNull() {
+      assertThat(mapper.offsetDateTimeToLocalDate(null)).isNull();
+    }
+
+    @Test
+    void whenPositiveOffsetCrossesDateBoundaryExpectUtcDate() {
+      // 2026-06-16 01:30 at +05:30 is 2026-06-15 20:00 UTC
+      OffsetDateTime src = OffsetDateTime.of(2026, 6, 16, 1, 30, 0, 0, ZoneOffset.ofHoursMinutes(5, 30));
+
+      LocalDate result = mapper.offsetDateTimeToLocalDate(src);
+
+      assertThat(result).isEqualTo(LocalDate.of(2026, 6, 15));
     }
   }
 }

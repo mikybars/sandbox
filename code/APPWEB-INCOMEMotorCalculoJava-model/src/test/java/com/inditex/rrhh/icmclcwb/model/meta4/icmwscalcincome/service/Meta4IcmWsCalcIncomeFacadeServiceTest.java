@@ -374,15 +374,52 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
     @Mock
     PeriodosResponseDto response;
 
+    @Mock
+    PeriodosResponseDto restResponse;
+
+    @Mock
+    PeriodosResponseDto soapResponse;
+
+    @Captor
+    ArgumentCaptor<Supplier<PeriodosResponseDto>> restSupplierCaptor;
+
+    @Captor
+    ArgumentCaptor<Supplier<PeriodosResponseDto>> soapSupplierCaptor;
+
     @Test
-    void whenInvokedExpectDelegateToSoapResult() {
-      when(soapService.getPeriodos(request)).thenReturn(response);
+    void whenInvokedExpectDispatcherResultReturned() {
+      when(migrationDispatcher.dispatch(eq("getPeriodos"), any(), any(), any())).thenReturn(response);
 
       PeriodosResponseDto result = service.getPeriodos(request);
 
       assertThat(result).isSameAs(response);
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), any(), any(), any());
+    }
+
+    @Test
+    void whenInvokedExpectRestSupplierCallsPeopleAclService() {
+      when(peopleAclService.searchPeriodos(request)).thenReturn(restResponse);
+
+      service.getPeriodos(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      PeriodosResponseDto restResult = restSupplierCaptor.getValue().get();
+      assertThat(restResult).isSameAs(restResponse);
+      verify(peopleAclService, times(1)).searchPeriodos(request);
+    }
+
+    @Test
+    void whenInvokedExpectSoapSupplierCallsSoapService() {
+      when(soapService.getPeriodos(request)).thenReturn(soapResponse);
+
+      service.getPeriodos(request);
+
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          any());
+      PeriodosResponseDto soapResult = soapSupplierCaptor.getValue().get();
+      assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPeriodos(request);
-      verifyNoInteractions(peopleAclService, migrationDispatcher);
     }
   }
 

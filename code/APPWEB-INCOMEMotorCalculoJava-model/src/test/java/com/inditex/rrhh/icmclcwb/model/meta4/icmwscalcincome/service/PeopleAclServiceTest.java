@@ -13,6 +13,7 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpleadosPresen
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.EmpresasApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.FlagCalculaApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.OrigenesApi;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PeriodosApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresenciasManualWlocApi;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.api.PresupuestosApi;
@@ -37,6 +38,8 @@ import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCal
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchFlagCalculaResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchOrigenesResponseDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosRequestDto;
+import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPeriodosResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualRequestDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciaManualResponseDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.SearchPresenciasManualWlocRequestDto;
@@ -67,6 +70,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagC
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.flagcalcula.dto.FlagCalculaResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.origenes.dto.OrigenResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosRequestDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.periodos.dto.PeriodosResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanual.dto.PresenciaManualResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.presenciamanualwloc.dto.PresenciaManualWlocRequestDto;
@@ -138,6 +143,9 @@ class PeopleAclServiceTest {
   VentasCongeladasApi ventasCongeladasApi;
 
   @Mock
+  PeriodosApi periodosApi;
+
+  @Mock
   PeopleAclMapper peopleAclMapper;
 
   @Captor
@@ -153,8 +161,7 @@ class PeopleAclServiceTest {
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
         flagCalculaApi, coeficientesJornadaApi, presenciasManualApi, presenciasManualWlocApi, empleadosDesplazadosApi,
-        empleadosPresenciaApi,
-        presupuestosApi, ventasCongeladasApi, peopleAclMapper);
+        empleadosPresenciaApi, presupuestosApi, ventasCongeladasApi, periodosApi, peopleAclMapper);
   }
 
   @Nested
@@ -1004,7 +1011,7 @@ class PeopleAclServiceTest {
 
       PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
 
-      assertThat(result).isSameAs(expected);
+      assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -1045,6 +1052,68 @@ class PeopleAclServiceTest {
 
       assertThat(result).isNull();
       verify(peopleAclMapper, times(1)).toPresenciaManualWlocResponseDto(null);
+    }
+  }
+
+  @Nested
+  class SearchPeriodos {
+
+    @Captor
+    ArgumentCaptor<SearchPeriodosRequestDto> periodosRestRequestCaptor;
+
+    @Test
+    void whenInvokedExpectMappedResponseReturned() {
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
+      SearchPeriodosResponseDto restResponse = new SearchPeriodosResponseDto();
+      PeriodosResponseDto expected = new PeriodosResponseDto();
+      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
+      when(periodosApi.searchPeriodos(restRequest)).thenReturn(restResponse);
+      when(peopleAclMapper.toPeriodosResponseDto(restResponse)).thenReturn(expected);
+
+      PeriodosResponseDto result = service.searchPeriodos(request);
+
+      assertThat(result).isSameAs(expected);
+    }
+
+    @Test
+    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
+      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
+
+      service.searchPeriodos(request);
+
+      verify(peopleAclMapper, times(1)).toSearchPeriodosRequestDto(request);
+      verify(periodosApi, times(1)).searchPeriodos(periodosRestRequestCaptor.capture());
+      assertThat(periodosRestRequestCaptor.getValue()).isSameAs(restRequest);
+    }
+
+    @Test
+    void whenRestClientReturnsResponseExpectMappedToApiDto() {
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
+      SearchPeriodosResponseDto restResponse = new SearchPeriodosResponseDto();
+      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
+      when(periodosApi.searchPeriodos(restRequest)).thenReturn(restResponse);
+
+      service.searchPeriodos(request);
+
+      verify(peopleAclMapper, times(1)).toPeriodosResponseDto(restResponse);
+    }
+
+    @Test
+    void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
+      PeriodosRequestDto request = new PeriodosRequestDto();
+      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
+      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
+      when(periodosApi.searchPeriodos(restRequest)).thenReturn(null);
+      when(peopleAclMapper.toPeriodosResponseDto(null)).thenReturn(null);
+
+      PeriodosResponseDto result = service.searchPeriodos(request);
+
+      assertThat(result).isNull();
+      verify(peopleAclMapper, times(1)).toPeriodosResponseDto(null);
     }
   }
 }
