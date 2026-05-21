@@ -15,12 +15,12 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class TareaCalculoPresenciasMismaFechaDistintaTiendaServiceImpl implements TareaCalculoPresenciasMismaFechaDistintaTiendaService {
 
-    private final TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
+  private final TareaCalculoRepositoryCustom tareaCalculoRepositoryCustom;
 
-    @Override
-    public List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(
-        Long idTarea) {
-        return this.tareaCalculoRepositoryCustom.findPersonaPresenciasMismaFechaDistintaTienda(idTarea);
-    }
+  @Override
+  public List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(
+      Long idTarea) {
+    return this.tareaCalculoRepositoryCustom.findPersonaPresenciasMismaFechaDistintaTienda(idTarea);
+  }
 
 }
