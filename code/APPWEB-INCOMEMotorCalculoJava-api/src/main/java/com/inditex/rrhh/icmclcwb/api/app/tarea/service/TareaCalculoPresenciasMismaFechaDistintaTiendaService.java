@@ -6,6 +6,6 @@ import com.inditex.rrhh.icmclcwb.api.app.dto.IdPersonaLocalDto;
 
 public interface TareaCalculoPresenciasMismaFechaDistintaTiendaService {
 
-    List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(Long idTarea);
+  List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(Long idTarea);
 
 }
