@@ -2,6 +2,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.Function;
 
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 
@@ -56,12 +57,12 @@ public class IncomeResponseComparator {
         log.debug("Shadow REST and SOAP responses match for {}", operationName);
         return;
       }
-      log.warn("Shadow REST and SOAP responses differ for {} ({} diffs)", operationName, diffs.size());
-      for (ComparisonDifference diff : diffs) {
-        log.warn("  - Field: {}. SOAP value: {}. REST value: {}", String.join(".", diff.getDecomposedPath()), diff.getExpected(),
-            diff.getActual());
-      }
-      log.warn("  - Request body used: {}", request);
+      var sb = new StringBuilder();
+      sb.append("Shadow REST and SOAP responses differ for ").append(operationName)
+          .append(" (").append(diffs.size()).append(" diffs):");
+      appendDiffsTabular(sb, diffs, diff -> String.join(".", diff.getDecomposedPath()));
+      sb.append("\n  - Request body used: ").append(request);
+      log.warn(sb.toString());
     } catch (Exception ex) {
       log.error("Error comparing SOAP and REST responses for {}.\nSOAP:\n\t{}\nREST:\n\t{}",
           operationName, soapResponse, restResponse, ex);
@@ -95,6 +96,7 @@ public class IncomeResponseComparator {
       return;
     }
     int missing = 0;
+    var sb = new StringBuilder();
     for (int i = 0; i < soapData.size(); i++) {
       T soapItem = soapData.get(i);
       List<ComparisonDifference> closestDiffs = findClosestDiffs(soapItem, restData);
@@ -103,24 +105,71 @@ public class IncomeResponseComparator {
       }
       missing++;
       String indexedPath = "data[" + i + "]";
-      log.warn("  - SOAP item not found in REST response for {} ({}): {} field(s) differ from closest REST item",
-          operationName, indexedPath, closestDiffs.size());
-      for (ComparisonDifference diff : closestDiffs) {
-        String fieldPath = diff.getDecomposedPath().isEmpty() ? indexedPath
-            : indexedPath + "." + String.join(".", diff.getDecomposedPath());
-        if (fieldPath.isEmpty()) {
-          continue;
-        }
-        log.warn("      Field: {}. SOAP value: {}. REST value: {}", fieldPath, diff.getExpected(), diff.getActual());
-      }
+      sb.append("\n  - SOAP item not found in REST response (").append(indexedPath)
+          .append("): ").append(closestDiffs.size()).append(" field(s) differ from closest REST item");
+      appendDiffsTabular(sb, closestDiffs, diff -> diff.getDecomposedPath().isEmpty() ? indexedPath
+          : indexedPath + "." + String.join(".", diff.getDecomposedPath()));
     }
     if (missing == 0) {
       log.debug("Shadow REST and SOAP responses match for {} ({} SOAP items all found in REST)", operationName, soapData.size());
     } else {
-      log.warn("Shadow REST and SOAP responses differ for {}: {} items REST/{} items SOAP. Found {} discrepancies. See details above.",
-          operationName, restData.size(), soapData.size(), missing);
-      log.warn("  - Request body used: {}", request);
+      sb.insert(0, "Shadow REST and SOAP responses differ for "
+          + operationName + ": " + restData.size() + " items REST/"
+          + soapData.size() + " items SOAP. Found " + missing + " discrepancies.");
+      sb.append("\n  - Request body used: ").append(request);
+      log.warn(sb.toString());
     }
+  }
+
+  private static void appendDiffsTabular(StringBuilder sb, List<ComparisonDifference> diffs,
+      Function<ComparisonDifference, String> pathExtractor) {
+    if (diffs.isEmpty()) {
+      return;
+    }
+    // Compute column widths
+    int maxPath = 0;
+    int maxSoap = 0;
+    int maxRest = 0;
+    for (ComparisonDifference diff : diffs) {
+      String path = pathExtractor.apply(diff);
+      if (path.isEmpty()) {
+        continue;
+      }
+      maxPath = Math.max(maxPath, path.length());
+      maxSoap = Math.max(maxSoap, nullFormatted(diff.getExpected()).length());
+      maxRest = Math.max(maxRest, nullFormatted(diff.getActual()).length());
+    }
+    // Append rows
+    for (ComparisonDifference diff : diffs) {
+      String path = pathExtractor.apply(diff);
+      if (path.isEmpty()) {
+        continue;
+      }
+      String soapVal = nullFormatted(diff.getExpected());
+      String restVal = nullFormatted(diff.getActual());
+      sb.append(("\n      %-" + (maxPath + 7) + "s  SOAP | %s | %s | REST").formatted(
+          "Field: " + path, center(soapVal, maxSoap), center(restVal, maxRest)));
+    }
+  }
+
+  private static String center(String text, int width) {
+    if (text.length() >= width) {
+      return text;
+    }
+    int totalPad = width - text.length();
+    int left = totalPad / 2;
+    int right = totalPad - left;
+    return " ".repeat(left) + text + " ".repeat(right);
+  }
+
+  private static String nullFormatted(Object value) {
+    if (value == null) {
+      return "<null>";
+    }
+    if (value instanceof String) {
+      return "\"" + value + "\"";
+    }
+    return String.valueOf(value);
   }
 
   private <T> List<ComparisonDifference> findClosestDiffs(T soapItem, List<T> restData) {

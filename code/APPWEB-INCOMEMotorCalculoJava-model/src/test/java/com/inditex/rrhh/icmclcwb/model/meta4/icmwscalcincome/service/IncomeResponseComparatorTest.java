@@ -118,8 +118,8 @@ class IncomeResponseComparatorTest {
       comparator.compareAndLogDiffs(OPERATION, soap, rest, null);
 
       logCaptor.verifyMessagesContaining("Shadow REST and SOAP responses differ").withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: idCadena. SOAP value: soapCadena. REST value: restCadena")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: idCadena").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("SOAP | \"soapCadena\" | \"restCadena\" | REST").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -142,8 +142,8 @@ class IncomeResponseComparatorTest {
 
       comparator.compareAndLogDiffs(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("Field: inner.valueInner. SOAP value: soapVal. REST value: restVal")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: inner.valueInner").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("SOAP | \"soapVal\" | \"restVal\" | REST").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -307,14 +307,11 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("SOAP item not found in REST response for testOperation (data[1])")
+      logCaptor.verifyMessagesContaining("SOAP item not found in REST response (data[1])")
           .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: data[1].idData. SOAP value: dMissing. REST value: d1")
-          .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: data[1].idCadena. SOAP value: cMissing. REST value: c1")
-          .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: data[1].idLocalizacion. SOAP value: 9. REST value: 1")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[1].idData").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"dMissing\"").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"cMissing\"").withLevel(Level.WARN).areExactly(1);
       logCaptor.verifyMessagesContaining("1 items REST/2 items SOAP. Found 1 discrepancies").withLevel(Level.WARN).areExactly(1);
     }
 
@@ -325,9 +322,9 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("SOAP item not found in REST response for testOperation (data[0])")
+      logCaptor.verifyMessagesContaining("SOAP item not found in REST response (data[0])")
           .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("SOAP item not found in REST response for testOperation (data[1])")
+      logCaptor.verifyMessagesContaining("SOAP item not found in REST response (data[1])")
           .withLevel(Level.WARN).areExactly(1);
       logCaptor.verifyMessagesContaining("1 items REST/2 items SOAP. Found 2 discrepancies").withLevel(Level.WARN).areExactly(1);
     }
@@ -339,11 +336,11 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("SOAP item not found in REST response for testOperation (data[0])")
+      logCaptor.verifyMessagesContaining("SOAP item not found in REST response (data[0])")
           .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: data[0].idCadena. SOAP value: soapCadena. REST value: restCadena")
-          .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field:").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[0].idCadena").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"soapCadena\"").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"restCadena\"").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -353,9 +350,8 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("Field: data[0].idLocalizacion. SOAP value: 1. REST value: 9")
-          .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field:").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[0].idLocalizacion").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("SOAP | \"1\" | \"9\" | REST").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -365,10 +361,10 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, soap, rest, null);
 
-      logCaptor.verifyMessagesContaining("SOAP item not found in REST response for testOperation (data[1])")
+      logCaptor.verifyMessagesContaining("SOAP item not found in REST response (data[1])")
           .withLevel(Level.WARN).areExactly(1);
-      logCaptor.verifyMessagesContaining("Field: data[1].idData. SOAP value: dExtra. REST value: d1")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[1].idData").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"dExtra\"").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -380,8 +376,9 @@ class IncomeResponseComparatorTest {
 
       comparator.comparePageableListDto(OPERATION, pageable(List.of(soapItem), page(1)), pageable(List.of(restItem), null), null);
 
-      logCaptor.verifyMessagesContaining("Field: data[0].inner.valueInner. SOAP value: soapVal. REST value: restVal")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[0].inner.valueInner").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"soapVal\"").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"restVal\"").withLevel(Level.WARN).areExactly(1);
     }
 
     @Test
@@ -391,8 +388,9 @@ class IncomeResponseComparatorTest {
 
       comparator.compareAndLogDiffs(OPERATION, (Object) soap, (Object) rest, null);
 
-      logCaptor.verifyMessagesContaining("Field: data[0].idCadena. SOAP value: soapCadena. REST value: restCadena")
-          .withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("Field: data[0].idCadena").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"soapCadena\"").withLevel(Level.WARN).areExactly(1);
+      logCaptor.verifyMessagesContaining("\"restCadena\"").withLevel(Level.WARN).areExactly(1);
       logCaptor.verifyMessagesContaining("Field: page").withLevel(Level.WARN).areZero();
     }
 
