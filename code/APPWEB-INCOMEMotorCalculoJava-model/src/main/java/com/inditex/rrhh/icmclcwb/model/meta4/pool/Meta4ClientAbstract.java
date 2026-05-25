@@ -94,10 +94,10 @@ public abstract class Meta4ClientAbstract<T> implements Serializable {
     final Client client = ClientProxy.getClient(proxy);
     client.getOutInterceptors().add(
         new Meta4OAuth2BearerInterceptor(oauth2AuthorizedClientManager, oauthClientName));
-    LOG.info(
+    LOG.debug(
         "OAuth2 bearer interceptor registered for Meta4 client (server='{}', client-name='{}')",
         this.server,
-        oauthClientName);
+        this.oauthClientName);
   }
 
 }

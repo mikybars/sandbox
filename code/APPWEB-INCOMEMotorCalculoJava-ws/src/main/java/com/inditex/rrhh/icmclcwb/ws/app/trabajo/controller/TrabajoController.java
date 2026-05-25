@@ -11,6 +11,7 @@ import com.inditex.rrhh.icmclcwb.ws.authorization.IsUser;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 @RestController
+@Slf4j
 public class TrabajoController implements TrabajoApi {
 
   @Autowired
@@ -29,6 +31,7 @@ public class TrabajoController implements TrabajoApi {
   @Override
   @IsUser
   public @Valid ResponseEntity<TrabajoDTO> createTrabajo(@Valid @RequestBody final TrabajoDTO trabajo) {
+    log.info("🌍 New request for createTrabajo endpoint");
     return new ResponseEntity<>(this.trabajoService.create(trabajo), HttpStatus.OK);
   }
 
