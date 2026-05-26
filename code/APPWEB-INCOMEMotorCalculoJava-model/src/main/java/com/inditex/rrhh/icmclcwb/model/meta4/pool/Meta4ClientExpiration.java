@@ -35,7 +35,8 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
     } catch (final SOAPFaultException e) {
       LOG.debug("Meta4ClientExpiration :: La sesión '{}' no es válida en Meta4 :: hasExpired(): ", session, e);
     } catch (final Exception e) {
-      LOG.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
+      LOG.debug("Meta4ClientExpiration :: Sesión expirada detectada en hasExpired(): {}", e.getMessage());
+      LOG.debug("Meta4ClientExpiration :: Detalle de excepción en hasExpired(): ", e);
     }
     if (login) {
       if (expired) {
