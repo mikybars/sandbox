@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.AusenciaDto;
 import com.inditex.rrhh.icmclccore.calculoincome.rest.client.model.CoeficienteJornadaDto;
@@ -561,13 +562,7 @@ public interface PeopleAclMapper {
     item.setIdLugarTrabajo(parent.getIdLugarTrabajo());
     item.setIdLugarTrabajoMtu(parent.getIdLugarTrabajoMtu());
     item.setFecha(toLocalDateTimeMadrid(parent.getFechaPresencia()));
-    if (parent.getIdTipoHora() != null) {
-      try {
-        item.setIdTipoHora(Integer.valueOf(parent.getIdTipoHora()));
-      } catch (NumberFormatException e) {
-        item.setIdTipoHora(null);
-      }
-    }
+    item.setIdTipoHora(parseIntegerSafe(parent.getIdTipoHora()));
     if (seccion != null) {
       item.setIdSeccion(seccion.getIdSeccion());
       item.setMinutos(seccion.getMinutos() != null ? String.valueOf(seccion.getMinutos()) : "");
@@ -601,7 +596,7 @@ public interface PeopleAclMapper {
     }
     GenericFilterDto filter = src.getData();
     SearchPresenciaManualRequestDto request = new SearchPresenciaManualRequestDto()
-        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .idOrigen(safeIdOrigen(filter.getIdOrigen()))
         .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
@@ -622,18 +617,14 @@ public interface PeopleAclMapper {
     if (src == null) {
       return new PresenciaManualResponseDto();
     }
-    List<GenericEmpleadoResultItemDto> items = new ArrayList<>();
-    if (src.getData() != null) {
-      for (PresenciaManualDto presencia : src.getData()) {
-        if (presencia.getSecciones() != null && !presencia.getSecciones().isEmpty()) {
-          for (SeccionPresenciaDto seccion : presencia.getSecciones()) {
-            items.add(toGenericEmpleadoResultItemDto(presencia, seccion));
-          }
-        } else {
-          items.add(toGenericEmpleadoResultItemDto(presencia, null));
-        }
-      }
-    }
+    List<GenericEmpleadoResultItemDto> items = src.getData().stream()
+        .flatMap(presencia -> {
+          List<SeccionPresenciaDto> secciones = presencia.getSecciones();
+          return (secciones == null || secciones.isEmpty())
+              ? Stream.of(toGenericEmpleadoResultItemDto(presencia, null))
+              : secciones.stream().map(seccion -> toGenericEmpleadoResultItemDto(presencia, seccion));
+        })
+        .toList();
     PresenciaManualResponseDto response = new PresenciaManualResponseDto();
     response.setData(items);
     return response;
@@ -653,7 +644,7 @@ public interface PeopleAclMapper {
     }
     GenericFilterDto filter = src.getData();
     SearchEmpleadosDesplazadosRequestDto request = new SearchEmpleadosDesplazadosRequestDto()
-        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .idOrigen(safeIdOrigen(filter.getIdOrigen()))
         .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
@@ -712,7 +703,7 @@ public interface PeopleAclMapper {
     }
     GenericFilterDto filter = src.getData();
     SearchEmpleadosPresenciaRequestDto request = new SearchEmpleadosPresenciaRequestDto()
-        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .idOrigen(safeIdOrigen(filter.getIdOrigen()))
         .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
@@ -771,32 +762,16 @@ public interface PeopleAclMapper {
     }
     PresupuestosWlocFilterDto filter = src.getData();
     SearchPresupuestosWlocRequestDto request = new SearchPresupuestosWlocRequestDto()
-        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .idOrigen(safeIdOrigen(filter.getIdOrigen()))
         .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
         .fechaFin(toOffsetDateTime(filter.getFechaFin()));
 
     if (filter.getItem() != null && !filter.getItem().isEmpty()) {
-      List<String> idLugaresTrabajo = filter.getItem().stream()
-          .map(PresupuestosWlocFilterParametersDto::getIdLugarTrabajo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      List<String> idTiposPresupuesto = filter.getItem().stream()
-          .map(PresupuestosWlocFilterParametersDto::getIdTpPresupuesto)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      List<String> idEmpresas = filter.getItem().stream()
-          .map(PresupuestosWlocFilterParametersDto::getIdEmpresa)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idLugaresTrabajo.isEmpty()) {
-        request.idLugaresTrabajo(idLugaresTrabajo);
-      }
-      if (!idTiposPresupuesto.isEmpty()) {
-        request.idTiposPresupuesto(idTiposPresupuesto);
-      }
-      if (!idEmpresas.isEmpty()) {
-        request.idEmpresas(idEmpresas);
-      }
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), PresupuestosWlocFilterParametersDto::getIdLugarTrabajo),
+          request::idLugaresTrabajo);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), PresupuestosWlocFilterParametersDto::getIdTpPresupuesto),
+          request::idTiposPresupuesto);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), PresupuestosWlocFilterParametersDto::getIdEmpresa), request::idEmpresas);
     }
     return request;
   }
@@ -847,34 +822,13 @@ public interface PeopleAclMapper {
         .idLugaresTrabajo(Collections.emptyList());
 
     if (filter.getItem() != null && !filter.getItem().isEmpty()) {
-      List<String> idLugaresTrabajo = filter.getItem().stream()
-          .map(VentaCongeladaFilterParametersDto::getIdLugarTrabajo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idLugaresTrabajo.isEmpty()) {
-        request.idLugaresTrabajo(idLugaresTrabajo);
-      }
-      List<String> idSecciones = filter.getItem().stream()
-          .map(VentaCongeladaFilterParametersDto::getIdSeccion)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idSecciones.isEmpty()) {
-        request.idSecciones(idSecciones);
-      }
-      List<String> idConceptosVenta = filter.getItem().stream()
-          .map(VentaCongeladaFilterParametersDto::getIdConceptoVenta)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idConceptosVenta.isEmpty()) {
-        request.idConceptosVenta(idConceptosVenta);
-      }
-      List<String> idTiposPresupuesto = filter.getItem().stream()
-          .map(VentaCongeladaFilterParametersDto::getIdTpPresupuesto)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idTiposPresupuesto.isEmpty()) {
-        request.idTiposPresupuesto(idTiposPresupuesto);
-      }
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), VentaCongeladaFilterParametersDto::getIdLugarTrabajo),
+          request::idLugaresTrabajo);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), VentaCongeladaFilterParametersDto::getIdSeccion), request::idSecciones);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), VentaCongeladaFilterParametersDto::getIdConceptoVenta),
+          request::idConceptosVenta);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), VentaCongeladaFilterParametersDto::getIdTpPresupuesto),
+          request::idTiposPresupuesto);
     }
     return request;
   }
@@ -909,19 +863,14 @@ public interface PeopleAclMapper {
     }
     PresenciaManualWlocFilterDto filter = src.getData();
     SearchPresenciasManualWlocRequestDto request = new SearchPresenciasManualWlocRequestDto()
-        .idOrigen(filter.getIdOrigen() != null ? filter.getIdOrigen() : "")
+        .idOrigen(safeIdOrigen(filter.getIdOrigen()))
         .fechaInicio(toOffsetDateTime(filter.getFechaInicio()))
         .fechaFin(toOffsetDateTime(filter.getFechaFin()))
         .idEmpresas(filter.getIdsEmpresa());
 
     if (filter.getItem() != null && !filter.getItem().isEmpty()) {
-      List<String> idLugaresTrabajo = filter.getItem().stream()
-          .map(PresenciaManualWlocFilterParametersDto::getIdLugarTrabajo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idLugaresTrabajo.isEmpty()) {
-        request.idLugaresTrabajo(idLugaresTrabajo);
-      }
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), PresenciaManualWlocFilterParametersDto::getIdLugarTrabajo),
+          request::idLugaresTrabajo);
     }
     return request;
   }
@@ -947,27 +896,9 @@ public interface PeopleAclMapper {
       request.esActivo(stringToBoolean(firstItem.getActivo()));
       request.esVigente(stringToBoolean(firstItem.getVigente()));
 
-      List<String> idPeriodos = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdPeriodo)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idPeriodos.isEmpty()) {
-        request.idPeriodos(idPeriodos);
-      }
-      List<String> idOrigenes = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdOrigenReg)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idOrigenes.isEmpty()) {
-        request.idOrigenes(idOrigenes);
-      }
-      List<String> idSociedades = filter.getItem().stream()
-          .map(GenericFilterParametersDto::getIdSociedadReg)
-          .filter(java.util.Objects::nonNull)
-          .toList();
-      if (!idSociedades.isEmpty()) {
-        request.idSociedades(idSociedades);
-      }
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdPeriodo), request::idPeriodos);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdOrigenReg), request::idOrigenes);
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdSociedadReg), request::idSociedades);
     }
     return request;
   }
@@ -984,18 +915,14 @@ public interface PeopleAclMapper {
     if (src == null) {
       return new PresenciaManualWlocResponseDto();
     }
-    List<PresenciaManualWlocResultItemDto> items = new ArrayList<>();
-    if (src.getData() != null) {
-      for (PresenciaManualWlocDto presencia : src.getData()) {
-        if (presencia.getSecciones() != null && !presencia.getSecciones().isEmpty()) {
-          for (SeccionPresenciaWlocDto seccion : presencia.getSecciones()) {
-            items.add(toPresenciaManualWlocResultItemDto(presencia, seccion));
-          }
-        } else {
-          items.add(toPresenciaManualWlocResultItemDto(presencia, null));
-        }
-      }
-    }
+    List<PresenciaManualWlocResultItemDto> items = src.getData().stream()
+        .flatMap(presencia -> {
+          List<SeccionPresenciaWlocDto> secciones = presencia.getSecciones();
+          return (secciones == null || secciones.isEmpty())
+              ? Stream.of(toPresenciaManualWlocResultItemDto(presencia, null))
+              : secciones.stream().map(seccion -> toPresenciaManualWlocResultItemDto(presencia, seccion));
+        })
+        .toList();
     PresenciaManualWlocResponseDto response = new PresenciaManualWlocResponseDto();
     response.setData(items);
     return response;
@@ -1049,7 +976,10 @@ public interface PeopleAclMapper {
 
   @org.mapstruct.Named("booleanToString")
   default String booleanToString(Boolean value) {
-    return value == null ? null : value ? "1" : "0";
+    if (value == null) {
+      return null;
+    }
+    return value ? "1" : "0";
   }
 
   @org.mapstruct.Named("stringToBoolean")
@@ -1102,31 +1032,51 @@ public interface PeopleAclMapper {
     if (filter.getItem() == null || filter.getItem().isEmpty()) {
       return;
     }
-    List<String> idLugaresTrabajo = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdLugarTrabajo);
-    List<String> idEmpleados = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdEmpleado);
-    if (!idLugaresTrabajo.isEmpty()) {
-      setIdLugaresTrabajo.accept(idLugaresTrabajo);
-    }
-    if (!idEmpleados.isEmpty()) {
-      setIdEmpleados.accept(idEmpleados);
-    }
+    setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdLugarTrabajo), setIdLugaresTrabajo);
+    setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdEmpleado), setIdEmpleados);
     if (setIdTiposHora != null) {
-      List<String> idTiposHora = extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdTipoHora);
-      if (!idTiposHora.isEmpty()) {
-        setIdTiposHora.accept(idTiposHora);
-      }
+      setIfNotEmpty(extractNonNullValues(filter.getItem(), GenericFilterParametersDto::getIdTipoHora), setIdTiposHora);
     }
   }
 
   /**
-   * Extracts non-null String values from a list of {@link GenericFilterParametersDto} items using the provided extractor function.
+   * Extracts non-null String values from a list using the provided extractor function.
    */
-  private List<String> extractNonNullValues(List<GenericFilterParametersDto> items,
-      Function<GenericFilterParametersDto, String> extractor) {
+  private <T> List<String> extractNonNullValues(List<T> items, Function<T, String> extractor) {
     return items.stream()
         .map(extractor)
         .filter(java.util.Objects::nonNull)
         .toList();
+  }
+
+  /**
+   * Sets a list value via consumer only if the list is non-null and non-empty.
+   */
+  private void setIfNotEmpty(List<String> values, Consumer<List<String>> setter) {
+    if (values != null && !values.isEmpty()) {
+      setter.accept(values);
+    }
+  }
+
+  /**
+   * Returns idOrigen or empty string if null.
+   */
+  private String safeIdOrigen(String idOrigen) {
+    return idOrigen != null ? idOrigen : "";
+  }
+
+  /**
+   * Parses a String to Integer, returning null on failure or null input.
+   */
+  private Integer parseIntegerSafe(String value) {
+    if (value == null) {
+      return null;
+    }
+    try {
+      return Integer.valueOf(value);
+    } catch (NumberFormatException e) {
+      return null;
+    }
   }
 
   // ── SOAP → REST (request): DesplazamientosReales ──

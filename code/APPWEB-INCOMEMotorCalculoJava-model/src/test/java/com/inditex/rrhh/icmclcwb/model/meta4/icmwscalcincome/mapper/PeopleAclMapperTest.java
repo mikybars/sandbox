@@ -1334,7 +1334,7 @@ class PeopleAclMapperTest {
   }
 
   @Nested
-  class ToConfiguracionProductoVentaResultItemDtoTest {
+  class ToConfiguracionProductoVentaResultItemDto {
 
     @Test
     void whenSourcePopulatedExpectFieldsMappedAndAuditFieldsIgnored() {
@@ -1360,7 +1360,7 @@ class PeopleAclMapperTest {
   }
 
   @Nested
-  class ToConfiguracionProductoVentaResultItemDtoListTest {
+  class ToConfiguracionProductoVentaResultItemDtoList {
 
     @Test
     void whenListPopulatedExpectAllItemsMapped() {
@@ -1396,7 +1396,7 @@ class PeopleAclMapperTest {
   }
 
   @Nested
-  class ToConfiguracionProductoVentaResponseDtoTest {
+  class ToConfiguracionProductoVentaResponseDto {
 
     @Test
     void whenResponsePopulatedExpectDataMappedAndPageIgnored() {

@@ -170,12 +170,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getTiendas"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getTiendas"), any(), any(), eq(request))).thenReturn(response);
 
       TiendasResponseDto result = service.getTiendas(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), any(), any(), eq(request));
     }
 
     @Test
@@ -185,7 +185,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getTiendas(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       TiendasResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getTiendas(request);
@@ -198,7 +198,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getTiendas(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       TiendasResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getTiendas(request);
@@ -388,12 +388,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getPeriodos"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getPeriodos"), any(), any(), eq(request))).thenReturn(response);
 
       PeriodosResponseDto result = service.getPeriodos(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), any(), any(), eq(request));
     }
 
     @Test
@@ -403,7 +403,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPeriodos(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       PeriodosResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).searchPeriodos(request);
@@ -416,7 +416,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPeriodos(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       PeriodosResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPeriodos(request);
@@ -467,12 +467,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getCoefJornada"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getCoefJornada"), any(), any(), eq(request))).thenReturn(response);
 
       CoefJornadaResponseDto result = service.getCoefJornada(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), any(), any(), eq(request));
     }
 
     @Test
@@ -482,7 +482,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getCoefJornada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       CoefJornadaResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getCoefJornada(request);
@@ -495,7 +495,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getCoefJornada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       CoefJornadaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getCoefJornada(request);
@@ -525,12 +525,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getFlagCalcula"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getFlagCalcula"), any(), any(), eq(request))).thenReturn(response);
 
       FlagCalculaResponseDto result = service.getFlagCalcula(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), any(), any(), eq(request));
     }
 
     @Test
@@ -540,7 +540,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getFlagCalcula(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       FlagCalculaResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getFlagCalcula(request);
@@ -553,7 +553,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getFlagCalcula(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       FlagCalculaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getFlagCalcula(request);
@@ -604,12 +604,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getConfVentaOnline"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getConfVentaOnline"), any(), any(), eq(request))).thenReturn(response);
 
       ConfiguracionVentaOnlineResponseDto result = service.getConfVentaOnline(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), any(), any(), eq(request));
     }
 
     @Test
@@ -619,7 +619,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getConfVentaOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       ConfiguracionVentaOnlineResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getConfVentaOnline(request);
@@ -632,7 +632,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getConfVentaOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfVentaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       ConfiguracionVentaOnlineResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getConfVentaOnline(request);
@@ -662,12 +662,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getTiendasOnline"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getTiendasOnline"), any(), any(), eq(request))).thenReturn(response);
 
       TiendaOnlineResponseDto result = service.getTiendasOnline(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendasOnline"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendasOnline"), any(), any(), eq(request));
     }
 
     @Test
@@ -677,7 +677,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getTiendasOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getTiendasOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       TiendaOnlineResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).searchTiendasOnline(request);
@@ -690,7 +690,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getTiendasOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getTiendasOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       TiendaOnlineResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getTiendasOnline(request);
@@ -720,12 +720,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getConfiguracionProductoVenta"), any(), any(), eq(request))).thenReturn(response);
 
       ConfiguracionProductoVentaResponseDto result = service.getConfiguracionProductoVenta(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), any(), any(), eq(request));
     }
 
     @Test
@@ -735,7 +735,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getConfiguracionProductoVenta(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       ConfiguracionProductoVentaResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getConfiguracionProductoVenta(request);
@@ -748,7 +748,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getConfiguracionProductoVenta(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       ConfiguracionProductoVentaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getConfiguracionProductoVenta(request);
@@ -799,12 +799,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getEmpresa"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getEmpresa"), any(), any(), eq(request))).thenReturn(response);
 
       EmpresaResponseDto result = service.getEmpresa(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), any(), any(), eq(request));
     }
 
     @Test
@@ -813,7 +813,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getEmpresa(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       EmpresaResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).searchEmpresas(request);
@@ -825,7 +826,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getEmpresa(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       EmpresaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getEmpresa(request);
@@ -855,12 +857,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getOrigen"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getOrigen"), any(), any(), eq(request))).thenReturn(response);
 
       OrigenResponseDto result = service.getOrigen(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), any(), any(), eq(request));
     }
 
     @Test
@@ -869,7 +871,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getOrigen(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       OrigenResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).searchOrigenes(request);
@@ -881,7 +884,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getOrigen(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       OrigenResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getOrigen(request);
@@ -911,12 +915,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), eq(request))).thenReturn(response);
 
       EmpleadosDesplazamientoResponseDto result = service.getEmpleadosDesplazamiento(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), any(), any(), eq(request));
     }
 
     @Test
@@ -926,7 +930,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getEmpleadosDesplazamiento(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       EmpleadosDesplazamientoResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getEmpleadosDesplazamiento(request);
@@ -939,7 +943,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getEmpleadosDesplazamiento(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       EmpleadosDesplazamientoResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getEmpleadosDesplazamiento(request);
@@ -1032,12 +1036,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getAusencias"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getAusencias"), any(), any(), eq(request))).thenReturn(response);
 
       AusenciasResponseDto result = service.getAusencias(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), any(), any(), eq(request));
     }
 
     @Test
@@ -1046,7 +1050,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getAusencias(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       AusenciasResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getAusencias(request);
@@ -1058,7 +1063,8 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
       service.getAusencias(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       AusenciasResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getAusencias(request);
@@ -1130,12 +1136,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getPresupuestosWloc"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getPresupuestosWloc"), any(), any(), eq(request))).thenReturn(response);
 
       PresupuestosWlocResponseDto result = service.getPresupuestosWloc(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), any(), any(), eq(request));
     }
 
     @Test
@@ -1145,7 +1151,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPresupuestosWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       PresupuestosWlocResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getPresupuestosWloc(request);
@@ -1158,7 +1164,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPresupuestosWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       PresupuestosWlocResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPresupuestosWloc(request);
@@ -1251,12 +1257,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getVentaCongelada"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getVentaCongelada"), any(), any(), eq(request))).thenReturn(response);
 
       VentaCongeladaResponseDto result = service.getVentaCongelada(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), any(), any(), eq(request));
     }
 
     @Test
@@ -1266,7 +1272,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getVentaCongelada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       VentaCongeladaResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getVentaCongelada(request);
@@ -1279,7 +1285,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getVentaCongelada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       VentaCongeladaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getVentaCongelada(request);
@@ -1309,12 +1315,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getDesplazReal"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getDesplazReal"), any(), any(), eq(request))).thenReturn(response);
 
       DesplazamientoRealResponseDto result = service.getDesplazReal(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), any(), any(), eq(request));
     }
 
     @Test
@@ -1324,7 +1330,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getDesplazReal(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       DesplazamientoRealResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getDesplazReal(request);
@@ -1337,7 +1343,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getDesplazReal(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       DesplazamientoRealResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getDesplazReal(request);
@@ -1367,12 +1373,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getPresenciaManualWloc"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getPresenciaManualWloc"), any(), any(), eq(request))).thenReturn(response);
 
       PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), any(), any(), eq(request));
     }
 
     @Test
@@ -1382,7 +1388,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPresenciaManualWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       PresenciaManualWlocResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).getPresenciaManualWloc(request);
@@ -1395,7 +1401,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getPresenciaManualWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       PresenciaManualWlocResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getPresenciaManualWloc(request);
@@ -1488,12 +1494,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
 
     @Test
     void whenInvokedExpectDispatcherResultReturned() {
-      when(migrationDispatcher.dispatch(eq("getSistemaDestino"), any(), any(), any())).thenReturn(response);
+      when(migrationDispatcher.dispatch(eq("getSistemaDestino"), any(), any(), eq(request))).thenReturn(response);
 
       SistemaDestinoResponseDto result = service.getSistemaDestino(request);
 
       assertThat(result).isSameAs(response);
-      verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), any(), any(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), any(), any(), eq(request));
     }
 
     @Test
@@ -1503,7 +1509,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getSistemaDestino(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       SistemaDestinoResponseDto restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restResponse);
       verify(peopleAclService, times(1)).searchSistemasDestino(request);
@@ -1516,7 +1522,7 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       service.getSistemaDestino(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getSistemaDestino"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       SistemaDestinoResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getSistemaDestino(request);

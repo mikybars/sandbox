@@ -168,7 +168,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getTiendas(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<GenericTiendaResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getTiendas(request);
@@ -181,7 +182,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getTiendas(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getTiendas"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<GenericTiendaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getTiendas(request);
@@ -269,7 +271,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.tiendaOnline(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<TiendaOnlineResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).searchTiendasOnline(request);
@@ -282,7 +285,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.tiendaOnline(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("tiendaOnline"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<TiendaOnlineResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).tiendaOnline(request);
@@ -326,7 +330,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getPeriodos(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<PeriodosResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).searchPeriodos(request);
@@ -339,7 +344,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getPeriodos(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getPeriodos"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<PeriodosResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPeriodos(request);
@@ -504,7 +510,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getCoefJornada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<GenericEmpleadoResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getCoefJornada(request);
@@ -518,7 +524,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getCoefJornada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getCoefJornada"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<GenericEmpleadoResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getCoefJornada(request);
@@ -585,7 +591,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getFlagCalcula(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<GenericTiendaResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getFlagCalcula(request);
@@ -599,7 +605,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getFlagCalcula(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getFlagCalcula"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<GenericTiendaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getFlagCalcula(request);
@@ -644,7 +650,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getConfiguracionVentaOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionVentaOnline"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<ConfiguracionVentaOnlineResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getConfVentaOnline(request);
@@ -658,7 +664,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getConfiguracionVentaOnline(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionVentaOnline"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<ConfiguracionVentaOnlineResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getConfiguracionVentaOnline(request);
@@ -724,7 +730,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getEmpresa(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<EmpresaResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).searchEmpresas(request);
@@ -737,7 +744,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getEmpresa(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getEmpresa"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<EmpresaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getEmpresa(request);
@@ -781,7 +789,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getOrigen(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<OrigenResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).searchOrigenes(request);
@@ -794,7 +803,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getOrigen(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getOrigen"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<OrigenResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getOrigen(request);
@@ -839,7 +849,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getConfiguracionProductoVenta(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<ConfiguracionProductoVentaResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getConfiguracionProductoVenta(request);
@@ -853,7 +863,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getConfiguracionProductoVenta(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getConfiguracionProductoVenta"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<ConfiguracionProductoVentaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getConfiguracionProductoVenta(request);
@@ -944,7 +954,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getEmpleadosDesplazamiento(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<GenericEmpleadoResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getEmpleadosDesplazamiento(request);
@@ -958,7 +968,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getEmpleadosDesplazamiento(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getEmpleadosDesplazamiento"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<GenericEmpleadoResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getEmpleadosDesplazamiento(request);
@@ -1046,7 +1056,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getAusencias(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<AusenciasResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getAusencias(request);
@@ -1059,7 +1070,8 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
 
       service.getAusencias(request);
 
-      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(), any());
+      verify(migrationDispatcher, times(1)).dispatch(eq("getAusencias"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
+          eq(request));
       List<AusenciasResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getAusencias(request);
@@ -1126,7 +1138,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getPresupuestosWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<PresupuestosWlocResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getPresupuestosWloc(request);
@@ -1140,7 +1152,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getPresupuestosWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresupuestosWloc"), restSupplierCaptor.capture(), soapSupplierCaptor.capture(),
-          any());
+          eq(request));
       List<PresupuestosWlocResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPresupuestosWloc(request);
@@ -1251,7 +1263,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getVentaCongelada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<VentaCongeladaResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getVentaCongelada(request);
@@ -1265,7 +1277,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getVentaCongelada(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getVentaCongelada"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<VentaCongeladaResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getVentaCongelada(request);
@@ -1310,7 +1322,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getDesplazReal(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<DesplazamientoRealResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getDesplazReal(request);
@@ -1324,7 +1336,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getDesplazReal(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getDesplazReal"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<DesplazamientoRealResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getDesplazReal(request);
@@ -1369,7 +1381,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getPresenciaManualWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<PresenciaManualWlocResultItemDto> restResult = restSupplierCaptor.getValue().get();
       assertThat(restResult).isSameAs(restData);
       verify(peopleAclService, times(1)).getPresenciaManualWloc(request);
@@ -1383,7 +1395,7 @@ class Meta4IcmWsCalcIncomeSessionFacadeServiceTest {
       service.getPresenciaManualWloc(request);
 
       verify(migrationDispatcher, times(1)).dispatch(eq("getPresenciaManualWloc"), restSupplierCaptor.capture(),
-          soapSupplierCaptor.capture(), any());
+          soapSupplierCaptor.capture(), eq(request));
       List<PresenciaManualWlocResultItemDto> soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapData);
       verify(soapService, times(1)).getPresenciaManualWloc(request);

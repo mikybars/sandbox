@@ -105,8 +105,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -172,15 +170,6 @@ class PeopleAclServiceTest {
   @Mock
   PeopleAclMapper peopleAclMapper;
 
-  @Captor
-  ArgumentCaptor<SearchTiendasOnlineRequestDto> restRequestCaptor;
-
-  @Captor
-  ArgumentCaptor<SearchTiendasIncomeRequestDto> tiendasIncomeRestRequestCaptor;
-
-  @Captor
-  ArgumentCaptor<SearchOrigenesRequestDto> origenesRestRequestCaptor;
-
   @BeforeEach
   void beforeEach() {
     service = new PeopleAclService(tiendasOnlineApi, origenesApi, empresasApi, ausenciasApi, configuracionVentaApi, tiendasIncomeApi,
@@ -206,32 +195,6 @@ class PeopleAclServiceTest {
       TiendaOnlineResponseDto result = service.searchTiendasOnline(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
-      SearchTiendasOnlineRequestDto restRequest = new SearchTiendasOnlineRequestDto();
-      when(peopleAclMapper.toSearchTiendasOnlineRequestDto(request)).thenReturn(restRequest);
-
-      service.searchTiendasOnline(request);
-
-      verify(peopleAclMapper, times(1)).toSearchTiendasOnlineRequestDto(request);
-      verify(tiendasOnlineApi, times(1)).searchTiendasOnline(restRequestCaptor.capture());
-      assertThat(restRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      TiendaOnlineRequestDto request = new TiendaOnlineRequestDto();
-      SearchTiendasOnlineRequestDto restRequest = new SearchTiendasOnlineRequestDto();
-      SearchTiendasOnlineResponseDto restResponse = new SearchTiendasOnlineResponseDto();
-      when(peopleAclMapper.toSearchTiendasOnlineRequestDto(request)).thenReturn(restRequest);
-      when(tiendasOnlineApi.searchTiendasOnline(restRequest)).thenReturn(restResponse);
-
-      service.searchTiendasOnline(request);
-
-      verify(peopleAclMapper, times(1)).toTiendaOnlineResponseDto(restResponse);
     }
 
     @Test
@@ -268,32 +231,6 @@ class PeopleAclServiceTest {
     }
 
     @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      OrigenRequestDto request = new OrigenRequestDto();
-      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
-      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
-
-      service.searchOrigenes(request);
-
-      verify(peopleAclMapper, times(1)).toSearchOrigenesRequestDto(request);
-      verify(origenesApi, times(1)).searchOrigenes(origenesRestRequestCaptor.capture());
-      assertThat(origenesRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      OrigenRequestDto request = new OrigenRequestDto();
-      SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
-      SearchOrigenesResponseDto restResponse = new SearchOrigenesResponseDto();
-      when(peopleAclMapper.toSearchOrigenesRequestDto(request)).thenReturn(restRequest);
-      when(origenesApi.searchOrigenes(restRequest)).thenReturn(restResponse);
-
-      service.searchOrigenes(request);
-
-      verify(peopleAclMapper, times(1)).toOrigenResponseDto(restResponse);
-    }
-
-    @Test
     void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
       OrigenRequestDto request = new OrigenRequestDto();
       SearchOrigenesRequestDto restRequest = new SearchOrigenesRequestDto();
@@ -311,9 +248,6 @@ class PeopleAclServiceTest {
   @Nested
   class SearchEmpresas {
 
-    @Captor
-    ArgumentCaptor<SearchEmpresasRequestDto> empresasRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       EmpresaRequestDto request = new EmpresaRequestDto();
@@ -327,32 +261,6 @@ class PeopleAclServiceTest {
       EmpresaResponseDto result = service.searchEmpresas(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      EmpresaRequestDto request = new EmpresaRequestDto();
-      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
-      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
-
-      service.searchEmpresas(request);
-
-      verify(peopleAclMapper, times(1)).toSearchEmpresasRequestDto(request);
-      verify(empresasApi, times(1)).searchEmpresas(empresasRestRequestCaptor.capture());
-      assertThat(empresasRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      EmpresaRequestDto request = new EmpresaRequestDto();
-      SearchEmpresasRequestDto restRequest = new SearchEmpresasRequestDto();
-      SearchEmpresasResponseDto restResponse = new SearchEmpresasResponseDto();
-      when(peopleAclMapper.toSearchEmpresasRequestDto(request)).thenReturn(restRequest);
-      when(empresasApi.searchEmpresas(restRequest)).thenReturn(restResponse);
-
-      service.searchEmpresas(request);
-
-      verify(peopleAclMapper, times(1)).toEmpresaResponseDto(restResponse);
     }
 
     @Test
@@ -373,9 +281,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetAusencias {
 
-    @Captor
-    ArgumentCaptor<SearchAusenciasRequestDto> ausenciasRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       AusenciasRequestDto request = new AusenciasRequestDto();
@@ -389,32 +294,6 @@ class PeopleAclServiceTest {
       AusenciasResponseDto result = service.getAusencias(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      AusenciasRequestDto request = new AusenciasRequestDto();
-      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
-      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
-
-      service.getAusencias(request);
-
-      verify(peopleAclMapper, times(1)).toSearchAusenciasRequestDto(request);
-      verify(ausenciasApi, times(1)).searchAusencias(ausenciasRestRequestCaptor.capture());
-      assertThat(ausenciasRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      AusenciasRequestDto request = new AusenciasRequestDto();
-      SearchAusenciasRequestDto restRequest = new SearchAusenciasRequestDto();
-      SearchAusenciasResponseDto restResponse = new SearchAusenciasResponseDto();
-      when(peopleAclMapper.toSearchAusenciasRequestDto(request)).thenReturn(restRequest);
-      when(ausenciasApi.searchAusencias(restRequest)).thenReturn(restResponse);
-
-      service.getAusencias(request);
-
-      verify(peopleAclMapper, times(1)).toAusenciasResponseDto(restResponse);
     }
 
     @Test
@@ -435,9 +314,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetConfVentaOnline {
 
-    @Captor
-    ArgumentCaptor<SearchConfVentaOnlineRequestDto> confVentaRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
@@ -451,32 +327,6 @@ class PeopleAclServiceTest {
       ConfiguracionVentaOnlineResponseDto result = service.getConfVentaOnline(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
-      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
-      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
-
-      service.getConfVentaOnline(request);
-
-      verify(peopleAclMapper, times(1)).toSearchConfVentaOnlineRequestDto(request);
-      verify(configuracionVentaApi, times(1)).searchConfVentaOnline(confVentaRestRequestCaptor.capture());
-      assertThat(confVentaRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      ConfiguracionVentaOnlineRequestDto request = new ConfiguracionVentaOnlineRequestDto();
-      SearchConfVentaOnlineRequestDto restRequest = new SearchConfVentaOnlineRequestDto();
-      SearchConfVentaOnlineResponseDto restResponse = new SearchConfVentaOnlineResponseDto();
-      when(peopleAclMapper.toSearchConfVentaOnlineRequestDto(request)).thenReturn(restRequest);
-      when(configuracionVentaApi.searchConfVentaOnline(restRequest)).thenReturn(restResponse);
-
-      service.getConfVentaOnline(request);
-
-      verify(peopleAclMapper, times(1)).toConfiguracionVentaOnlineResponseDto(restResponse);
     }
 
     @Test
@@ -513,32 +363,6 @@ class PeopleAclServiceTest {
     }
 
     @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      TiendasRequestDto request = new TiendasRequestDto();
-      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
-      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
-
-      service.getTiendas(request);
-
-      verify(peopleAclMapper, times(1)).toSearchTiendasIncomeRequestDto(request);
-      verify(tiendasIncomeApi, times(1)).searchTiendasIncome(tiendasIncomeRestRequestCaptor.capture());
-      assertThat(tiendasIncomeRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      TiendasRequestDto request = new TiendasRequestDto();
-      SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
-      SearchTiendasIncomeResponseDto restResponse = new SearchTiendasIncomeResponseDto();
-      when(peopleAclMapper.toSearchTiendasIncomeRequestDto(request)).thenReturn(restRequest);
-      when(tiendasIncomeApi.searchTiendasIncome(restRequest)).thenReturn(restResponse);
-
-      service.getTiendas(request);
-
-      verify(peopleAclMapper, times(1)).toTiendasResponseDto(restResponse);
-    }
-
-    @Test
     void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
       TiendasRequestDto request = new TiendasRequestDto();
       SearchTiendasIncomeRequestDto restRequest = new SearchTiendasIncomeRequestDto();
@@ -556,9 +380,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetConfiguracionProductoVenta {
 
-    @Captor
-    ArgumentCaptor<SearchConfProductoVentaRequestDto> confProductoVentaRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
@@ -572,32 +393,6 @@ class PeopleAclServiceTest {
       ConfiguracionProductoVentaResponseDto result = service.getConfiguracionProductoVenta(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
-      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
-      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
-
-      service.getConfiguracionProductoVenta(request);
-
-      verify(peopleAclMapper, times(1)).toSearchConfProductoVentaRequestDto(request);
-      verify(configuracionVentaApi, times(1)).searchConfProductoVenta(confProductoVentaRestRequestCaptor.capture());
-      assertThat(confProductoVentaRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      ConfiguracionProductoVentaRequestDto request = new ConfiguracionProductoVentaRequestDto();
-      SearchConfProductoVentaRequestDto restRequest = new SearchConfProductoVentaRequestDto();
-      SearchConfProductoVentaResponseDto restResponse = new SearchConfProductoVentaResponseDto();
-      when(peopleAclMapper.toSearchConfProductoVentaRequestDto(request)).thenReturn(restRequest);
-      when(configuracionVentaApi.searchConfProductoVenta(restRequest)).thenReturn(restResponse);
-
-      service.getConfiguracionProductoVenta(request);
-
-      verify(peopleAclMapper, times(1)).toConfiguracionProductoVentaResponseDto(restResponse);
     }
 
     @Test
@@ -618,9 +413,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetFlagCalcula {
 
-    @Captor
-    ArgumentCaptor<SearchFlagCalculaRequestDto> flagCalculaRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       FlagCalculaRequestDto request = new FlagCalculaRequestDto();
@@ -634,32 +426,6 @@ class PeopleAclServiceTest {
       FlagCalculaResponseDto result = service.getFlagCalcula(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
-      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
-      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
-
-      service.getFlagCalcula(request);
-
-      verify(peopleAclMapper, times(1)).toSearchFlagCalculaRequestDto(request);
-      verify(flagCalculaApi, times(1)).searchFlagCalcula(flagCalculaRestRequestCaptor.capture());
-      assertThat(flagCalculaRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      FlagCalculaRequestDto request = new FlagCalculaRequestDto();
-      SearchFlagCalculaRequestDto restRequest = new SearchFlagCalculaRequestDto();
-      SearchFlagCalculaResponseDto restResponse = new SearchFlagCalculaResponseDto();
-      when(peopleAclMapper.toSearchFlagCalculaRequestDto(request)).thenReturn(restRequest);
-      when(flagCalculaApi.searchFlagCalcula(restRequest)).thenReturn(restResponse);
-
-      service.getFlagCalcula(request);
-
-      verify(peopleAclMapper, times(1)).toFlagCalculaResponseDto(restResponse);
     }
 
     @Test
@@ -680,9 +446,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetCoefJornada {
 
-    @Captor
-    ArgumentCaptor<SearchCoeficienteJornadaRequestDto> coefJornadaRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       CoefJornadaRequestDto request = new CoefJornadaRequestDto();
@@ -696,32 +459,6 @@ class PeopleAclServiceTest {
       CoefJornadaResponseDto result = service.getCoefJornada(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
-      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
-      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
-
-      service.getCoefJornada(request);
-
-      verify(peopleAclMapper, times(1)).toSearchCoeficienteJornadaRequestDto(request);
-      verify(coeficientesJornadaApi, times(1)).searchCoeficientesJornada(coefJornadaRestRequestCaptor.capture());
-      assertThat(coefJornadaRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      CoefJornadaRequestDto request = new CoefJornadaRequestDto();
-      SearchCoeficienteJornadaRequestDto restRequest = new SearchCoeficienteJornadaRequestDto();
-      SearchCoeficienteJornadaResponseDto restResponse = new SearchCoeficienteJornadaResponseDto();
-      when(peopleAclMapper.toSearchCoeficienteJornadaRequestDto(request)).thenReturn(restRequest);
-      when(coeficientesJornadaApi.searchCoeficientesJornada(restRequest)).thenReturn(restResponse);
-
-      service.getCoefJornada(request);
-
-      verify(peopleAclMapper, times(1)).toCoefJornadaResponseDto(restResponse);
     }
 
     @Test
@@ -742,9 +479,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetPresenciaManual {
 
-    @Captor
-    ArgumentCaptor<SearchPresenciaManualRequestDto> presenciaManualRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       PresenciaManualRequestDto request = new PresenciaManualRequestDto();
@@ -758,32 +492,6 @@ class PeopleAclServiceTest {
       PresenciaManualResponseDto result = service.getPresenciaManual(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
-      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
-      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
-
-      service.getPresenciaManual(request);
-
-      verify(peopleAclMapper, times(1)).toSearchPresenciaManualRequestDto(request);
-      verify(presenciasManualApi, times(1)).searchPresenciasManual(presenciaManualRestRequestCaptor.capture());
-      assertThat(presenciaManualRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      PresenciaManualRequestDto request = new PresenciaManualRequestDto();
-      SearchPresenciaManualRequestDto restRequest = new SearchPresenciaManualRequestDto();
-      SearchPresenciaManualResponseDto restResponse = new SearchPresenciaManualResponseDto();
-      when(peopleAclMapper.toSearchPresenciaManualRequestDto(request)).thenReturn(restRequest);
-      when(presenciasManualApi.searchPresenciasManual(restRequest)).thenReturn(restResponse);
-
-      service.getPresenciaManual(request);
-
-      verify(peopleAclMapper, times(1)).toPresenciaManualResponseDto(restResponse);
     }
 
     @Test
@@ -804,9 +512,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetEmpleadosDesplazamiento {
 
-    @Captor
-    ArgumentCaptor<SearchEmpleadosDesplazadosRequestDto> empleadosDesplazadosRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
@@ -820,32 +525,6 @@ class PeopleAclServiceTest {
       EmpleadosDesplazamientoResponseDto result = service.getEmpleadosDesplazamiento(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
-      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
-      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
-
-      service.getEmpleadosDesplazamiento(request);
-
-      verify(peopleAclMapper, times(1)).toSearchEmpleadosDesplazadosRequestDto(request);
-      verify(empleadosDesplazadosApi, times(1)).searchEmpleadosDesplazados(empleadosDesplazadosRestRequestCaptor.capture());
-      assertThat(empleadosDesplazadosRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      EmpleadosDesplazamientoRequestDto request = new EmpleadosDesplazamientoRequestDto();
-      SearchEmpleadosDesplazadosRequestDto restRequest = new SearchEmpleadosDesplazadosRequestDto();
-      SearchEmpleadosDesplazadosResponseDto restResponse = new SearchEmpleadosDesplazadosResponseDto();
-      when(peopleAclMapper.toSearchEmpleadosDesplazadosRequestDto(request)).thenReturn(restRequest);
-      when(empleadosDesplazadosApi.searchEmpleadosDesplazados(restRequest)).thenReturn(restResponse);
-
-      service.getEmpleadosDesplazamiento(request);
-
-      verify(peopleAclMapper, times(1)).toEmpleadosDesplazamientoResponseDto(restResponse);
     }
 
     @Test
@@ -866,9 +545,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetEmpleadosPresencia {
 
-    @Captor
-    ArgumentCaptor<SearchEmpleadosPresenciaRequestDto> empleadosPresenciaRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
@@ -882,19 +558,6 @@ class PeopleAclServiceTest {
       EmpleadosPresenciaResponseDto result = service.getEmpleadosPresencia(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      EmpleadosPresenciaRequestDto request = new EmpleadosPresenciaRequestDto();
-      SearchEmpleadosPresenciaRequestDto restRequest = new SearchEmpleadosPresenciaRequestDto();
-      when(peopleAclMapper.toSearchEmpleadosPresenciaRequestDto(request)).thenReturn(restRequest);
-
-      service.getEmpleadosPresencia(request);
-
-      verify(peopleAclMapper, times(1)).toSearchEmpleadosPresenciaRequestDto(request);
-      verify(empleadosPresenciaApi, times(1)).searchEmpleadosPresencia(empleadosPresenciaRestRequestCaptor.capture());
-      assertThat(empleadosPresenciaRestRequestCaptor.getValue()).isSameAs(restRequest);
     }
 
     @Test
@@ -931,18 +594,6 @@ class PeopleAclServiceTest {
     }
 
     @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
-      SearchPresupuestosWlocRequestDto restRequest = new SearchPresupuestosWlocRequestDto();
-      when(peopleAclMapper.toSearchPresupuestosWlocRequestDto(request)).thenReturn(restRequest);
-
-      service.getPresupuestosWloc(request);
-
-      verify(peopleAclMapper, times(1)).toSearchPresupuestosWlocRequestDto(request);
-      verify(presupuestosApi, times(1)).searchPresupuestosWloc(restRequest);
-    }
-
-    @Test
     void whenRestClientReturnsNullExpectMapperInvokedWithNullAndNullReturned() {
       PresupuestosWlocRequestDto request = new PresupuestosWlocRequestDto();
       SearchPresupuestosWlocRequestDto restRequest = new SearchPresupuestosWlocRequestDto();
@@ -960,9 +611,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetVentaCongelada {
 
-    @Captor
-    ArgumentCaptor<SearchVentasCongeladasRequestDto> ventasCongeladasRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
@@ -976,32 +624,6 @@ class PeopleAclServiceTest {
       VentaCongeladaResponseDto result = service.getVentaCongelada(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
-      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
-      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
-
-      service.getVentaCongelada(request);
-
-      verify(peopleAclMapper, times(1)).toSearchVentasCongeladasRequestDto(request);
-      verify(ventasCongeladasApi, times(1)).searchVentasCongeladas(ventasCongeladasRestRequestCaptor.capture());
-      assertThat(ventasCongeladasRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      VentaCongeladaRequestDto request = new VentaCongeladaRequestDto();
-      SearchVentasCongeladasRequestDto restRequest = new SearchVentasCongeladasRequestDto();
-      SearchVentasCongeladasResponseDto restResponse = new SearchVentasCongeladasResponseDto();
-      when(peopleAclMapper.toSearchVentasCongeladasRequestDto(request)).thenReturn(restRequest);
-      when(ventasCongeladasApi.searchVentasCongeladas(restRequest)).thenReturn(restResponse);
-
-      service.getVentaCongelada(request);
-
-      verify(peopleAclMapper, times(1)).toVentaCongeladaResponseDto(restResponse);
     }
 
     @Test
@@ -1022,9 +644,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetPresenciaManualWloc {
 
-    @Captor
-    ArgumentCaptor<SearchPresenciasManualWlocRequestDto> presenciasManualWlocRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
@@ -1037,33 +656,7 @@ class PeopleAclServiceTest {
 
       PresenciaManualWlocResponseDto result = service.getPresenciaManualWloc(request);
 
-      assertThat(result).isEqualTo(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
-      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
-      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
-
-      service.getPresenciaManualWloc(request);
-
-      verify(peopleAclMapper, times(1)).toSearchPresenciasManualWlocRequestDto(request);
-      verify(presenciasManualWlocApi, times(1)).searchPresenciasManualWloc(presenciasManualWlocRestRequestCaptor.capture());
-      assertThat(presenciasManualWlocRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      PresenciaManualWlocRequestDto request = new PresenciaManualWlocRequestDto();
-      SearchPresenciasManualWlocRequestDto restRequest = new SearchPresenciasManualWlocRequestDto();
-      SearchPresenciasManualWlocResponseDto restResponse = new SearchPresenciasManualWlocResponseDto();
-      when(peopleAclMapper.toSearchPresenciasManualWlocRequestDto(request)).thenReturn(restRequest);
-      when(presenciasManualWlocApi.searchPresenciasManualWloc(restRequest)).thenReturn(restResponse);
-
-      service.getPresenciaManualWloc(request);
-
-      verify(peopleAclMapper, times(1)).toPresenciaManualWlocResponseDto(restResponse);
+      assertThat(result).isSameAs(expected);
     }
 
     @Test
@@ -1084,9 +677,6 @@ class PeopleAclServiceTest {
   @Nested
   class SearchPeriodos {
 
-    @Captor
-    ArgumentCaptor<SearchPeriodosRequestDto> periodosRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       PeriodosRequestDto request = new PeriodosRequestDto();
@@ -1100,32 +690,6 @@ class PeopleAclServiceTest {
       PeriodosResponseDto result = service.searchPeriodos(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      PeriodosRequestDto request = new PeriodosRequestDto();
-      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
-      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
-
-      service.searchPeriodos(request);
-
-      verify(peopleAclMapper, times(1)).toSearchPeriodosRequestDto(request);
-      verify(periodosApi, times(1)).searchPeriodos(periodosRestRequestCaptor.capture());
-      assertThat(periodosRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      PeriodosRequestDto request = new PeriodosRequestDto();
-      SearchPeriodosRequestDto restRequest = new SearchPeriodosRequestDto();
-      SearchPeriodosResponseDto restResponse = new SearchPeriodosResponseDto();
-      when(peopleAclMapper.toSearchPeriodosRequestDto(request)).thenReturn(restRequest);
-      when(periodosApi.searchPeriodos(restRequest)).thenReturn(restResponse);
-
-      service.searchPeriodos(request);
-
-      verify(peopleAclMapper, times(1)).toPeriodosResponseDto(restResponse);
     }
 
     @Test
@@ -1146,9 +710,6 @@ class PeopleAclServiceTest {
   @Nested
   class SearchSistemasDestino {
 
-    @Captor
-    ArgumentCaptor<SearchSistemasDestinoRequestDto> sistemasDestinoRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
@@ -1162,32 +723,6 @@ class PeopleAclServiceTest {
       SistemaDestinoResponseDto result = service.searchSistemasDestino(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
-      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
-      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
-
-      service.searchSistemasDestino(request);
-
-      verify(peopleAclMapper, times(1)).toSearchSistemasDestinoRequestDto(request);
-      verify(sistemasDestinoApi, times(1)).searchSistemasDestino(sistemasDestinoRestRequestCaptor.capture());
-      assertThat(sistemasDestinoRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      SistemaDestinoRequestDto request = SistemaDestinoRequestDto.builder().cclIdOrigen("OR1").build();
-      SearchSistemasDestinoRequestDto restRequest = new SearchSistemasDestinoRequestDto();
-      SearchSistemasDestinoResponseDto restResponse = new SearchSistemasDestinoResponseDto();
-      when(peopleAclMapper.toSearchSistemasDestinoRequestDto(request)).thenReturn(restRequest);
-      when(sistemasDestinoApi.searchSistemasDestino(restRequest)).thenReturn(restResponse);
-
-      service.searchSistemasDestino(request);
-
-      verify(peopleAclMapper, times(1)).toSistemaDestinoResponseDto(restResponse);
     }
 
     @Test
@@ -1208,9 +743,6 @@ class PeopleAclServiceTest {
   @Nested
   class GetDesplazReal {
 
-    @Captor
-    ArgumentCaptor<SearchDesplazamientosRealesRequestDto> desplazamientosRealesRestRequestCaptor;
-
     @Test
     void whenInvokedExpectMappedResponseReturned() {
       DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
@@ -1224,32 +756,6 @@ class PeopleAclServiceTest {
       DesplazamientoRealResponseDto result = service.getDesplazReal(request);
 
       assertThat(result).isSameAs(expected);
-    }
-
-    @Test
-    void whenInvokedExpectRequestMappedAndPassedToRestClient() {
-      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
-      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
-      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
-
-      service.getDesplazReal(request);
-
-      verify(peopleAclMapper, times(1)).toSearchDesplazamientosRealesRequestDto(request);
-      verify(desplazamientosRealesApi, times(1)).searchDesplazamientosReales(desplazamientosRealesRestRequestCaptor.capture());
-      assertThat(desplazamientosRealesRestRequestCaptor.getValue()).isSameAs(restRequest);
-    }
-
-    @Test
-    void whenRestClientReturnsResponseExpectMappedToApiDto() {
-      DesplazamientoRealRequestDto request = new DesplazamientoRealRequestDto();
-      SearchDesplazamientosRealesRequestDto restRequest = new SearchDesplazamientosRealesRequestDto();
-      SearchDesplazamientosRealesResponseDto restResponse = new SearchDesplazamientosRealesResponseDto();
-      when(peopleAclMapper.toSearchDesplazamientosRealesRequestDto(request)).thenReturn(restRequest);
-      when(desplazamientosRealesApi.searchDesplazamientosReales(restRequest)).thenReturn(restResponse);
-
-      service.getDesplazReal(request);
-
-      verify(peopleAclMapper, times(1)).toDesplazamientoRealResponseDto(restResponse);
     }
 
     @Test
