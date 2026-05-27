@@ -47,6 +47,9 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
   @Value("#{primaryQuery['TareaCalculoRepositoryCustom.findPresenciasSinVentas']}")
   private String sqlRecuperarTiendasPresenciasSinVentas;
 
+  @Value("#{primaryQuery['TareaCalculoRepositoryCustom.findPersonaPresenciasMismaFechaDistintaTienda']}")
+  private String sqlRecuperarPersonasPresenciasMismaFechaDistintaTienda;
+
   @Override
   public void regularizarMejorOpcion(@NotNull final TareaDto tareaDto) {
     final MapSqlParameterSource params = new MapSqlParameterSource();
@@ -159,6 +162,19 @@ public class TareaCalculoRepositoryCustomImpl extends JdbcBatchPrimaryRepository
         params, (rs, rowNum) -> {
           final IdLocalizacionLocalDto dto = new IdLocalizacionLocalDto();
           dto.setId(rs.getString(SqlPrimaryConstants.SQL_RESULT_ID_LOCALIZACION_LOCAL));
+          return dto;
+        });
+  }
+
+  @Override
+  public List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(Long idTarea) {
+    final MapSqlParameterSource params = new MapSqlParameterSource();
+    params.addValue(SqlPrimaryConstants.SQL_PARAM_ID_TAREA, idTarea);
+    return this.query(
+        this.sqlRecuperarPersonasPresenciasMismaFechaDistintaTienda,
+        params, (rs, rowNum) -> {
+          final IdPersonaLocalDto dto = new IdPersonaLocalDto();
+          dto.setIdPersonaLocal(rs.getString(SqlPrimaryConstants.SQL_RESULT_CCL_ID_PERSON));
           return dto;
         });
   }
