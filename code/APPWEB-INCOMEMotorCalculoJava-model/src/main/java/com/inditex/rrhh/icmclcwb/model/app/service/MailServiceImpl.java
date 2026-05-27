@@ -88,6 +88,9 @@ public class MailServiceImpl implements MailService {
 
   private static final String BODY_ALERT_PRESENCIAS_SIN_VENTAS = "Validation: Stores with employee attendance but no sales records.";
 
+  private static final String BODY_ALERT_PRESENCIAS_MISMA_FECHA_DISTINTA_TIENDA =
+      "Validation: Employees with attendance records on the same date but different stores.";
+
   private static final String TOTAL_AFFECTED_STORES = "Total affected stores: ";
 
   private static final String AFFECTED_STORES_LIST = "List of affected stores: ";
@@ -183,7 +186,8 @@ public class MailServiceImpl implements MailService {
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       final List<String> mails = new ArrayList<>();
       runTarea.getTarea().getAmbito().stream()
-          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(),
+              runTarea.getTarea().getStdIdLegEnt()))
           .forEachOrdered(mails::addAll);
 
       message.setCc(mails.stream().toArray(String[]::new));
@@ -217,7 +221,8 @@ public class MailServiceImpl implements MailService {
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       final List<String> mails = new ArrayList<>();
       runTarea.getTarea().getAmbito().stream()
-          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(),
+              runTarea.getTarea().getStdIdLegEnt()))
           .forEachOrdered(mails::addAll);
 
       message.setCc(mails.stream().toArray(String[]::new));
@@ -264,6 +269,7 @@ public class MailServiceImpl implements MailService {
     this.appendValidacion34(result, validacionesPorAccion.getOrDefault(34, List.of()));
     this.appendValidacion35(result, validacionesPorAccion.getOrDefault(35, List.of()));
     this.appendValidacion36(result, validacionesPorAccion.getOrDefault(36, List.of()));
+    this.appendValidacion37(result, validacionesPorAccion.getOrDefault(37, List.of()));
 
     result.append(KIND_REGARDS);
     return result.toString();
@@ -405,10 +411,19 @@ public class MailServiceImpl implements MailService {
     if (Boolean.TRUE.equals(this.mailEntornoService.findEsActivoByEntorno(this.environment))) {
       final List<String> mails = new ArrayList<>();
       runTarea.getTarea().getAmbito().stream()
-          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(), runTarea.getTarea().getStdIdLegEnt()))
+          .map(x -> this.mailAmbitoService.getMailByCclIdOrigenAndStdIdLegEnt(x.getCclIdOrigen(),
+              runTarea.getTarea().getStdIdLegEnt()))
           .forEachOrdered(mails::addAll);
       message.setCc(mails.toArray(String[]::new));
     }
+  }
+
+  private void appendValidacion37(final StringBuilder result, final List<ValidacionDto> validaciones) {
+    if (validaciones.isEmpty()) {
+      return;
+    }
+    result.append(BODY_ALERT_PRESENCIAS_MISMA_FECHA_DISTINTA_TIENDA);
+    this.appendValidacionDetails(result, validaciones.get(0));
   }
 
 }

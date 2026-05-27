@@ -30,4 +30,6 @@ public interface TareaCalculoRepositoryCustom {
   List<IdLocalizacionLocalDto> findTiendaVentasSinPresencias(@NotNull Long idTarea);
 
   List<IdLocalizacionLocalDto> findTiendaPresenciasSinVentas(@NotNull Long idTarea);
+
+  List<IdPersonaLocalDto> findPersonaPresenciasMismaFechaDistintaTienda(@NotNull Long idTarea);
 }
