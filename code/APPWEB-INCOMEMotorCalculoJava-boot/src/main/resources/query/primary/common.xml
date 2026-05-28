@@ -11231,5 +11231,22 @@ INSERT INTO TAREA_PERSONA_ESTRUCTURA (ID_TAREA, ICM_ID_ESTR_COMISION, CCL_ID_ORI
         FECHA
     ]]>
   </entry>
+  <entry key="TareaCalculoRepositoryCustom.findPersonaPresenciasMismaFechaDistintaTienda">
+    <![CDATA[
+    SELECT DISTINCT CCL_ID_PERSON
+    FROM (
+      SELECT
+        FECHA,
+        CCL_ID_PERSON
+      FROM GESTION_COMISION.TAREA_LOCALIZACION_PERSONA_PRESENCIA
+      WHERE ID_TAREA = :idTarea
+      AND ID_TIPO_DATO = 4002
+      GROUP BY
+        FECHA,
+        CCL_ID_PERSON
+      HAVING COUNT(DISTINCT CCL_ID_COD_ORIGEN) > 1
+    )
+    ]]>
+  </entry>
 
 </properties>
