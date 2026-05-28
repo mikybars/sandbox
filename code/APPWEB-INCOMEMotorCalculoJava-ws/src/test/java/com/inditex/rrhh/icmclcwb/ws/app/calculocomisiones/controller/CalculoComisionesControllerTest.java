@@ -7,11 +7,16 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import com.inditex.rrhh.icmclcwb.api.app.liquidacion.service.LiquidacionService;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesFilterDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesResultItemDto;
 import com.inditex.rrhh.icmclcwb.dto.CalculoComisionesItemDTO;
 import com.inditex.rrhh.icmclcwb.dto.CalculoComisionesSearchRequestDTO;
+import com.inditex.rrhh.icmclcwb.dto.CalculoConsultaRequestDTO;
+import com.inditex.rrhh.icmclcwb.dto.CalculoConsultaResultadoItemDTO;
+import com.inditex.rrhh.icmclcwb.dto.CalculoEstadoRequestDTO;
+import com.inditex.rrhh.icmclcwb.dto.CalculoEstadoResponseDTO;
 import com.inditex.rrhh.icmclcwb.model.app.calculocomisiones.mapper.CalculoComisionesApiMapper;
 import com.inditex.rrhh.icmclcwb.model.primary.calculocomisiones.service.CalculoComisionesService;
 
@@ -33,11 +38,14 @@ class CalculoComisionesControllerTest {
   CalculoComisionesService calculoComisionesService;
 
   @Mock
+  LiquidacionService liquidacionService;
+
+  @Mock
   CalculoComisionesApiMapper mapper;
 
   @BeforeEach
   void beforeEach() {
-    controller = new CalculoComisionesController(calculoComisionesService, mapper);
+    controller = new CalculoComisionesController(calculoComisionesService, liquidacionService, mapper);
   }
 
   @Nested
@@ -89,6 +97,60 @@ class CalculoComisionesControllerTest {
 
       assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
       assertThat(result.getBody()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ConsultarCalculoBulk {
+
+    @Mock
+    CalculoConsultaRequestDTO request;
+
+    @Mock
+    CalculoConsultaResultadoItemDTO resultItem;
+
+    @Test
+    void whenInvokedExpectServiceCalledAndOkStatus() {
+      List<CalculoConsultaResultadoItemDTO> expectedResult = List.of(resultItem);
+      when(liquidacionService.consultarCalculoBulk(request)).thenReturn(expectedResult);
+
+      ResponseEntity<List<CalculoConsultaResultadoItemDTO>> result = controller.consultarCalculoBulk(request);
+
+      assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+      assertThat(result.getBody()).isSameAs(expectedResult);
+      verify(liquidacionService, times(1)).consultarCalculoBulk(request);
+    }
+
+    @Test
+    void whenEmptyResultExpectOkStatusWithEmptyList() {
+      List<CalculoConsultaResultadoItemDTO> emptyResult = List.of();
+      when(liquidacionService.consultarCalculoBulk(request)).thenReturn(emptyResult);
+
+      ResponseEntity<List<CalculoConsultaResultadoItemDTO>> result = controller.consultarCalculoBulk(request);
+
+      assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+      assertThat(result.getBody()).isEmpty();
+    }
+  }
+
+  @Nested
+  class ActualizarEstadoCalculoBulk {
+
+    @Mock
+    CalculoEstadoRequestDTO request;
+
+    @Mock
+    CalculoEstadoResponseDTO responseDto;
+
+    @Test
+    void whenInvokedExpectServiceCalledAndOkStatus() {
+      when(liquidacionService.actualizarEstadoCalculoBulk(request)).thenReturn(responseDto);
+
+      ResponseEntity<CalculoEstadoResponseDTO> result = controller.actualizarEstadoCalculoBulk(request);
+
+      assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+      assertThat(result.getBody()).isSameAs(responseDto);
+      verify(liquidacionService, times(1)).actualizarEstadoCalculoBulk(request);
     }
   }
 }
