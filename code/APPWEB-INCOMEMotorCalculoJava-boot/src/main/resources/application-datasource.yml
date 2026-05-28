@@ -1,0 +1,23 @@
+amiga:
+  data:
+    jdbc:
+      datasource:
+        primary-psql:
+          driver-class-name: org.postgresql.Driver
+          data-source-properties:
+            currentSchema: income
+          xa-properties:
+            clientProgramName: ${metadata.jirakey}-${metadata.slot}
+            loginTimeout: 10
+            keepAliveTimeOut: 15
+            connectionTimeout: 60
+            timerLevelForQueryTimeOut: 2
+            interruptProcessingMode: 2
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          default_schema: income
+          jdbc:
+            lob:
+              non_contextual_creation: true

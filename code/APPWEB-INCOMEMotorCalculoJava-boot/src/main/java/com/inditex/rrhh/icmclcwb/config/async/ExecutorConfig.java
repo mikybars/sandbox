@@ -65,4 +65,9 @@ public class ExecutorConfig {
     return executorFactory.newExecutor();
   }
 
+  @AmigaExecutor("meta4-migration-executor")
+  public ItxExecutorFactoryBean meta4MigrationExecutor(final ItxExecutorFactory executorFactory) {
+    return executorFactory.newExecutor();
+  }
+
 }

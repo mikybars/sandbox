@@ -3,7 +3,6 @@ package com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.horariocomercialfesti
 /*
  * Copyright (c) 2021. Inditex
  */
-
 import java.io.Serializable;
 
 import com.inditex.rrhh.icmclcwb.api.iopcomercialcalendar.dto.DocDto;

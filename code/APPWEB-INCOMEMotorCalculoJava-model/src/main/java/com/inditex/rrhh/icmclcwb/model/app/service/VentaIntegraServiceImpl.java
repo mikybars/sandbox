@@ -16,6 +16,7 @@ import com.inditex.rrhh.icmclcwb.api.ventaintegra.dto.VentaIntegraResponseDto;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.exception.VentaIntegraIcmclcwbException;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.service.VentaIntegraService;
 import com.inditex.rrhh.icmclcwb.api.ventaintegra.util.VentaIntegraClientPropertiesConstants;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.RestUtils;
 
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 @Component
+@AntiguoMotor
 public class VentaIntegraServiceImpl implements VentaIntegraService {
 
   private static final Logger LOG = LoggerFactory.getLogger(VentaIntegraServiceImpl.class);

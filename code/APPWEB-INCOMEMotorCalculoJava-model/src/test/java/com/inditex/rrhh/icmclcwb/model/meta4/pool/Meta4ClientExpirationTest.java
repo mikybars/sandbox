@@ -98,7 +98,7 @@ class Meta4ClientExpirationTest {
 
     final List<ILoggingEvent> list = listAppender.list;
     assertEquals("Meta4ClientExpiration :: La session '{}' ha caducado", list.get(0).getMessage());
-    assertEquals(Level.WARN, list.get(0).getLevel());
+    assertEquals(Level.DEBUG, list.get(0).getLevel());
   }
 
   @Test
@@ -194,13 +194,14 @@ class Meta4ClientExpirationTest {
     assertTrue(meta4ClientExpiration.hasExpired(this.info));
 
     final List<ILoggingEvent> list = listAppender.list;
-    assertEquals("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", list.get(0).getMessage());
-    assertEquals(Level.ERROR, list.get(0).getLevel());
+    assertEquals("Meta4ClientExpiration :: Sesión expirada detectada en hasExpired(): {}", list.get(0).getMessage());
+    assertEquals(Level.DEBUG, list.get(0).getLevel());
 
   }
 
   private ListAppender<ILoggingEvent> createLogListAppender() {
     final Logger log = (Logger) LoggerFactory.getLogger(Meta4ClientExpiration.class);
+    log.setLevel(Level.DEBUG);
     final ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
     listAppender.start();
     log.addAppender(listAppender);

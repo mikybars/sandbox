@@ -1,0 +1,10 @@
+supraenvironments:
+- name: "pre"
+  environments:
+  - name: "pre"
+    platforms:
+    - name: "ioppeople2"
+      tenants:
+      - name: "global"
+        slots:
+        - name: "default"

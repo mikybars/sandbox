@@ -3,6 +3,7 @@ package com.inditex.rrhh.icmclcwb.model.meta4.pool;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.model.meta4.login.entity.LoginService;
 
+import jakarta.xml.ws.soap.SOAPFaultException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +32,15 @@ public class Meta4ClientExpiration implements Expiration<Meta4ClientPoolable> {
           expired = false;
         }
       }
+    } catch (final SOAPFaultException e) {
+      LOG.debug("Meta4ClientExpiration :: La sesión '{}' no es válida en Meta4 :: hasExpired(): ", session, e);
     } catch (final Exception e) {
-      LOG.error("Meta4ClientExpiration :: Error no controlado :: hasExpired(): ", e);
+      LOG.debug("Meta4ClientExpiration :: Sesión expirada detectada en hasExpired(): {}", e.getMessage());
+      LOG.debug("Meta4ClientExpiration :: Detalle de excepción en hasExpired(): ", e);
     }
     if (login) {
       if (expired) {
-        LOG.warn("Meta4ClientExpiration :: La session '{}' ha caducado", session);
+        LOG.debug("Meta4ClientExpiration :: La session '{}' ha caducado", session);
       } else {
         LOG.debug("Meta4ClientExpiration :: La session '{}' sigue activa", session);
       }

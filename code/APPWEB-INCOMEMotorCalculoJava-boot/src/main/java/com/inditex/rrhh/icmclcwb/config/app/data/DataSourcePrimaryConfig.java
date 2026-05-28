@@ -3,7 +3,7 @@ package com.inditex.rrhh.icmclcwb.config.app.data;
 import com.inditex.amigafwk.data.core.jdbc.annotation.AmigaJdbcDatasource;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceBuilder;
 import com.inditex.amigafwk.data.jdbc.datasources.DataSourceType;
-import com.inditex.amigafwk.data.jpa.annotations.AmigaEnableJpaRepositories;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,8 +17,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@AmigaEnableJpaRepositories(entityManagerFactoryRef = "primaryEntityManagerFactory", basePackages = {
-    "com.inditex.rrhh.icmclcwb.model.primary"})
+@AntiguoMotor
 public class DataSourcePrimaryConfig {
 
   @Primary

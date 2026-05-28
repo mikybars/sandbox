@@ -8,8 +8,8 @@ Only manual dispatch.
 
 ## Where does it run?
 
-The `linter` job runs in `ubuntu-24.04` GitHub infrastructure.
-The `monit` job runs in [github-runners](https://github.com/inditex/github-runners) self hosted.
+The `linter` job runs in `citool-github__ubuntu24.04-medium` internal runners (configurable via `vars.RUNSON_ALERTHUB_DOCKER`).
+The `monit` job runs in [github-runners](https://github.com/inditex/github-runners) self hosted (configurable via `vars.RUNSON_ALERTHUB_ONPREM`).
 
 ## Steps
 

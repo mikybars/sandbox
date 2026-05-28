@@ -1,5 +1,7 @@
 package com.inditex.rrhh.icmclcwb.model.primary.repository;
 
+import java.sql.Types;
+import java.util.Arrays;
 import java.util.List;
 
 import com.inditex.rrhh.icmclcwb.model.app.util.StreamUtils;
@@ -30,8 +32,10 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
   public List<Z> saveNamedJdbcBatchList(final List<Z> src, final String sql, final int batchSize) {
     for (final List<Z> iter : StreamUtils.partition(src, (batchSize != 0 ? batchSize : this.defaultBatchSize))) {
       try {
-        final SqlParameterSource[] itemList = SqlParameterSourceUtils.createBatch(iter.toArray());
-        this.namedParameterJdbcTemplate.batchUpdate(sql, itemList);
+        final SqlParameterSource[] args = SqlParameterSourceUtils.createBatch(iter.toArray());
+        this.namedParameterJdbcTemplate.batchUpdate(sql, Arrays.stream(args)
+            .map(BooleanToIntegerParameterSource::new)
+            .toArray(SqlParameterSource[]::new));
       } catch (final DataAccessException e) {
         JdbcBatchPrimaryRepositoryAbstract.LOG.error("JdbcBatchPrimaryRepositoryAbstract :: saveJdbcBatchList :: Error ", e);
         iter.stream()
@@ -86,6 +90,52 @@ public abstract class JdbcBatchPrimaryRepositoryAbstract<Z extends Object> {
           paramSource,
           e);
       throw e;
+    }
+  }
+
+  /**
+   * Workaround temporal: intercepta valores Boolean y los convierte a Integer (1/0) para compatibilidad con PostgreSQL.
+   *
+   * <p>Esto es necesario porque las columnas booleanas (ES_ACTIVO, etc.) siguen definidas como NUMERIC(1,0) en el esquema actual, herencia
+   * directa de la migración DB2 → PostgreSQL. DB2 realizaba la conversión implícita boolean↔numeric; PostgreSQL no.
+   *
+   * <p><b>Fix definitivo:</b> migrar todas esas columnas a tipo BOOLEAN nativo en PostgreSQL y eliminar este wrapper.
+   *
+   * @see <a href="https://jira.inditex.com/jira/browse/IOPINCOME-362">IOPINCOME-362</a>
+   */
+  private record BooleanToIntegerParameterSource(SqlParameterSource delegate) implements SqlParameterSource {
+
+    @Override
+    public boolean hasValue(final String paramName) {
+      return this.delegate.hasValue(paramName);
+    }
+
+    @Override
+    public Object getValue(final String paramName) throws IllegalArgumentException {
+      final Object value = this.delegate.getValue(paramName);
+      if (value instanceof Boolean) {
+        return Boolean.TRUE.equals(value) ? 1 : 0;
+      }
+      return value;
+    }
+
+    @Override
+    public int getSqlType(final String paramName) {
+      final Object value = this.delegate.getValue(paramName);
+      if (value instanceof Boolean) {
+        return Types.INTEGER;
+      }
+      return this.delegate.getSqlType(paramName);
+    }
+
+    @Override
+    public String getTypeName(final String paramName) {
+      return this.delegate.getTypeName(paramName);
+    }
+
+    @Override
+    public String[] getParameterNames() {
+      return this.delegate.getParameterNames();
     }
   }
 

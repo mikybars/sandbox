@@ -11,9 +11,9 @@ import com.inditex.rrhh.icmclcwb.api.meta4.dto.Meta4PropertiesDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.dto.PageableListDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.exception.Meta4IcmclcwbException;
-import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.service.Meta4IcmWsCalcIncomeService;
 import com.inditex.rrhh.icmclcwb.api.meta4.service.Meta4PageableService;
 import com.inditex.rrhh.icmclcwb.model.app.util.CollectionUtils;
+import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.service.SoapMeta4IcmWsCalcIncomeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +27,7 @@ public class Meta4PageableServiceImpl implements Meta4PageableService {
   protected Map<String, Meta4PropertiesDto> meta4Properties;
 
   @Autowired
-  private Meta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
+  private SoapMeta4IcmWsCalcIncomeService meta4IcmWsCalcIncomeService;
 
   @Override
   public <T extends PageableDto<?>, Z extends Object, U extends PageableListDto<?>> List<Z> getResultItem(

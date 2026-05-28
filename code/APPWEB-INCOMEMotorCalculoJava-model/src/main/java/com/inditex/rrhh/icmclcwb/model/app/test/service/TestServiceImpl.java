@@ -52,7 +52,6 @@ import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.IcmParametro
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.entity.SearchtiendasOutput;
 import com.inditex.rrhh.icmclcwb.model.meta4.pool.Meta4ClientPool;
 import com.inditex.rrhh.icmclcwb.model.primary.tarea.repository.TareaRepositoryCustom;
-import com.inditex.rrhh.icmclcwb.model.ptr.repository.PtrRepositoryCustom;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -129,9 +128,6 @@ public class TestServiceImpl implements TestService {
   @Autowired
   @Qualifier("meta4ClientPool")
   private Meta4ClientPool meta4ClientPool;
-
-  @Autowired
-  private PtrRepositoryCustom ptrRepositoryCustom;
 
   @Autowired
   private PtrAsyncService ptrAsyncService;
@@ -409,12 +405,16 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public void ptrTestBbddSync() {
+    final TrabajoDTO trabajoDto = new TrabajoDTO();
     final TareaDto tareaDto = new TareaDto();
     tareaDto.setFechaInicioPeriodo(LocalDate.of(2021, 8, 1));
     tareaDto.setFechaFinPeriodo(LocalDate.of(2021, 8, 31));
     final TareaAmbitoDto tareaAmbitoDto = new TareaAmbitoDto();
     tareaAmbitoDto.setCclIdOrigen("528");
-    this.ptrRepositoryCustom.findPresenciasOrigenAndFecha(tareaDto, tareaAmbitoDto);
+    final RunTareaDto runTareaDto = new RunTareaDto();
+    runTareaDto.setTrabajo(trabajoDto);
+    runTareaDto.setTarea(tareaDto);
+    this.ptrService.findPresenciasOrigenAndFecha(runTareaDto, tareaAmbitoDto);
   }
 
   @Override

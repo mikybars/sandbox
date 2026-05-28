@@ -17,6 +17,11 @@ supraenvironments:
               - name: global
                 slots:
                   - name: default
+          - name: ioppeople2
+            tenants:
+              - name: global
+                slots:
+                  - name: default
   - name: pro
     environments:
       - name: pro

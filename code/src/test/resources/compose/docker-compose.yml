@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  postgres:
+    image: inditex-docker.jfrog.io/devenv/postgres:16.8-r0
+    ports:
+      - "32010:5432"
+    environment:
+      - POSTGRES_DB=IOPINC
+    volumes:
+      - "./postgres/data:/tmp/data"
   amq:
     image: inditex-docker.jfrog.io/devenv/amq/redhat:7.12.1-3-r0
     ports:

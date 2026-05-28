@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!-- DB2 to PostgreSQL migration - pipe.xml
+     Changes applied:
+     - All DECODE(...) converted to CASE WHEN ... END
+     - DECODE with NULL comparison uses IS NULL
+     - CAST(... AS DECIMAL(p,s)) converted to CAST(... AS NUMERIC(p,s))
+     - INT(x) converted to x::integer::text
+     - LISTAGG(DISTINCT ..., sep) converted to STRING_AGG(DISTINCT ..., sep)
+     - CASE WHEN MAX(CONGELADA) converted to CASE WHEN MAX(congelada) <> 0 (PG requires boolean predicate)
+     - All identifiers converted to lowercase
+     - Schema GESTION_COMISION. and unqualified tables prefixed with income.
+     - Quoted aliases converted to lowercase unquoted
+-->
+<properties>
+
+  <entry key="TareaMigrarComisionRepositoryCustom.findCalculoComisionByTareaActual">
+    <![CDATA[
+      SELECT
+          icm_id_periodo,
+          ccl_id_origen,
+          std_id_leg_ent,
+          ccl_id_person,
+          std_or_hr_period,
+          id_estado,
+          fecha_inicio_periodo,
+          fecha_fin_periodo,
+          fecha,
+          tienda_calculo,
+          fecha_inicio_estructura,
+          fecha_fin_estructura,
+          ccl_id_seccion,
+          banda,
+          valor,
+          icm_id_tp_comision,
+          icm_id_tp_calculo,
+          icm_grupo_manual,
+          id_tipo_opcion_calculo,
+          ccl_id_cod_origen_destino,
+          cod_tipo_hora,
+          minutos,
+          cod_tienda_presencia_empleado,
+          cod_seccion_presencia_empleado,
+          minutos_tienda,
+          cod_tienda_presencia,
+          cod_seccion_presencia,
+          CASE WHEN (MAX(importe_ajuste) <> 0) THEN SUM(importe) + COALESCE(ROUND((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),2),0)
+               ELSE SUM(importe) END AS importe_total,
+          SUM(importe) AS importe_total_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - COALESCE(ROUND((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),2),0) ELSE 0 END AS importe_ajuste_total,
+          CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe END), 0) + ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2)
+               ELSE COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe END), 0) END AS importe_fisica,
+          COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe END), 0) AS importe_fisica_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2) ELSE 0 END AS importe_ajuste_fisica,
+          CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe END), 0) + ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2)
+               ELSE COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe END), 0) END AS importe_online_ipod,
+          COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe END), 0) AS importe_online_ipod_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2) ELSE 0 END AS importe_ajuste_online_ipod,
+          CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe END), 0) + ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2)
+               ELSE COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe END), 0) END AS importe_online_sint,
+          COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe END), 0) AS importe_online_sint_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2) ELSE 0 END AS importe_ajuste_online_sint,
+          CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe END), 0) + ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2)
+               ELSE COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe END), 0) END AS importe_online_entrega_tienda,
+          COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe END), 0) AS importe_online_entrega_tienda_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2) ELSE 0 END AS importe_ajuste_online_entrega_tienda,
+          CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe END), 0) + ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2)
+               ELSE COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe END), 0) END AS importe_online_entrega_domicilio,
+          COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe END), 0) AS importe_online_entrega_domicilio_sin_ajuste,
+          - CASE WHEN (SUM(importe) <> 0 AND MAX(importe_ajuste) <> 0) THEN - ROUND(CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe END), 0) AS NUMERIC(23,8)) / CAST(SUM(importe) AS NUMERIC(23,8)) * COALESCE((CAST(SUM(importe) AS NUMERIC(23,8)) / MAX(importe_calculo_total)) * MAX(importe_ajuste),0),2) ELSE 0 END AS importe_ajuste_online_entrega_domicilio,
+          SUM(importe_venta) AS venta_total,
+          CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 1 THEN importe_venta END), 0) AS NUMERIC(23,4)) AS venta_fisica,
+          CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 2 THEN importe_venta END), 0) AS NUMERIC(23,4)) AS venta_online_ipod,
+          CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 3 THEN importe_venta END), 0) AS NUMERIC(23,4)) AS venta_online_sint,
+          CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 4 THEN importe_venta END), 0) AS NUMERIC(23,4)) AS venta_online_entrega_tienda,
+          CAST(COALESCE(MAX(CASE WHEN id_tipo_venta = 5 THEN importe_venta END), 0) AS NUMERIC(23,4)) AS venta_online_entrega_domicilio,
+          objetivo,
+          excepcionada,
+          congelada,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE challenge_venta_total END AS challenge_venta_total,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE challenge_venta_caja END AS challenge_venta_caja,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE (challenge_devoluciones) END AS challenge_devoluciones,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE challenge_venta_online_ipod END AS challenge_venta_online_ipod,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE challenge_venta_online_picking END AS challenge_venta_online_picking,
+          CASE WHEN icm_id_tp_calculo IN ('010','011','012','013', '018','019') AND es_activo = 0 THEN NULL ELSE challenge_venta_online_entrega_tienda END AS challenge_venta_online_entrega_tienda,
+          COALESCE(MAX(CASE WHEN id_tipo_dato_por_venta = 3039 THEN importe_sin_impuestos_por_venta END), 0) AS importe_venta_fisica_individual,
+          COALESCE(MAX(CASE WHEN id_tipo_dato_por_venta = 3041 THEN importe_sin_impuestos_por_venta END), 0) AS importe_devolucion_fisica_individual,
+          COALESCE(MAX(CASE WHEN id_tipo_dato_por_venta = 3040 THEN importe_sin_impuestos_por_venta END), 0) AS importe_venta_online_ipod,
+          COALESCE(MAX(CASE WHEN id_tipo_dato_por_venta = 3042 THEN importe_sin_impuestos_por_venta END), 0) AS importe_devolucion_individual_ipod,
+          CASE WHEN icm_id_tp_calculo IN ('005','012','013') THEN coeficiente_reduccion_jornada ELSE NULL END AS coeficiente_reduccion_jornada,
+          STRING_AGG(DISTINCT tipo_politica || '-' || porcentaje_politica::integer::text, '|') AS tipo_porcentaje_politica,
+          cod_seccion_banda,
+          cod_tienda_banda,
+          icm_ck_inc_iva_eval_ptpo
+      FROM(
+          SELECT
+              icm_id_periodo,
+              ccl_id_origen,
+              std_id_leg_ent,
+              ccl_id_person,
+              std_or_hr_period,
+              id_estado,
+              fecha_inicio_periodo,
+              fecha_fin_periodo,
+              fecha,
+              importe,
+              tienda_calculo,
+              icm_ck_inc_iva_eval_ptpo,
+              fecha_inicio_estructura,
+              fecha_fin_estructura,
+              ccl_id_seccion,
+              banda,
+              valor,
+              icm_id_tp_comision,
+              icm_id_tp_calculo,
+              icm_grupo_manual,
+              id_tipo_opcion_calculo,
+              ccl_id_cod_origen_destino,
+              cod_tipo_hora,
+              minutos,
+              cod_tienda_presencia_empleado,
+              cod_seccion_presencia_empleado,
+              minutos_tienda,
+              cod_tienda_presencia,
+              cod_seccion_presencia,
+              id_tipo_venta,
+              importe_venta,
+              es_activo,
+              icm_banda,
+              MAX(importe_presupuesto) AS objetivo,
+              MAX(excepcionada) AS excepcionada,
+              MAX(congelada) AS congelada,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_congelado IS NULL THEN importe_presupuesto_venta_congelada END) ELSE MAX(CASE WHEN id_tipo_venta_concepto_challenge IS NULL THEN importe_presupuesto_venta END) END AS challenge_venta_total,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado_congelado = 1 THEN importe_presupuesto_venta_congelada END) ELSE MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 1 THEN importe_presupuesto_venta END) END AS challenge_venta_caja,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado_congelado = 2 THEN importe_presupuesto_venta_congelada END) ELSE MIN(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 2 THEN importe_presupuesto_venta END)+
+              MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 2 THEN importe_presupuesto_venta END) END AS challenge_devoluciones,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado_congelado = 3 THEN importe_presupuesto_venta_congelada END) ELSE MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 3 THEN importe_presupuesto_venta END) END AS challenge_venta_online_ipod,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado_congelado = 4 THEN importe_presupuesto_venta_congelada END) ELSE MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 4 THEN importe_presupuesto_venta END) END AS challenge_venta_online_picking,
+              CASE WHEN MAX(congelada) <> 0 THEN MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado_congelado = 5 THEN importe_presupuesto_venta_congelada END) ELSE MAX(CASE WHEN id_tipo_venta_concepto_challenge_configurado = 5 THEN importe_presupuesto_venta END) END AS challenge_venta_online_entrega_tienda,
+              importe_sin_impuestos_por_venta,
+              importe_con_impuestos_por_venta,
+              id_tipo_dato_por_venta,
+              importe_ajuste,
+              importe_calculo_total,
+              coeficiente_reduccion_jornada,
+              tipo_politica,
+              porcentaje_politica,
+              cod_seccion_banda,
+              cod_tienda_banda
+          FROM(
+              SELECT
+                  periodo.icm_id_periodo,
+                  periodo.ccl_id_origen,
+                  periodo.std_id_leg_ent,
+                  periodo.ccl_id_person,
+                  periodo.std_or_hr_period,
+                  periodo.id_estado,
+                  tarea.fecha_inicio_periodo,
+                  tarea.fecha_fin_periodo,
+                  calculo.fecha,
+                  CASE WHEN banda_presupuesto.es_activo = 0 THEN 0 ELSE calculo.importe END AS importe,
+                  CASE WHEN calculo.std_id_work_locat = 'R' THEN '-1' ELSE localizacion.ccl_id_cod_origen END AS tienda_calculo,
+                  configuracion.icm_ck_inc_iva_eval_ptpo,
+                  estructura.fecha_inicio AS fecha_inicio_estructura,
+                  estructura.fecha_fin AS fecha_fin_estructura,
+                  estructura.ccl_id_seccion_efectiva AS ccl_id_seccion,
+                  banda_presupuesto.icm_banda AS banda,
+                  estructura.icm_valor AS valor,
+                  estructura.icm_id_tp_comision,
+                  estructura.icm_id_tp_calculo,
+                  estructura.icm_grupo_manual,
+                  desplazamiento.id_tipo_opcion_calculo_efectiva AS id_tipo_opcion_calculo,
+                  CASE WHEN desplazamiento.ccl_id_cod_origen_destino = 'R' THEN '-1' ELSE desplazamiento.ccl_id_cod_origen_destino END AS ccl_id_cod_origen_destino,
+                  persona_presencia.cod_tipo_hora,
+                  persona_presencia.minutos,
+                  persona_presencia.ccl_id_cod_origen AS cod_tienda_presencia_empleado,
+                  persona_presencia.ccl_id_seccion AS cod_seccion_presencia_empleado,
+                  persona_localizacion.minutos AS minutos_tienda,
+                  persona_localizacion.ccl_id_cod_origen AS cod_tienda_presencia,
+                  persona_localizacion.ccl_id_seccion AS cod_seccion_presencia,
+                  tipo_dato.id_tipo_venta,
+                  CASE WHEN configuracion.icm_ck_venta_impuestos = 1 THEN venta_localizacion.importe_con_impuestos ELSE venta_localizacion.importe_sin_impuestos END AS importe_venta,
+                  banda_presupuesto.es_activo,
+                  banda_presupuesto.icm_banda,
+                  banda_presupuesto.icm_ck_excepcion AS excepcionada,
+                  localizacion_presupuesto_venta.importe_sin_impuestos AS importe_sin_impuestos_presupuesto_venta,
+                  localizacion_presupuesto_venta.importe_con_impuestos AS importe_con_impuestos_presupuesto_venta,
+                  localizacion_presupuesto_venta.id_tipo_dato AS id_tipo_dato_challenge,
+                  CASE WHEN presupuesto_venta_congelada.id_tarea_localizacion_presupuesto_venta IS NOT NULL THEN 1 ELSE 0 END AS congelada,
+                  CASE WHEN configuracion.icm_ck_inc_iva_eval_ptpo = 1 THEN banda_presupuesto.importe_con_impuestos ELSE banda_presupuesto.importe_sin_impuestos END AS importe_presupuesto,
+                  CASE WHEN configuracion.icm_ck_inc_iva_eval_ptpo = 1 THEN
+                      CASE WHEN localizacion_presupuesto_venta.id_tipo_dato = 2043
+                                THEN ABS(localizacion_presupuesto_venta.importe_con_impuestos)
+                           WHEN localizacion_presupuesto_venta.id_tipo_dato = 2044
+                                THEN ABS(localizacion_presupuesto_venta.importe_con_impuestos)
+                      ELSE localizacion_presupuesto_venta.importe_con_impuestos END
+                  ELSE
+                      CASE WHEN localizacion_presupuesto_venta.id_tipo_dato = 2043
+                                THEN ABS(localizacion_presupuesto_venta.importe_sin_impuestos)
+                           WHEN localizacion_presupuesto_venta.id_tipo_dato = 2044
+                                THEN ABS(localizacion_presupuesto_venta.importe_sin_impuestos)
+                      ELSE localizacion_presupuesto_venta.importe_sin_impuestos END
+                  END AS importe_presupuesto_venta,
+                  localizacion_presupuesto_venta.id_tipo_venta_concepto_challenge,
+                  tacctv.id_tipo_venta_concepto_challenge AS id_tipo_venta_concepto_challenge_configurado,
+                  CASE WHEN configuracion.icm_ck_inc_iva_eval_ptpo = 1 THEN presupuesto_venta_congelada.importe_con_impuestos ELSE presupuesto_venta_congelada.importe_sin_impuestos END AS importe_presupuesto_venta_congelada,
+                  presupuesto_venta_congelada.id_tipo_venta_concepto_challenge AS id_tipo_venta_concepto_challenge_congelado,
+                  tacctv_congelada.id_tipo_venta_concepto_challenge AS id_tipo_venta_concepto_challenge_configurado_congelado,
+                  concepto_challenge_congelada.id_tipo_venta AS id_tipo_venta_congelado,
+                  concepto_challenge_congelada.icm_id_concepto_venta AS icm_id_concepto_venta_congelado,
+                  por_venta_localizacion_persona.importe_sin_impuestos AS importe_sin_impuestos_por_venta,
+                  por_venta_localizacion_persona.importe_con_impuestos AS importe_con_impuestos_por_venta,
+                  por_venta_localizacion_persona.id_tipo_dato AS id_tipo_dato_por_venta,
+                  importe_calculo.importe AS importe_ajuste,
+                  importe_calculo_total.importe AS importe_calculo_total,
+                  reduccion_jornada.coeficiente AS coeficiente_reduccion_jornada,
+                  politica.id_tipo_politica AS tipo_politica,
+                  politica.icm_porcentaje AS porcentaje_politica,
+                  banda_presupuesto.ccl_id_seccion AS cod_seccion_banda,
+                  banda_presupuesto.ccl_id_cod_origen AS cod_tienda_banda
+              FROM income.periodo_calculo_persona periodo
+              INNER JOIN income.tarea tarea
+                ON tarea.id_tarea = periodo.id_tarea_actual
+              INNER JOIN income.tarea_calculo calculo
+                ON calculo.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                AND calculo.id_tarea = periodo.id_tarea_actual
+                AND calculo.ccl_id_person = periodo.ccl_id_person
+                AND calculo.std_or_hr_period = periodo.std_or_hr_period
+              INNER JOIN income.tarea_configuracion configuracion
+                ON configuracion.id_tarea = calculo.id_tarea
+                AND configuracion.ccl_id_origen = periodo.ccl_id_origen
+                AND configuracion.fecha_inicio <= calculo.fecha
+                AND configuracion.fecha_fin >= calculo.fecha
+              INNER JOIN income.tarea_persona_estructura estructura
+                ON estructura.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                AND estructura.id_tarea_persona_estructura = calculo.id_tarea_persona_estructura
+              INNER JOIN income.tarea_localizacion_historico localizacion
+                ON calculo.id_tarea = localizacion.id_tarea
+                AND calculo.std_id_work_locat = localizacion.std_id_work_locat
+                AND calculo.fecha <= localizacion.fecha_fin
+                AND calculo.fecha >= localizacion.fecha_inicio
+              LEFT JOIN income.tarea_localizacion_persona_presencia persona_presencia
+                ON persona_presencia.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                AND persona_presencia.id_tarea_localizacion_persona_presencia = calculo.id_tarea_localizacion_persona_presencia
+              LEFT JOIN income.tarea_localizacion_presencia persona_localizacion
+                ON persona_localizacion.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                AND persona_localizacion.id_tarea_localizacion_presencia = calculo.id_tarea_localizacion_presencia
+              LEFT JOIN income.tarea_localizacion_venta venta_localizacion
+                ON venta_localizacion.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                AND venta_localizacion.id_tarea_localizacion_venta = calculo.id_tarea_localizacion_venta
+              LEFT JOIN income.tipo_dato tipo_dato
+                ON tipo_dato.id_tipo_dato = venta_localizacion.id_tipo_dato
+              LEFT JOIN income.tarea_persona_estructura_desplazamiento desplazamiento
+                ON desplazamiento.fecha_inicio_periodo = estructura.fecha_inicio_periodo
+                AND desplazamiento.id_tarea = estructura.id_tarea
+                AND desplazamiento.ccl_id_person = estructura.ccl_id_person
+                AND desplazamiento.std_or_hr_period = estructura.std_or_hr_period
+                AND desplazamiento.ordinal_estructura = estructura.ordinal_estructura
+                AND desplazamiento.icm_id_estr_comision_padre = estructura.icm_id_estr_comision_padre
+                AND desplazamiento.icm_id_estr_comision_base = estructura.icm_id_estr_comision_base
+                AND desplazamiento.icm_id_estr_comision = estructura.icm_id_estr_comision
+                AND desplazamiento.fecha_inicio = estructura.fecha_inicio
+                AND desplazamiento.fecha_fin = estructura.fecha_fin
+              LEFT JOIN income.tarea_localizacion_presupuesto banda_presupuesto
+                ON banda_presupuesto.id_tarea = estructura.id_tarea
+                AND banda_presupuesto.std_id_work_locat = calculo.std_id_work_locat_pago
+                AND banda_presupuesto.ccl_id_seccion = estructura.ccl_id_seccion_efectiva
+              LEFT JOIN income.tarea_localizacion_presupuesto_venta localizacion_presupuesto_venta
+                ON localizacion_presupuesto_venta.id_tarea = banda_presupuesto.id_tarea
+                AND localizacion_presupuesto_venta.ccl_id_cod_origen = banda_presupuesto.ccl_id_cod_origen
+                AND localizacion_presupuesto_venta.ccl_id_seccion = banda_presupuesto.ccl_id_seccion
+                AND localizacion_presupuesto_venta.fecha_fin >= banda_presupuesto.fecha_inicio
+                AND localizacion_presupuesto_venta.fecha_inicio <= banda_presupuesto.fecha_fin
+                AND localizacion_presupuesto_venta.icm_ordinal = banda_presupuesto.icm_ordinal
+                AND localizacion_presupuesto_venta.id_tipo_dato IN (2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2041,2042,2043,2044)
+              LEFT JOIN income.tarea_agrupacion_cadena agrupacion_cadena
+                ON agrupacion_cadena.id_tarea = localizacion_presupuesto_venta.id_tarea
+                AND agrupacion_cadena.ccl_id_cadena = localizacion_presupuesto_venta.ccl_id_cadena
+              LEFT JOIN income.tarea_agrupacion_configuracion_challenge_tipo_venta tacctv
+                ON tacctv.id_tarea = localizacion_presupuesto_venta.id_tarea
+                AND tacctv.ccl_id_origen = localizacion_presupuesto_venta.ccl_id_origen
+                AND tacctv.id_tipo_venta_concepto_challenge = localizacion_presupuesto_venta.id_tipo_venta_concepto_challenge
+                AND tacctv.icm_id_agrupacion_online = agrupacion_cadena.icm_id_agrupacion_online
+              LEFT JOIN income.tipo_venta_concepto_challenge concepto_challenge
+                ON concepto_challenge.id_tipo_venta_concepto_challenge = localizacion_presupuesto_venta.id_tipo_venta_concepto_challenge
+              LEFT JOIN income.tarea_localizacion_presupuesto_venta presupuesto_venta_congelada
+                ON presupuesto_venta_congelada.id_tarea = banda_presupuesto.id_tarea
+                AND presupuesto_venta_congelada.ccl_id_cod_origen = banda_presupuesto.ccl_id_cod_origen
+                AND presupuesto_venta_congelada.ccl_id_seccion = banda_presupuesto.ccl_id_seccion
+                AND presupuesto_venta_congelada.fecha_inicio = banda_presupuesto.fecha_inicio
+                AND presupuesto_venta_congelada.fecha_fin = banda_presupuesto.fecha_fin
+                AND presupuesto_venta_congelada.icm_ordinal = banda_presupuesto.icm_ordinal
+                AND ((presupuesto_venta_congelada.id_tipo_venta_concepto_challenge = localizacion_presupuesto_venta.id_tipo_venta_concepto_challenge)
+                    OR(presupuesto_venta_congelada.id_tipo_venta_concepto_challenge IS NULL AND localizacion_presupuesto_venta.id_tipo_venta_concepto_challenge IS NULL))
+                AND presupuesto_venta_congelada.id_tipo_dato IN (2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2039,2040)
+              LEFT JOIN income.tarea_agrupacion_cadena agrupacion_cadena_congelada
+                ON agrupacion_cadena_congelada.id_tarea = presupuesto_venta_congelada.id_tarea
+                AND agrupacion_cadena_congelada.ccl_id_cadena = presupuesto_venta_congelada.ccl_id_cadena
+              LEFT JOIN income.tarea_agrupacion_configuracion_challenge_tipo_venta tacctv_congelada
+                ON tacctv_congelada.id_tarea = presupuesto_venta_congelada.id_tarea
+                AND tacctv_congelada.ccl_id_origen = presupuesto_venta_congelada.ccl_id_origen
+                AND tacctv_congelada.id_tipo_venta_concepto_challenge = presupuesto_venta_congelada.id_tipo_venta_concepto_challenge
+                AND tacctv_congelada.icm_id_agrupacion_online = agrupacion_cadena_congelada.icm_id_agrupacion_online
+              LEFT JOIN income.tipo_venta_concepto_challenge concepto_challenge_congelada
+                ON concepto_challenge_congelada.id_tipo_venta_concepto_challenge = presupuesto_venta_congelada.id_tipo_venta_concepto_challenge
+              LEFT JOIN income.tarea_localizacion_persona_venta por_venta_localizacion_persona
+                ON por_venta_localizacion_persona.fecha_inicio_periodo = calculo.fecha_inicio_periodo
+                AND por_venta_localizacion_persona.id_tarea = calculo.id_tarea
+                AND por_venta_localizacion_persona.fecha = calculo.fecha
+                AND por_venta_localizacion_persona.ccl_id_person = calculo.ccl_id_person
+                AND por_venta_localizacion_persona.ccl_id_seccion = estructura.ccl_id_seccion_efectiva
+                AND por_venta_localizacion_persona.id_tipo_dato IN (3039, 3040, 3041, 3042)
+                AND por_venta_localizacion_persona.es_activo = 1
+              LEFT JOIN income.tarea_persona_coeficiente reduccion_jornada
+                ON calculo.id_tarea = reduccion_jornada.id_tarea
+                AND calculo.ccl_id_person = reduccion_jornada.ccl_id_person
+                AND calculo.std_or_hr_period = reduccion_jornada.std_or_hr_period
+                AND reduccion_jornada.fecha_inicio_parcial <= calculo.fecha
+                AND reduccion_jornada.fecha_fin_parcial >= calculo.fecha
+              LEFT JOIN income.tarea_persona_estructura_politica politica
+                ON politica.fecha_inicio_periodo = calculo.fecha_inicio_periodo
+                AND politica.id_tarea = calculo.id_tarea
+                AND politica.ccl_id_person  = calculo.ccl_id_person
+                AND politica.std_or_hr_period = calculo.std_or_hr_period
+                AND politica.fecha_fin >= calculo.fecha
+                AND politica.fecha_inicio <= calculo.fecha
+              INNER JOIN (
+                  SELECT
+                      periodo.icm_id_periodo,
+                      periodo.ccl_id_origen,
+                      periodo.std_id_leg_ent,
+                      periodo.ccl_id_person,
+                      periodo.std_or_hr_period,
+                      tarea.fecha_inicio_periodo,
+                      tarea.fecha_fin_periodo,
+                      persona.std_id_hr,
+                      calculo.fecha,
+                      calculo.id_tipo_comision,
+                      SUM(calculo.importe) AS importe
+                  FROM income.periodo_calculo_persona periodo
+                  INNER JOIN income.tarea tarea
+                    ON tarea.id_tarea = periodo.id_tarea_actual
+                  INNER JOIN income.tarea_calculo calculo
+                    ON calculo.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                    AND calculo.id_tarea = periodo.id_tarea_actual
+                    AND calculo.ccl_id_person = periodo.ccl_id_person
+                    AND calculo.std_or_hr_period = periodo.std_or_hr_period
+                  INNER JOIN income.tarea_persona_historico persona
+                    ON persona.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                    AND persona.id_tarea = periodo.id_tarea_actual
+                    AND persona.ccl_id_person = periodo.ccl_id_person
+                    AND persona.std_or_hr_period = periodo.std_or_hr_period
+                    AND persona.fecha_inicio <= calculo.fecha
+                    AND persona.fecha_fin >= calculo.fecha
+                    AND persona.fecha_inicio_localizacion <= calculo.fecha
+                    AND persona.fecha_fin_localizacion >= calculo.fecha
+                    AND persona.fecha_inicio_seccion <= calculo.fecha
+                    AND persona.fecha_fin_seccion >= calculo.fecha
+                  WHERE periodo.id_tarea_actual = :idTareaActual
+                  GROUP BY
+                      periodo.icm_id_periodo,
+                      periodo.ccl_id_origen,
+                      periodo.std_id_leg_ent,
+                      periodo.ccl_id_person,
+                      periodo.std_or_hr_period,
+                      tarea.fecha_inicio_periodo,
+                      tarea.fecha_fin_periodo,
+                      persona.std_id_hr,
+                      calculo.fecha,
+                      calculo.id_tipo_comision
+              ) importe_calculo_total
+              ON importe_calculo_total.icm_id_periodo = periodo.icm_id_periodo
+              AND importe_calculo_total.ccl_id_origen = periodo.ccl_id_origen
+              AND importe_calculo_total.std_id_leg_ent = periodo.std_id_leg_ent
+              AND importe_calculo_total.ccl_id_person = periodo.ccl_id_person
+              AND importe_calculo_total.std_or_hr_period = periodo.std_or_hr_period
+              AND importe_calculo_total.fecha = calculo.fecha
+              AND importe_calculo_total.id_tipo_comision = estructura.icm_id_tp_comision
+            LEFT JOIN (
+              SELECT
+                  periodo.icm_id_periodo,
+                  periodo.ccl_id_origen,
+                  periodo.std_id_leg_ent,
+                  periodo.ccl_id_person,
+                  periodo.std_or_hr_period,
+                  tarea.fecha_inicio_periodo,
+                  tarea.fecha_fin_periodo,
+                  persona.std_id_hr,
+                  calculo.fecha,
+                  calculo.id_tipo_comision,
+                  SUM(calculo.importe) AS importe
+                FROM income.periodo_calculo_persona periodo
+                INNER JOIN income.tarea tarea
+                  ON tarea.id_tarea = periodo.id_tarea_actual
+                INNER JOIN income.tarea_calculo_ajuste_comision calculo
+                  ON calculo.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                  AND calculo.id_tarea = periodo.id_tarea_actual
+                  AND calculo.ccl_id_person = periodo.ccl_id_person
+                  AND calculo.std_or_hr_period = periodo.std_or_hr_period
+                INNER JOIN income.tarea_persona_historico persona
+                  ON persona.fecha_inicio_periodo = tarea.fecha_inicio_periodo
+                  AND persona.id_tarea = periodo.id_tarea_actual
+                  AND persona.ccl_id_person = periodo.ccl_id_person
+                  AND persona.std_or_hr_period = periodo.std_or_hr_period
+                  AND persona.fecha_inicio <= calculo.fecha
+                  AND persona.fecha_fin >= calculo.fecha
+                  AND persona.fecha_inicio_localizacion <= calculo.fecha
+                  AND persona.fecha_fin_localizacion >= calculo.fecha
+                  AND persona.fecha_inicio_seccion <= calculo.fecha
+                  AND persona.fecha_fin_seccion >= calculo.fecha
+              WHERE periodo.id_tarea_actual = :idTareaActual
+              GROUP BY
+                periodo.icm_id_periodo,
+                periodo.ccl_id_origen,
+                periodo.std_id_leg_ent,
+                periodo.ccl_id_person,
+                periodo.std_or_hr_period,
+                tarea.fecha_inicio_periodo,
+                tarea.fecha_fin_periodo,
+                persona.std_id_hr,
+                calculo.fecha,
+                calculo.id_tipo_comision
+            ) importe_calculo
+              ON importe_calculo.icm_id_periodo = periodo.icm_id_periodo
+              AND importe_calculo.ccl_id_origen = periodo.ccl_id_origen
+              AND importe_calculo.std_id_leg_ent = periodo.std_id_leg_ent
+              AND importe_calculo.ccl_id_person = periodo.ccl_id_person
+              AND importe_calculo.std_or_hr_period = periodo.std_or_hr_period
+              AND importe_calculo.fecha = calculo.fecha
+              AND importe_calculo.id_tipo_comision = estructura.icm_id_tp_comision
+            WHERE periodo.id_tarea_actual = :idTareaActual
+          ) sub_calculo
+          GROUP BY
+              icm_id_periodo,
+              ccl_id_origen,
+              std_id_leg_ent,
+              ccl_id_person,
+              std_or_hr_period,
+              id_estado,
+              fecha_inicio_periodo,
+              fecha_fin_periodo,
+              fecha,
+              importe,
+              tienda_calculo,
+              icm_ck_inc_iva_eval_ptpo,
+              fecha_inicio_estructura,
+              fecha_fin_estructura,
+              ccl_id_seccion,
+              banda,
+              valor,
+              icm_id_tp_comision,
+              icm_id_tp_calculo,
+              icm_grupo_manual,
+              id_tipo_opcion_calculo,
+              ccl_id_cod_origen_destino,
+              cod_tipo_hora,
+              minutos,
+              cod_tienda_presencia_empleado,
+              cod_seccion_presencia_empleado,
+              minutos_tienda,
+              cod_tienda_presencia,
+              cod_seccion_presencia,
+              id_tipo_venta,
+              importe_venta,
+              es_activo,
+              icm_banda,
+              excepcionada,
+              importe_sin_impuestos_por_venta,
+              importe_con_impuestos_por_venta,
+              id_tipo_dato_por_venta,
+              importe_ajuste,
+              importe_calculo_total,
+              coeficiente_reduccion_jornada,
+              tipo_politica,
+              porcentaje_politica,
+              cod_seccion_banda,
+              cod_tienda_banda
+      ) sub_agrupado
+      GROUP BY
+          icm_id_periodo,
+          ccl_id_origen,
+          std_id_leg_ent,
+          ccl_id_person,
+          std_or_hr_period,
+          id_estado,
+          fecha_inicio_periodo,
+          fecha_fin_periodo,
+          fecha,
+          tienda_calculo,
+          fecha_inicio_estructura,
+          fecha_fin_estructura,
+          ccl_id_seccion,
+          banda,
+          valor,
+          icm_id_tp_comision,
+          icm_id_tp_calculo,
+          icm_grupo_manual,
+          id_tipo_opcion_calculo,
+          ccl_id_cod_origen_destino,
+          cod_tipo_hora,
+          minutos,
+          cod_tienda_presencia_empleado,
+          cod_seccion_presencia_empleado,
+          minutos_tienda,
+          cod_tienda_presencia,
+          cod_seccion_presencia,
+          objetivo,
+          excepcionada,
+          congelada,
+          challenge_venta_total,
+          challenge_venta_caja,
+          challenge_devoluciones,
+          challenge_venta_online_ipod,
+          challenge_venta_online_picking,
+          challenge_venta_online_entrega_tienda,
+          icm_ck_inc_iva_eval_ptpo,
+          es_activo,
+          coeficiente_reduccion_jornada,
+          cod_seccion_banda,
+          cod_tienda_banda
+    ]]>
+  </entry>
+
+  <entry key="TareaMigrarComisionRepositoryCustom.countPersonasByTarea">
+    <![CDATA[
+SELECT COUNT(*) AS total
+FROM (
+    SELECT
+        ccl_id_person,
+        std_or_hr_period
+    FROM income.tarea t
+    INNER JOIN income.tarea_calculo_persona tcp
+        ON t.id_tarea = tcp.id_tarea
+    WHERE t.id_tarea = :idTarea
+    GROUP BY
+        ccl_id_person,
+        std_or_hr_period
+) AS personas
+    ]]>
+  </entry>
+
+  <entry key="TareaMigrarComisionRepositoryCustom.deleteCalculoComisionByTarea">
+    <![CDATA[
+SELECT
+    s.icm_id_periodo,
+    s.ccl_id_origen,
+    s.std_id_leg_ent,
+    s.ccl_id_person,
+    s.std_or_hr_period,
+    s.fecha,
+    s.tienda_calculo,
+    s.ccl_id_seccion,
+    s.valor,
+    s.ccl_id_cod_origen_destino,
+    s.banda,
+    s.icm_id_tp_comision,
+    s.icm_id_tp_calculo,
+    s.icm_grupo_manual,
+    s.id_tipo_opcion_calculo,
+    s.cod_tipo_hora,
+    s.cod_seccion_presencia_empleado,
+    s.cod_tienda_presencia
+FROM (
+    SELECT
+        tr.icm_id_periodo,
+        tpe.ccl_id_origen,
+        t.std_id_leg_ent,
+        tc.ccl_id_person,
+        tc.std_or_hr_period,
+        tc.fecha,
+        CASE
+            WHEN tc.std_id_work_locat = 'R' THEN '-1'
+            ELSE tlh.ccl_id_cod_origen
+        END AS tienda_calculo,
+        tpe.ccl_id_seccion_efectiva AS ccl_id_seccion,
+        tpe.icm_valor AS valor,
+        CASE
+            WHEN tped.ccl_id_cod_origen_destino = 'R' THEN '-1'
+            ELSE tped.ccl_id_cod_origen_destino
+        END AS ccl_id_cod_origen_destino,
+        tlpr.icm_banda AS banda,
+        tpe.icm_id_tp_comision,
+        tpe.icm_id_tp_calculo,
+        tpe.icm_grupo_manual,
+        tped.id_tipo_opcion_calculo_efectiva AS id_tipo_opcion_calculo,
+        tlpp.cod_tipo_hora,
+        tlpp.ccl_id_seccion AS cod_seccion_presencia_empleado,
+        tlp.ccl_id_cod_origen AS cod_tienda_presencia
+    FROM income.periodo_calculo_persona pcp
+    INNER JOIN (
+        SELECT
+            ccl_id_person,
+            std_or_hr_period
+        FROM income.tarea t
+        INNER JOIN income.tarea_calculo_persona tcp
+            ON t.id_tarea = tcp.id_tarea
+        WHERE t.id_tarea = :idTarea
+        GROUP BY
+            ccl_id_person,
+            std_or_hr_period
+        ORDER BY
+            ccl_id_person,
+            std_or_hr_period
+        LIMIT :limit
+        OFFSET :offset
+    ) z
+        ON z.ccl_id_person = pcp.ccl_id_person
+        AND z.std_or_hr_period = pcp.std_or_hr_period
+    INNER JOIN income.tarea t
+        ON t.id_tarea = pcp.id_tarea_actual
+    INNER JOIN income.trabajo tr
+        ON tr.id_trabajo = t.id_trabajo
+    INNER JOIN income.tarea_calculo tc
+        ON tc.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tc.id_tarea = t.id_tarea
+        AND tc.ccl_id_person = pcp.ccl_id_person
+        AND tc.std_or_hr_period = pcp.std_or_hr_period
+    INNER JOIN income.tarea_persona_estructura tpe
+        ON tpe.fecha_inicio_periodo = tc.fecha_inicio_periodo
+        AND tpe.id_tarea_persona_estructura = tc.id_tarea_persona_estructura
+    INNER JOIN income.tarea_localizacion_historico tlh
+        ON tc.id_tarea = tlh.id_tarea
+        AND tc.std_id_work_locat = tlh.std_id_work_locat
+        AND tc.fecha <= tlh.fecha_fin
+        AND tc.fecha >= tlh.fecha_inicio
+    LEFT JOIN income.tarea_localizacion_persona_presencia tlpp
+        ON tlpp.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tlpp.id_tarea_localizacion_persona_presencia = tc.id_tarea_localizacion_persona_presencia
+    LEFT JOIN income.tarea_localizacion_presencia tlp
+        ON tlp.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tlp.id_tarea_localizacion_presencia = tc.id_tarea_localizacion_presencia
+    LEFT JOIN income.tarea_persona_estructura_desplazamiento tped
+        ON tped.fecha_inicio_periodo = tpe.fecha_inicio_periodo
+        AND tped.id_tarea = tpe.id_tarea
+        AND tped.ccl_id_person = tpe.ccl_id_person
+        AND tped.std_or_hr_period = tpe.std_or_hr_period
+        AND tped.ordinal_estructura = tpe.ordinal_estructura
+        AND tped.icm_id_estr_comision_padre = tpe.icm_id_estr_comision_padre
+        AND tped.icm_id_estr_comision_base = tpe.icm_id_estr_comision_base
+        AND tped.icm_id_estr_comision = tpe.icm_id_estr_comision
+        AND tped.fecha_inicio = tpe.fecha_inicio
+        AND tped.fecha_fin = tpe.fecha_fin
+    LEFT JOIN income.tarea_localizacion_presupuesto tlpr
+        ON tlpr.id_tarea = tpe.id_tarea
+        AND tlpr.std_id_work_locat = tc.std_id_work_locat_pago
+        AND tlpr.ccl_id_seccion = tpe.ccl_id_seccion_efectiva
+    WHERE pcp.icm_id_periodo = :icmIdPeriodo
+        AND pcp.ccl_id_origen = :cclIdOrigen
+        AND pcp.std_id_leg_ent = :stdIdLegEnt
+        AND pcp.id_estado = :idEstado
+    GROUP BY
+        tr.icm_id_periodo,
+        tpe.ccl_id_origen,
+        t.std_id_leg_ent,
+        tc.ccl_id_person,
+        tc.std_or_hr_period,
+        tc.fecha,
+        CASE
+            WHEN tc.std_id_work_locat = 'R' THEN '-1'
+            ELSE tlh.ccl_id_cod_origen
+        END,
+        tpe.ccl_id_seccion_efectiva,
+        tpe.icm_valor,
+        CASE
+            WHEN tped.ccl_id_cod_origen_destino = 'R' THEN '-1'
+            ELSE tped.ccl_id_cod_origen_destino
+        END,
+        tlpr.icm_banda,
+        tpe.icm_id_tp_comision,
+        tpe.icm_id_tp_calculo,
+        tpe.icm_grupo_manual,
+        tped.id_tipo_opcion_calculo_efectiva,
+        tlpp.cod_tipo_hora,
+        tlpp.ccl_id_seccion,
+        tlp.ccl_id_cod_origen
+) s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM income.tarea t
+    INNER JOIN income.trabajo tr
+        ON tr.id_trabajo = t.id_trabajo
+    INNER JOIN income.tarea_calculo tc
+        ON tc.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tc.id_tarea = t.id_tarea
+    INNER JOIN income.tarea_persona_estructura tpe
+        ON tpe.fecha_inicio_periodo = tc.fecha_inicio_periodo
+        AND tpe.id_tarea_persona_estructura = tc.id_tarea_persona_estructura
+    INNER JOIN income.tarea_localizacion_historico tlh
+        ON tc.id_tarea = tlh.id_tarea
+        AND tc.std_id_work_locat = tlh.std_id_work_locat
+        AND tc.fecha <= tlh.fecha_fin
+        AND tc.fecha >= tlh.fecha_inicio
+    LEFT JOIN income.tarea_localizacion_persona_presencia tlpp
+        ON tlpp.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tlpp.id_tarea_localizacion_persona_presencia = tc.id_tarea_localizacion_persona_presencia
+    LEFT JOIN income.tarea_localizacion_presencia tlp
+        ON tlp.fecha_inicio_periodo = t.fecha_inicio_periodo
+        AND tlp.id_tarea_localizacion_presencia = tc.id_tarea_localizacion_presencia
+    LEFT JOIN income.tarea_persona_estructura_desplazamiento tped
+        ON tped.fecha_inicio_periodo = tpe.fecha_inicio_periodo
+        AND tped.id_tarea = tpe.id_tarea
+        AND tped.ccl_id_person = tpe.ccl_id_person
+        AND tped.std_or_hr_period = tpe.std_or_hr_period
+        AND tped.ordinal_estructura = tpe.ordinal_estructura
+        AND tped.icm_id_estr_comision_padre = tpe.icm_id_estr_comision_padre
+        AND tped.icm_id_estr_comision_base = tpe.icm_id_estr_comision_base
+        AND tped.icm_id_estr_comision = tpe.icm_id_estr_comision
+        AND tped.fecha_inicio = tpe.fecha_inicio
+        AND tped.fecha_fin = tpe.fecha_fin
+    LEFT JOIN income.tarea_localizacion_presupuesto tlpr
+        ON tlpr.id_tarea = tpe.id_tarea
+        AND tlpr.std_id_work_locat = tc.std_id_work_locat_pago
+        AND tlpr.ccl_id_seccion = tpe.ccl_id_seccion_efectiva
+    WHERE t.fecha_inicio_periodo = :fechaInicioPeriodo
+        AND t.id_tarea = :idTarea
+        AND tr.icm_id_periodo = s.icm_id_periodo
+        AND tpe.ccl_id_origen = s.ccl_id_origen
+        AND t.std_id_leg_ent = s.std_id_leg_ent
+        AND tc.ccl_id_person = s.ccl_id_person
+        AND tc.std_or_hr_period = s.std_or_hr_period
+        AND tc.fecha = s.fecha
+        AND CASE WHEN tc.std_id_work_locat = 'R' THEN '-1' ELSE tlh.ccl_id_cod_origen END = s.tienda_calculo
+        AND tpe.ccl_id_seccion_efectiva = s.ccl_id_seccion
+        AND tpe.icm_valor = s.valor
+        AND (CASE WHEN tped.ccl_id_cod_origen_destino = 'R' THEN '-1' ELSE tped.ccl_id_cod_origen_destino END = s.ccl_id_cod_origen_destino
+            OR (tped.ccl_id_cod_origen_destino IS NULL AND s.ccl_id_cod_origen_destino IS NULL))
+        AND (tlpr.icm_banda = s.banda OR (tlpr.icm_banda IS NULL AND s.banda IS NULL))
+        AND tpe.icm_id_tp_comision = s.icm_id_tp_comision
+        AND tpe.icm_id_tp_calculo = s.icm_id_tp_calculo
+        AND tpe.icm_grupo_manual = s.icm_grupo_manual
+        AND (tped.id_tipo_opcion_calculo_efectiva = s.id_tipo_opcion_calculo
+            OR (tped.id_tipo_opcion_calculo_efectiva IS NULL AND s.id_tipo_opcion_calculo IS NULL))
+        AND (tlpp.cod_tipo_hora = s.cod_tipo_hora OR (tlpp.cod_tipo_hora IS NULL AND s.cod_tipo_hora IS NULL))
+        AND (tlpp.ccl_id_seccion = s.cod_seccion_presencia_empleado
+            OR (tlpp.ccl_id_seccion IS NULL AND s.cod_seccion_presencia_empleado IS NULL))
+        AND (tlp.ccl_id_cod_origen = s.cod_tienda_presencia
+            OR (tlp.ccl_id_cod_origen IS NULL AND s.cod_tienda_presencia IS NULL))
+)
+    ]]>
+  </entry>
+</properties>

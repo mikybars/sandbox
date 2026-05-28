@@ -6,6 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
@@ -179,4 +181,6 @@ public interface Meta4IcmWsCalcIncomeService {
       PlanificacionRequestDto request);
 
   EstadoWlocResponseDto getEstadoWloc(EstadoWlocRequestDto request);
+
+  CalculoComisionesResponseDto buscarCalculoComisiones(CalculoComisionesFilterDto request);
 }

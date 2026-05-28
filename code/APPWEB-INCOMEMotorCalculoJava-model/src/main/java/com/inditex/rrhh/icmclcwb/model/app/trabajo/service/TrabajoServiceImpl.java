@@ -46,6 +46,7 @@ import com.inditex.rrhh.icmclcwb.ms.app.trabajo.SenderTrabajo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -54,6 +55,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
+@Slf4j
 public class TrabajoServiceImpl implements TrabajoService {
 
   @Autowired
@@ -146,8 +148,9 @@ public class TrabajoServiceImpl implements TrabajoService {
       trabajo.setFechaFinPeriodo(periodo.getFechaFinPeriodo());
     }
 
-    final TrabajoDTO result = this.trabajoMapper
-        .trabajoToTrabajoDto(this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo)));
+    final Trabajo newTrabajo = this.trabajoRepository.save(this.trabajoMapper.trabajoDtoToTrabajo(trabajo));
+    log.info("✨ New trabajo {} created successfully", newTrabajo.getId());
+    final TrabajoDTO result = this.trabajoMapper.trabajoToTrabajoDto(newTrabajo);
     if (CollectionUtils.isNotEmpty(trabajo.getOrigen())) {
       result.setOrigen(this.trabajoAmbitoOrigenService.create(trabajo.getOrigen(), result));
     }

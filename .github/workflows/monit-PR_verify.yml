@@ -11,17 +11,17 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
 
 env:
-  WORKFLOW_VERSION: 1.50.1
+  WORKFLOW_VERSION: 1.51.0
 
 jobs:
   linter:
     name: Linter
     timeout-minutes: 30
     if: ${{ (github.event.pull_request.draft == true && (vars.PR_VERIFY_RUNS_ON_DRAFT != 'false' || contains(github.event.pull_request.labels.*.name, 'pr-verify/force-on-draft'))) || github.event.pull_request.draft == false }}
-    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["ubuntu-24.04"]') }}
+    runs-on: ${{ fromJSON(vars.RUNSON_ALERTHUB_DOCKER || '["citool-github__ubuntu24.04-medium"]') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -41,7 +41,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -65,12 +65,9 @@ jobs:
         with:
           tool-name: ivm-java
           tool-version: openjdk-17
-
-      - name: Setup Poetry tool
-        uses: inditex/gha-ivmactions/setup-tool@v1
-        with:
-          tool-name: ivm-poetry
-          tool-version: 1.2.2
+          install: true
+          github-token: ${{ secrets.GH_TOKEN_READER }}
+          jfrog-token: ${{ secrets.DIST_PLAT_READER_TOKEN }}
 
       - name: Comment
         uses: inditex/gha-alerthub/code/alerthub/pr_comment@main

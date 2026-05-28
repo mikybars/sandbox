@@ -5,6 +5,7 @@ import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaAmbitoDto;
 import com.inditex.rrhh.icmclcwb.api.app.tarea.dto.TareaDto;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlComisConstants;
 import com.inditex.rrhh.icmclcwb.api.app.util.SqlPtrConstants;
+import com.inditex.rrhh.icmclcwb.model.app.annotation.AntiguoMotor;
 import com.inditex.rrhh.icmclcwb.model.app.util.TimeUtils;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@AntiguoMotor
 public class PtrRepositoryCustomImpl
     extends JdbcBatchPtrRepositoryAbstract<Integer>
     implements PtrRepositoryCustom {
