@@ -6,6 +6,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
@@ -88,6 +90,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.util.MigrationDispatcher;
+import com.inditex.rrhh.icmclcwb.model.primary.calculocomisiones.service.CalculoComisionesService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -102,283 +105,290 @@ public class Meta4IcmWsCalcIncomeFacadeService implements Meta4IcmWsCalcIncomeSe
 
   private final MigrationDispatcher migrationDispatcher;
 
+  private final CalculoComisionesService calculoComisionesService;
+
   @Override
   public SearchTiendasResponseDto searchTiendas(SearchTiendasRequestDto request) {
-    return soapService.searchTiendas(request);
+    return this.soapService.searchTiendas(request);
   }
 
   @Override
   public TiendasResponseDto getTiendas(TiendasRequestDto request) {
-    return migrationDispatcher.dispatch("getTiendas",
-        () -> peopleAclService.getTiendas(request),
-        () -> soapService.getTiendas(request),
+    return this.migrationDispatcher.dispatch("getTiendas",
+        () -> this.peopleAclService.getTiendas(request),
+        () -> this.soapService.getTiendas(request),
         request);
   }
 
   @Override
   public SearchEmpleadosResponseDto searchEmpleados(SearchEmpleadosRequestDto request) {
-    return soapService.searchEmpleados(request);
+    return this.soapService.searchEmpleados(request);
   }
 
   @Override
   public EmpleadosResponseDto getEmpleados(EmpleadosRequestDto request) {
-    return soapService.getEmpleados(request);
+    return this.soapService.getEmpleados(request);
   }
 
   @Override
   public PresenciaManualResponseDto getPresenciaManual(PresenciaManualRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getPresenciaManual",
-        () -> peopleAclService.getPresenciaManual(request),
-        () -> soapService.getPresenciaManual(request),
+        () -> this.peopleAclService.getPresenciaManual(request),
+        () -> this.soapService.getPresenciaManual(request),
         request);
   }
 
   @Override
   public EmpleadosPresenciaResponseDto getEmpleadosPresencia(EmpleadosPresenciaRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getEmpleadosPresencia",
-        () -> peopleAclService.getEmpleadosPresencia(request),
-        () -> soapService.getEmpleadosPresencia(request),
+        () -> this.peopleAclService.getEmpleadosPresencia(request),
+        () -> this.soapService.getEmpleadosPresencia(request),
         request);
   }
 
   @Override
   public PeriodosResponseDto getPeriodos(PeriodosRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getPeriodos",
-        () -> peopleAclService.searchPeriodos(request),
-        () -> soapService.getPeriodos(request),
+        () -> this.peopleAclService.searchPeriodos(request),
+        () -> this.soapService.getPeriodos(request),
         request);
   }
 
   @Override
   public FestivosResponseDto getFestivos(FestivosRequestDto request) {
-    return soapService.getFestivos(request);
+    return this.soapService.getFestivos(request);
   }
 
   @Override
   public CoefJornadaResponseDto getCoefJornada(CoefJornadaRequestDto request) {
-    return migrationDispatcher.dispatch("getCoefJornada",
-        () -> peopleAclService.getCoefJornada(request),
-        () -> soapService.getCoefJornada(request),
+    return this.migrationDispatcher.dispatch("getCoefJornada",
+        () -> this.peopleAclService.getCoefJornada(request),
+        () -> this.soapService.getCoefJornada(request),
         request);
   }
 
   @Override
   public FlagCalculaResponseDto getFlagCalcula(FlagCalculaRequestDto request) {
-    return migrationDispatcher.dispatch("getFlagCalcula",
-        () -> peopleAclService.getFlagCalcula(request),
-        () -> soapService.getFlagCalcula(request),
+    return this.migrationDispatcher.dispatch("getFlagCalcula",
+        () -> this.peopleAclService.getFlagCalcula(request),
+        () -> this.soapService.getFlagCalcula(request),
         request);
   }
 
   @Override
   public AgrupOnlineResponseDto getAgrupOnline(AgrupOnlineRequestDto request) {
-    return soapService.getAgrupOnline(request);
+    return this.soapService.getAgrupOnline(request);
   }
 
   @Override
   public ConfiguracionVentaOnlineResponseDto getConfVentaOnline(ConfiguracionVentaOnlineRequestDto request) {
-    return migrationDispatcher.dispatch("getConfVentaOnline",
-        () -> peopleAclService.getConfVentaOnline(request),
-        () -> soapService.getConfVentaOnline(request),
+    return this.migrationDispatcher.dispatch("getConfVentaOnline",
+        () -> this.peopleAclService.getConfVentaOnline(request),
+        () -> this.soapService.getConfVentaOnline(request),
         request);
   }
 
   @Override
   public TiendaOnlineResponseDto getTiendasOnline(TiendaOnlineRequestDto request) {
-    return migrationDispatcher.dispatch("getTiendasOnline",
-        () -> peopleAclService.searchTiendasOnline(request),
-        () -> soapService.getTiendasOnline(request),
+    return this.migrationDispatcher.dispatch("getTiendasOnline",
+        () -> this.peopleAclService.searchTiendasOnline(request),
+        () -> this.soapService.getTiendasOnline(request),
         request);
   }
 
   @Override
   public ConfiguracionProductoVentaResponseDto getConfiguracionProductoVenta(ConfiguracionProductoVentaRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getConfiguracionProductoVenta",
-        () -> peopleAclService.getConfiguracionProductoVenta(request),
-        () -> soapService.getConfiguracionProductoVenta(request),
+        () -> this.peopleAclService.getConfiguracionProductoVenta(request),
+        () -> this.soapService.getConfiguracionProductoVenta(request),
         request);
   }
 
   @Override
   public CadenaResponseDto getCadena(CadenaRequestDto request) {
-    return soapService.getCadena(request);
+    return this.soapService.getCadena(request);
   }
 
   @Override
   public EmpresaResponseDto getEmpresa(EmpresaRequestDto request) {
-    return migrationDispatcher.dispatch("getEmpresa",
-        () -> peopleAclService.searchEmpresas(request),
-        () -> soapService.getEmpresa(request),
+    return this.migrationDispatcher.dispatch("getEmpresa",
+        () -> this.peopleAclService.searchEmpresas(request),
+        () -> this.soapService.getEmpresa(request),
         request);
   }
 
   @Override
   public OrigenResponseDto getOrigen(OrigenRequestDto request) {
-    return migrationDispatcher.dispatch("getOrigen",
-        () -> peopleAclService.searchOrigenes(request),
-        () -> soapService.getOrigen(request),
+    return this.migrationDispatcher.dispatch("getOrigen",
+        () -> this.peopleAclService.searchOrigenes(request),
+        () -> this.soapService.getOrigen(request),
         request);
   }
 
   @Override
   public EmpleadosDesplazamientoResponseDto getEmpleadosDesplazamiento(EmpleadosDesplazamientoRequestDto request) {
-    return migrationDispatcher.dispatch("getEmpleadosDesplazamiento",
-        () -> peopleAclService.getEmpleadosDesplazamiento(request),
-        () -> soapService.getEmpleadosDesplazamiento(request),
+    return this.migrationDispatcher.dispatch("getEmpleadosDesplazamiento",
+        () -> this.peopleAclService.getEmpleadosDesplazamiento(request),
+        () -> this.soapService.getEmpleadosDesplazamiento(request),
         request);
   }
 
   @Override
   public SaveResultDto saveProceso(SaveProcesoDto request) {
-    return soapService.saveProceso(request);
+    return this.soapService.saveProceso(request);
   }
 
   @Override
   public EstructurasComResponseDto getEstructurasCom(EstructurasComRequestDto request) {
-    return soapService.getEstructurasCom(request);
+    return this.soapService.getEstructurasCom(request);
   }
 
   @Override
   public EstructurasPolResponseDto getEstructurasPol(EstructurasPolRequestDto request) {
-    return soapService.getEstructurasPol(request);
+    return this.soapService.getEstructurasPol(request);
   }
 
   @Override
   public AusenciasResponseDto getAusencias(AusenciasRequestDto request) {
-    return migrationDispatcher.dispatch("getAusencias",
-        () -> peopleAclService.getAusencias(request),
-        () -> soapService.getAusencias(request),
+    return this.migrationDispatcher.dispatch("getAusencias",
+        () -> this.peopleAclService.getAusencias(request),
+        () -> this.soapService.getAusencias(request),
         request);
   }
 
   @Override
   public ConfiguracionesResponseDto getConfiguracion(ConfiguracionesRequestDto request) {
-    return soapService.getConfiguracion(request);
+    return this.soapService.getConfiguracion(request);
   }
 
   @Override
   public ConfChDiasMinimosResponseDto getConfChallengeDiasMinimos(ConfChDiasMinimosRequestDto request) {
-    return soapService.getConfChallengeDiasMinimos(request);
+    return this.soapService.getConfChallengeDiasMinimos(request);
   }
 
   @Override
   public PresupuestosWlocResponseDto getPresupuestosWloc(PresupuestosWlocRequestDto request) {
-    return migrationDispatcher.dispatch("getPresupuestosWloc",
-        () -> peopleAclService.getPresupuestosWloc(request),
-        () -> soapService.getPresupuestosWloc(request),
+    return this.migrationDispatcher.dispatch("getPresupuestosWloc",
+        () -> this.peopleAclService.getPresupuestosWloc(request),
+        () -> this.soapService.getPresupuestosWloc(request),
         request);
   }
 
   @Override
   public ConfPrecioHoraResponseDto getConfPrecioHora(ConfPrecioHoraRequestDto request) {
-    return soapService.getConfPrecioHora(request);
+    return this.soapService.getConfPrecioHora(request);
   }
 
   @Override
   public ConfChTpVentaResponseDto getConfChallengeTpVenta(ConfChTpVentaRequestDto request) {
-    return soapService.getConfChallengeTpVenta(request);
+    return this.soapService.getConfChallengeTpVenta(request);
   }
 
   @Override
   public PresupuestosRangoResponseDto getPresupuestosRango(PresupuestosRangoRequestDto request) {
-    return soapService.getPresupuestosRango(request);
+    return this.soapService.getPresupuestosRango(request);
   }
 
   @Override
   public VentaCongeladaResponseDto getVentaCongelada(VentaCongeladaRequestDto request) {
-    return migrationDispatcher.dispatch("getVentaCongelada",
-        () -> peopleAclService.getVentaCongelada(request),
-        () -> soapService.getVentaCongelada(request),
+    return this.migrationDispatcher.dispatch("getVentaCongelada",
+        () -> this.peopleAclService.getVentaCongelada(request),
+        () -> this.soapService.getVentaCongelada(request),
         request);
   }
 
   @Override
   public DesplazamientoRealResponseDto getDesplazReal(DesplazamientoRealRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getDesplazReal",
-        () -> peopleAclService.getDesplazReal(request),
-        () -> soapService.getDesplazReal(request),
+        () -> this.peopleAclService.getDesplazReal(request),
+        () -> this.soapService.getDesplazReal(request),
         request);
   }
 
   @Override
   public DesplazamientosMultiempresaResponseDto getDesplazamientosMultiempresa(DesplazamientosMultiempresaRequestDto request) {
-    return migrationDispatcher.dispatch("getDesplazamientosMultiempresa",
-        () -> peopleAclService.searchDesplazamientosMultiempresa(request),
-        () -> soapService.getDesplazamientosMultiempresa(request),
+    return this.migrationDispatcher.dispatch("getDesplazamientosMultiempresa",
+        () -> this.peopleAclService.searchDesplazamientosMultiempresa(request),
+        () -> this.soapService.getDesplazamientosMultiempresa(request),
         request);
   }
 
   @Override
   public PresenciaManualWlocResponseDto getPresenciaManualWloc(PresenciaManualWlocRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getPresenciaManualWloc",
-        () -> peopleAclService.getPresenciaManualWloc(request),
-        () -> soapService.getPresenciaManualWloc(request),
+        () -> this.peopleAclService.getPresenciaManualWloc(request),
+        () -> this.soapService.getPresenciaManualWloc(request),
         request);
   }
 
   @Override
   public VentaManualWlocResponseDto getVentaManualWloc(VentaManualWlocRequestDto request) {
-    return soapService.getVentaManualWloc(request);
+    return this.soapService.getVentaManualWloc(request);
   }
 
   @Override
   public SincronizacionResponseDto sincronizacion(SincronizacionRequestDto request) {
-    return soapService.sincronizacion(request);
+    return this.soapService.sincronizacion(request);
   }
 
   @Override
   public MotivosDesplazamientoResponseDto getMotivosDesplazamiento(MotivosDesplazamientoRequestDto request) {
-    return soapService.getMotivosDesplazamiento(request);
+    return this.soapService.getMotivosDesplazamiento(request);
   }
 
   @Override
   public SistemaDestinoResponseDto getSistemaDestino(SistemaDestinoRequestDto request) {
-    return migrationDispatcher.dispatch(
+    return this.migrationDispatcher.dispatch(
         "getSistemaDestino",
-        () -> peopleAclService.searchSistemasDestino(request),
-        () -> soapService.getSistemaDestino(request),
+        () -> this.peopleAclService.searchSistemasDestino(request),
+        () -> this.soapService.getSistemaDestino(request),
         request);
   }
 
   @Override
   public CatalogoResponseDto getCatalogo(CatalogoRequestDto request) {
-    return soapService.getCatalogo(request);
+    return this.soapService.getCatalogo(request);
   }
 
   @Override
   public TiposHoraResponseDto getTiposHora(TiposHoraRequestDto request) {
-    return soapService.getTiposHora(request);
+    return this.soapService.getTiposHora(request);
   }
 
   @Override
   public UsuarioResponseDto getMail(UsuarioRequestDto request) {
-    return soapService.getMail(request);
+    return this.soapService.getMail(request);
   }
 
   @Override
   public ClaseResponseDto getClases(ClaseRequestDto request) {
-    return soapService.getClases(request);
+    return this.soapService.getClases(request);
   }
 
   @Override
   public LiquidacionResponseDto liquidacion(LiquidacionRequestDto request) {
-    return soapService.liquidacion(request);
+    return this.soapService.liquidacion(request);
   }
 
   @Override
   public PlanificacionResponseDto planificacion(PlanificacionRequestDto request) {
-    return soapService.planificacion(request);
+    return this.soapService.planificacion(request);
   }
 
   @Override
   public EstadoWlocResponseDto getEstadoWloc(EstadoWlocRequestDto request) {
-    return soapService.getEstadoWloc(request);
+    return this.soapService.getEstadoWloc(request);
+  }
+
+  @Override
+  public CalculoComisionesResponseDto buscarCalculoComisiones(CalculoComisionesFilterDto request) {
+    return this.calculoComisionesService.buscarCalculoComisiones(request);
   }
 
 }

@@ -60,7 +60,7 @@
     <release.strategy.syncPullReqLabels>kind/internal</release.strategy.syncPullReqLabels>
     <release.strategy.createSyncPR>true</release.strategy.createSyncPR>
     <iopincome-comis-ptr-facade-rest-stable.version>0.0.1</iopincome-comis-ptr-facade-rest-stable.version>
-    <iopincome-incomemeta-motor-calculo-rest-stable.version>0.0.1</iopincome-incomemeta-motor-calculo-rest-stable.version>
+    <iopincome-incomemeta-motor-calculo-rest-stable.version>0.3.0</iopincome-incomemeta-motor-calculo-rest-stable.version>
     <iopincome-calculo-income-rest-stable.version>1.0.0</iopincome-calculo-income-rest-stable.version>
   </properties>
 

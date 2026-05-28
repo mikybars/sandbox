@@ -16,6 +16,8 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.Ausenci
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ausencias.dto.AusenciasResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.cadenas.dto.CadenaResponseDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesFilterDto;
+import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.calculocomisiones.dto.CalculoComisionesResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.catalogo.dto.CatalogoResponseDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.clases.dto.ClaseRequestDto;
@@ -97,6 +99,7 @@ import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventacongelada.dto.Ve
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocRequestDto;
 import com.inditex.rrhh.icmclcwb.api.meta4.icmwscalcincome.ventamanualwloc.dto.VentaManualWlocResponseDto;
 import com.inditex.rrhh.icmclcwb.model.meta4.icmwscalcincome.util.MigrationDispatcher;
+import com.inditex.rrhh.icmclcwb.model.primary.calculocomisiones.service.CalculoComisionesService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -121,9 +124,12 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
   @Mock
   MigrationDispatcher migrationDispatcher;
 
+  @Mock
+  CalculoComisionesService calculoComisionesService;
+
   @BeforeEach
   void beforeEach() {
-    service = new Meta4IcmWsCalcIncomeFacadeService(soapService, peopleAclService, migrationDispatcher);
+    service = new Meta4IcmWsCalcIncomeFacadeService(soapService, peopleAclService, migrationDispatcher, calculoComisionesService);
   }
 
   @Nested
@@ -1731,6 +1737,27 @@ class Meta4IcmWsCalcIncomeFacadeServiceTest {
       DesplazamientosMultiempresaResponseDto soapResult = soapSupplierCaptor.getValue().get();
       assertThat(soapResult).isSameAs(soapResponse);
       verify(soapService, times(1)).getDesplazamientosMultiempresa(request);
+    }
+  }
+
+  @Nested
+  class BuscarCalculoComisiones {
+
+    @Mock
+    CalculoComisionesFilterDto request;
+
+    @Mock
+    CalculoComisionesResponseDto response;
+
+    @Test
+    void whenInvokedExpectDelegateToCalculoComisionesService() {
+      when(calculoComisionesService.buscarCalculoComisiones(request)).thenReturn(response);
+
+      CalculoComisionesResponseDto result = service.buscarCalculoComisiones(request);
+
+      assertThat(result).isSameAs(response);
+      verify(calculoComisionesService, times(1)).buscarCalculoComisiones(request);
+      verifyNoInteractions(soapService, peopleAclService, migrationDispatcher);
     }
   }
 

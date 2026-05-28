@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+  <entry key="CalculoComisionesRepository.findEmpleadosAProcesar">
+    <![CDATA[
+    SELECT
+      PCP.CCL_ID_ORIGEN,
+      PCP.CCL_ID_PERSON,
+      PCP.STD_OR_HR_PERIOD,
+      PCP.ID_ESTADO,
+      PCP.STD_ID_LEG_ENT,
+      PLP.STD_ID_WORK_LOCAT
+    FROM PERIODO_CALCULO_PERSONA PCP
+    INNER JOIN PERIODO_LOCALIZACION_PERSONA PLP
+      ON PCP.CCL_ID_ORIGEN = PLP.CCL_ID_ORIGEN
+      AND PCP.STD_ID_LEG_ENT = PLP.STD_ID_LEG_ENT
+      AND PCP.ICM_ID_PERIODO = PLP.ICM_ID_PERIODO
+      AND PCP.CCL_ID_PERSON = PLP.CCL_ID_PERSON
+    WHERE PCP.ICM_ID_PERIODO = :idPeriodo
+      AND PCP.CCL_ID_ORIGEN = CAST(:idOrigen AS VARCHAR)
+    ]]>
+  </entry>
+
+  <entry key="CalculoComisionesRepository.filterByEmpresas">
+    <![CDATA[
+      AND PCP.STD_ID_LEG_ENT IN (:empresas)
+    ]]>
+  </entry>
+
+  <entry key="CalculoComisionesRepository.filterByTiendas">
+    <![CDATA[
+      AND PLP.STD_ID_WORK_LOCAT IN (:tiendas)
+    ]]>
+  </entry>
+
+  <entry key="CalculoComisionesRepository.filterByEmpleados">
+    <![CDATA[
+      AND PCP.CCL_ID_PERSON IN (:empleados)
+    ]]>
+  </entry>
+
+  <entry key="CalculoComisionesRepository.findComisionesPorEmpleado">
+    <![CDATA[
+    SELECT
+      DATA.ID_TIPO_COMISION,
+      DATA.ID_TIPO_CALCULO,
+      DATA.COD_TIPO_HORA,
+      SUM(COALESCE(DATA.IMPORTE, 0)) + SUM(COALESCE(TCAC.IMPORTE, 0)) AS IMPORTE
+    FROM (
+      SELECT
+        PCP.ICM_ID_PERIODO,
+        PCP.CCL_ID_ORIGEN,
+        PCP.CCL_ID_PERSON,
+        PCP.STD_OR_HR_PERIOD,
+        TC.ID_TIPO_CALCULO,
+        TC.ID_TIPO_COMISION,
+        TC.FECHA,
+        TLPP.COD_TIPO_HORA,
+        T.FECHA_INICIO_PERIODO,
+        T.ID_TAREA,
+        SUM(COALESCE(TC.IMPORTE, 0)) AS IMPORTE
+      FROM PERIODO_CALCULO_PERSONA PCP
+      INNER JOIN TAREA T
+        ON T.ID_TAREA = PCP.ID_TAREA_ACTUAL
+      INNER JOIN TAREA_CALCULO TC
+        ON TC.FECHA_INICIO_PERIODO = T.FECHA_INICIO_PERIODO
+        AND TC.ID_TAREA = T.ID_TAREA
+        AND TC.CCL_ID_PERSON = PCP.CCL_ID_PERSON
+        AND TC.STD_OR_HR_PERIOD = PCP.STD_OR_HR_PERIOD
+      LEFT JOIN TAREA_LOCALIZACION_PERSONA_PRESENCIA TLPP
+        ON TC.FECHA_INICIO_PERIODO = TLPP.FECHA_INICIO_PERIODO
+        AND TC.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA = TLPP.ID_TAREA_LOCALIZACION_PERSONA_PRESENCIA
+      WHERE PCP.ICM_ID_PERIODO = :idPeriodo
+        AND PCP.CCL_ID_ORIGEN = CAST(:idOrigen AS VARCHAR)
+        AND PCP.CCL_ID_PERSON = :idEmpleado
+      GROUP BY
+        T.FECHA_INICIO_PERIODO,
+        T.ID_TAREA,
+        PCP.ICM_ID_PERIODO,
+        PCP.CCL_ID_ORIGEN,
+        PCP.CCL_ID_PERSON,
+        PCP.STD_OR_HR_PERIOD,
+        TC.ID_TIPO_CALCULO,
+        TC.ID_TIPO_COMISION,
+        TC.FECHA,
+        TLPP.COD_TIPO_HORA
+    ) AS DATA
+    LEFT JOIN TAREA_CALCULO_AJUSTE_COMISION TCAC
+      ON TCAC.FECHA_INICIO_PERIODO = DATA.FECHA_INICIO_PERIODO
+      AND TCAC.ID_TAREA = DATA.ID_TAREA
+      AND TCAC.CCL_ID_PERSON = DATA.CCL_ID_PERSON
+      AND TCAC.STD_OR_HR_PERIOD = DATA.STD_OR_HR_PERIOD
+      AND TCAC.FECHA = DATA.FECHA
+      AND TCAC.ID_TIPO_COMISION = DATA.ID_TIPO_COMISION
+    GROUP BY
+      DATA.ICM_ID_PERIODO,
+      DATA.CCL_ID_ORIGEN,
+      DATA.CCL_ID_PERSON,
+      DATA.ID_TIPO_CALCULO,
+      DATA.ID_TIPO_COMISION,
+      DATA.COD_TIPO_HORA
+    ]]>
+  </entry>
+
+</properties>
